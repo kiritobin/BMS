@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C5283C0F-3E42-42F3-8034-CFAB6D388D16}</ProjectGuid>
+    <ProjectGuid>{6A1DA171-B4AD-4824-AA4E-E99D8F2C16BC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>bms.Dao</RootNamespace>
