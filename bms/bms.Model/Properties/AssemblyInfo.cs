@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("bms.DBHelper")]
+[assembly: AssemblyTitle("bms.Model")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("bms.DBHelper")]
+[assembly: AssemblyProduct("bms.Model")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("4d4ecd64-0617-4553-ae05-8a0d38fd4507")]
+[assembly: Guid("71e48a40-e95d-47b8-a703-b98c07376615")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

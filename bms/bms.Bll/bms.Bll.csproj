@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C5283C0F-3E42-42F3-8034-CFAB6D388D16}</ProjectGuid>
+    <ProjectGuid>{F131BEE1-4554-4A96-A998-8B031FA59979}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>bms.Dao</RootNamespace>
-    <AssemblyName>bms.Dao</AssemblyName>
+    <RootNamespace>bms.Bll</RootNamespace>
+    <AssemblyName>bms.Bll</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data">
-      <HintPath>..\bms.Web\bms.Web\bin\MySql.Data.DLL</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
