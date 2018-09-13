@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
-      <HintPath>..\bms.Web\bms.Web\bin\MySql.Data.DLL</HintPath>
+      <HintPath>C:\Users\daobin\source\repos\bms\bms.Web\bms.Web\bin\MySql.Data.DLL</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
