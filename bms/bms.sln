@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bms.Dao", "bms.Dao\bms.Dao.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bms.Model", "bms.Model\bms.Model.csproj", "{71E48A40-E95D-47B8-A703-B98C07376615}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBHelper", "DBHelper\DBHelper.csproj", "{CA6C053A-DDF1-4743-BA75-A172EE6D8670}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bms.DBHelper", "DBHelper\bms.DBHelper.csproj", "{CA6C053A-DDF1-4743-BA75-A172EE6D8670}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bms.Web", "bms.Web\bms.Web.csproj", "{A0075F4A-0EE1-4A06-8BC5-2B32C6F2CB98}"
 EndProject
