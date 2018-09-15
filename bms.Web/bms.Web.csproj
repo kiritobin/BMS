@@ -80,9 +80,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AccessMGT\" />
+    <Folder Include="BasicInfor\" />
     <Folder Include="css\" />
+    <Folder Include="CustomerMGT\" />
+    <Folder Include="Customer\" />
+    <Folder Include="InventoryMGT\" />
     <Folder Include="js\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="SalesMGT\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
