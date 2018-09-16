@@ -10,6 +10,51 @@ namespace bms.Model
         private int goodsShelvesId;
         private string shelvesName;
         private Region regionId;
+        /// <summary>
+        /// 货架ID
+        /// </summary>
+        public int GoodsShelvesId
+        {
+            get
+            {
+                return goodsShelvesId;
+            }
+
+            set
+            {
+                goodsShelvesId = value;
+            }
+        }
+        /// <summary>
+        /// 货架名称
+        /// </summary>
+        public string ShelvesName
+        {
+            get
+            {
+                return shelvesName;
+            }
+
+            set
+            {
+                shelvesName = value;
+            }
+        }
+        /// <summary>
+        /// 地区Id
+        /// </summary>
+        public Region RegionId
+        {
+            get
+            {
+                return regionId;
+            }
+
+            set
+            {
+                regionId = value;
+            }
+        }
 
         /// <summary>
         /// 无参构造
@@ -28,17 +73,6 @@ namespace bms.Model
             this.RegionId = regionId;
         }
 
-        /// <summary>
-        /// 货架ID
-        /// </summary>
-        public int GoodsShelvesId { get => goodsShelvesId; set => goodsShelvesId = value; }
-        /// <summary>
-        /// 货架名称
-        /// </summary>
-        public string ShelvesName { get => shelvesName; set => shelvesName = value; }
-        /// <summary>
-        /// 地区ID
-        /// </summary>
-        public Region RegionId { get => regionId; set => regionId = value; }
+        
     }
 }

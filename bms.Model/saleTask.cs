@@ -8,7 +8,7 @@ namespace bms.Model
     /// <summary>
     /// 销售任务实体类
     /// </summary>
-    public class saleTask
+    public class SaleTask
     {
         private int saleTaskId;
         private int userId;
@@ -32,7 +32,7 @@ namespace bms.Model
         /// <param name="totalPiceLimit">码洋上限</param>
         /// <param name="startTime">开始时间</param>
         /// <param name="finishTime">结束时间</param>
-        public saleTask(int saleTaskId, int userId, double defaultDiscount, string defaultCopy, int numberLimit, double priceLimit, double totalPiceLimit, DateTime startTime, DateTime finishTime)
+        public SaleTask(int saleTaskId, int userId, double defaultDiscount, string defaultCopy, int numberLimit, double priceLimit, double totalPiceLimit, DateTime startTime, DateTime finishTime)
         {
             this.saleTaskId = saleTaskId;
             this.userId = userId;
@@ -182,6 +182,6 @@ namespace bms.Model
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public saleTask() { }
+        public SaleTask() { }
     }
 }

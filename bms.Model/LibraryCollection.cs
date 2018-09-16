@@ -14,6 +14,96 @@ namespace bms.Model
         private double price;
         private int collectionNum;
         private Customer customerId;
+        /// <summary>
+        /// 馆藏ID
+        /// </summary>
+        public int LibraryId
+        {
+            get
+            {
+                return libraryId;
+            }
+
+            set
+            {
+                libraryId = value;
+            }
+        }
+        /// <summary>
+        /// 国际书号
+        /// </summary>
+        public string Isbn
+        {
+            get
+            {
+                return isbn;
+            }
+
+            set
+            {
+                isbn = value;
+            }
+        }
+        /// <summary>
+        /// 书名
+        /// </summary>
+        public string BookName
+        {
+            get
+            {
+                return bookName;
+            }
+
+            set
+            {
+                bookName = value;
+            }
+        }
+        /// <summary>
+        /// 单价
+        /// </summary>
+        public double Price
+        {
+            get
+            {
+                return price;
+            }
+
+            set
+            {
+                price = value;
+            }
+        }
+        /// <summary>
+        /// 馆藏数量
+        /// </summary>
+        public int CollectionNum
+        {
+            get
+            {
+                return collectionNum;
+            }
+
+            set
+            {
+                collectionNum = value;
+            }
+        }
+        /// <summary>
+        /// 客户ID
+        /// </summary>
+        public Customer CustomerId
+        {
+            get
+            {
+                return customerId;
+            }
+
+            set
+            {
+                customerId = value;
+            }
+        }
 
         /// <summary>
         /// 无参构造
@@ -37,29 +127,6 @@ namespace bms.Model
             this.CollectionNum = collectionNum;
             this.CustomerId = customerId;
         }
-        /// <summary>
-        /// 馆藏ID
-        /// </summary>
-        public int LibraryId { get => libraryId; set => libraryId = value; }
-        /// <summary>
-        /// 国际书号
-        /// </summary>
-        public string Isbn { get => isbn; set => isbn = value; }
-        /// <summary>
-        /// 书名
-        /// </summary>
-        public string BookName { get => bookName; set => bookName = value; }
-        /// <summary>
-        /// 单价
-        /// </summary>
-        public double Price { get => price; set => price = value; }
-        /// <summary>
-        /// 馆藏数量
-        /// </summary>
-        public int CollectionNum { get => collectionNum; set => collectionNum = value; }
-        /// <summary>
-        /// 客户ID
-        /// </summary>
-        public Customer CustomerId { get => customerId; set => customerId = value; }
+       
     }
 }

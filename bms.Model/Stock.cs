@@ -13,30 +13,95 @@ namespace bms.Model
         private BookBasicData iSBN;
         private Region regionId;
         private GoodsShelves goodsShelvesId;
+
+        public int StockId
+        {
+            get
+            {
+                return stockId;
+            }
+
+            set
+            {
+                stockId = value;
+            }
+        }
         /// <summary>
         /// 库存id
         /// </summary>
-        public int StockId { get => stockId; set => stockId = value; }
-        /// <summary>
-        /// 库存名称
-        /// </summary>
-        public int StockNum { get => stockNum; set => stockNum = value; }
+        public int StockNum
+        {
+            get
+            {
+                return stockNum;
+            }
+
+            set
+            {
+                stockNum = value;
+            }
+        }
         /// <summary>
         /// 书号
         /// </summary>
-        public BookBasicData BookNum { get => bookNum; set => bookNum = value; }
+        public BookBasicData BookNum
+        {
+            get
+            {
+                return bookNum;
+            }
+
+            set
+            {
+                bookNum = value;
+            }
+        }
         /// <summary>
         /// 国际书号
         /// </summary>
-        public BookBasicData ISBN { get => iSBN; set => iSBN = value; }
+        public BookBasicData ISBN
+        {
+            get
+            {
+                return iSBN;
+            }
+
+            set
+            {
+                iSBN = value;
+            }
+        }
         /// <summary>
-        /// 地区id
+        /// 地区Id
         /// </summary>
-        public Region ReginId { get => regionId; set => reginId = value; }
+        public Region RegionId
+        {
+            get
+            {
+                return regionId;
+            }
+
+            set
+            {
+                regionId = value;
+            }
+        }
         /// <summary>
         /// 货架id
         /// </summary>
-        public GoodsShelves GoodsShelvesId { get => goodsShelvesId; set => goodsShelvesId = value; }
+        public GoodsShelves GoodsShelvesId
+        {
+            get
+            {
+                return goodsShelvesId;
+            }
+
+            set
+            {
+                goodsShelvesId = value;
+            }
+        }
+
 
         /// <summary>
         /// 库存无参构造函数
@@ -54,12 +119,12 @@ namespace bms.Model
         /// <param name="goodsShelvesId">货架id</param>
         public Stock(int stockId, int stockNum, BookBasicData bookNum, BookBasicData iSBN, Region regionId, GoodsShelves goodsShelvesId)
         {
-            this.stockId = stockId;
-            this.stockNum = stockNum;
-            this.bookNum = bookNum;
-            this.iSBN = iSBN;
+            this.StockId = stockId;
+            this.StockNum = stockNum;
+            this.BookNum = bookNum;
+            this.ISBN = iSBN;
             this.reginId = reginId;
-            this.goodsShelvesId = goodsShelvesId;
+            this.GoodsShelvesId = goodsShelvesId;
         }
     }
 }

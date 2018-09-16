@@ -10,29 +10,83 @@ namespace bms.Model
         private int userId;
         private string userName;
         private string pwd;
-        private Regin reginId;
+        private Region reginId;
         private Role roleId;
-
         /// <summary>
         /// 用户id
         /// </summary>
-        public int UserId { get => userId; set => userId = value; }
+        public int UserId
+        {
+            get
+            {
+                return userId;
+            }
+
+            set
+            {
+                userId = value;
+            }
+        }
         /// <summary>
         /// 用户名称
         /// </summary>
-        public string UserName { get => userName; set => userName = value; }
+        public string UserName
+        {
+            get
+            {
+                return userName;
+            }
+
+            set
+            {
+                userName = value;
+            }
+        }
         /// <summary>
         /// 密码
         /// </summary>
-        public string Pwd { get => pwd; set => pwd = value; }
+        public string Pwd
+        {
+            get
+            {
+                return pwd;
+            }
+
+            set
+            {
+                pwd = value;
+            }
+        }
         /// <summary>
         /// 地区id
         /// </summary>
-        public Regin ReginId { get => reginId; set => reginId = value; }
+        public Region ReginId
+        {
+            get
+            {
+                return reginId;
+            }
+
+            set
+            {
+                reginId = value;
+            }
+        }
         /// <summary>
         /// 角色id
         /// </summary>
-        public Role RoleId { get => roleId; set => roleId = value; }
+        public Role RoleId
+        {
+            get
+            {
+                return roleId;
+            }
+
+            set
+            {
+                roleId = value;
+            }
+        }
 
         /// <summary>
         /// 用户无参构造函数
@@ -47,7 +101,7 @@ namespace bms.Model
         /// <param name="pwd">密码</param>
         /// <param name="reginId">地区id</param>
         /// <param name="roleId">角色id</param>
-        public User(int userId, string userName, string pwd, Regin reginId, Role roleId)
+        public User(int userId, string userName, string pwd, Region reginId, Role roleId)
         {
             this.UserId = userId;
             this.UserName = userName;

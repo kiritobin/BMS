@@ -13,6 +13,96 @@ namespace bms.Model
         private string orderBy;
         private int intPageNum;
         private int intPageSize;
+        /// <summary>
+        /// 要查询的字段用逗号隔开
+        /// </summary>
+        public string StrColumnlist
+        {
+            get
+            {
+                return strColumnlist;
+            }
+
+            set
+            {
+                strColumnlist = value;
+            }
+        }
+        /// <summary>
+        /// 要查询的表
+        /// </summary>
+        public string StrTable
+        {
+            get
+            {
+                return strTable;
+            }
+
+            set
+            {
+                strTable = value;
+            }
+        }
+        /// <summary>
+        /// 查询条件
+        /// </summary>
+        public string StrWhere
+        {
+            get
+            {
+                return strWhere;
+            }
+
+            set
+            {
+                strWhere = value;
+            }
+        }
+        /// <summary>
+        /// 排序字段
+        /// </summary>
+        public string OrderBy
+        {
+            get
+            {
+                return orderBy;
+            }
+
+            set
+            {
+                orderBy = value;
+            }
+        }
+        /// <summary>
+        /// 当前页计数从1开始
+        /// </summary>
+        public int IntPageNum
+        {
+            get
+            {
+                return intPageNum;
+            }
+
+            set
+            {
+                intPageNum = value;
+            }
+        }
+        /// <summary>
+        /// 每页大小
+        /// </summary>
+        public int IntPageSize
+        {
+            get
+            {
+                return intPageSize;
+            }
+
+            set
+            {
+                intPageSize = value;
+            }
+        }
 
         /// <summary>
         /// 无参构造
@@ -29,36 +119,12 @@ namespace bms.Model
         /// <param name="intPageSize">每页大小</param>
         public TableBuilder(string strColumnlist, string strTable, string strWhere, string orderBy, int intPageNum, int intPageSize)
         {
-            this.strColumnlist = strColumnlist;
-            this.strTable = strTable;
-            this.strWhere = strWhere;
-            this.orderBy = orderBy;
-            this.intPageNum = intPageNum;
-            this.intPageSize = intPageSize;
+            this.StrColumnlist = strColumnlist;
+            this.StrTable = strTable;
+            this.StrWhere = strWhere;
+            this.OrderBy = orderBy;
+            this.IntPageNum = intPageNum;
+            this.IntPageSize = intPageSize;
         }
-        /// <summary>
-        /// 要查询的字段用逗号隔开
-        /// </summary>
-        public string StrColumnlist { get => strColumnlist; set => strColumnlist = value; }
-        /// <summary>
-        /// 要查询的表
-        /// </summary>
-        public string StrTable { get => strTable; set => strTable = value; }
-        /// <summary>
-        /// 查询条件
-        /// </summary>
-        public string StrWhere { get => strWhere; set => strWhere = value; }
-        /// <summary>
-        /// 排序字段
-        /// </summary>
-        public string OrderBy { get => orderBy; set => orderBy = value; }
-        /// <summary>
-        /// 当前页计数从1开始
-        /// </summary>
-        public int IntPageNum { get => intPageNum; set => intPageNum = value; }
-        /// <summary>
-        /// 每页大小
-        /// </summary>
-        public int IntPageSize { get => intPageSize; set => intPageSize = value; }
     }
 }

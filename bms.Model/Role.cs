@@ -27,10 +27,32 @@ namespace bms.Model
         /// <summary>
         /// 角色ID
         /// </summary>
-        public int RoleId { get => roleId; set => roleId = value; }
+        public int RoleId
+        {
+            get
+            {
+                return roleId;
+            }
+
+            set
+            {
+                roleId = value;
+            }
+        }
         /// <summary>
         /// 角色名称
         /// </summary>
-        public int RoleName { get => roleName; set => roleName = value; }
+        public int RoleName
+        {
+            get
+            {
+                return roleName;
+            }
+
+            set
+            {
+                roleName = value;
+            }
+        }
     }
 }

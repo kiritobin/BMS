@@ -17,47 +17,156 @@ namespace bms.Model
         private int state;
         private Region regionId;
         private DateTime makingTime;
-
         /// <summary>
         /// 销退单头id
         /// </summary>
-        public int SellOffHeadId { get => sellOffHeadId; set => sellOffHeadId = value; }
+        public int SellOffHeadId
+        {
+            get
+            {
+                return sellOffHeadId;
+            }
+
+            set
+            {
+                sellOffHeadId = value;
+            }
+        }
         /// <summary>
         /// 销售任务id
         /// </summary>
-        public SaleTask SaleTaskId { get => saleTaskId; set => saleTaskId = value; }
+        public SaleTask SaleTaskId
+        {
+            get
+            {
+                return saleTaskId;
+            }
+
+            set
+            {
+                saleTaskId = value;
+            }
+        }
         /// <summary>
         /// 品种
         /// </summary>
-        public string Kinds { get => kinds; set => kinds = value; }
+        public string Kinds
+        {
+            get
+            {
+                return kinds;
+            }
+
+            set
+            {
+                kinds = value;
+            }
+        }
         /// <summary>
         /// 数量
         /// </summary>
-        public int Count { get => count; set => count = value; }
+        public int Count
+        {
+            get
+            {
+                return count;
+            }
+
+            set
+            {
+                count = value;
+            }
+        }
         /// <summary>
         /// 码洋
         /// </summary>
-        public double TotalPrice { get => totalPrice; set => totalPrice = value; }
+        public double TotalPrice
+        {
+            get
+            {
+                return totalPrice;
+            }
+
+            set
+            {
+                totalPrice = value;
+            }
+        }
         /// <summary>
         /// 实洋
         /// </summary>
-        public double RealPrice { get => realPrice; set => realPrice = value; }
+        public double RealPrice
+        {
+            get
+            {
+                return realPrice;
+            }
+
+            set
+            {
+                realPrice = value;
+            }
+        }
         /// <summary>
         /// 用户id
         /// </summary>
-        public User UserId { get => userId; set => userId = value; }
+        public User UserId
+        {
+            get
+            {
+                return userId;
+            }
+
+            set
+            {
+                userId = value;
+            }
+        }
         /// <summary>
         /// 状态（0为未处理，1为已处理）
         /// </summary>
-        public int State { get => state; set => state = value; }
+        public int State
+        {
+            get
+            {
+                return state;
+            }
+
+            set
+            {
+                state = value;
+            }
+        }
         /// <summary>
         /// 地区id
         /// </summary>
-        public Region RegionId { get => regionId; set => regionId = value; }
+        public Region RegionId
+        {
+            get
+            {
+                return regionId;
+            }
+
+            set
+            {
+                regionId = value;
+            }
+        }
         /// <summary>
         /// 制单时间
         /// </summary>
-        public DateTime MakingTime { get => makingTime; set => makingTime = value; }
+        public DateTime MakingTime
+        {
+            get
+            {
+                return makingTime;
+            }
+
+            set
+            {
+                makingTime = value;
+            }
+        }
 
         /// <summary>
         /// 销退单头无参构造函数

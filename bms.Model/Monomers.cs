@@ -18,6 +18,171 @@ namespace bms.Model
         private GoodsShelves goodsShelvesId;
         private int type;
         private SingleHead singleHeadId;
+        /// <summary>
+        /// 单体
+        /// </summary>
+        public int MonomersId
+        {
+            get
+            {
+                return monomersId;
+            }
+
+            set
+            {
+                monomersId = value;
+            }
+        }
+        /// <summary>
+        /// 书号
+        /// </summary>
+        public BookBasicData BookNum
+        {
+            get
+            {
+                return bookNum;
+            }
+
+            set
+            {
+                bookNum = value;
+            }
+        }
+        /// <summary>
+        /// 国际书号
+        /// </summary>
+        public BookBasicData Isbn
+        {
+            get
+            {
+                return isbn;
+            }
+
+            set
+            {
+                isbn = value;
+            }
+        }
+        /// <summary>
+        /// 数量
+        /// </summary>
+        public int Number
+        {
+            get
+            {
+                return number;
+            }
+
+            set
+            {
+                number = value;
+            }
+        }
+        /// <summary>
+        /// 单价
+        /// </summary>
+        public BookBasicData UPrice
+        {
+            get
+            {
+                return uPrice;
+            }
+
+            set
+            {
+                uPrice = value;
+            }
+        }
+        /// <summary>
+        /// 码洋
+        /// </summary>
+        public double TotalPrice
+        {
+            get
+            {
+                return totalPrice;
+            }
+
+            set
+            {
+                totalPrice = value;
+            }
+        }
+        /// <summary>
+        /// 实洋
+        /// </summary>
+        public double RealPrice
+        {
+            get
+            {
+                return realPrice;
+            }
+
+            set
+            {
+                realPrice = value;
+            }
+        }
+        /// <summary>
+        /// 折扣
+        /// </summary>
+        public double Discount
+        {
+            get
+            {
+                return discount;
+            }
+
+            set
+            {
+                discount = value;
+            }
+        }
+        /// <summary>
+        /// 货架ID
+        /// </summary>
+        public GoodsShelves GoodsShelvesId
+        {
+            get
+            {
+                return goodsShelvesId;
+            }
+
+            set
+            {
+                goodsShelvesId = value;
+            }
+        }
+        /// <summary>
+        /// 0为出库，1入库
+        /// </summary>
+        public int Type
+        {
+            get
+            {
+                return type;
+            }
+
+            set
+            {
+                type = value;
+            }
+        }
+        /// <summary>
+        /// 单头ID
+        /// </summary>
+        public SingleHead SingleHeadId
+        {
+            get
+            {
+                return singleHeadId;
+            }
+
+            set
+            {
+                singleHeadId = value;
+            }
+        }
 
         /// <summary>
         /// 无参构造
@@ -49,51 +214,8 @@ namespace bms.Model
             this.Discount = discount;
             this.GoodsShelvesId = goodsShelvesId;
             this.Type = type;
-            this.singleHeadId = singleHeadId;
+            this.SingleHeadId = singleHeadId;
         }
-        /// <summary>
-        /// 单体ID
-        /// </summary>
-        public int MonomersId { get => monomersId; set => monomersId = value; }
-        /// <summary>
-        /// 书号
-        /// </summary>
-        public BookBasicData BookNum { get => bookNum; set => bookNum = value; }
-        /// <summary>
-        /// 国际书号
-        /// </summary>
-        public BookBasicData Isbn { get => isbn; set => isbn = value; }
-        /// <summary>
-        /// 数量
-        /// </summary>
-        public int Number { get => number; set => number = value; }
-        /// <summary>
-        /// 单价
-        /// </summary>
-        public BookBasicData UPrice { get => uPrice; set => uPrice = value; }
-        /// <summary>
-        /// 码洋
-        /// </summary>
-        public double TotalPrice { get => totalPrice; set => totalPrice = value; }
-        /// <summary>
-        /// 实洋
-        /// </summary>
-        public double RealPrice { get => realPrice; set => realPrice = value; }
-        /// <summary>
-        /// 折扣
-        /// </summary>
-        public double Discount { get => discount; set => discount = value; }
-        /// <summary>
-        /// 货架ID
-        /// </summary>
-        public GoodsShelves GoodsShelvesId { get => goodsShelvesId; set => goodsShelvesId = value; }
-        /// <summary>
-        /// 0为出库，1入库
-        /// </summary>
-        public int Type { get => type; set => type = value; }
-        /// <summary>
-        /// 单头ID
-        /// </summary>
-        public SingleHead SingleHeadId { get => singleHeadId; set => singleHeadId = value; }
+        
     }
 }

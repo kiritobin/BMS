@@ -27,10 +27,32 @@ namespace bms.Model
         /// <summary>
         /// 地区ID
         /// </summary>
-        public int RegionId { get => regionId; set => regionId = value; }
+        public int RegionId
+        {
+            get
+            {
+                return regionId;
+            }
+
+            set
+            {
+                regionId = value;
+            }
+        }
         /// <summary>
         /// 地区名称
         /// </summary>
-        public string RegionName { get => regionName; set => regionName = value; }
+        public string RegionName
+        {
+            get
+            {
+                return regionName;
+            }
+
+            set
+            {
+                regionName = value;
+            }
+        }
     }
 }

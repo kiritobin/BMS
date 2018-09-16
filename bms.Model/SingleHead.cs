@@ -16,41 +16,143 @@ namespace bms.Model
         private double allTotalPrice;
         private double allRealPrice;
         private int type;
-
         /// <summary>
         /// 单头id
         /// </summary>
-        public int SingleHeadId { get => singleHeadId; set => singleHeadId = value; }
+        public int SingleHeadId
+        {
+            get
+            {
+                return singleHeadId;
+            }
+
+            set
+            {
+                singleHeadId = value;
+            }
+        }
         /// <summary>
         /// 制单时间
         /// </summary>
-        public DateTime Time { get => time; set => time = value; }
+        public DateTime Time
+        {
+            get
+            {
+                return time;
+            }
+
+            set
+            {
+                time = value;
+            }
+        }
         /// <summary>
         /// 地区id
         /// </summary>
-        public Region RegionId { get => regionId; set => regionId = value; }
+        public Region RegionId
+        {
+            get
+            {
+                return regionId;
+            }
+
+            set
+            {
+                regionId = value;
+            }
+        }
         /// <summary>
         /// 用户id
         /// </summary>
-        public User UserId { get => userId; set => userId = value; }
+        public User UserId
+        {
+            get
+            {
+                return userId;
+            }
+
+            set
+            {
+                userId = value;
+            }
+        }
         /// <summary>
-        /// 用户名称
+        /// 用户名
         /// </summary>
-        public User UserName { get => userName; set => userName = value; }
+        public User UserName
+        {
+            get
+            {
+                return userName;
+            }
+
+            set
+            {
+                userName = value;
+            }
+        }
         /// <summary>
         /// 单据总数量
         /// </summary>
-        public int AllBillCount { get => allBillCount; set => allBillCount = value; }
+        public int AllBillCount
+        {
+            get
+            {
+                return allBillCount;
+            }
+
+            set
+            {
+                allBillCount = value;
+            }
+        }
         /// <summary>
         /// 总码洋
         /// </summary>
-        public double AllTotalPrice { get => allTotalPrice; set => allTotalPrice = value; }
+        public double AllTotalPrice
+        {
+            get
+            {
+                return allTotalPrice;
+            }
+
+            set
+            {
+                allTotalPrice = value;
+            }
+        }
         /// <summary>
         /// 总实洋
         /// </summary>
-        public double AllRealPrice { get => allRealPrice; set => allRealPrice = value; }
+        public double AllRealPrice
+        {
+            get
+            {
+                return allRealPrice;
+            }
 
-        public int Type { get => type; set => type = value; }
+            set
+            {
+                allRealPrice = value;
+            }
+        }
+        /// <summary>
+        /// 状态（0为出库，1为入库）
+        /// </summary>
+        public int Type
+        {
+            get
+            {
+                return type;
+            }
+
+            set
+            {
+                type = value;
+            }
+        }
+
+
 
         /// <summary>
         /// 单头无参构造函数
@@ -79,7 +181,7 @@ namespace bms.Model
             this.AllBillCount = allBillCount;
             this.AllTotalPrice = allTotalPrice;
             this.AllRealPrice = allRealPrice;
-            this.type = type;
+            this.Type = type;
         }
     }
 }

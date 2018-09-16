@@ -49,9 +49,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Role.cs" />
-    <Compile Include="saleHead.cs" />
-    <Compile Include="saleMonomer.cs" />
-    <Compile Include="saleTask.cs" />
+    <Compile Include="SaleHead.cs" />
+    <Compile Include="SaleMonomer.cs" />
+    <Compile Include="SaleTask.cs" />
     <Compile Include="SellOffHead.cs" />
     <Compile Include="SingleHead.cs" />
     <Compile Include="Stock.cs" />

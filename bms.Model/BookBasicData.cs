@@ -17,47 +17,157 @@ namespace bms.Model
         private string author;
         private string remarks;
         private string dentification;
-
         /// <summary>
         /// 书号
         /// </summary>
-        public long BookNum { get => bookNum; set => bookNum = value; }
+        public long BookNum
+        {
+            get
+            {
+                return bookNum;
+            }
+
+            set
+            {
+                bookNum = value;
+            }
+        }
         /// <summary>
         /// 国际书号
         /// </summary>
-        public string Isbn { get => isbn; set => isbn = value; }
+        public string Isbn
+        {
+            get
+            {
+                return isbn;
+            }
+
+            set
+            {
+                isbn = value;
+            }
+        }
         /// <summary>
         /// 书名
         /// </summary>
-        public string BookName { get => bookName; set => bookName = value; }
+        public string BookName
+        {
+            get
+            {
+                return bookName;
+            }
+
+            set
+            {
+                bookName = value;
+            }
+        }
         /// <summary>
-        /// 出版日期
+        /// 出版时间
         /// </summary>
-        public DateTime PublishTime { get => publishTime; set => publishTime = value; }
+        public DateTime PublishTime
+        {
+            get
+            {
+                return publishTime;
+            }
+
+            set
+            {
+                publishTime = value;
+            }
+        }
         /// <summary>
         /// 单价
         /// </summary>
-        public double Price { get => price; set => price = value; }
+        public double Price
+        {
+            get
+            {
+                return price;
+            }
+
+            set
+            {
+                price = value;
+            }
+        }
         /// <summary>
         /// 出版社
         /// </summary>
-        public string Publisher { get => publisher; set => publisher = value; }
+        public string Publisher
+        {
+            get
+            {
+                return publisher;
+            }
+
+            set
+            {
+                publisher = value;
+            }
+        }
         /// <summary>
         /// 编目
         /// </summary>
-        public string Catalog { get => catalog; set => catalog = value; }
+        public string Catalog
+        {
+            get
+            {
+                return catalog;
+            }
+
+            set
+            {
+                catalog = value;
+            }
+        }
         /// <summary>
         /// 作者
         /// </summary>
-        public string Author { get => author; set => author = value; }
+        public string Author
+        {
+            get
+            {
+                return author;
+            }
+
+            set
+            {
+                author = value;
+            }
+        }
         /// <summary>
         /// 备注
         /// </summary>
-        public string Remarks { get => remarks; set => remarks = value; }
+        public string Remarks
+        {
+            get
+            {
+                return remarks;
+            }
+
+            set
+            {
+                remarks = value;
+            }
+        }
         /// <summary>
         /// 标识
         /// </summary>
-        public string Dentification { get => dentification; set => dentification = value; }
+        public string Dentification
+        {
+            get
+            {
+                return dentification;
+            }
+
+            set
+            {
+                dentification = value;
+            }
+        }
+
         /// <summary>
         /// 无参构造
         /// </summary>
@@ -77,16 +187,16 @@ namespace bms.Model
         /// <param name="dentification">标识</param>
         public BookBasicData(long bookNum, string isbn, string bookName, DateTime publishTime, double price, string publisher, string catalog, string author, string remarks, string dentification)
         {
-            this.bookNum = bookNum;
-            this.isbn = isbn;
-            this.bookName = bookName;
-            this.publishTime = publishTime;
-            this.price = price;
-            this.publisher = publisher;
-            this.catalog = catalog;
-            this.author = author;
-            this.remarks = remarks;
-            this.dentification = dentification;
+            this.BookNum = bookNum;
+            this.Isbn = isbn;
+            this.BookName = bookName;
+            this.PublishTime = publishTime;
+            this.Price = price;
+            this.Publisher = publisher;
+            this.Catalog = catalog;
+            this.Author = author;
+            this.Remarks = remarks;
+            this.Dentification = dentification;
         }
     }
 }

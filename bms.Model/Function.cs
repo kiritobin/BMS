@@ -30,14 +30,47 @@ namespace bms.Model
         /// <summary>
         /// 功能ID
         /// </summary>
-        public int FunctionId { get => functionId; set => functionId = value; }
+        public int FunctionId
+        {
+            get
+            {
+                return functionId;
+            }
+
+            set
+            {
+                functionId = value;
+            }
+        }
         /// <summary>
         /// 功能名称
         /// </summary>
-        public string FunctionName { get => functionName; set => functionName = value; }
+        public string FunctionName
+        {
+            get
+            {
+                return functionName;
+            }
+
+            set
+            {
+                functionName = value;
+            }
+        }
         /// <summary>
         /// 角色ID
         /// </summary>
-        public string RoleId { get => roleId; set => roleId = value; }
+        public string RoleId
+        {
+            get
+            {
+                return roleId;
+            }
+
+            set
+            {
+                roleId = value;
+            }
+        }
     }
 }

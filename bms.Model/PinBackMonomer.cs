@@ -16,6 +16,141 @@ namespace bms.Model
         private double realPrice;
         private double realDiscount;
         private DateTime acquisitionTime;
+        /// <summary>
+        /// 销退单体ID
+        /// </summary>
+        public int PinBackMonomerId
+        {
+            get
+            {
+                return pinBackMonomerId;
+            }
+
+            set
+            {
+                pinBackMonomerId = value;
+            }
+        }
+        /// <summary>
+        /// 书号
+        /// </summary>
+        public BookBasicData BookNum
+        {
+            get
+            {
+                return bookNum;
+            }
+
+            set
+            {
+                bookNum = value;
+            }
+        }
+        /// <summary>
+        /// 国际书号
+        /// </summary>
+        public BookBasicData Isbn
+        {
+            get
+            {
+                return isbn;
+            }
+
+            set
+            {
+                isbn = value;
+            }
+        }
+        /// <summary>
+        /// 数量
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return count;
+            }
+
+            set
+            {
+                count = value;
+            }
+        }
+        /// <summary>
+        /// 单价
+        /// </summary>
+        public BookBasicData UnitPrice
+        {
+            get
+            {
+                return unitPrice;
+            }
+
+            set
+            {
+                unitPrice = value;
+            }
+        }
+        /// <summary>
+        /// 码洋
+        /// </summary>
+        public double TotalPrice
+        {
+            get
+            {
+                return totalPrice;
+            }
+
+            set
+            {
+                totalPrice = value;
+            }
+        }
+        /// <summary>
+        /// 实洋
+        /// </summary>
+        public double RealPrice
+        {
+            get
+            {
+                return realPrice;
+            }
+
+            set
+            {
+                realPrice = value;
+            }
+        }
+        /// <summary>
+        /// 实际折扣
+        /// </summary>
+        public double RealDiscount
+        {
+            get
+            {
+                return realDiscount;
+            }
+
+            set
+            {
+                realDiscount = value;
+            }
+        }
+        /// <summary>
+        /// 采集时间
+        /// </summary>
+        public DateTime AcquisitionTime
+        {
+            get
+            {
+                return acquisitionTime;
+            }
+
+            set
+            {
+                acquisitionTime = value;
+            }
+        }
 
         /// <summary>
         /// 无参构造
@@ -45,41 +180,6 @@ namespace bms.Model
             this.RealDiscount = realDiscount;
             this.AcquisitionTime = acquisitionTime;
         }
-        /// <summary>
-        /// 销退单体ID
-        /// </summary>
-        public int PinBackMonomerId { get => pinBackMonomerId; set => pinBackMonomerId = value; }
-        /// <summary>
-        /// 书号
-        /// </summary>
-        public BookBasicData BookNum { get => bookNum; set => bookNum = value; }
-        /// <summary>
-        /// 国际书号
-        /// </summary>
-        public BookBasicData Isbn { get => isbn; set => isbn = value; }
-        /// <summary>
-        /// 数量
-        /// </summary>
-        public int Count { get => count; set => count = value; }
-        /// <summary>
-        /// 单价
-        /// </summary>
-        public BookBasicData UnitPrice { get => unitPrice; set => unitPrice = value; }
-        /// <summary>
-        /// 码洋
-        /// </summary>
-        public double TotalPrice { get => totalPrice; set => totalPrice = value; }
-        /// <summary>
-        /// 实洋
-        /// </summary>
-        public double RealPrice { get => realPrice; set => realPrice = value; }
-        /// <summary>
-        /// 实际折扣
-        /// </summary>
-        public double RealDiscount { get => realDiscount; set => realDiscount = value; }
-        /// <summary>
-        /// 采集时间
-        /// </summary>
-        public DateTime AcquisitionTime { get => acquisitionTime; set => acquisitionTime = value; }
+        
     }
 }

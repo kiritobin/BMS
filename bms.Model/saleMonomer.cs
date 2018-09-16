@@ -5,7 +5,7 @@ using System.Text;
 
 namespace bms.Model
 {
-    public class saleMonomer
+    public class SaleMonomer
     {
         private int saleIdMonomerId;
         private long  bookNum;
@@ -31,7 +31,7 @@ namespace bms.Model
         /// <param name="realDiscount">实际折扣</param>
         /// <param name="realPrice">实洋</param>
         /// <param name="datetime">采集时间</param>
-        public saleMonomer(int saleIdMonomerId, long bookNum, string iSBN, int saleHeadId, double unitPrice, int number, double totalPrice, double realDiscount, double realPrice, DateTime datetime)
+        public SaleMonomer(int saleIdMonomerId, long bookNum, string iSBN, int saleHeadId, double unitPrice, int number, double totalPrice, double realDiscount, double realPrice, DateTime datetime)
         {
             this.saleIdMonomerId = saleIdMonomerId;
             this.bookNum = bookNum;
@@ -198,6 +198,6 @@ namespace bms.Model
         /// <summary>
         /// 无参构造函数
         /// </summary>
-        public saleMonomer() { }
+        public SaleMonomer() { }
     }
 }
