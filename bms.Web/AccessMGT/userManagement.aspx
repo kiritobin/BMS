@@ -21,6 +21,26 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
+    <link rel="stylesheet" href="../css/M_select.css" />
+    <style>
+        .jump {
+            color: black;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        .page {
+            font-size: 18px;
+        }
+
+        .page-ul {
+            margin-bottom: 0px;
+        }
+
+        .page-box {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -149,23 +169,40 @@
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
+                                            <div style="display: inline-block; width: 150px;">
+                                                <select class="select03">
+                                                    <option value="01">第一个下拉</option>
+                                                    <option value="02">第二个下拉</option>
+                                                    <option value="03">第三个下拉</option>
+                                                </select>
+                                            </div>
+                                            <div style="display: inline-block; width: 150px;">
+                                                <select class="select03">
+                                                    <option value="01">第一个下拉</option>
+                                                    <option value="02">第二个下拉</option>
+                                                    <option value="03">第三个下拉</option>
+                                                </select>
+                                            </div>
                                             <input type="text" value="" class="form-control col-sm-2" placeholder="请输入查询条件">
-                                            <button class="btn btn-success btn-sm"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            <button class="btn btn-success btn-sm"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
+
                                         </div>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class=" text-danger">
-                                                <th>序号
-                                                </th>
-                                                <th>账号
-                                                </th>
-                                                <th>地区
-                                                </th>
-                                                <th>角色
-                                                </th>
-                                                <th>操作
-                                                </th>
+                                                <tr>
+                                                    <th>序号
+                                                    </th>
+                                                    <th>账号
+                                                    </th>
+                                                    <th>地区
+                                                    </th>
+                                                    <th>角色
+                                                    </th>
+                                                    <th style="width: 200px">操作
+                                                    </th>
+                                                </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
@@ -178,50 +215,51 @@
                                                     <td>操作员
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-warning btn-sm">编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>  删除</button>
+                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
+                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>2
+                                                    <td>1
                                                     </td>
-                                                    <td>10002
+                                                    <td>10001
                                                     </td>
-                                                    <td>昆明西山区
+                                                    <td>昆明五华区
                                                     </td>
-                                                    <td>售货员
+                                                    <td>操作员
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-warning btn-sm">编辑</button>
+                                                        <button class="btn btn-warning btn-sm"><i class="fa fa-pencil fa-lg"></i>编辑</button>
+                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>删除</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="copyright float-right">
-                                        <ul class="pagination">
+                                    <div class="copyright float-right page-box">
+                                        <ul class="pagination page-ul">
                                             <li>
-                                                <a href="#" class="jump  text-danger" id="first">首页</a>
+                                                <a href="#" class="jump" id="first">首页</a>
                                             </li>
                                             <li>
                                                 <a href="#" class="jump" id="prev">
-                                                    <span class="angle-left"></span>
+                                                    <i class="fa fa-angle-left fa-lg"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#" class="jump">1
-                                                </a>
+                                                <span class="jump">1
+                                                </span>
                                             </li>
                                             <li>
-                                                <a href="#" class="jump">/</a>
+                                                <span class="page">/</span>
                                             </li>
                                             <li>
-                                                <a href="#" class="jump">1
-                                                </a>
+                                                <span class="page">1
+                                                </span>
                                             </li>
                                             <li>
                                                 <a href="#" id="next" class="jump">
-                                                    <span class="iconfont icon-more"></span>
+                                                    <i class="fa fa-angle-right fa-lg"></i>
                                                 </a>
                                             </li>
                                             <li>
@@ -231,6 +269,42 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel">添加专业
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-body">
+                                <table>
+                                    <tr>
+                                        <td>账号:</td>
+                                         <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>密码:</td>
+                                         <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>地区:</td>
+                                         <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>角色:</td>
+                                         <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
                         </div>
                     </div>
                 </div>
@@ -258,11 +332,25 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <script src="../js/M_select.js"></script>
     <script>
         $(document).ready(function () {
             // 隐藏折叠内容
             $('.collapse').collapse('hide');
+            //下拉框初始化
+            $(".select03").M_select({
+                "Img": "../imgs/down4.png",
+                "Img2": "../imgs/up4.png",
+                "radius": "6px",
+                "Title": "-请选择地区-",
+                // 默认选中的值（参数值写需要选中的select的value值）
+                //"selected": "03",
+                Succee: function () {
+                    alert("选择下拉之后的弹窗");
+                }
+            });
         });
+
     </script>
 </body>
 
