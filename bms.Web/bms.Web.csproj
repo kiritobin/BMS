@@ -59,6 +59,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
     <Content Include="css\bootstrap-theme.css" />
@@ -83,9 +84,17 @@
     <Content Include="js\popper.min.js" />
     <Content Include="login.aspx" />
     <Content Include="main.aspx" />
+    <Content Include="role.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessMGT\userManagement.aspx.cs">
+      <DependentUpon>userManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccessMGT\userManagement.aspx.designer.cs">
+      <DependentUpon>userManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -129,7 +138,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AccessMGT\" />
     <Folder Include="BasicInfor\" />
     <Folder Include="CustomerMGT\" />
     <Folder Include="Customer\" />
