@@ -83,6 +83,7 @@
     <Content Include="imgs\up3.png" />
     <Content Include="imgs\up4.png" />
     <Content Include="js\bootstrap-material-design.min.js" />
+    <Content Include="js\bootstrap-selectpicker.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
@@ -92,6 +93,7 @@
     <Content Include="js\popper.min.js" />
     <Content Include="login.aspx" />
     <Content Include="main.aspx" />
+    <Content Include="test.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
