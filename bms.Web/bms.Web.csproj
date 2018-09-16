@@ -66,11 +66,13 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\lgd.css" />
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.css" />
     <Content Include="css\zgz.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="imgs\597b013a7a0b3.jpg" />
     <Content Include="imgs\sidebar-2.jpg" />
     <Content Include="js\bootstrap-material-design.min.js" />
     <Content Include="js\bootstrap.min.js" />
@@ -79,10 +81,18 @@
     <Content Include="js\material-dashboard.min.js" />
     <Content Include="js\perfect-scrollbar.jquery.min.js" />
     <Content Include="js\popper.min.js" />
+    <Content Include="login.aspx" />
     <Content Include="main.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="main.aspx.cs">
       <DependentUpon>main.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
