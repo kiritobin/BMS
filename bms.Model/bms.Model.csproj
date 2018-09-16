@@ -39,7 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookBasicData.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="Function.cs" />
+    <Compile Include="GoodsShelves.cs" />
+    <Compile Include="LibraryCollection.cs" />
+    <Compile Include="Monomers.cs" />
+    <Compile Include="PinBackMonomer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Region.cs" />
+    <Compile Include="Role.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\bms.Model.dll" />
