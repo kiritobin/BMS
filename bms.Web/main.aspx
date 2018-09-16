@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="css/material-dashboard.min.css">
+    <link rel="stylesheet" href="css/zgz.css">
 </head>
 
 <body>
@@ -42,53 +43,59 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="nav-item active  ">
-                        <a class="nav-link" href="javascript:;">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#securityManage" data-toggle="collapse" aria-expanded="false">
                             <i class="material-icons">security</i>
                             <p>权限管理</p>
                         </a>
+                        <ul id="securityManage" class="collapse panel-body">
+                            <li class="list-group-item"><a href="javascript:;">用户管理</a></li>
+                            <li class="list-group-item"><a href="javascript:;">角色管理</a></li>
+                            <li class="list-group-item"><a href="javascript:;">功能管理</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="javascript:;">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#userManage" data-toggle="collapse" aria-expanded="false">
                             <i class="material-icons">person</i>
                             <p>客户管理</p>
                         </a>
+                        <ul id="userManage" class="collapse panel-body">
+                            <li class="list-group-item"><a href="javascript:;">客户信息管理</a></li>
+                            <li class="list-group-item"><a href="javascript:;">客户馆藏数据</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="javascript:;">
+                        <a class="nav-link" href="#inventoryManage" data-toggle="collapse" aria-expanded="false">
                             <i class="material-icons">book</i>
                             <p>库存管理</p>
                         </a>
+                        <ul id="inventoryManage" class="collapse">
+                            <li class="list-group-item"><a href="javascript:;">出库</a></li>
+                            <li class="list-group-item"><a href="javascript:;">入库</a></li>
+                            <li class="list-group-item"><a href="javascript:;">退货</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="javascript:;">
+                        <a class="nav-link" href="#saleManage" data-toggle="collapse" aria-expanded="false">
                             <i class="material-icons">library_books</i>
                             <p>销售管理</p>
                         </a>
+                        <ul id="saleManage" class="collapse">
+                            <li class="list-group-item"><a href="javascript:;">销售</a></li>
+                            <li class="list-group-item"><a href="javascript:;">销退</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item " href="#baseManage" data-toggle="collapse" aria-expanded="false">
                         <a class="nav-link" href="javascript:;">
                             <i class="material-icons">bubble_chart</i>
                             <p>基础信息</p>
                         </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="javascript:;">
-                            <i class="material-icons">lock</i>
-                            <p>修改密码</p>
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="javascript:;">
-                            <i class="material-icons">close</i>
-                            <p>退出系统</p>
-                        </a>
-                    </li>
-                    <li class="nav-item active-pro ">
-                        <a class="nav-link" href="javascript:;">
-                            <i class="material-icons">unarchive</i>
-                            <p>关于我们</p>
-                        </a>
+                        <ul id="baseManage" class="collapse">
+                            <li class="list-group-item"><a href="javascript:;">价位管理</a></li>
+                            <li class="list-group-item"><a href="javascript:;">书籍基础数据管理</a></li>
+                            <li class="list-group-item"><a href="javascript:;">组织管理</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -109,34 +116,106 @@
                     </button>
                     <!-- 导航栏 -->
                     <div class="collapse navbar-collapse justify-content-end">
+                        <form class="navbar-form">
+                        </form>
                         <ul class="navbar-nav">
-                            
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">settings</i>
+                                    <p class="d-lg-none d-md-block">
+                                        更多设置
+                                    </p>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#">个人中心</a>
+                                    <a class="dropdown-item" href="#">修改密码</a>
+                                    <a class="dropdown-item" href="#">退出系统</a>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-            
+
             <!-- 主界面内容 -->
             <div class="content">
                 <div class="container-fluid">
-                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-danger">
+                                    <h4 class="card-title">用户管理</h4>
+                                    <p class="card-category">可对用户进行操作</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class=" text-primary">
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Country</th>
+                                                <th>City</th>
+                                                <th>Salary</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Dakota Rice</td>
+                                                    <td>Niger</td>
+                                                    <td>Oud-Turnhout</td>
+                                                    <td class="text-primary">$36,738</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Minerva Hooper</td>
+                                                    <td>Curaçao</td>
+                                                    <td>Sinaai-Waas</td>
+                                                    <td class="text-primary">$23,789</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Sage Rodriguez
+                                                    <td>Netherlands</td>
+                                                    <td>Baileux</td>
+                                                    <td class="text-primary">$56,142</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>Philip Chaney</td>
+                                                    <td>Korea, South</td>
+                                                    <td>Overland Park</td>
+                                                    <td class="text-primary">$38,735</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td>Doris Greene</td>
+                                                    <td>Malawi</td>
+                                                    <td>Feldkirchen in Kärnten</td>
+                                                    <td class="text-primary">$63,542</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6</td>
+                                                    <td>Mason Porter</td>
+                                                    <td>Chile</td>
+                                                    <td>Gloucester</td>
+                                                    <td class="text-primary">$78,615</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
-                    <nav class="float-left">
-                        <ul>
-                            <li>
-                                <a href="javascript:;">
-                                    一个只做图书的销售平台
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
                     <!-- 版权内容 -->
-                    <div class="copyright float-right">
+                    <div class="copyright text-center">
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
@@ -148,13 +227,18 @@
         </div>
     </div>
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap-material-design.min.js"></script>
     <!-- 移动端手机菜单所需js -->
     <script src="js/perfect-scrollbar.jquery.min.js"></script>
     <script src="js/material-dashboard.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // 隐藏折叠内容
+            $('.collapse').collapse('hide');
+        });
+    </script>
 </body>
 
 </html>
