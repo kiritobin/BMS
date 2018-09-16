@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/lgd.css" />
     <style>
         .body {
-            background-image:url(/imgs/597b013a7a0b3.jpg);
+            background-image:url(/imgs/bg1.jpg);
             background-size:cover;
             background-repeat:no-repeat;
            

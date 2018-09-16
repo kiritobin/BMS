@@ -1,22 +1,24 @@
-.sidebar-wrapper .nav ul{
+.sidebar-wrapper .nav ul {
     padding: 2px 15px;
     text-align: center;
 }
 
-.sidebar-wrapper .nav ul{
+.sidebar-wrapper .nav ul {
     padding: 2px 15px;
     text-align: center;
 }
 
-.sidebar-wrapper .nav ul li a{
-    display: block;
-    margin-top: 0px;
-}
-.sidebar-wrapper .nav ul li{
-    padding: 0px 20px;
-}
+    .sidebar-wrapper .nav ul li a {
+        display: block;
+        margin-top: 0px;
+        padding: 8px;
+    }
 
-.sidebar .nav li.active>[data-toggle=collapse],
+    .sidebar-wrapper .nav ul li {
+        padding: 0px 20px;
+    }
+
+.sidebar .nav li.active > [data-toggle=collapse],
 .dropdown-menu .dropdown-item:focus,
 .dropdown-menu .dropdown-item:hover,
 .dropdown-menu a:active,
@@ -26,6 +28,7 @@
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(244, 67, 54, .4);
     color: #fff;
 }
-.sidebar .nav li.active>[data-toggle=collapse] i {
-    color: #fff;
-}
+
+    .sidebar .nav li.active > [data-toggle=collapse] i {
+        color: #fff;
+    }
