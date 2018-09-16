@@ -59,6 +59,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccessMGT\roleManagement.aspx" />
+    <Content Include="AccessMGT\storageManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
@@ -84,10 +86,23 @@
     <Content Include="js\popper.min.js" />
     <Content Include="login.aspx" />
     <Content Include="main.aspx" />
-    <Content Include="role.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessMGT\roleManagement.aspx.cs">
+      <DependentUpon>roleManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccessMGT\roleManagement.aspx.designer.cs">
+      <DependentUpon>roleManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AccessMGT\storageManagement.aspx.cs">
+      <DependentUpon>storageManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccessMGT\storageManagement.aspx.designer.cs">
+      <DependentUpon>storageManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AccessMGT\userManagement.aspx.cs">
       <DependentUpon>userManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
