@@ -179,5 +179,9 @@ namespace bms.Model
                 finishTime = value;
             }
         }
+        /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public saleTask() { }
     }
 }

@@ -195,5 +195,9 @@ namespace bms.Model
                 datetime = value;
             }
         }
+        /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public saleMonomer() { }
     }
 }
