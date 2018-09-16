@@ -10,12 +10,12 @@ using System.Text;
 
 namespace bms.DBHelper
 {
-    public class MySqlHelper
+    public class MySqlHelp
     {
         private string strConn;
         private MySqlConnection sqlConn = null;
 
-        public MySqlHelper()
+        public MySqlHelp()
         {
             strConn = ConfigurationManager.ConnectionStrings["sqlConn"].ConnectionString;
             sqlConn = new MySqlConnection(strConn);
