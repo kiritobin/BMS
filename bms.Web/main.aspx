@@ -86,8 +86,8 @@
                             <li class="list-group-item"><a href="javascript:;">销退</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item " href="#baseManage" data-toggle="collapse" aria-expanded="false">
-                        <a class="nav-link" href="javascript:;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#baseManage" data-toggle="collapse" aria-expanded="false">
                             <i class="material-icons">bubble_chart</i>
                             <p>基础信息</p>
                         </a>
