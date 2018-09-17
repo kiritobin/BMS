@@ -62,6 +62,7 @@
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\storageManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
+    <Content Include="BasicInfor\bookBasicManagement.aspx" />
     <Content Include="BasicInfor\bookshelfManagement.aspx" />
     <Content Include="demo\alert.html" />
     <Content Include="bin\bms.Web.dll" />
@@ -122,6 +123,13 @@
     </Compile>
     <Compile Include="AccessMGT\userManagement.aspx.designer.cs">
       <DependentUpon>userManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BasicInfor\bookBasicManagement.aspx.cs">
+      <DependentUpon>bookBasicManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BasicInfor\bookBasicManagement.aspx.designer.cs">
+      <DependentUpon>bookBasicManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="BasicInfor\bookshelfManagement.aspx.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bookshelfManagement.aspx.cs" Inherits="bms.Web.BasicInfor.bookshelfManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bookBasicManagement.aspx.cs" Inherits="bms.Web.BasicInfor.bookBasicManagement" %>
 <%="" %>
 <!DOCTYPE html>
 
@@ -154,12 +154,12 @@
                         </a>
                         <div class="collapse show" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor foucsColor">
+                                <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item hoverColor foucsColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
@@ -180,7 +180,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">架位管理</a>
+                        <a class="navbar-brand" href="#pablo">书籍基础数据管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -219,21 +219,12 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">架位管理</h4>
-                                    <p class="card-category">可对组织架位进行操作</p>
+                                    <h4 class="card-title ">书籍基础数据管理</h4>
+                                    <p class="card-category">可对书籍基础数据操作</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="1">五华区</option>
-                                                <option value="2">西山区</option>
-                                                <option value="3">官渡区</option>
-                                                <option value="4">盘龙区</option>
-                                                <option value="5">东川区</option>
-                                                <option value="6">呈贡区</option>
-                                            </select>
-                                            &nbsp &nbsp
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
@@ -241,16 +232,22 @@
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table table-bordered">
                                             <thead class="text-danger">
-                                                <tr>
+                                                <tr class="book-tab-tr">
                                                     <th>序号
                                                     </th>
-                                                    <th>货架ID
+                                                    <th>书名
                                                     </th>
-                                                    <th>货架名称
+                                                    <th>作者
                                                     </th>
-                                                    <th>所属地区
+                                                    <th>定价
+                                                    </th>
+                                                     <th>出版日期
+                                                    </th>
+                                                     <th>出版社
+                                                    </th>
+                                                    <th>ISBN
                                                     </th>
                                                     <th class="table-thead-th">操作
                                                     </th>
@@ -260,26 +257,20 @@
                                                 <tr>
                                                     <td>1
                                                     </td>
-                                                    <td>1470001
+                                                    <td>bootstrap 入门经典sssss
                                                     </td>
-                                                    <td>五华区货架
+                                                    <td>Jennife Kyrnin
                                                     </td>
-                                                    <td>五华区
+                                                    <td>59.00￥
                                                     </td>
-                                                    <td>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
+                                                    <td>2016年12月第一版
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2
+                                                    <td>人民邮电出版社
                                                     </td>
-                                                    <td>1470001
-                                                    </td>
-                                                    <td>西山区货架
-                                                    </td>
-                                                    <td>西山区
+                                                    <td>7115438546
                                                     </td>
                                                     <td>
+                                                        <button class="btn btn-info btn-sm">&nbsp 查看</button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
@@ -293,15 +284,7 @@
                                                     data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
                                                 <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
                                                     data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="2"
-                                                    tabindex="0" class="page-link">1</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">2</a></li>
-                                                <!--类名active表示当前页 -->
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="4"
-                                                    tabindex="0" class="page-link">3</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5"
-                                                    tabindex="0" class="page-link">4</a></li>
+                                                <li>1/2</li>
                                                 <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
                                                     data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
                                                 <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
