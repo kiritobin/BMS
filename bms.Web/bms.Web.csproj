@@ -62,7 +62,8 @@
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\storageManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
-    <Content Include="alert.html" />
+    <Content Include="BasicInfor\bookshelfManagement.aspx" />
+    <Content Include="demo\alert.html" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
     <Content Include="CommonPage.aspx" />
@@ -76,9 +77,11 @@
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.css" />
     <Content Include="css\zgz.css" />
+    <Content Include="demo\loginDemo.html" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="imgs\login.jpg" />
     <Content Include="imgs\sidebar-2.jpg" />
     <Content Include="js\bootstrap-material-design.min.js" />
     <Content Include="js\bootstrap-selectpicker.js" />
@@ -86,6 +89,8 @@
     <Content Include="js\demo.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
+    <Content Include="js\jsencrypt.min.js" />
+    <Content Include="js\login.js" />
     <Content Include="js\material-dashboard.min.js" />
     <Content Include="js\perfect-scrollbar.jquery.min.js" />
     <Content Include="js\popper.min.js" />
@@ -93,8 +98,7 @@
     <Content Include="js\userManagement.js" />
     <Content Include="login.aspx" />
     <Content Include="main.aspx" />
-    <Content Include="paging.html" />
-    <Content Include="test.html" />
+    <Content Include="demo\paging.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +122,13 @@
     </Compile>
     <Compile Include="AccessMGT\userManagement.aspx.designer.cs">
       <DependentUpon>userManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BasicInfor\bookshelfManagement.aspx.cs">
+      <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
+      <DependentUpon>bookshelfManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="CommonPage.aspx.cs">
       <DependentUpon>CommonPage.aspx</DependentUpon>
@@ -172,7 +183,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BasicInfor\" />
     <Folder Include="CustomerMGT\" />
     <Folder Include="Customer\" />
     <Folder Include="InventoryMGT\" />
@@ -181,11 +191,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bms.Bll\bms.Bll.csproj">
-      <Project>{f131bee1-4554-4a96-a998-8b031fa59979}</Project>
+      <Project>{F131BEE1-4554-4A96-A998-8B031FA59979}</Project>
       <Name>bms.Bll</Name>
     </ProjectReference>
     <ProjectReference Include="..\bms.Model\bms.Model.csproj">
-      <Project>{71e48a40-e95d-47b8-a703-b98c07376615}</Project>
+      <Project>{71E48A40-E95D-47B8-A703-B98C07376615}</Project>
       <Name>bms.Model</Name>
     </ProjectReference>
   </ItemGroup>

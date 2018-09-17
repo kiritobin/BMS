@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="customerManagement.aspx.cs" Inherits="bms.Web.CustomerMGT.customerManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bookshelfManagement.aspx.cs" Inherits="bms.Web.BasicInfor.bookshelfManagement" %>
 
 <!DOCTYPE html>
 
@@ -70,7 +70,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="material-icons">person</i>
                             <p>
@@ -78,9 +78,9 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="userManage">
+                        <div class="collapse" id="userManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor foucsColor">
+                                <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
@@ -144,7 +144,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="material-icons">bubble_chart</i>
                             <p>
@@ -152,11 +152,11 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="baseManage">
+                        <div class="collapse show" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item hoverColor foucsColor">
                                     <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">价位管理</span>
+                                        <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
@@ -180,7 +180,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">客户管理</a>
+                        <a class="navbar-brand" href="#pablo">架位管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -219,8 +219,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">客户信息管理</h4>
-                                    <p class="card-category">可对客户进行操作</p>
+                                    <h4 class="card-title ">架位管理</h4>
+                                    <p class="card-category">可对组织架位进行操作</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
@@ -246,51 +246,43 @@
                                                 <tr>
                                                     <th>序号
                                                     </th>
-                                                    <th>账号
+                                                    <th>货架ID
                                                     </th>
-                                                    <th>名称
+                                                    <th>货架名称
                                                     </th>
-                                                    <th>地区
+                                                    <th>所属地区
                                                     </th>
                                                     <th class="table-thead-th">操作
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <%for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                                                    { %>
                                                 <tr>
-                                                    <td>i
+                                                    <td>1
+                                                    </td>
+                                                    <td>1470001
+                                                    </td>
+                                                    <td>五华区货架
+                                                    </td>
+                                                    <td>五华区
                                                     </td>
                                                     <td>
-                                                        <%=ds.Tables[0].Rows[i]["customerId"] %>
-                                                    </td>
-                                                    <td>
-                                                        <%=ds.Tables[0].Rows[i]["customerName"] %>
-                                                    </td>
-                                                    <td>
-                                                        <%=ds.Tables[0].Rows[i]["regionName"] %>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
-                                                <%} %>
-                                                <%--                                                <tr>
+                                                <tr>
                                                     <td>2
                                                     </td>
-                                                    <td>126002
+                                                    <td>1470001
                                                     </td>
-                                                    <td>昆明学院
+                                                    <td>西山区货架
                                                     </td>
-                                                    <td>昆明经济技术开发区
+                                                    <td>西山区
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
-                                                </tr>--%>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -323,28 +315,18 @@
                     </div>
                 </div>
             </div>
-            <!--添加用户模态框-->
+            <!--添加货架模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加客户
+                            <h4 class="modal-title float-left" id="myModalLabel">添加货架
                             </h4>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">账号:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入账号"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">客户名称:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入名称"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
+                                    <td class="model-td-left"><span class="model-tab-td-span">货架所在地区:</span></td>
                                     <td>
                                         <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
                                             <option value="1">五华区</option>
@@ -356,58 +338,19 @@
                                         </select>
                                     </td>
                                 </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--编辑客户模态框-->
-            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">编辑客户
-                            </h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left2"><span class="model-tab-td-span">账号:</span></td>
-                                    <td>10001</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">客户名称:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="云南工商学院"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">密码:</span></td>
-                                    <td>
-                                        <button type="button" class="btn btn-default btn-sm">重置密码</button></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
+                                    <td><span class="model-tab-td-span">货架名称:</span></td>
                                     <td>
                                         <select class="selectpicker" title="请选择地区" data-style="btn-sm">
-                                            <option value="1">五华区</option>
-                                            <option value="2">西山区</option>
-                                            <option value="3">官渡区</option>
-                                            <option value="4" selected="selected">盘龙区</option>
-                                            <option value="5">东川区</option>
-                                            <option value="6">呈贡区</option>
+                                            <option value="1">五华区货架</option>
                                         </select>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                            <%--  <button type="button" class="btn btn-info btn-sm" id="model-btn-eidter">编辑</button>--%>
-                            <button type="submit" class="btn btn-success btn-sm">提交</button>
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
+                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
                         </div>
                     </div>
                 </div>
