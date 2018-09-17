@@ -21,6 +21,7 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
+    <link rel="stylesheet" href="../css/lgd.css">
 </head>
 
 <body>
