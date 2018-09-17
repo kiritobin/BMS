@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="userManagement.aspx.cs" Inherits="bms.Web.AccessMGT.userManagement" %>
-
+<%="" %>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -229,17 +229,15 @@
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="1">五华区</option>
-                                                <option value="2">西山区</option>
-                                                <option value="3">官渡区</option>
-                                                <option value="4">盘龙区</option>
-                                                <option value="5">东川区</option>
-                                                <option value="6">呈贡区</option>
+                                                <%for(int i=0; i<dsRegion.Tables[0].Rows.Count;i++){ %>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                <%} %>
                                             </select>
                                             &nbsp
                                             <select class="selectpicker" title="请选择角色" data-style="btn-sm" id="select-role">
-                                                <option value="1">售货员</option>
-                                                <option value="2">入库管理</option>
+                                                <%for(int i=0; i<dsRole.Tables[0].Rows.Count;i++){ %>
+                                                    <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
+                                                <%} %>
                                             </select>
                                             &nbsp &nbsp
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
@@ -252,47 +250,28 @@
                                         <table class="table">
                                             <thead class="text-danger">
                                                 <tr>
-                                                    <th>序号
-                                                    </th>
-                                                    <th>账号
-                                                    </th>
-                                                    <th>地区
-                                                    </th>
-                                                    <th>角色
-                                                    </th>
-                                                    <th class="table-thead-th">操作
-                                                    </th>
+                                                    <th>序号</th>
+                                                    <th>账号</th>
+                                                    <th>用户名</th>
+                                                    <th>地区</th>
+                                                    <th>角色</th>
+                                                    <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <%for(int i=0;i<ds.Tables[0].Rows.Count;i++){ %>
                                                 <tr>
-                                                    <td>2
-                                                    </td>
-                                                    <td>10001
-                                                    </td>
-                                                    <td>昆明五华区
-                                                    </td>
-                                                    <td>操作员
-                                                    </td>
+                                                    <td><%=i+1+((getCurrentPage-1)*pageSize) %></td>
+                                                    <td><%=ds.Tables[0].Rows[i]["userID"] %></td>
+                                                    <td><%=ds.Tables[0].Rows[i]["userName"] %></td>
+                                                    <td><%=ds.Tables[0].Rows[i]["regionName"] %></td>
+                                                    <td><%=ds.Tables[0].Rows[i]["roleName"] %></td>
                                                     <td>
                                                         <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
+                                                        <button class="btn btn-danger btn-sm" id="btnDel"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>1
-                                                    </td>
-                                                    <td>10001
-                                                    </td>
-                                                    <td>昆明五华区
-                                                    </td>
-                                                    <td>操作员
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
-                                                    </td>
-                                                </tr>
+                                                <%} %>
                                             </tbody>
                                         </table>
                                     </div>
@@ -329,22 +308,19 @@
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <ul class="pagination">
                                                 <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
+                                                    data-dt-idx="0" tabindex="0" class="page-link jump">首页</a></li>
                                                 <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="2"
-                                                    tabindex="0" class="page-link">1</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">2</a></li>
-                                                <!--类名active表示当前页 -->
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="4"
-                                                    tabindex="0" class="page-link">3</a></li>
+                                                    data-dt-idx="1" tabindex="0" class="page-link jump">上一页</a></li>
+                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="2"
+                                                    tabindex="0" class="page-link"><%=getCurrentPage %></a></li>
+                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="3"
+                                                    tabindex="0" class="page-link">/</a></li>
                                                 <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5"
-                                                    tabindex="0" class="page-link">4</a></li>
+                                                    tabindex="0" class="page-link"><%=intPageCount %></a></li>
                                                 <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
+                                                    data-dt-idx="6" tabindex="0" class="page-link jump">下一页</a></li>
                                                 <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link">尾页</a></li>
+                                                    data-dt-idx="7" tabindex="0" class="page-link jump">尾页</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -473,6 +449,8 @@
             </footer>
         </div>
     </div>
+    <input type="hidden" value="<%=getCurrentPage %>" id="page" />
+    <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>

@@ -6,6 +6,7 @@
 
         var userName = $("#userName").val();
         var pwd = $("#userPwd").val();
+        var user = $('input[name="user"]:checked').val();
         if (userName == "") {
             alert("用户名不能为空");
         }
@@ -19,6 +20,7 @@
                 data: {
                     userName: userName,
                     pwd: encrypt.encrypt(pwd),
+                    user:user,
                     op: "login"
                 },
                 dataType: 'text',

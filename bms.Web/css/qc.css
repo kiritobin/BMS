@@ -1,37 +1,5 @@
-﻿/*login页面样式*/
-#login {
-    width: 500px;
-    height: 350px;
-    background-color: rgba(255, 255, 255, 0.25);
-    margin-top: 120px;
-    border-top: 1px solid rgba(255, 255, 255, 0.60);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.60);
-    border-radius: 10px;
-    box-shadow: 2px 2px 15px rgba(255, 255, 255, 0.60);
-}
-
-.Acontent {
-    margin-top: 25px;
-    margin-left: 60px;
-}
-
-.retrievePwd {
-    margin: 10px 0 10px 0;
-    margin-left: 250px;
-}
-
-#userName {
-    border-radius: 0px 4px 4px 0;
-    height: 35px;
-    width: 276px;
-}
-
-#pwd {
-    border-radius: 0px 4px 4px 0;
-    height: 35px;
-    width: 276px;
-}
-/*用户管理页面样式*/
+﻿
+/*角色管理页面样式*/
 .jump {
     color: black;
     font-size: 18px;
@@ -80,11 +48,12 @@
     width: 40%;
 }
 
-#model-btnclose1, #model-btnclose2, #model-btn-eidter {
+#model-btnclose1, #model-btnclose2 {
     margin-right: 20px;
 }
 /*子菜单移过公共样式*/
-.collapse .nav .hoverColor a:active, .collapse .nav .hoverColor a:hover {
+.collapse .nav .hoverColor a:active, 
+.collapse .nav .hoverColor a:focus {
     background-color: #f44336;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(244, 67, 54, .4);
     color: #fff;
@@ -101,7 +70,3 @@
         box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(244, 67, 54, .4);
         color: #fff;
     }
-    /*书籍基础数据样式*/
-.book-tab-tr {
-border-top:1px solid #DDD;
-}

@@ -62,8 +62,11 @@
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\storageManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
-    <Content Include="CustomerMGT\collectionManagement.aspx" />
-    <Content Include="CustomerMGT\customerManagement.aspx" />
+    <Content Include="BasicInfor\bookBasicManagement.aspx" />
+    <Content Include="BasicInfor\bookshelfManagement.aspx" />
+    <Content Include="bin\bms.Bll.dll" />
+    <Content Include="bin\bms.Model.dll" />
+    <Content Include="css\qc.css" />
     <Content Include="demo\alert.html" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
@@ -78,6 +81,7 @@
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.css" />
     <Content Include="css\zgz.css" />
+    <Content Include="demo\form_demo.html" />
     <Content Include="demo\loginDemo.html" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -124,26 +128,26 @@
     <Compile Include="AccessMGT\userManagement.aspx.designer.cs">
       <DependentUpon>userManagement.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BasicInfor\bookBasicManagement.aspx.cs">
+      <DependentUpon>bookBasicManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BasicInfor\bookBasicManagement.aspx.designer.cs">
+      <DependentUpon>bookBasicManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BasicInfor\bookshelfManagement.aspx.cs">
+      <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
+      <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CommonPage.aspx.cs">
       <DependentUpon>CommonPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CommonPage.aspx.designer.cs">
       <DependentUpon>CommonPage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerMGT\collectionManagement.aspx.cs">
-      <DependentUpon>collectionManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CustomerMGT\collectionManagement.aspx.designer.cs">
-      <DependentUpon>collectionManagement.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerMGT\customerManagement.aspx.cs">
-      <DependentUpon>customerManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CustomerMGT\customerManagement.aspx.designer.cs">
-      <DependentUpon>customerManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -191,7 +195,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BasicInfor\" />
+    <Folder Include="CustomerMGT\" />
     <Folder Include="Customer\" />
     <Folder Include="InventoryMGT\" />
     <Folder Include="obj\Debug\TempPE\" />
