@@ -123,7 +123,7 @@ namespace bms.Model
             this.StockNum = stockNum;
             this.BookNum = bookNum;
             this.ISBN = iSBN;
-            this.reginId = reginId;
+            this.regionId = regionId;
             this.GoodsShelvesId = goodsShelvesId;
         }
     }
