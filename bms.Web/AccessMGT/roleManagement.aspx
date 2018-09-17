@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="userManagement.aspx.cs" Inherits="bms.Web.AccessMGT.userManagement" %>
-
+<%="" %>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -21,6 +21,7 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
+    <link rel="stylesheet" href="../css/qc.css">
 </head>
 
 <body>
@@ -36,65 +37,142 @@
                 Tip 2: 需要改变导航条的背景图片可以修改 data-image tag
             -->
             <!-- 平台字体logo -->
-            <div class="logo">
-                <a href="javascript:;" class="simple-text logo-normal">图书综合平台
+          <div class="logo">
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
                 </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#securityManage" data-toggle="collapse" aria-expanded="false">
+                        <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="material-icons">security</i>
-                            <p>权限管理</p>
+                            <p>
+                                权限管理
+                                <b class="caret"></b>
+                            </p>
                         </a>
-                        <ul id="securityManage" class="collapse panel-body">
-                            <li class="list-group-item"><a href="javascript:;">用户管理</a></li>
-                            <li class="list-group-item"><a href="javascript:;">角色管理</a></li>
-                            <li class="list-group-item"><a href="javascript:;">功能管理</a></li>
-                        </ul>
+                        <div class="collapse show" id="securityManage">
+                            <ul class="nav">
+                                <li class="nav-item hoverColor foucsColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">用户管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">角色管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">功能管理</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#userManage" data-toggle="collapse" aria-expanded="false">
+                        <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="material-icons">person</i>
-                            <p>客户管理</p>
+                            <p>
+                                客户管理
+                                <b class="caret"></b>
+                            </p>
                         </a>
-                        <ul id="userManage" class="collapse panel-body">
-                            <li class="list-group-item"><a href="javascript:;">客户信息管理</a></li>
-                            <li class="list-group-item"><a href="javascript:;">客户馆藏数据</a></li>
-                        </ul>
+                        <div class="collapse" id="userManage">
+                            <ul class="nav">
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">客户信息管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">客户馆藏数据</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#inventoryManage" data-toggle="collapse" aria-expanded="false">
+                        <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
-                            <p>库存管理</p>
+                            <p>
+                                库存管理
+                                <b class="caret"></b>
+                            </p>
                         </a>
-                        <ul id="inventoryManage" class="collapse">
-                            <li class="list-group-item"><a href="javascript:;">出库</a></li>
-                            <li class="list-group-item"><a href="javascript:;">入库</a></li>
-                            <li class="list-group-item"><a href="javascript:;">退货</a></li>
-                        </ul>
+                        <div class="collapse" id="inventoryManage">
+                            <ul class="nav">
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">出库</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">入库</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">退货</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#saleManage" data-toggle="collapse" aria-expanded="false">
+                        <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="material-icons">library_books</i>
-                            <p>销售管理</p>
+                            <p>
+                                销售管理
+                                <b class="caret"></b>
+                            </p>
                         </a>
-                        <ul id="saleManage" class="collapse">
-                            <li class="list-group-item"><a href="javascript:;">销售</a></li>
-                            <li class="list-group-item"><a href="javascript:;">销退</a></li>
-                        </ul>
+                        <div class="collapse" id="saleManage">
+                            <ul class="nav">
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">销售</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">销退</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li class="nav-item " href="#baseManage" data-toggle="collapse" aria-expanded="false">
-                        <a class="nav-link" href="javascript:;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="material-icons">bubble_chart</i>
-                            <p>基础信息</p>
+                            <p>
+                                基础信息
+                                <b class="caret"></b>
+                            </p>
                         </a>
-                        <ul id="baseManage" class="collapse">
-                            <li class="list-group-item"><a href="javascript:;">价位管理</a></li>
-                            <li class="list-group-item"><a href="javascript:;">书籍基础数据管理</a></li>
-                            <li class="list-group-item"><a href="javascript:;">组织管理</a></li>
-                        </ul>
+                        <div class="collapse" id="baseManage">
+                            <ul class="nav">
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">价位管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">书籍基础数据管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">组织管理</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -143,35 +221,43 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">角色管理</h4>
-                                    <!-- <p class="card-category"> Here is a subtitle for this table</p>-->
+                                    <h4 class="card-title ">角色管理</h4>                               
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
                                         <input type="text" value="" class="form-control col-sm-2" placeholder="请输入查询条件">
-                                        <button class="btn btn-success btn-sm"><i class="fa fa-search fa-lg"></i>&nbsp;&nbsp;查询</button>
+                                        <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;&nbsp;查询</button>
+                                      &nbsp;
+                                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;&nbsp;添加</button>
                                     </div>
                                     </div>
+
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="text-danger">
+                                             <tr>
                                             <th>
                                                 序号
                                             </th>
                                             <th>
-                                                角色
+                                                角色编号
                                             </th>
                                             <th>
                                                 角色名
                                             </th>
+                                           <th>
+                                                地区
+                                            </th>
                                             <th>
                                                 备注
                                             </th>
-                                            <th>
+                                            <th class="table-thead-th">
                                                 操作
                                             </th>
-                                            </thead>
+                                          </tr>
+                                    </thead>
+
                                             <tbody>
                                                 <tr>
                                                     <td>
@@ -183,11 +269,15 @@
                                                     <td>
                                                         门卫
                                                     </td>
-                                                    <td></td>
+                                                    <td> 
+                                                        五华区
+                                                    </td>
+                                                    <td> 
+                                                        
+                                                    </td>
                                                     <td>
-                                                        <button class="btn btn-warning btn-sm"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>
-                                                        <button class="btn btn-primary btn-sm"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp;删除</button>
+                                                       <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>                                                 
+                                                       <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp;删除</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -200,54 +290,136 @@
                                                     <td>
                                                         操作员
                                                     </td>
-                                                    <td></td>
                                                     <td>
-                                                        <button class="btn btn-warning btn-sm"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>
-                                                        <button class="btn btn-primary btn-sm"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                                        西山区
+                                                    </td>
+                                                     <td>
+                                                        
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>                                          
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp;删除</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="copyright float-right">
-                                        <ul class="pagination">
-                                            <li>
-                                                <a href="#" class="jump  text-danger" id="first">首页</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="jump" id="prev">
-                                                    <span class="angle-left"></span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="jump">1
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="jump">/</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="jump">1
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" id="next" class="jump">
-                                                    <span class="iconfont icon-more"></span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="jump" id="last">尾页</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <div class="copyright float-right page-box">
+                                    
+                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                            <ul class="pagination">
+                                                <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
+                                                    data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
+                                                <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
+                                                    data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
+                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="2"
+                                                    tabindex="0" class="page-link">1</a></li>
+                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="3"
+                                                    tabindex="0" class="page-link">2</a></li>
+                                                <!--类名active表示当前页 -->
+                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="4"
+                                                    tabindex="0" class="page-link">3</a></li>
+                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5"
+                                                    tabindex="0" class="page-link">4</a></li>
+                                                <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
+                                                    data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
+                                                <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
+                                                    data-dt-idx="7" tabindex="0" class="page-link">尾页</a></li>
+                                            </ul>
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-!-- 主界面页脚部分 -->
+            </div>
+
+            <!--添加用户模态框-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel">添加角色</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table model-table">
+                                <tr>
+                                    <td class="model-td-left"><span class="model-tab-td-span">功能:</span></td>
+                                    <td>
+                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入"></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">地区:</span></td>
+                                    <td>
+                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
+                                            <option value="1">五华区</option>
+                                            <option value="2">西山区</option>
+                                            <option value="3">官渡区</option>
+                                            <option value="4">盘龙区</option>
+                                            <option value="5">东川区</option>
+                                            <option value="6">呈贡区</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">角色:</span></td>
+                                    <td>
+                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-role">
+                                            <option value="1">入库管理员</option>
+                                            <option value="2">零售员</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
+                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--编辑角色模态框-->
+            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabe2">编辑角色</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table model-table">
+                                <tr>
+                                    <td class="model-td-left2"><span class="model-tab-td-span">角色编号:</span></td>
+                                    <td>10001</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">角色名:</span></td>
+                                    <td>门卫</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">地区:</span></td>
+                                    <td>
+                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm">
+                                            <option value="1">五华区</option>
+                                            <option value="2">西山区</option>
+                                            <option value="3">官渡区</option>
+                                            <option value="4" selected="selected">盘龙区</option>
+                                            <option value="5">东川区</option>
+                                            <option value="6">呈贡区</option>
+                                        </select>
+                                    </td>
+                                </tr>                        
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
+                            <button type="submit" class="btn btn-success btn-sm">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
                     <!-- 版权内容 -->
@@ -270,6 +442,7 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <script src="../js/bootstrap-selectpicker.js"></script>
     <script>
         $(document).ready(function () {
             // 隐藏折叠内容
