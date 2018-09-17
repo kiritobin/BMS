@@ -65,6 +65,7 @@
     <Content Include="alert.html" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
+    <Content Include="CommonPage.aspx" />
     <Content Include="css\bootstrap-theme.css" />
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
@@ -75,9 +76,9 @@
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.css" />
     <Content Include="css\zgz.css" />
-    <Content Include="CustomerMGT\customerManagement.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
     <Content Include="imgs\sidebar-2.jpg" />
     <Content Include="js\bootstrap-material-design.min.js" />
     <Content Include="js\bootstrap-selectpicker.js" />
@@ -117,12 +118,15 @@
     <Compile Include="AccessMGT\userManagement.aspx.designer.cs">
       <DependentUpon>userManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CustomerMGT\customerManagement.aspx.cs">
-      <DependentUpon>customerManagement.aspx</DependentUpon>
+    <Compile Include="CommonPage.aspx.cs">
+      <DependentUpon>CommonPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CustomerMGT\customerManagement.aspx.designer.cs">
-      <DependentUpon>customerManagement.aspx</DependentUpon>
+    <Compile Include="CommonPage.aspx.designer.cs">
+      <DependentUpon>CommonPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
@@ -168,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BasicInfor\" />
+    <Folder Include="CustomerMGT\" />
     <Folder Include="Customer\" />
     <Folder Include="InventoryMGT\" />
     <Folder Include="obj\Debug\TempPE\" />
