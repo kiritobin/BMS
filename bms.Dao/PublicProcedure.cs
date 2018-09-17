@@ -24,14 +24,14 @@ namespace bms.Dao
             StringBuilder strSql = new StringBuilder();
             strSql.Append("sp_page");
             MySqlParameter[] values = {
-                new MySqlParameter("@strColumnlist", SqlDbType.VarChar),
-                new MySqlParameter("@strTable", SqlDbType.VarChar),
-                new MySqlParameter("@strWhere", SqlDbType.VarChar),
-                new MySqlParameter("@orderBy", SqlDbType.VarChar),
-                new MySqlParameter("@intPageNum", SqlDbType.Int),
-                new MySqlParameter("@intPageSize", SqlDbType.Int),
-                new MySqlParameter("@totalCount", SqlDbType.Int),
-                new MySqlParameter("@intPageCount", SqlDbType.Int)
+                new MySqlParameter("@strColumnlist", MySqlDbType.VarChar),
+                new MySqlParameter("@strTable", MySqlDbType.VarChar),
+                new MySqlParameter("@strWhere", MySqlDbType.VarChar),
+                new MySqlParameter("@orderBy", MySqlDbType.VarChar),
+                new MySqlParameter("@intPageNum", MySqlDbType.Int32),
+                new MySqlParameter("@intPageSize", MySqlDbType.Int32),
+                new MySqlParameter("@totalCount", MySqlDbType.Int32),
+                new MySqlParameter("@intPageCount", MySqlDbType.Int32)
             };
             values[0].Value = tablebuilder.StrColumnlist;
             values[1].Value = tablebuilder.StrTable;

@@ -16,7 +16,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet select()
         {
-            string comText = "select userId,userName,regionName,roleName from V_User";
+            string comText = "select roleId,roleName from T_Role";
             DataSet ds = db.FillDataSet(comText, null, null);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
