@@ -62,6 +62,7 @@
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\storageManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
+    <Content Include="CustomerMGT\customerManagement.aspx" />
     <Content Include="demo\alert.html" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
@@ -127,6 +128,13 @@
     <Compile Include="CommonPage.aspx.designer.cs">
       <DependentUpon>CommonPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CustomerMGT\customerManagement.aspx.cs">
+      <DependentUpon>customerManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerMGT\customerManagement.aspx.designer.cs">
+      <DependentUpon>customerManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -174,11 +182,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BasicInfor\" />
-    <Folder Include="CustomerMGT\" />
     <Folder Include="Customer\" />
     <Folder Include="InventoryMGT\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="SalesMGT\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\bms.Bll\bms.Bll.csproj">
+      <Project>{f131bee1-4554-4a96-a998-8b031fa59979}</Project>
+      <Name>bms.Bll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bms.Model\bms.Model.csproj">
+      <Project>{71e48a40-e95d-47b8-a703-b98c07376615}</Project>
+      <Name>bms.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
