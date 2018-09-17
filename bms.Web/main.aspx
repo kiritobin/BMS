@@ -7,6 +7,7 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -36,65 +37,143 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text logo-normal">
+                <a href="javascript:;" class="simple-text text-center logo-normal">
                     图书综合平台
                 </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#securityManage" data-toggle="collapse" aria-expanded="false">
+                        <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="material-icons">security</i>
-                            <p>权限管理</p>
+                            <p>
+                                权限管理
+                                <b class="caret"></b>
+                            </p>
                         </a>
-                        <ul id="securityManage" class="collapse panel-body">
-                            <li class="list-group-item"><a href="javascript:;">用户管理</a></li>
-                            <li class="list-group-item"><a href="javascript:;">角色管理</a></li>
-                            <li class="list-group-item"><a href="javascript:;">功能管理</a></li>
-                        </ul>
+                        <div class="collapse" id="securityManage">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">用户管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">角色管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">功能管理</span>
+
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#userManage" data-toggle="collapse" aria-expanded="false">
+                        <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="material-icons">person</i>
-                            <p>客户管理</p>
+                            <p>
+                                客户管理
+                                <b class="caret"></b>
+                            </p>
                         </a>
-                        <ul id="userManage" class="collapse panel-body">
-                            <li class="list-group-item"><a href="javascript:;">客户信息管理</a></li>
-                            <li class="list-group-item"><a href="javascript:;">客户馆藏数据</a></li>
-                        </ul>
+                        <div class="collapse" id="userManage">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">客户信息管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">客户馆藏数据</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#inventoryManage" data-toggle="collapse" aria-expanded="false">
+                        <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
-                            <p>库存管理</p>
+                            <p>
+                                库存管理
+                                <b class="caret"></b>
+                            </p>
                         </a>
-                        <ul id="inventoryManage" class="collapse">
-                            <li class="list-group-item"><a href="javascript:;">出库</a></li>
-                            <li class="list-group-item"><a href="javascript:;">入库</a></li>
-                            <li class="list-group-item"><a href="javascript:;">退货</a></li>
-                        </ul>
+                        <div class="collapse" id="inventoryManage">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">出库</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">入库</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">退货</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#saleManage" data-toggle="collapse" aria-expanded="false">
+                        <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="material-icons">library_books</i>
-                            <p>销售管理</p>
+                            <p>
+                                销售管理
+                                <b class="caret"></b>
+                            </p>
                         </a>
-                        <ul id="saleManage" class="collapse">
-                            <li class="list-group-item"><a href="javascript:;">销售</a></li>
-                            <li class="list-group-item"><a href="javascript:;">销退</a></li>
-                        </ul>
+                        <div class="collapse" id="saleManage">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">销售</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">销退</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#baseManage" data-toggle="collapse" aria-expanded="false">
+                        <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="material-icons">bubble_chart</i>
-                            <p>基础信息</p>
+                            <p>
+                                基础信息
+                                <b class="caret"></b>
+                            </p>
                         </a>
-                        <ul id="baseManage" class="collapse">
-                            <li class="list-group-item"><a href="javascript:;">价位管理</a></li>
-                            <li class="list-group-item"><a href="javascript:;">书籍基础数据管理</a></li>
-                            <li class="list-group-item"><a href="javascript:;">组织管理</a></li>
-                        </ul>
+                        <div class="collapse" id="baseManage">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">价位管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">书籍基础数据管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">组织管理</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -232,11 +311,9 @@
     <script src="js/perfect-scrollbar.jquery.min.js"></script>
     <script src="js/material-dashboard.min.js"></script>
     <script>
-        $(document).ready(function () {
-            // 隐藏折叠内容
-            $('.collapse').collapse('hide');
-        });
     </script>
+
+
 </body>
 
 </html>
