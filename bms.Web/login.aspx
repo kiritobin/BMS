@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>图书综合平台</title>
     <!-- 材料图标样式 -->
     <link rel="stylesheet" href="css/materialdesignicons.css" />
@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/zgz.css" />
 </head>
 <body>
- <!--[if lt IE 7]>
+    <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     <!-- Navbar -->
@@ -26,7 +26,7 @@
                 <a class="navbar-brand" href="#pablo">图书综合平台</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
-                    aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
+                aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="navbar-toggler-icon icon-bar"></span>
                 <span class="navbar-toggler-icon icon-bar"></span>
@@ -55,30 +55,54 @@
                     <form class="form" method="" action="">
                         <div class="card card-login card-hidden">
                             <div class="card-header card-header-rose text-center">
-                                <h4 class="card-title">登录</h4>
+                                <h4 class="card-title">登&nbsp;&nbsp;录</h4>
                             </div>
                             <div class="card-body ">
                                 <p class="card-description text-center">为您提供一个稳定高效的平台</p>
-                                <span class="bmd-form-group">
+                                <div class="bmd-form-group">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                                 <i class="material-icons">person</i>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control" id="userName" placeholder="用户名...">
+                                        <input type="text" class="form-control" id="userName" placeholder="用户名..." />
                                     </div>
-                                </span>
-                                <span class="bmd-form-group">
+                                </div>
+                                <div class="bmd-form-group">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                                 <i class="material-icons">lock</i>
                                             </span>
                                         </div>
-                                        <input type="password" class="form-control" id="userPwd" placeholder="密码...">
+                                        <input type="password" class="form-control" id="userPwd" placeholder="密码..." />
                                     </div>
-                                </span>
+                                </div>
+                                <div class="bmd-form-group">
+                                    <div class="input-group radio_group">
+                                        <div class="checkbox-radios">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="exampleRadios" value="option1" checked />
+                                                    员工
+                                                        <span class="circle">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="exampleRadios" value="option2" />
+                                                    客户
+                                                        <span class="circle">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer justify-content-center">
                                 <input type="button" id="submit" class="btn btn-rose btn-link btn-lg" value="登录" />
