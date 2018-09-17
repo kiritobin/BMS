@@ -62,6 +62,7 @@
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\storageManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
+    <Content Include="BasicInfor\bookshelfManagement.aspx" />
     <Content Include="demo\alert.html" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
@@ -120,6 +121,13 @@
     <Compile Include="AccessMGT\userManagement.aspx.designer.cs">
       <DependentUpon>userManagement.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BasicInfor\bookshelfManagement.aspx.cs">
+      <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
+      <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CommonPage.aspx.cs">
       <DependentUpon>CommonPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -173,7 +181,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BasicInfor\" />
     <Folder Include="CustomerMGT\" />
     <Folder Include="Customer\" />
     <Folder Include="InventoryMGT\" />
