@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace bms.Web
+namespace bms.Web.BasicInfor
 {
-    public partial class main : CommonPage
+    public partial class bookshelfManagement : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
