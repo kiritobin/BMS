@@ -257,21 +257,27 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <%for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                                                    { %>
                                                 <tr>
-                                                    <td>1
+                                                    <td>i
                                                     </td>
-                                                    <td>126001
+                                                    <td>
+                                                        <%=ds.Tables[0].Rows[i]["customerId"] %>
                                                     </td>
-                                                    <td>云南工商学院
+                                                    <td>
+                                                        <%=ds.Tables[0].Rows[i]["customerName"] %>
                                                     </td>
-                                                    <td>嵩明县
+                                                    <td>
+                                                        <%=ds.Tables[0].Rows[i]["regionName"] %>
                                                     </td>
                                                     <td>
                                                         <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <%} %>
+                                                <%--                                                <tr>
                                                     <td>2
                                                     </td>
                                                     <td>126002
@@ -284,7 +290,7 @@
                                                         <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
-                                                </tr>
+                                                </tr>--%>
                                             </tbody>
                                         </table>
                                     </div>
@@ -359,12 +365,12 @@
                     </div>
                 </div>
             </div>
-            <!--编辑用户模态框-->
+            <!--编辑客户模态框-->
             <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">编辑用户
+                            <h4 class="modal-title float-left" id="myModalLabe2">编辑客户
                             </h4>
                         </div>
                         <div class="modal-body">

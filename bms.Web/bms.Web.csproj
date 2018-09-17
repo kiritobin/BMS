@@ -89,6 +89,8 @@
     <Content Include="js\demo.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
+    <Content Include="js\jsencrypt.min.js" />
+    <Content Include="js\login.js" />
     <Content Include="js\material-dashboard.min.js" />
     <Content Include="js\perfect-scrollbar.jquery.min.js" />
     <Content Include="js\popper.min.js" />
@@ -186,6 +188,16 @@
     <Folder Include="InventoryMGT\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="SalesMGT\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\bms.Bll\bms.Bll.csproj">
+      <Project>{F131BEE1-4554-4A96-A998-8B031FA59979}</Project>
+      <Name>bms.Bll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bms.Model\bms.Model.csproj">
+      <Project>{71E48A40-E95D-47B8-A703-B98C07376615}</Project>
+      <Name>bms.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
