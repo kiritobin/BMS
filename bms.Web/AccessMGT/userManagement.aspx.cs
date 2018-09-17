@@ -12,10 +12,12 @@ namespace bms.Web.AccessMGT
 {
     public partial class userManagement : System.Web.UI.Page
     {
-        public int pageSize = 5, getCurrentPage = 0, totalCount, intPageCount;
-        public string currentPage, search, strSearch;
+        public int currentPage = 1, pageSize = 5, getCurrentPage = 0, totalCount, intPageCount;
+        public string search, strSearch;
         public DataSet dsRegion, dsRole, ds;
         UserBll userBll = new UserBll();
+        RegionBll regionBll = new RegionBll();
+        RoleBll roleBll = new RoleBll();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -29,17 +31,23 @@ namespace bms.Web.AccessMGT
         /// </summary>
         protected void getData()
         {
+            //获取分页数据
             TableBuilder tbd = new TableBuilder()
             {
                 StrTable = "V_User",
-                OrderBy = "teaAccount",
-                StrColumnlist = "*",
+                OrderBy = "userID",
+                StrColumnlist = "userID,userName,regionName,roleName",
                 IntPageSize = pageSize,
-                IntPageNum = int.Parse(currentPage),
-                StrWhere = ""
+                IntPageNum = currentPage,
+                StrWhere = " "
             };
-            getCurrentPage = int.Parse(currentPage);
+            getCurrentPage = currentPage;
+            //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount,out intPageCount);
+            //获取地区下拉框数据
+            dsRegion = regionBll.select();
+            //获取角色下拉框数据
+            dsRole = roleBll.select();
         }
 
         /// <summary>
