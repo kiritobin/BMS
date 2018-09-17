@@ -23,11 +23,13 @@ namespace bms.Dao
             object[] values = { userID };
             User user = new User();
             MySqlDataReader reader = db.ExecuteReader(sql, param, values);
+            Role role = new Role();
             while (reader.Read())
             {
                 user.UserId = reader.GetInt32(0);
                 user.Pwd = reader.GetString(1);
-                user.RoleId.RoleId = reader.GetInt32(2);
+                role.RoleId = reader.GetInt32(2);
+                user.RoleId = role;
             }
             reader.Close();
             return user; ;
