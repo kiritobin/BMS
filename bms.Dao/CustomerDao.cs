@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using bms.DBHelper;
+using bms.Model;
 
 namespace bms.Dao
 {

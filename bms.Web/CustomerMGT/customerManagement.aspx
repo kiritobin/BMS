@@ -226,12 +226,11 @@
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="1">五华区</option>
-                                                <option value="2">西山区</option>
-                                                <option value="3">官渡区</option>
-                                                <option value="4">盘龙区</option>
-                                                <option value="5">东川区</option>
-                                                <option value="6">呈贡区</option>
+                                                <option value="0">请选择地区</option>
+                                                <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
+                                                    { %>
+                                                <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"]%></option>
+                                                <%} %>
                                             </select>
                                             &nbsp &nbsp
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
@@ -260,11 +259,12 @@
                                                 <%for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                                                     { %>
                                                 <tr>
-                                                    <td>i
+                                                    <td>
+                                                        <%=i %>
                                                     </td>
                                                     <td>
                                                         <%=ds.Tables[0].Rows[i]["customerId"] %>
-                                                    </td>
+                                                    </td>   
                                                     <td>
                                                         <%=ds.Tables[0].Rows[i]["customerName"] %>
                                                     </td>

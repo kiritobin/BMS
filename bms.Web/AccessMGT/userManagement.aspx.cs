@@ -32,15 +32,13 @@ namespace bms.Web.AccessMGT
         protected void getData()
         {
             //获取分页数据
-            TableBuilder tbd = new TableBuilder()
-            {
-                StrTable = "V_User",
-                OrderBy = "userID",
-                StrColumnlist = "userID,userName,regionName,roleName",
-                IntPageSize = pageSize,
-                IntPageNum = currentPage,
-                StrWhere = " "
-            };
+            TableBuilder tbd = new TableBuilder();
+            tbd.StrTable = "V_User";
+            tbd.OrderBy = "userID";
+            tbd.StrColumnlist = "userID,userName,regionName,roleName";
+            tbd.IntPageSize = pageSize;
+            tbd.StrWhere = "";
+            tbd.IntPageNum = currentPage;
             getCurrentPage = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount,out intPageCount);

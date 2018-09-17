@@ -24,7 +24,18 @@ namespace bms.Web.CustomerMGT
         public void getData()
         {
             CustomerBll cBll = new CustomerBll();
-            ds = cBll.select();
+            RegionBll reBll = new RegionBll();
+            regionDs = reBll.select();
+            TableBuilder tBuilder = new TableBuilder()
+            {
+                StrTable = "V_Customer",
+                StrWhere = "",
+                IntPageNum = 1,
+                IntPageSize = 4
+            };
+            int totalCount = 1;
+            int pageCount;
+            ds = cBll.selectByPage(tBuilder, out totalCount, out pageCount);
         }
     }
 }
