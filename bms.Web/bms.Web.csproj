@@ -63,6 +63,9 @@
     <Content Include="AccessMGT\storageManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookshelfManagement.aspx" />
+    <Content Include="bin\bms.Bll.dll" />
+    <Content Include="bin\bms.Model.dll" />
+    <Content Include="css\qc.css" />
     <Content Include="demo\alert.html" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
@@ -77,6 +80,7 @@
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.css" />
     <Content Include="css\zgz.css" />
+    <Content Include="demo\form_demo.html" />
     <Content Include="demo\loginDemo.html" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
