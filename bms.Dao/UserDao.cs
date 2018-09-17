@@ -16,7 +16,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet select()
         {
-            string comText = "select userId,userName,regionId,roleId from T_User";
+            string comText = "select userId,userName,regionName,roleName from V_User";
             DataSet ds = db.FillDataSet(comText, null, null);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -35,7 +35,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet selectByRegion(int regionId)
         {
-            string comText = "select userId,userName,regionId,roleId from T_User where regionId=@regionId";
+            string comText = "select userId,userName,regionName,roleName from V_User where regionId=@regionId";
             string[] param = { "@regionId" };
             object[] values = { regionId };
             DataSet ds = db.FillDataSet(comText, null, null);

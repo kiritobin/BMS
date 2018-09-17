@@ -179,6 +179,16 @@
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="SalesMGT\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\bms.Bll\bms.Bll.csproj">
+      <Project>{f131bee1-4554-4a96-a998-8b031fa59979}</Project>
+      <Name>bms.Bll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bms.Model\bms.Model.csproj">
+      <Project>{71e48a40-e95d-47b8-a703-b98c07376615}</Project>
+      <Name>bms.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

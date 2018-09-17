@@ -229,17 +229,15 @@
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="1">五华区</option>
-                                                <option value="2">西山区</option>
-                                                <option value="3">官渡区</option>
-                                                <option value="4">盘龙区</option>
-                                                <option value="5">东川区</option>
-                                                <option value="6">呈贡区</option>
+                                                <%for(int i=0; i<dsRegion.Tables[0].Rows.Count;i++){ %>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                <%} %>
                                             </select>
                                             &nbsp
                                             <select class="selectpicker" title="请选择角色" data-style="btn-sm" id="select-role">
-                                                <option value="1">售货员</option>
-                                                <option value="2">入库管理</option>
+                                                <%for(int i=0; i<dsRole.Tables[0].Rows.Count;i++){ %>
+                                                    <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
+                                                <%} %>
                                             </select>
                                             &nbsp &nbsp
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
@@ -252,47 +250,28 @@
                                         <table class="table">
                                             <thead class="text-danger">
                                                 <tr>
-                                                    <th>序号
-                                                    </th>
-                                                    <th>账号
-                                                    </th>
-                                                    <th>地区
-                                                    </th>
-                                                    <th>角色
-                                                    </th>
-                                                    <th class="table-thead-th">操作
-                                                    </th>
+                                                    <th>序号</th>
+                                                    <th>账号</th>
+                                                    <th>用户名</th>
+                                                    <th>地区</th>
+                                                    <th>角色</th>
+                                                    <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <%for(int i=0;i<ds.Tables[0].Rows.Count;i++){ %>
                                                 <tr>
-                                                    <td>2
-                                                    </td>
-                                                    <td>10001
-                                                    </td>
-                                                    <td>昆明五华区
-                                                    </td>
-                                                    <td>操作员
-                                                    </td>
+                                                    <td><%=i+1+((getCurrentPage-1)*pageSize) %></td>
+                                                    <td><%=ds.Tables[0].Rows[i]["userId"] %></td>
+                                                    <td><%=ds.Tables[0].Rows[i]["userName"] %></td>
+                                                    <td><%=ds.Tables[0].Rows[i]["regionName"] %></td>
+                                                    <td><%=ds.Tables[0].Rows[i]["roleName"] %></td>
                                                     <td>
                                                         <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
+                                                        <button class="btn btn-danger btn-sm" id="btnDel"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>1
-                                                    </td>
-                                                    <td>10001
-                                                    </td>
-                                                    <td>昆明五华区
-                                                    </td>
-                                                    <td>操作员
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
-                                                    </td>
-                                                </tr>
+                                                <%} %>
                                             </tbody>
                                         </table>
                                     </div>
