@@ -72,7 +72,6 @@
     <Content Include="css\lgd.css" />
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.css" />
-    <Content Include="css\M_select.css" />
     <Content Include="css\zgz.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -88,7 +87,6 @@
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="js\material-dashboard.min.js" />
-    <Content Include="js\M_select.js" />
     <Content Include="js\perfect-scrollbar.jquery.min.js" />
     <Content Include="js\popper.min.js" />
     <Content Include="login.aspx" />

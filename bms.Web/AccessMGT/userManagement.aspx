@@ -40,6 +40,31 @@
         .page-box {
             margin-top: 20px;
         }
+
+        .input-search {
+            background-image: linear-gradient(to top,#d2d2d2 2px,rgba(156,39,176,0) 2px),linear-gradient(to top,#d2d2d2 1px,rgba(210,210,210,0) 1px) !important;
+            margin-top: 4px;
+        }
+
+        #btn-search {
+            height: 35px;
+        }
+
+        .model-tab-td-span {
+            float: right;
+            margin-top: 5px;
+        }
+
+        .model-table tr td {
+            border-top: none;
+        }
+
+        .model-td-left {
+            width: 30%;
+        }
+        #model-btns {
+            margin-right:20px;
+        }
     </style>
 </head>
 
@@ -164,28 +189,27 @@
                             <div class="card">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title ">用户管理</h4>
-                                    <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                                    <p class="card-category">可对用户进行操作</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <div style="display: inline-block; width: 150px;">
-                                                <select class="select03">
-                                                    <option value="01">第一个下拉</option>
-                                                    <option value="02">第二个下拉</option>
-                                                    <option value="03">第三个下拉</option>
-                                                </select>
-                                            </div>
-                                            <div style="display: inline-block; width: 150px;">
-                                                <select class="select03">
-                                                    <option value="01">第一个下拉</option>
-                                                    <option value="02">第二个下拉</option>
-                                                    <option value="03">第三个下拉</option>
-                                                </select>
-                                            </div>
-                                            <input type="text" value="" class="form-control col-sm-2" placeholder="请输入查询条件">
-                                            <button class="btn btn-success btn-sm"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
-
+                                            <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
+                                                <option value="1">五华区</option>
+                                                <option value="2">西山区</option>
+                                                <option value="3">官渡区</option>
+                                                <option value="4">盘龙区</option>
+                                                <option value="5">东川区</option>
+                                                <option value="6">呈贡区</option>
+                                            </select>
+                                            &nbsp
+                                            <select class="selectpicker" title="请选择角色" data-style="btn-sm" id="select-role">
+                                                <option value="1">售货员</option>
+                                                <option value="2">入库管理</option>
+                                            </select>
+                                            &nbsp &nbsp
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
+                                            <button class="btn btn-success btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -206,7 +230,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>1
+                                                    <td>2
                                                     </td>
                                                     <td>10001
                                                     </td>
@@ -229,8 +253,8 @@
                                                     <td>操作员
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-warning btn-sm"><i class="fa fa-pencil fa-lg"></i>编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>删除</button>
+                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
+                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -273,57 +297,72 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加专业
-                            </h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="modal-body">
-                                <table>
-                                    <tr>
-                                        <td>账号:</td>
-                                         <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>密码:</td>
-                                         <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>地区:</td>
-                                         <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>角色:</td>
-                                         <td></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
-                        </div>
+        </div>
+        <!-- 添加用户模态框 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left" id="myModalLabel">添加用户
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table model-table">
+                            <tr>
+                                <td class="model-td-left"><span class="model-tab-td-span">账号:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入地区"></td>
+                            </tr>
+                            <tr>
+                                <td><span class="model-tab-td-span">密码:</span></td>
+                                <td>
+                                    <input type="password" value="" class="form-control col-sm-9 input-search" placeholder="请输入密码"></td>
+                            </tr>
+                            <tr>
+                                <td><span class="model-tab-td-span">地区:</span></td>
+                                <td>
+                                    <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
+                                        <option value="1">五华区</option>
+                                        <option value="2">西山区</option>
+                                        <option value="3">官渡区</option>
+                                        <option value="4">盘龙区</option>
+                                        <option value="5">东川区</option>
+                                        <option value="6">呈贡区</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="model-tab-td-span">角色:</span></td>
+                                <td>
+                                    <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-role">
+                                        <option value="1">入库管理员</option>
+                                        <option value="2">零售员</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btns">关闭</button>
+                        <button type="submit" class="btn btn-success btn-sm model-btns" id="btnAdd">提交</button>
                     </div>
                 </div>
             </div>
-            <!-- 主界面页脚部分 -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <!-- 版权内容 -->
-                    <div class="copyright text-center">
-                        &copy;
+        </div>
+        <!-- 主界面页脚部分 -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <!-- 版权内容 -->
+                <div class="copyright text-center">
+                    &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        , made with <i class="material-icons">favorite</i> by
+                    , made with <i class="material-icons">favorite</i> by
                         <a href="javascript:;" target="_blank"></a>for a better web.
-                    </div>
                 </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
@@ -332,6 +371,7 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/M_select.js"></script>
     <script>
         $(document).ready(function () {
