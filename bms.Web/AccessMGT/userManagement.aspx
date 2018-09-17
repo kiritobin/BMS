@@ -428,7 +428,7 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">地区:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" disabled="disabled">
+                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm">
                                             <option value="1">五华区</option>
                                             <option value="2">西山区</option>
                                             <option value="3">官渡区</option>
@@ -441,7 +441,7 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">角色:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" disabled="disabled">
+                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm">
                                             <option value="1">入库管理员</option>
                                             <option value="2" selected="selected">零售员</option>
                                         </select>
@@ -451,7 +451,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                            <button type="button" class="btn btn-info btn-sm" id="model-btn-eidter">编辑</button>
+                          <%--  <button type="button" class="btn btn-info btn-sm" id="model-btn-eidter">编辑</button>--%>
                             <button type="submit" class="btn btn-success btn-sm">提交</button>
                         </div>
                     </div>
