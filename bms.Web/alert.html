@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <!-- CSS Files -->
+    <link href="css/material-dashboard.min.css?v=2.0.2" rel="stylesheet" />
+    <!-- 消息提示框所需css -->
+    <link rel="stylesheet" href="css/demo.css">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div class="places-sweet-alerts">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card ">
+                    <div class="card-body text-center">
+                        <h5 class="card-text">Basic example</h5>
+                        <button class="btn btn-rose btn-fill" onclick=demo.showSwal('basic')>Try me!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card ">
+                    <div class="card-body text-center">
+                        <h5 class="card-text">A title with a text under</h5>
+                        <button class="btn btn-rose btn-fill" onclick=demo.showSwal('title-and-text')>Try me!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card ">
+                    <div class="card-body text-center">
+                        <h5 class="card-text">A success message</h5>
+                        <button class="btn btn-rose btn-fill" onclick=demo.showSwal('success-message')>Try me!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card ">
+                    <div class="card-body text-center">
+                        <h5 class="card-text">Custom HTML description</h5>
+                        <button class="btn btn-rose btn-fill" onclick=demo.showSwal('custom-html')>Try me!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card ">
+                    <div class="card-body text-center">
+                        <h5 class="card-text">A warning message, with a function attached to the "Confirm" Button...</h5>
+                        <button class="btn btn-rose btn-fill" onclick=demo.showSwal('warning-message-and-confirmation')>
+                            Try
+                            me!
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card ">
+                    <div class="card-body text-center">
+                        <h5 class="card-text">
+                            ...and by passing a parameter, you can execute something else for
+                            "Cancel"
+                        </h5>
+                        <button class="btn btn-rose btn-fill" onclick=demo.showSwal('warning-message-and-cancel')>
+                            Try
+                            me!
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card ">
+                    <div class="card-body text-center">
+                        <h5 class="card-text">A message with auto close timer set to 2 seconds</h5>
+                        <button class="btn btn-rose btn-fill" onclick=demo.showSwal('auto-close')>Try me!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card ">
+                    <div class="card-body text-center">
+                        <h5 class="card-text">Modal window with input field</h5>
+                        <button class="btn btn-rose btn-fill" onclick=demo.showSwal('input-field')>Try me!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap-material-design.min.js" type="text/javascript"></script>
+    <!--  消息提示框js -->
+    <script src="js/sweetalert2.js"></script>
+    <script src="js/demo.js"></script>
+
+</body>
+
+</html>
