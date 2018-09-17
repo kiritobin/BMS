@@ -75,6 +75,7 @@
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.css" />
     <Content Include="css\zgz.css" />
+    <Content Include="CustomerMGT\customerManagement.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="imgs\sidebar-2.jpg" />
@@ -115,6 +116,13 @@
     </Compile>
     <Compile Include="AccessMGT\userManagement.aspx.designer.cs">
       <DependentUpon>userManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerMGT\customerManagement.aspx.cs">
+      <DependentUpon>customerManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerMGT\customerManagement.aspx.designer.cs">
+      <DependentUpon>customerManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
@@ -160,7 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BasicInfor\" />
-    <Folder Include="CustomerMGT\" />
     <Folder Include="Customer\" />
     <Folder Include="InventoryMGT\" />
     <Folder Include="obj\Debug\TempPE\" />
