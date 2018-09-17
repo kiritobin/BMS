@@ -62,7 +62,6 @@
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\storageManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
-    <Content Include="CustomerMGT\customerManagement.aspx" />
     <Content Include="demo\alert.html" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
@@ -89,6 +88,8 @@
     <Content Include="js\demo.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
+    <Content Include="js\jsencrypt.min.js" />
+    <Content Include="js\login.js" />
     <Content Include="js\material-dashboard.min.js" />
     <Content Include="js\perfect-scrollbar.jquery.min.js" />
     <Content Include="js\popper.min.js" />
@@ -127,13 +128,6 @@
     </Compile>
     <Compile Include="CommonPage.aspx.designer.cs">
       <DependentUpon>CommonPage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerMGT\customerManagement.aspx.cs">
-      <DependentUpon>customerManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CustomerMGT\customerManagement.aspx.designer.cs">
-      <DependentUpon>customerManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -182,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BasicInfor\" />
+    <Folder Include="CustomerMGT\" />
     <Folder Include="Customer\" />
     <Folder Include="InventoryMGT\" />
     <Folder Include="obj\Debug\TempPE\" />
@@ -189,11 +184,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bms.Bll\bms.Bll.csproj">
-      <Project>{f131bee1-4554-4a96-a998-8b031fa59979}</Project>
+      <Project>{F131BEE1-4554-4A96-A998-8B031FA59979}</Project>
       <Name>bms.Bll</Name>
     </ProjectReference>
     <ProjectReference Include="..\bms.Model\bms.Model.csproj">
-      <Project>{71e48a40-e95d-47b8-a703-b98c07376615}</Project>
+      <Project>{71E48A40-E95D-47B8-A703-B98C07376615}</Project>
       <Name>bms.Model</Name>
     </ProjectReference>
   </ItemGroup>
