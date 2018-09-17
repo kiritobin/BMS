@@ -62,7 +62,7 @@
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\storageManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
-    <Content Include="alert.html" />
+    <Content Include="demo\alert.html" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
     <Content Include="CommonPage.aspx" />
@@ -76,9 +76,11 @@
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.css" />
     <Content Include="css\zgz.css" />
+    <Content Include="demo\loginDemo.html" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="imgs\login.jpg" />
     <Content Include="imgs\sidebar-2.jpg" />
     <Content Include="js\bootstrap-material-design.min.js" />
     <Content Include="js\bootstrap-selectpicker.js" />
@@ -93,8 +95,7 @@
     <Content Include="js\userManagement.js" />
     <Content Include="login.aspx" />
     <Content Include="main.aspx" />
-    <Content Include="paging.html" />
-    <Content Include="test.html" />
+    <Content Include="demo\paging.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
