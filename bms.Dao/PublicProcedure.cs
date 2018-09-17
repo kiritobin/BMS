@@ -22,7 +22,7 @@ namespace bms.Dao
         public DataSet SelectBypage(TableBuilder tablebuilder,out int totalCount, out int intPageCount)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("sp_page ");
+            strSql.Append("sp_page");
             MySqlParameter[] values = {
                 new MySqlParameter("@strColumnlist", SqlDbType.VarChar),
                 new MySqlParameter("@strTable", SqlDbType.VarChar),
