@@ -49,8 +49,9 @@
 .page-box {
     margin-top: 20px;
 }
+
 .table-thead-th {
-width:200px;
+    width: 200px;
 }
 /*输入框样式*/
 .input-search {
@@ -75,7 +76,11 @@ width:200px;
     width: 30%;
 }
 
-#model-btns {
+.model-td-left2 {
+    width: 40%;
+}
+
+#model-btnclose1, #model-btnclose2, #model-btn-eidter {
     margin-right: 20px;
 }
 /*子菜单移过公共样式*/
