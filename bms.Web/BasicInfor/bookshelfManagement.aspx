@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bookshelfManagement.aspx.cs" Inherits="bms.Web.BasicInfor.bookshelfManagement" %>
-
+<%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">

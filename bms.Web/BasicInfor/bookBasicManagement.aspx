@@ -1,10 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="userManagement.aspx.cs" Inherits="bms.Web.AccessMGT.userManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bookBasicManagement.aspx.cs" Inherits="bms.Web.BasicInfor.bookBasicManagement" %>
 <%="" %>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
+
 <html class="no-js">
 <!--<![endif]-->
 
@@ -43,7 +40,7 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="material-icons">security</i>
                             <p>
@@ -51,9 +48,9 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="securityManage">
+                        <div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor foucsColor">
+                                <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
@@ -147,7 +144,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="material-icons">bubble_chart</i>
                             <p>
@@ -155,14 +152,14 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="baseManage">
+                        <div class="collapse show" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">价位管理</span>
+                                        <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item hoverColor foucsColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
@@ -183,7 +180,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">权限管理</a>
+                        <a class="navbar-brand" href="#pablo">书籍基础数据管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -222,24 +219,12 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">用户管理</h4>
-                                    <p class="card-category">可对用户进行操作</p>
+                                    <h4 class="card-title ">书籍基础数据管理</h4>
+                                    <p class="card-category">可对书籍基础数据操作</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <%for(int i=0; i<dsRegion.Tables[0].Rows.Count;i++){ %>
-                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%} %>
-                                            </select>
-                                            &nbsp
-                                            <select class="selectpicker" title="请选择角色" data-style="btn-sm" id="select-role">
-                                                <%for(int i=0; i<dsRole.Tables[0].Rows.Count;i++){ %>
-                                                    <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                                <%} %>
-                                            </select>
-                                            &nbsp &nbsp
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
@@ -247,80 +232,63 @@
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table table-bordered">
                                             <thead class="text-danger">
-                                                <tr>
-                                                    <th>序号</th>
-                                                    <th>账号</th>
-                                                    <th>用户名</th>
-                                                    <th>地区</th>
-                                                    <th>角色</th>
-                                                    <th class="table-thead-th">操作</th>
+                                                <tr class="book-tab-tr">
+                                                    <th>序号
+                                                    </th>
+                                                    <th>书名
+                                                    </th>
+                                                    <th>作者
+                                                    </th>
+                                                    <th>定价
+                                                    </th>
+                                                     <th>出版日期
+                                                    </th>
+                                                     <th>出版社
+                                                    </th>
+                                                    <th>ISBN
+                                                    </th>
+                                                    <th class="table-thead-th">操作
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <%for(int i=0;i<ds.Tables[0].Rows.Count;i++){ %>
                                                 <tr>
-                                                    <td><%=i+1+((getCurrentPage-1)*pageSize) %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["userID"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["userName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["regionName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["roleName"] %></td>
+                                                    <td>1
+                                                    </td>
+                                                    <td>bootstrap 入门经典sssss
+                                                    </td>
+                                                    <td>Jennife Kyrnin
+                                                    </td>
+                                                    <td>59.00￥
+                                                    </td>
+                                                    <td>2016年12月第一版
+                                                    </td>
+                                                    <td>人民邮电出版社
+                                                    </td>
+                                                    <td>7115438546
+                                                    </td>
                                                     <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
-                                                        <button class="btn btn-danger btn-sm" id="btnDel"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
+                                                        <button class="btn btn-info btn-sm">&nbsp 查看</button>
+                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
-                                                <%} %>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
-                                        <%-- <ul class="pagination page-ul">
-                                            <li>
-                                                <a href="#" class="jump" id="first">首页</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="jump" id="prev">
-                                                    <i class="fa fa-angle-left fa-lg"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <span class="jump">1
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span class="page">/</span>
-                                            </li>
-                                            <li>
-                                                <span class="page">1
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <a href="#" id="next" class="jump">
-                                                    <i class="fa fa-angle-right fa-lg"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="jump" id="last">尾页</a>
-                                            </li>
-                                        </ul>--%>
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <ul class="pagination">
                                                 <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="0" tabindex="0" class="page-link jump">首页</a></li>
+                                                    data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
                                                 <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link jump">上一页</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="2"
-                                                    tabindex="0" class="page-link"><%=getCurrentPage %></a></li>
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">/</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5"
-                                                    tabindex="0" class="page-link"><%=intPageCount %></a></li>
+                                                    data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
+                                                <li>1/2</li>
                                                 <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link jump">下一页</a></li>
+                                                    data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
                                                 <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link jump">尾页</a></li>
+                                                    data-dt-idx="7" tabindex="0" class="page-link">尾页</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -330,28 +298,18 @@
                     </div>
                 </div>
             </div>
-            <!--添加用户模态框-->
+            <!--添加货架模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加用户
+                            <h4 class="modal-title float-left" id="myModalLabel">添加货架
                             </h4>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">账号:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入地区"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">密码:</span></td>
-                                    <td>
-                                        <input type="password" value="" class="form-control col-sm-9 input-search" placeholder="请输入密码"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
+                                    <td class="model-td-left"><span class="model-tab-td-span">货架所在地区:</span></td>
                                     <td>
                                         <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
                                             <option value="1">五华区</option>
@@ -364,11 +322,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">角色:</span></td>
+                                    <td><span class="model-tab-td-span">货架名称:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-role">
-                                            <option value="1">入库管理员</option>
-                                            <option value="2">零售员</option>
+                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm">
+                                            <option value="1">五华区货架</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -376,59 +333,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--编辑用户模态框-->
-            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">编辑用户
-                            </h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table model-table">
-                                <tr>
-                                    <td class="model-td-left2"><span class="model-tab-td-span">账号:</span></td>
-                                    <td>
-                                        10001</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">密码:</span></td>
-                                    <td>
-                                         <button type="button" class="btn btn-default btn-sm">重置密码</button></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
-                                    <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm">
-                                            <option value="1">五华区</option>
-                                            <option value="2">西山区</option>
-                                            <option value="3">官渡区</option>
-                                            <option value="4" selected="selected">盘龙区</option>
-                                            <option value="5">东川区</option>
-                                            <option value="6">呈贡区</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">角色:</span></td>
-                                    <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm">
-                                            <option value="1">入库管理员</option>
-                                            <option value="2" selected="selected">零售员</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                          <%--  <button type="button" class="btn btn-info btn-sm" id="model-btn-eidter">编辑</button>--%>
-                            <button type="submit" class="btn btn-success btn-sm">提交</button>
+                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
                         </div>
                     </div>
                 </div>
@@ -449,8 +354,6 @@
             </footer>
         </div>
     </div>
-    <input type="hidden" value="<%=getCurrentPage %>" id="page" />
-    <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
@@ -459,8 +362,6 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
-    <script>
-    </script>
 </body>
 
 </html>

@@ -84,7 +84,7 @@
                                         <div class="checkbox-radios">
                                             <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="exampleRadios" value="option1" checked />
+                                                    <input class="form-check-input" type="radio" name="user" value="staff" checked />
                                                     员工
                                                         <span class="circle">
                                                             <span class="check"></span>
@@ -93,7 +93,7 @@
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="exampleRadios" value="option2" />
+                                                    <input class="form-check-input" type="radio" name="user" value="customer" />
                                                     客户
                                                         <span class="circle">
                                                             <span class="check"></span>
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                             <div class="card-footer justify-content-center">
-                                <input type="button" id="submit" class="btn btn-rose btn-link btn-lg" value="登录" />
+                                <a href="#" id="submit" class="btn btn-rose btn-link btn-lg">登录</a>
                             </div>
                         </div>
                     </form>
