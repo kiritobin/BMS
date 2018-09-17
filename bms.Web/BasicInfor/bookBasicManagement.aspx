@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bookBasicManagement.aspx.cs" Inherits="bms.Web.BasicInfor.bookBasicManagement" %>
+
 <%="" %>
 <!DOCTYPE html>
 
@@ -243,9 +244,9 @@
                                                     </th>
                                                     <th>定价
                                                     </th>
-                                                     <th>出版日期
+                                                    <th>出版日期
                                                     </th>
-                                                     <th>出版社
+                                                    <th>出版社
                                                     </th>
                                                     <th>ISBN
                                                     </th>
@@ -270,7 +271,7 @@
                                                     <td>7115438546
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-info btn-sm">&nbsp 查看</button>
+                                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp 查看</button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
@@ -284,7 +285,11 @@
                                                     data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
                                                 <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
                                                     data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
-                                                <li>1/2</li>
+                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="3"
+                                                    tabindex="0" class="page-link">2</a></li>
+                                                <!--类名active表示当前页 -->
+                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="4"
+                                                    tabindex="0" class="page-link">3</a></li>
                                                 <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
                                                     data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
                                                 <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
@@ -298,42 +303,108 @@
                     </div>
                 </div>
             </div>
-            <!--添加货架模态框-->
+            <!--添加书籍模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加货架
+                            <h4 class="modal-title float-left" id="myModalLabel">添加书籍
                             </h4>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">货架所在地区:</span></td>
+                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">书名:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
-                                            <option value="1">五华区</option>
-                                            <option value="2">西山区</option>
-                                            <option value="3">官渡区</option>
-                                            <option value="4">盘龙区</option>
-                                            <option value="5">东川区</option>
-                                            <option value="6">呈贡区</option>
-                                        </select>
-                                    </td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入书名"></td>
+                                    <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">作者:</span></td>
+                                    <td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入作者"></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">货架名称:</span></td>
+                                    <td><span class="model-tab-td-span">定价:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm">
-                                            <option value="1">五华区货架</option>
-                                        </select>
-                                    </td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入定价"></td>
+                                    <td><span class="model-tab-td-span">出版日期:</span></td>
+                                    <td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入日期"></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">出版社:</span></td>
+                                    <td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入出版社"></td>
+                                    <td><span class="model-tab-td-span">ISBN:</span></td>
+                                    <td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入ISBN"></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">编目:</span></td>
+                                    <td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入编目"></td>
+                                    <td><span class="model-tab-td-span">标识:</span></td>
+                                    <td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入标识"></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">备注:</span></td>
+                                    <td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入备注"></td>
                                 </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--查看书籍模态框-->
+            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="width:700px;max-width:800px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabe2">查看书籍信信息
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered model-table">
+                                <tr>
+                                    <td><span class="model-tab-td-span">书号:</span></td>
+                                    <td>711543854600000001</td>
+                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">书名:</span></td>
+                                    <td>bootstrap 入门经典</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">作者:</span></td>
+                                    <td>Jennife Kyrnin</td>
+                                    <td><span class="model-tab-td-span">定价:</span></td>
+                                    <td>59.00￥</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">出版日期:</span></td>
+                                    <td>2016年12月第一版</td>
+                                    <td><span class="model-tab-td-span">出版社:</span></td>
+                                    <td>人民邮电出版社</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">ISBN:</span></td>
+                                    <td>7115438546</td>
+                                    <td><span class="model-tab-td-span">编目:</span></td>
+                                    <td>编目</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">标识:</span></td>
+                                    <td>标识9</td>
+                                    <td><span class="model-tab-td-span">备注:</span></td>
+                                    <td>web前端框架</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
+                            <%--  <button type="button" class="btn btn-info btn-sm" id="model-btn-eidter">编辑</button>--%>
+                            <button type="submit" class="btn btn-success btn-sm">提交</button>
                         </div>
                     </div>
                 </div>
