@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="customerManagement.aspx.cs" Inherits="bms.Web.CustomerMGT.customerManagement" %>
+
 <%="" %>
 <!DOCTYPE html>
 
@@ -226,13 +227,22 @@
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
+                                                <option value="0">查询全部地区</option>
                                                 <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
+                                                    {
+                                                        if (regionDs.Tables[0].Rows[i]["regionId"].ToString() == showStr)
+                                                        {
+                                                %>
+                                                <option value="<%=regionDs.Tables[0].Rows[i]["regionId"].ToString() %>" selected="selected"><%=regionDs.Tables[0].Rows[i]["regionName"]%></option>
+                                                <%}
+                                                    else
                                                     { %>
                                                 <option value="<%=regionDs.Tables[0].Rows[i]["regionId"].ToString() %>"><%=regionDs.Tables[0].Rows[i]["regionName"]%></option>
-                                                <%} %>
+                                                <%}
+                                                    } %>
                                             </select>
                                             &nbsp &nbsp
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件" id="search_All">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
@@ -261,8 +271,8 @@
                                                     <td><%=i+1+((getCurrentPage-1)*pagesize) %>
                                                     </td>
                                                     <td>
-                                                       <%=ds.Tables[0].Rows[i]["customerID"] %>
-                                                    </td>   
+                                                        <%=ds.Tables[0].Rows[i]["customerID"] %>
+                                                    </td>
                                                     <td>
                                                         <%=ds.Tables[0].Rows[i]["customerName"] %>
                                                     </td>
@@ -313,23 +323,21 @@
                                 <tr>
                                     <td class="model-td-left"><span class="model-tab-td-span">账号:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入账号"></td>
+                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入账号"  id="customerId"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">客户名称:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入名称"></td>
+                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入名称" id="customerName"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">地区:</span></td>
                                     <td>
                                         <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
-                                            <option value="1">五华区</option>
-                                            <option value="2">西山区</option>
-                                            <option value="3">官渡区</option>
-                                            <option value="4">盘龙区</option>
-                                            <option value="5">东川区</option>
-                                            <option value="6">呈贡区</option>
+                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
+                                                { %>
+                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"] %></option>
+                                            <%} %>
                                         </select>
                                     </td>
                                 </tr>
