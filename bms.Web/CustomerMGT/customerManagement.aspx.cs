@@ -17,14 +17,23 @@ namespace bms.Web.CustomerMGT
         protected int getCurrentPage;//当前页
         protected int totalPage;//总页数
         protected int pagesize = 4;
+        protected string searchRegion;
+        protected string showStr;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                getData();
+                getData("");
+            }
+            if (searchRegion != null)
+            {
+                getData(SearchRegion());
             }
         }
-        public void getData()
+        /// <summary>
+        /// 获取基础数据
+        /// </summary>
+        public void getData(String strWhere)
         {
             string currentPage = Request.QueryString["currentPage"];
             if (currentPage == null || currentPage.Length < 0)
@@ -39,7 +48,7 @@ namespace bms.Web.CustomerMGT
                 StrTable = "V_Customer",
                 StrColumnlist = "customerID,customerName,regionId,regionName",
                 OrderBy = "customerID",
-                StrWhere = "",
+                StrWhere = strWhere,
                 IntPageNum = int.Parse(currentPage),
                 IntPageSize = pagesize
             };
@@ -48,6 +57,28 @@ namespace bms.Web.CustomerMGT
             ds = cBll.selectByPage(tBuilder, out totalCount, out pageCount);
             getCurrentPage = int.Parse(currentPage);
             totalPage = pageCount;
+        }
+        /// <summary>
+        /// 地区下拉查询
+        /// </summary>
+        /// <returns></returns>
+        public string SearchRegion()
+        {
+            try
+            {
+                searchRegion = Request.QueryString["strWhere"];
+                if (searchRegion.Length == 0 || searchRegion == "" || searchRegion == "0")
+                {
+                    searchRegion = "";
+                }
+                else
+                {
+                    showStr = searchRegion;
+                    searchRegion = String.Format("regionId={0}", "'" + searchRegion + "'");
+                }
+            }
+            catch { }
+            return searchRegion;
         }
     }
 }

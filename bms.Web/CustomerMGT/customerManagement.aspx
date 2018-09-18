@@ -228,7 +228,7 @@
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
                                                 <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
                                                     { %>
-                                                <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"]%></option>
+                                                <option value="<%=regionDs.Tables[0].Rows[i]["regionId"].ToString() %>"><%=regionDs.Tables[0].Rows[i]["regionName"]%></option>
                                                 <%} %>
                                             </select>
                                             &nbsp &nbsp
