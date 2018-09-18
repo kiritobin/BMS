@@ -44,29 +44,63 @@ function jump(cur) {
     var strWhere = sessionStorage.getItem("strWhere");
     var region = sessionStorage.getItem("region");
     var type = sessionStorage.getItem("type");
-    if (strWhere != null && strWhere != "") {
+    if (strWhere != null && strWhere != "" && (region == "" || region==null)) {
         window.location.href = "collectionManagement.aspx?currentPage=" + cur + "&search=" + strWhere + "&type=" + type;
-    } else if (region != null || region != "") {
+    } else if ((region != null && region != "") && (strWhere == null || strWhere == "")) {
         window.location.href = "collectionManagement.aspx?currentPage=" + cur + "&region=" + region + "&type=" + type;
-    } else {
+    }
+    else if (strWhere != null && strWhere != "" && region != null && region != "") {
+        window.location.href = "collectionManagement.aspx?currentPage=" + cur + "&region=" + region + "&type=" + type + "&search=" + strWhere;
+    }
+    else {
         window.location.href = "collectionManagement.aspx?currentPage=" + cur
     }
 }
 //点击查询按钮时
 $("#btn-search").click(function () {
     var strWhere = $("#search").val();
+    var regionId = $("#select-region").val();
     sessionStorage.setItem("strWhere", strWhere);
     sessionStorage.setItem("type", "search");
+    if (regionId == 0) {
+        sessionStorage.removeItem("region");
+        sessionStorage.setItem("search", search);
+        sessionStorage.setItem("type", "search");
+        jump(1);
+    } else {
+        sessionStorage.setItem("region", regionId);
+        sessionStorage.setItem("search", search);
+        sessionStorage.setItem("type", "searchRegion");
+        jump(1);
+    }
     jump(1);
 });
 //地区下拉框改变事件
 $("#select-region").change(function () {
     var regionId = $("#select-region").val();
-    if (regionId == 0) {
-        sessionStorage.removeItem("region");
-        sessionStorage.removeItem("type");
-    } else {
-        sessionStorage.setItem("region", regionId);
-        sessionStorage.setItem("type","region");
+    var search = $("#search").val();
+    if (search == "" || search == null) {
+        if (regionId == 0) {
+            sessionStorage.removeItem("region");
+            sessionStorage.removeItem("type");
+            jump(1);
+        } else {
+            sessionStorage.setItem("region", regionId);
+            sessionStorage.setItem("type", "region");
+            jump(1);
+        }
+    }
+    else {
+        if (regionId == 0) {
+            sessionStorage.removeItem("region");
+            sessionStorage.setItem("search", search);
+            sessionStorage.setItem("type","search");
+            jump(1);
+        } else {
+            sessionStorage.setItem("region", regionId);
+            sessionStorage.setItem("search", search);
+            sessionStorage.setItem("type", "searchRegion");
+            jump(1);
+        }
     }
 })

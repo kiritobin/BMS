@@ -228,12 +228,20 @@
                                         <div class="input-group no-border">
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
                                                 <option value="">请选择地区</option>
-                                                <%for(int i=0; i<dsRegion.Tables[0].Rows.Count;i++){ %>
-                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%} %>
+                                                <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                    {
+                                                        if (dsRegion.Tables[0].Rows[i]["regionId"].ToString() == strRegion)
+                                                        {%>
+                                                <option selected="selected" value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                <%}
+                                                    else
+                                                    {%>
+                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                <%}
+                                                    }%>
                                             </select>
                                             &nbsp &nbsp
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="search" placeholder="请输入查询条件">
+                                            <input type="text" value="<%=strSearch %>" class="form-control col-sm-2 input-search" id="search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
                                             <button class="btn btn-success btn-sm" id="btn-export"><i class="fa fa-share-square-o fa-lg"></i>&nbsp 导出</button>
@@ -260,7 +268,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <%for(int i=0;i<ds.Tables[0].Rows.Count;i++){ %>
+                                                <%for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                                                { %>
                                                 <tr>
                                                     <td><%=i+1+((getCurrentPage-1)*pageSize) %></td>
                                                     <td><%=ds.Tables[0].Rows[i]["customerName"] %></td>
@@ -316,6 +325,8 @@
             </footer>
         </div>
     </div>
+    <input type="hidden" value="<%=getCurrentPage %>" id="page" />
+    <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
