@@ -70,6 +70,7 @@ namespace bms.Web.AccessMGT
                 else
                 {
                     Response.Write("添加失败");
+                    Response.Write("老柯腾");
                 }
                 
             }

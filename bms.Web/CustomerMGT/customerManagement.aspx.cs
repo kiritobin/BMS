@@ -47,6 +47,10 @@ namespace bms.Web.CustomerMGT
             {
                 InsertCustomer();
             }
+            if(op== "editData")
+            {
+                UpdateCustomer();
+            }
         }
         /// <summary>
         /// 获取基础数据
@@ -154,6 +158,16 @@ namespace bms.Web.CustomerMGT
                     Response.End();
                 }
             }
+        }
+        public void UpdateCustomer()
+        {
+            string custId = Context.Request["customerId"],
+                custName = Context.Request["cutomerName"],
+                regId = Context.Request["zoneId"];
+            Customer cmer = new Customer();
+            cmer = cBll.getCustomer(int.Parse(custId));
+            string pwd = cmer.CustomerPwd;
+
         }
     }
 }
