@@ -10,6 +10,6 @@
 namespace bms.Web.AccessMGT {
     
     
-    public partial class WebForm1 {
+    public partial class functionManagement {
     }
 }

@@ -98,6 +98,7 @@
                 </div>
             </div>
         </div>
+        <button class="btn btn-rose btn-fill" id="btn-search">弹窗!</button>
     </div>
     <!--   Core JS Files   -->
     <script src="../js/jquery-3.3.1.min.js"></script>
@@ -106,6 +107,97 @@
     <!--  消息提示框js -->
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
+    <script>
+        $("#btn-search").click(function () {
+            sweetAlert("是否删除？", "删除了将无法恢复！！！", "question");
+        })
+        //需要点击确认按钮的弹窗
+        function sweetAlert(title, text, type) {
+            swal({
+                title: title,
+                text: text,
+                type: type,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+                allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+            }).then(function () {
+                alertType("success", "成功", "操作执行成功");
+            }, function (dismiss) {
+                // dismiss的值可以是'cancel', 'overlay',
+                // 'close', 'timer'
+                if (dismiss === 'cancel') {
+                    alertType("error", "取消", "你点击了取消");
+                }
+            })
+        }
+
+        //提示  Type (错误error（红色xx） warning（黄色警示感叹号）success绿色√ info蓝色感叹号 question问号) title（标题） text（内容）
+        function alertType(Type,title, text) {
+            switch (Type) {
+                case "success":
+                    swal({
+                        title: title,
+                        text: text,
+                        type: 'success',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                    break;
+                case "error":
+                    swal({
+                        title: title,
+                        text: text,
+                        type: 'error',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                    break;
+                case "warning":
+                    swal({
+                        title: title,
+                        text: text,
+                        type: 'warning',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                    break;
+                case "info":
+                    swal({
+                        title: title,
+                        text: text,
+                        type: 'info',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                    break;
+                case "question":
+                    swal({
+                        title: title,
+                        text: text,
+                        type: 'question',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                    break;
+            }
+        }
+    </script>
 
 </body>
 

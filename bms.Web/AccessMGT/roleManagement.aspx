@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="userManagement.aspx.cs" Inherits="bms.Web.AccessMGT.userManagement" %>
+
 <%="" %>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -38,7 +39,7 @@
                 Tip 2: 需要改变导航条的背景图片可以修改 data-image tag
             -->
             <!-- 平台字体logo -->
-          <div class="logo">
+            <div class="logo">
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
                 </a>
             </div>
@@ -180,7 +181,7 @@
         </div>
         <div class="main-panel">
             <!-- 主界面头部面板 -->
-             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+            <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
                         <a class="navbar-brand" href="#pablo">权限管理</a>
@@ -193,7 +194,7 @@
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
                     <!-- 导航栏 -->
-                   <div class="collapse navbar-collapse justify-content-end">
+                    <div class="collapse navbar-collapse justify-content-end">
                         <form class="navbar-form">
                         </form>
                         <ul class="navbar-nav">
@@ -222,83 +223,65 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">角色管理</h4>                               
+                                    <h4 class="card-title ">角色管理</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                        <input type="text" value="" class="form-control col-sm-2" placeholder="请输入查询条件">
-                                        <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;&nbsp;查询</button>
-                                      &nbsp;
+                                            <input type="text" value="" class="form-control col-sm-2" placeholder="请输入查询条件">
+                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;&nbsp;查询</button>
+                                            &nbsp;
                                     <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;&nbsp;添加</button>
-                                    </div>
+                                        </div>
                                     </div>
 
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="text-danger">
-                                             <tr>
-                                            <th>
-                                                序号
-                                            </th>
-                                            <th>
-                                                角色编号
-                                            </th>
-                                            <th>
-                                                角色名
-                                            </th>
-                                           <th>
-                                                地区
-                                            </th>
-                                            <th>
-                                                备注
-                                            </th>
-                                            <th class="table-thead-th">
-                                                操作
-                                            </th>
-                                          </tr>
-                                    </thead>
+                                                <tr>
+                                                    <th>序号
+                                                    </th>
+                                                    <th>角色编号
+                                                    </th>
+                                                    <th>角色名
+                                                    </th>
+                                                    <th>地区
+                                                    </th>
+                                                    <th>备注
+                                                    </th>
+                                                    <th class="table-thead-th">操作
+                                                    </th>
+                                                </tr>
+                                            </thead>
 
                                             <tbody>
                                                 <tr>
+                                                    <td>1
+                                                    </td>
+                                                    <td>10001
+                                                    </td>
+                                                    <td>门卫
+                                                    </td>
+                                                    <td>五华区
+                                                    </td>
+                                                    <td></td>
                                                     <td>
-                                                        1
-                                                    </td>
-                                                    <td>
-                                                        10001
-                                                    </td>
-                                                    <td>
-                                                        门卫
-                                                    </td>
-                                                    <td> 
-                                                        五华区
-                                                    </td>
-                                                    <td> 
-                                                        
-                                                    </td>
-                                                    <td>
-                                                       <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>                                                 
-                                                       <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp;删除</button>
+                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>
+                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp;删除</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
-                                                        2
+                                                    <td>2
                                                     </td>
-                                                    <td>
-                                                        10002
+                                                    <td>10002
                                                     </td>
-                                                    <td>
-                                                        操作员
+                                                    <td>操作员
                                                     </td>
-                                                    <td>
-                                                        西山区
+                                                    <td>西山区
                                                     </td>
-                                                     <td>
-                                                        
-                                                    </td>
+                                                    <td></td>
                                                     <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>                                          
+                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp;删除</button>
                                                     </td>
                                                 </tr>
@@ -306,8 +289,8 @@
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
-                                    
-                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+
+                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <ul class="pagination">
                                                 <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
                                                     data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
@@ -328,17 +311,17 @@
                                                     data-dt-idx="7" tabindex="0" class="page-link">尾页</a></li>
                                             </ul>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
 
-            <!--添加用户模态框-->
+            <!--添加角色模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="min-width: 800px">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">添加角色</h4>
@@ -368,108 +351,182 @@
                                     </td>
                                 </tr>
                             </table>
-                        </div>
-                        <div class="row">
-                        <label class="col-sm-2  model-td-left"><strong>&nbsp;&nbsp;&nbsp;&nbsp;功能：</strong></label>
-                                    <div class="col-sm-10 checkbox-radios"><br />
-                                        <div class="form-check">
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">入库
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span></span>
-                                            </label>
-                                        </div>
-                                            <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">a
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                            <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">b
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                            <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value=""> c
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        </div>
-                                        <div class="form-check">
-                                            <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">出库
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span></span>
-                                            </label>
-                                        </div>                                           
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">货存
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span></span>
-                                            </label>
-                                        </div>                                           
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label form-check-inline">
-                                                <input class="form-check-input" type="checkbox" value="">价格
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span></span>
-                                            </label>
+                            <div class="row">
+                                <table class="table">
+                                    <tr class="model-tab-function">
+                                        <td style="width: 65px"><span class="model-tab-td-functionSpan">功能:</span></td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">前台销售记录员
+                                                    <span class="form-check-sign">
+                                                        <span class="check functionCheck"></span>
+                                                    </span>
+                                                </label>
                                             </div>
-                                             <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value=""> b
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        </div>
-                                        <div class="form-check">
-                                            <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value=""> c
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                             <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value=""> c
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>                                                 
-                                             <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value=""> c
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                             <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value=""> c
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>                                                 
-                                </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">前台销售记录员
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">前台销售记录员
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">前台销售记录员
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="model-tab-function">
+                                        <td></td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="model-tab-function">
+                                        <td></td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="model-tab-function">
+                                        <td></td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">功能一
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
@@ -477,47 +534,47 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--编辑角色模态框-->
-            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">编辑角色</h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table model-table">
-                                <tr>
-                                    <td class="model-td-left2"><span class="model-tab-td-span">角色编号:</span></td>
-                                    <td>10001</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">角色名:</span></td>
-                                    <td>门卫</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
-                                    <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm">
-                                            <option value="1">五华区</option>
-                                            <option value="2">西山区</option>
-                                            <option value="3">官渡区</option>
-                                            <option value="4" selected="selected">盘龙区</option>
-                                            <option value="5">东川区</option>
-                                            <option value="6">呈贡区</option>
-                                        </select>
-                                    </td>
-                                </tr>                        
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm">提交</button>
+                <!--编辑角色模态框-->
+                <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title float-left" id="myModalLabe2">编辑角色</h4>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table model-table">
+                                    <tr>
+                                        <td class="model-td-left2"><span class="model-tab-td-span">角色编号:</span></td>
+                                        <td>10001</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="model-tab-td-span">角色名:</span></td>
+                                        <td>门卫</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="model-tab-td-span">地区:</span></td>
+                                        <td>
+                                            <select class="selectpicker" title="请选择地区" data-style="btn-sm">
+                                                <option value="1">五华区</option>
+                                                <option value="2">西山区</option>
+                                                <option value="3">官渡区</option>
+                                                <option value="4" selected="selected">盘龙区</option>
+                                                <option value="5">东川区</option>
+                                                <option value="6">呈贡区</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
+                                <button type="submit" class="btn btn-success btn-sm">提交</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-<!-- 主界面页脚部分 -->
+            <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
                     <!-- 版权内容 -->
@@ -541,12 +598,7 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
-    <script>
-        $(document).ready(function () {
-            // 隐藏折叠内容
-            $('.collapse').collapse('hide');
-        });
-    </script>
+
 </body>
 
 </html>
