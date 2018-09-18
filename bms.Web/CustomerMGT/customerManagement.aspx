@@ -259,8 +259,7 @@
                                                 <%for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                                                     { %>
                                                 <tr>
-                                                    <td>
-                                                        <%=i %>
+                                                    <td><%=i+1+((getCurrentPage-1)*pagesize) %>
                                                     </td>
                                                     <td>
                                                         <%=ds.Tables[0].Rows[i]["customerId"] %>
@@ -297,23 +296,16 @@
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <ul class="pagination">
-                                                <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
-                                                <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
+                                                <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables" data-dt-idx="0" tabindex="0" class="page-link jump">首页</a></li>
+                                                <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables" data-dt-idx="1" tabindex="0" class="page-link jump">上一页</a></li>
                                                 <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="2"
-                                                    tabindex="0" class="page-link">1</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">2</a></li>
+                                                    tabindex="0" class="page-link"><%=getCurrentPage %></a></li>
                                                 <!--类名active表示当前页 -->
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="4"
-                                                    tabindex="0" class="page-link">3</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5"
-                                                    tabindex="0" class="page-link">4</a></li>
-                                                <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
-                                                <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link">尾页</a></li>
+                                                <li class="paginate_button page-item "><a href="#" data-dt-idx="5"
+                                                    tabindex="0">/</a></li>
+                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5" tabindex="0" class="page-link" id="countPage"><%=totalPage %></a></li>
+                                                <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables" data-dt-idx="6" tabindex="0" class="page-link jump">下一页</a></li>
+                                                <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables" data-dt-idx="7" tabindex="0" class="page-link jump">尾页</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -428,10 +420,14 @@
             </footer>
         </div>
     </div>
+    <input type="hidden" value="<%=getCurrentPage %>" id="curPage" />
+    <input type="text" value="<%=totalPage %>" id="pageCount" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>
+    <!-- 事物处理 -->
+    <script src="../js/customerManagement.js"></script>
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
