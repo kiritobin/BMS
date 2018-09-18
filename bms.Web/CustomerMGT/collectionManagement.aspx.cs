@@ -14,6 +14,7 @@ namespace bms.Web.CustomerMGT
     {
         public DataSet dsRegion, ds;
         public int currentPage = 1, pageSize = 5, getCurrentPage = 0, totalCount, intPageCount;
+        public string search, strSearch;
         RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
         protected void Page_Load(object sender, EventArgs e)
