@@ -111,6 +111,7 @@ namespace bms.Web.AccessMGT
         public string regionSelect()
         {
             string region = Request["region"];
+            return "";
         }
         /// <summary>
         /// 职位下拉框查询
@@ -119,6 +120,7 @@ namespace bms.Web.AccessMGT
         public string roleSelect()
         {
             string role = Request["role"];
+            return "";
         }
         /// <summary>
         /// 分公司、职位同时查找
@@ -129,6 +131,7 @@ namespace bms.Web.AccessMGT
             string type = Request["type"];
             string region = Request["region"];
             string role = Request["role"];
+            return "";
         }
     }
 }
