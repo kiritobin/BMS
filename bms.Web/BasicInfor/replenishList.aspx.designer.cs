@@ -10,6 +10,6 @@
 namespace bms.Web.BasicInfor {
     
     
-    public partial class organizationalManagement {
+    public partial class replenishList {
     }
 }
