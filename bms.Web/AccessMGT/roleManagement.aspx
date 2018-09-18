@@ -321,7 +321,7 @@
 
             <!--添加角色模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="min-width:800px">
+                <div class="modal-dialog" style="min-width: 800px">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">添加角色</h4>
@@ -441,7 +441,7 @@
                                     </tr>
                                     <tr class="model-tab-function">
                                         <td></td>
-                                       <td>
+                                        <td>
                                             <div class="form-check">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="checkbox" value="">功能一
@@ -494,7 +494,7 @@
                                                 </label>
                                             </div>
                                         </td>
-                                       <td>
+                                        <td>
                                             <div class="form-check">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="checkbox" value="">功能一
@@ -528,113 +528,6 @@
                                 </table>
                             </div>
                         </div>
-                        <%--  <div class="col-sm-10 checkbox-radios">
-                                <br />
-                                <div class="form-check">
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">入库
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">a
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">b
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
-                                            c
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-check">
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">出库
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">货存
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label form-check-inline">
-                                            <input class="form-check-input" type="checkbox" value="">价格
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
-                                            b
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-check">
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
-                                            c
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
-                                            c
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
-                                            c
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
-                                            c
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>--%>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
@@ -680,21 +573,21 @@
                         </div>
                     </div>
                 </div>
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+            </div>
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                            , made with <i class="material-icons">favorite</i> by
+                        , made with <i class="material-icons">favorite</i> by
                         <a href="javascript:;" target="_blank"></a>for a better web.
-                        </div>
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>

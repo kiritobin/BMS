@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="customerManagement.aspx.cs" Inherits="bms.Web.CustomerMGT.customerManagement" %>
+
 <%="" %>
 <!DOCTYPE html>
 
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/demo.css">
 </head>
 
 <body>
@@ -226,13 +228,22 @@
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
+                                                <option value="0">查询全部地区</option>
                                                 <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
+                                                    {
+                                                        if (regionDs.Tables[0].Rows[i]["regionId"].ToString() == showStr)
+                                                        {
+                                                %>
+                                                <option value="<%=regionDs.Tables[0].Rows[i]["regionId"].ToString() %>" selected="selected"><%=regionDs.Tables[0].Rows[i]["regionName"]%></option>
+                                                <%}
+                                                    else
                                                     { %>
                                                 <option value="<%=regionDs.Tables[0].Rows[i]["regionId"].ToString() %>"><%=regionDs.Tables[0].Rows[i]["regionName"]%></option>
-                                                <%} %>
+                                                <%}
+                                                    } %>
                                             </select>
                                             &nbsp &nbsp
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件" id="search_All">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
@@ -250,6 +261,8 @@
                                                     </th>
                                                     <th>地区
                                                     </th>
+                                                    <th class="table-thead-th">重置密码
+                                                    </th>
                                                     <th class="table-thead-th">操作
                                                     </th>
                                                 </tr>
@@ -261,8 +274,8 @@
                                                     <td><%=i+1+((getCurrentPage-1)*pagesize) %>
                                                     </td>
                                                     <td>
-                                                       <%=ds.Tables[0].Rows[i]["customerID"] %>
-                                                    </td>   
+                                                        <%=ds.Tables[0].Rows[i]["customerID"] %>
+                                                    </td>
                                                     <td>
                                                         <%=ds.Tables[0].Rows[i]["customerName"] %>
                                                     </td>
@@ -270,7 +283,10 @@
                                                         <%=ds.Tables[0].Rows[i]["regionName"] %>
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
+                                                        <button type="button" class="btn btn-default btn-sm">重置密码</button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-warning btn-sm btn_Editor" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
@@ -313,23 +329,21 @@
                                 <tr>
                                     <td class="model-td-left"><span class="model-tab-td-span">账号:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入账号"></td>
+                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入账号"  id="customerId"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">客户名称:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入名称"></td>
+                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入名称" id="customerName"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">地区:</span></td>
                                     <td>
                                         <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
-                                            <option value="1">五华区</option>
-                                            <option value="2">西山区</option>
-                                            <option value="3">官渡区</option>
-                                            <option value="4">盘龙区</option>
-                                            <option value="5">东川区</option>
-                                            <option value="6">呈贡区</option>
+                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
+                                                { %>
+                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"] %></option>
+                                            <%} %>
                                         </select>
                                     </td>
                                 </tr>
@@ -354,28 +368,22 @@
                             <table class="table model-table">
                                 <tr>
                                     <td class="model-td-left2"><span class="model-tab-td-span">账号:</span></td>
-                                    <td>10001</td>
+                                    <td class="editor_id">10001</td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">客户名称:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="云南工商学院"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">密码:</span></td>
-                                    <td>
-                                        <button type="button" class="btn btn-default btn-sm">重置密码</button></td>
+                                        <input type="text" value="" class="form-control col-sm-9 input-search editor_name" placeholder="">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">地区:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm">
-                                            <option value="1">五华区</option>
-                                            <option value="2">西山区</option>
-                                            <option value="3">官渡区</option>
-                                            <option value="4" selected="selected">盘龙区</option>
-                                            <option value="5">东川区</option>
-                                            <option value="6">呈贡区</option>
+                                        <select class="selectpicker editor_region" title="请选择地区" data-style="btn-sm">
+                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
+                                                { %>
+                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"].ToString() %>" selected="selected"><%=regionDs.Tables[0].Rows[i]["regionName"]%></option>
+                                            <%} %>
                                         </select>
                                     </td>
                                 </tr>
@@ -383,8 +391,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                            <%--  <button type="button" class="btn btn-info btn-sm" id="model-btn-eidter">编辑</button>--%>
-                            <button type="submit" class="btn btn-success btn-sm">提交</button>
+                            <button type="submit" class="btn btn-success btn-sm sava_Editor">提交</button>
                         </div>
                     </div>
                 </div>
@@ -412,6 +419,8 @@
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>
     <!-- 事物处理 -->
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/demo.js"></script>
     <script src="../js/customerManagement.js"></script>
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>

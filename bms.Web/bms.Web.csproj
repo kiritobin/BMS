@@ -59,12 +59,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AccessMGT\functionManagement.aspx" />
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
     <Content Include="BasicInfor\bookshelfManagement.aspx" />
+    <Content Include="BasicInfor\lnventoryList.aspx" />
     <Content Include="BasicInfor\organizationalManagement.aspx" />
+    <Content Include="BasicInfor\outboundList.aspx" />
+    <Content Include="BasicInfor\replenishList.aspx" />
     <Content Include="bin\bms.Bll.dll" />
     <Content Include="bin\bms.Bll.pdb" />
     <Content Include="bin\bms.Dao.dll" />
@@ -105,6 +107,7 @@
     <Content Include="js\collectionManagement.js" />
     <Content Include="js\customerManagement.js" />
     <Content Include="js\demo.js" />
+    <Content Include="js\functionManagement.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="js\jsencrypt.min.js" />
@@ -120,13 +123,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessMGT\functionManagement.aspx.cs">
-      <DependentUpon>functionManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AccessMGT\functionManagement.aspx.designer.cs">
-      <DependentUpon>functionManagement.aspx</DependentUpon>
-    </Compile>
     <Compile Include="AccessMGT\roleManagement.aspx.cs">
       <DependentUpon>roleManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -155,12 +151,33 @@
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BasicInfor\lnventoryList.aspx.cs">
+      <DependentUpon>lnventoryList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BasicInfor\lnventoryList.aspx.designer.cs">
+      <DependentUpon>lnventoryList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BasicInfor\organizationalManagement.aspx.cs">
       <DependentUpon>organizationalManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BasicInfor\organizationalManagement.aspx.designer.cs">
       <DependentUpon>organizationalManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BasicInfor\outboundList.aspx.cs">
+      <DependentUpon>outboundList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BasicInfor\outboundList.aspx.designer.cs">
+      <DependentUpon>outboundList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BasicInfor\replenishList.aspx.cs">
+      <DependentUpon>replenishList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BasicInfor\replenishList.aspx.designer.cs">
+      <DependentUpon>replenishList.aspx</DependentUpon>
     </Compile>
     <Compile Include="CommonPage.aspx.cs">
       <DependentUpon>CommonPage.aspx</DependentUpon>

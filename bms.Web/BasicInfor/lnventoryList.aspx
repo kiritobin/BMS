@@ -1,7 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="collectionManagement.aspx.cs" Inherits="bms.Web.CustomerMGT.collectionManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="lnventoryList.aspx.cs" Inherits="bms.Web.BasicInfor.lnventoryList" %>
 
+<%="" %>
 <!DOCTYPE html>
-
 
 <html class="no-js">
 <!--<![endif]-->
@@ -71,7 +71,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="material-icons">person</i>
                             <p>
@@ -79,14 +79,14 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="userManage">
+                        <div class="collapse" id="userManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor foucsColor">
+                                <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
@@ -145,7 +145,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="material-icons">bubble_chart</i>
                             <p>
@@ -153,14 +153,14 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="baseManage">
+                        <div class="collapse show" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">价位管理</span>
+                                        <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item hoverColor foucsColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
@@ -181,7 +181,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">客户管理</a>
+                        <a class="navbar-brand" href="#pablo">入库列表查询</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -213,6 +213,7 @@
                     </div>
                 </div>
             </nav>
+
             <!-- 主界面内容 -->
             <div class="content">
                 <div class="container-fluid">
@@ -220,127 +221,112 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">客户馆藏数据管理</h4>
-                                    <p class="card-category">可对客户馆藏数据进行操作</p>
+                                    <h4 class="card-title">入库列表查询</h4>
+                                    <p class="card-category">可对入库情况进行查询</p>
                                 </div>
-                                <div class="card-body">
+                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="">请选择地区</option>
-                                                <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
-                                                    {
-                                                        if (dsRegion.Tables[0].Rows[i]["regionId"].ToString() == strRegion)
-                                                        {%>
-                                                <option selected="selected" value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}
-                                                    else
-                                                    {%>
-                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}
-                                                    }%>
-                                            </select>
-                                            &nbsp &nbsp
-                                            <input type="text" value="<%=strSearch %>" class="form-control col-sm-2 input-search" id="search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
-                                            &nbsp
-                                            <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal"><i class="fa fa-share-square-o fa-rotate-180 fa-lg"></i>&nbsp 导入</button>
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
+                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
+                                              &nbsp;
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
                                         </div>
                                     </div>
+
                                     <div class="table-responsive">
                                         <table class="table">
-                                            <thead class="text-danger">
+                                            <thead class="text-danger">                                               
                                                 <tr>
-                                                    <th>序号
-                                                    </th>
-                                                    <th>客户名称
-                                                    </th>
-                                                    <th>客户所在地区
-                                                    </th>
-                                                    <th>书名
-                                                    </th>
-                                                    <th>ISBN号
-                                                    </th>
-                                                    <th>价格
-                                                    </th>
-                                                    <th>数量(册)
-                                                    </th>
+                                                    <td>入库单编号</td>                                                  
+                                                    <td>订单ID</td>
+                                                    <td>书号</td>
+                                                    <td>库存数量</td>
+                                                    <td>操作员ID</td>
+                                                    <td>操作员名称</td>
+                                                    <td class="table-thead-th">操作</td>                                                    
                                                 </tr>
                                             </thead>
+
                                             <tbody>
-                                                <%for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                                                    { %>
                                                 <tr>
-                                                    <td><%=i+1+((getCurrentPage-1)*pageSize) %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["customerName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["regionName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["bookName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["ISBN"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["price"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["collectionNum"] %></td>
-                                                </tr>
-                                                <%} %>
+                                                    <td>10000001</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>                                                    
+                                                     <td>
+                                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp 查看</button>
+                                                        <button class="btn btn-danger btn-sm">&nbsp 删除</button>
+                                                    </td>
+                                                </tr>                                                                                           
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="copyright float-right page-box">
-                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="0" tabindex="0" class="page-link jump">首页</a></li>
+                                     <div class="copyright float-right page-box">
+                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                             <ul class="pagination">
+                                                 <li class="paginate_button page-item first" id="datatables_first">
+                                                     <a href="#" aria-controls="datatables"data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
                                                 <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link jump">上一页</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="2"
-                                                    tabindex="0" class="page-link"><%=getCurrentPage %></a></li>
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">/</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5"
-                                                    tabindex="0" class="page-link"><%=intPageCount %></a></li>
+                                                    data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
+                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="3"
+                                                    tabindex="0" class="page-link">2</a></li>
+                                                <!--类名active表示当前页 -->
+                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="4"
+                                                    tabindex="0" class="page-link">3</a></li>
                                                 <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link jump">下一页</a></li>
+                                                    data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
                                                 <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link jump">尾页</a></li>
+                                                    data-dt-idx="7" tabindex="0" class="page-link">尾页</a></li>
                                             </ul>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--模态框 -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+                
+                <!--添加入库模态框-->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">数据操作
-                            </h4>
+                            <h4 class="modal-title float-left" id="myModalLabel">添加入库信息</h4>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">下载模板:</span></td>
+                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">入库编号:</span></td>
                                     <td>
-                                        <button class="btn btn-success btn-sm" id=""><i class="fa fa-search fa-lg"></i>&nbsp 下载模板</button></td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入编号"></td>
+                                    <td class="table-tr-td-bookAuoth">
+                                        <span class="model-tab-td-span">订单ID:</span></td>
+                                    <td><input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入订单ID"></td>
                                 </tr>
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">上传文件:</span></td>
+                                    <td><span class="model-tab-td-span">书号:</span></td>
                                     <td>
-                                        <button class="btn btn-success btn-sm" id=""><i class="fa fa-search fa-lg"></i>&nbsp 上传文件</button></td>
-                                </tr>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入书号"></td>
+                  
+                                        <td><span class="model-tab-td-span">库存数量:</span></td>
+                                        <td><input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入库存量"></td></tr>
+                            
+                                 <tr>
+                                    <td><span class="model-tab-td-span">操作员ID:</span></td>
+                                    <td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入操作员ID"></td>                                 
+                               
+                                    <td><span class="model-tab-td-span">操作员:</span></td>
+                                    <td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入操作员"></td>                                 
+                                </tr>                                
                                 <tr>
-                                    <td><span class="model-tab-td-span">客户名称:</span></td>
+                                    <td><span class="model-tab-td-span">备注:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="model-select-region">
-                                            <option value="1">云南工商学院</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">导入:</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm" id=""><i class="fa fa-search fa-lg"></i>&nbsp 导入</button></td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入备注"></td>
                                 </tr>
                             </table>
                         </div>
@@ -351,7 +337,46 @@
                     </div>
                 </div>
             </div>
-            <!-- 主界面页脚部分 -->
+
+            <!--查看入库信息模态框-->
+            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="width:700px;max-width:800px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabe2">查看入库信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered model-table">
+                                <tr>
+                                    <td><span class="model-tab-td-span">入库编号:</span></td>
+                                    <td>100000001</td>
+                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">订单ID:</span></td>
+                                    <td>123478944</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">书号:</span></td>
+                                    <td>126510406324</td>
+                                    <td><span class="model-tab-td-span">库存数量:</span></td>
+                                    <td>59</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">操作员ID:</span></td>
+                                    <td>201612344</td>
+                                    <td><span class="model-tab-td-span">操作员名称:</span></td>
+                                    <td>保罗</td>
+                                </tr>                                
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
+                             <button type="submit" class="btn btn-success btn-sm">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
+                           
+           <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
                     <!-- 版权内容 -->
@@ -367,8 +392,6 @@
             </footer>
         </div>
     </div>
-    <input type="hidden" value="<%=getCurrentPage %>" id="page" />
-    <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
@@ -377,6 +400,12 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
-    <script src="../js/collectionManagement.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // 隐藏折叠内容
+            $('.collapse').collapse('hide');
+        });
+    </script>
 </body>
 </html>

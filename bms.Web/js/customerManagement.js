@@ -39,14 +39,129 @@ $(document).ready(function () {
         }
         jump(1);
     })
+    //按钮查询
+    $("#btn-search").click(function () {
+        var str = $("#search_All").val();
+        sessionStorage.setItem("strWhere", str);
+        jump(1);
+    })
 
     //地址栏传值
     function jump(curr) {
-        if (sessionStorage.getItem("region") == null || sessionStorage.getItem("region") == null) {
-            window.location.href = "customerManagement.aspx?currentPage=" + curr;
+        if (sessionStorage.getItem("region") != null && sessionStorage.getItem("region") != "" && sessionStorage.getItem("strWhere") == null && sessionStorage.getItem("region") != "0") {
+            window.location.href = "customerManagement.aspx?currentPage=" + curr + "&regionID=" + sessionStorage.getItem("region");
+        }
+        else if (sessionStorage.getItem("region") == null && sessionStorage.getItem("strWhere") != null) {
+            window.location.href = "customerManagement.aspx?currentPage=" + curr + "&strWhere=" + sessionStorage.getItem("strWhere");
         }
         else {
-            window.location.href = "customerManagement.aspx?currentPage=" + curr + "&strWhere=" + sessionStorage.getItem("region");
+            window.location.href = "customerManagement.aspx?currentPage=" + curr;
         }
     }
+
+    //添加客户
+    $("#btnAdd").click(function () {
+        var id = $("#customerId").val();
+        var name = $("#customerName").val();
+        var regionID = $("#model-select-region").find("option:selected").val();
+        if (id == "" || name == "" || regionID == "") {
+            alert("账号、姓名和地区名称都不能为空！");
+        }
+        else {
+            $.ajax({
+                type: 'Post',
+                url: 'customerManagement.aspx',
+                data: {
+                    customerId: id,
+                    cutomerName: name,
+                    zoneId: regionID,
+                    op: "add"
+                },
+                dataType: 'text',
+                success: function (succ) {
+                    if (succ == "添加成功") {
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    } else {
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    }
+                }
+            })
+        }
+    })
+    //编辑客户
+    $(".btn_Editor").click(function () {
+        var custId = $(this).parent().prev().prev().prev().prev().text().trim();
+        var custName = $(this).parent().prev().prev().prev().text().trim();
+        $(".editor_name").val(custName);
+        var custRegion = $(this).parent().prev().prev().text().trim();
+        $(".editor_id").text(custId);
+    })
+    $(".sava_Editor").click(function () {
+        var custId = $(".editor_id").text();
+        var custName = $(".editor_name").val();
+        var regId = $(".editor_region").find("option:selected").val();
+        alert(custId + custName + regId);
+        $.ajax({
+            type: 'Post',
+            url: 'customerManagement.aspx',
+            data: {
+                customerid: custId,
+                customername: custName,
+                regionid: regId,
+                op: "editData"
+            },
+            dataType: 'text',
+            success: function (succ) {
+                if (succ == "更新成功") {
+                    swal({
+                        title: succ,
+                        text: succ,
+                        type: "success",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window, location.reload();
+                    })
+                } else {
+                    swal({
+                        title: succ,
+                        text: succ,
+                        type: "success",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window, location.reload();
+                    })
+                }
+            }
+        });
+    })
 })
