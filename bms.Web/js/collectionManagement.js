@@ -1,106 +1,71 @@
-﻿//存储当前页数
-var page = $("#page").val();
-sessionStorage.setItem("page", page);
-//存储总页数
-var countPage = $("#countPage").val();
-sessionStorage.setItem("countPage", countPage);
-
-//点击翻页按钮
-$(".jump").click(function () {
-    switch ($(this).text().trim()) {
-        //点击上一页按钮时
-        case ('上一页'):
-            if (parseInt(sessionStorage.getItem("page")) > 1) {
-                jump(parseInt(sessionStorage.getItem("page")) - 1);
-                sessionStorage.setItem("page", parseInt(sessionStorage.getItem("page")) - 1);
-                break;
-            } else {
-                jump(1);
-                break;
+﻿$(document).ready(function () {
+    //地区下拉框改变事件
+    $("#select-region").change(function () {
+        var region = $("#select-region").val().trim();
+        var search = $("#search").val().trim();
+        $.ajax({
+            type: 'Post',
+            url: 'collectionManagement.aspx',
+            data: {
+                region: region,
+                search: search,
+                op: "paging"
+            },
+            dataType: 'text',
+            success: function (data) {
+                $("#table tr:not(:first)").empty(); //清空table处首行
+                $("#table").append(data); //加载table
             }
-        //点击下一页按钮时
-        case ('下一页'):
-            if (parseInt(sessionStorage.getItem("page")) < parseInt(sessionStorage.getItem("countPage"))) {
-                jump(parseInt(sessionStorage.getItem("page")) + 1);
-                sessionStorage.setItem("page", parseInt(sessionStorage.getItem("page")) + 1);
-                break;
-            } else {
-                jump(parseInt(sessionStorage.getItem("countPage")));
-                break;
-            }
-        //点击首页按钮时
-        case ('首页'):
-            jump(1);
-            break;
-        //点击尾页按钮时
-        case ('尾页'):
-            jump(parseInt(sessionStorage.getItem("countPage")));
-            break;
-    }
-});
+        });
+    })
 
-//翻页时获取当前页数
-function jump(cur) {
-    var strWhere = sessionStorage.getItem("strWhere");
-    var region = sessionStorage.getItem("region");
-    var type = sessionStorage.getItem("type");
-    if (strWhere != null && strWhere != "" && (region == "" || region==null)) {
-        window.location.href = "collectionManagement.aspx?currentPage=" + cur + "&search=" + strWhere + "&type=" + type;
-    } else if ((region != null && region != "") && (strWhere == null || strWhere == "")) {
-        window.location.href = "collectionManagement.aspx?currentPage=" + cur + "&region=" + region + "&type=" + type;
-    }
-    else if (strWhere != null && strWhere != "" && region != null && region != "") {
-        window.location.href = "collectionManagement.aspx?currentPage=" + cur + "&region=" + region + "&type=" + type + "&search=" + strWhere;
-    }
-    else {
-        window.location.href = "collectionManagement.aspx?currentPage=" + cur
-    }
-}
-//点击查询按钮时
-$("#btn-search").click(function () {
-    var strWhere = $("#search").val();
-    var regionId = $("#select-region").val();
-    sessionStorage.setItem("strWhere", strWhere);
-    sessionStorage.setItem("type", "search");
-    if (regionId == 0) {
-        sessionStorage.removeItem("region");
-        sessionStorage.setItem("search", search);
-        sessionStorage.setItem("type", "search");
-        jump(1);
-    } else {
-        sessionStorage.setItem("region", regionId);
-        sessionStorage.setItem("search", search);
-        sessionStorage.setItem("type", "searchRegion");
-        jump(1);
-    }
-    jump(1);
+    //点击查询按钮时
+    $("#btn-search").click(function () {
+        var region = $("#select-region").val().trim();
+        var search = $("#search").val().trim();
+        $.ajax({
+            type: 'Post',
+            url: 'collectionManagement.aspx',
+            data: {
+                region: region,
+                search: search,
+                op: "paging"
+            },
+            dataType: 'text',
+            success: function (data) {
+                $("#table tr:not(:first)").empty(); //清空table处首行
+                $("#table").append(data); //加载table
+            }
+        });
+    });
+
+    $('.paging').pagination({
+        pageCount: $("#countPage").val(), //总页数
+        jump: true,
+        mode: 'fixed',//固定页码数量
+        coping: true,
+        homePage: '首页',
+        endPage: '尾页',
+        prevContent: '上页',
+        nextContent: '下页',
+        callback: function (api) {
+            var region = $("#select-region").val().trim();
+            var search = $("#search").val().trim();
+            $.ajax({
+                type: 'Post',
+                url: 'collectionManagement.aspx',
+                data: {
+                    page: api.getCurrent(), //页码
+                    region: region,
+                    search: search,
+                    op: "paging"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    $("#table tr:not(:first)").empty(); //清空table处首行
+                    $("#table").append(data); //加载table
+                }
+            });
+        }
+    });
 });
-//地区下拉框改变事件
-$("#select-region").change(function () {
-    var regionId = $("#select-region").val();
-    var search = $("#search").val();
-    if (search == "" || search == null) {
-        if (regionId == 0) {
-            sessionStorage.removeItem("region");
-            sessionStorage.removeItem("type");
-            jump(1);
-        } else {
-            sessionStorage.setItem("region", regionId);
-            sessionStorage.setItem("type", "region");
-            jump(1);
-        }
-    }
-    else {
-        if (regionId == 0) {
-            sessionStorage.removeItem("region");
-            sessionStorage.setItem("search", search);
-            sessionStorage.setItem("type","search");
-            jump(1);
-        } else {
-            sessionStorage.setItem("region", regionId);
-            sessionStorage.setItem("search", search);
-            sessionStorage.setItem("type", "searchRegion");
-            jump(1);
-        }
-    }
-})

@@ -74,6 +74,7 @@
     <Content Include="bin\bms.Model.dll" />
     <Content Include="bin\bms.Model.pdb" />
     <Content Include="bin\MySql.Data.dll" />
+    <Content Include="css\pagination.css" />
     <Content Include="css\qc.css" />
     <Content Include="CustomerMGT\collectionManagement.aspx" />
     <Content Include="CustomerMGT\customerManagement.aspx" />
@@ -106,6 +107,7 @@
     <Content Include="js\demo.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
+    <Content Include="js\jquery.pagination.js" />
     <Content Include="js\jsencrypt.min.js" />
     <Content Include="js\login.js" />
     <Content Include="js\material-dashboard.min.js" />
