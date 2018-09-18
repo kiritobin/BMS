@@ -1,5 +1,4 @@
-﻿
-/*角色管理页面样式*/
+﻿/*角色管理页面样式*/
 .jump {
     color: black;
     font-size: 18px;
@@ -23,10 +22,10 @@
 }
 /*输入框样式*/
 .input-search {
-    background-image: linear-gradient(to top,#d2d2d2 2px,rgba(156,39,176,0) 2px),linear-gradient(to top,#d2d2d2 1px,rgba(210,210,210,0) 1px) !important;
+    background-image: linear-gradient(to top,#d2d2d2 2px,rgba(156,39,176,0) 2px),
+        linear-gradient(to top,#d2d2d2 1px,rgba(210,210,210,0) 1px) !important;
     margin-top: 4px;
 }
-
 #btn-search {
     height: 35px;
 }
@@ -65,7 +64,7 @@
     color: #fff;
 }
 
-    .collapse .nav .foucsColor a:focus {
+ .collapse .nav .foucsColor a:focus {
         background-color: #f44336;
         box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(244, 67, 54, .4);
         color: #fff;
