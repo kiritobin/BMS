@@ -11,13 +11,59 @@ namespace bms.Dao
     public class UserDao
     {
         MySqlHelp db = new MySqlHelp();
-
+        /// <summary>
+        /// 添加用户信息
+        /// </summary>
+        /// <param name="user">用户实体对象</param>
+        /// <returns>受影响行数</returns>
         public int Insert(User user)
         {
-            string comText = "insert into T_User(userID,userName,regionId,roleId) values(@userID,@userName,@regionId,@roleId)";
-            string[] param = { "@userID", "@userName", "@regionId", "@roleId" };
-            object[] values = { user.UserId, user.UserName, user.ReginId, user.RoleId };
-            int row=0;
+            string comText = "insert into T_User(userID,userPwd,userName,regionId,roleId) values(@userID, @userPwd,@userName,@regionId,@roleId)";
+            string[] param = { "@userID", "@userName", "@regionId", "@roleId" , "@userPwd" };
+            object[] values = { user.UserId, user.UserName, user.ReginId.RegionId, user.RoleId.RoleId ,user.Pwd};
+            int row = db.ExecuteNoneQuery(comText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="user">用户实体对象</param>
+        /// <returns>受影响行数</returns>
+        public int Update(User user)
+        {
+            string comText = "update T_User set userName=@userName,regionId=@regionId,roleId=@roleId";
+            string[] param = { "@userName", "@regionId", "@roleId" };
+            object[] values = { user.UserName, user.ReginId.RegionId, user.RoleId.RoleId };
+            int row = db.ExecuteNoneQuery(comText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 更新用户密码
+        /// </summary>
+        /// <param name="user">用户实体对象</param>
+        /// <returns>受影响行数</returns>
+        public int UpdatePwd(User user)
+        {
+            string comText = "update T_User set userPwd=@userPwd where userID = @userID";
+            string[] param = { "@userPwd", "@userID" };
+            object[] values = { user.Pwd, user.UserId };
+            int row = db.ExecuteNoneQuery(comText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 删除用户信息
+        /// </summary>
+        /// <param name="userID">用户id</param>
+        /// <returns></returns>
+        public int Delete(int userID)
+        {
+            string comText = "delete from T_User where userID = @userID";
+            string[] param = { "@userID" };
+            object[] values = { userID };
+            int row = db.ExecuteNoneQuery(comText, param, values);
             return row;
         }
 
@@ -25,7 +71,7 @@ namespace bms.Dao
         /// 获取所有用户信息
         /// </summary>
         /// <returns></returns>
-        public DataSet select()
+        public DataSet Select()
         {
             string comText = "select userId,userName,regionName,roleName from V_User";
             DataSet ds = db.FillDataSet(comText, null, null);
