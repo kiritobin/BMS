@@ -260,6 +260,8 @@
                                                     </th>
                                                     <th>地区
                                                     </th>
+                                                    <th class="table-thead-th">重置密码
+                                                    </th>
                                                     <th class="table-thead-th">操作
                                                     </th>
                                                 </tr>
@@ -280,7 +282,10 @@
                                                         <%=ds.Tables[0].Rows[i]["regionName"] %>
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
+                                                        <button type="button" class="btn btn-default btn-sm">重置密码</button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-warning btn-sm btn_Editor" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
@@ -362,28 +367,22 @@
                             <table class="table model-table">
                                 <tr>
                                     <td class="model-td-left2"><span class="model-tab-td-span">账号:</span></td>
-                                    <td>10001</td>
+                                    <td class="editor_id">10001</td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">客户名称:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="云南工商学院"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">密码:</span></td>
-                                    <td>
-                                        <button type="button" class="btn btn-default btn-sm">重置密码</button></td>
+                                        <input type="text" value="" class="form-control col-sm-9 input-search editor_name" placeholder="">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">地区:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm">
-                                            <option value="1">五华区</option>
-                                            <option value="2">西山区</option>
-                                            <option value="3">官渡区</option>
-                                            <option value="4" selected="selected">盘龙区</option>
-                                            <option value="5">东川区</option>
-                                            <option value="6">呈贡区</option>
+                                        <select class="selectpicker editor_region" title="请选择地区" data-style="btn-sm">
+                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
+                                                { %>
+                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"].ToString() %>" selected="selected"><%=regionDs.Tables[0].Rows[i]["regionName"]%></option>
+                                            <%} %>
                                         </select>
                                     </td>
                                 </tr>
@@ -391,8 +390,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                            <%--  <button type="button" class="btn btn-info btn-sm" id="model-btn-eidter">编辑</button>--%>
-                            <button type="submit" class="btn btn-success btn-sm">提交</button>
+                            <button type="submit" class="btn btn-success btn-sm sava_Editor">提交</button>
                         </div>
                     </div>
                 </div>
