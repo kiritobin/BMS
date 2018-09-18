@@ -240,7 +240,7 @@
                                                     <th>序号
                                                     </th>
                                                     <th>功能名称
-                                                    </th>                                                   
+                                                    </th>
                                                     <th class="table-thead-th">操作
                                                     </th>
                                                 </tr>
@@ -250,7 +250,7 @@
                                                     <td>1
                                                     </td>
                                                     <td>售货员
-                                                    </td>                                                    
+                                                    </td>
                                                     <td>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
@@ -309,7 +309,7 @@
                                 <tr>
                                     <td class="model-td-left"><span class="model-tab-td-span">功能名称:</span></td>
                                     <td>
-                                         <input type="text" value="" class="form-control col-sm-10 input-search" placeholder="请输入功能名称">
+                                        <input type="text" value="" class="form-control col-sm-10 input-search" placeholder="请输入功能名称">
                                     </td>
                                 </tr>
                             </table>
@@ -320,24 +320,23 @@
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
-           <!-- 主界面页脚部分 -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <!-- 版权内容 -->
-                    <div class="copyright text-center">
-                        &copy;
+        </div>
+        <!-- 主界面页脚部分 -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <!-- 版权内容 -->
+                <div class="copyright text-center">
+                    &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        , made with <i class="material-icons">favorite</i> by
+                    , made with <i class="material-icons">favorite</i> by
                         <a href="javascript:;" target="_blank"></a>for a better web.
-                    </div>
                 </div>
-            </footer>
-        </div>
-
+            </div>
+        </footer>
+    </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
