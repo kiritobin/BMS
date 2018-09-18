@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="customerManagement.aspx.cs" Inherits="bms.Web.CustomerMGT.customerManagement" %>
-
+<%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -226,7 +226,6 @@
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="0">请选择地区</option>
                                                 <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
                                                     { %>
                                                 <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"]%></option>
@@ -262,7 +261,7 @@
                                                     <td><%=i+1+((getCurrentPage-1)*pagesize) %>
                                                     </td>
                                                     <td>
-                                                        <%=ds.Tables[0].Rows[i]["customerId"] %>
+                                                       <%=ds.Tables[0].Rows[i]["customerID"] %>
                                                     </td>   
                                                     <td>
                                                         <%=ds.Tables[0].Rows[i]["customerName"] %>
@@ -276,20 +275,6 @@
                                                     </td>
                                                 </tr>
                                                 <%} %>
-                                                <%--                                                <tr>
-                                                    <td>2
-                                                    </td>
-                                                    <td>126002
-                                                    </td>
-                                                    <td>昆明学院
-                                                    </td>
-                                                    <td>昆明经济技术开发区
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
-                                                    </td>
-                                                </tr>--%>
                                             </tbody>
                                         </table>
                                     </div>
