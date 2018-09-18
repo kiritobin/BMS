@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/qc.css">
+    <link rel="stylesheet" href="../css/lgd.css">
 </head>
 
 <body>
@@ -345,11 +346,6 @@
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">功能:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入"></td>
-                                </tr>
-                                <tr>
                                     <td><span class="model-tab-td-span">地区:</span></td>
                                     <td>
                                         <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
@@ -372,6 +368,108 @@
                                     </td>
                                 </tr>
                             </table>
+                        </div>
+                        <div class="row">
+                        <label class="col-sm-2  model-td-left"><strong>&nbsp;&nbsp;&nbsp;&nbsp;功能：</strong></label>
+                                    <div class="col-sm-10 checkbox-radios"><br />
+                                        <div class="form-check">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value="">入库
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span></span>
+                                            </label>
+                                        </div>
+                                            <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value="">a
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                            <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value="">b
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                            <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value=""> c
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        </div>
+                                        <div class="form-check">
+                                            <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value="">出库
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span></span>
+                                            </label>
+                                        </div>                                           
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value="">货存
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span></span>
+                                            </label>
+                                        </div>                                           
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label form-check-inline">
+                                                <input class="form-check-input" type="checkbox" value="">价格
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span></span>
+                                            </label>
+                                            </div>
+                                             <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value=""> b
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        </div>
+                                        <div class="form-check">
+                                            <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value=""> c
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                             <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value=""> c
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>                                                 
+                                             <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value=""> c
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                             <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value=""> c
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>                                                 
+                                </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
