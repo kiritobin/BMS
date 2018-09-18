@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace bms.Web.AccessMGT {
+namespace bms.Web.BasicInfor {
     
     
-    public partial class functionManagement {
+    public partial class replenishList {
     }
 }
