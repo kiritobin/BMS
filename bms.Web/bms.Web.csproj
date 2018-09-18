@@ -59,6 +59,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccessMGT\jurisdictionManagement.aspx" />
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
@@ -107,7 +108,7 @@
     <Content Include="js\collectionManagement.js" />
     <Content Include="js\customerManagement.js" />
     <Content Include="js\demo.js" />
-    <Content Include="js\functionManagement.js" />
+    <Content Include="js\jurisdictionManagement.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="js\jsencrypt.min.js" />
@@ -123,6 +124,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessMGT\jurisdictionManagement.aspx.cs">
+      <DependentUpon>jurisdictionManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccessMGT\jurisdictionManagement.aspx.designer.cs">
+      <DependentUpon>jurisdictionManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AccessMGT\roleManagement.aspx.cs">
       <DependentUpon>roleManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
