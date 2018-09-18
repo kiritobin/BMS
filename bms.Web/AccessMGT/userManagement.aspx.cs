@@ -25,6 +25,33 @@ namespace bms.Web.AccessMGT
                 Search();
                 getData();
             }
+            //增删查改操作
+            string op = Request["op"];
+            if(op == "add")
+            {
+                string account = Request["account"];
+                string region = Request["region"];
+                string role = Request["role"];
+            }
+            else if(op == "editData")
+            {
+                string region = Request["region"];
+                string role = Request["role"];
+            }
+            else if(op == "edit")
+            {
+                string account = Request["account"];
+                string region = Request["region"];
+                string role = Request["role"];
+            }
+            else if(op == "reset")
+            {
+                string account = Request["account"];
+            }
+            else if(op == "del")
+            {
+                string account = Request["account"];
+            }
         }
         /// <summary>
         /// 获取数据
@@ -35,7 +62,7 @@ namespace bms.Web.AccessMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_User";
             tbd.OrderBy = "userID";
-            tbd.StrColumnlist = "userID,userName,regionName,roleName";
+            tbd.StrColumnlist = "userID,userName,regionName,roleName,regionId,roleId";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "";
             tbd.IntPageNum = currentPage;
@@ -49,7 +76,7 @@ namespace bms.Web.AccessMGT
         }
 
         /// <summary>
-        /// 查询筛选方法
+        /// 输入框查询
         /// </summary>
         /// <returns>返回查询参数</returns>
         public string Search()
@@ -68,13 +95,40 @@ namespace bms.Web.AccessMGT
                 }
                 else
                 {
-                    search = String.Format(" teaAccount {0} or teaName {0} or collegeName {0} or sex {0} or phone {0} or Email {0} ", "like '%" + search + "%'");
+                    search = String.Format(" userID {0} or userName {0} or regionName {0} or roleName {0}", "like '%" + search + "%'");
                 }
             }
             catch
             {
             }
             return search;
+        }
+
+        /// <summary>
+        /// 分公司下拉框查询
+        /// </summary>
+        /// <returns>返回查询参数</returns>
+        public string regionSelect()
+        {
+            string region = Request["region"];
+        }
+        /// <summary>
+        /// 职位下拉框查询
+        /// </summary>
+        /// <returns>返回查询参数</returns>
+        public string roleSelect()
+        {
+            string role = Request["role"];
+        }
+        /// <summary>
+        /// 分公司、职位同时查找
+        /// </summary>
+        /// <returns>返回查询参数</returns>
+        public string allSelect()
+        {
+            string type = Request["type"];
+            string region = Request["region"];
+            string role = Request["role"];
         }
     }
 }
