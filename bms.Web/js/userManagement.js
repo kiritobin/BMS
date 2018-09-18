@@ -58,7 +58,7 @@ function jump(cur) {
 }
 //点击查询按钮时
 $("#btn-search").click(function () {
-    var strWhere = $("#inputsearch").val();
+    var strWhere = $("#input-search").val();
     sessionStorage.setItem("strWhere", strWhere);
     sessionStorage.setItem("type", "search");
     jump(1);
@@ -74,10 +74,12 @@ $("#select-region").change(function () {
     }
     var roleId = $("#select-role").val();
     if (roleId == 0) {
-        sessionStorage.setItem("type","region");
+        sessionStorage.setItem("type", "region");
+        jump(1);
     } else {
         sessionStorage.setItem("role", roleId);
         sessionStorage.setItem("type", "all");
+        jump(1);
     }
 })
 //角色下拉框改变事件
@@ -91,15 +93,18 @@ $("#select-role").change(function () {
     }
     var regionId = $("#select-region").val();
     if (regionId == 0) {
-        sessionStorage.setItem("type","role");
+        sessionStorage.setItem("type", "role");
+        jump(1);
     } else {
         sessionStorage.setItem("region", regionId);
         sessionStorage.setItem("type", "all");
+        jump(1);
     }
 })
 
 //添加用户
 $("#btnAdd").click(function () {
+    var name = $("#inputName").val();
     var account = $("#inputAccount").val();
     var region = $("#model-select-region").val();
     var role = $("#model-select-role").val();
@@ -114,6 +119,7 @@ $("#btnAdd").click(function () {
             type: 'Post',
             url: 'userManagement.aspx',
             data: {
+                name: name,
                 account: account,
                 region: region,
                 role: role,
@@ -131,11 +137,13 @@ $("#btnAdd").click(function () {
     }
 })
 //编辑用户
-$("#btn-edit").click(function () {
+$(".btn-edit").click(function () {
     var account = $(this).parent().prev().prev().prev().prev().text().trim();
+    var name = $(this).parent().prev().prev().prev().text().trim();
     var region = $("#reginId").val();
-    var role = $("#role").val();
+    var role = $("#roleId").val();
     $("#edit-Account").val(account);
+    $("#edit-Name").val(name);
     $.ajax({
         type: 'Post',
         url: 'userManagement.aspx',
@@ -146,7 +154,11 @@ $("#btn-edit").click(function () {
         },
         dataType: 'text',
         success: function (succ) {
-            
+            if (succ == "展示") {
+                $("#myModa2").click(function () {
+                    $("#new").modal("show")
+                });
+            }
         }
     })
 })
@@ -154,10 +166,12 @@ $("#btnEdit").click(function () {
     var account = $("#edit-Account").val();
     var region = $("#editRegion").val();
     var role = $("#editRole").val();
+    var name = $("#edit-Name").val();
     $.ajax({
         type: 'Post',
         url: 'userManagement.aspx',
         data: {
+            name: name,
             account: account,
             region: region,
             role: role,
@@ -194,7 +208,7 @@ $("#reset").click(function () {
     })
 })
 //删除用户
-$("#btnDel").click(function () {
+$(".btn-delete").click(function () {
     var account = $(this).parent().prev().prev().prev().prev().text().trim();
     var flag = confirm("确定要删除账号为：" + account + "的用户吗？");
     if (flag == true) {

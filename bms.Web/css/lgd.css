@@ -1,37 +1,4 @@
-﻿/*login页面样式*/
-#login {
-    width: 500px;
-    height: 350px;
-    background-color: rgba(255, 255, 255, 0.25);
-    margin-top: 120px;
-    border-top: 1px solid rgba(255, 255, 255, 0.60);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.60);
-    border-radius: 10px;
-    box-shadow: 2px 2px 15px rgba(255, 255, 255, 0.60);
-}
-
-.Acontent {
-    margin-top: 25px;
-    margin-left: 60px;
-}
-
-.retrievePwd {
-    margin: 10px 0 10px 0;
-    margin-left: 250px;
-}
-
-#userName {
-    border-radius: 0px 4px 4px 0;
-    height: 35px;
-    width: 276px;
-}
-
-#pwd {
-    border-radius: 0px 4px 4px 0;
-    height: 35px;
-    width: 276px;
-}
-/*用户管理页面样式*/
+﻿/*用户管理页面样式*/
 .jump {
     color: black;
     font-size: 18px;
@@ -112,4 +79,25 @@
 
 .table-tr-td-bookAuoth {
     width: 85px;
+}
+
+.form-check-sign {
+    top: 0px !important;
+}
+/*功能添加模态框样式*/
+.table .model-tab-function td .form-check .form-check-label {
+    color: black;
+}
+
+    .table .model-tab-function td .form-check .form-check-label .form-check-sign .check:checked {
+        background: red !important;
+    }
+
+.model-tab-td-functionSpan {
+    float: left;
+    margin-top: -10px;
+}
+
+.table .model-tab-function td {
+    border-top: none;
 }

@@ -8953,7 +8953,7 @@ a.text-dark:focus, a.text-dark:hover {
     }
 
     .form-check .form-check-input:checked + .form-check-sign .check {
-        background: #9c27b0;
+        background: #ff9800;
     }
 
         .form-check .form-check-input:checked + .form-check-sign .check:before {

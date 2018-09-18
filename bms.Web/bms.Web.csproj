@@ -59,6 +59,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccessMGT\functionManagement.aspx" />
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
@@ -118,6 +119,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessMGT\functionManagement.aspx.cs">
+      <DependentUpon>functionManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccessMGT\functionManagement.aspx.designer.cs">
+      <DependentUpon>functionManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AccessMGT\roleManagement.aspx.cs">
       <DependentUpon>roleManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

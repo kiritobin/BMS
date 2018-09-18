@@ -1,11 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="userManagement.aspx.cs" Inherits="bms.Web.AccessMGT.userManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="functionManagement.aspx.cs" Inherits="bms.Web.AccessMGT.functionManagement" %>
+
 
 <%="" %>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
+
 <html class="no-js">
 <!--<![endif]-->
 
@@ -54,7 +52,7 @@
                         </a>
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor foucsColor">
+                                <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
@@ -64,7 +62,7 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item hoverColor foucsColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">功能管理</span>
 
@@ -160,7 +158,7 @@
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">价位管理</span>
+                                        <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
@@ -184,7 +182,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">权限管理</a>
+                        <a class="navbar-brand" href="#pablo">组织管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -223,100 +221,72 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">用户管理</h4>
-                                    <p class="card-category">可对用户进行操作</p>
+                                    <h4 class="card-title ">功能管理</h4>
+                                    <p class="card-category">可对角色功能进行操作</p>
                                 </div>
                                 <div class="card-body">
-                                    <!--查询区域-->
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="0">请选择地区</option>
-                                                <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
-                                                    {
-                                                        if (dsRegion.Tables[0].Rows[i]["regionId"].ToString() == regionId)
-                                                        {%>
-                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>" selected="selected"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}
-                                                    else
-                                                    { %>
-                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}
-                                                    } %>
-                                            </select>
-                                            &nbsp
-                                            <select class="selectpicker" title="请选择角色" data-style="btn-sm" id="select-role">
-                                                <option value="0">请选择角色</option>
-                                                <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
-                                                {
-                                                    if (dsRole.Tables[0].Rows[i]["roleId"].ToString() == roleId)
-                                                    {%>
-                                                        <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>" selected="selected"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                                <%}
-                                                else
-                                                { %>
-                                                        <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                                <%}
-                                                } %>
-                                            </select>
-                                            &nbsp &nbsp
-                                            <input type="text" value="<%=strSearch %>" class="form-control col-sm-2" id="input-search" placeholder="请输入查询条件">
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
                                         </div>
                                     </div>
-                                    <!--数据展示区-->
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="text-danger">
                                                 <tr>
-                                                    <th>序号</th>
-                                                    <th>账号</th>
-                                                    <th>用户名</th>
-                                                    <th>地区</th>
-                                                    <th>角色</th>
-                                                    <th class="table-thead-th">操作</th>
+                                                    <th>序号
+                                                    </th>
+                                                    <th>功能名称
+                                                    </th>
+                                                    <th class="table-thead-th">操作
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <%for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                                                    { %>
                                                 <tr>
-                                                    <td><%=i+1+((getCurrentPage-1)*pageSize) %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["userID"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["userName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["regionName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["roleName"] %></td>
+                                                    <td>1
+                                                    </td>
+                                                    <td>售货员
+                                                    </td>
                                                     <td>
-                                                        <input type="hidden" value="<%=ds.Tables[0].Rows[i]["regionId"] %>" id="reginId" />
-                                                        <input type="hidden" value="<%=ds.Tables[0].Rows[i]["roleId"] %>" id="roleId" />
-                                                        <button class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#new"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
-                                                        <button class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
+                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
-                                                <%} %>
+                                                <tr>
+                                                    <td>2
+                                                    </td>
+                                                    <td>售货员
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!--分页-->
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <ul class="pagination">
                                                 <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="0" tabindex="0" class="page-link jump">首页</a></li>
+                                                    data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
                                                 <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link jump">上一页</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="2"
-                                                    tabindex="0" class="page-link"><%=getCurrentPage %></a></li>
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">/</a></li>
+                                                    data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
+                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="2"
+                                                    tabindex="0" class="page-link">1</a></li>
+                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="3"
+                                                    tabindex="0" class="page-link">2</a></li>
+                                                <!--类名active表示当前页 -->
+                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="4"
+                                                    tabindex="0" class="page-link">3</a></li>
                                                 <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5"
-                                                    tabindex="0" class="page-link"><%=intPageCount %></a></li>
+                                                    tabindex="0" class="page-link">4</a></li>
                                                 <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link jump">下一页</a></li>
+                                                    data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
                                                 <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link jump">尾页</a></li>
+                                                    data-dt-idx="7" tabindex="0" class="page-link">尾页</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -326,123 +296,27 @@
                     </div>
                 </div>
             </div>
-            <!--添加用户模态框-->
+            <!--添加功能模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加用户
+                            <h4 class="modal-title float-left" id="myModalLabel">添加功能
                             </h4>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">账号:</span></td>
+                                    <td class="model-td-left"><span class="model-tab-td-span">功能名称:</span></td>
                                     <td>
-                                        <input type="text" class="form-control col-sm-9 input-search" id="inputAccount" placeholder="请输入账号"></td>
-                                </tr>
-                                <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">姓名:</span></td>
-                                    <td>
-                                        <input type="text" class="form-control col-sm-9 input-search" id="inputName" placeholder="请输入账号"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
-                                    <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
-                                            <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
-                                                {%>
-                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%} %>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">角色:</span></td>
-                                    <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-role">
-                                            <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
-                                                {%>
-                                                    <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                                <%}%>
-                                        </select>
+                                        <input type="text" value="" class="form-control col-sm-10 input-search" placeholder="请输入功能名称">
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--编辑用户模态框-->
-            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">编辑用户
-                            </h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table model-table">
-                                <tr>
-                                    <td class="model-td-left2"><span class="model-tab-td-span">账号:</span></td>
-                                    <td>
-                                        <input type="text" readonly="readonly" id="edit-Account" /></td>
-                                </tr>
-                                <tr>
-                                    <td class="model-td-left2"><span class="model-tab-td-span">姓名:</span></td>
-                                    <td>
-                                        <input type="text" id="edit-Name" /></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">密码:</span></td>
-                                    <td>
-                                        <button type="button" class="btn btn-default btn-sm" id="reset">重置密码</button></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
-                                    <td>
-                                        <select class="selectpicker" id="editRegion" title="请选择地区" data-style="btn-sm">
-                                            <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
-                                                    {
-                                                        if (dsRegion.Tables[0].Rows[i]["regionId"].ToString() == regionEdit)
-                                                        {%>
-                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>" selected="selected"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}
-                                                    else
-                                                    { %>
-                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}
-                                                    } %>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">角色:</span></td>
-                                    <td>
-                                        <select class="selectpicker" id="editRole" title="请选择地区" data-style="btn-sm">
-                                            <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
-                                                {
-                                                    if (dsRole.Tables[0].Rows[i]["roleId"].ToString() == roleEdit)
-                                                    {%>
-                                                        <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>" selected="selected"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                                <%}
-                                                else
-                                                { %>
-                                                        <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                                <%}
-                                                } %>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm" id="btnEdit">提交</button>
+                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
                         </div>
                     </div>
                 </div>
@@ -463,10 +337,7 @@
             </footer>
         </div>
     </div>
-    <input type="hidden" value="<%=getCurrentPage %>" id="page" />
-    <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/userManagement.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>
@@ -474,8 +345,6 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
-    <script>
-</script>
 </body>
 
 </html>
