@@ -107,6 +107,7 @@
     <Content Include="js\collectionManagement.js" />
     <Content Include="js\customerManagement.js" />
     <Content Include="js\demo.js" />
+    <Content Include="js\functionManagement.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="js\jsencrypt.min.js" />
