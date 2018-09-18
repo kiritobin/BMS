@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="userManagement.aspx.cs" Inherits="bms.Web.AccessMGT.userManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="roleManagement.aspx.cs" Inherits="bms.Web.AccessMGT.roleManagement" %>
 
 <%="" %>
 <!DOCTYPE html>
