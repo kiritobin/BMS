@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
-      <HintPath>C:\Users\mz\Documents\WeChat Files\wj1827505680\Files\MySql.Data.DLL</HintPath>
+      <HintPath>..\bms.Web\bin\MySql.Data.DLL</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

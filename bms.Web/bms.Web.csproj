@@ -59,14 +59,16 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccessMGT\organizationalManagement.aspx" />
     <Content Include="AccessMGT\roleManagement.aspx" />
-    <Content Include="AccessMGT\storageManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
     <Content Include="BasicInfor\bookshelfManagement.aspx" />
     <Content Include="bin\bms.Bll.dll" />
     <Content Include="bin\bms.Model.dll" />
     <Content Include="css\qc.css" />
+    <Content Include="CustomerMGT\collectionManagement.aspx" />
+    <Content Include="CustomerMGT\customerManagement.aspx" />
     <Content Include="demo\alert.html" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
@@ -91,6 +93,7 @@
     <Content Include="js\bootstrap-material-design.min.js" />
     <Content Include="js\bootstrap-selectpicker.js" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\customerManagement.js" />
     <Content Include="js\demo.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
@@ -107,19 +110,19 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessMGT\organizationalManagement.aspx.cs">
+      <DependentUpon>organizationalManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccessMGT\organizationalManagement.aspx.designer.cs">
+      <DependentUpon>organizationalManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AccessMGT\roleManagement.aspx.cs">
       <DependentUpon>roleManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AccessMGT\roleManagement.aspx.designer.cs">
       <DependentUpon>roleManagement.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AccessMGT\storageManagement.aspx.cs">
-      <DependentUpon>storageManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AccessMGT\storageManagement.aspx.designer.cs">
-      <DependentUpon>storageManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="AccessMGT\userManagement.aspx.cs">
       <DependentUpon>userManagement.aspx</DependentUpon>
@@ -148,6 +151,20 @@
     </Compile>
     <Compile Include="CommonPage.aspx.designer.cs">
       <DependentUpon>CommonPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerMGT\collectionManagement.aspx.cs">
+      <DependentUpon>collectionManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerMGT\collectionManagement.aspx.designer.cs">
+      <DependentUpon>collectionManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerMGT\customerManagement.aspx.cs">
+      <DependentUpon>customerManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerMGT\customerManagement.aspx.designer.cs">
+      <DependentUpon>customerManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -195,7 +212,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CustomerMGT\" />
     <Folder Include="Customer\" />
     <Folder Include="InventoryMGT\" />
     <Folder Include="obj\Debug\TempPE\" />
