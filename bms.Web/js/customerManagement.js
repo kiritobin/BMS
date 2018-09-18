@@ -3,9 +3,7 @@ var countPage = $("#pageCount").val();
 sessionStorage.setItem("curPage", curPage);
 sessionStorage.setItem("totalPage", countPage);
 $(document).ready(function () {
-    function jump(curr) {
-        window.location.href = "customerManagement.aspx?currentPage=" + curr;
-    }
+    //分页
     $(".jump").click(function () {
         switch ($.trim($(this).text())) {
             case ('上一页'):
@@ -32,4 +30,14 @@ $(document).ready(function () {
                 break;
         }
     });
+    //地区下拉查询
+    $("#select-region").change(function () {
+        var regionId = $("#select-region").find("option:selected").val();
+        alert(regionId);
+    })
+
+    //地址栏传值
+    function jump(curr) {
+        window.location.href = "customerManagement.aspx?currentPage=" + curr;
+    }
 })
