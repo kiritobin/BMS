@@ -8,16 +8,89 @@ using bms.Model;
 
 namespace bms.Bll
 {
+    using Result = Enums.OpResult;
     public class UserBll
     {
         UserDao userDao = new UserDao();
         /// <summary>
+        /// 添加用户方法
+        /// </summary>
+        /// <param name="user">用户实体对象</param>
+        /// <returns></returns>
+        public Result Insert(User user)
+        {
+            int row = userDao.Insert(user);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
+        }
+
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="user">用户实体对象</param>
+        /// <returns></returns>
+        public Result Update(User user)
+        {
+            int row = userDao.Update(user);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+
+        /// <summary>
+        /// 更新用户密码
+        /// </summary>
+        /// <param name="user">用户实体对象</param>
+        /// <returns>受影响行数</returns>
+        public Result UpdatePwd(User user)
+        {
+            int row = userDao.UpdatePwd(user);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+
+        /// <summary>
+        /// 删除用户信息
+        /// </summary>
+        /// <param name="userID">用户id</param>
+        /// <returns></returns>
+        public Result Delete(int userID)
+        {
+            int row = userDao.Delete(userID);
+            if (row > 0)
+            {
+                return Result.删除成功;
+            }
+            else
+            {
+                return Result.删除失败;
+            }
+        }
+
+        /// <summary>
         /// 获取所有用户信息
         /// </summary>
         /// <returns>数据集</returns>
-        public DataSet select()
+        public DataSet Select()
         {
-            return userDao.select();
+            return userDao.Select();
         }
 
         /// <summary>
@@ -46,6 +119,27 @@ namespace bms.Bll
             else
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// 判断在另外一张表中是否有数据
+        /// </summary>
+        ///<param name = "table" > 表名 </ param >
+        /// <param name="primarykeyname">主键列</param>
+        /// <param name="primarykey">主键参数</param>
+        /// <returns>管理引用代表数据存在不可删除，记录不存在表示可以删除</returns>
+        public Result IsDelete(string table, string primarykeyname, string primarykey)
+        {
+            PublicProcedure procedure = new PublicProcedure();
+            int row = procedure.isDelete(table, primarykeyname, primarykey);
+            if (row > 0)
+            {
+                return Enums.OpResult.关联引用;
+            }
+            else
+            {
+                return Enums.OpResult.记录不存在;
             }
         }
     }

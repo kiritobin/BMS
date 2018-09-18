@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="userManagement.aspx.cs" Inherits="bms.Web.AccessMGT.userManagement" %>
+
 <%="" %>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -231,19 +232,35 @@
                                         <div class="input-group no-border">
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
                                                 <option value="0">请选择地区</option>
-                                                <%for(int i=0; i<dsRegion.Tables[0].Rows.Count;i++){ %>
-                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%} %>
+                                                <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                    {
+                                                        if (dsRegion.Tables[0].Rows[i]["regionId"].ToString() == regionId)
+                                                        {%>
+                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>" selected="selected"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                <%}
+                                                    else
+                                                    { %>
+                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                <%}
+                                                    } %>
                                             </select>
                                             &nbsp
                                             <select class="selectpicker" title="请选择角色" data-style="btn-sm" id="select-role">
                                                 <option value="0">请选择角色</option>
-                                                <%for(int i=0; i<dsRole.Tables[0].Rows.Count;i++){ %>
-                                                    <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                                <%} %>
+                                                <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
+                                                {
+                                                    if (dsRole.Tables[0].Rows[i]["roleId"].ToString() == roleId)
+                                                    {%>
+                                                        <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>" selected="selected"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
+                                                <%}
+                                                else
+                                                { %>
+                                                        <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
+                                                <%}
+                                                } %>
                                             </select>
                                             &nbsp &nbsp
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
+                                            <input type="text" value="<%=strSearch %>" class="form-control col-sm-2" id="input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
@@ -263,7 +280,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <%for(int i=0;i<ds.Tables[0].Rows.Count;i++){ %>
+                                                <%for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                                                    { %>
                                                 <tr>
                                                     <td><%=i+1+((getCurrentPage-1)*pageSize) %></td>
                                                     <td><%=ds.Tables[0].Rows[i]["userID"] %></td>
@@ -273,8 +291,8 @@
                                                     <td>
                                                         <input type="hidden" value="<%=ds.Tables[0].Rows[i]["regionId"] %>" id="reginId" />
                                                         <input type="hidden" value="<%=ds.Tables[0].Rows[i]["roleId"] %>" id="roleId" />
-                                                        <button class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
-                                                        <button class="btn btn-danger btn-sm" id="btnDel"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
+                                                        <button class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#new"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
+                                                        <button class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
                                                 <%} %>
@@ -324,12 +342,18 @@
                                         <input type="text" class="form-control col-sm-9 input-search" id="inputAccount" placeholder="请输入账号"></td>
                                 </tr>
                                 <tr>
+                                    <td class="model-td-left"><span class="model-tab-td-span">姓名:</span></td>
+                                    <td>
+                                        <input type="text" class="form-control col-sm-9 input-search" id="inputName" placeholder="请输入账号"></td>
+                                </tr>
+                                <tr>
                                     <td><span class="model-tab-td-span">地区:</span></td>
                                     <td>
                                         <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
-                                            <%for(int i=0; i<dsRegion.Tables[0].Rows.Count;i++){ %>
-                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                            <%} %>
+                                            <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                {%>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                <%} %>
                                         </select>
                                     </td>
                                 </tr>
@@ -337,9 +361,10 @@
                                     <td><span class="model-tab-td-span">角色:</span></td>
                                     <td>
                                         <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-role">
-                                            <%for(int i=0; i<dsRole.Tables[0].Rows.Count;i++){ %>
-                                                <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                            <%} %>
+                                            <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
+                                                {%>
+                                                    <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
+                                                <%}%>
                                         </select>
                                     </td>
                                 </tr>
@@ -364,20 +389,34 @@
                             <table class="table model-table">
                                 <tr>
                                     <td class="model-td-left2"><span class="model-tab-td-span">账号:</span></td>
-                                    <td><input type="text" readonly="readonly" id="edit-Account" /></td>
+                                    <td>
+                                        <input type="text" readonly="readonly" id="edit-Account" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="model-td-left2"><span class="model-tab-td-span">姓名:</span></td>
+                                    <td>
+                                        <input type="text" id="edit-Name" /></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">密码:</span></td>
                                     <td>
-                                         <button type="button" class="btn btn-default btn-sm" id="reset">重置密码</button></td>
+                                        <button type="button" class="btn btn-default btn-sm" id="reset">重置密码</button></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">地区:</span></td>
                                     <td>
                                         <select class="selectpicker" id="editRegion" title="请选择地区" data-style="btn-sm">
-                                            <%for(int i=0; i<dsRegion.Tables[0].Rows.Count;i++){ %>
+                                            <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                    {
+                                                        if (dsRegion.Tables[0].Rows[i]["regionId"].ToString() == regionEdit)
+                                                        {%>
+                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>" selected="selected"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                <%}
+                                                    else
+                                                    { %>
                                                 <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                            <%} %>
+                                                <%}
+                                                    } %>
                                         </select>
                                     </td>
                                 </tr>
@@ -385,9 +424,17 @@
                                     <td><span class="model-tab-td-span">角色:</span></td>
                                     <td>
                                         <select class="selectpicker" id="editRole" title="请选择地区" data-style="btn-sm">
-                                            <%for(int i=0; i<dsRole.Tables[0].Rows.Count;i++){ %>
-                                                <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                            <%} %>
+                                            <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
+                                                {
+                                                    if (dsRole.Tables[0].Rows[i]["roleId"].ToString() == roleEdit)
+                                                    {%>
+                                                        <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>" selected="selected"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
+                                                <%}
+                                                else
+                                                { %>
+                                                        <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
+                                                <%}
+                                                } %>
                                         </select>
                                     </td>
                                 </tr>
@@ -395,7 +442,6 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                          <%--  <button type="button" class="btn btn-info btn-sm" id="model-btn-eidter">编辑</button>--%>
                             <button type="submit" class="btn btn-success btn-sm" id="btnEdit">提交</button>
                         </div>
                     </div>
@@ -420,6 +466,7 @@
     <input type="hidden" value="<%=getCurrentPage %>" id="page" />
     <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/userManagement.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>
@@ -428,7 +475,7 @@
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script>
-    </script>
+</script>
 </body>
 
 </html>

@@ -47,5 +47,28 @@ namespace bms.Dao
             intPageCount = Convert.ToInt32(values[7].Value);
             return ds;
         }
+
+        /// <summary>
+        /// 判断在另外一张表中是否有数据
+        /// </summary>
+        /// <param name="table">表名</param>
+        /// <param name="primarykeyname">主键列</param>
+        /// <param name="primarykey">主键参数</param>
+        /// <returns></returns>
+        public int isDelete(string table, string primarykeyname, string primarykey)
+        {
+            String cmdText = string.Format(" select count(*) as count from {0} where {1} = '{2}'", table, primarykeyname, primarykey);
+            string[] param = { };
+            object[] values = { };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (int.Parse(ds.Tables[0].Rows[0]["count"].ToString()) > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
