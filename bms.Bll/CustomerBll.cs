@@ -8,6 +8,7 @@ using bms.Model;
 
 namespace bms.Bll
 {
+    using Result = Enums.OpResult;
     public class CustomerBll
     {
         CustomerDao customerDao = new CustomerDao();
@@ -44,18 +45,23 @@ namespace bms.Bll
         /// </summary>
         /// <param name="customer">客户实体</param>
         /// <returns>返回最终结果（成功或失败）</returns>
-        public Enums.OpResult Insert(Customer customer)
+        public Result Insert(Customer customer)
         {
             int count = customerDao.Insert(customer);
             if (count > 0)
             {
-                return Enums.OpResult.添加成功;
+                return Result.添加成功;
             }
             else
             {
-                return Enums.OpResult.添加失败;
+                return Result.添加失败;
             }
         }
+        /// <summary>
+        /// 查找账号是否存在
+        /// </summary>
+        /// <param name="customerId">账号</param>
+        /// <returns></returns>
         public bool SelectById(string customerId)
         {
             int count = customerDao.SelectById(customerId);
@@ -66,6 +72,65 @@ namespace bms.Bll
             else
             {
                 return false;
+            }
+        }
+        /// <summary>
+        /// 更新客户信息
+        /// </summary>
+        /// <param name="customer">客户实体</param>
+        /// <returns></returns>
+        public Result update(Customer customer)
+        {
+            int row = customerDao.update(customer);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+        /// <summary>
+        /// 删除客户
+        /// </summary>
+        /// <param name="customerID">客户Id</param>
+        /// <returns></returns>
+        public Result Delete(int customerID)
+        {
+            int row = customerDao.delete(customerID);
+            if (row > 0)
+            {
+                return Result.删除成功;
+            }
+            else
+            {
+                return Result.删除失败;
+            }
+        }
+        /// <summary>
+        /// 根据账号获取客户对象
+        /// </summary>
+        /// <param name="customerID">账号</param>
+        /// <returns></returns>
+        public Customer getCustomer(int customerID)
+        {
+            DataSet ds = customerDao.getCustomer(customerID);
+            Customer cust = new Customer();
+            if(ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                int i = ds.Tables[0].Rows.Count - 1;
+                cust.CustomerId = Convert.ToInt32(ds.Tables[0].Rows[i]["customerID"].ToString());
+                cust.CustomerName = ds.Tables[0].Rows[i]["customerName"].ToString();
+                cust.CustomerPwd = ds.Tables[0].Rows[i]["customerPwd"].ToString();
+                Region reg = new Region();
+                reg.RegionId = Convert.ToInt32(ds.Tables[0].Rows[i]["regionId"].ToString());
+                cust.RegionId = reg;
+                return cust;
+            }
+            else
+            {
+                return null;
             }
         }
     }

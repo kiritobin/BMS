@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using bms.DBHelper;
 using bms.Model;
+using MySql.Data.MySqlClient;
 
 namespace bms.Dao
 {
@@ -17,7 +18,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet select()
         {
-            string cmdText = "select * from V_Customer";
+            string cmdText = "select customerID,customerName,customerPwd,regionId from V_Customer";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if(ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -35,9 +36,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int Insert(Customer customer)
         {
-            string cmdText = "insert into T_Customerk(customerID,customerName,customerPwd,regionId) values(@customerID,@customerName,@customerPwd,@regionId)";
-            String[] param = { "@customerID","@customerName","@regionId" };
-            String[] values = { customer.CustomerId.ToString(), customer.CustomerName ,customer.CustomerPwd,customer.RegionId.ToString()};
+            string cmdText = "insert into T_Customer(customerID,customerName,customerPwd,regionId) values(@customerID,@customerName,@customerPwd,@regionId)";
+            String[] param = { "@customerID","@customerName", "@customerPwd", "@regionId" };
+            object[] values = { customer.CustomerId.ToString(), customer.CustomerName ,customer.CustomerPwd,customer.RegionId.RegionId};
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
         /// <summary>
@@ -51,6 +52,43 @@ namespace bms.Dao
             string[] param = { "@customerId" };
             string[] values = { customerId };
             return Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+        }
+        /// <summary>
+        /// 更新客户信息
+        /// </summary>
+        /// <param name="customer">客户实体</param>
+        /// <returns></returns>
+        public int update(Customer customer)
+        {
+            string sql = "update T_Customer set customerID=@customerID,customerName=@customerName,customerPwd=@customerPwd,regionId=@regionId";
+            string[] param = { "@customerID", "@customerName", "@customerPwd", "@regionId" };
+            object[] values = { customer.CustomerId, customer.CustomerName, customer.CustomerPwd, customer.RegionId.RegionId };
+            return db.ExecuteNoneQuery(sql, param, values);
+        }
+        /// <summary>
+        /// 删除客户
+        /// </summary>
+        /// <param name="customerID">客户Id</param>
+        /// <returns></returns>
+        public int delete(int customerID)
+        {
+            string sql = "delete from T_Customer where customerID = @customerID";
+            string[] param = { "@customerID" };
+            object[] values = { customerID };
+            return db.ExecuteNoneQuery(sql, param, values);
+        }
+        /// <summary>
+        /// 根据账号获取客户实体
+        /// </summary>
+        /// <param name="customerID">账号</param>
+        /// <returns></returns>
+        public DataSet getCustomer(int customerID)
+        {
+            string cmdText = "select customerID,customerName,customerPwd,regionId from T_Customer where customerID=@customerID";
+            String[] param = { "@customerID" };
+            object[] values = { customerID };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
         }
     }
 }

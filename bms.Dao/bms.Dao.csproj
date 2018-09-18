@@ -43,14 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookBasicDao.cs" />
     <Compile Include="bulkLoad.cs" />
     <Compile Include="CustomerDao.cs" />
+    <Compile Include="FunctionDao.cs" />
+    <Compile Include="LibraryCollectionDao.cs" />
     <Compile Include="LoginDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicProcedure.cs" />
     <Compile Include="RegionDao.cs" />
     <Compile Include="RoleDao.cs" />
     <Compile Include="UserDao.cs" />
+    <Compile Include="Warehousing.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\bms.Dao.dll" />

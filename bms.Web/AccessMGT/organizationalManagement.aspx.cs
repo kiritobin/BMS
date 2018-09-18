@@ -8,9 +8,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace bms.Web.AccessMGT
+namespace bms.Web.BasicInfor
 {
-    public partial class roleManagement : System.Web.UI.Page
+    public partial class organizationalManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 5, getCurrentPage = 0, totalCount, intPageCount;
         public string search, strSearch, regionId, roleId, regionEdit, roleEdit;
@@ -23,7 +23,7 @@ namespace bms.Web.AccessMGT
         Role role = new Role();
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
         /// <summary>
         /// 获取数据
@@ -37,9 +37,9 @@ namespace bms.Web.AccessMGT
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "T_Role";
-            tbd.OrderBy = "roleId";
-            tbd.StrColumnlist = "roleId,roleName";
+            tbd.StrTable = "T_Region";
+            tbd.OrderBy = "regionId";
+            tbd.StrColumnlist = "regionId,regionName";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = strWhere;
             tbd.IntPageNum = currentPage;

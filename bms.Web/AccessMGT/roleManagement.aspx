@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="userManagement.aspx.cs" Inherits="bms.Web.AccessMGT.userManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="roleManagement.aspx.cs" Inherits="bms.Web.AccessMGT.roleManagement" %>
 
 <%="" %>
 <!DOCTYPE html>
@@ -241,13 +241,7 @@
                                                 <tr>
                                                     <th>序号
                                                     </th>
-                                                    <th>角色编号
-                                                    </th>
                                                     <th>角色名
-                                                    </th>
-                                                    <th>地区
-                                                    </th>
-                                                    <th>备注
                                                     </th>
                                                     <th class="table-thead-th">操作
                                                     </th>
@@ -258,13 +252,8 @@
                                                 <tr>
                                                     <td>1
                                                     </td>
-                                                    <td>10001
-                                                    </td>
                                                     <td>门卫
                                                     </td>
-                                                    <td>五华区
-                                                    </td>
-                                                    <td></td>
                                                     <td>
                                                         <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp;删除</button>

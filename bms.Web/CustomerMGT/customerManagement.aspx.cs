@@ -29,7 +29,7 @@ namespace bms.Web.CustomerMGT
         {
             searchRegion = Request.QueryString["regionID"];
             strWhere = Request.QueryString["strWhere"];
-            op = Request.QueryString["op"];
+            op = Context.Request["op"];
 
             if (!IsPostBack)
             {
@@ -46,6 +46,10 @@ namespace bms.Web.CustomerMGT
             if (op == "add")
             {
                 InsertCustomer();
+            }
+            if(op== "editData")
+            {
+                UpdateCustomer();
             }
         }
         /// <summary>
@@ -118,9 +122,9 @@ namespace bms.Web.CustomerMGT
         /// </summary>
         public void InsertCustomer()
         {
-            string custId = Request.QueryString["customerId"],
-                custName = Request.QueryString["cutomerName"],
-                regId = Request.QueryString["zoneId"],
+            string custId = Context.Request["customerId"],
+                custName = Context.Request["cutomerName"],
+                regId = Context.Request["zoneId"],
                 pwd = "000000";
             string custPwd = RSAC.Encrypt(pwd);
             bool isCustomerId = cBll.SelectById(custId);
@@ -137,13 +141,13 @@ namespace bms.Web.CustomerMGT
                 };
                 Customer cust = new Customer()
                 {
-                    CustomerId = int.Parse(custId),
+                    CustomerId = Convert.ToInt32(custId),
                     CustomerName = custName,
                     CustomerPwd = custPwd,
                     RegionId = reg
                 };
                 Result result = cBll.Insert(cust);
-                if (result == Result.添加失败)
+                if (result == Result.添加成功)
                 {
                     Response.Write("添加成功");
                     Response.End();
@@ -154,6 +158,16 @@ namespace bms.Web.CustomerMGT
                     Response.End();
                 }
             }
+        }
+        public void UpdateCustomer()
+        {
+            string custId = Context.Request["customerId"],
+                custName = Context.Request["cutomerName"],
+                regId = Context.Request["zoneId"];
+            Customer cmer = new Customer();
+            cmer = cBll.getCustomer(int.Parse(custId));
+            string pwd = cmer.CustomerPwd;
+
         }
     }
 }
