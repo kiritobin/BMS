@@ -64,7 +64,7 @@
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
     <Content Include="BasicInfor\bookshelfManagement.aspx" />
     <Content Include="BasicInfor\lnventoryList.aspx" />
-    <Content Include="BasicInfor\organizationalManagement.aspx" />
+    <Content Include="AccessMGT\organizationalManagement.aspx" />
     <Content Include="BasicInfor\outboundList.aspx" />
     <Content Include="BasicInfor\replenishList.aspx" />
     <Content Include="bin\bms.Bll.dll" />
@@ -158,11 +158,11 @@
     <Compile Include="BasicInfor\lnventoryList.aspx.designer.cs">
       <DependentUpon>lnventoryList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BasicInfor\organizationalManagement.aspx.cs">
+    <Compile Include="AccessMGT\organizationalManagement.aspx.cs">
       <DependentUpon>organizationalManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BasicInfor\organizationalManagement.aspx.designer.cs">
+    <Compile Include="AccessMGT\organizationalManagement.aspx.designer.cs">
       <DependentUpon>organizationalManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="BasicInfor\outboundList.aspx.cs">
