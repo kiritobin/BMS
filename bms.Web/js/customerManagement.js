@@ -33,11 +33,20 @@ $(document).ready(function () {
     //地区下拉查询
     $("#select-region").change(function () {
         var regionId = $("#select-region").find("option:selected").val();
-        alert(regionId);
+        sessionStorage.setItem("region", regionId);
+        if (sessionStorage.getItem("strWhere") != null) {
+            sessionStorage.removeItem("strWhere");
+        }
+        jump(1);
     })
 
     //地址栏传值
     function jump(curr) {
-        window.location.href = "customerManagement.aspx?currentPage=" + curr;
+        if (sessionStorage.getItem("region") == null || sessionStorage.getItem("region") == null) {
+            window.location.href = "customerManagement.aspx?currentPage=" + curr;
+        }
+        else {
+            window.location.href = "customerManagement.aspx?currentPage=" + curr + "&strWhere=" + sessionStorage.getItem("region");
+        }
     }
 })
