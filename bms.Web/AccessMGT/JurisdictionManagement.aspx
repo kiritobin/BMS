@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="functionManagement.aspx.cs" Inherits="bms.Web.AccessMGT.functionManagement" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="jurisdictionManagement.aspx.cs" Inherits="bms.Web.AccessMGT.JurisdictionManagement" %>
 
 <%="" %>
 <!DOCTYPE html>
@@ -338,9 +337,9 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
-     <script src="../js/sweetalert2.js"></script>
+    <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
-    <script src="../js/functionManagement.js"></script>
+    <script src="../js/jurisdictionManagement.js"></script>
 </body>
 
 </html>

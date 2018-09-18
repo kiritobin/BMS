@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/demo.css">
 </head>
 
 <body>
@@ -418,6 +419,8 @@
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>
     <!-- 事物处理 -->
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/demo.js"></script>
     <script src="../js/customerManagement.js"></script>
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>

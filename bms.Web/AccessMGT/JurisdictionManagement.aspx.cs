@@ -2,6 +2,7 @@
 using bms.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +12,7 @@ namespace bms.Web.AccessMGT
 {
     using System.Data;
     using Result = Enums.OpResult;
-    public partial class functionManagement : System.Web.UI.Page
+    public partial class JurisdictionManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 5, getCurrentPage = 0, totalCount, intPageCount;
         public DataSet ds;
@@ -39,7 +40,7 @@ namespace bms.Web.AccessMGT
                 if (row == Result.记录不存在)
                 {
                     Result result = functionbll.Delete(functionId);
-                    if (result==Result.删除成功)
+                    if (result == Result.删除成功)
                     {
                         Response.Write("删除成功");
                         Response.End();
@@ -70,9 +71,8 @@ namespace bms.Web.AccessMGT
                 else
                 {
                     Response.Write("添加失败");
-                    Response.Write("老柯腾");
                 }
-                
+
             }
         }
         public void getData(string strWhere)

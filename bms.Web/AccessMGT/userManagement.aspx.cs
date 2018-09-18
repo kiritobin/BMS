@@ -57,7 +57,6 @@ namespace bms.Web.AccessMGT
                 getData(strWhere);
             }
             //增、删、改操作
-
             Region region = new Region();
             string op = Request["op"];
             if(op == "add")
@@ -90,8 +89,6 @@ namespace bms.Web.AccessMGT
             {
                 regionEdit = Request["region"];
                 roleEdit = Request["role"];
-                Response.Write("展示");
-                Response.End();
             }
             else if(op == "edit")
             {

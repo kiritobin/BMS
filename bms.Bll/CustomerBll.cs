@@ -108,5 +108,30 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+        /// <summary>
+        /// 根据账号获取客户对象
+        /// </summary>
+        /// <param name="customerID">账号</param>
+        /// <returns></returns>
+        public Customer getCustomer(int customerID)
+        {
+            DataSet ds = customerDao.getCustomer(customerID);
+            Customer cust = new Customer();
+            if(ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                int i = ds.Tables[0].Rows.Count - 1;
+                cust.CustomerId = Convert.ToInt32(ds.Tables[0].Rows[i]["customerID"].ToString());
+                cust.CustomerName = ds.Tables[0].Rows[i]["customerName"].ToString();
+                cust.CustomerPwd = ds.Tables[0].Rows[i]["customerPwd"].ToString();
+                Region reg = new Region();
+                reg.RegionId = Convert.ToInt32(ds.Tables[0].Rows[i]["regionId"].ToString());
+                cust.RegionId = reg;
+                return cust;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

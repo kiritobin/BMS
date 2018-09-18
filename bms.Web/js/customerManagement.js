@@ -80,9 +80,31 @@ $(document).ready(function () {
                 dataType: 'text',
                 success: function (succ) {
                     if (succ == "添加成功") {
-                        alert("添加成功");
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
                     } else {
-                        alert("添加失败");
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
                     }
                 }
             })
@@ -113,9 +135,31 @@ $(document).ready(function () {
             dataType: 'text',
             success: function (succ) {
                 if (succ == "更新成功") {
-                    alert("重置成功");
+                    swal({
+                        title: succ,
+                        text: succ,
+                        type: "success",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window, location.reload();
+                    })
                 } else {
-                    alert("重置失败");
+                    swal({
+                        title: succ,
+                        text: succ,
+                        type: "success",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window, location.reload();
+                    })
                 }
             }
         });

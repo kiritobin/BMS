@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using bms.DBHelper;
 using bms.Model;
+using MySql.Data.MySqlClient;
 
 namespace bms.Dao
 {
@@ -17,7 +18,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet select()
         {
-            string cmdText = "select * from V_Customer";
+            string cmdText = "select customerID,customerName,customerPwd,regionId from V_Customer";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if(ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -75,6 +76,19 @@ namespace bms.Dao
             string[] param = { "@customerID" };
             object[] values = { customerID };
             return db.ExecuteNoneQuery(sql, param, values);
+        }
+        /// <summary>
+        /// 根据账号获取客户实体
+        /// </summary>
+        /// <param name="customerID">账号</param>
+        /// <returns></returns>
+        public DataSet getCustomer(int customerID)
+        {
+            string cmdText = "select customerID,customerName,customerPwd,regionId from T_Customer where customerID=@customerID";
+            String[] param = { "@customerID" };
+            object[] values = { customerID };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
         }
     }
 }

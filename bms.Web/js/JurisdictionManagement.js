@@ -42,9 +42,9 @@ function jump(cur) {
     var strWhere = sessionStorage.getItem("strWhere");
     var type = sessionStorage.getItem("type");
     if (strWhere != null && strWhere != "") {
-        window.location.href = "functionManagement.aspx?currentPage=" + cur + "&search=" + strWhere + "&type=" + type;
+        window.location.href = "jurisdictionManagement.aspx?currentPage=" + cur + "&search=" + strWhere + "&type=" + type;
     } else {
-        window.location.href = "functionManagement.aspx?currentPage=" + cur
+        window.location.href = "jurisdictionManagement.aspx?currentPage=" + cur
     }
 }
 //点击查询按钮时
@@ -59,7 +59,7 @@ $("#btnAdd").click(function () {
     var name = $("#functionName").val();
     $.ajax({
         type: 'Post',
-        url: 'functionManagement.aspx',
+        url: 'jurisdictionManagement.aspx',
         data: {
             functionName: name,
             op: "add"
@@ -116,7 +116,7 @@ $(".btn-delete").click(function () {
     }).then(function () {
         $.ajax({
             type: 'Post',
-            url: 'functionManagement.aspx',
+            url: 'jurisdictionManagement.aspx',
             data: {
                 functionId: functionId,
                 op: "del"
