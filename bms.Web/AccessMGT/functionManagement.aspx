@@ -321,21 +321,21 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- 主界面页脚部分 -->
-        <footer class="footer">
-            <div class="container-fluid">
-                <!-- 版权内容 -->
-                <div class="copyright text-center">
-                    &copy;
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                    , made with <i class="material-icons">favorite</i> by
+                        , made with <i class="material-icons">favorite</i> by
                         <a href="javascript:;" target="_blank"></a>for a better web.
+                    </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
