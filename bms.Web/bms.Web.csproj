@@ -64,10 +64,10 @@
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
     <Content Include="BasicInfor\bookshelfManagement.aspx" />
-    <Content Include="BasicInfor\lnventoryList.aspx" />
+    <Content Include="InventoryMGT\lnventoryList.aspx" />
     <Content Include="BasicInfor\organizationalManagement.aspx" />
-    <Content Include="BasicInfor\outboundList.aspx" />
-    <Content Include="BasicInfor\replenishList.aspx" />
+    <Content Include="InventoryMGT\outboundList.aspx" />
+    <Content Include="InventoryMGT\replenishList.aspx" />
     <Content Include="bin\bms.Bll.dll" />
     <Content Include="bin\bms.Bll.pdb" />
     <Content Include="bin\bms.Dao.dll" />
@@ -157,11 +157,11 @@
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BasicInfor\lnventoryList.aspx.cs">
+    <Compile Include="InventoryMGT\lnventoryList.aspx.cs">
       <DependentUpon>lnventoryList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BasicInfor\lnventoryList.aspx.designer.cs">
+    <Compile Include="InventoryMGT\lnventoryList.aspx.designer.cs">
       <DependentUpon>lnventoryList.aspx</DependentUpon>
     </Compile>
     <Compile Include="BasicInfor\organizationalManagement.aspx.cs">
@@ -171,18 +171,18 @@
     <Compile Include="BasicInfor\organizationalManagement.aspx.designer.cs">
       <DependentUpon>organizationalManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BasicInfor\outboundList.aspx.cs">
+    <Compile Include="InventoryMGT\outboundList.aspx.cs">
       <DependentUpon>outboundList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BasicInfor\outboundList.aspx.designer.cs">
+    <Compile Include="InventoryMGT\outboundList.aspx.designer.cs">
       <DependentUpon>outboundList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BasicInfor\replenishList.aspx.cs">
+    <Compile Include="InventoryMGT\replenishList.aspx.cs">
       <DependentUpon>replenishList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BasicInfor\replenishList.aspx.designer.cs">
+    <Compile Include="InventoryMGT\replenishList.aspx.designer.cs">
       <DependentUpon>replenishList.aspx</DependentUpon>
     </Compile>
     <Compile Include="CommonPage.aspx.cs">
@@ -253,7 +253,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Customer\" />
-    <Folder Include="InventoryMGT\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="SalesMGT\" />
   </ItemGroup>
