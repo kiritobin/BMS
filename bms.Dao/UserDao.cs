@@ -1,4 +1,5 @@
 ﻿using bms.DBHelper;
+using bms.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,16 @@ namespace bms.Dao
     public class UserDao
     {
         MySqlHelp db = new MySqlHelp();
+
+        public int Insert(User user)
+        {
+            string comText = "insert into T_User(userID,userName,regionId,roleId) values(@userID,@userName,@regionId,@roleId)";
+            string[] param = { "@userID", "@userName", "@regionId", "@roleId" };
+            object[] values = { user.UserId, user.UserName, user.ReginId, user.RoleId };
+            int row=0;
+            return row;
+        }
+
         /// <summary>
         /// 获取所有用户信息
         /// </summary>

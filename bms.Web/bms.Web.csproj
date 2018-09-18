@@ -59,13 +59,20 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AccessMGT\organizationalManagement.aspx" />
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
     <Content Include="BasicInfor\bookshelfManagement.aspx" />
+    <Content Include="BasicInfor\organizationalManagement.aspx" />
     <Content Include="bin\bms.Bll.dll" />
+    <Content Include="bin\bms.Bll.pdb" />
+    <Content Include="bin\bms.Dao.dll" />
+    <Content Include="bin\bms.Dao.pdb" />
+    <Content Include="bin\bms.DBHelper.dll" />
+    <Content Include="bin\bms.DBHelper.pdb" />
     <Content Include="bin\bms.Model.dll" />
+    <Content Include="bin\bms.Model.pdb" />
+    <Content Include="bin\MySql.Data.dll" />
     <Content Include="css\qc.css" />
     <Content Include="CustomerMGT\collectionManagement.aspx" />
     <Content Include="CustomerMGT\customerManagement.aspx" />
@@ -93,6 +100,7 @@
     <Content Include="js\bootstrap-material-design.min.js" />
     <Content Include="js\bootstrap-selectpicker.js" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\collectionManagement.js" />
     <Content Include="js\customerManagement.js" />
     <Content Include="js\demo.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
@@ -110,13 +118,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessMGT\organizationalManagement.aspx.cs">
-      <DependentUpon>organizationalManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AccessMGT\organizationalManagement.aspx.designer.cs">
-      <DependentUpon>organizationalManagement.aspx</DependentUpon>
-    </Compile>
     <Compile Include="AccessMGT\roleManagement.aspx.cs">
       <DependentUpon>roleManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -144,6 +145,13 @@
     </Compile>
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BasicInfor\organizationalManagement.aspx.cs">
+      <DependentUpon>organizationalManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BasicInfor\organizationalManagement.aspx.designer.cs">
+      <DependentUpon>organizationalManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="CommonPage.aspx.cs">
       <DependentUpon>CommonPage.aspx</DependentUpon>
