@@ -52,11 +52,10 @@ $(document).ready(function () {
             }
         });
     });
-
+    //下拉查询
     $("#select-region").change(function () {
-        var region = $("#select-region").val();
+        var region = $("#select-region").find("option:selected").val();
         var search = $("#search_All").val().trim();
-        alert(search);
         $.ajax({
             type: 'Post',
             url: 'customerManagement.aspx',
@@ -98,10 +97,10 @@ $(document).ready(function () {
         var id = $("#customerId").val();
         var name = $("#customerName").val();
         var regionID = $("#model-select-region").find("option:selected").val();
-        if (id == "" || name == "" || regionID == "") {
-            alert("账号、姓名和地区名称都不能为空！");
-        }
-        else {
+        //if (id == "" || name == "" || regionID == "") {
+        //    alert("账号、姓名和地区名称都不能为空！");
+        //}
+        //else {
             $.ajax({
                 type: 'Post',
                 url: 'customerManagement.aspx',
@@ -130,7 +129,7 @@ $(document).ready(function () {
                         swal({
                             title: succ,
                             text: succ,
-                            type: "success",
+                            type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
                             confirmButtonClass: 'btn btn-success',
@@ -142,21 +141,31 @@ $(document).ready(function () {
                     }
                 }
             })
-        }
+        //}
     })
-    //编辑客户
-    $(".btn_Editor").click(function () {
+
+    $("#table").delegate(".btn_Editor", "click", function () {
         var custId = $(this).parent().prev().prev().prev().prev().text().trim();
         var custName = $(this).parent().prev().prev().prev().text().trim();
-        $(".editor_name").val(custName);
         var custRegion = $(this).parent().prev().prev().text().trim();
+        $(".editor_name").val(custName);
         $(".editor_id").text(custId);
+        $("#editRegion").find("option:contains(" + custRegion + ")").attr("selected", true);
     })
+    ////编辑客户
+    //$(".btn_Editor").click(function () {
+    //    var custId = $(this).parent().prev().prev().prev().prev().text().trim();
+    //    var custName = $(this).parent().prev().prev().prev().text().trim();
+    //    $(".editor_name").val(custName);
+    //    var custRegion = $(this).parent().prev().prev().text().trim();
+    //    $(".editor_id").text(custId);
+    //    alert(custId + custName);
+    //})
     //提交编辑
     $(".sava_Editor").click(function () {
         var custId = $(".editor_id").text();
         var custName = $(".editor_name").val();
-        var regId = $(".editor_region").find("option:selected").val();
+        var regId = $("#editRegion").find("option:selected").val();
         $.ajax({
             type: 'Post',
             url: 'customerManagement.aspx',
@@ -164,7 +173,7 @@ $(document).ready(function () {
                 customerid: custId,
                 customername: custName,
                 regionid: regId,
-                op: "editData"
+                op: "editor"
             },
             dataType: 'text',
             success: function (succ) {
@@ -179,27 +188,27 @@ $(document).ready(function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window, location.reload();
+                        window.location.reload();
                     })
                 } else {
                     swal({
                         title: succ,
                         text: succ,
-                        type: "success",
+                        type: "warning",
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: '确定',
                         confirmButtonClass: 'btn btn-success',
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window, location.reload();
+                        window.location.reload();
                     })
                 }
             }
         });
     })
     //删除
-    $(".btn_delete").click(function () {
+    $("#table").delegate(".btn_delete", "click", function () {
         var custId = $(this).parent().prev().prev().prev().prev().text().trim();
         //弹窗
         swal({
@@ -236,20 +245,20 @@ $(document).ready(function () {
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window, location.reload();
+                            window.location.reload();
                         })
                     } else {
                         swal({
                             title: succ,
                             text: succ,
-                            type: "success",
+                            type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
                             confirmButtonClass: 'btn btn-success',
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window, location.reload();
+                            window.location.reload();
                         })
                     }
                 }
@@ -263,7 +272,7 @@ $(document).ready(function () {
     //    }
     //}
     //重置密码
-    $(".reset_pwd").click(function () {
+    $("#table").delegate(".reset_pwd", "click", function () {
         var custId = $(this).parent().prev().prev().prev().prev().text().trim();
         swal({
             title: "是否重置？",
