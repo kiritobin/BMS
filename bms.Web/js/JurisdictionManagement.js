@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $('.paging').pagination({
-        pageCount: $("#countPage").val(), //总页数
+        pageCount: $("#intPageCount").val(), //总页数
         jump: true,
         mode: 'fixed',//固定页码数量
         coping: true,
@@ -27,9 +27,10 @@
         }
     });
 })
-
+//查询按钮事件
 $("#btn-search").click(function () {
     var search = $("#search_All").val().trim();
+    alert(search);
     $.ajax({
         type: 'Post',
         url: 'jurisdictionManagement.aspx',
@@ -39,8 +40,37 @@ $("#btn-search").click(function () {
         },
         dataType: 'text',
         success: function (data) {
+            $("#intPageCount").remove();
             $("#table tr:not(:first)").empty(); //清空table处首行
             $("#table").append(data); //加载table
+            $(".paging").empty();
+            $('.paging').pagination({
+                pageCount: $("#intPageCount").val(), //总页数
+                jump: true,
+                mode: 'fixed',//固定页码数量
+                coping: true,
+                homePage: '首页',
+                endPage: '尾页',
+                prevContent: '上页',
+                nextContent: '下页',
+                callback: function (api) {
+                    var search = $("#search_All").val().trim();
+                    $.ajax({
+                        type: 'Post',
+                        url: 'JurisdictionManagement.aspx',
+                        data: {
+                            page: api.getCurrent(), //页码
+                            search: search,
+                            op: "paging"
+                        },
+                        dataType: 'text',
+                        success: function (data) {
+                            $("#table tr:not(:first)").empty(); //清空table处首行
+                            $("#table").append(data); //加载table
+                        }
+                    });
+                }
+            });
         }
     })
 })
