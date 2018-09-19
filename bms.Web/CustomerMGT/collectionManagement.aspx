@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
 </head>
 
 <body>
@@ -230,25 +231,20 @@
                                                 <option value="">请选择地区</option>
                                                 <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                     {
-                                                        if (dsRegion.Tables[0].Rows[i]["regionId"].ToString() == strRegion)
-                                                        {%>
-                                                <option selected="selected" value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}
-                                                    else
-                                                    {%>
+                                                %>
                                                 <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
                                                 <%}
-                                                    }%>
+                                                %>
                                             </select>
                                             &nbsp &nbsp
-                                            <input type="text" value="<%=strSearch %>" class="form-control col-sm-2 input-search" id="search" placeholder="请输入查询条件">
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
-                                            <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal"><i class="fa fa-share-square-o fa-rotate-180 fa-lg"></i>&nbsp 导入</button>
+                                            <button class="btn btn-success btn-sm" id="btn-export"><i class="fa fa-share-square-o fa-lg"></i>&nbsp 导出</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table" id="table">
                                             <thead class="text-danger">
                                                 <tr>
                                                     <th>序号
@@ -267,86 +263,16 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <%for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                                                    { %>
-                                                <tr>
-                                                    <td><%=i+1+((getCurrentPage-1)*pageSize) %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["customerName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["regionName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["bookName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["ISBN"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["price"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["collectionNum"] %></td>
-                                                </tr>
-                                                <%} %>
-                                            </tbody>
+                                            <%= getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="0" tabindex="0" class="page-link jump">首页</a></li>
-                                                <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link jump">上一页</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="2"
-                                                    tabindex="0" class="page-link"><%=getCurrentPage %></a></li>
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">/</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5"
-                                                    tabindex="0" class="page-link"><%=intPageCount %></a></li>
-                                                <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link jump">下一页</a></li>
-                                                <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link jump">尾页</a></li>
-                                            </ul>
+                                            <div class="m-style paging"></div> <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--模态框 -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">数据操作
-                            </h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table model-table">
-                                <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">下载模板:</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm" id=""><i class="fa fa-search fa-lg"></i>&nbsp 下载模板</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">上传文件:</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm" id=""><i class="fa fa-search fa-lg"></i>&nbsp 上传文件</button></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">客户名称:</span></td>
-                                    <td>
-                                        <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="model-select-region">
-                                            <option value="1">云南工商学院</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">导入:</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm" id=""><i class="fa fa-search fa-lg"></i>&nbsp 导入</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
                         </div>
                     </div>
                 </div>
@@ -367,7 +293,6 @@
             </footer>
         </div>
     </div>
-    <input type="hidden" value="<%=getCurrentPage %>" id="page" />
     <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
@@ -378,5 +303,6 @@
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/collectionManagement.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
 </body>
 </html>

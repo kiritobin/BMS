@@ -140,33 +140,28 @@ $("#btnAdd").click(function () {
 $(".btn-edit").click(function () {
     var account = $(this).parent().prev().prev().prev().prev().text().trim();
     var name = $(this).parent().prev().prev().prev().text().trim();
-    var region = $("#reginId").val();
-    var role = $("#roleId").val();
+    var region = $(this).parent().prev().prev().text().trim();
+    sessionStorage.setItem("region", region);
+    var role = $(this).parent().prev().text().trim();
+    sessionStorage.setItem("role", role);
+    var regionId = $("#reginId").val();
+    var roleId = $("#roleId").val();
     $("#edit-Account").val(account);
     $("#edit-Name").val(name);
-    $.ajax({
-        type: 'Post',
-        url: 'userManagement.aspx',
-        data: {
-            region: region,
-            role: role,
-            op: "editData"
-        },
-        dataType: 'text',
-        success: function (succ) {
-            if (succ == "展示") {
-                $("#myModa2").click(function () {
-                    $("#new").modal("show")
-                });
-            }
-        }
-    })
+
+    $("#editRegion").find("option[value=" + 2 + "]").attr("selected", true);
+    $("#editRole").find("option[value='" + roleId + "']").attr("selected", true);
 })
 $("#btnEdit").click(function () {
     var account = $("#edit-Account").val();
     var region = $("#editRegion").val();
     var role = $("#editRole").val();
     var name = $("#edit-Name").val();
+    if (region == "") {
+        region = sessionStorage.getItem("region")
+    } if (role == "") {
+        role = sessionStorage.getItem("role")
+    }
     $.ajax({
         type: 'Post',
         url: 'userManagement.aspx',
