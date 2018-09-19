@@ -66,9 +66,6 @@ $("#btn-search").click(function () {
                 prevContent: '上页',
                 nextContent: '下页',
                 callback: function (api) {
-                    var strWhere = $("#input-search").val().trim();
-                    var regionId = $("#select-region").val().trim();
-                    var roleId = $("#select-role").val().trim();
                     $.ajax({
                         type: 'Post',
                         url: 'userManagement.aspx',
@@ -122,9 +119,6 @@ $("#select-region").change(function () {
                 prevContent: '上页',
                 nextContent: '下页',
                 callback: function (api) {
-                    var strWhere = $("#input-search").val().trim();
-                    var regionId = $("#select-region").val().trim();
-                    var roleId = $("#select-role").val().trim();
                     $.ajax({
                         type: 'Post',
                         url: 'userManagement.aspx',
@@ -178,9 +172,6 @@ $("#select-role").change(function () {
                 prevContent: '上页',
                 nextContent: '下页',
                 callback: function (api) {
-                    var strWhere = $("#input-search").val().trim();
-                    var regionId = $("#select-region").val().trim();
-                    var roleId = $("#select-role").val().trim();
                     $.ajax({
                         type: 'Post',
                         url: 'userManagement.aspx',

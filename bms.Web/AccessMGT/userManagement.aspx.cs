@@ -211,19 +211,6 @@ namespace bms.Web.AccessMGT
             return sb.ToString();
         }
 
-        public string getRegion()
-        {
-            //生成table
-            StringBuilder sbRegion = new StringBuilder();
-            sbRegion.Append("<tbody>");
-            for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
-            {
-                sbRegion.Append("< option value = '" + dsRegion.Tables[0].Rows[i]["regionId"].ToString() + "'>" + dsRegion.Tables[0].Rows[i]["regionName"].ToString() + "</ option >");
-            }
-            sbRegion.Append("</tbody>");
-            return sbRegion.ToString();
-        }
-
         /// <summary>
         /// 在删除前判断该记录在其他表中是否被引用
         /// </summary>
