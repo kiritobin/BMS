@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -26,35 +27,7 @@ namespace bms.Web.AccessMGT
         {
             if (!IsPostBack)
             {
-                Search();
-                getData(Search());
-            }
-            //查询操作
-            string type = Request.QueryString["type"];
-            if(type == "search")
-            {
-                Search();
-                getData(Search());
-            }
-            else if(type == "region")
-            {
-
-                regionId = Request.QueryString["region"];
-                string strWhere = "regionId=" + "'" + regionId + "'";
-                getData(strWhere);
-            }
-            else if(type == "role")
-            {
-                roleId = Request.QueryString["role"];
-                string strWhere = "regionId='" + roleId + "'";
-                getData(strWhere);
-            }
-            else if(type == "all")
-            {
-                regionId = Request["region"];
-                roleId = Request["role"];
-                string strWhere = "reginId='" + regionId + "' and roleId='" + roleId + "'";
-                getData(strWhere);
+                getData();
             }
             //增、删、改操作
             Region region = new Region();
@@ -159,12 +132,51 @@ namespace bms.Web.AccessMGT
         /// <summary>
         /// 获取数据
         /// </summary>
-        protected void getData(string strWhere)
+        protected string getData()
         {
             currentPage = Convert.ToInt32(Request.QueryString["currentPage"]);
             if (currentPage == 0)
             {
                 currentPage = 1;
+            }
+            string type = Request.QueryString["type"];
+            if (type == "search")
+            {
+                getData();
+            }
+            else if (type == "region")
+            {
+
+                regionId = Request.QueryString["region"];
+                string strWhere = "regionId=" + "'" + regionId + "'";
+                getData();
+            }
+            else if (type == "role")
+            {
+                roleId = Request.QueryString["role"];
+                string strWhere = "regionId='" + roleId + "'";
+                getData();
+            }
+            else if (type == "all")
+            {
+                regionId = Request["region"];
+                roleId = Request["role"];
+                string strWhere = "reginId='" + regionId + "' and roleId='" + roleId + "'";
+                getData();
+            }
+            search = Request.QueryString["search"];
+            strSearch = Request.QueryString["search"];
+            if (search.Length == 0)
+            {
+                search = "";
+            }
+            else if (search == null)
+            {
+                search = "";
+            }
+            else
+            {
+                search = String.Format(" userID {0} or userName {0} or regionName {0} or roleName {0}", "like '%" + search + "%'");
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
@@ -172,7 +184,7 @@ namespace bms.Web.AccessMGT
             tbd.OrderBy = "userID";
             tbd.StrColumnlist = "userID,userName,regionName,roleName,regionId,roleId";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = strWhere;
+            tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
             getCurrentPage = currentPage;
             //获取展示的用户数据
@@ -181,35 +193,29 @@ namespace bms.Web.AccessMGT
             dsRegion = regionBll.select();
             //获取角色下拉框数据
             dsRole = roleBll.select();
-        }
-
-        /// <summary>
-        /// 输入框查询
-        /// </summary>
-        /// <returns>返回查询参数</returns>
-        protected string Search()
-        {
-            try
+            //生成table
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<tbody>");
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                search = Request.QueryString["search"];
-                strSearch = Request.QueryString["search"];
-                if (search.Length == 0)
-                {
-                    search = "";
-                }
-                else if (search == null)
-                {
-                    search = "";
-                }
-                else
-                {
-                    search = String.Format(" userID {0} or userName {0} or regionName {0} or roleName {0}", "like '%" + search + "%'");
-                }
+                sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * 5)) + "</td>");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["userID"].ToString() + "</td><td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</ td >");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["roleName"].ToString() + "</ td >");
+                sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["regionId"].ToString() + " id='reginId' />" + ds.Tables[0].Rows[i]["collectionNum"].ToString() + "</ td ></ tr >");
+                sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " id='roleId' />" + ds.Tables[0].Rows[i]["collectionNum"].ToString() + "</ td >");
+                sb.Append("<td><button class='btn btn - warning btn - sm btn - edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button></td>");
+                sb.Append("<td><button class='btn btn - danger btn - sm btn - delete'><i class='fa fa - trash - o fa - lg'>< /i>&nbsp 删除</button></td></ tr >");
             }
-            catch
+            sb.Append("</tbody>");
+            string op = Request["op"];
+            if (op == "paging")
             {
+                Response.Write(sb.ToString());
+                Response.End();
             }
-            return search;
+            return sb.ToString();
         }
 
         /// <summary>
