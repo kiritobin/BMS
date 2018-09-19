@@ -246,7 +246,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <%=getData()%>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -301,7 +301,6 @@
             </footer>
         </div>
     </div>
-    <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>

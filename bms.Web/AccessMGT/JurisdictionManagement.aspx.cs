@@ -104,6 +104,7 @@ namespace bms.Web.AccessMGT
 
             }
             strb.Append("</tbody>");
+            strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
             string op = Request["op"];
             if (op=="paging")
             {
