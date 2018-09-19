@@ -237,6 +237,10 @@ $("#btnAdd").click(function () {
         });
     }
 })
+$("#btn-add").click(function () {
+    $("#model-select-region").val("");
+    $("#model-select-role").val("");
+})
 //编辑用户
 $("#table").delegate(".btn-edit", "click", function () {
     var account = $(this).parent().prev().prev().prev().prev().text().trim();
@@ -277,10 +281,6 @@ $("#btnEdit").click(function () {
             }
         }
     })
-})
-$(".btn-Off").click(function () {
-    $("#editRegion").val("");
-    $("#editRole").val("");
 })
 //重置密码
 $("#reset").click(function () {
