@@ -118,11 +118,11 @@ $(document).ready(function () {
         var custRegion = $(this).parent().prev().prev().text().trim();
         $(".editor_id").text(custId);
     })
+    //提交编辑
     $(".sava_Editor").click(function () {
         var custId = $(".editor_id").text();
         var custName = $(".editor_name").val();
         var regId = $(".editor_region").find("option:selected").val();
-        alert(custId + custName + regId);
         $.ajax({
             type: 'Post',
             url: 'customerManagement.aspx',
@@ -163,5 +163,126 @@ $(document).ready(function () {
                 }
             }
         });
+    })
+    //删除
+    $(".btn_delete").click(function () {
+        var custId = $(this).parent().prev().prev().prev().prev().text().trim();
+        //弹窗
+        swal({
+            title: "是否删除？",
+            text: "删除了将无法恢复！！！",
+            type: "question",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+        }).then(function () {
+            $.ajax({
+                type: 'Post',
+                url: 'customerManagement.aspx',
+                data: {
+                    cutomerId:custId,
+                    op: "del"
+                },
+                dataType: 'text',
+                success: function (succ) {
+                    if (succ == "删除成功") {
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    } else {
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    }
+                }
+            })
+        })
+    })
+    //判断当删除最后一页最后一条信息时，当前也自动跳到上一页
+    if (parseInt(sessionStorage.getItem("curPage")) > parseInt(sessionStorage.getItem("totalPage"))) {
+        {
+            jump(parseInt(sessionStorage.getItem("curPage")) - 1);
+        }
+    }
+    //重置密码
+    $(".reset_pwd").click(function () {
+        var custId = $(this).parent().prev().prev().prev().prev().text().trim();
+        swal({
+            title: "是否重置？",
+            text: "重置后将无法恢复！！！",
+            type: "question",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+        }).then(function () {
+            $.ajax({
+                type: 'Post',
+                url: 'customerManagement.aspx',
+                data: {
+                    customerid: custId,
+                    op: "reset"
+                },
+                dataType: 'text',
+                success: function (succ) {
+                    if (succ == "重置成功") {
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    } else {
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    }
+                }
+            })
+        })
     })
 })

@@ -133,5 +133,23 @@ namespace bms.Bll
                 return null;
             }
         }
+        /// <summary>
+        /// 重置客户密码
+        /// </summary>
+        /// <param name="customerID">账户</param>
+        /// <param name="customerPwd">重置后的密码</param>
+        /// <returns></returns>
+        public Result ResetPwd(int customerID, string customerPwd)
+        {
+            int row = customerDao.ResetPwd(customerID, customerPwd);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
     }
 }

@@ -60,10 +60,11 @@ namespace bms.Dao
         /// <returns></returns>
         public int update(Customer customer)
         {
-            string sql = "update T_Customer set customerID=@customerID,customerName=@customerName,customerPwd=@customerPwd,regionId=@regionId";
-            string[] param = { "@customerID", "@customerName", "@customerPwd", "@regionId" };
-            object[] values = { customer.CustomerId, customer.CustomerName, customer.CustomerPwd, customer.RegionId.RegionId };
-            return db.ExecuteNoneQuery(sql, param, values);
+            string sql = "update T_Customer set customerName=@customerName,regionId=@regionId where customerID=@customerID";
+            string[] param = { "@customerID", "@customerName", "@regionId" };
+            object[] values = { customer.CustomerId.ToString(), customer.CustomerName, customer.RegionId.RegionId.ToString() };
+            int row = db.ExecuteNoneQuery(sql, param, values);
+            return row;
         }
         /// <summary>
         /// 删除客户
@@ -89,6 +90,19 @@ namespace bms.Dao
             object[] values = { customerID };
             DataSet ds = db.FillDataSet(cmdText, param, values);
             return ds;
+        }
+        /// <summary>
+        /// 重置客户密码
+        /// </summary>
+        /// <param name="customerID">账户</param>
+        /// <param name="customerPwd">重置后的密码</param>
+        /// <returns></returns>
+        public int ResetPwd(int customerID,string customerPwd)
+        {
+            string sql = "update T_Customer set customerPwd=@customerPwd where customerID=@customerID";
+            string[] param = { "@customerID", "@customerPwd" };
+            object[] values = { customerID, customerPwd };
+            return db.ExecuteNoneQuery(sql, param, values);
         }
     }
 }
