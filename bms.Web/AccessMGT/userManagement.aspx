@@ -406,7 +406,6 @@
     <input type="hidden" value="<%=intPageCount %>" id="intPageCount" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/userManagement.js"></script>
-    <script src="../js/jquery.pagination.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>
@@ -417,6 +416,7 @@
     <!--  消息提示框js -->
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
     <script>
 </script>
 </body>
