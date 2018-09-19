@@ -32,13 +32,35 @@ namespace bms.Web.CustomerMGT
         CustomerBll cbll = new CustomerBll();
         RegionBll rbll = new RegionBll();
         UserBll userbll = new UserBll();
+        RSACryptoService rasc = new RSACryptoService();
         protected void Page_Load(object sender, EventArgs e)
         {
-            getData();
-            //searchRegion = Request.QueryString["regionID"];
-            //strWhere = Request.QueryString["strWhere"];
-            //op = Context.Request["op"];
+            string op = Context.Request["op"];
+            if (!IsPostBack)
+            {
+                getData();
+            }
+            if(op == "add")
+            {
+                AddCustomer();
+            }
+            else if(op == "editor")
+            {
+                UpdateCustomer();
+            }
+            else if(op == "del")
+            {
+                Delete();
+            }
+            else if(op == "reset")
+            {
+                ResetPwd();
+            }
         }
+        /// <summary>
+        /// 获取基础数据及查询方法
+        /// </summary>
+        /// <returns></returns>
         public string getData()
         {
             //获取分页数据
@@ -49,21 +71,21 @@ namespace bms.Web.CustomerMGT
             }
             string search = Request["search"];
             string region = Request["region"];
-            if (region == "" || region == null)
-            {
-                search = String.Format("customerID {0} or customerName {0} or regionName {0}", "like " + "'%" + search + "%'");
-            }
-            else if (search == "" || search == null)
-            {
-                String.Format("regionId={0}", "'" + region + "'");
-            }
-            else if((region == "" || region == null)&& (search == "" || search == null))
+            if((region == "" || region == null)&& (search == "" || search == null))
             {
                 search = "";
             }
-            else if(search != null || search != "")
+            else if((search != null || search != "") && (region == "" || region == null))
             {
                 search = String.Format("customerID {0} or customerName {0} or regionName {0}", " like " + "'%" + search + "%'");
+            }
+            else if((search == null || search == "") && (region != "" || region != null))
+            {
+                search = String.Format("regionId={0}", "'" + region + "'");
+            }
+            else
+            {
+                search = String.Format("customerID {0} or customerName {0} or regionName {0} and regionId = {1}", " like " + "'%" + search + "%'",region);
             }
 
             TableBuilder tb = new TableBuilder();
@@ -92,6 +114,7 @@ namespace bms.Web.CustomerMGT
                 strb.Append("<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>&nbsp 删除" + "</button>" + " </td></tr>");
             }
             strb.Append("</tbody>");
+            strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {
@@ -99,6 +122,119 @@ namespace bms.Web.CustomerMGT
                 Response.End();
             }
             return strb.ToString();
+        }
+        /// <summary>
+        /// 添加客户
+        /// </summary>
+        public void AddCustomer()
+        {
+            string customerId = Request["customerId"];
+            string customerName = Request["cutomerName"];
+            string zoneId = Request["zoneId"];
+            if(customerId == "" || customerName == "" || zoneId == "")
+            {
+                Response.Write("有未填项");
+                Response.End();
+            }
+            else
+            {
+                string pwd = rasc.Encrypt("000000");
+                Region reg = new Region()
+                {
+                    RegionId = Convert.ToInt32(zoneId)
+                };
+                Customer ct = new Customer()
+                {
+                    CustomerId = Convert.ToInt32(customerId),
+                    CustomerName = customerName,
+                    CustomerPwd = pwd,
+                    RegionId = reg
+                };
+                Result row = cbll.Insert(ct);
+                if (row == Result.添加成功)
+                {
+                    Response.Write("添加成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
+            }
+        }
+        /// <summary>
+        /// 更新客户信息
+        /// </summary>
+        public void UpdateCustomer()
+        {
+            string id = Context.Request["customerid"];
+            string name = Context.Request["customername"];
+            string zoneId = Context.Request["regionid"];
+            Region reg = new Region();
+            reg.RegionId = Convert.ToInt32(zoneId);
+            Customer cust = new Customer()
+            {
+                CustomerId = int.Parse(id),
+                CustomerName = name,
+                RegionId = reg
+            };
+            Result row = cbll.update(cust);
+            if(row == Result.更新成功)
+            {
+                Response.Write("更新成功");
+                Response.End();
+            }
+            else
+            {
+                Response.Write("更新失败");
+                Response.End();
+            }
+        }
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        public void Delete()
+        {
+            int id = Convert.ToInt32(Request["cutomerId"]);
+            Result row = cbll.Delete(id);
+            Result isDelete = cbll.IsDelete("T_LibraryCollection", "customerId", id.ToString());
+            if(isDelete == Result.关联引用)
+            {
+                Response.Write("该客户已被关联到其他表，不能删除！");
+            }
+            else
+            {
+                if (row == Result.删除成功)
+                {
+                    Response.Write("删除成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("删除失败");
+                    Response.End();
+                }
+            }
+        }
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        public void ResetPwd()
+        {
+            int id = Convert.ToInt32(Request["reset"]);
+            string pwd = rasc.Encrypt("000000");
+            Result row = cbll.ResetPwd(id, pwd);
+                if(row == Result.更新成功)
+            {
+                Response.Write("重置成功");
+                Response.End();
+            }
+            else
+            {
+                Response.Write("重置失败");
+                Response.End();
+            }
         }
     }
 }

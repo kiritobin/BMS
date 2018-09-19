@@ -239,42 +239,13 @@
                                         <table class="table">
                                             <thead class="text-danger">
                                                 <tr>
-                                                    <th>序号
-                                                    </th>
-                                                    <th>角色名
-                                                    </th>
-                                                    <th class="table-thead-th">操作
-                                                    </th>
+                                                    <th>序号</th>
+                                                    <th>职位</th>
+                                                    <th>功能</th>
+                                                    <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>
-
-                                            <tbody>
-                                                <tr>
-                                                    <td>1
-                                                    </td>
-                                                    <td>门卫
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp;删除</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2
-                                                    </td>
-                                                    <td>10002
-                                                    </td>
-                                                    <td>操作员
-                                                    </td>
-                                                    <td>西山区
-                                                    </td>
-                                                    <td></td>
-                                                    <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp;删除</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -318,22 +289,18 @@
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
+                                    <td><span class="model-tab-td-span">分公司:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
+                                        <select class="" title="请选择分公司" data-style="btn-sm" id="model-select-region">
                                             <option value="1">五华区</option>
-                                            <option value="2">西山区</option>
-                                            <option value="3">官渡区</option>
-                                            <option value="4">盘龙区</option>
-                                            <option value="5">东川区</option>
-                                            <option value="6">呈贡区</option>
+                                            <option value="1">西山区</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">角色:</span></td>
+                                    <td><span class="model-tab-td-span">职位:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-role">
+                                        <select class="" title="请选择地区" data-style="btn-sm" id="model-select-role">
                                             <option value="1">入库管理员</option>
                                             <option value="2">零售员</option>
                                         </select>
@@ -523,35 +490,22 @@
                         </div>
                     </div>
                 </div>
-                <!--编辑角色模态框-->
+                <!--编辑职位模态框-->
                 <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title float-left" id="myModalLabe2">编辑角色</h4>
+                                <h4 class="modal-title float-left" id="myModalLabe2">编辑职位</h4>
                             </div>
                             <div class="modal-body">
                                 <table class="table model-table">
                                     <tr>
-                                        <td class="model-td-left2"><span class="model-tab-td-span">角色编号:</span></td>
-                                        <td>10001</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="model-tab-td-span">角色名:</span></td>
+                                        <td><span class="model-tab-td-span">职位名:</span></td>
                                         <td>门卫</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="model-tab-td-span">地区:</span></td>
-                                        <td>
-                                            <select class="selectpicker" title="请选择地区" data-style="btn-sm">
-                                                <option value="1">五华区</option>
-                                                <option value="2">西山区</option>
-                                                <option value="3">官渡区</option>
-                                                <option value="4" selected="selected">盘龙区</option>
-                                                <option value="5">东川区</option>
-                                                <option value="6">呈贡区</option>
-                                            </select>
-                                        </td>
+                                        <td><span class="model-tab-td-span">功能:</span></td>
+                                        <td>门卫</td>
                                     </tr>
                                 </table>
                             </div>
@@ -580,6 +534,7 @@
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/roleManagement.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>

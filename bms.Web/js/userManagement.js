@@ -50,8 +50,40 @@ $("#btn-search").click(function () {
         },
         dataType: 'text',
         success: function (data) {
+            $("#intPageCount").remove();
             $("#table tr:not(:first)").empty(); //清空table处首行
             $("#table").append(data); //加载table
+            $(".paging").empty();
+            $('.paging').pagination({
+                //totalData: $("#totalCount").val(),
+                //showData: $("#pageSize").val(),
+                pageCount: $("#intPageCount").val(), //总页数
+                jump: true,
+                mode: 'fixed',//固定页码数量
+                coping: true,
+                homePage: '首页',
+                endPage: '尾页',
+                prevContent: '上页',
+                nextContent: '下页',
+                callback: function (api) {
+                    $.ajax({
+                        type: 'Post',
+                        url: 'userManagement.aspx',
+                        data: {
+                            page: api.getCurrent(), //页码
+                            role: roleId,
+                            region: regionId,
+                            search: strWhere,
+                            op: "paging"
+                        },
+                        dataType: 'text',
+                        success: function (data) {
+                            $("#table tr:not(:first)").empty(); //清空table处首行
+                            $("#table").append(data); //加载table
+                        }
+                    });
+                }
+            });
         }
     });
 });
@@ -62,7 +94,7 @@ $("#select-region").change(function () {
     var roleId = $("#select-role").val().trim();
     $.ajax({
         type: 'Post',
-        url: 'userManagement.aspx,
+        url: 'userManagement.aspx',
         data: {
             role: roleId,
             region: regionId,
@@ -71,8 +103,40 @@ $("#select-region").change(function () {
         },
         dataType: 'text',
         success: function (data) {
+            $("#intPageCount").remove();
             $("#table tr:not(:first)").empty(); //清空table处首行
             $("#table").append(data); //加载table
+            $(".paging").empty();
+            $('.paging').pagination({
+                //totalData: $("#totalCount").val(),
+                //showData: $("#pageSize").val(),
+                pageCount: $("#intPageCount").val(), //总页数
+                jump: true,
+                mode: 'fixed',//固定页码数量
+                coping: true,
+                homePage: '首页',
+                endPage: '尾页',
+                prevContent: '上页',
+                nextContent: '下页',
+                callback: function (api) {
+                    $.ajax({
+                        type: 'Post',
+                        url: 'userManagement.aspx',
+                        data: {
+                            page: api.getCurrent(), //页码
+                            role: roleId,
+                            region: regionId,
+                            search: strWhere,
+                            op: "paging"
+                        },
+                        dataType: 'text',
+                        success: function (data) {
+                            $("#table tr:not(:first)").empty(); //清空table处首行
+                            $("#table").append(data); //加载table
+                        }
+                    });
+                }
+            });
         }
     });
 })
@@ -92,8 +156,40 @@ $("#select-role").change(function () {
         },
         dataType: 'text',
         success: function (data) {
+            $("#intPageCount").remove();
             $("#table tr:not(:first)").empty(); //清空table处首行
             $("#table").append(data); //加载table
+            $(".paging").empty();
+            $('.paging').pagination({
+                //totalData: $("#totalCount").val(),
+                //showData: $("#pageSize").val(),
+                pageCount: $("#intPageCount").val(), //总页数
+                jump: true,
+                mode: 'fixed',//固定页码数量
+                coping: true,
+                homePage: '首页',
+                endPage: '尾页',
+                prevContent: '上页',
+                nextContent: '下页',
+                callback: function (api) {
+                    $.ajax({
+                        type: 'Post',
+                        url: 'userManagement.aspx',
+                        data: {
+                            page: api.getCurrent(), //页码
+                            role: roleId,
+                            region: regionId,
+                            search: strWhere,
+                            op: "paging"
+                        },
+                        dataType: 'text',
+                        success: function (data) {
+                            $("#table tr:not(:first)").empty(); //清空table处首行
+                            $("#table").append(data); //加载table
+                        }
+                    });
+                }
+            });
         }
     });
 })
@@ -131,6 +227,10 @@ $("#btnAdd").click(function () {
             }
         });
     }
+})
+$("#btn-add").click(function () {
+    $("#model-select-region").val("");
+    $("#model-select-role").val("");
 })
 //编辑用户
 $("#table").delegate(".btn-edit", "click", function () {
@@ -172,10 +272,6 @@ $("#btnEdit").click(function () {
             }
         }
     })
-})
-$(".btn-Off").click(function () {
-    $("#editRegion").val("");
-    $("#editRole").val("");
 })
 //重置密码
 $("#reset").click(function () {

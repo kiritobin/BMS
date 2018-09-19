@@ -14,8 +14,8 @@ namespace bms.Web.AccessMGT
     using Result = Enums.OpResult;
     public partial class userManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 2, getCurrentPage = 0, totalCount, intPageCount;
-        public string search="", strSearch, regionId, roleId, regionEdit,roleEdit;
+        public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
+        public string search="", regionId, roleId;
         public DataSet dsRegion, dsRole, ds;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
@@ -25,7 +25,7 @@ namespace bms.Web.AccessMGT
         Role role = new Role();
         protected void Page_Load(object sender, EventArgs e)
         {
-                getData();
+            getData();
             //增、删、改操作
             Region region = new Region();
             string op = Request["op"];
@@ -54,11 +54,6 @@ namespace bms.Web.AccessMGT
                     Response.End();
                 }
 
-            }
-            else if(op == "editData")
-            {
-                regionEdit = Request["region"];
-                roleEdit = Request["role"];
             }
             else if(op == "edit")
             {
@@ -201,6 +196,7 @@ namespace bms.Web.AccessMGT
                 sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
             }
             sb.Append("</tbody>");
+            sb.Append("<input type='hidden' value=' "+ intPageCount + " ' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {
@@ -208,19 +204,6 @@ namespace bms.Web.AccessMGT
                 Response.End();
             }
             return sb.ToString();
-        }
-
-        public string getRegion()
-        {
-            //生成table
-            StringBuilder sbRegion = new StringBuilder();
-            sbRegion.Append("<tbody>");
-            for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
-            {
-                sbRegion.Append("< option value = '" + dsRegion.Tables[0].Rows[i]["regionId"].ToString() + "'>" + dsRegion.Tables[0].Rows[i]["regionName"].ToString() + "</ option >");
-            }
-            sbRegion.Append("</tbody>");
-            return sbRegion.ToString();
         }
 
         /// <summary>

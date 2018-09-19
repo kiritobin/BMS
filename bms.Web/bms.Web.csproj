@@ -117,6 +117,7 @@
     <Content Include="js\material-dashboard.min.js" />
     <Content Include="js\perfect-scrollbar.jquery.min.js" />
     <Content Include="js\popper.min.js" />
+    <Content Include="js\roleManagement.js" />
     <Content Include="js\sweetalert2.js" />
     <Content Include="js\userManagement.js" />
     <Content Include="login.aspx" />

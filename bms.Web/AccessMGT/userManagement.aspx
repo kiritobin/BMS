@@ -299,9 +299,9 @@
                                         <input type="text" class="form-control col-sm-9 input-search" id="inputName" placeholder="请输入账号"></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
+                                    <td><span class="model-tab-td-span">分公司:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
+                                        <select class="" title="请选择分公司" data-style="btn-sm" id="model-select-region">
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -310,9 +310,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">角色:</span></td>
+                                    <td><span class="model-tab-td-span">职位:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-role">
+                                        <select class="" title="请选择职位" data-style="btn-sm" id="model-select-role">
                                             <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
@@ -323,7 +323,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
+                            <button type="button" class="btn btn-default btn-sm btn-Off" data-dismiss="modal" id="model-btnclose1">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
                         </div>
                     </div>
@@ -379,7 +379,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm btn-Off" data-dismiss="modal" id="model-btnclose2">关闭</button>
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnEdit">提交</button>
                         </div>
                     </div>
@@ -401,9 +401,6 @@
             </footer>
         </div>
     </div>
-    <input type="hidden" value="<%=pageSize %>" id="pageSize" />
-    <input type="hidden" value="<%=totalCount %>" id="totalCount" />
-    <input type="hidden" value="<%=intPageCount %>" id="intPageCount" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/userManagement.js"></script>
     <!-- 左侧导航栏所需js -->
