@@ -283,11 +283,11 @@
                                                         <%=ds.Tables[0].Rows[i]["regionName"] %>
                                                     </td>
                                                     <td>
-                                                        <button type="button" class="btn btn-default btn-sm">重置密码</button>
+                                                        <button type="button" class="btn btn-default btn-sm reset_pwd">重置密码</button>
                                                     </td>
                                                     <td>
                                                         <button class="btn btn-warning btn-sm btn_Editor" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
+                                                        <button class="btn btn-danger btn-sm btn_delete"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
                                                     </td>
                                                 </tr>
                                                 <%} %>
