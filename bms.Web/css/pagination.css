@@ -33,10 +33,10 @@
         width: 38px;
         height: 38px;
         line-height: 38px;
-        background: #e91e63;
+        background: #f44336;
         color: #fff;
         font-size: 14px;
-        border: 1px solid #e91e63;
+        border: 1px solid #f44336;
     }
 
     .m-style a {
@@ -53,7 +53,7 @@
 
         .m-style a:hover {
             color: #fff;
-            background: #e91e63;
+            background: #f44336;
         }
 
     .m-style .next,
