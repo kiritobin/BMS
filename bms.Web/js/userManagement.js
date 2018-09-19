@@ -62,7 +62,7 @@ $("#select-region").change(function () {
     var roleId = $("#select-role").val().trim();
     $.ajax({
         type: 'Post',
-        url: 'userManagement.aspx,
+        url: 'userManagement.aspx',
         data: {
             role: roleId,
             region: regionId,
