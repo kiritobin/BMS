@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/qc.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/pagination.css">
 </head>
 
 <body>
@@ -228,7 +229,7 @@
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2" placeholder="请输入查询条件">
+                                            <input type="text" value="" class="form-control col-sm-2" id="input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;&nbsp;查询</button>
                                             &nbsp;
                                     <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;&nbsp;添加</button>
@@ -251,25 +252,7 @@
                                     <div class="copyright float-right page-box">
 
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
-                                                <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="2"
-                                                    tabindex="0" class="page-link">1</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">2</a></li>
-                                                <!--类名active表示当前页 -->
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="4"
-                                                    tabindex="0" class="page-link">3</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5"
-                                                    tabindex="0" class="page-link">4</a></li>
-                                                <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
-                                                <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link">尾页</a></li>
-                                            </ul>
+                                            <div class="m-style paging"></div> <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -542,6 +525,7 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
 
 </body>
 
