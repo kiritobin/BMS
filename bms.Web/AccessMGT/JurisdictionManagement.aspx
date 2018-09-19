@@ -19,9 +19,9 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/demo.css">
-    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
 </head>
 
 <body>
@@ -228,7 +228,7 @@
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <input type="text" value="<%=strSearch %>" class="form-control col-sm-2 input-search" id="search" placeholder="请输入查询条件">
+                                            <input type="text" class="form-control col-sm-2 input-search" placeholder="请输入查询条件" id="search_All">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
@@ -246,10 +246,10 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <%=getData() %>
+                                            <%=getData()%>
                                         </table>
                                     </div>
-                                       <div class="copyright float-right page-box">
+                                    <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div> <%--分页栏--%>
                                         </div>
@@ -302,8 +302,6 @@
         </div>
     </div>
     <input type="hidden" value="<%=intPageCount %>" id="countPage" />
-    <input type="hidden" value="<%=pageSize %>" id="pageSize" />
-    <input type="hidden" value="<%=totalCount %>" id="totalCount" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
@@ -314,8 +312,8 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
-    <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jurisdictionManagement.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
 </body>
 
 </html>
