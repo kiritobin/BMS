@@ -13,18 +13,15 @@ namespace bms.Web.AccessMGT
 {
     public partial class roleManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 5, getCurrentPage = 0, totalCount, intPageCount;
-        public string search, strSearch, regionId, roleId, regionEdit, roleEdit;
-        public DataSet dsRegion, dsRole, ds;
+        public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
+        public string search, roleId;
+        public DataSet ds;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
-        RegionBll regionBll = new RegionBll();
-        RoleBll roleBll = new RoleBll();
-        User user = new User();
         Role role = new Role();
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            getData();
         }
         /// <summary>
         /// 获取数据
@@ -50,7 +47,6 @@ namespace bms.Web.AccessMGT
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
-            getCurrentPage = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
             //生成table

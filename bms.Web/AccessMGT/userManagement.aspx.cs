@@ -14,8 +14,8 @@ namespace bms.Web.AccessMGT
     using Result = Enums.OpResult;
     public partial class userManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 2, getCurrentPage = 0, totalCount, intPageCount;
-        public string search="", strSearch, regionId, roleId, regionEdit,roleEdit;
+        public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
+        public string search="", regionId, roleId;
         public DataSet dsRegion, dsRole, ds;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
@@ -25,7 +25,7 @@ namespace bms.Web.AccessMGT
         Role role = new Role();
         protected void Page_Load(object sender, EventArgs e)
         {
-                getData();
+            getData();
             //增、删、改操作
             Region region = new Region();
             string op = Request["op"];
@@ -54,11 +54,6 @@ namespace bms.Web.AccessMGT
                     Response.End();
                 }
 
-            }
-            else if(op == "editData")
-            {
-                regionEdit = Request["region"];
-                roleEdit = Request["role"];
             }
             else if(op == "edit")
             {
