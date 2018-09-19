@@ -15,17 +15,16 @@ namespace bms.Web.AccessMGT
     using Result = Enums.OpResult;
     public partial class JurisdictionManagement : System.Web.UI.Page
     {
-        public int totalCount, intPageCount;
+        public int totalCount, intPageCount, pageSize = 2;
         public DataSet ds;
         public string search, strSearch;
         FunctionBll functionbll = new FunctionBll();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                getData();
-            }
+
+            getData();
+
             string op = Request["op"];
             if (op == "del")
             {
@@ -71,7 +70,7 @@ namespace bms.Web.AccessMGT
         }
         public string getData()
         {
-           int currentPage = Convert.ToInt32(Request.QueryString["currentPage"]);
+            int currentPage = Convert.ToInt32(Request.QueryString["currentPage"]);
             if (currentPage == 0)
             {
                 currentPage = 1;
@@ -92,7 +91,7 @@ namespace bms.Web.AccessMGT
             tabBuilder.StrTable = "T_Function";
             tabBuilder.OrderBy = "functionId";
             tabBuilder.StrColumnlist = "functionId,functionName";
-            tabBuilder.IntPageSize = 5;
+            tabBuilder.IntPageSize = pageSize;
             tabBuilder.StrWhere = search;
             tabBuilder.IntPageNum = currentPage;
             //获取展示数据

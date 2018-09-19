@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     $('.paging').pagination({
-        pageCount: $("#countPage").val(), //总页数
+        //totalData: $("#countPage").val(), //数据总数
+        //showData: $("#totalCount").val(), //每页显示的条数
+        pageCount: $("#countPage").val(),
         jump: true,
         mode: 'fixed',//固定页码数量
         coping: true,
@@ -39,8 +41,10 @@
             },
             dataType: 'text',
             success: function (data) {
+                window.location.reload();
                 $("#table tr:not(:first)").empty(); //清空table处首行
                 $("#table").append(data); //加载table
+
             }
         });
     });
@@ -67,8 +71,7 @@
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function (data) {
-                        $("#table tr:not(:first)").empty(); //清空table处首行
-                        $("#table").append(data); //加载table
+                        window.location.reload();
                     })
                 } else {
                     swal({
@@ -81,15 +84,14 @@
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function (data) {
-                        $("#table tr:not(:first)").empty(); //清空table处首行
-                        $("#table").append(data); //加载table
+                        window.location.reload();
                     })
                 }
             }
         })
     })
     //删除用户
-    $(".btn-delete").click(function () {
+    $("#table").delegate(".btn-delete", "click", function () {
         var functionId = $(this).prev().val();
         //弹窗
         swal({
@@ -126,8 +128,7 @@
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            $("#table tr:not(:first)").empty(); //清空table处首行
-                            $("#table").append(data); //加载table
+                            window.location.reload();
                         })
                     } else {
                         swal({
@@ -140,8 +141,7 @@
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            $("#table tr:not(:first)").empty(); //清空table处首行
-                            $("#table").append(data); //加载table
+                            window.location.reload();
                         })
                     }
                 }
