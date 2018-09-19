@@ -294,6 +294,8 @@
         </div>
     </div>
     <input type="hidden" value="<%=intPageCount %>" id="countPage" />
+    <input type="hidden" value="<%=pageSize %>" id="pageSize" />
+    <input type="hidden" value="<%=totalCount %>" id="totalCount" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
