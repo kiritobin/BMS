@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
 </head>
 
 <body>
@@ -231,7 +232,7 @@
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="0">请选择地区</option>
+                                                <option value="">请选择地区</option>
                                                 <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                     { %>
                                                 <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -239,7 +240,7 @@
                                             </select>
                                             &nbsp
                                             <select class="selectpicker" title="请选择角色" data-style="btn-sm" id="select-role">
-                                                <option value="0">请选择角色</option>
+                                                <option value="">请选择角色</option>
                                                 <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                     {%>
                                                 <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
@@ -254,7 +255,7 @@
                                     </div>
                                     <!--数据展示区-->
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table" id="table">
                                             <thead class="text-danger">
                                                 <tr>
                                                     <th>序号</th>
@@ -403,10 +404,10 @@
             </footer>
         </div>
     </div>
-    <input type="hidden" value="<%=getCurrentPage %>" id="page" />
     <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/userManagement.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>
