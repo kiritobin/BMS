@@ -66,9 +66,6 @@ $("#btn-search").click(function () {
                 prevContent: '上页',
                 nextContent: '下页',
                 callback: function (api) {
-                    var strWhere = $("#input-search").val().trim();
-                    var regionId = $("#select-region").val().trim();
-                    var roleId = $("#select-role").val().trim();
                     $.ajax({
                         type: 'Post',
                         url: 'userManagement.aspx',
@@ -122,9 +119,6 @@ $("#select-region").change(function () {
                 prevContent: '上页',
                 nextContent: '下页',
                 callback: function (api) {
-                    var strWhere = $("#input-search").val().trim();
-                    var regionId = $("#select-region").val().trim();
-                    var roleId = $("#select-role").val().trim();
                     $.ajax({
                         type: 'Post',
                         url: 'userManagement.aspx',
@@ -178,9 +172,6 @@ $("#select-role").change(function () {
                 prevContent: '上页',
                 nextContent: '下页',
                 callback: function (api) {
-                    var strWhere = $("#input-search").val().trim();
-                    var regionId = $("#select-region").val().trim();
-                    var roleId = $("#select-role").val().trim();
                     $.ajax({
                         type: 'Post',
                         url: 'userManagement.aspx',
@@ -237,6 +228,10 @@ $("#btnAdd").click(function () {
         });
     }
 })
+$("#btn-add").click(function () {
+    $("#model-select-region").val("");
+    $("#model-select-role").val("");
+})
 //编辑用户
 $("#table").delegate(".btn-edit", "click", function () {
     var account = $(this).parent().prev().prev().prev().prev().text().trim();
@@ -277,10 +272,6 @@ $("#btnEdit").click(function () {
             }
         }
     })
-})
-$(".btn-Off").click(function () {
-    $("#editRegion").val("");
-    $("#editRole").val("");
 })
 //重置密码
 $("#reset").click(function () {

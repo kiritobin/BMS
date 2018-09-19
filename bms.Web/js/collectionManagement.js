@@ -13,8 +13,38 @@
             },
             dataType: 'text',
             success: function (data) {
-                $("#table tr:not(:first)").empty(); //清空table处首行
-                $("#table").append(data); //加载table
+            $("#intPageCount").remove();
+            $("#table tr:not(:first)").empty(); //清空table处首行
+            $("#table").append(data); //加载table
+            $(".paging").empty();
+            $('.paging').pagination({
+                pageCount: $("#intPageCount").val(), //总页数
+                jump: true,
+                mode: 'fixed',//固定页码数量
+                coping: true,
+                homePage: '首页',
+                endPage: '尾页',
+                prevContent: '上页',
+                nextContent: '下页',
+                callback: function (api) {
+                    $.ajax({
+                        type: 'Post',
+                        url: 'collectionManagement.aspx',
+                        data: {
+                            page: api.getCurrent(), //页码
+                            region: region,
+                            search: search,
+                            op: "paging"
+                        },
+                        dataType: 'text',
+                        success: function (data) {
+                            $("#table tr:not(:first)").empty(); //清空table处首行
+                            $("#table").append(data); //加载table
+                        }
+                    });
+                }
+            });
+                
             }
         });
     })
@@ -33,16 +63,45 @@
             },
             dataType: 'text',
             success: function (data) {
+                $("#intPageCount").remove();
                 $("#table tr:not(:first)").empty(); //清空table处首行
                 $("#table").append(data); //加载table
+                $(".paging").empty();
+                $('.paging').pagination({
+                    pageCount: $("#intPageCount").val(), //总页数
+                    jump: true,
+                    mode: 'fixed',//固定页码数量
+                    coping: true,
+                    homePage: '首页',
+                    endPage: '尾页',
+                    prevContent: '上页',
+                    nextContent: '下页',
+                    callback: function (api) {
+                        $.ajax({
+                            type: 'Post',
+                            url: 'collectionManagement.aspx',
+                            data: {
+                                page: api.getCurrent(), //页码
+                                region: region,
+                                search: search,
+                                op: "paging"
+                            },
+                            dataType: 'text',
+                            success: function (data) {
+                                $("#table tr:not(:first)").empty(); //清空table处首行
+                                $("#table").append(data); //加载table
+                            }
+                        });
+                    }
+                });
             }
         });
     });
 
     $('.paging').pagination({
-        totalData: $("#countPage").val(), //数据总数
-        showData: $("#totalCount").val(), //每页显示的条数
-        //pageCount: $("#countPage").val(), //总页数
+        //totalData: $("#countPage").val(), //数据总数
+        //showData: $("#totalCount").val(), //每页显示的条数
+        pageCount: $("#intPageCount").val(), //总页数
         jump: true,
         mode: 'fixed',//固定页码数量
         coping: true,

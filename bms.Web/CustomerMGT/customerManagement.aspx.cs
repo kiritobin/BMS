@@ -83,6 +83,10 @@ namespace bms.Web.CustomerMGT
             {
                 search = String.Format("regionId={0}", "'" + region + "'");
             }
+            else
+            {
+                search = String.Format("customerID {0} or customerName {0} or regionName {0} and regionId = {1}", " like " + "'%" + search + "%'",region);
+            }
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_Customer";
@@ -110,6 +114,7 @@ namespace bms.Web.CustomerMGT
                 strb.Append("<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>&nbsp 删除" + "</button>" + " </td></tr>");
             }
             strb.Append("</tbody>");
+            strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {
