@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     $('.paging').pagination({
-        pageCount: $("#countPage").val(), //总页数
+        totalData: $("#totalCount").val(),
+        showData: $("#pageSize").val(),
+        //pageCount: $("#countPage").val(), //总页数
         jump: true,
         mode: 'fixed',//固定页码数量
         coping: true,
@@ -18,8 +20,8 @@
                 data: {
                     page: api.getCurrent(), //页码
                     role: roleId,
-                    region: region,
-                    search: search,
+                    region: regionId,
+                    search: strWhere,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -135,16 +137,11 @@ $(".btn-edit").click(function () {
     var account = $(this).parent().prev().prev().prev().prev().text().trim();
     var name = $(this).parent().prev().prev().prev().text().trim();
     var region = $(this).parent().prev().prev().text().trim();
-    sessionStorage.setItem("region", region);
     var role = $(this).parent().prev().text().trim();
-    sessionStorage.setItem("role", role);
-    var regionId = $("#reginId").val();
-    var roleId = $("#roleId").val();
     $("#edit-Account").val(account);
     $("#edit-Name").val(name);
-
-    $("#editRegion").find("option[value=" + 2 + "]").attr("selected", true);
-    $("#editRole").find("option[value='" + roleId + "']").attr("selected", true);
+    $("#myModa2").modal("show")
+    $("#editRegion").find("option:contains('大理')").attr("selected", true)
 })
 $("#btnEdit").click(function () {
     var account = $("#edit-Account").val();
@@ -175,6 +172,10 @@ $("#btnEdit").click(function () {
             }
         }
     })
+})
+$(".btn-Off").click(function () {
+    $("#editRegion").val("");
+    $("#editRole").val("");
 })
 //重置密码
 $("#reset").click(function () {

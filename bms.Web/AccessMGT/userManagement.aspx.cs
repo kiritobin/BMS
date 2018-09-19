@@ -179,7 +179,6 @@ namespace bms.Web.AccessMGT
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
-            getCurrentPage = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount,out intPageCount);
             //获取地区下拉框数据
@@ -191,14 +190,14 @@ namespace bms.Web.AccessMGT
             sb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * 5)) + "</td>");
+                sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["userID"].ToString() + "</td></td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["roleName"].ToString() + "</ td >");
-                sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["regionId"].ToString() + " id='reginId' />");
-                sb.Append("<input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " id='roleId' />");
-                sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button>");
+                sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["regionId"].ToString() + " class='regionId' />");
+                sb.Append("<input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " class='roleId' />");
+                sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button>");
                 sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
             }
             sb.Append("</tbody>");
