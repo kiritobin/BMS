@@ -13,7 +13,7 @@ namespace bms.Web.CustomerMGT
 {
     public partial class collectionManagement : System.Web.UI.Page
     {
-        public int totalCount, intPageCount;
+        public int totalCount, intPageCount,pageSize=5;
         public DataSet dsRegion, ds;
         RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
@@ -55,7 +55,7 @@ namespace bms.Web.CustomerMGT
             tbd.StrTable = "V_LibraryCollection";
             tbd.OrderBy = "bookName";
             tbd.StrColumnlist = "bookName,ISBN,price,collectionNum,customerName,regionName";
-            tbd.IntPageSize = 5;
+            tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
@@ -67,7 +67,7 @@ namespace bms.Web.CustomerMGT
             sb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                sb.Append("<tr><td>" +(i + 1 + ((currentPage - 1) * 5)) + "</td>");
+                sb.Append("<tr><td>" +(i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td><td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"].ToString() + "</ td >");
