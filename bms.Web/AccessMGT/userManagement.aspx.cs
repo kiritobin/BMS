@@ -14,7 +14,7 @@ namespace bms.Web.AccessMGT
     using Result = Enums.OpResult;
     public partial class userManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 5, getCurrentPage = 0, totalCount, intPageCount;
+        public int currentPage = 1, pageSize = 2, getCurrentPage = 0, totalCount, intPageCount;
         public string search="", strSearch, regionId, roleId, regionEdit,roleEdit;
         public DataSet dsRegion, dsRole, ds;
         RSACryptoService rsa = new RSACryptoService();
@@ -197,7 +197,7 @@ namespace bms.Web.AccessMGT
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["roleName"].ToString() + "</ td >");
                 sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["regionId"].ToString() + " class='regionId' />");
                 sb.Append("<input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " class='roleId' />");
-                sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button>");
+                sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button>");
                 sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
             }
             sb.Append("</tbody>");
@@ -208,6 +208,19 @@ namespace bms.Web.AccessMGT
                 Response.End();
             }
             return sb.ToString();
+        }
+
+        public string getRegion()
+        {
+            //生成table
+            StringBuilder sbRegion = new StringBuilder();
+            sbRegion.Append("<tbody>");
+            for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+            {
+                sbRegion.Append("< option value = '" + dsRegion.Tables[0].Rows[i]["regionId"].ToString() + "'>" + dsRegion.Tables[0].Rows[i]["regionName"].ToString() + "</ option >");
+            }
+            sbRegion.Append("</tbody>");
+            return sbRegion.ToString();
         }
 
         /// <summary>

@@ -357,7 +357,7 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">分公司:</span></td>
                                     <td>
-                                        <select class="selectpicker" id="editRegion" title="请选择分公司" data-style="btn-sm">
+                                        <select class="" id="editRegion" title="请选择分公司" data-style="btn-sm">
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 { %>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -368,7 +368,7 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">职位:</span></td>
                                     <td>
-                                        <select class="selectpicker" id="editRole" title="请选择职位" data-style="btn-sm">
+                                        <select class="" id="editRole" title="请选择职位" data-style="btn-sm">
                                             <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
@@ -403,7 +403,6 @@
     </div>
     <input type="hidden" value="<%=pageSize %>" id="pageSize" />
     <input type="hidden" value="<%=totalCount %>" id="totalCount" />
-    <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/userManagement.js"></script>
     <script src="../js/jquery.pagination.js"></script>

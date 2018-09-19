@@ -133,15 +133,27 @@ $("#btnAdd").click(function () {
     }
 })
 //编辑用户
-$(".btn-edit").click(function () {
+$("#table").delegate(".btn-edit", "click", function () {
     var account = $(this).parent().prev().prev().prev().prev().text().trim();
     var name = $(this).parent().prev().prev().prev().text().trim();
     var region = $(this).parent().prev().prev().text().trim();
     var role = $(this).parent().prev().text().trim();
     $("#edit-Account").val(account);
     $("#edit-Name").val(name);
-    $("#myModa2").modal("show")
-    $("#editRegion").find("option:contains('大理')").attr("selected", true)
+    $.ajax({
+        type: 'Post',
+        url: 'userManagement.aspx',
+        data: {
+            region: region,
+            role: role,
+            op: "editData"
+        },
+        dataType: 'text',
+        success: function (succ) {
+        }
+    })
+    $("#editRegion").find("option:contains(" + region + ")").attr("selected", true);
+    $("#editRole").find("option:contains(" + region + ")").attr("selected", true);
 })
 $("#btnEdit").click(function () {
     var account = $("#edit-Account").val();
