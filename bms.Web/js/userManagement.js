@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
     $('.paging').pagination({
-        totalData: $("#totalCount").val(),
-        showData: $("#pageSize").val(),
-        //pageCount: $("#countPage").val(), //总页数
+        //totalData: $("#totalCount").val(),
+        //showData: $("#pageSize").val(),
+        pageCount: $("#intPageCount").val(), //总页数
         jump: true,
         mode: 'fixed',//固定页码数量
         coping: true,
@@ -62,7 +62,7 @@ $("#select-region").change(function () {
     var roleId = $("#select-role").val().trim();
     $.ajax({
         type: 'Post',
-        url: 'userManagement.aspx',
+        url: 'userManagement.aspx,
         data: {
             role: roleId,
             region: regionId,
@@ -140,18 +140,6 @@ $("#table").delegate(".btn-edit", "click", function () {
     var role = $(this).parent().prev().text().trim();
     $("#edit-Account").val(account);
     $("#edit-Name").val(name);
-    $.ajax({
-        type: 'Post',
-        url: 'userManagement.aspx',
-        data: {
-            region: region,
-            role: role,
-            op: "editData"
-        },
-        dataType: 'text',
-        success: function (succ) {
-        }
-    })
     $("#editRegion").find("option:contains(" + region + ")").attr("selected", true);
     $("#editRole").find("option:contains(" + region + ")").attr("selected", true);
 })
