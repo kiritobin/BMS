@@ -151,5 +151,25 @@ namespace bms.Bll
                 return Result.更新失败;
             }
         }
+        /// <summary>
+        /// 判断在另外一张表中是否有数据
+        /// </summary>
+        ///<param name = "table" > 表名 </ param >
+        /// <param name="primarykeyname">主键列</param>
+        /// <param name="primarykey">主键参数</param>
+        /// <returns>管理引用代表数据存在不可删除，记录不存在表示可以删除</returns>
+        public Result IsDelete(string table, string primarykeyname, string primarykey)
+        {
+            PublicProcedure pp = new PublicProcedure();
+            int row = pp.isDelete(table, primarykeyname, primarykey);
+            if (row > 0)
+            {
+                return Result.关联引用;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
+        }
     }
 }
