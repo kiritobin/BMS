@@ -229,7 +229,7 @@
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="0">查询全部地区</option>
+                                                <option value="">查询全部地区</option>
                                                 <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
                                                     { %>
                                                 <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"].ToString() %></option>
@@ -265,7 +265,8 @@
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div> <%--分页栏--%>
+                                            <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -287,7 +288,7 @@
                                 <tr>
                                     <td class="model-td-left"><span class="model-tab-td-span">账号:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入账号"  id="customerId"></td>
+                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入账号" id="customerId"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">客户名称:</span></td>
@@ -298,6 +299,10 @@
                                     <td><span class="model-tab-td-span">地区:</span></td>
                                     <td>
                                         <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
+                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
+                                                { %>
+                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"].ToString() %></option>
+                                            <%} %>
                                         </select>
                                     </td>
                                 </tr>
@@ -333,7 +338,11 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">地区:</span></td>
                                     <td>
-                                        <select class="selectpicker editor_region" title="请选择地区" data-style="btn-sm">
+                                        <select class="editor_region" id="editRegion" title="请选择地区" data-style="btn-sm" style="width:200px;">
+                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
+                                                { %>
+                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"].ToString() %></option>
+                                            <%} %>
                                         </select>
                                     </td>
                                 </tr>
