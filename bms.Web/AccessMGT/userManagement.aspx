@@ -403,6 +403,7 @@
     </div>
     <input type="hidden" value="<%=pageSize %>" id="pageSize" />
     <input type="hidden" value="<%=totalCount %>" id="totalCount" />
+    <input type="hidden" value="<%=intPageCount %>" id="intPageCount" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/userManagement.js"></script>
     <script src="../js/jquery.pagination.js"></script>
