@@ -65,6 +65,13 @@
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
     <Content Include="BasicInfor\bookshelfManagement.aspx" />
+    <Content Include="bin\bms.Bll.pdb" />
+    <Content Include="bin\bms.Dao.dll" />
+    <Content Include="bin\bms.Dao.pdb" />
+    <Content Include="bin\bms.DBHelper.dll" />
+    <Content Include="bin\bms.DBHelper.pdb" />
+    <Content Include="bin\bms.Model.pdb" />
+    <Content Include="bin\MySql.Data.dll" />
     <Content Include="InventoryMGT\lnventoryList.aspx" />
     <Content Include="InventoryMGT\outboundList.aspx" />
     <Content Include="InventoryMGT\replenishList.aspx" />
