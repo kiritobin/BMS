@@ -10,12 +10,11 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.AccessMGT
 {
-    using System.Data;
     using System.Text;
     using Result = Enums.OpResult;
     public partial class JurisdictionManagement : System.Web.UI.Page
     {
-        public int totalCount, intPageCount, pageSize = 2;
+        public int totalCount, intPageCount;
         public DataSet ds;
         public string search, strSearch;
         FunctionBll functionbll = new FunctionBll();
@@ -24,7 +23,6 @@ namespace bms.Web.AccessMGT
         {
 
             getData();
-
             string op = Request["op"];
             if (op == "del")
             {
@@ -70,20 +68,19 @@ namespace bms.Web.AccessMGT
         }
         public string getData()
         {
-            int currentPage = Convert.ToInt32(Request.QueryString["currentPage"]);
+            int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
                 currentPage = 1;
             }
-            search = Request["search"];
-            strSearch = Request["search"];
-            if (search == null)
+            string search = Request["search"];
+
+            if (search == "" || search == null)
             {
-                search = null;
+                search = "";
             }
             else
             {
-                strSearch = search;
                 search = String.Format("functionName {0}", "like'%" + search + "%'");
             }
             //获取分页数据
@@ -91,28 +88,29 @@ namespace bms.Web.AccessMGT
             tabBuilder.StrTable = "T_Function";
             tabBuilder.OrderBy = "functionId";
             tabBuilder.StrColumnlist = "functionId,functionName";
-            tabBuilder.IntPageSize = pageSize;
+            tabBuilder.IntPageSize = 3;
             tabBuilder.StrWhere = search;
             tabBuilder.IntPageNum = currentPage;
             //获取展示数据
             ds = functionbll.selectByPage(tabBuilder, out totalCount, out intPageCount);
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<tbody>");
+            StringBuilder strb = new StringBuilder();
+            strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * 5)) + "</td>");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["functionName"].ToString() + "</ td >");
-                sb.Append("<td>" + "<input type='hidden' class='functionId' value='" + ds.Tables[0].Rows[i]["functionId"].ToString() + "'/>" + "<button class='btn btn-danger btn-sm btn-delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "&nbsp 删除" + "</button>" + " </td></ tr >");
+                strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * 3)) + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["functionName"].ToString() + "</td>");
+                strb.Append("<td>" + "<input type='hidden' class='functionId' value='" + ds.Tables[0].Rows[i]["functionId"].ToString() + "'/>" + "<button class='btn btn-danger btn-sm btn-delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "&nbsp 删除" + "</button>" + " </td></ tr >");
+
             }
-            sb.Append("</tbody>");
+            strb.Append("</tbody>");
             string op = Request["op"];
-            if (op == "paging")
+            if (op=="paging")
             {
-                Response.Write(sb.ToString());
+                Response.Write(strb.ToString());
                 Response.End();
             }
-            return sb.ToString();
+            return strb.ToString();
         }
         public Result isDelete()
         {
