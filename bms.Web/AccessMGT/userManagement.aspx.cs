@@ -15,7 +15,7 @@ namespace bms.Web.AccessMGT
     public partial class userManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 5, getCurrentPage = 0, totalCount, intPageCount;
-        public string search, strSearch, regionId, roleId, regionEdit,roleEdit;
+        public string search="", strSearch, regionId, roleId, regionEdit,roleEdit;
         public DataSet dsRegion, dsRole, ds;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
@@ -25,10 +25,7 @@ namespace bms.Web.AccessMGT
         Role role = new Role();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
                 getData();
-            }
             //增、删、改操作
             Region region = new Region();
             string op = Request["op"];
@@ -134,49 +131,45 @@ namespace bms.Web.AccessMGT
         /// </summary>
         protected string getData()
         {
-            currentPage = Convert.ToInt32(Request.QueryString["currentPage"]);
+            currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
                 currentPage = 1;
             }
-            string type = Request.QueryString["type"];
-            if (type == "search")
-            {
-                getData();
-            }
-            else if (type == "region")
-            {
-
-                regionId = Request.QueryString["region"];
-                string strWhere = "regionId=" + "'" + regionId + "'";
-                getData();
-            }
-            else if (type == "role")
-            {
-                roleId = Request.QueryString["role"];
-                string strWhere = "regionId='" + roleId + "'";
-                getData();
-            }
-            else if (type == "all")
-            {
-                regionId = Request["region"];
-                roleId = Request["role"];
-                string strWhere = "reginId='" + regionId + "' and roleId='" + roleId + "'";
-                getData();
-            }
-            search = Request.QueryString["search"];
-            strSearch = Request.QueryString["search"];
-            if (search.Length == 0)
+            search = Request["search"];
+            regionId = Request["region"];
+            roleId = Request["role"];
+            if ((search == "" || search == null) && (regionId == null || regionId == "") && (roleId == null || roleId == ""))
             {
                 search = "";
             }
-            else if (search == null)
+            else if ((search != "" && search != null) && (regionId == null || regionId == "") && (roleId == null || roleId == ""))
             {
-                search = "";
+                search = String.Format(" userID {0} or userName {0} or regionName {0} or roleName {0}", "like '%" + search + "%'");
+            }
+            else if ((search == "" || search == null) && (regionId != "" && regionId !=null) && (roleId == null || roleId == ""))
+            {
+                search = "regionId=" + regionId;
+            }
+            else if ((search == "" || search == null) && (roleId != "" && roleId != null) && (regionId == null || regionId == ""))
+            {
+                search = "roleId=" + roleId;
+            }
+            else if ((search == "" || search == null) && (roleId != "" && roleId != null) && (regionId != null && regionId != ""))
+            {
+                search = "regionId=" + regionId + " and roleId=" + roleId;
+            }
+            else if ((search != "" && search != null) && (regionId != null && regionId != "") && (roleId == null || roleId == ""))
+            {
+                search = String.Format(" (userID {0} or userName {0} or regionName {0} or roleName {0}) and regionId = {1}", "like '%" + search + "%'", regionId);
+            }
+            else if ((search != "" && search != null) && (regionId == null || regionId == "") && (roleId != null && roleId != ""))
+            {
+                search = String.Format(" (userID {0} or userName {0} or regionName {0} or roleName {0}) and roleId={1}", "like '%" + search + "%'", roleId);
             }
             else
             {
-                search = String.Format(" userID {0} or userName {0} or regionName {0} or roleName {0}", "like '%" + search + "%'");
+                search = String.Format(" (userID {0} or userName {0} or regionName {0} or roleName {0}) and regionId = {1} and roleId={2}", "like '%" + search + "%'",regionId ,roleId);
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
@@ -186,7 +179,6 @@ namespace bms.Web.AccessMGT
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
-            getCurrentPage = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount,out intPageCount);
             //获取地区下拉框数据
@@ -198,15 +190,15 @@ namespace bms.Web.AccessMGT
             sb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * 5)) + "</td>");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["userID"].ToString() + "</td><td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
+                sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["userID"].ToString() + "</td></td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["roleName"].ToString() + "</ td >");
-                sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["regionId"].ToString() + " id='reginId' />" + ds.Tables[0].Rows[i]["collectionNum"].ToString() + "</ td ></ tr >");
-                sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " id='roleId' />" + ds.Tables[0].Rows[i]["collectionNum"].ToString() + "</ td >");
-                sb.Append("<td><button class='btn btn - warning btn - sm btn - edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button></td>");
-                sb.Append("<td><button class='btn btn - danger btn - sm btn - delete'><i class='fa fa - trash - o fa - lg'>< /i>&nbsp 删除</button></td></ tr >");
+                sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["regionId"].ToString() + " class='regionId' />");
+                sb.Append("<input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " class='roleId' />");
+                sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button>");
+                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
             }
             sb.Append("</tbody>");
             string op = Request["op"];

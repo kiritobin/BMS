@@ -72,6 +72,7 @@
     <Content Include="bin\bms.DBHelper.pdb" />
     <Content Include="bin\bms.Model.pdb" />
     <Content Include="bin\MySql.Data.dll" />
+    <Content Include="css\material-dashboard.min.css" />
     <Content Include="InventoryMGT\lnventoryList.aspx" />
     <Content Include="InventoryMGT\outboundList.aspx" />
     <Content Include="InventoryMGT\replenishList.aspx" />
@@ -92,7 +93,6 @@
     <Content Include="css\demo.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="css\lgd.css" />
-    <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.css" />
     <Content Include="css\zgz.css" />
     <Content Include="demo\form_demo.html" />

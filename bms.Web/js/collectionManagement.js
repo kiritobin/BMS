@@ -40,7 +40,9 @@
     });
 
     $('.paging').pagination({
-        pageCount: $("#countPage").val(), //总页数
+        totalData: $("#countPage").val(), //数据总数
+        showData: $("#totalCount").val(), //每页显示的条数
+        //pageCount: $("#countPage").val(), //总页数
         jump: true,
         mode: 'fixed',//固定页码数量
         coping: true,

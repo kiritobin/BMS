@@ -19,6 +19,7 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/demo.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
 </head>
@@ -227,14 +228,14 @@
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <input type="text" value="<%=strSearch %>" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
+                                            <input type="text" value="<%=strSearch %>" class="form-control col-sm-2 input-search" id="search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table" id="table">
                                             <thead class="text-danger">
                                                 <tr>
                                                     <th>序号
@@ -245,39 +246,12 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <%for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                                                    {%>
-                                                <tr>
-                                                    <td><%=i+1+((getCurrentPage-1)*pageSize) %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["functionName"] %></td>
-                                                    <td>
-                                                        <input type="hidden" class="functionId" value="<%=ds.Tables[0].Rows[i]["functionId"] %>" />
-                                                        <button class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
-                                                    </td>
-                                                </tr>
-                                                <% } %>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
-                                    <div class="copyright float-right page-box">
+                                       <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="0" tabindex="0" class="page-link jump">首页</a></li>
-                                                <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link jump">上一页</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="2"
-                                                    tabindex="0" class="page-link"><%=getCurrentPage %></a></li>
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">/</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5"
-                                                    tabindex="0" class="page-link"><%=intPageCount %></a></li>
-                                                <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link jump">下一页</a></li>
-                                                <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link jump">尾页</a></li>
-                                            </ul>
+                                            <div class="m-style paging"></div> <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -327,7 +301,6 @@
             </footer>
         </div>
     </div>
-    <input type="hidden" value="<%=getCurrentPage %>" id="page" />
     <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
@@ -339,6 +312,7 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jurisdictionManagement.js"></script>
 </body>
 
