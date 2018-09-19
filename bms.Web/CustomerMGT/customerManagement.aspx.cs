@@ -51,6 +51,14 @@ namespace bms.Web.CustomerMGT
             {
                 UpdateCustomer();
             }
+            if (op == "del")
+            {
+                DeleteCustomer();
+            }
+            if(op== "reset")
+            {
+                RestPwd();
+            }
         }
         /// <summary>
         /// 获取基础数据
@@ -159,15 +167,69 @@ namespace bms.Web.CustomerMGT
                 }
             }
         }
+        /// <summary>
+        /// 更新客户信息
+        /// </summary>
         public void UpdateCustomer()
         {
-            string custId = Context.Request["customerId"],
-                custName = Context.Request["cutomerName"],
-                regId = Context.Request["zoneId"];
-            Customer cmer = new Customer();
-            cmer = cBll.getCustomer(int.Parse(custId));
-            string pwd = cmer.CustomerPwd;
-
+            string custId = Context.Request["customerId"];
+            string custName = Context.Request["customername"];
+            string regId = Context.Request["regionid"];
+            Region reg = new Region()
+            {
+                RegionId = int.Parse(regId)
+            };
+            Customer customer = new Customer()
+            {
+                CustomerId = Convert.ToInt32(custId),
+                CustomerName = custName,
+                RegionId = reg
+            };
+            Result row = cBll.update(customer);
+            if(row == Result.更新成功)
+            {
+                Response.Write("更新成功");
+                Response.End();
+            }
+            else
+            {
+                Response.Write("更新失败");
+                Response.End();
+            }
+        }
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        public void DeleteCustomer()
+        {
+            string customerID = Context.Request["cutomerId"];
+            Result row = cBll.Delete(int.Parse(customerID));
+            if (row == Result.删除成功)
+            {
+                Response.Write("删除成功");
+                Response.End();
+            }
+            else
+            {
+                Response.Write("删除失败");
+                Response.End();
+            }
+        }
+        public void RestPwd()
+        {
+            string customerId = Context.Request["customerid"];
+            string pwd = RSAC.Encrypt("000000");
+            Result result = cBll.ResetPwd(int.Parse(customerId), pwd);
+            if(result == Result.更新成功)
+            {
+                Response.Write("重置成功");
+                Response.End();
+            }
+            else
+            {
+                Response.Write("重置失败");
+                Response.End();
+            }
         }
     }
 }

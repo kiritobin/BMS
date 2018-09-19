@@ -233,34 +233,20 @@
                                             <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
                                                 <option value="0">请选择地区</option>
                                                 <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
-                                                    {
-                                                        if (dsRegion.Tables[0].Rows[i]["regionId"].ToString() == regionId)
-                                                        {%>
-                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>" selected="selected"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}
-                                                    else
                                                     { %>
                                                 <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}
-                                                    } %>
+                                                <%}%>
                                             </select>
                                             &nbsp
                                             <select class="selectpicker" title="请选择角色" data-style="btn-sm" id="select-role">
                                                 <option value="0">请选择角色</option>
                                                 <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
-                                                    {
-                                                        if (dsRole.Tables[0].Rows[i]["roleId"].ToString() == roleId)
-                                                        {%>
-                                                <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>" selected="selected"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                                <%}
-                                                    else
-                                                    { %>
+                                                    {%>
                                                 <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                                <%}
-                                                    } %>
+                                                <%}%>
                                             </select>
                                             &nbsp &nbsp
-                                            <input type="text" value="<%=strSearch %>" class="form-control col-sm-2" id="input-search" placeholder="请输入查询条件">
+                                            <input type="text" value="" class="form-control col-sm-2" id="input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
@@ -279,45 +265,13 @@
                                                     <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <%for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                                                    { %>
-                                                <tr>
-                                                    <td><%=i+1+((getCurrentPage-1)*pageSize) %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["userID"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["userName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["regionName"] %></td>
-                                                    <td><%=ds.Tables[0].Rows[i]["roleName"] %></td>
-                                                    <td>
-                                                        <input type="hidden" value="<%=ds.Tables[0].Rows[i]["regionId"] %>" id="reginId" />
-                                                        <input type="hidden" value="<%=ds.Tables[0].Rows[i]["roleId"] %>" id="roleId" />
-                                                        <button class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
-                                                        <button class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
-                                                    </td>
-                                                </tr>
-                                                <%} %>
-                                            </tbody>
+                                            <%= getData() %>
                                         </table>
                                     </div>
                                     <!--分页-->
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="0" tabindex="0" class="page-link jump">首页</a></li>
-                                                <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link jump">上一页</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="2"
-                                                    tabindex="0" class="page-link"><%=getCurrentPage %></a></li>
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">/</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5"
-                                                    tabindex="0" class="page-link"><%=intPageCount %></a></li>
-                                                <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link jump">下一页</a></li>
-                                                <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link jump">尾页</a></li>
-                                            </ul>
+                                            <div class="m-style paging"></div> <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>

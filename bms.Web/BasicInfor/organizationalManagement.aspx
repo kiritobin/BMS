@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="organizationalManagement.aspx.cs" Inherits="bms.Web.AccessMGT.organizationalManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="organizationalManagement.aspx.cs" Inherits="bms.Web.BasicInfor.organizationalManagement" %>
 
 <%="" %>
 <!DOCTYPE html>

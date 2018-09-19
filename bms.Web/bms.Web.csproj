@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AccessMGT\jurisdictionManagement.aspx" />
-    <Content Include="AccessMGT\organizationalManagement.aspx" />
+    <Content Include="BasicInfor\organizationalManagement.aspx" />
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
@@ -97,6 +97,7 @@
     <Content Include="css\zgz.css" />
     <Content Include="demo\form_demo.html" />
     <Content Include="demo\loginDemo.html" />
+    <Content Include="demo\自动弹bootstrap模态框.html" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -132,11 +133,11 @@
     <Compile Include="AccessMGT\jurisdictionManagement.aspx.designer.cs">
       <DependentUpon>jurisdictionManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AccessMGT\organizationalManagement.aspx.cs">
+    <Compile Include="BasicInfor\organizationalManagement.aspx.cs">
       <DependentUpon>organizationalManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AccessMGT\organizationalManagement.aspx.designer.cs">
+    <Compile Include="BasicInfor\organizationalManagement.aspx.designer.cs">
       <DependentUpon>organizationalManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="AccessMGT\roleManagement.aspx.cs">
