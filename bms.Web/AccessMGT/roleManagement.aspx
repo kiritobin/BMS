@@ -247,34 +247,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-
-                                            <tbody>
-                                                <tr>
-                                                    <td>1
-                                                    </td>
-                                                    <td>门卫
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp;删除</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2
-                                                    </td>
-                                                    <td>10002
-                                                    </td>
-                                                    <td>操作员
-                                                    </td>
-                                                    <td>西山区
-                                                    </td>
-                                                    <td></td>
-                                                    <td>
-                                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp;编辑</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp;删除</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
