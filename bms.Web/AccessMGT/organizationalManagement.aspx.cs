@@ -26,11 +26,44 @@ namespace bms.Web.AccessMGT
             if(op == "add")
             {
                 string regionName = Request["name"];
-                Result row = regionBll.insert(regionName);
-                if(row == Result.添加成功)
+                //添加分公司
+                Result row = regionBll.
+                    (regionName);
+                if (row == Result.添加成功)
                 {
-                    Response.Write("添加成功");
-                    Response.End();
+                    //获取分公司id
+                    DataSet ds = regionBll.select();
+                    int i = ds.Tables[0].Rows.Count;
+                    Region region = new Region();
+                    region.RegionId = Convert.ToInt32(ds.Tables[0].Rows[i]["regionId"].ToString());
+                    //添加货架
+                    GoodsShelves goods = new GoodsShelves();
+                    goods.RegionId = region;
+                    goods.ShelvesName = "未上架";
+                    GoodsShelvesBll goodsBll = new GoodsShelvesBll();
+                    Result good = goodsBll.insert(goods);
+                    if (good == Result.添加成功)
+                    {
+                        //添加销售计划
+                        SaleTaskBll saleBll = new SaleTaskBll();
+                        SaleTask sale = new SaleTask();
+                        Result result = saleBll.insert(sale);
+                        if (result == Result.添加成功)
+                        {
+                            Response.Write("添加成功");
+                            Response.End();
+                        }
+                        else
+                        {
+                            Response.Write("添加失败");
+                            Response.End();
+                        }
+                    }
+                    else
+                    {
+                        Response.Write("添加失败");
+                        Response.End();
+                    }
                 }
                 else
                 {
@@ -40,7 +73,27 @@ namespace bms.Web.AccessMGT
             }
             else if(op == "del")
             {
-                int regionId = Convert.ToInt32(Request["regionId"]);
+                string regionId = Request["regionId"];
+                Result result = IsdeleteAdmin(regionId);
+                if (result == Result.记录不存在)
+                {
+                    Result row = regionBll.delete(Convert.ToInt32(regionId));
+                    if (row == Result.删除成功)
+                    {
+                        Response.Write("删除成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("删除失败");
+                        Response.End();
+                    }
+                }
+                else
+                {
+                    Response.Write("在其他表中有关联，不可删除");
+                    Response.End();
+                }
             }
         }
 
@@ -49,7 +102,7 @@ namespace bms.Web.AccessMGT
         /// </summary>
         protected string getData()
         {
-            currentPage = Convert.ToInt32(Request.QueryString["currentPage"]);
+            currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
                 currentPage = 1;
@@ -76,7 +129,7 @@ namespace bms.Web.AccessMGT
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
-                sb.Append("<input type='hidden' value=' " + ds.Tables[0].Rows[i]["regionId"].ToString() + " ' id='regionId' />");
+                sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[i]["regionId"].ToString() + "' id='regionId' />");
                 sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
             }
             sb.Append("</tbody>");
@@ -88,6 +141,44 @@ namespace bms.Web.AccessMGT
                 Response.End();
             }
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// 在删除前判断该记录在其他表中是否被引用
+        /// </summary>
+        /// <returns></returns>
+        public Result IsdeleteAdmin(string regionId)
+        {
+            Result row = Result.记录不存在;
+            if (userBll.IsDelete("T_Customer", "regionId", regionId) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            if (userBll.IsDelete("T_User", "regionId", regionId) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            if (userBll.IsDelete("T_GoodsShelves", "regionId", regionId) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            if (userBll.IsDelete("T_Stock", "regionId", regionId) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            if (userBll.IsDelete("T_SingleHead", "regionId", regionId) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            if (userBll.IsDelete("T_SellOffHead", "regionId", regionId) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            if (userBll.IsDelete("T_ReplenishmentHead", "regionId", regionId) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            return row;
         }
     }
 }

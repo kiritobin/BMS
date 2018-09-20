@@ -18,6 +18,13 @@
         color: #fff;
     }
 
+
+.main-panel > .content {
+    margin-top: 27px;
+    padding: 30px 15px;
+    min-height: calc(100vh - 123px);
+}
+
 /* 登录页面css */
 .card .card-header-rose:not(.card-header-icon):not(.card-header-text) {
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(244, 67, 54, .4);
@@ -39,8 +46,10 @@
     padding-right: 55px;
 }
 
-.main-panel > .content {
-    margin-top: 27px;
-    padding: 30px 15px;
-    min-height: calc(100vh - 123px);
+/* 非空验证文本框样式 */
+.model-table .txtVerify, .remarks {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #999;
+    border: 1px solid #ddd;
 }

@@ -151,10 +151,10 @@
         var id = $("#customerId").val();
         var name = $("#customerName").val();
         var regionID = $("#model-select-region").find("option:selected").val();
-        //if (id == "" || name == "" || regionID == "") {
-        //    alert("账号、姓名和地区名称都不能为空！");
-        //}
-        //else {
+        if (id == "" || name == "" || regionID == "") {
+            alert("账号、姓名和地区名称都不能为空！");
+        }
+        else {
         $.ajax({
             type: 'Post',
             url: 'customerManagement.aspx',
@@ -195,7 +195,7 @@
                 }
             }
         })
-        //}
+        }
     })
 
     $("#table").delegate(".btn_Editor", "click", function () {

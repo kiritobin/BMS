@@ -13,7 +13,7 @@ namespace bms.Web.AccessMGT
 {
     public partial class roleManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
+        public int currentPage = 1, pageSize = 1, totalCount, intPageCount;
         public string search, roleId;
         public DataSet ds;
         RSACryptoService rsa = new RSACryptoService();
@@ -38,11 +38,15 @@ namespace bms.Web.AccessMGT
             {
                 search = String.Format(" roleName {0}", "like '%" + search + "%'");
             }
+            else
+            {
+                search = "";
+            }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "T_Role";
+            tbd.StrTable = "V_Permission";
             tbd.OrderBy = "roleId";
-            tbd.StrColumnlist = "roleId,roleName";
+            tbd.StrColumnlist = "roleId,roleName,functionName";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
@@ -55,6 +59,7 @@ namespace bms.Web.AccessMGT
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["roleName"].ToString() + "</ td >");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["functionName"].ToString() + "</ td >");
                 sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " class='roleId' />");
                 sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button>");
                 sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");

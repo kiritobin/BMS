@@ -294,7 +294,7 @@ $("#reset").click(function () {
     })
 })
 //删除用户
-$(".btn-delete").click(function () {
+$("#table").delegate(".btn-delete", "click",function () {
     var account = $(this).parent().prev().prev().prev().prev().text().trim();
     var flag = confirm("确定要删除账号为：" + account + "的用户吗？");
     if (flag == true) {
