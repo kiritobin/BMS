@@ -66,6 +66,10 @@
 .form-check-sign {
     top: 0px !important;
 }
+
+.mostTable thead tr {
+    border-top: 1px solid #ddd;
+}
 /*功能添加模态框样式*/
 .table .model-tab-function td .form-check .form-check-label {
     color: black;
