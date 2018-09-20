@@ -231,8 +231,7 @@
                                         <div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2" id="input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;&nbsp;查询</button>
-                                            &nbsp;
-                                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;&nbsp;添加</button>
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;&nbsp;添加</button>
                                         </div>
                                     </div>
 
@@ -252,7 +251,8 @@
                                     <div class="copyright float-right page-box">
 
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div> <%--分页栏--%>
+                                            <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -272,21 +272,9 @@
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td><span class="model-tab-td-span">分公司:</span></td>
+                                    <td><span class="model-tab-td-span">角色:</span></td>
                                     <td>
-                                        <select class="" title="请选择分公司" data-style="btn-sm" id="model-select-region">
-                                            <option value="1">五华区</option>
-                                            <option value="1">西山区</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">职位:</span></td>
-                                    <td>
-                                        <select class="" title="请选择地区" data-style="btn-sm" id="model-select-role">
-                                            <option value="1">入库管理员</option>
-                                            <option value="2">零售员</option>
-                                        </select>
+                                        <input type="text" value="" class="form-control col-sm-10 input-search" id="addRoleName" placeholder="请输入角色名称">
                                     </td>
                                 </tr>
                             </table>
@@ -473,29 +461,29 @@
                         </div>
                     </div>
                 </div>
-                <!--编辑职位模态框-->
-                <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title float-left" id="myModalLabe2">编辑职位</h4>
-                            </div>
-                            <div class="modal-body">
-                                <table class="table model-table">
-                                    <tr>
-                                        <td><span class="model-tab-td-span">职位名:</span></td>
-                                        <td>门卫</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="model-tab-td-span">功能:</span></td>
-                                        <td>门卫</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                                <button type="submit" class="btn btn-success btn-sm">提交</button>
-                            </div>
+            </div>
+            <!--编辑职位模态框-->
+            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabe2">编辑职位</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table model-table">
+                                <tr>
+                                    <td><span class="model-tab-td-span">职位名:</span></td>
+                                    <td>门卫</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="model-tab-td-span">功能:</span></td>
+                                    <td>门卫</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
+                            <button type="submit" class="btn btn-success btn-sm">提交</button>
                         </div>
                     </div>
                 </div>

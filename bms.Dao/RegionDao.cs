@@ -28,12 +28,30 @@ namespace bms.Dao
             }
         }
 
-
+        /// <summary>
+        /// 添加分公司
+        /// </summary>
+        /// <param name="regionName">分公司名称</param>
+        /// <returns></returns>
         public int insert(string regionName)
         {
-            string cmdText = "insert into T_Rigion(regionName) values(@regionName)";
+            string cmdText = "insert into T_Region(regionName) values(@regionName)";
             string[] param = { "@regionName" };
             object[] values = { regionName };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 删除分公司
+        /// </summary>
+        /// <param name="regionId">分公司id</param>
+        /// <returns></returns>
+        public int delete(int regionId)
+        {
+            string cmdText = "delete from T_Region where regionId = @regionId";
+            string[] param = { "@regionId" };
+            object[] values = { regionId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }

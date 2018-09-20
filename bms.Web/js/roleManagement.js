@@ -1,7 +1,5 @@
 ﻿$(document).ready(function () {
     $('.paging').pagination({
-        //totalData: $("#totalCount").val(),
-        //showData: $("#pageSize").val(),
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
         mode: 'fixed',//固定页码数量
