@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="lnventoryList.aspx.cs" Inherits="bms.Web.BasicInfor.lnventoryList" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="lnventoryList.aspx.cs" Inherits="bms.Web.InventoryMGT.lnventoryList" %>
 <%="" %>
 <!DOCTYPE html>
 
@@ -181,9 +180,6 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">入库列表查询</a>
-                    </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>

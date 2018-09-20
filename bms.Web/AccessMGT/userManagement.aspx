@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
 </head>
 
 <body>
@@ -31,7 +32,8 @@
         <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
-        <div class="sidebar" data-color="danger" data-background-color="white" data-image="imgs/sidebar-2.jpg">
+        <div class="sidebar" data-color="danger" data-background-color="white" data-image="
+            imgs/sidebar-2.jpg">
             <!--
                 Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
         
@@ -183,9 +185,6 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">权限管理</a>
-                    </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -230,16 +229,16 @@
                                     <!--查询区域-->
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="0">请选择地区</option>
+                                            <select class="selectpicker" title="请选择分公司" data-style="btn-sm" id="select-region">
+                                                <option value="">请选择分公司</option>
                                                 <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                     { %>
                                                 <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
                                                 <%}%>
                                             </select>
                                             &nbsp
-                                            <select class="selectpicker" title="请选择角色" data-style="btn-sm" id="select-role">
-                                                <option value="0">请选择角色</option>
+                                            <select class="selectpicker" title="请选择职位" data-style="btn-sm" id="select-role">
+                                                <option value="">请选择职位</option>
                                                 <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                     {%>
                                                 <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
@@ -254,14 +253,14 @@
                                     </div>
                                     <!--数据展示区-->
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table" id="table">
                                             <thead class="text-danger">
                                                 <tr>
                                                     <th>序号</th>
                                                     <th>账号</th>
                                                     <th>用户名</th>
-                                                    <th>地区</th>
-                                                    <th>角色</th>
+                                                    <th>分公司</th>
+                                                    <th>职位</th>
                                                     <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>
@@ -301,9 +300,9 @@
                                         <input type="text" class="form-control col-sm-9 input-search" id="inputName" placeholder="请输入账号"></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
+                                    <td><span class="model-tab-td-span">分公司:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
+                                        <select class="" title="请选择分公司" data-style="btn-sm" id="model-select-region">
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -312,9 +311,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">角色:</span></td>
+                                    <td><span class="model-tab-td-span">职位:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-role">
+                                        <select class="" title="请选择职位" data-style="btn-sm" id="model-select-role">
                                             <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
@@ -325,7 +324,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
+                            <button type="button" class="btn btn-default btn-sm btn-Off" data-dismiss="modal" id="model-btnclose1">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
                         </div>
                     </div>
@@ -357,9 +356,9 @@
                                         <button type="button" class="btn btn-default btn-sm" id="reset">重置密码</button></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
+                                    <td><span class="model-tab-td-span">分公司:</span></td>
                                     <td>
-                                        <select class="selectpicker" id="editRegion" title="" data-style="btn-sm">
+                                        <select class="" id="editRegion" title="请选择分公司" data-style="btn-sm">
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 { %>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -368,9 +367,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">角色:</span></td>
+                                    <td><span class="model-tab-td-span">职位:</span></td>
                                     <td>
-                                        <select class="selectpicker" id="editRole" title="" data-style="btn-sm">
+                                        <select class="" id="editRole" title="请选择职位" data-style="btn-sm">
                                             <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
@@ -403,8 +402,6 @@
             </footer>
         </div>
     </div>
-    <input type="hidden" value="<%=getCurrentPage %>" id="page" />
-    <input type="hidden" value="<%=intPageCount %>" id="countPage" />
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/userManagement.js"></script>
     <!-- 左侧导航栏所需js -->
@@ -417,6 +414,7 @@
     <!--  消息提示框js -->
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
     <script>
 </script>
 </body>

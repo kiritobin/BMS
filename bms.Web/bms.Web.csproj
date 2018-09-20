@@ -60,23 +60,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AccessMGT\jurisdictionManagement.aspx" />
-    <Content Include="BasicInfor\organizationalManagement.aspx" />
+    <Content Include="AccessMGT\organizationalManagement.aspx" />
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
     <Content Include="BasicInfor\bookshelfManagement.aspx" />
-    <Content Include="InventoryMGT\lnventoryList.aspx" />
-    <Content Include="InventoryMGT\outboundList.aspx" />
-    <Content Include="InventoryMGT\replenishList.aspx" />
-    <Content Include="bin\bms.Bll.dll" />
     <Content Include="bin\bms.Bll.pdb" />
     <Content Include="bin\bms.Dao.dll" />
     <Content Include="bin\bms.Dao.pdb" />
     <Content Include="bin\bms.DBHelper.dll" />
     <Content Include="bin\bms.DBHelper.pdb" />
-    <Content Include="bin\bms.Model.dll" />
     <Content Include="bin\bms.Model.pdb" />
     <Content Include="bin\MySql.Data.dll" />
+    <Content Include="css\material-dashboard.min.css" />
+    <Content Include="InventoryMGT\lnventoryList.aspx" />
+    <Content Include="InventoryMGT\outboundList.aspx" />
+    <Content Include="InventoryMGT\replenishList.aspx" />
+    <Content Include="bin\bms.Bll.dll" />
+    <Content Include="bin\bms.Model.dll" />
     <Content Include="css\pagination.css" />
     <Content Include="css\qc.css" />
     <Content Include="CustomerMGT\collectionManagement.aspx" />
@@ -92,7 +93,6 @@
     <Content Include="css\demo.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="css\lgd.css" />
-    <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.css" />
     <Content Include="css\zgz.css" />
     <Content Include="demo\form_demo.html" />
@@ -102,6 +102,7 @@
     <Content Include="Global.asax" />
     <Content Include="imgs\login.jpg" />
     <Content Include="imgs\sidebar-2.jpg" />
+    <Content Include="js\bookshelfManagement.js" />
     <Content Include="js\bootstrap-material-design.min.js" />
     <Content Include="js\bootstrap-selectpicker.js" />
     <Content Include="js\bootstrap.min.js" />
@@ -115,8 +116,10 @@
     <Content Include="js\jsencrypt.min.js" />
     <Content Include="js\login.js" />
     <Content Include="js\material-dashboard.min.js" />
+    <Content Include="js\organizationalManagement.js" />
     <Content Include="js\perfect-scrollbar.jquery.min.js" />
     <Content Include="js\popper.min.js" />
+    <Content Include="js\roleManagement.js" />
     <Content Include="js\sweetalert2.js" />
     <Content Include="js\userManagement.js" />
     <Content Include="login.aspx" />
@@ -132,11 +135,11 @@
     <Compile Include="AccessMGT\jurisdictionManagement.aspx.designer.cs">
       <DependentUpon>jurisdictionManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BasicInfor\organizationalManagement.aspx.cs">
+    <Compile Include="AccessMGT\organizationalManagement.aspx.cs">
       <DependentUpon>organizationalManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BasicInfor\organizationalManagement.aspx.designer.cs">
+    <Compile Include="AccessMGT\organizationalManagement.aspx.designer.cs">
       <DependentUpon>organizationalManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="AccessMGT\roleManagement.aspx.cs">

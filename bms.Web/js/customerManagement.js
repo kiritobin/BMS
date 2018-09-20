@@ -1,63 +1,150 @@
-﻿var curPage = $("#curPage").val();
-var countPage = $("#pageCount").val();
-sessionStorage.setItem("curPage", curPage);
-sessionStorage.setItem("totalPage", countPage);
-$(document).ready(function () {
-    //分页
-    $(".jump").click(function () {
-        switch ($.trim($(this).text())) {
-            case ('上一页'):
-                if (parseInt(sessionStorage.getItem("curPage")) > 1) {
-                    jump(parseInt(sessionStorage.getItem("curPage")) - 1);
-                    break;
-                } else {
-                    jump(1);
-                    break;
+﻿$(document).ready(function () {
+    $(".paging").pagination({
+        pageCount: $("#intPageCount").val(), //总页数
+        jump: true,
+        mode: 'fixed',//固定页码数量
+        coping: true,
+        homePage: '首页',
+        endPage: '尾页',
+        prevContent: '上页',
+        nextContent: '下页',
+        callback: function (api) {
+            var region = $("#select-region").find("option:selected").val();
+            var search = $("#btn-search").val().trim();
+            $.ajax({
+                type: 'Post',
+                url: 'customerManagement.aspx',
+                data: {
+                    page: api.getCurrent(), //页码
+                    region: region,
+                    search: search,
+                    op: "paging"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    $("#table tr:not(:first)").empty(); //清空table处首行
+                    $("#table").append(data); //加载table
                 }
-            case ('下一页'):
-                if (parseInt(sessionStorage.getItem("curPage")) < parseInt(sessionStorage.getItem("totalPage"))) {
-                    jump(parseInt(sessionStorage.getItem("curPage")) + 1);
-                    break;
-                } else {
-                    jump(parseInt(sessionStorage.getItem("totalPage")));
-                    break;
-                }
-            case ("首页"):
-                jump(1);
-                break;
-            case ("尾页"):
-                jump(parseInt(sessionStorage.getItem("totalPage")));
-                break;
+            });
         }
     });
-    //地区下拉查询
-    $("#select-region").change(function () {
-        var regionId = $("#select-region").find("option:selected").val();
-        sessionStorage.setItem("region", regionId);
-        if (sessionStorage.getItem("strWhere") != null) {
-            sessionStorage.removeItem("strWhere");
-        }
-        jump(1);
-    })
-    //按钮查询
+
+    //点击查询按钮时
     $("#btn-search").click(function () {
-        var str = $("#search_All").val();
-        sessionStorage.setItem("strWhere", str);
-        jump(1);
+        var region = $("#select-region").val().trim();
+        var search = $("#search_All").val().trim();
+        $.ajax({
+            type: 'Post',
+            url: 'customerManagement.aspx',
+            data: {
+                region: region,
+                search: search,
+                op: "paging"
+            },
+            dataType: 'text',
+            success: function (data) {
+                $("#intPageCount").remove();
+                $("#table tr:not(:first)").empty(); //清空table处首行
+                $("#table").append(data); //加载table
+                $(".paging").empty();
+                $(".paging").pagination({
+                    pageCount: $("#intPageCount").val(), //总页数
+                    jump: true,
+                    mode: 'fixed',//固定页码数量
+                    coping: true,
+                    homePage: '首页',
+                    endPage: '尾页',
+                    prevContent: '上页',
+                    nextContent: '下页',
+                    callback: function (api) {
+                        $.ajax({
+                            type: 'Post',
+                            url: 'customerManagement.aspx',
+                            data: {
+                                page: api.getCurrent(), //页码
+                                region: region,
+                                search: search,
+                                op: "paging"
+                            },
+                            dataType: 'text',
+                            success: function (data) {
+                                $("#table tr:not(:first)").empty(); //清空table处首行
+                                $("#table").append(data); //加载table
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+    //下拉查询
+    $("#select-region").change(function () {
+        var region = $("#select-region").find("option:selected").val();
+        var search = $("#search_All").val().trim();
+        $.ajax({
+            type: 'Post',
+            url: 'customerManagement.aspx',
+            data: {
+                region: region,
+                search: search,
+                op: "paging"
+            },
+            dataType: 'text',
+            success: function (data) {
+                $("#intPageCount").remove();
+                $("#table tr:not(:first)").empty(); //清空table处首行
+                $("#table").append(data); //加载table
+                $(".paging").empty();
+                $(".paging").pagination({
+                    pageCount: $("#intPageCount").val(), //总页数
+                    jump: true,
+                    mode: 'fixed',//固定页码数量
+                    coping: true,
+                    homePage: '首页',
+                    endPage: '尾页',
+                    prevContent: '上页',
+                    nextContent: '下页',
+                    callback: function (api) {
+                        $.ajax({
+                            type: 'Post',
+                            url: 'customerManagement.aspx',
+                            data: {
+                                page: api.getCurrent(), //页码
+                                region: region,
+                                search: search,
+                                op: "paging"
+                            },
+                            dataType: 'text',
+                            success: function (data) {
+                                $("#table tr:not(:first)").empty(); //清空table处首行
+                                $("#table").append(data); //加载table
+                            }
+                        });
+                    }
+                })
+            }
+        });
     })
 
-    //地址栏传值
-    function jump(curr) {
-        if (sessionStorage.getItem("region") != null && sessionStorage.getItem("region") != "" && sessionStorage.getItem("strWhere") == null && sessionStorage.getItem("region") != "0") {
-            window.location.href = "customerManagement.aspx?currentPage=" + curr + "&regionID=" + sessionStorage.getItem("region");
-        }
-        else if (sessionStorage.getItem("region") == null && sessionStorage.getItem("strWhere") != null) {
-            window.location.href = "customerManagement.aspx?currentPage=" + curr + "&strWhere=" + sessionStorage.getItem("strWhere");
-        }
-        else {
-            window.location.href = "customerManagement.aspx?currentPage=" + curr;
-        }
-    }
+    //$("#select-region").change(function () {
+    //    var regionId = $("#select-region").find("option:selected").val();
+    //    sessionStorage.setItem("region", regionId);
+    //    if (sessionStorage.getItem("strWhere") != null) {
+    //        sessionStorage.removeItem("strWhere");
+    //    }
+    //    jump(1);
+    //})
+    //按钮查询
+    //$("#btn-search").click(function () {
+    //    var str = $("#search_All").val();
+    //    sessionStorage.setItem("strWhere", str);
+    //    jump(1);
+    //})
+
+    ////地址栏传值
+    //function jump(curr) {
+    //    window.location.href = "customerManagement.aspx?currentPage=" + curr;
+    //}
 
     //添加客户
     $("#btnAdd").click(function () {
@@ -68,61 +155,71 @@ $(document).ready(function () {
             alert("账号、姓名和地区名称都不能为空！");
         }
         else {
-            $.ajax({
-                type: 'Post',
-                url: 'customerManagement.aspx',
-                data: {
-                    customerId: id,
-                    cutomerName: name,
-                    zoneId: regionID,
-                    op: "add"
-                },
-                dataType: 'text',
-                success: function (succ) {
-                    if (succ == "添加成功") {
-                        swal({
-                            title: succ,
-                            text: succ,
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window, location.reload();
-                        })
-                    } else {
-                        swal({
-                            title: succ,
-                            text: succ,
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window, location.reload();
-                        })
-                    }
+        $.ajax({
+            type: 'Post',
+            url: 'customerManagement.aspx',
+            data: {
+                customerId: id,
+                cutomerName: name,
+                zoneId: regionID,
+                op: "add"
+            },
+            dataType: 'text',
+            success: function (succ) {
+                if (succ == "添加成功") {
+                    swal({
+                        title: succ,
+                        text: succ,
+                        type: "success",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window, location.reload();
+                    })
+                } else {
+                    swal({
+                        title: succ,
+                        text: succ,
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window, location.reload();
+                    })
                 }
-            })
+            }
+        })
         }
     })
-    //编辑客户
-    $(".btn_Editor").click(function () {
+
+    $("#table").delegate(".btn_Editor", "click", function () {
         var custId = $(this).parent().prev().prev().prev().prev().text().trim();
         var custName = $(this).parent().prev().prev().prev().text().trim();
-        $(".editor_name").val(custName);
         var custRegion = $(this).parent().prev().prev().text().trim();
+        $(".editor_name").val(custName);
         $(".editor_id").text(custId);
+        $("#editRegion").find("option:contains(" + custRegion + ")").attr("selected", true);
     })
+    ////编辑客户
+    //$(".btn_Editor").click(function () {
+    //    var custId = $(this).parent().prev().prev().prev().prev().text().trim();
+    //    var custName = $(this).parent().prev().prev().prev().text().trim();
+    //    $(".editor_name").val(custName);
+    //    var custRegion = $(this).parent().prev().prev().text().trim();
+    //    $(".editor_id").text(custId);
+    //    alert(custId + custName);
+    //})
     //提交编辑
     $(".sava_Editor").click(function () {
         var custId = $(".editor_id").text();
         var custName = $(".editor_name").val();
-        var regId = $(".editor_region").find("option:selected").val();
+        var regId = $("#editRegion").find("option:selected").val();
         $.ajax({
             type: 'Post',
             url: 'customerManagement.aspx',
@@ -130,7 +227,7 @@ $(document).ready(function () {
                 customerid: custId,
                 customername: custName,
                 regionid: regId,
-                op: "editData"
+                op: "editor"
             },
             dataType: 'text',
             success: function (succ) {
@@ -145,27 +242,27 @@ $(document).ready(function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window, location.reload();
+                        window.location.reload();
                     })
                 } else {
                     swal({
                         title: succ,
                         text: succ,
-                        type: "success",
+                        type: "warning",
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: '确定',
                         confirmButtonClass: 'btn btn-success',
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window, location.reload();
+                        window.location.reload();
                     })
                 }
             }
         });
     })
     //删除
-    $(".btn_delete").click(function () {
+    $("#table").delegate(".btn_delete", "click", function () {
         var custId = $(this).parent().prev().prev().prev().prev().text().trim();
         //弹窗
         swal({
@@ -186,7 +283,7 @@ $(document).ready(function () {
                 type: 'Post',
                 url: 'customerManagement.aspx',
                 data: {
-                    cutomerId:custId,
+                    cutomerId: custId,
                     op: "del"
                 },
                 dataType: 'text',
@@ -202,20 +299,20 @@ $(document).ready(function () {
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window, location.reload();
+                            window.location.reload();
                         })
                     } else {
                         swal({
                             title: succ,
                             text: succ,
-                            type: "success",
+                            type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
                             confirmButtonClass: 'btn btn-success',
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window, location.reload();
+                            window.location.reload();
                         })
                     }
                 }
@@ -223,13 +320,13 @@ $(document).ready(function () {
         })
     })
     //判断当删除最后一页最后一条信息时，当前也自动跳到上一页
-    if (parseInt(sessionStorage.getItem("curPage")) > parseInt(sessionStorage.getItem("totalPage"))) {
-        {
-            jump(parseInt(sessionStorage.getItem("curPage")) - 1);
-        }
-    }
+    //if (parseInt(sessionStorage.getItem("curPage")) > parseInt(sessionStorage.getItem("totalPage"))) {
+    //    {
+    //        jump(parseInt(sessionStorage.getItem("curPage")) - 1);
+    //    }
+    //}
     //重置密码
-    $(".reset_pwd").click(function () {
+    $("#table").delegate(".reset_pwd", "click", function () {
         var custId = $(this).parent().prev().prev().prev().prev().text().trim();
         swal({
             title: "是否重置？",

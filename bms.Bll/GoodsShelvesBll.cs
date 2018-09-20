@@ -1,43 +1,43 @@
-﻿using bms.Dao;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace bms.Bll
 {
+    using Dao;
     using Model;
     using System.Data;
     using Result = Enums.OpResult;
-    public class FunctionBll
+    public class GoodsShelvesBll
     {
-        FunctionDao functiondao = new FunctionDao();
+        GoodsShelvesDao shelvesdao = new GoodsShelvesDao();
+
         /// <summary>
-        /// 添加功能方法
+        /// 添加书架方法
         /// </summary>
-        /// <param name="function">功能实体对象</param>
+        /// <param name="shelves">书架</param>
         /// <returns>返回结果</returns>
-        public Result Insert(Function function)
+        public Result Insert(GoodsShelves shelves)
         {
-            int row = functiondao.Insert(function);
+            int row = shelvesdao.Insert(shelves);
             if (row > 0)
             {
                 return Result.添加成功;
             }
             else
             {
-
                 return Result.添加失败;
             }
         }
         /// <summary>
-        /// 删除功能信息
+        /// 删除书架的方法
         /// </summary>
-        /// <param name="functioId">功能ID</param>
-        /// <returns></returns>
-        public Result Delete(int functioId)
+        /// <param name="goodsShelvesId">书架id</param>
+        /// <returns>返回结果</returns>
+        public Result Delete(int goodsShelvesId)
         {
-            int row = functiondao.Delete(functioId);
+            int row = shelvesdao.Delete(goodsShelvesId);
             if (row > 0)
             {
                 return Result.删除成功;
@@ -53,13 +53,14 @@ namespace bms.Bll
         /// <returns>返回查询到的表格数据</returns>
         public DataSet Select()
         {
-            return functiondao.Select();
+            return shelvesdao.Select();
         }
+
         /// <summary>
         /// 获取分页数据
         /// </summary>
         /// <param name="tablebuilder"></param>
-        /// <param name="totalCount"></param>
+        /// <param name="totalCount">总页数</param>
         /// <param name="intPageCount"></param>
         /// <returns></returns>
         public DataSet selectByPage(TableBuilder tablebuilder, out int totalCount, out int intPageCount)

@@ -18,6 +18,13 @@
         color: #fff;
     }
 
+
+.main-panel > .content {
+    margin-top: 27px;
+    padding: 30px 15px;
+    min-height: calc(100vh - 123px);
+}
+
 /* 登录页面css */
 .card .card-header-rose:not(.card-header-icon):not(.card-header-text) {
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(244, 67, 54, .4);
@@ -34,7 +41,38 @@
     background-image: linear-gradient(to top,#f44336 2px,rgba(156,39,176,0) 2px),linear-gradient(to top,#d2d2d2 1px,rgba(210,210,210,0) 1px);
 }
 
-.radio_group{
-    padding-left:55px;
-    padding-right:55px;
+.radio_group {
+    padding-left: 55px;
+    padding-right: 55px;
+}
+
+/* 非空验证文本框样式 */
+.model-table .txtVerify, .remarks {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #999;
+    border: 1px solid #ddd;
+}
+
+/* 多列数据表格样式 */
+.mostTable > tbody > tr > td {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.mostTable > tbody > tr > td > button {
+    padding: 5px !important;
+}
+
+/* 查询统一样式表 */
+.search {
+    height: 35px;
+    width: 100px;
+    border: 1px solid #ddd;
+}
+
+.searchOne {
+    height: 35px;
+    width: 200px;
+    border: 1px solid #ccc;
 }

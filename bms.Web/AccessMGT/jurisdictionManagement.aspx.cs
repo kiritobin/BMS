@@ -10,28 +10,19 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.AccessMGT
 {
-    using System.Data;
+    using System.Text;
     using Result = Enums.OpResult;
     public partial class JurisdictionManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 5, getCurrentPage = 0, totalCount, intPageCount;
+        public int totalCount, intPageCount;
         public DataSet ds;
         public string search, strSearch;
         FunctionBll functionbll = new FunctionBll();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                getData("");
-            }
-            //查询操作
-            string type = Request.QueryString["type"];
-            if (type == "search")
-            {
-                Search();
-                getData(Search());
-            }
+
+            getData();
             string op = Request["op"];
             if (op == "del")
             {
@@ -75,48 +66,52 @@ namespace bms.Web.AccessMGT
 
             }
         }
-        public void getData(string strWhere)
+        public string getData()
         {
-            currentPage = Convert.ToInt32(Request.QueryString["currentPage"]);
+            int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
                 currentPage = 1;
+            }
+            string search = Request["search"];
+
+            if (search == "" || search == null)
+            {
+                search = "";
+            }
+            else
+            {
+                search = String.Format("functionName {0}", "like'%" + search + "%'");
             }
             //获取分页数据
             TableBuilder tabBuilder = new TableBuilder();
             tabBuilder.StrTable = "T_Function";
             tabBuilder.OrderBy = "functionId";
             tabBuilder.StrColumnlist = "functionId,functionName";
-            tabBuilder.IntPageSize = pageSize;
-            tabBuilder.StrWhere = strWhere;
+            tabBuilder.IntPageSize = 3;
+            tabBuilder.StrWhere = search;
             tabBuilder.IntPageNum = currentPage;
-            getCurrentPage = currentPage;
             //获取展示数据
             ds = functionbll.selectByPage(tabBuilder, out totalCount, out intPageCount);
-        }
-        protected string Search()
-        {
-            try
+
+            StringBuilder strb = new StringBuilder();
+            strb.Append("<tbody>");
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                search = Request.QueryString["search"];
-                strSearch = Request.QueryString["search"];
-                if (search.Length == 0)
-                {
-                    search = "";
-                }
-                else if (search == null)
-                {
-                    search = null;
-                }
-                else
-                {
-                    strSearch = search;
-                    search = String.Format("functionName {0}", "like'%" + search + "%'");
-                }
+                strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * 3)) + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["functionName"].ToString() + "</td>");
+                strb.Append("<td>" + "<input type='hidden' class='functionId' value='" + ds.Tables[0].Rows[i]["functionId"].ToString() + "'/>" + "<button class='btn btn-danger btn-sm btn-delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "&nbsp 删除" + "</button>" + " </td></ tr >");
+
             }
-            catch
-            { }
-            return search;
+            strb.Append("</tbody>");
+            strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            string op = Request["op"];
+            if (op=="paging")
+            {
+                Response.Write(strb.ToString());
+                Response.End();
+            }
+            return strb.ToString();
         }
         public Result isDelete()
         {
