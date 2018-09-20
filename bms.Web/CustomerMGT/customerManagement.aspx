@@ -228,14 +228,6 @@
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="">查询全部地区</option>
-                                                <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
-                                                    { %>
-                                                <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"].ToString() %></option>
-                                                <%} %>
-                                            </select>
-                                            &nbsp &nbsp
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件" id="search_All">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
@@ -251,8 +243,6 @@
                                                     <th>账号
                                                     </th>
                                                     <th>名称
-                                                    </th>
-                                                    <th>地区
                                                     </th>
                                                     <th class="table-thead-th">重置密码
                                                     </th>
@@ -295,17 +285,6 @@
                                     <td>
                                         <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入名称" id="customerName"></td>
                                 </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
-                                    <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
-                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
-                                                { %>
-                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"].ToString() %></option>
-                                            <%} %>
-                                        </select>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
@@ -333,17 +312,6 @@
                                     <td><span class="model-tab-td-span">客户名称:</span></td>
                                     <td>
                                         <input type="text" value="" class="form-control col-sm-9 input-search editor_name" placeholder="">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
-                                    <td>
-                                        <select class="editor_region" id="editRegion" title="请选择地区" data-style="btn-sm" style="width:200px;">
-                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
-                                                { %>
-                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"].ToString() %></option>
-                                            <%} %>
-                                        </select>
                                     </td>
                                 </tr>
                             </table>

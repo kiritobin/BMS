@@ -71,27 +71,19 @@ namespace bms.Web.CustomerMGT
             }
             string search = Request["search"];
             string region = Request["region"];
-            if((region == "" || region == null)&& (search == "" || search == null))
+            if(search == "" || search == null)
             {
                 search = "";
             }
-            else if((search != null || search != "") && (region == "" || region == null))
+            else if(search != null || search != "")
             {
-                search = String.Format("customerID {0} or customerName {0} or regionName {0}", " like " + "'%" + search + "%'");
-            }
-            else if((search == null || search == "") && (region != "" || region != null))
-            {
-                search = String.Format("regionId={0}", "'" + region + "'");
-            }
-            else
-            {
-                search = String.Format("customerID {0} or customerName {0} or regionName {0} and regionId={1}", " like '%" + search + "%'",region);
+                search = String.Format("customerID {0} or customerName {0}", " like " + "'%" + search + "%'");
             }
 
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "V_Customer";
+            tb.StrTable = "T_Customer";
             tb.OrderBy = "customerID";
-            tb.StrColumnlist = "customerID,customerName,regionId,regionName";
+            tb.StrColumnlist = "customerID,customerName";
             tb.IntPageSize = 3;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
@@ -107,8 +99,6 @@ namespace bms.Web.CustomerMGT
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * 3)) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerID"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
-                //strb.Append("<td>" + ds.Tables[0].Rows[i]["regionId"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
                 strb.Append("<td>" + "<button type='button' class='btn btn-default btn-sm reset_pwd'>" + "重置密码" + "</button>" + " </td>");
                 strb.Append("<td>" + "<button class='btn btn-warning btn-sm btn_Editor' data-toggle='modal' data-target='#myModa2'>" + "<i class='fa fa-pencil fa-lg'></i>" + "&nbsp 编辑" + "</button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>&nbsp 删除" + "</button>" + " </td></tr>");
@@ -130,7 +120,6 @@ namespace bms.Web.CustomerMGT
         {
             string customerId = Request["customerId"];
             string customerName = Request["cutomerName"];
-            string zoneId = Request["zoneId"];
             //if(customerId == "" || customerName == "" || zoneId == "")
             //{
             //    Response.Write("有未填项");
@@ -139,16 +128,11 @@ namespace bms.Web.CustomerMGT
             //else
             //{
                 string pwd = rasc.Encrypt("000000");
-                Region reg = new Region()
-                {
-                    RegionId = Convert.ToInt32(zoneId)
-                };
                 Customer ct = new Customer()
                 {
                     CustomerId = Convert.ToInt32(customerId),
                     CustomerName = customerName,
                     CustomerPwd = pwd,
-                    RegionId = reg
                 };
                 Result row = cbll.Insert(ct);
                 if (row == Result.添加成功)
