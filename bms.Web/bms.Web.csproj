@@ -102,6 +102,7 @@
     <Content Include="Global.asax" />
     <Content Include="imgs\login.jpg" />
     <Content Include="imgs\sidebar-2.jpg" />
+    <Content Include="js\bookshelfManagement.js" />
     <Content Include="js\bootstrap-material-design.min.js" />
     <Content Include="js\bootstrap-selectpicker.js" />
     <Content Include="js\bootstrap.min.js" />

@@ -43,6 +43,7 @@
     <Compile Include="CustomerBll.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="FunctionBll.cs" />
+    <Compile Include="GoodsShelvesBll.cs" />
     <Compile Include="LibraryCollectionBll.cs" />
     <Compile Include="LoginBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
