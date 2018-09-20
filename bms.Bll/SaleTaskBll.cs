@@ -11,17 +11,17 @@ namespace bms.Bll
     public class SaleTaskBll
     {
         readonly SaleTaskDao saleDao = new SaleTaskDao();
-        public Result insert(SaleTask sale)
-        {
-            int row = saleDao.insert(sale);
-            if(row > 0)
-            {
-                return Result.添加成功;
-            }
-            else
-            {
-                return Result.添加失败;
-            }
-        }
+        //public Result insert(SaleTask sale)
+        //{
+        //    int row = saleDao.insert(sale);
+        //    if(row > 0)
+        //    {
+        //        return Result.添加成功;
+        //    }
+        //    else
+        //    {
+        //        return Result.添加失败;
+        //    }
+        //}
     }
 }

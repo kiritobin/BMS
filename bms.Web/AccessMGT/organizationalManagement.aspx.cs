@@ -27,8 +27,7 @@ namespace bms.Web.AccessMGT
             {
                 string regionName = Request["name"];
                 //添加分公司
-                Result row = regionBll.
-                    (regionName);
+                Result row = regionBll.insert(regionName);
                 if (row == Result.添加成功)
                 {
                     //获取分公司id
@@ -41,29 +40,29 @@ namespace bms.Web.AccessMGT
                     goods.RegionId = region;
                     goods.ShelvesName = "未上架";
                     GoodsShelvesBll goodsBll = new GoodsShelvesBll();
-                    Result good = goodsBll.insert(goods);
-                    if (good == Result.添加成功)
-                    {
-                        //添加销售计划
-                        SaleTaskBll saleBll = new SaleTaskBll();
-                        SaleTask sale = new SaleTask();
-                        Result result = saleBll.insert(sale);
-                        if (result == Result.添加成功)
-                        {
-                            Response.Write("添加成功");
-                            Response.End();
-                        }
-                        else
-                        {
-                            Response.Write("添加失败");
-                            Response.End();
-                        }
-                    }
-                    else
-                    {
-                        Response.Write("添加失败");
-                        Response.End();
-                    }
+                    //Result good = goodsBll.insert(goods);
+                    //if (good == Result.添加成功)
+                    //{
+                    //    //添加销售计划
+                    //    SaleTaskBll saleBll = new SaleTaskBll();
+                    //    SaleTask sale = new SaleTask();
+                    //    Result result = saleBll.insert(sale);
+                    //    if (result == Result.添加成功)
+                    //    {
+                    //        Response.Write("添加成功");
+                    //        Response.End();
+                    //    }
+                    //    else
+                    //    {
+                    //        Response.Write("添加失败");
+                    //        Response.End();
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    Response.Write("添加失败");
+                    //    Response.End();
+                    //}
                 }
                 else
                 {
