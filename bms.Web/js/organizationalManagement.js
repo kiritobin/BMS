@@ -47,8 +47,6 @@ $("#btn-search").click(function () {
             $("#table").append(data); //加载table
             $(".paging").empty();//清空分页内容
             $('.paging').pagination({//重新加载分页内容
-                //totalData: $("#totalCount").val(),
-                //showData: $("#pageSize").val(),
                 pageCount: $("#intPageCount").val(), //总页数
                 jump: true,
                 mode: 'fixed',//固定页码数量
@@ -102,22 +100,25 @@ $("#btnAdd").click(function () {
     }
 })
 //删除分公司
-$(".btn-delete").click(function () {
-    var id = $("#regionId").val();
-    $.ajax({
-        type: 'Post',
-        url: 'organizationalManagement.aspx',
-        data: {
-            regionId: id,
-            op: "del"
-        },
-        dataType: 'text',
-        success: function (data) {
-            if (data == "添加成功") {
-                alert("添加成功");
-            } else {
-                alert("添加失败");
+$("#table").delegate(".btn-delete", "click", function () {
+    var flag = confirm("确定要删除吗？删除后不可找回");
+    if (flag == true) {
+        var id = $(this).parent().parent().find("#regionId").val().trim();
+        $.ajax({
+            type: 'Post',
+            url: 'organizationalManagement.aspx',
+            data: {
+                regionId: id,
+                op: "del"
+            },
+            dataType: 'text',
+            success: function (data) {
+                if (data == "删除成功") {
+                    alert("删除成功");
+                } else {
+                    alert(data);
+                }
             }
-        }
-    })
+        })
+    }
 })
