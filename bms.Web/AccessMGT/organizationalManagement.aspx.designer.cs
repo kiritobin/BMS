@@ -7,7 +7,8 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace bms.Web.BasicInfor {
+namespace bms.Web.AccessMGT
+{
     
     
     public partial class organizationalManagement {

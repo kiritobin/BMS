@@ -11,18 +11,39 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.AccessMGT
 {
-    public partial class roleManagement : System.Web.UI.Page
+    using Result = Enums.OpResult;
+    public partial class organizationalManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
-        public string search, roleId;
+        public string search, regionId;
         public DataSet ds;
-        RSACryptoService rsa = new RSACryptoService();
+        RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
-        Role role = new Role();
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
+            string op = Request["op"];
+            if(op == "add")
+            {
+                string regionName = Request["name"];
+                Result row = regionBll.insert(regionName);
+                if(row == Result.添加成功)
+                {
+                    Response.Write("添加成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
+            }
+            else if(op == "del")
+            {
+                int regionId = Convert.ToInt32(Request["regionId"]);
+            }
         }
+
         /// <summary>
         /// 获取数据
         /// </summary>
@@ -36,13 +57,13 @@ namespace bms.Web.AccessMGT
             search = Request["search"];
             if (search != "" && search != null)
             {
-                search = String.Format(" roleName {0}", "like '%" + search + "%'");
+                search = String.Format(" regionName {0}", "like '%" + search + "%'");
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "T_Role";
-            tbd.OrderBy = "roleId";
-            tbd.StrColumnlist = "roleId,roleName";
+            tbd.StrTable = "T_Region";
+            tbd.OrderBy = "regionId";
+            tbd.StrColumnlist = "regionId,regionName";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
@@ -54,10 +75,9 @@ namespace bms.Web.AccessMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["roleName"].ToString() + "</ td >");
-                sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " class='roleId' />");
-                sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button>");
-                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
+                sb.Append("<input type='hidden' value=' " + ds.Tables[0].Rows[i]["regionId"].ToString() + " ' id='regionId' />");
+                sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
