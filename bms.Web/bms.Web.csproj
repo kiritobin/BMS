@@ -97,7 +97,6 @@
     <Content Include="css\zgz.css" />
     <Content Include="demo\form_demo.html" />
     <Content Include="demo\loginDemo.html" />
-    <Content Include="demo\自动弹bootstrap模态框.html" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

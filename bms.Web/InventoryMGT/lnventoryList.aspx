@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/qc.css">
 </head>
 
 <body>
@@ -299,10 +300,10 @@
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">入库编号:</span></td>
+                                    <td class="table-tr-td-storageSUM"><span class="model-tab-td-span">入库编号:</span></td>
                                     <td>
                                         <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入编号"></td>
-                                    <td class="table-tr-td-bookAuoth">
+                                    <td class="table-tr-td-storageID">
                                         <span class="model-tab-td-span">订单ID:</span></td>
                                     <td><input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入订单ID"></td>
                                 </tr>
