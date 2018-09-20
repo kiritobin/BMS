@@ -34,7 +34,13 @@
     background-image: linear-gradient(to top,#f44336 2px,rgba(156,39,176,0) 2px),linear-gradient(to top,#d2d2d2 1px,rgba(210,210,210,0) 1px);
 }
 
-.radio_group{
-    padding-left:55px;
-    padding-right:55px;
+.radio_group {
+    padding-left: 55px;
+    padding-right: 55px;
+}
+
+.main-panel > .content {
+    margin-top: 27px;
+    padding: 30px 15px;
+    min-height: calc(100vh - 123px);
 }
