@@ -26,11 +26,44 @@ namespace bms.Web.AccessMGT
             if(op == "add")
             {
                 string regionName = Request["name"];
-                Result row = regionBll.insert(regionName);
-                if(row == Result.添加成功)
+                //添加分公司
+                Result row = regionBll.
+                    (regionName);
+                if (row == Result.添加成功)
                 {
-                    Response.Write("添加成功");
-                    Response.End();
+                    //获取分公司id
+                    DataSet ds = regionBll.select();
+                    int i = ds.Tables[0].Rows.Count;
+                    Region region = new Region();
+                    region.RegionId = Convert.ToInt32(ds.Tables[0].Rows[i]["regionId"].ToString());
+                    //添加货架
+                    GoodsShelves goods = new GoodsShelves();
+                    goods.RegionId = region;
+                    goods.ShelvesName = "未上架";
+                    GoodsShelvesBll goodsBll = new GoodsShelvesBll();
+                    Result good = goodsBll.insert(goods);
+                    if (good == Result.添加成功)
+                    {
+                        //添加销售计划
+                        SaleTaskBll saleBll = new SaleTaskBll();
+                        SaleTask sale = new SaleTask();
+                        Result result = saleBll.insert(sale);
+                        if (result == Result.添加成功)
+                        {
+                            Response.Write("添加成功");
+                            Response.End();
+                        }
+                        else
+                        {
+                            Response.Write("添加失败");
+                            Response.End();
+                        }
+                    }
+                    else
+                    {
+                        Response.Write("添加失败");
+                        Response.End();
+                    }
                 }
                 else
                 {

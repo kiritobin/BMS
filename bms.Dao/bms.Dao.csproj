@@ -53,6 +53,7 @@
     <Compile Include="PublicProcedure.cs" />
     <Compile Include="RegionDao.cs" />
     <Compile Include="RoleDao.cs" />
+    <Compile Include="SaleTaskDao.cs" />
     <Compile Include="UserDao.cs" />
     <Compile Include="Warehousing.cs" />
   </ItemGroup>

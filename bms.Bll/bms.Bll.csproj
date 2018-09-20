@@ -49,6 +49,7 @@
     <Compile Include="RegionBll.cs" />
     <Compile Include="RoleBll.cs" />
     <Compile Include="RSACryptoService.cs" />
+    <Compile Include="SaleTaskBll.cs" />
     <Compile Include="UserBll.cs" />
   </ItemGroup>
   <ItemGroup>
