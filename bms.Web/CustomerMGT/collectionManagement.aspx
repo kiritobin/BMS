@@ -227,16 +227,6 @@
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="">请选择地区</option>
-                                                <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
-                                                    {
-                                                %>
-                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}
-                                                %>
-                                            </select>
-                                            &nbsp &nbsp
                                             <input type="text" value="" class="form-control col-sm-2 input-search" id="search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
                                             &nbsp
@@ -268,7 +258,8 @@
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div> <%--分页栏--%>
+                                            <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -277,7 +268,7 @@
                     </div>
                 </div>
             </div>
-             <!--模态框 -->
+            <!--模态框 -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -295,20 +286,31 @@
                                 <tr>
                                     <td class="model-td-left"><span class="model-tab-td-span">上传文件:</span></td>
                                     <td>
-                                        <button class="btn btn-success btn-sm" id=""><i class="fa fa-cloud-upload fa-lg"></i>&nbsp 上传文件</button></td>
+                                       <%-- <button class="btn btn-success btn-sm" name="file" id="file"><i class="fa fa-cloud-upload fa-lg"></i>&nbsp 上传文件</button>--%>
+                                        <input type="file" class="btn btn-success btn-sm fa"  name="file" id="file" value="上传文件" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="model-td-left"><span class="model-tab-td-span">上传:</span></td>
+                                    <td>
+                                        <button class="btn btn-success btn-sm" id="upload"><i class="fa fa-cloud-upload fa-lg"></i>&nbsp 上传</button></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">客户名称:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="model-select-region">
-                                            <option value="1">云南工商学院</option>
+                                        <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="model-select-custom">
+                                            <option value="">请选择客户</option>
+                                            <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
+                                                    { %>
+                                                <option value="<%=dsCustom.Tables[0].Rows[i]["customerId"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
+                                                <%}%>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="model-td-left"><span class="model-tab-td-span">导入:</span></td>
                                     <td>
-                                        <button class="btn btn-success btn-sm" id=""><i class="fa fa-share-square-o fa-rotate-180 fa-lg"></i>&nbsp 导入</button></td>
+                                        <button class="btn btn-success btn-sm" id="btnImport"><i class="fa fa-share-square-o fa-rotate-180 fa-lg"></i>&nbsp 导入</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -345,5 +347,6 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/collectionManagement.js"></script>
     <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/ajaxfileupload.js"></script>
 </body>
 </html>
