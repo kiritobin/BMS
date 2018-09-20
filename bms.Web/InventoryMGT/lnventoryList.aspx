@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="lnventoryList.aspx.cs" Inherits="bms.Web.BasicInfor.lnventoryList" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="lnventoryList.aspx.cs" Inherits="bms.Web.InventoryMGT.lnventoryList" %>
 <%="" %>
 <!DOCTYPE html>
 
