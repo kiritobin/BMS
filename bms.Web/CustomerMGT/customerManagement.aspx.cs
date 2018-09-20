@@ -85,7 +85,7 @@ namespace bms.Web.CustomerMGT
             }
             else
             {
-                search = String.Format("customerID {0} or customerName {0} or regionName {0} and regionId = {1}", " like " + "'%" + search + "%'",region);
+                search = String.Format("customerID {0} or customerName {0} or regionName {0} and regionId={1}", " like '%" + search + "%'",region);
             }
 
             TableBuilder tb = new TableBuilder();

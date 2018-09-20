@@ -8,6 +8,7 @@ using bms.Model;
 
 namespace bms.Bll
 {
+    using Result = Enums.OpResult;
     public class RegionBll
     {
         RegionDao regionDao = new RegionDao();
@@ -18,6 +19,20 @@ namespace bms.Bll
         public DataSet select()
         {
             return regionDao.select();
+        }
+
+
+        public Result insert(string regionName)
+        {
+            int row = regionDao.insert(regionName);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
         }
     }
 }

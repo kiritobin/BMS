@@ -1,8 +1,4 @@
-﻿var curPage = $("#curPage").val();
-var countPage = $("#pageCount").val();
-sessionStorage.setItem("curPage", curPage);
-sessionStorage.setItem("totalPage", countPage);
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -35,9 +31,8 @@ $(document).ready(function () {
 
     //点击查询按钮时
     $("#btn-search").click(function () {
-        var region = $("#select-region").find("option:selected").val();
+        var region = $("#select-region").val().trim();
         var search = $("#search_All").val().trim();
-        sessionStorage.removeItem("totalPage");
         $.ajax({
             type: 'Post',
             url: 'customerManagement.aspx',
@@ -62,8 +57,6 @@ $(document).ready(function () {
                     prevContent: '上页',
                     nextContent: '下页',
                     callback: function (api) {
-                        var region = $("#select-region").find("option:selected").val();
-                        var search = $("#btn-search").val().trim();
                         $.ajax({
                             type: 'Post',
                             url: 'customerManagement.aspx',
@@ -80,7 +73,7 @@ $(document).ready(function () {
                             }
                         });
                     }
-                })
+                });
             }
         });
     });
@@ -102,7 +95,7 @@ $(document).ready(function () {
                 $("#table tr:not(:first)").empty(); //清空table处首行
                 $("#table").append(data); //加载table
                 $(".paging").empty();
-                $('.paging').pagination({
+                $(".paging").pagination({
                     pageCount: $("#intPageCount").val(), //总页数
                     jump: true,
                     mode: 'fixed',//固定页码数量
@@ -112,8 +105,6 @@ $(document).ready(function () {
                     prevContent: '上页',
                     nextContent: '下页',
                     callback: function (api) {
-                        var region = $("#select-region").find("option:selected").val();
-                        var search = $("#btn-search").val().trim();
                         $.ajax({
                             type: 'Post',
                             url: 'customerManagement.aspx',
@@ -130,7 +121,7 @@ $(document).ready(function () {
                             }
                         });
                     }
-                });
+                })
             }
         });
     })

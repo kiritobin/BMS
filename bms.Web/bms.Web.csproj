@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AccessMGT\jurisdictionManagement.aspx" />
-    <Content Include="BasicInfor\organizationalManagement.aspx" />
+    <Content Include="AccessMGT\organizationalManagement.aspx" />
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
@@ -115,6 +115,7 @@
     <Content Include="js\jsencrypt.min.js" />
     <Content Include="js\login.js" />
     <Content Include="js\material-dashboard.min.js" />
+    <Content Include="js\organizationalManagement.js" />
     <Content Include="js\perfect-scrollbar.jquery.min.js" />
     <Content Include="js\popper.min.js" />
     <Content Include="js\roleManagement.js" />
@@ -133,11 +134,11 @@
     <Compile Include="AccessMGT\jurisdictionManagement.aspx.designer.cs">
       <DependentUpon>jurisdictionManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BasicInfor\organizationalManagement.aspx.cs">
+    <Compile Include="AccessMGT\organizationalManagement.aspx.cs">
       <DependentUpon>organizationalManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BasicInfor\organizationalManagement.aspx.designer.cs">
+    <Compile Include="AccessMGT\organizationalManagement.aspx.designer.cs">
       <DependentUpon>organizationalManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="AccessMGT\roleManagement.aspx.cs">

@@ -27,5 +27,15 @@ namespace bms.Dao
                 return null;
             }
         }
+
+
+        public int insert(string regionName)
+        {
+            string cmdText = "insert into T_Rigion(regionName) values(@regionName)";
+            string[] param = { "@regionName" };
+            object[] values = { regionName };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
     }
 }

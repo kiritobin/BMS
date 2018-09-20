@@ -309,6 +309,7 @@ $(".btn-delete").click(function () {
             success: function (succ) {
                 if (succ == "删除成功") {
                     alert("删除成功");
+                    window.location.href = "userManagement.aspx";
                 } else {
                     alert("删除失败");
                 }

@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <style>
+        .txtVerify{
+            margin-top:5px;
+            font-size:14px;
+            color:#999;
+            border:1px solid #ddd;
+        }
+    </style>
 </head>
 
 <body>
@@ -316,39 +324,39 @@
                                 <tr>
                                     <td class="table-tr-td-bookName"><span class="model-tab-td-span">书名:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入书名"></td>
+                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
                                     <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">作者:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入作者"></td>
+                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">定价:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入定价"></td>
+                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
                                     <td><span class="model-tab-td-span">出版日期:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入日期"></td>
+                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">出版社:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入出版社"></td>
+                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
                                     <td><span class="model-tab-td-span">ISBN:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入ISBN"></td>
+                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">编目:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入编目"></td>
+                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
                                     <td><span class="model-tab-td-span">标识:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入标识"></td>
+                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">备注:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入备注"></td>
+                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
                                 </tr>
                             </table>
                         </div>
@@ -433,6 +441,20 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script>
+        $(function () {
+            $(".txtVerify").focus(function () {
+                if ($(this).val().length == 0) {
+                    $(this).css("border-color","#ddd");
+                } 
+            });
+            $(".txtVerify").blur(function () {
+                if ($(this).val().length == 0) {
+                    $(this).css("border-color","red");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
