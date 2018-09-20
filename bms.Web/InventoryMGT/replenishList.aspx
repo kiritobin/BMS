@@ -3,6 +3,9 @@
 <%="" %>
 <!DOCTYPE html>
 
+<%="" %>
+<!DOCTYPE html>
+
 <html class="no-js">
 <!--<![endif]-->
 
@@ -28,7 +31,7 @@
         <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
-        <div class="sidebar" data-color="danger" data-background-color="white" data-image="imgs/sidebar-2.jpg">
+        <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!--
                 Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
         
@@ -44,12 +47,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="material-icons">security</i>
-                            <p>
-                                权限管理
-                                <b class="caret"></b>
+                            <p>权限管理<b class="caret"></b>
                             </p>
-                        </a>
-                        <div class="collapse" id="securityManage">
+                        </a><div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
@@ -97,9 +97,7 @@
                     <li class="nav-item ">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
-                            <p>
-                                库存管理
-                                <b class="caret"></b>
+                            <p>库存管理<b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="inventoryManage">
@@ -181,7 +179,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">补货列表查询</a>
+                        <a class="navbar-brand" href="#pablo">出库管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -221,8 +219,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">补货列表查询</h4>
-                                    <p class="card-category">可对补货情况进行查询</p>
+                                    <h4 class="card-title">出库管理</h4>
+                                    <p class="card-category">可对出库情况进行查询</p>
                                 </div>
                                  <div class="card-body">
                                     <div class="card-header from-group">
@@ -238,12 +236,13 @@
                                         <table class="table">
                                             <thead class="text-danger">                                               
                                                 <tr>
-                                                    <td>图书编号</td>                                                  
-                                                    <td>书名</td>
-                                                    <td>补货单ID</td>
-                                                    <td>库存数量</td>
-                                                    <td>操作员ID</td>
+                                                    <td>单编ID</td>                                                  
+                                                    <td>制单时间</td>
+                                                    <td>出库接收组织ID</td>
+                                                    <td>单据总数</td>
                                                     <td>操作员名称</td>
+                                                    <td>总码洋</td>
+                                                    <td>总实洋</td>
                                                     <td class="table-thead-th">操作</td>                                                    
                                                 </tr>
                                             </thead>
@@ -251,11 +250,12 @@
                                             <tbody>
                                                 <tr>
                                                     <td>10000001</td>
-                                                    <td>安妮日记</td>
-                                                    <td>1256789</td>
+                                                    <td>2018-12-23</td>
+                                                    <td>13245</td>
                                                     <td>56</td>
-                                                    <td>234343</td>
-                                                    <td>保罗</td>                                                    
+                                                    <td>保罗</td>
+                                                    <td>456</td>
+                                                    <td>6546</td>
                                                      <td>
                                                         <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp 查看</button>
                                                         <button class="btn btn-danger btn-sm">&nbsp 删除</button>
@@ -289,27 +289,27 @@
                 </div>
             </div>
                 
-                <!--添加补货模态框-->
+                <!--添加出库模态框-->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加货品信息</h4>
+                            <h4 class="modal-title float-left" id="myModalLabel">添加出库信息</h4>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">图书编号:</span></td>
+                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">出库编号:</span></td>
                                     <td>
                                         <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入编号"></td>
                                     <td class="table-tr-td-bookAuoth">
-                                        <span class="model-tab-td-span">补货单ID:</span></td>
+                                        <span class="model-tab-td-span">订单ID:</span></td>
                                     <td><input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入订单ID"></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">书名:</span></td>
+                                    <td><span class="model-tab-td-span">用户名:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入图书名称"></td>
+                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入名称"></td>
                                    
                                         <td><span class="model-tab-td-span">库存数:</span></td>
                                         <td><input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入库存量"></td></tr>
@@ -336,24 +336,24 @@
                 </div>
             </div>
 
-            <!--查看货品信息模态框-->
+            <!--查看出库信息模态框-->
             <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="width:700px;max-width:800px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">查看货物信息</h4>
+                            <h4 class="modal-title float-left" id="myModalLabe2">查看出库信息</h4>
                         </div>
                         <div class="modal-body">
                             <table class="table table-bordered model-table">
                                 <tr>
-                                    <td><span class="model-tab-td-span">图书编号:</span></td>
+                                    <td><span class="model-tab-td-span">出库编号:</span></td>
                                     <td>100000001</td>
-                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">补货单ID:</span></td>
+                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">订单ID:</span></td>
                                     <td>123478944</td>
                                 </tr>
                                 <tr>
-                                    <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">书名:</span></td>
-                                    <td>安妮日记</td>
+                                    <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">用户名称:</span></td>
+                                    <td>Jennife Kyrnin</td>
                                     <td><span class="model-tab-td-span">库存数量:</span></td>
                                     <td>59</td>
                                 </tr>

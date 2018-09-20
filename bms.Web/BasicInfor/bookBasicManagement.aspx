@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/demo.css">
 </head>
 
 <body>
@@ -28,7 +29,7 @@
         <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
-        <div class="sidebar" data-color="danger" data-background-color="white" data-image="imgs/sidebar-2.jpg">
+        <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!--
                 Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
         
@@ -36,8 +37,7 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
-                </a>
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台</a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -180,9 +180,6 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">书籍基础数据管理</a>
-                    </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -221,60 +218,70 @@
                             <div class="card">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title ">书籍基础数据管理</h4>
-                                    <p class="card-category">可对书籍基础数据操作</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
-                                            &nbsp
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                        <%-- 表格头部按钮功能组 --%>
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" placeholder="书名查询">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" placeholder="书号查询">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" placeholder="标识查询">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" placeholder="备注查询">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" placeholder="ISBN查询">
+                                                <button class="btn btn-info btn-sm" id="btnISBNS"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead class="text-danger">
+                                        <table class="table mostTable table-bordered text-center">
+                                            <thead>
                                                 <tr class="book-tab-tr">
-                                                    <th>序号
-                                                    </th>
-                                                    <th>书名
-                                                    </th>
-                                                    <th>作者
-                                                    </th>
-                                                    <th>定价
-                                                    </th>
-                                                    <th>出版日期
-                                                    </th>
-                                                    <th>出版社
-                                                    </th>
-                                                    <th>ISBN
-                                                    </th>
-                                                    <th class="table-thead-th">操作
-                                                    </th>
+                                                    <th>序号</th>
+                                                    <th>书号</th>
+                                                    <th>书名</th>
+                                                    <th>作者</th>
+                                                    <th>定价</th>
+                                                    <th>出版日期</th>
+                                                    <th>出版社</th>
+                                                    <th>ISBN</th>
+                                                    <th>编目</th>
+                                                    <th>备注</th>
+                                                    <th>标识</th>
+                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>1
-                                                    </td>
-                                                    <td>bootstrap 入门经典sssss
-                                                    </td>
-                                                    <td>Jennife Kyrnin
-                                                    </td>
-                                                    <td>59.00￥
-                                                    </td>
-                                                    <td>2016年12月第一版
-                                                    </td>
-                                                    <td>人民邮电出版社
-                                                    </td>
-                                                    <td>7115438546
-                                                    </td>
+                                                    <td>1</td>
+                                                    <td>7115438546</td>
+                                                    <td>bootstrap 入门经典</td>
+                                                    <td>Jennife Kyrnin</td>
+                                                    <td>￥59.00</td>
+                                                    <td>2016年12月第一版</td>
+                                                    <td>人民邮电出版社</td>
+                                                    <td>7115438546</td>
+                                                    <td>B0000001</td>
+                                                    <td>最后一本图书</td>
+                                                    <td>Teach</td>
                                                     <td>
-                                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp 查看</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
+                                                        <button class="btn btn-danger">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </button>
                                                     </td>
                                                 </tr>
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -308,8 +315,10 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加书籍
-                            </h4>
+                            <h4 class="modal-title float-left" id="myModalLabel">添加书籍</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
@@ -361,11 +370,13 @@
             </div>
             <!--查看书籍模态框-->
             <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="width:700px;max-width:800px;">
+                <div class="modal-dialog" style="width: 700px; max-width: 800px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">查看书籍信信息
-                            </h4>
+                            <h4 class="modal-title float-left" id="myModalLabe2">查看书籍信信息</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <table class="table table-bordered model-table">
@@ -402,9 +413,6 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                            <%--  <button type="button" class="btn btn-info btn-sm" id="model-btn-eidter">编辑</button>--%>
-                            <button type="submit" class="btn btn-success btn-sm">提交</button>
                         </div>
                     </div>
                 </div>
@@ -433,12 +441,14 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/demo.js"></script>
     <script>
         $(function () {
             $(".txtVerify").focus(function () {
                 if ($(this).val().length == 0) {
-                    $(this).css("border-color","#ddd");
-                } 
+                    $(this).css("border-color", "#ddd");
+                }
             });
             $(".txtVerify").blur(function () {
                 if ($(this).val().length == 0) {
@@ -460,39 +470,93 @@
                 //    }
                 //});
                 if ($(".txtTitle").val() == "") {
-                    alert("书名不能为空，请确认后再次提交");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "书名不能为空，请确认后再次提交!",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
                     $(this).focus();
                 }
                 else if ($(".txtAuthor").val() == "") {
-                    alert("作者不能为空，请确认后再次提交");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "作者不能为空，请确认后再次提交!",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
                     $(this).focus();
                 }
                 else if ($(".txtPrice").val() == "") {
-                    alert("价格不能为空，请确认后再次提交");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "价格不能为空，请确认后再次提交!",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
                     $(this).focus();
                 }
                 else if ($(".txtTime").val() == "") {
-                    alert("出版时间不能为空，请确认后再次提交");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "出版时间不能为空，请确认后再次提交!",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
                     $(this).focus();
                 }
                 else if ($(".txtPress").val() == "") {
-                    alert("出版社不能为空，请确认后再次提交");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "出版社不能为空，请确认后再次提交!",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
                     $(this).focus();
                 }
                 else if ($(".txtISBN").val() == "") {
-                    alert("ISBN不能为空，请确认后再次提交");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "ISBN不能为空，请确认后再次提交!",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
                     $(this).focus();
                 }
                 else if ($(".txtCatalogue").val() == "") {
-                    alert("编目不能为空，请确认后再次提交");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "编目不能为空，请确认后再次提交!",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
                     $(this).focus();
                 }
                 else if ($(".txtId").val() == "") {
-                    alert("标识不能为空，请确认后再次提交");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "标识不能为空，请确认后再次提交!",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
                     $(this).focus();
                 }
                 else {
-                    alert("添加成功");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "数据添加成功",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "success"
+                    }).catch(swal.noop)
                 }
             });
 

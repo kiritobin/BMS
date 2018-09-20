@@ -13,7 +13,7 @@ namespace bms.Web.AccessMGT
 {
     public partial class roleManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 1, totalCount, intPageCount;
+        public int currentPage = 1, pageSize = 3, totalCount, intPageCount;
         public string search, roleId;
         public DataSet ds;
         RSACryptoService rsa = new RSACryptoService();
