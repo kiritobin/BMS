@@ -30,7 +30,6 @@
 //查询按钮事件
 $("#btn-search").click(function () {
     var search = $("#search_All").val().trim();
-    alert(search);
     $.ajax({
         type: 'Post',
         url: 'jurisdictionManagement.aspx',

@@ -85,7 +85,7 @@ namespace bms.Web.CustomerMGT
             }
             else
             {
-                search = String.Format("customerID {0} or customerName {0} or regionName {0} and regionId = {1}", " like " + "'%" + search + "%'",region);
+                search = String.Format("customerID {0} or customerName {0} or regionName {0} and regionId={1}", " like '%" + search + "%'",region);
             }
 
             TableBuilder tb = new TableBuilder();
@@ -131,13 +131,13 @@ namespace bms.Web.CustomerMGT
             string customerId = Request["customerId"];
             string customerName = Request["cutomerName"];
             string zoneId = Request["zoneId"];
-            if(customerId == "" || customerName == "" || zoneId == "")
-            {
-                Response.Write("有未填项");
-                Response.End();
-            }
-            else
-            {
+            //if(customerId == "" || customerName == "" || zoneId == "")
+            //{
+            //    Response.Write("有未填项");
+            //    Response.End();
+            //}
+            //else
+            //{
                 string pwd = rasc.Encrypt("000000");
                 Region reg = new Region()
                 {
@@ -161,7 +161,7 @@ namespace bms.Web.CustomerMGT
                     Response.Write("添加失败");
                     Response.End();
                 }
-            }
+            //}
         }
         /// <summary>
         /// 更新客户信息
