@@ -73,6 +73,7 @@
     <Content Include="bin\bms.Model.pdb" />
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="css\material-dashboard.min.css" />
+    <Content Include="CustomerMGT\uploadCollection.aspx" />
     <Content Include="InventoryMGT\lnventoryList.aspx" />
     <Content Include="InventoryMGT\outboundList.aspx" />
     <Content Include="InventoryMGT\replenishList.aspx" />
@@ -169,6 +170,13 @@
     </Compile>
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerMGT\uploadCollection.aspx.cs">
+      <DependentUpon>uploadCollection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerMGT\uploadCollection.aspx.designer.cs">
+      <DependentUpon>uploadCollection.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\lnventoryList.aspx.cs">
       <DependentUpon>lnventoryList.aspx</DependentUpon>

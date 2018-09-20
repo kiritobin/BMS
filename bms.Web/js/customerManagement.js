@@ -9,14 +9,12 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var region = $("#select-region").find("option:selected").val();
             var search = $("#btn-search").val().trim();
             $.ajax({
                 type: 'Post',
                 url: 'customerManagement.aspx',
                 data: {
                     page: api.getCurrent(), //页码
-                    region: region,
                     search: search,
                     op: "paging"
                 },
@@ -31,13 +29,11 @@
 
     //点击查询按钮时
     $("#btn-search").click(function () {
-        var region = $("#select-region").val().trim();
         var search = $("#search_All").val().trim();
         $.ajax({
             type: 'Post',
             url: 'customerManagement.aspx',
             data: {
-                region: region,
                 search: search,
                 op: "paging"
             },
@@ -62,7 +58,6 @@
                             url: 'customerManagement.aspx',
                             data: {
                                 page: api.getCurrent(), //页码
-                                region: region,
                                 search: search,
                                 op: "paging"
                             },
@@ -78,53 +73,53 @@
         });
     });
     //下拉查询
-    $("#select-region").change(function () {
-        var region = $("#select-region").find("option:selected").val();
-        var search = $("#search_All").val().trim();
-        $.ajax({
-            type: 'Post',
-            url: 'customerManagement.aspx',
-            data: {
-                region: region,
-                search: search,
-                op: "paging"
-            },
-            dataType: 'text',
-            success: function (data) {
-                $("#intPageCount").remove();
-                $("#table tr:not(:first)").empty(); //清空table处首行
-                $("#table").append(data); //加载table
-                $(".paging").empty();
-                $(".paging").pagination({
-                    pageCount: $("#intPageCount").val(), //总页数
-                    jump: true,
-                    mode: 'fixed',//固定页码数量
-                    coping: true,
-                    homePage: '首页',
-                    endPage: '尾页',
-                    prevContent: '上页',
-                    nextContent: '下页',
-                    callback: function (api) {
-                        $.ajax({
-                            type: 'Post',
-                            url: 'customerManagement.aspx',
-                            data: {
-                                page: api.getCurrent(), //页码
-                                region: region,
-                                search: search,
-                                op: "paging"
-                            },
-                            dataType: 'text',
-                            success: function (data) {
-                                $("#table tr:not(:first)").empty(); //清空table处首行
-                                $("#table").append(data); //加载table
-                            }
-                        });
-                    }
-                })
-            }
-        });
-    })
+    //$("#select-region").change(function () {
+    //    var region = $("#select-region").find("option:selected").val();
+    //    var search = $("#search_All").val().trim();
+    //    $.ajax({
+    //        type: 'Post',
+    //        url: 'customerManagement.aspx',
+    //        data: {
+    //            region: region,
+    //            search: search,
+    //            op: "paging"
+    //        },
+    //        dataType: 'text',
+    //        success: function (data) {
+    //            $("#intPageCount").remove();
+    //            $("#table tr:not(:first)").empty(); //清空table处首行
+    //            $("#table").append(data); //加载table
+    //            $(".paging").empty();
+    //            $(".paging").pagination({
+    //                pageCount: $("#intPageCount").val(), //总页数
+    //                jump: true,
+    //                mode: 'fixed',//固定页码数量
+    //                coping: true,
+    //                homePage: '首页',
+    //                endPage: '尾页',
+    //                prevContent: '上页',
+    //                nextContent: '下页',
+    //                callback: function (api) {
+    //                    $.ajax({
+    //                        type: 'Post',
+    //                        url: 'customerManagement.aspx',
+    //                        data: {
+    //                            page: api.getCurrent(), //页码
+    //                            region: region,
+    //                            search: search,
+    //                            op: "paging"
+    //                        },
+    //                        dataType: 'text',
+    //                        success: function (data) {
+    //                            $("#table tr:not(:first)").empty(); //清空table处首行
+    //                            $("#table").append(data); //加载table
+    //                        }
+    //                    });
+    //                }
+    //            })
+    //        }
+    //    });
+    //})
 
     //$("#select-region").change(function () {
     //    var regionId = $("#select-region").find("option:selected").val();
@@ -150,9 +145,8 @@
     $("#btnAdd").click(function () {
         var id = $("#customerId").val();
         var name = $("#customerName").val();
-        var regionID = $("#model-select-region").find("option:selected").val();
-        if (id == "" || name == "" || regionID == "") {
-            alert("账号、姓名和地区名称都不能为空！");
+        if (id == "" || name == "") {
+            alert("账号、姓名都不能为空！");
         }
         else {
         $.ajax({
@@ -161,7 +155,6 @@
             data: {
                 customerId: id,
                 cutomerName: name,
-                zoneId: regionID,
                 op: "add"
             },
             dataType: 'text',
@@ -199,22 +192,11 @@
     })
 
     $("#table").delegate(".btn_Editor", "click", function () {
-        var custId = $(this).parent().prev().prev().prev().prev().text().trim();
-        var custName = $(this).parent().prev().prev().prev().text().trim();
-        var custRegion = $(this).parent().prev().prev().text().trim();
+        var custId = $(this).parent().prev().prev().prev().text().trim();
+        var custName = $(this).parent().prev().prev().text().trim();
         $(".editor_name").val(custName);
         $(".editor_id").text(custId);
-        $("#editRegion").find("option:contains(" + custRegion + ")").attr("selected", true);
     })
-    ////编辑客户
-    //$(".btn_Editor").click(function () {
-    //    var custId = $(this).parent().prev().prev().prev().prev().text().trim();
-    //    var custName = $(this).parent().prev().prev().prev().text().trim();
-    //    $(".editor_name").val(custName);
-    //    var custRegion = $(this).parent().prev().prev().text().trim();
-    //    $(".editor_id").text(custId);
-    //    alert(custId + custName);
-    //})
     //提交编辑
     $(".sava_Editor").click(function () {
         var custId = $(".editor_id").text();
@@ -226,7 +208,6 @@
             data: {
                 customerid: custId,
                 customername: custName,
-                regionid: regId,
                 op: "editor"
             },
             dataType: 'text',
