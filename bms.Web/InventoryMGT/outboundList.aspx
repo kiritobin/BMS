@@ -28,7 +28,7 @@
         <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
-        <div class="sidebar" data-color="danger" data-background-color="white" data-image="imgs/sidebar-2.jpg">
+        <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!--
                 Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
         
@@ -44,12 +44,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="material-icons">security</i>
-                            <p>
-                                权限管理
-                                <b class="caret"></b>
+                            <p>权限管理<b class="caret"></b>
                             </p>
-                        </a>
-                        <div class="collapse" id="securityManage">
+                        </a><div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
@@ -97,9 +94,7 @@
                     <li class="nav-item ">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
-                            <p>
-                                库存管理
-                                <b class="caret"></b>
+                            <p>库存管理<b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="inventoryManage">
@@ -181,7 +176,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">出库列表查询</a>
+                        <a class="navbar-brand" href="#pablo">出库管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -221,7 +216,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">出库列表查询</h4>
+                                    <h4 class="card-title">出库管理</h4>
                                     <p class="card-category">可对出库情况进行查询</p>
                                 </div>
                                  <div class="card-body">
@@ -238,12 +233,13 @@
                                         <table class="table">
                                             <thead class="text-danger">                                               
                                                 <tr>
-                                                    <td>出库单编号</td>                                                  
-                                                    <td>订单ID</td>
-                                                    <td>用户名称</td>
-                                                    <td>库存数量</td>
-                                                    <td>操作员ID</td>
+                                                    <td>单编ID</td>                                                  
+                                                    <td>制单时间</td>
+                                                    <td>出库接收组织ID</td>
+                                                    <td>单据总数</td>
                                                     <td>操作员名称</td>
+                                                    <td>总码洋</td>
+                                                    <td>总实洋</td>
                                                     <td class="table-thead-th">操作</td>                                                    
                                                 </tr>
                                             </thead>
@@ -251,11 +247,12 @@
                                             <tbody>
                                                 <tr>
                                                     <td>10000001</td>
-                                                    <td>62316312</td>
-                                                    <td>芭比</td>
+                                                    <td>2018-12-23</td>
+                                                    <td>13245</td>
                                                     <td>56</td>
-                                                    <td>234343</td>
-                                                    <td>保罗</td>                                                    
+                                                    <td>保罗</td>
+                                                    <td>456</td>
+                                                    <td>6546</td>
                                                      <td>
                                                         <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp 查看</button>
                                                         <button class="btn btn-danger btn-sm">&nbsp 删除</button>

@@ -53,3 +53,26 @@
     color: #999;
     border: 1px solid #ddd;
 }
+
+/* 多列数据表格样式 */
+.mostTable > tbody > tr > td {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.mostTable > tbody > tr > td > button {
+    padding: 5px !important;
+}
+
+/* 查询统一样式表 */
+.search {
+    height: 35px;
+    width: 100px;
+    border: 1px solid #ddd;
+}
+
+.searchOne {
+    height: 35px;
+    width: 200px;
+    border: 1px solid #ccc;
+}
