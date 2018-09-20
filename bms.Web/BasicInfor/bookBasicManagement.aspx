@@ -20,14 +20,6 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
-    <style>
-        .txtVerify{
-            margin-top:5px;
-            font-size:14px;
-            color:#999;
-            border:1px solid #ddd;
-        }
-    </style>
 </head>
 
 <body>
@@ -324,39 +316,39 @@
                                 <tr>
                                     <td class="table-tr-td-bookName"><span class="model-tab-td-span">书名:</span></td>
                                     <td>
-                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
+                                        <input type="text" value="" name="书名" class="col-sm-12 txtTitle txtVerify"></td>
                                     <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">作者:</span></td>
                                     <td>
-                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
+                                        <input type="text" value="" name="作者" class="col-sm-12 txtAuthor txtVerify"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">定价:</span></td>
                                     <td>
-                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
+                                        <input type="text" value="" name="定价" class="col-sm-12 txtPrice txtVerify"></td>
                                     <td><span class="model-tab-td-span">出版日期:</span></td>
                                     <td>
-                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
+                                        <input type="text" value="" name="出版日期" class="col-sm-12 txtTime txtVerify"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">出版社:</span></td>
                                     <td>
-                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
+                                        <input type="text" value="" name="出版社" class="col-sm-12 txtPress txtVerify"></td>
                                     <td><span class="model-tab-td-span">ISBN:</span></td>
                                     <td>
-                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
+                                        <input type="text" value="" name="ISBN" class="col-sm-12 txtISBN txtVerify"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">编目:</span></td>
                                     <td>
-                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
+                                        <input type="text" value="" name="编目" class="col-sm-12 txtCatalogue txtVerify"></td>
                                     <td><span class="model-tab-td-span">标识:</span></td>
                                     <td>
-                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
+                                        <input type="text" value="" name="标识" class="col-sm-12 txtId txtVerify"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="model-tab-td-span">备注:</span></td>
                                     <td>
-                                        <input type="text" value="" class="col-sm-12 txtVerify"></td>
+                                        <input type="text" value="" class="col-sm-12 remarks"></td>
                                 </tr>
                             </table>
                         </div>
@@ -450,9 +442,60 @@
             });
             $(".txtVerify").blur(function () {
                 if ($(this).val().length == 0) {
-                    $(this).css("border-color","red");
+                    $(this).css("border-color", "red");
                 }
             });
+            //提交按钮单机非空验证
+            $("#btnAdd").click(function () {
+                //$(".txtVerify").each(function () {
+                //    var val = $(this).val().trim();
+                //    if (val == "") {
+                //        var name = $(this).attr("name");
+                //        alert("您的" + name + "信息为空，请确认后再次提交");
+                //        $(this).focus();
+                //        return false;
+                //    }
+                //    else {
+                //        alert("提交成功");
+                //    }
+                //});
+                if ($(".txtTitle").val() == "") {
+                    alert("书名不能为空，请确认后再次提交");
+                    $(this).focus();
+                }
+                else if ($(".txtAuthor").val() == "") {
+                    alert("作者不能为空，请确认后再次提交");
+                    $(this).focus();
+                }
+                else if ($(".txtPrice").val() == "") {
+                    alert("价格不能为空，请确认后再次提交");
+                    $(this).focus();
+                }
+                else if ($(".txtTime").val() == "") {
+                    alert("出版时间不能为空，请确认后再次提交");
+                    $(this).focus();
+                }
+                else if ($(".txtPress").val() == "") {
+                    alert("出版社不能为空，请确认后再次提交");
+                    $(this).focus();
+                }
+                else if ($(".txtISBN").val() == "") {
+                    alert("ISBN不能为空，请确认后再次提交");
+                    $(this).focus();
+                }
+                else if ($(".txtCatalogue").val() == "") {
+                    alert("编目不能为空，请确认后再次提交");
+                    $(this).focus();
+                }
+                else if ($(".txtId").val() == "") {
+                    alert("标识不能为空，请确认后再次提交");
+                    $(this).focus();
+                }
+                else {
+                    alert("添加成功");
+                }
+            });
+
         });
     </script>
 </body>
