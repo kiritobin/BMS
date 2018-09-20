@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="outboundList.aspx.cs" Inherits="bms.Web.BasicInfor.outboundList" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="tradeManagement.aspx.cs" Inherits="bms.Web.InventoryMGT.tradeManagement" %>
 
 <%="" %>
 <!DOCTYPE html>
@@ -18,8 +18,10 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/qc.css">
 </head>
 
 <body>
@@ -176,7 +178,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">出库管理</a>
+                        <a class="navbar-brand" href="#pablo">营销管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -216,8 +218,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">出库管理</h4>
-                                    <p class="card-category">可对出库情况进行查询</p>
+                                    <h4 class="card-title">营销管理</h4>
+                                    <p class="card-category">对销售、销退情况进行查询</p>
                                 </div>
                                  <div class="card-body">
                                     <div class="card-header from-group">
@@ -233,13 +235,14 @@
                                         <table class="table">
                                             <thead class="text-danger">                                               
                                                 <tr>
-                                                    <td>单编ID</td>                                                  
-                                                    <td>制单时间</td>
-                                                    <td>出库接收组织ID</td>
-                                                    <td>单据总数</td>
-                                                    <td>操作员名称</td>
-                                                    <td>总码洋</td>
-                                                    <td>总实洋</td>
+                                                    <td>任务ID</td>                                                                                                      
+                                                    <td>任务ID</td>
+                                                    <td>默认折扣</td>
+                                                    <td>默认复本</td>                                                    
+                                                    <td>最大采购数</td>
+                                                    <td>单价上限</td>
+                                                    <td>码洋上限</td>
+                                                    <td>开始时间/结束时间</td>
                                                     <td class="table-thead-th">操作</td>                                                    
                                                 </tr>
                                             </thead>
@@ -247,12 +250,13 @@
                                             <tbody>
                                                 <tr>
                                                     <td>10000001</td>
-                                                    <td>2018-12-23</td>
-                                                    <td>13245</td>
+                                                    <td>3245554</td>
+                                                    <td>60%</td>
+                                                    <td></td>                                                   
+                                                    <td>435</td>
                                                     <td>56</td>
-                                                    <td>保罗</td>
                                                     <td>456</td>
-                                                    <td>6546</td>
+                                                    <td>2018.12.3/2018.12.23</td>
                                                      <td>
                                                         <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp 查看</button>
                                                         <button class="btn btn-danger btn-sm">&nbsp 删除</button>
@@ -260,118 +264,19 @@
                                                 </tr>                                                                                           
                                             </tbody>
                                         </table>
-                                    </div>
+                                    </div> 
                                      <div class="copyright float-right page-box">
-                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                             <ul class="pagination">
-                                                 <li class="paginate_button page-item first" id="datatables_first">
-                                                     <a href="#" aria-controls="datatables"data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
-                                                <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">2</a></li>
-                                                <!--类名active表示当前页 -->
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="4"
-                                                    tabindex="0" class="page-link">3</a></li>
-                                                <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
-                                                <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link">尾页</a></li>
-                                            </ul>
+                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                            <div class="m-style paging"></div>
                                         </div>
-                                </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
                 
-                <!--添加出库模态框-->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加出库信息</h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table model-table">
-                                <tr>
-                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">出库编号:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入编号"></td>
-                                    <td class="table-tr-td-bookAuoth">
-                                        <span class="model-tab-td-span">订单ID:</span></td>
-                                    <td><input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入订单ID"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">用户名:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入名称"></td>
-                                   
-                                        <td><span class="model-tab-td-span">库存数:</span></td>
-                                        <td><input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入库存量"></td></tr>
-                                    <tr>
-                                    <td><span class="model-tab-td-span">操作员ID:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入操作员ID"></td>   
-                                    <td><span class="model-tab-td-span">操作员:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入操作员"></td>                                 
-                                </tr>                                
-                                <tr>
-                                    <td><span class="model-tab-td-span">备注:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="form-control col-sm-11 input-search" placeholder="请输入备注"></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--查看出库信息模态框-->
-            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="width:700px;max-width:800px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">查看出库信息</h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table table-bordered model-table">
-                                <tr>
-                                    <td><span class="model-tab-td-span">出库编号:</span></td>
-                                    <td>100000001</td>
-                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">订单ID:</span></td>
-                                    <td>123478944</td>
-                                </tr>
-                                <tr>
-                                    <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">用户名称:</span></td>
-                                    <td>Jennife Kyrnin</td>
-                                    <td><span class="model-tab-td-span">库存数量:</span></td>
-                                    <td>59</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">操作员ID:</span></td>
-                                    <td>201612344</td>
-                                    <td><span class="model-tab-td-span">操作员名称:</span></td>
-                                    <td>保罗</td>
-                                </tr>                                
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                             <button type="submit" class="btn btn-success btn-sm">提交</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-       </div>
-                           
-           <!-- 主界面页脚部分 -->
+            <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
                     <!-- 版权内容 -->
@@ -395,13 +300,9 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            // 隐藏折叠内容
-            $('.collapse').collapse('hide');
-        });
-    </script>
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/bookshelfManagement.js"></script>
 </body>
 
 </html>
