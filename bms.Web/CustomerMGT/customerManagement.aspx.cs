@@ -27,7 +27,7 @@ namespace bms.Web.CustomerMGT
         //CustomerBll cBll = new CustomerBll();
         //RegionBll reBll = new RegionBll();
 
-        public int totalCount, intPageCount;
+        public int totalCount, intPageCount, pageSize=20;
         public DataSet regionDs, ds;
         CustomerBll cbll = new CustomerBll();
         RegionBll rbll = new RegionBll();
@@ -70,29 +70,20 @@ namespace bms.Web.CustomerMGT
                 currentPage = 1;
             }
             string search = Request["search"];
-            string region = Request["region"];
-            if((region == "" || region == null)&& (search == "" || search == null))
+            if(search == "" || search == null)
             {
                 search = "";
             }
-            else if((search != null || search != "") && (region == "" || region == null))
-            {
-                search = String.Format("customerID {0} or customerName {0} or regionName {0}", " like " + "'%" + search + "%'");
-            }
-            else if((search == null || search == "") && (region != "" || region != null))
-            {
-                search = String.Format("regionId={0}", "'" + region + "'");
-            }
             else
             {
-                search = String.Format("customerID {0} or customerName {0} or regionName {0} and regionId={1}", " like '%" + search + "%'",region);
+                search = "customerName ='" + search +"'";
             }
 
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "V_Customer";
+            tb.StrTable = "T_Customer";
             tb.OrderBy = "customerID";
-            tb.StrColumnlist = "customerID,customerName,regionId,regionName";
-            tb.IntPageSize = 3;
+            tb.StrColumnlist = "customerID,customerName";
+            tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
             //获取展示的客户数据
@@ -104,11 +95,9 @@ namespace bms.Web.CustomerMGT
             strb.Append("<tbody>");
             for(int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * 3)) + "</td>");
+                strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerID"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
-                //strb.Append("<td>" + ds.Tables[0].Rows[i]["regionId"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
                 strb.Append("<td>" + "<button type='button' class='btn btn-default btn-sm reset_pwd'>" + "重置密码" + "</button>" + " </td>");
                 strb.Append("<td>" + "<button class='btn btn-warning btn-sm btn_Editor' data-toggle='modal' data-target='#myModa2'>" + "<i class='fa fa-pencil fa-lg'></i>" + "&nbsp 编辑" + "</button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>&nbsp 删除" + "</button>" + " </td></tr>");
@@ -170,14 +159,11 @@ namespace bms.Web.CustomerMGT
         {
             string id = Context.Request["customerid"];
             string name = Context.Request["customername"];
-            string zoneId = Context.Request["regionid"];
             Region reg = new Region();
-            reg.RegionId = Convert.ToInt32(zoneId);
             Customer cust = new Customer()
             {
                 CustomerId = int.Parse(id),
-                CustomerName = name,
-                RegionId = reg
+                CustomerName = name
             };
             Result row = cbll.update(cust);
             if(row == Result.更新成功)

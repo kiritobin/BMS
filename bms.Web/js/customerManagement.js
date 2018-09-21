@@ -122,14 +122,13 @@
         })
         }
     })
-
+    //提交编辑
     $("#table").delegate(".btn_Editor", "click", function () {
         var custId = $(this).parent().prev().prev().prev().text().trim();
         var custName = $(this).parent().prev().prev().text().trim();
         $(".editor_name").val(custName);
         $(".editor_id").text(custId);
     })
-    //提交编辑
     $(".sava_Editor").click(function () {
         var custId = $(".editor_id").text();
         var custName = $(".editor_name").val();
@@ -268,7 +267,7 @@
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window, location.reload();
+                            window.location.reload();
                         })
                     } else {
                         swal({
@@ -281,7 +280,7 @@
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window, location.reload();
+                            window.location.reload();
                         })
                     }
                 }

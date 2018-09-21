@@ -223,38 +223,32 @@
                             <div class="card">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title ">用户管理</h4>
-                                    <p class="card-category">可对用户进行操作</p>
                                 </div>
                                 <div class="card-body">
                                     <!--查询区域-->
                                     <div class="card-header from-group">
-                                        <div class="input-group no-border">
-                                            <select class="selectpicker" title="请选择分公司" data-style="btn-sm" id="select-region">
-                                                <option value="">请选择分公司</option>
-                                                <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
-                                                    { %>
-                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}%>
-                                            </select>
-                                            &nbsp
-                                            <select class="selectpicker" title="请选择职位" data-style="btn-sm" id="select-role">
-                                                <option value="">请选择职位</option>
-                                                <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
-                                                    {%>
-                                                <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                                <%}%>
-                                            </select>
-                                            &nbsp &nbsp
-                                            <input type="text" value="" class="form-control col-sm-2" id="input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
-                                            &nbsp
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" id="input-region" placeholder="请输入分公司">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" id="input-role" placeholder="请输入职位">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" id="input-userName" placeholder="请输入用户名">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <!--数据展示区-->
                                     <div class="table-responsive">
-                                        <table class="table" id="table">
-                                            <thead class="text-danger">
+                                        <table class="table mostTable table-bordered text-center" id="table">
+                                            <thead>
                                                 <tr>
                                                     <th>序号</th>
                                                     <th>账号</th>
@@ -264,13 +258,14 @@
                                                     <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>
-                                            <%= getData() %>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <!--分页-->
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div> <%--分页栏--%>
+                                            <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -302,7 +297,8 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">分公司:</span></td>
                                     <td>
-                                        <select class="" title="请选择分公司" data-style="btn-sm" id="model-select-region">
+                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;"id="model-select-region">
+                                            <option value="">请选择分公司</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -313,8 +309,9 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">职位:</span></td>
                                     <td>
-                                        <select class="" title="请选择职位" data-style="btn-sm" id="model-select-role">
-                                            <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
+                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;" id="model-select-role">
+                                           <option value="">请选择职位</option>
+                                             <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
                                             <%}%>
@@ -358,7 +355,8 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">分公司:</span></td>
                                     <td>
-                                        <select class="" id="editRegion" title="请选择分公司" data-style="btn-sm">
+                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;"id="editRegion">
+                                            <option value="">请选择分公司</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 { %>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -369,8 +367,9 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">职位:</span></td>
                                     <td>
-                                        <select class="" id="editRole" title="请选择职位" data-style="btn-sm">
-                                            <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
+                                        <select class="" id="editRole" style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;">
+                                           <option value="">请选择职位</option>
+                                             <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
                                             <%} %>
@@ -416,7 +415,7 @@
     <script src="../js/demo.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script>
-</script>
+    </script>
 </body>
 
 </html>

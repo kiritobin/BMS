@@ -1,6 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="warehouseManagement.aspx.cs" Inherits="bms.Web.BasicInfor.outboundList" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="checkStock.aspx.cs" Inherits="bms.Web.InventoryMGT.checkStock" %>
 
-<%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -19,6 +18,7 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/pagination.css" />
+    <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
@@ -41,7 +41,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
                 </a>
             </div>
-          <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -176,9 +176,6 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">出库管理</a>
-                    </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -217,76 +214,142 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">出库管理</h4>
-                                    <p class="card-category">可对出库情况进行查询</p>
+                                    <h4 class="card-title">入库查询</h4>
                                 </div>
-                                 <div class="card-body">
+                                <div class="card-body">
                                     <div class="card-header from-group">
-                                        <div class="input-group no-border">
+                                        <table class="table text-center table_stock">
+                                            <tr>
+                                                <td class="td_text"><span class="span-text">单据编号:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class="input_text" placeholder="单据编号"></td>
+                                                <td class="td_text"><span class="span-text">操作员:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class="input_text" placeholder="操作员"></td>
+                                                <td class="td_text"><span class="span-text">单据总数:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class="input_text" placeholder="单据总数"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td_text"><span class="span-text">入库组织:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class="input_text" placeholder="入库组织"></td>
+                                                <td class="td_text"><span class="span-text">商品来源:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class="input_text" placeholder="商品来源"></td>
+                                                <td class="td_text"><span class="span-text">总码洋:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class="input_text" placeholder="总码洋"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td_text"><span class="span-text">到货日期:</span></td>
+                                                <td class="td_width">
+                                                    <div class="jeinpbox">
+                                                        <input type="text" class="jeinput input_text" id="test12" placeholder="YYYY年MM月DD日">
+                                                    </div>
+                                                </td>
+                                                <td class="td_text"><span class="span-text">付款日期:</span></td>
+                                                <td class="td_width">
+                                                    <div class="jeinpbox">
+                                                        <input type="text" class="jeinput input_text" id="test1" placeholder="YYYY年MM月DD日">
+                                                    </div>
+                                                </td>
+                                                <td class="td_text"><span class="span-text">总实洋:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class="input_text" placeholder="总实洋"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td_text"><span class="span-text">备注:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class="input_text" placeholder="备注"></td>
+                                                <td class="td_text"><span class="span-text">制单日期:</span></td>
+                                                <td class="td_width">
+                                                    <div class="jeinpbox">
+                                                        <input type="text" class="jeinput input_text" id="test2" placeholder="YYYY年MM月DD日">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <button class="btn btn-success">
+                                            <i class="fa fa-print" aria-hidden="true"></i></button> 
+                                        <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
                                               &nbsp;
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
-                                        </div>
+                                        </div>--%>
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="text-danger">                                               
+                                        <table class="table mostTable table-bordered text-center">
+                                            <thead>
+                                                <tr style="border: 2px solid #DDD">
+                                                    <td colspan="9">商品</td>
+                                                </tr>
                                                 <tr>
-                                                    <td>单编ID</td>                                                  
-                                                    <td>制单时间</td>
-                                                    <td>出库接收组织ID</td>
-                                                    <td>单据总数</td>
-                                                    <td>操作员名称</td>
-                                                    <td>总码洋</td>
-                                                    <td>总实洋</td>
-                                                    <td class="table-thead-th">操作</td>                                                    
+                                                    <td>序号</td>
+                                                    <td>单据编号</td>
+                                                    <td>ISBN号</td>
+                                                    <td>商品数量</td>
+                                                    <td>单价</td>
+                                                    <td>折扣</td>
+                                                    <td>实洋</td>
+                                                    <td>码洋</td>
+                                                    <td>货架号</td>
                                                 </tr>
                                             </thead>
-
                                             <tbody>
                                                 <tr>
+                                                    <td>1</td>
                                                     <td>10000001</td>
-                                                    <td>2018-12-23</td>
-                                                    <td>13245</td>
-                                                    <td>56</td>
-                                                    <td>保罗</td>
-                                                    <td>456</td>
-                                                    <td>6546</td>
-                                                     <td>
-                                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp 查看</button>
-                                                        <button class="btn btn-danger btn-sm">&nbsp 删除</button>
-                                                    </td>
-                                                </tr>                                                                                           
+                                                    <td>1552621533</td>
+                                                    <td>100</td>
+                                                    <td>30￥</td>
+                                                    <td>0.6</td>
+                                                    <td>23</td>
+                                                    <td>34</td>
+                                                    <td>货架一</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>10000001</td>
+                                                    <td>1552621533</td>
+                                                    <td>100</td>
+                                                    <td>30￥</td>
+                                                    <td>0.6</td>
+                                                    <td>23</td>
+                                                    <td>34</td>
+                                                    <td>货架一</td>
+                                                </tr>
                                             </tbody>
                                         </table>
-                                    </div> 
-                                     <div class="copyright float-right page-box">
+                                    </div>
+                                    <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-                
-            <!-- 主界面页脚部分 -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <!-- 版权内容 -->
-                    <div class="copyright text-center">
-                        &copy;
+
+                <!-- 主界面页脚部分 -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <!-- 版权内容 -->
+                        <div class="copyright text-center">
+                            &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        , made with <i class="material-icons">favorite</i> by
+                            , made with <i class="material-icons">favorite</i> by
                         <a href="javascript:;" target="_blank"></a>for a better web.
+                        </div>
                     </div>
-                </div>
-            </footer>
+                </footer>
+            </div>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
@@ -299,7 +362,34 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/bookshelfManagement.js"></script>
+    <script src="../js/jedate.min.js"></script>
+    <script>
+        var enLang = {
+            name: "en",
+            month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+            weeks: ["SUN", "MON", "TUR", "WED", "THU", "FRI", "SAT"],
+            times: ["Hour", "Minute", "Second"],
+            timetxt: ["Time", "Start Time", "End Time"],
+            backtxt: "Back",
+            clear: "Clear",
+            today: "Now",
+            yes: "Confirm",
+            close: "Close"
+        }
+        //自定义格式选择
+        jeDate("#test12", {
+            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
+            format: "YYYY年MM月DD日"
+        });
+        jeDate("#test1", {
+            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
+            format: "YYYY年MM月DD日"
+        });
+        jeDate("#test2", {
+            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
+            format: "YYYY年MM月DD日"
+        });
+    </script>
 </body>
 
 </html>

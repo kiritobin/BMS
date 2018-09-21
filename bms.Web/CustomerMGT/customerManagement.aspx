@@ -54,19 +54,23 @@
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
-
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
+                                        <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -83,20 +87,20 @@
                         </a>
                         <div class="collapse show" id="userManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor foucsColor">
-                                    <a class="nav-link" href="javascript:;">
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
                             <p>
@@ -107,17 +111,17 @@
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="stockManagement.aspx">
                                         <span class="sidebar-normal">入库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="returnManagement.aspx">
                                         <span class="sidebar-normal">退货</span>
                                     </a>
                                 </li>
@@ -135,13 +139,8 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">销售</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">销退</span>
+                                    <a class="nav-link" href="tradeManagement.aspx">
+                                        <span class="sidebar-normal">营销</span>
                                     </a>
                                 </li>
                             </ul>
@@ -158,18 +157,13 @@
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">价位管理</span>
+                                    <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
+                                        <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -227,19 +221,18 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
-                                        <div class="input-group no-border">
-                                            <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="select-region">
-                                                <option value="">查询全部地区</option>
-                                                <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
-                                                    { %>
-                                                <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"].ToString() %></option>
-                                                <%} %>
-                                            </select>
-                                            &nbsp &nbsp
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件" id="search_All">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
-                                            &nbsp
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                        <div class="input-group">
+                                           <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" style="width:200px" class="search" id="search_All" placeholder="请输入客户名">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                            </div>
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -251,8 +244,6 @@
                                                     <th>账号
                                                     </th>
                                                     <th>名称
-                                                    </th>
-                                                    <th>地区
                                                     </th>
                                                     <th class="table-thead-th">重置密码
                                                     </th>
@@ -295,17 +286,6 @@
                                     <td>
                                         <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入名称" id="customerName"></td>
                                 </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
-                                    <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
-                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
-                                                { %>
-                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"].ToString() %></option>
-                                            <%} %>
-                                        </select>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
@@ -333,17 +313,6 @@
                                     <td><span class="model-tab-td-span">客户名称:</span></td>
                                     <td>
                                         <input type="text" value="" class="form-control col-sm-9 input-search editor_name" placeholder="">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
-                                    <td>
-                                        <select class="editor_region" id="editRegion" title="请选择地区" data-style="btn-sm" style="width:200px;">
-                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
-                                                { %>
-                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"].ToString() %></option>
-                                            <%} %>
-                                        </select>
                                     </td>
                                 </tr>
                             </table>

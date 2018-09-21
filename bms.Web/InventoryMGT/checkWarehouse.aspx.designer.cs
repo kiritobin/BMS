@@ -10,6 +10,6 @@
 namespace bms.Web.InventoryMGT {
     
     
-    public partial class tradeManagement {
+    public partial class w {
     }
 }
