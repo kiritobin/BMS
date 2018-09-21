@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace bms.Web.InventoryMGT {
+namespace bms.Web.SalesMGT {
     
     
     public partial class tradeManagement {

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace bms.Web.InventoryMGT
+namespace bms.Web.SalesMGT
 {
     public partial class tradeManagement : System.Web.UI.Page
     {
