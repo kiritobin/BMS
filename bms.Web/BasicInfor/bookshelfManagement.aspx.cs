@@ -74,6 +74,10 @@ namespace bms.Web.BasicInfor
             }
         }
 
+        /// <summary>
+        /// 判断在其他表中是否有关联
+        /// </summary>
+        /// <returns></returns>
         public Result isDelete()
         {
             string shelfId = Request["shelfId"];
@@ -108,24 +112,25 @@ namespace bms.Web.BasicInfor
             {
                 currentPage = 1;
             }
-            string search = Request["search"];
+            string goods = Request["goods"];
             string region = Request["region"];
-            if ((region == "" || region == null) && (search == "" || search == null))
+            string search;
+            if ((region == "" || region == null) && (goods == "" || goods == null))
             {
                 search = "";
             }
-            else if ((search != null || search != "") && (region == "" || region == null))
+            else if ((goods != null || goods != "") && (region == "" || region == null))
             {
 
-                search = String.Format("goodsShelvesId {0} or shelvesName {0} or regionName {0}", " like " + "'%" + search + "%'");
+                search = String.Format("shelvesName= '{0}'", goods);
             }
-            else if ((search == null || search == "") && (region != "" || region != null))
+            else if ((goods == null || goods == "") && (region != "" || region != null))
             {
-                search = String.Format("regionId={0}", "'" + region + "'");
+                search = String.Format("regionName='{0}'", region);
             }
             else
             {
-                search = String.Format("goodsShelvesId {0} or shelvesName {0} or regionName {0} and regionId={1}", " like '%" + search + "%'", region);
+                search = String.Format("regionName='{0}' and shelvesName= {1}", region, goods);
             }
 
             TableBuilder tb = new TableBuilder();

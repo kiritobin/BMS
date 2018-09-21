@@ -9,15 +9,15 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var region = $("#select-region").find("option:selected").val();
-            var search = $("#btn-search").val().trim();
+            var region = $("#search_region").val().trim();
+            var goods = $("#search_goods").val().trim();
             $.ajax({
                 type: 'Post',
                 url: 'bookshelfManagement.aspx',
                 data: {
                     page: api.getCurrent(), //页码
                     region: region,
-                    search: search,
+                    goods: goods,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -30,13 +30,15 @@
     });
 
     //查询按钮事件
-$("#btn-search").click(function () {
-    var search = $("#search_All").val().trim();
+    $("#btn-search").click(function () {
+        var region = $("#search_region").val().trim();
+        var goods = $("#search_goods").val().trim();
     $.ajax({
         type: 'Post',
         url: 'bookshelfManagement.aspx',
             data: {
-                search: search,
+                region: region,
+                goods: goods,
                 op: "paging"
                 },
             dataType: 'text',
@@ -55,13 +57,13 @@ $("#btn-search").click(function () {
                     prevContent: '上页',
                     nextContent: '下页',
                     callback: function (api) {
-                        var search = $("#search_All").val().trim();
                         $.ajax({
                             type: 'Post',
                             url: 'bookshelfManagement.aspx',
                             data: {
                                 page: api.getCurrent(), //页码
-                                search: search,
+                                region: region,
+                                goods: goods,
                                 op: "paging"
                             },
                             dataType: 'text',
@@ -114,7 +116,7 @@ $("#btn-search").click(function () {
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window, location.reload();
+                            window.location.reload();
                         })
                     } else {
                         swal({
@@ -127,7 +129,7 @@ $("#btn-search").click(function () {
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window, location.reload();
+                            window.location.reload();
                         })
                     }
                 }
@@ -160,7 +162,7 @@ $("#btn-search").click(function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window, location.reload();
+                        window.location.reload();
                     })
                 } else {
                     swal({
@@ -173,7 +175,7 @@ $("#btn-search").click(function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window, location.reload();
+                        window.location.reload();
                     })
                 }
             }
