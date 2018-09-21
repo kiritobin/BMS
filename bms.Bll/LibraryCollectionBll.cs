@@ -14,7 +14,7 @@ namespace bms.Bll
         /// 获取所有客户馆藏数据的ISBN，单价，书名
         /// </summary>
         /// <returns></returns>
-        public DataTable Select(int customerId)
+        public DataTable Select(string customerId)
         {
             return libraryDao.Select(customerId);
         }

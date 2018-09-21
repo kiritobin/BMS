@@ -73,6 +73,8 @@
     <Content Include="bin\bms.Model.pdb" />
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="css\material-dashboard.min.css" />
+    <Content Include="CustomerMGT\uploadCollection.aspx" />
+    <Content Include="CustomerMGT\WebForm1.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
     <Content Include="InventoryMGT\tradeManagement.aspx" />
     <Content Include="InventoryMGT\warehouseManagement.aspx" />
@@ -103,6 +105,7 @@
     <Content Include="Global.asax" />
     <Content Include="imgs\login.jpg" />
     <Content Include="imgs\sidebar-2.jpg" />
+    <Content Include="js\ajaxfileupload.js" />
     <Content Include="js\bookshelfManagement.js" />
     <Content Include="js\bootstrap-material-design.min.js" />
     <Content Include="js\bootstrap-selectpicker.js" />
@@ -170,6 +173,20 @@
     </Compile>
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerMGT\uploadCollection.aspx.cs">
+      <DependentUpon>uploadCollection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerMGT\uploadCollection.aspx.designer.cs">
+      <DependentUpon>uploadCollection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerMGT\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerMGT\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\stockManagement.aspx.cs">
       <DependentUpon>stockManagement.aspx</DependentUpon>
@@ -269,6 +286,7 @@
     <Folder Include="Customer\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="SalesMGT\" />
+    <Folder Include="uploads\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bms.Bll\bms.Bll.csproj">
