@@ -77,6 +77,12 @@
     border: 1px solid #ccc;
 }
 
+/* 模态框添加文本框样式 */
+.modal_search{
+    border: 1px solid #ccc;
+    color:dimgray;
+}
+
 /* 销售单页面样式 */
 .table-responsive > .table-bordered {
     border: 1px solid rgba(0,0,0,.06);

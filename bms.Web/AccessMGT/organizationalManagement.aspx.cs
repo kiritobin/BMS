@@ -123,13 +123,13 @@ namespace bms.Web.AccessMGT
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
             //生成table
             StringBuilder sb = new StringBuilder();
-            sb.Append("<tbody>");
+            sb.Append("<tbody class='text-center'>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
                 sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[i]["regionId"].ToString() + "' id='regionId' />");
-                sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
+                sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></ tr >");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
