@@ -4,7 +4,7 @@
 
 <html class="no-js">
 <!--<![endif]-->
-<!--入库管理-->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -214,7 +214,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">添加单据</h4>
+                                    <h4 class="card-title">入库添加</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">

@@ -184,9 +184,6 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">权限管理</a>
-                    </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -280,68 +277,57 @@
                             </table>
                             <div class="row">
                                 <table class="table">
-                                    <%for (int i = 0; i < dsFun.Tables[0].Rows.Count; i++)
+                                    <%int k = dsFun.Tables[0].Rows.Count;
+                                        int a=0;
+                                        if (k % 4 == 0)
                                         {
-                                            if (i == 0)
-                                            {%>
+                                            a = k / 4;
+                                        }
+                                        else
+                                        {
+                                            a = (k / 4) + 1;
+                                        }
+                                        if (a <= 1)
+                                        { %>
                                     <tr class="model-tab-function">
                                         <td style="width: 65px"><span class="model-tab-td-functionSpan">功能:</span></td>
+                                        <%for (int i = 0; i < 4; i++)
+                                        {%>
                                         <td>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" value="">前台销售记录员
+                                                    <input class="form-check-input" type="checkbox" value="<%=dsFun.Tables[0].Rows[i]["functionId"].ToString() %>"><%=dsFun.Tables[0].Rows[i]["functionName"].ToString() %>
                                                     <span class="form-check-sign">
                                                         <span class="check functionCheck"></span>
                                                     </span>
                                                 </label>
                                             </div>
                                         </td>
+                                        <%}%>
                                     </tr>
                                     <%}
-                                        else
-                                        { %>
-
+                                    else
+                                    {
+                                        for (int j = 1; j <= a; j++)
+                                        {%>
+                                    <tr class="model-tab-function">
+                                        <td></td>
+                                        <%for (int i = 4; i < k; i++)
+                                        {%>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="<%=dsFun.Tables[0].Rows[i]["functionId"].ToString() %>"><%=dsFun.Tables[0].Rows[i]["functionName"].ToString() %>
+                                                    <span class="form-check-sign">
+                                                        <span class="check functionCheck"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <%}%>
+                                    </tr>
                                     <%}
-                                        } %>
-                                    <tr class="model-tab-function">
-                                        <td></td>
-                                        <td>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" value="">功能一
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="model-tab-function">
-                                        <td></td>
-                                        <td>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" value="">功能一
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="model-tab-function">
-                                        <td></td>
-                                        <td>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" value="">功能一
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    } %>
                                 </table>
                             </div>
                         </div>
@@ -360,7 +346,7 @@
                             <h4 class="modal-title float-left" id="myModalLabe2">编辑职位</h4>
                         </div>
                         <div class="modal-body">
-                            <table class="table model-table">
+                            <table class="table">
                                 <tr>
                                     <td><span class="model-tab-td-span">职位名:</span></td>
                                     <td>门卫</td>

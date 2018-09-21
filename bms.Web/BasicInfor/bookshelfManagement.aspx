@@ -221,9 +221,9 @@
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="search_All1" placeholder="请输入分公司名称">
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="search_region" placeholder="请输入分公司名称">
                                             &nbsp;&nbsp;&nbsp; 
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="search_All2" placeholder="请输入查询条件">
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="search_goods" placeholder="请输入货架名称">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
                                             &nbsp;&nbsp;&nbsp; 
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>

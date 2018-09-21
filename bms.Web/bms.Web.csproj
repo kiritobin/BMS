@@ -75,8 +75,13 @@
     <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="demo\sales_demo.aspx" />
+    <Content Include="InventoryMGT\addReturn.aspx" />
     <Content Include="InventoryMGT\addStock.aspx" />
+    <Content Include="InventoryMGT\addWarehouse.aspx" />
+    <Content Include="InventoryMGT\checkReturn.aspx" />
+    <Content Include="InventoryMGT\checkStock.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
+    <Content Include="InventoryMGT\checkWarehouse.aspx" />
     <Content Include="InventoryMGT\warehouseManagement.aspx" />
     <Content Include="InventoryMGT\returnManagement.aspx" />
     <Content Include="bin\bms.Bll.dll" />
@@ -130,6 +135,8 @@
     <Content Include="login.aspx" />
     <Content Include="main.aspx" />
     <Content Include="demo\paging.html" />
+    <Content Include="SalesMGT\backQuery.aspx" />
+    <Content Include="SalesMGT\salesDetail.aspx" />
     <Content Include="SalesMGT\tradeManagement.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -183,6 +190,13 @@
     <Compile Include="demo\sales_demo.aspx.designer.cs">
       <DependentUpon>sales_demo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="InventoryMGT\addReturn.aspx.cs">
+      <DependentUpon>addReturn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InventoryMGT\addReturn.aspx.designer.cs">
+      <DependentUpon>addReturn.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InventoryMGT\addStock.aspx.cs">
       <DependentUpon>addStock.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -190,12 +204,40 @@
     <Compile Include="InventoryMGT\addStock.aspx.designer.cs">
       <DependentUpon>addStock.aspx</DependentUpon>
     </Compile>
+    <Compile Include="InventoryMGT\addWarehouse.aspx.cs">
+      <DependentUpon>addWarehouse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InventoryMGT\addWarehouse.aspx.designer.cs">
+      <DependentUpon>addWarehouse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryMGT\checkReturn.aspx.cs">
+      <DependentUpon>checkReturn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InventoryMGT\checkReturn.aspx.designer.cs">
+      <DependentUpon>checkReturn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryMGT\checkStock.aspx.cs">
+      <DependentUpon>checkStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InventoryMGT\checkStock.aspx.designer.cs">
+      <DependentUpon>checkStock.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InventoryMGT\stockManagement.aspx.cs">
       <DependentUpon>stockManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="InventoryMGT\stockManagement.aspx.designer.cs">
       <DependentUpon>stockManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryMGT\checkWarehouse.aspx.cs">
+      <DependentUpon>checkWarehouse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InventoryMGT\checkWarehouse.aspx.designer.cs">
+      <DependentUpon>checkWarehouse.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\warehouseManagement.aspx.cs">
       <DependentUpon>warehouseManagement.aspx</DependentUpon>
@@ -250,6 +292,20 @@
       <DependentUpon>main.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesMGT\backQuery.aspx.cs">
+      <DependentUpon>backQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\backQuery.aspx.designer.cs">
+      <DependentUpon>backQuery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\salesDetail.aspx.cs">
+      <DependentUpon>salesDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\salesDetail.aspx.designer.cs">
+      <DependentUpon>salesDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SalesMGT\tradeManagement.aspx.cs">
       <DependentUpon>tradeManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
