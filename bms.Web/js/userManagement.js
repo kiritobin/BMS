@@ -36,16 +36,16 @@
 
 //点击查询按钮时
 $("#btn-search").click(function () {
-    var strWhere = $("#input-search").val().trim();
-    var regionId = $("#select-region").val().trim();
-    var roleId = $("#select-role").val().trim();
+    var region = $("#input-region").val().trim();
+    var role = $("#input-role").val().trim();
+    var userName = $("#input-userName").val().trim();
     $.ajax({
         type: 'Post',
         url: 'userManagement.aspx',
         data: {
-            role: roleId,
-            region: regionId,
-            search: strWhere,
+            role: role,
+            region: region,
+            userName: userName,
             op: "paging"
         },
         dataType: 'text',
@@ -71,9 +71,9 @@ $("#btn-search").click(function () {
                         url: 'userManagement.aspx',
                         data: {
                             page: api.getCurrent(), //页码
-                            role: roleId,
-                            region: regionId,
-                            search: strWhere,
+                            role: role,
+                            region: region,
+                            userName: userName,
                             op: "paging"
                         },
                         dataType: 'text',

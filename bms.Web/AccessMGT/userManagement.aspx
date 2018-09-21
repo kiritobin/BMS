@@ -223,23 +223,22 @@
                             <div class="card">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title ">用户管理</h4>
-                                    <p class="card-category">可对用户进行操作</p>
                                 </div>
                                 <div class="card-body">
                                     <!--查询区域-->
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="请输入分公司">
+                                                <input type="text" value="" class="search" id="input-region" placeholder="请输入分公司">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="请输入职位">
+                                                <input type="text" value="" class="search" id="input-role" placeholder="请输入职位">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="请输入用户名">
+                                                <input type="text" value="" class="search" id="input-userName" placeholder="请输入用户名">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" id="btnISBNS"><i class="fa fa-search fa-lg"></i>查询</button>
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
@@ -259,17 +258,7 @@
                                                     <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>1001</td>
-                                                <td>张杰</td>
-                                                <td>嵩明新华书店</td>
-                                                <td>入库管理员</td>
-                                                <td>
-                                                    <button class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
-                                                    <button class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
-                                                </td>
-                                            </tr>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <!--分页-->

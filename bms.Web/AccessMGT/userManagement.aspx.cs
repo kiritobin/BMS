@@ -15,7 +15,7 @@ namespace bms.Web.AccessMGT
     public partial class userManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
-        public string search="", regionId, roleId;
+        public string search="";
         public DataSet dsRegion, dsRole, ds;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
@@ -131,40 +131,40 @@ namespace bms.Web.AccessMGT
             {
                 currentPage = 1;
             }
-            search = Request["search"];
-            regionId = Request["region"];
-            roleId = Request["role"];
-            if ((search == "" || search == null) && (regionId == null || regionId == "") && (roleId == null || roleId == ""))
+            string userName = Request["userName"];
+            string region = Request["region"];
+            string role = Request["role"];
+            if ((userName == "" || userName == null) && (region == null || region == "") && (role == null || role == ""))
             {
                 search = "";
             }
-            else if ((search != "" && search != null) && (regionId == null || regionId == "") && (roleId == null || roleId == ""))
+            else if ((userName != "" && userName != null) && (region == null || region == "") && (role == null || role == ""))
             {
-                search = String.Format(" userID {0} or userName {0} or regionName {0} or roleName {0}", "like '%" + search + "%'");
+                search = String.Format(" userName= '{0}'", userName);
             }
-            else if ((search == "" || search == null) && (regionId != "" && regionId !=null) && (roleId == null || roleId == ""))
+            else if ((userName == "" || userName == null) && (region != "" && region != null) && (role == null || role == ""))
             {
-                search = "regionId=" + regionId;
+                search = "regionName='" + region + "'";
             }
-            else if ((search == "" || search == null) && (roleId != "" && roleId != null) && (regionId == null || regionId == ""))
+            else if ((userName == "" || userName == null) && (role != "" && role != null) && (region == null || region == ""))
             {
-                search = "roleId=" + roleId;
+                search = "roleName='" + role + "'";
             }
-            else if ((search == "" || search == null) && (roleId != "" && roleId != null) && (regionId != null && regionId != ""))
+            else if ((userName == "" || userName == null) && (role != "" && role != null) && (region != null && region != ""))
             {
-                search = "regionId=" + regionId + " and roleId=" + roleId;
+                search = "regionName='" + region + "' and roleName='" + role+"'";
             }
-            else if ((search != "" && search != null) && (regionId != null && regionId != "") && (roleId == null || roleId == ""))
+            else if ((userName != "" && userName != null) && (region != null && region != "") && (role == null || role == ""))
             {
-                search = String.Format(" (userID {0} or userName {0} or regionName {0} or roleName {0}) and regionId = {1}", "like '%" + search + "%'", regionId);
+                search = String.Format(" userName= '{0}' and regionName = '{1}'", userName, region);
             }
-            else if ((search != "" && search != null) && (regionId == null || regionId == "") && (roleId != null && roleId != ""))
+            else if ((userName != "" && userName != null) && (region == null || region == "") && (role != null && role != ""))
             {
-                search = String.Format(" (userID {0} or userName {0} or regionName {0} or roleName {0}) and roleId={1}", "like '%" + search + "%'", roleId);
+                search = String.Format(" userName= '{0}' and roleName='{1}'", userName, role);
             }
             else
             {
-                search = String.Format(" (userID {0} or userName {0} or regionName {0} or roleName {0}) and regionId = {1} and roleId={2}", "like '%" + search + "%'",regionId ,roleId);
+                search = String.Format(" userName= '{0}' and regionName = '{1}' and roleName='{2}'",userName, region, role);
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
