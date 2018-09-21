@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="stockManagement.aspx.cs" Inherits="bms.Web.InventoryMGT.lnventoryList" %>
+
 <%="" %>
 <!DOCTYPE html>
 
@@ -40,7 +41,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
                 </a>
             </div>
-            <div class="sidebar-wrapper">
+           <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -53,19 +54,23 @@
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
-
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
+                                        <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -83,19 +88,19 @@
                         <div class="collapse" id="userManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
                             <p>
@@ -103,20 +108,20 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="inventoryManage">
+                        <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="stockManagement.aspx">
                                         <span class="sidebar-normal">入库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="returnManagement.aspx">
                                         <span class="sidebar-normal">退货</span>
                                     </a>
                                 </li>
@@ -134,19 +139,14 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">销售</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">销退</span>
+                                    <a class="nav-link" href="tradeManagement.aspx">
+                                        <span class="sidebar-normal">营销</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="material-icons">bubble_chart</i>
                             <p>
@@ -154,21 +154,16 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="baseManage">
+                        <div class="collapse" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor foucsColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">书籍基础数据管理</span>
-                                    </a>
-                                </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">组织管理</span>
+                                    <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
+                                        <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -179,7 +174,7 @@
         </div>
         <div class="main-panel">
             <!-- 主界面头部面板 -->
-              <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+            <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
                         <a class="navbar-brand" href="#pablo">入库管理</a>
@@ -225,28 +220,28 @@
                                     <h4 class="card-title">入库管理</h4>
                                     <p class="card-category">可对入库情况进行查询</p>
                                 </div>
-                                 <div class="card-body">
+                                <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                              &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                            &nbsp;
+                                               <button class="btn btn-success btn-sm" onclick="window.location.href='addStock.aspx'" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
                                         </div>
                                     </div>
 
                                     <div class="table-responsive">
                                         <table class="table">
-                                            <thead class="text-danger">                                               
+                                            <thead class="text-danger">
                                                 <tr>
-                                                    <td>单编ID</td>                                                  
+                                                    <td>单编ID</td>
                                                     <td>制单时间</td>
                                                     <td>入库接收组织ID</td>
                                                     <td>单据总数</td>
                                                     <td>操作员名称</td>
                                                     <td>总码洋</td>
                                                     <td>总实洋</td>
-                                                    <td class="table-thead-th">操作</td>                                                    
+                                                    <td class="table-thead-th">操作</td>
                                                 </tr>
                                             </thead>
 
@@ -258,12 +253,12 @@
                                                     <td>434</td>
                                                     <td>爱丽丝</td>
                                                     <td>23</td>
-                                                    <td>34</td>   
-                                                     <td>
+                                                    <td>34</td>
+                                                    <td>
                                                         <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp 查看</button>
                                                         <button class="btn btn-danger btn-sm">&nbsp 删除</button>
                                                     </td>
-                                                </tr>                                                                                           
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -272,26 +267,27 @@
                                             <div class="m-style paging"></div>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-                                       
-            <!-- 主界面页脚部分 -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <!-- 版权内容 -->
-                    <div class="copyright text-center">
-                        &copy;
+
+                <!-- 主界面页脚部分 -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <!-- 版权内容 -->
+                        <div class="copyright text-center">
+                            &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        , made with <i class="material-icons">favorite</i> by
+                            , made with <i class="material-icons">favorite</i> by
                         <a href="javascript:;" target="_blank"></a>for a better web.
+                        </div>
                     </div>
-                </div>
-            </footer>
+                </footer>
+            </div>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>

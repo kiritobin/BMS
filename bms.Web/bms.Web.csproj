@@ -72,7 +72,9 @@
     <Content Include="bin\bms.DBHelper.pdb" />
     <Content Include="bin\bms.Model.pdb" />
     <Content Include="bin\MySql.Data.dll" />
+    <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
+    <Content Include="InventoryMGT\addStock.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
     <Content Include="InventoryMGT\tradeManagement.aspx" />
     <Content Include="InventoryMGT\warehouseManagement.aspx" />
@@ -110,6 +112,7 @@
     <Content Include="js\collectionManagement.js" />
     <Content Include="js\customerManagement.js" />
     <Content Include="js\demo.js" />
+    <Content Include="js\jedate.min.js" />
     <Content Include="js\jurisdictionManagement.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
@@ -170,6 +173,13 @@
     </Compile>
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryMGT\addStock.aspx.cs">
+      <DependentUpon>addStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InventoryMGT\addStock.aspx.designer.cs">
+      <DependentUpon>addStock.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\stockManagement.aspx.cs">
       <DependentUpon>stockManagement.aspx</DependentUpon>
@@ -258,6 +268,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="css\jedatefont.ttf" />
+    <Content Include="css\jedatefont.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

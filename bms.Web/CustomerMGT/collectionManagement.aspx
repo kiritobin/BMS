@@ -29,7 +29,7 @@
         <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
-        <div class="sidebar" data-color="danger" data-background-color="white" data-image="imgs/sidebar-2.jpg">
+        <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!--
                 Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
         
@@ -37,7 +37,7 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -226,31 +226,29 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
-                                            &nbsp
-                                            <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">&nbsp 导入</button>
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" placeholder="书名查询">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" placeholder="ISBN号查询">
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                            <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table" id="table">
-                                            <thead class="text-danger">
-                                                <tr>
-                                                    <th>序号
-                                                    </th>
-                                                    <th>客户名称
-                                                    </th>
-                                                    <th>客户所在地区
-                                                    </th>
-                                                    <th>书名
-                                                    </th>
-                                                    <th>ISBN号
-                                                    </th>
-                                                    <th>价格
-                                                    </th>
-                                                    <th>数量(册)
-                                                    </th>
+                                        <table class="table mostTable table-bordered text-center" id="table">
+                                            <thead>
+                                                <tr class="book-tab-tr">
+                                                    <th>序号</th>
+                                                    <th>客户名称</th>
+                                                    <th>书名</th>
+                                                    <th>ISBN号</th>
+                                                    <th>价格</th>
+                                                    <th>数量(册)</th>
                                                 </tr>
                                             </thead>
                                             <%= getData() %>
@@ -268,35 +266,26 @@
                     </div>
                 </div>
             </div>
-            <!--模态框 -->
+            <!--导入模态框 -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">数据操作
                             </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
                         </div>
                         <div class="modal-body">
-                            <table class="table model-table">
+                            <table class="table table-bordered text-center model-table">
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">下载模板:</span></td>
                                     <td>
-                                        <button class="btn btn-success btn-sm" id=""><i class="fa fa-cloud-download fa-lg"></i>&nbsp 下载模板</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">上传文件:</span></td>
-                                    <td>
-                                       <%-- <button class="btn btn-success btn-sm" name="file" id="file"><i class="fa fa-cloud-upload fa-lg"></i>&nbsp 上传文件</button>--%>
-                                        <input type="file" class="btn btn-success btn-sm fa"  name="file" id="file" value="上传文件" />
+                                        <input type="file" class="" name="file" id="file" value="" />
+                                        <button class="btn btn-success">上传</button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">上传:</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm" id="upload"><i class="fa fa-cloud-upload fa-lg"></i>&nbsp 上传</button></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">客户名称:</span></td>
                                     <td>
                                         <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="model-select-custom">
                                             <option value="">请选择客户</option>
@@ -307,16 +296,11 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">导入:</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm" id="btnImport"><i class="fa fa-share-square-o fa-rotate-180 fa-lg"></i>&nbsp 导入</button></td>
-                                </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                            <button class="btn btn-success btn-link" id="">下载模板</button>
+                            <button class="btn btn-success" id="btnImport">导入</button>
                         </div>
                     </div>
                 </div>
