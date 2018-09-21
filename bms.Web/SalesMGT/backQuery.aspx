@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <h3 class="text-center">销&nbsp;售</h3>
+                        <h3 class="text-center">销&nbsp;退</h3>
                         <hr />
                         <div class="card-body">
                             <div class="card-header card_btn">
