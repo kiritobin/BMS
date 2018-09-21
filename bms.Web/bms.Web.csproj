@@ -74,6 +74,7 @@
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
+    <Content Include="demo\sales_demo.aspx" />
     <Content Include="InventoryMGT\addStock.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
     <Content Include="InventoryMGT\warehouseManagement.aspx" />
@@ -173,6 +174,13 @@
     </Compile>
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="demo\sales_demo.aspx.cs">
+      <DependentUpon>sales_demo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="demo\sales_demo.aspx.designer.cs">
+      <DependentUpon>sales_demo.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\addStock.aspx.cs">
       <DependentUpon>addStock.aspx</DependentUpon>
