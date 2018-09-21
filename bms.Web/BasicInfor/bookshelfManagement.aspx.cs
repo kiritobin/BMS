@@ -137,7 +137,7 @@ namespace bms.Web.BasicInfor
             tb.StrTable = "V_GoodsShelves";
             tb.OrderBy = "goodsShelvesId";
             tb.StrColumnlist = "goodsShelvesId,shelvesName,regionId,regionName";
-            tb.IntPageSize = 3;
+            tb.IntPageSize = 6;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
             //获取展示的客户数据
@@ -153,7 +153,7 @@ namespace bms.Web.BasicInfor
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["goodsShelvesId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["shelvesName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
-                strb.Append("<td>" + "<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>&nbsp 删除" + "</button>" + " </td></tr>");
+                strb.Append("<td>" + "<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "</button>" + " </td></tr>");
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
