@@ -36,9 +36,30 @@ namespace bms.Dao
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
         /// <summary>
-        /// 查询所有功能
+        /// 根据角色id查询功能数据
         /// </summary>
-        /// <returns>返回查询的数据表</returns>
+        /// <param name="roleId">角色ID</param>
+        /// <returns>返回查询到的表格数据</returns>
+        public DataSet SelectByRoleId(int roleId)
+        {
+            string cmdText = "select functionName from V_Permission where roleId=@roleId";
+            string[] param = { "@roleId" };
+            object[] values = { roleId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 查询所有功能信息
+        /// </summary>
+        /// <returns></returns>
         public DataSet Select()
         {
             string cmdText = "select functionId,functionName from T_Function";
@@ -52,7 +73,5 @@ namespace bms.Dao
                 return null;
             }
         }
-
-
     }
 }

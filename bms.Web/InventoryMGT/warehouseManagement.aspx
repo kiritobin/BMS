@@ -1,11 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="roleManagement.aspx.cs" Inherits="bms.Web.AccessMGT.roleManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="warehouseManagement.aspx.cs" Inherits="bms.Web.BasicInfor.outboundList" %>
 
 <%="" %>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
+
 <html class="no-js">
 <!--<![endif]-->
 
@@ -21,10 +18,10 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/zgz.css">
-    <link rel="stylesheet" href="../css/qc.css">
     <link rel="stylesheet" href="../css/lgd.css">
-    <link rel="stylesheet" href="../css/pagination.css">
+    <link rel="stylesheet" href="../css/qc.css">
 </head>
 
 <body>
@@ -33,7 +30,7 @@
         <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
-        <div class="sidebar" data-color="danger" data-background-color="white" data-image="imgs/sidebar-2.jpg">
+        <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!--
                 Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
         
@@ -46,17 +43,14 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="material-icons">security</i>
-                            <p>
-                                权限管理
-                                <b class="caret"></b>
+                            <p>权限管理<b class="caret"></b>
                             </p>
-                        </a>
-                        <div class="collapse show" id="securityManage">
+                        </a><div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor foucsColor">
+                                <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
@@ -69,6 +63,7 @@
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">功能管理</span>
+
                                     </a>
                                 </li>
                             </ul>
@@ -101,9 +96,7 @@
                     <li class="nav-item ">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
-                            <p>
-                                库存管理
-                                <b class="caret"></b>
+                            <p>库存管理<b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="inventoryManage">
@@ -149,7 +142,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="material-icons">bubble_chart</i>
                             <p>
@@ -157,14 +150,14 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="baseManage">
+                        <div class="collapse show" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">价位管理</span>
+                                        <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item hoverColor foucsColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
@@ -185,7 +178,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">权限管理</a>
+                        <a class="navbar-brand" href="#pablo">出库管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -217,6 +210,7 @@
                     </div>
                 </div>
             </nav>
+
             <!-- 主界面内容 -->
             <div class="content">
                 <div class="container-fluid">
@@ -224,160 +218,62 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">角色管理</h4>
+                                    <h4 class="card-title">出库管理</h4>
+                                    <p class="card-category">可对出库情况进行查询</p>
                                 </div>
-                                <div class="card-body">
+                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2" id="input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;&nbsp;查询</button>
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;&nbsp;添加</button>
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
+                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
+                                              &nbsp;
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
                                         </div>
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table" id="table">
-                                            <thead class="text-danger">
+                                        <table class="table">
+                                            <thead class="text-danger">                                               
                                                 <tr>
-                                                    <th>序号</th>
-                                                    <th>职位</th>
-                                                    <th>功能</th>
-                                                    <th class="table-thead-th">操作</th>
+                                                    <td>单编ID</td>                                                  
+                                                    <td>制单时间</td>
+                                                    <td>出库接收组织ID</td>
+                                                    <td>单据总数</td>
+                                                    <td>操作员名称</td>
+                                                    <td>总码洋</td>
+                                                    <td>总实洋</td>
+                                                    <td class="table-thead-th">操作</td>                                                    
                                                 </tr>
                                             </thead>
-                                            <%=getData() %>
-                                        </table>
-                                    </div>
-                                    <div class="copyright float-right page-box">
 
+                                            <tbody>
+                                                <tr>
+                                                    <td>10000001</td>
+                                                    <td>2018-12-23</td>
+                                                    <td>13245</td>
+                                                    <td>56</td>
+                                                    <td>保罗</td>
+                                                    <td>456</td>
+                                                    <td>6546</td>
+                                                     <td>
+                                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp 查看</button>
+                                                        <button class="btn btn-danger btn-sm">&nbsp 删除</button>
+                                                    </td>
+                                                </tr>                                                                                           
+                                            </tbody>
+                                        </table>
+                                    </div> 
+                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
-                                            <%--分页栏--%>
                                         </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!--添加角色模态框-->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="min-width: 800px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加角色</h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table model-table">
-                                <tr>
-                                    <td><span class="model-tab-td-span">角色:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="form-control col-sm-10 input-search" id="addRoleName" placeholder="请输入角色名称">
-                                    </td>
-                                </tr>
-                            </table>
-                            <div class="row">
-                                <table class="table">
-                                    <%for (int i = 0; i < dsFun.Tables[0].Rows.Count; i++)
-                                        {
-                                            if (i == 0)
-                                            {%>
-                                    <tr class="model-tab-function">
-                                        <td style="width: 65px"><span class="model-tab-td-functionSpan">功能:</span></td>
-                                        <td>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" value="">前台销售记录员
-                                                    <span class="form-check-sign">
-                                                        <span class="check functionCheck"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <%}
-                                        else
-                                        { %>
-
-                                    <%}
-                                        } %>
-                                    <tr class="model-tab-function">
-                                        <td></td>
-                                        <td>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" value="">功能一
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="model-tab-function">
-                                        <td></td>
-                                        <td>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" value="">功能一
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="model-tab-function">
-                                        <td></td>
-                                        <td>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" value="">功能一
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--编辑职位模态框-->
-            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">编辑职位</h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table model-table">
-                                <tr>
-                                    <td><span class="model-tab-td-span">职位名:</span></td>
-                                    <td>门卫</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">功能:</span></td>
-                                    <td>门卫</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm">提交</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -395,7 +291,6 @@
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/roleManagement.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>
@@ -403,10 +298,9 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/sweetalert2.js"></script>
     <script src="../js/jquery.pagination.js"></script>
-
+    <script src="../js/bookshelfManagement.js"></script>
 </body>
 
 </html>
-
-
