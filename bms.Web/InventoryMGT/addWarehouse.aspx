@@ -1,10 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addStock.aspx.cs" Inherits="bms.Web.InventoryMGT.addStock" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addWarehouse.aspx.cs" Inherits="bms.Web.InventoryMGT.addWarehouse" %>
 
 <!DOCTYPE html>
 
 <html class="no-js">
 <!--<![endif]-->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -214,7 +213,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">入库添加</h4>
+                                    <h4 class="card-title">出库添加</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
@@ -231,7 +230,7 @@
                                                     <input type="text" value="" class="input_text" placeholder="单据总数"></td>
                                             </tr>
                                             <tr>
-                                                <td class="td_text"><span class="span-text">入库组织:</span></td>
+                                                <td class="td_text"><span class="span-text">出库组织:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="入库组织"></td>
                                                 <td class="td_text"><span class="span-text">商品来源:</span></td>
