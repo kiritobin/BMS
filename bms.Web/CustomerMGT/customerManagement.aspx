@@ -224,10 +224,10 @@
                                         <div class="input-group">
                                            <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" style="width:200px" class="search" placeholder="请输入客户名">
+                                                <input type="text" style="width:200px" class="search" id="search_All" placeholder="请输入客户名">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" id="btnISBNS"><i class="fa fa-search fa-lg"></i>查询</button>
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
@@ -244,8 +244,6 @@
                                                     <th>账号
                                                     </th>
                                                     <th>名称
-                                                    </th>
-                                                    <th>地区
                                                     </th>
                                                     <th class="table-thead-th">重置密码
                                                     </th>
@@ -288,17 +286,6 @@
                                     <td>
                                         <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入名称" id="customerName"></td>
                                 </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
-                                    <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
-                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
-                                                { %>
-                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"].ToString() %></option>
-                                            <%} %>
-                                        </select>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
@@ -326,17 +313,6 @@
                                     <td><span class="model-tab-td-span">客户名称:</span></td>
                                     <td>
                                         <input type="text" value="" class="form-control col-sm-9 input-search editor_name" placeholder="">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">地区:</span></td>
-                                    <td>
-                                        <select class="editor_region" id="editRegion" title="请选择地区" data-style="btn-sm" style="width:200px;">
-                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
-                                                { %>
-                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"].ToString() %></option>
-                                            <%} %>
-                                        </select>
                                     </td>
                                 </tr>
                             </table>
