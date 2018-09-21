@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/demo.css">
@@ -218,14 +219,14 @@
                                         <%-- 表格头部按钮功能组 --%>
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="书名查询">
+                                                <input type="text" value="" class="search" id="bookName" placeholder="书名查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="书号查询">
+                                                <input type="text" value="" class="search" id="bookNum" placeholder="书号查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="ISBN查询">
-                                                <button class="btn btn-info btn-sm" id="btnISBNS"><i class="fa fa-search fa-lg"></i>查询</button>
+                                                <input type="text" value="" class="search" id="bookISBN" placeholder="ISBN查询">
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
@@ -233,7 +234,7 @@
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center">
+                                        <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr class="book-tab-tr">
                                                     <th>序号</th>
@@ -242,7 +243,7 @@
                                                     <th>作者</th>
                                                     <th>定价</th>
                                                     <th>出版日期</th>
-                                                    <th>出版社</th>
+                                                    <th>供应商</th>
                                                     <th>ISBN</th>
                                                     <th>编目</th>
                                                     <th>备注</th>
@@ -250,46 +251,13 @@
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>7115438546</td>
-                                                    <td>bootstrap 入门经典</td>
-                                                    <td>Jennife Kyrnin</td>
-                                                    <td>￥59.00</td>
-                                                    <td>2016年12月第一版</td>
-                                                    <td>人民邮电出版社</td>
-                                                    <td>7115438546</td>
-                                                    <td>B0000001</td>
-                                                    <td>最后一本图书</td>
-                                                    <td>Teach</td>
-                                                    <td>
-                                                        <button class="btn btn-danger">
-                                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
-                                                <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">2</a></li>
-                                                <!--类名active表示当前页 -->
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="4"
-                                                    tabindex="0" class="page-link">3</a></li>
-                                                <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
-                                                <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link">尾页</a></li>
-                                            </ul>
+                                            <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -350,57 +318,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--查看书籍模态框-->
-            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="width: 700px; max-width: 800px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">查看书籍信信息</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="material-icons">clear</i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table table-bordered model-table">
-                                <tr>
-                                    <td><span class="model-tab-td-span">书号:</span></td>
-                                    <td>711543854600000001</td>
-                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">书名:</span></td>
-                                    <td>bootstrap 入门经典</td>
-                                </tr>
-                                <tr>
-                                    <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">作者:</span></td>
-                                    <td>Jennife Kyrnin</td>
-                                    <td><span class="model-tab-td-span">定价:</span></td>
-                                    <td>59.00￥</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">出版日期:</span></td>
-                                    <td>2016年12月第一版</td>
-                                    <td><span class="model-tab-td-span">出版社:</span></td>
-                                    <td>人民邮电出版社</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">ISBN:</span></td>
-                                    <td>7115438546</td>
-                                    <td><span class="model-tab-td-span">编目:</span></td>
-                                    <td>编目</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">标识:</span></td>
-                                    <td>标识9</td>
-                                    <td><span class="model-tab-td-span">备注:</span></td>
-                                    <td>web前端框架</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
                         </div>
                     </div>
                 </div>
@@ -431,6 +349,8 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/bookBasicManagement.js"></script>
     <script>
         $(function () {
             $(".txtVerify").focus(function () {
