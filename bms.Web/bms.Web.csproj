@@ -73,10 +73,10 @@
     <Content Include="bin\bms.Model.pdb" />
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="css\material-dashboard.min.css" />
-    <Content Include="CustomerMGT\uploadCollection.aspx" />
-    <Content Include="InventoryMGT\lnventoryList.aspx" />
-    <Content Include="InventoryMGT\outboundList.aspx" />
-    <Content Include="InventoryMGT\replenishList.aspx" />
+    <Content Include="InventoryMGT\stockManagement.aspx" />
+    <Content Include="InventoryMGT\tradeManagement.aspx" />
+    <Content Include="InventoryMGT\warehouseManagement.aspx" />
+    <Content Include="InventoryMGT\returnManagement.aspx" />
     <Content Include="bin\bms.Bll.dll" />
     <Content Include="bin\bms.Model.dll" />
     <Content Include="css\pagination.css" />
@@ -171,33 +171,33 @@
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CustomerMGT\uploadCollection.aspx.cs">
-      <DependentUpon>uploadCollection.aspx</DependentUpon>
+    <Compile Include="InventoryMGT\stockManagement.aspx.cs">
+      <DependentUpon>stockManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CustomerMGT\uploadCollection.aspx.designer.cs">
-      <DependentUpon>uploadCollection.aspx</DependentUpon>
+    <Compile Include="InventoryMGT\stockManagement.aspx.designer.cs">
+      <DependentUpon>stockManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="InventoryMGT\lnventoryList.aspx.cs">
-      <DependentUpon>lnventoryList.aspx</DependentUpon>
+    <Compile Include="InventoryMGT\tradeManagement.aspx.cs">
+      <DependentUpon>tradeManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="InventoryMGT\lnventoryList.aspx.designer.cs">
-      <DependentUpon>lnventoryList.aspx</DependentUpon>
+    <Compile Include="InventoryMGT\tradeManagement.aspx.designer.cs">
+      <DependentUpon>tradeManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="InventoryMGT\outboundList.aspx.cs">
-      <DependentUpon>outboundList.aspx</DependentUpon>
+    <Compile Include="InventoryMGT\warehouseManagement.aspx.cs">
+      <DependentUpon>warehouseManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="InventoryMGT\outboundList.aspx.designer.cs">
-      <DependentUpon>outboundList.aspx</DependentUpon>
+    <Compile Include="InventoryMGT\warehouseManagement.aspx.designer.cs">
+      <DependentUpon>warehouseManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="InventoryMGT\replenishList.aspx.cs">
-      <DependentUpon>replenishList.aspx</DependentUpon>
+    <Compile Include="InventoryMGT\returnManagement.aspx.cs">
+      <DependentUpon>returnManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="InventoryMGT\replenishList.aspx.designer.cs">
-      <DependentUpon>replenishList.aspx</DependentUpon>
+    <Compile Include="InventoryMGT\returnManagement.aspx.designer.cs">
+      <DependentUpon>returnManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="CommonPage.aspx.cs">
       <DependentUpon>CommonPage.aspx</DependentUpon>

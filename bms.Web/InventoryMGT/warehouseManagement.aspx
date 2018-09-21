@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bookshelfManagement.aspx.cs" Inherits="bms.Web.BasicInfor.bookshelfManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="warehouseManagement.aspx.cs" Inherits="bms.Web.BasicInfor.outboundList" %>
 
 <%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">
 <!--<![endif]-->
-<!--架位管理-->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/qc.css">
 </head>
 
 <body>
@@ -45,12 +46,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="material-icons">security</i>
-                            <p>
-                                权限管理
-                                <b class="caret"></b>
+                            <p>权限管理<b class="caret"></b>
                             </p>
-                        </a>
-                        <div class="collapse" id="securityManage">
+                        </a><div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
@@ -98,9 +96,7 @@
                     <li class="nav-item ">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
-                            <p>
-                                库存管理
-                                <b class="caret"></b>
+                            <p>库存管理<b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="inventoryManage">
@@ -156,12 +152,12 @@
                         </a>
                         <div class="collapse show" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor foucsColor">
+                                <li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item hoverColor foucsColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
@@ -182,7 +178,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">架位管理</a>
+                        <a class="navbar-brand" href="#pablo">出库管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -214,6 +210,7 @@
                     </div>
                 </div>
             </nav>
+
             <!-- 主界面内容 -->
             <div class="content">
                 <div class="container-fluid">
@@ -221,87 +218,62 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">架位管理</h4>
-                                    <p class="card-category">可对组织架位进行操作</p>
+                                    <h4 class="card-title">出库管理</h4>
+                                    <p class="card-category">可对出库情况进行查询</p>
                                 </div>
-                                <div class="card-body">
+                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="search_All1" placeholder="请输入分公司名称">
-                                            &nbsp;&nbsp;&nbsp; 
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="search_All2" placeholder="请输入查询条件">
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                            &nbsp;&nbsp;&nbsp; 
+                                              &nbsp;
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
                                         </div>
                                     </div>
+
                                     <div class="table-responsive">
-                                        <table class="table" id="table">
-                                            <thead class="text-danger">
+                                        <table class="table">
+                                            <thead class="text-danger">                                               
                                                 <tr>
-                                                    <th>序号
-                                                    </th>
-                                                    <th>货架ID
-                                                    </th>
-                                                    <th>货架名称
-                                                    </th>
-                                                    <th>所属地区
-                                                    </th>
-                                                    <th class="table-thead-th">操作
-                                                    </th>
+                                                    <td>单编ID</td>                                                  
+                                                    <td>制单时间</td>
+                                                    <td>出库接收组织ID</td>
+                                                    <td>单据总数</td>
+                                                    <td>操作员名称</td>
+                                                    <td>总码洋</td>
+                                                    <td>总实洋</td>
+                                                    <td class="table-thead-th">操作</td>                                                    
                                                 </tr>
                                             </thead>
-                                            <%=getData() %>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td>10000001</td>
+                                                    <td>2018-12-23</td>
+                                                    <td>13245</td>
+                                                    <td>56</td>
+                                                    <td>保罗</td>
+                                                    <td>456</td>
+                                                    <td>6546</td>
+                                                     <td>
+                                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp 查看</button>
+                                                        <button class="btn btn-danger btn-sm">&nbsp 删除</button>
+                                                    </td>
+                                                </tr>                                                                                           
+                                            </tbody>
                                         </table>
-                                    </div>
-                                    <div class="copyright float-right page-box">
+                                    </div> 
+                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
-                                            <%--分页栏--%>
                                         </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--添加货架模态框-->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加货架
-                            </h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table model-table">
-                                <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">货架所在地区:</span></td>
-                                    <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
-                                             <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
-                                                    { %>
-                                                <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%} %>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">货架名称:</span></td>
-                                    <td>
-                                       <input type="text" value="" class="form-control col-sm-9 input-search" id="shelfName" placeholder="请输入货架名称"> 
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">

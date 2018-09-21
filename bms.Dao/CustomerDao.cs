@@ -14,7 +14,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet select()
         {
-            string cmdText = "select customerID,customerName,customerPwd from T_Customer";
+            string cmdText = "select customerID,customerName,customerPwd,regionId from V_Customer";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if(ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -32,9 +32,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int Insert(Customer customer)
         {
-            string cmdText = "insert into T_Customer(customerID,customerName,customerPwd) values(@customerID,@customerName,@customerPwd)";
-            String[] param = { "@customerID","@customerName", "@customerPwd" };
-            object[] values = { customer.CustomerId.ToString(), customer.CustomerName ,customer.CustomerPwd};
+            string cmdText = "insert into T_Customer(customerID,customerName,customerPwd,regionId) values(@customerID,@customerName,@customerPwd,@regionId)";
+            String[] param = { "@customerID","@customerName", "@customerPwd", "@regionId" };
+            object[] values = { customer.CustomerId.ToString(), customer.CustomerName ,customer.CustomerPwd,customer.RegionId.RegionId};
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
         /// <summary>
@@ -56,9 +56,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int update(Customer customer)
         {
-            string sql = "update T_Customer set customerName=@customerName where customerID=@customerID";
-            string[] param = { "@customerID", "@customerName" };
-            object[] values = { customer.CustomerId.ToString(), customer.CustomerName };
+            string sql = "update T_Customer set customerName=@customerName,regionId=@regionId where customerID=@customerID";
+            string[] param = { "@customerID", "@customerName", "@regionId" };
+            object[] values = { customer.CustomerId.ToString(), customer.CustomerName, customer.RegionId.RegionId.ToString() };
             int row = db.ExecuteNoneQuery(sql, param, values);
             return row;
         }
@@ -81,7 +81,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet getCustomer(int customerID)
         {
-            string cmdText = "select customerID,customerName,customerPwd from T_Customer where customerID=@customerID";
+            string cmdText = "select customerID,customerName,customerPwd,regionId from T_Customer where customerID=@customerID";
             String[] param = { "@customerID" };
             object[] values = { customerID };
             DataSet ds = db.FillDataSet(cmdText, param, values);
