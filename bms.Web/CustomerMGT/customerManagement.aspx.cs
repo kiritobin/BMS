@@ -197,7 +197,6 @@ namespace bms.Web.CustomerMGT
         public void Delete()
         {
             int id = Convert.ToInt32(Request["cutomerId"]);
-            Result row = cbll.Delete(id);
             Result isDelete = cbll.IsDelete("T_LibraryCollection", "customerId", id.ToString());
             if(isDelete == Result.关联引用)
             {
@@ -205,6 +204,7 @@ namespace bms.Web.CustomerMGT
             }
             else
             {
+                Result row = cbll.Delete(id);
                 if (row == Result.删除成功)
                 {
                     Response.Write("删除成功");
@@ -222,7 +222,7 @@ namespace bms.Web.CustomerMGT
         /// </summary>
         public void ResetPwd()
         {
-            int id = Convert.ToInt32(Request["reset"]);
+            int id = Convert.ToInt32(Request["customerid"]);
             string pwd = rasc.Encrypt("000000");
             Result row = cbll.ResetPwd(id, pwd);
                 if(row == Result.更新成功)

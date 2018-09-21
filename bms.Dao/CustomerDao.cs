@@ -98,7 +98,8 @@ namespace bms.Dao
             string sql = "update T_Customer set customerPwd=@customerPwd where customerID=@customerID";
             string[] param = { "@customerID", "@customerPwd" };
             object[] values = { customerID, customerPwd };
-            return db.ExecuteNoneQuery(sql, param, values);
+            int row = db.ExecuteNoneQuery(sql, param, values);
+            return row;
         }
     }
 }

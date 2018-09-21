@@ -47,14 +47,26 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+
         /// <summary>
-        /// 查询所有数据
+        /// 根据角色id查询功能数据
         /// </summary>
+        /// <param name="roleId">角色ID</param>
         /// <returns>返回查询到的表格数据</returns>
+        public DataSet SelectByRoleId(int roleId)
+        {
+            return functiondao.SelectByRoleId(roleId);
+        }
+
+            /// <summary>
+            /// 查询所有数据
+            /// </summary>
+            /// <returns>返回查询到的表格数据</returns>
         public DataSet Select()
         {
             return functiondao.Select();
         }
+
         /// <summary>
         /// 获取分页数据
         /// </summary>

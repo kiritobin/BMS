@@ -15,20 +15,23 @@ namespace bms.Web.AccessMGT
     {
         public int currentPage = 1, pageSize = 3, totalCount, intPageCount;
         public string search, roleId;
-        public DataSet ds;
+        public DataSet dsFun,ds;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
         Role role = new Role();
+        FunctionBll funBll = new FunctionBll();
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
+            dsFun = funBll.Select();
         }
+
         /// <summary>
         /// 获取数据
         /// </summary>
         protected string getData()
         {
-            currentPage = Convert.ToInt32(Request.QueryString["currentPage"]);
+            currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
                 currentPage = 1;
@@ -44,9 +47,9 @@ namespace bms.Web.AccessMGT
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "V_Permission";
+            tbd.StrTable = "T_Role";
             tbd.OrderBy = "roleId";
-            tbd.StrColumnlist = "roleId,roleName,functionName";
+            tbd.StrColumnlist = "roleId,roleName";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
@@ -57,9 +60,19 @@ namespace bms.Web.AccessMGT
             sb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
+                int roleId = Convert.ToInt32(ds.Tables[0].Rows[i]["roleId"].ToString());
+                DataSet dsFunc = funBll.SelectByRoleId(roleId);
+                string function="", functions = "";
+                int k = dsFunc.Tables[0].Rows.Count;
+                for (int j = 0; j < k; j++)
+                {
+                    function = dsFunc.Tables[0].Rows[j]["functionName"].ToString() + "、";
+                    functions = functions + function;
+                }
+                functions = functions.Substring(0, functions.Length - 1);
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["roleName"].ToString() + "</ td >");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["functionName"].ToString() + "</ td >");
+                sb.Append("<td>" + functions + "</ td >");
                 sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " class='roleId' />");
                 sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button>");
                 sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
@@ -74,5 +87,7 @@ namespace bms.Web.AccessMGT
             }
             return sb.ToString();
         }
+
+
     }
 }
