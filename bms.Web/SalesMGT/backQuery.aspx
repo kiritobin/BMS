@@ -31,7 +31,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <h3 class="text-center">销&nbsp;退</h3>
-                        <hr />
+                        <hr />                      
                         <div class="card-body">
                             <div class="card-header card_btn">
                                 <div class="input-group">
@@ -75,6 +75,8 @@
                                                         <button class="btn btn-danger">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                         </button>
+                                                        <button class="btn btn-success"> 
+                                                            <i class="fa fa-print" aria-hidden="true"></i></button> 
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -93,6 +95,15 @@
     <!-- js file -->
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <script>
+    function print(){
+        var printData = $('.bootstrap-table').parent().html();
+        window.document.body.innerHTML = printData;
+        // 开始打印
+        window.print();
+        window.location.reload(true);
+    }</script>
+
 </body>
 
 </html>

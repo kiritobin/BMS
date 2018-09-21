@@ -270,6 +270,8 @@
                                                 </td>
                                             </tr>
                                         </table>
+                                        <button class="btn btn-success">
+                                            <i class="fa fa-print" aria-hidden="true"></i></button> 
                                         <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
