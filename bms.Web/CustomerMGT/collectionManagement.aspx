@@ -281,7 +281,8 @@
                             <table class="table table-bordered text-center model-table">
                                 <tr>
                                     <td>
-                                        <input type="file" class="" name="file" id="file" value="asdfasdfasfasdfasdf" />
+                                        <input type="file" class="" name="file" id="file" value="" />
+                                        <button class="btn btn-success">上传</button>
                                     </td>
                                 </tr>
                                 <tr>
