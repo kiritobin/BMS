@@ -173,6 +173,7 @@
                 </ul>
             </div>
         </div>
+        </div>
         <div class="main-panel">
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -227,7 +228,8 @@
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
                                               &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add1"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销售</button>
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add2"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销退</button>
                                         </div>
                                     </div>
 
@@ -243,7 +245,7 @@
                                                     <td>单价上限</td>
                                                     <td>码洋上限</td>
                                                     <td>开始时间/结束时间</td>
-                                                    <td class="table-thead-th">操作</td>                                                    
+                                                    <td class="table-thead-th">备注</td>                                                    
                                                 </tr>
                                             </thead>
 
@@ -257,14 +259,13 @@
                                                     <td>56</td>
                                                     <td>456</td>
                                                     <td>2018.12.3/2018.12.23</td>
-                                                     <td>
-                                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp 查看</button>
-                                                        <button class="btn btn-danger btn-sm">&nbsp 删除</button>
-                                                    </td>
+                                                    <td></td>
                                                 </tr>                                                                                           
                                             </tbody>
                                         </table>
                                     </div> 
+                                     <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp;销售明细</button>
+                                     <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp;销退明细</button>
                                      <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
