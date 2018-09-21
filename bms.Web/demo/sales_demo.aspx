@@ -14,6 +14,9 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 字体图标样式 -->
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <!-- css file -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link href="../css/zgz.css" rel="stylesheet" />
 </head>
@@ -46,7 +49,7 @@
                             </div>
                             <div class="content_tab col-md-12">
                                     <div class="table-responsive col-md-10">
-                                        <table class="table table-bordered text-center">
+                                        <table class="table mostTable table-bordered text-center">
                                             <thead>
                                                 <tr>
                                                     <th>书号</th>
@@ -68,7 +71,11 @@
                                                     <td>5</td>
                                                     <td>6</td>
                                                     <td>7</td>
-                                                    <td>8</td>
+                                                    <td>
+                                                        <button class="btn btn-danger">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -83,6 +90,7 @@
             </div>
         </div>
     </div>
+    <!-- js file -->
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
 </body>
