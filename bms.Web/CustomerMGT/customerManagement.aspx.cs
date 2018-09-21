@@ -89,9 +89,9 @@ namespace bms.Web.CustomerMGT
             }
 
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "V_Customer";
+            tb.StrTable = "T_Customer";
             tb.OrderBy = "customerID";
-            tb.StrColumnlist = "customerID,customerName,regionId,regionName";
+            tb.StrColumnlist = "customerID,customerName";
             tb.IntPageSize = 3;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
@@ -107,8 +107,6 @@ namespace bms.Web.CustomerMGT
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * 3)) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerID"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
-                //strb.Append("<td>" + ds.Tables[0].Rows[i]["regionId"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
                 strb.Append("<td>" + "<button type='button' class='btn btn-default btn-sm reset_pwd'>" + "重置密码" + "</button>" + " </td>");
                 strb.Append("<td>" + "<button class='btn btn-warning btn-sm btn_Editor' data-toggle='modal' data-target='#myModa2'>" + "<i class='fa fa-pencil fa-lg'></i>" + "&nbsp 编辑" + "</button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>&nbsp 删除" + "</button>" + " </td></tr>");
