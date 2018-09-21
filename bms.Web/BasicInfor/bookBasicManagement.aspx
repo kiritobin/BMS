@@ -224,12 +224,6 @@
                                                 <input type="text" value="" class="search" placeholder="书号查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="标识查询">
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="备注查询">
-                                            </div>
-                                            <div class="btn-group" role="group">
                                                 <input type="text" value="" class="search" placeholder="ISBN查询">
                                                 <button class="btn btn-info btn-sm" id="btnISBNS"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
@@ -306,7 +300,7 @@
             </div>
             <!--添加书籍模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="min-width:700px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">添加书籍</h4>
