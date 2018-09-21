@@ -37,7 +37,7 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
              <div class="sidebar-wrapper">
@@ -111,17 +111,17 @@
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="warehouseManagement.aspx">
-                                        <span class="sidebar-normal">出库</span>
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="stockManagement.aspx">
-                                        <span class="sidebar-normal">入库</span>
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="returnManagement.aspx">
-                                        <span class="sidebar-normal">退货</span>
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -139,7 +139,7 @@
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销</span>
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -175,10 +175,7 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">架位管理</a>
-                    </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                    <button class="navbar-toggler pull-right" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="navbar-toggler-icon icon-bar"></span>
@@ -216,33 +213,34 @@
                             <div class="card">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title ">架位管理</h4>
-                                    <p class="card-category">可对组织架位进行操作</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="search_region" placeholder="请输入分公司名称">
-                                            &nbsp;&nbsp;&nbsp; 
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="search_goods" placeholder="请输入货架名称">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                            &nbsp;&nbsp;&nbsp; 
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                        <!-- 表格头部按钮功能组 -->
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="searchOne" placeholder="请输入分公司名称">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="searchOne" placeholder="请输入货架名称">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-info btn-sm" id="btnISBNS">查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table" id="table">
-                                            <thead class="text-danger">
+                                        <table class="table text-center table-bordered mostTable" id="table">
+                                            <thead>
                                                 <tr>
-                                                    <th>序号
-                                                    </th>
-                                                    <th>货架ID
-                                                    </th>
-                                                    <th>货架名称
-                                                    </th>
-                                                    <th>所属地区
-                                                    </th>
-                                                    <th class="table-thead-th">操作
-                                                    </th>
+                                                    <th>序号</th>
+                                                    <th>货架ID</th>
+                                                    <th>货架名称</th>
+                                                    <th>所属地区</th>
+                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
@@ -265,15 +263,17 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加货架
-                            </h4>
+                            <h4 class="modal-title float-left" id="myModalLabel">添加货架</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">货架所在地区:</span></td>
+                                    <td class="text-right"><span>货架所在地区:</span></td>
                                     <td>
-                                        <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="model-select-region">
+                                        <select class="modal_select" title="请选择地区" data-style="btn-sm" id="model-select-region">
                                              <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
                                                     { %>
                                                 <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"] %></option>
@@ -282,15 +282,14 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">货架名称:</span></td>
+                                    <td class="text-right"><span>货架名称:</span></td>
                                     <td>
-                                       <input type="text" value="" class="form-control col-sm-9 input-search" id="shelfName" placeholder="请输入货架名称"> 
+                                       <input type="text" value="" class="modal_search" id="shelfName" placeholder="请输入货架名称"> 
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
                         </div>
                     </div>
@@ -304,9 +303,7 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>
-                        , made with <i class="material-icons">favorite</i> by
-                        <a href="javascript:;" target="_blank"></a>for a better web.
+                        </script>&nbsp;版权所有
                     </div>
                 </div>
             </footer>

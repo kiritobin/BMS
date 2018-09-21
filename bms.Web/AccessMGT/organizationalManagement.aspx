@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/pagination.css">
+    <link rel="stylesheet" href="../css/demo.css"/>
 </head>
 
 <body>
@@ -29,7 +30,7 @@
         <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
-        <div class="sidebar" data-color="danger" data-background-color="white" data-image="imgs/sidebar-2.jpg">
+        <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!--
                 Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
         
@@ -37,7 +38,7 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -52,22 +53,22 @@
                         </a>
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
@@ -86,12 +87,12 @@
                         </a>
                         <div class="collapse" id="userManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
@@ -109,19 +110,19 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="warehouseManagement.aspx">
-                                        <span class="sidebar-normal">出库</span>
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="stockManagement.aspx">
-                                        <span class="sidebar-normal">入库</span>
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="returnManagement.aspx">
-                                        <span class="sidebar-normal">退货</span>
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -137,9 +138,9 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销</span>
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -155,12 +156,12 @@
                         </a>
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
@@ -213,27 +214,26 @@
                             <div class="card">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title ">组织管理</h4>
-                                    <p class="card-category">可对组织进行操作</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" id="input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
-                                            &nbsp
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" class="searchOne" placeholder="请输入查询条件" id="">
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table" id="table">
-                                            <thead class="text-danger">
+                                        <table class="table mostTable table-bordered" id="table">
+                                            <thead class="text-center">
                                                 <tr>
-                                                    <th>序号
-                                                    </th>
-                                                    <th>组织名称
-                                                    </th>                                                   
-                                                    <th class="table-thead-th">操作
-                                                    </th>
+                                                    <th>序号</th>
+                                                    <th>组织名称</th>
+                                                    <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
@@ -241,7 +241,8 @@
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div> <%--分页栏--%>
+                                            <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -255,26 +256,23 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加分公司
-                            </h4>
+                            <h4 class="modal-title float-left" id="myModalLabel">添加分公司</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
                         </div>
                         <div class="modal-body">
-                            <table class="table model-table">
-                                <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">分公司名称:</span></td>
-                                    <td><input type="text" id="int-Name" /></td>
-                                </tr>
-                            </table>
+                            <div class="text-center">
+                                <span>分公司名称：</span>&nbsp;&nbsp;<input class="modal_search" type="text" id="int-Name" />
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
-           <!-- 主界面页脚部分 -->
+            <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
                     <!-- 版权内容 -->
@@ -289,6 +287,7 @@
                 </div>
             </footer>
         </div>
+    </div>
 
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/organizationalManagement.js"></script>
@@ -298,8 +297,13 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <!-- selectpicker.js -->
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
+    <!-- alert.js -->
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/demo.js"></script>
 </body>
 
 </html>

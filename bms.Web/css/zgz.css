@@ -77,6 +77,13 @@
     border: 1px solid #ccc;
 }
 
+/* 模态框组件样式 */
+.modal_search, .modal_select {
+    border: 1px solid #ccc;
+    color: dimgray;
+    width: 240px;
+}
+
 /* 销售单页面样式 */
 .table-responsive > .table-bordered {
     border: 1px solid rgba(0,0,0,.06);
@@ -102,4 +109,9 @@
 
 .card_btn {
     margin-left: 10px;
+}
+
+/* 设置按钮组对齐样式 */
+.card-header {
+    padding-left: 0px;
 }
