@@ -72,74 +72,6 @@
             }
         });
     });
-    //下拉查询
-    //$("#select-region").change(function () {
-    //    var region = $("#select-region").find("option:selected").val();
-    //    var search = $("#search_All").val().trim();
-    //    $.ajax({
-    //        type: 'Post',
-    //        url: 'customerManagement.aspx',
-    //        data: {
-    //            region: region,
-    //            search: search,
-    //            op: "paging"
-    //        },
-    //        dataType: 'text',
-    //        success: function (data) {
-    //            $("#intPageCount").remove();
-    //            $("#table tr:not(:first)").empty(); //清空table处首行
-    //            $("#table").append(data); //加载table
-    //            $(".paging").empty();
-    //            $(".paging").pagination({
-    //                pageCount: $("#intPageCount").val(), //总页数
-    //                jump: true,
-    //                mode: 'fixed',//固定页码数量
-    //                coping: true,
-    //                homePage: '首页',
-    //                endPage: '尾页',
-    //                prevContent: '上页',
-    //                nextContent: '下页',
-    //                callback: function (api) {
-    //                    $.ajax({
-    //                        type: 'Post',
-    //                        url: 'customerManagement.aspx',
-    //                        data: {
-    //                            page: api.getCurrent(), //页码
-    //                            region: region,
-    //                            search: search,
-    //                            op: "paging"
-    //                        },
-    //                        dataType: 'text',
-    //                        success: function (data) {
-    //                            $("#table tr:not(:first)").empty(); //清空table处首行
-    //                            $("#table").append(data); //加载table
-    //                        }
-    //                    });
-    //                }
-    //            })
-    //        }
-    //    });
-    //})
-
-    //$("#select-region").change(function () {
-    //    var regionId = $("#select-region").find("option:selected").val();
-    //    sessionStorage.setItem("region", regionId);
-    //    if (sessionStorage.getItem("strWhere") != null) {
-    //        sessionStorage.removeItem("strWhere");
-    //    }
-    //    jump(1);
-    //})
-    //按钮查询
-    //$("#btn-search").click(function () {
-    //    var str = $("#search_All").val();
-    //    sessionStorage.setItem("strWhere", str);
-    //    jump(1);
-    //})
-
-    ////地址栏传值
-    //function jump(curr) {
-    //    window.location.href = "customerManagement.aspx?currentPage=" + curr;
-    //}
 
     //添加客户
     $("#btnAdd").click(function () {
@@ -201,7 +133,6 @@
     $(".sava_Editor").click(function () {
         var custId = $(".editor_id").text();
         var custName = $(".editor_name").val();
-        var regId = $("#editRegion").find("option:selected").val();
         $.ajax({
             type: 'Post',
             url: 'customerManagement.aspx',
@@ -244,7 +175,7 @@
     })
     //删除
     $("#table").delegate(".btn_delete", "click", function () {
-        var custId = $(this).parent().prev().prev().prev().prev().text().trim();
+        var custId = $(this).parent().prev().prev().prev().text().trim();
         //弹窗
         swal({
             title: "是否删除？",
@@ -300,15 +231,9 @@
             })
         })
     })
-    //判断当删除最后一页最后一条信息时，当前也自动跳到上一页
-    //if (parseInt(sessionStorage.getItem("curPage")) > parseInt(sessionStorage.getItem("totalPage"))) {
-    //    {
-    //        jump(parseInt(sessionStorage.getItem("curPage")) - 1);
-    //    }
-    //}
     //重置密码
     $("#table").delegate(".reset_pwd", "click", function () {
-        var custId = $(this).parent().prev().prev().prev().prev().text().trim();
+        var custId = $(this).parent().prev().prev().text().trim();
         swal({
             title: "是否重置？",
             text: "重置后将无法恢复！！！",
