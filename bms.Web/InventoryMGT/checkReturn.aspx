@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addStock.aspx.cs" Inherits="bms.Web.InventoryMGT.addStock" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="checkReturn.aspx.cs" Inherits="bms.Web.InventoryMGT.checkReturn" %>
 
 <!DOCTYPE html>
 
@@ -214,7 +214,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">入库添加</h4>
+                                    <h4 class="card-title">退货查询</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
@@ -231,7 +231,7 @@
                                                     <input type="text" value="" class="input_text" placeholder="单据总数"></td>
                                             </tr>
                                             <tr>
-                                                <td class="td_text"><span class="span-text">入库组织:</span></td>
+                                                <td class="td_text"><span class="span-text">退货组织:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="入库组织"></td>
                                                 <td class="td_text"><span class="span-text">商品来源:</span></td>
@@ -291,8 +291,7 @@
                                                     <td>商品数量</td>
                                                     <td>单价</td>
                                                     <td>折扣</td>
-                                                    <td>实洋</td>
-                                                    <td>码洋</td>
+                                                    <td>实洋</td>                                         
                                                     <td>货架号</td>
                                                 </tr>
                                             </thead>
@@ -305,7 +304,6 @@
                                                     <td>30￥</td>
                                                     <td>0.6</td>
                                                     <td>23</td>
-                                                    <td>34</td>
                                                     <td>货架一</td>
                                                 </tr>
                                                 <tr>
@@ -316,7 +314,6 @@
                                                     <td>30￥</td>
                                                     <td>0.6</td>
                                                     <td>23</td>
-                                                    <td>34</td>
                                                     <td>货架一</td>
                                                 </tr>
                                             </tbody>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addStock.aspx.cs" Inherits="bms.Web.InventoryMGT.addStock" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="checkStock.aspx.cs" Inherits="bms.Web.InventoryMGT.checkStock" %>
 
 <!DOCTYPE html>
 
@@ -214,7 +214,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">入库添加</h4>
+                                    <h4 class="card-title">入库查询</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
