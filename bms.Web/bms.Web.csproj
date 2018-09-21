@@ -74,9 +74,9 @@
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
+    <Content Include="demo\sales_demo.aspx" />
     <Content Include="InventoryMGT\addStock.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
-    <Content Include="InventoryMGT\tradeManagement.aspx" />
     <Content Include="InventoryMGT\warehouseManagement.aspx" />
     <Content Include="InventoryMGT\returnManagement.aspx" />
     <Content Include="bin\bms.Bll.dll" />
@@ -129,6 +129,7 @@
     <Content Include="login.aspx" />
     <Content Include="main.aspx" />
     <Content Include="demo\paging.html" />
+    <Content Include="SalesMGT\tradeManagement.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +175,13 @@
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
     </Compile>
+    <Compile Include="demo\sales_demo.aspx.cs">
+      <DependentUpon>sales_demo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="demo\sales_demo.aspx.designer.cs">
+      <DependentUpon>sales_demo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InventoryMGT\addStock.aspx.cs">
       <DependentUpon>addStock.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -187,13 +195,6 @@
     </Compile>
     <Compile Include="InventoryMGT\stockManagement.aspx.designer.cs">
       <DependentUpon>stockManagement.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="InventoryMGT\tradeManagement.aspx.cs">
-      <DependentUpon>tradeManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="InventoryMGT\tradeManagement.aspx.designer.cs">
-      <DependentUpon>tradeManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\warehouseManagement.aspx.cs">
       <DependentUpon>warehouseManagement.aspx</DependentUpon>
@@ -248,6 +249,13 @@
       <DependentUpon>main.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesMGT\tradeManagement.aspx.cs">
+      <DependentUpon>tradeManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\tradeManagement.aspx.designer.cs">
+      <DependentUpon>tradeManagement.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\bms.Web.dll.config" />
@@ -280,7 +288,6 @@
   <ItemGroup>
     <Folder Include="Customer\" />
     <Folder Include="obj\Debug\TempPE\" />
-    <Folder Include="SalesMGT\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bms.Bll\bms.Bll.csproj">

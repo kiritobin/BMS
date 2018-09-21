@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="tradeManagement.aspx.cs" Inherits="bms.Web.InventoryMGT.tradeManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="tradeManagement.aspx.cs" Inherits="bms.Web.SalesMGT.tradeManagement" %>
 
 <%="" %>
 <!DOCTYPE html>
@@ -41,7 +41,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
                 </a>
             </div>
-           <div class="sidebar-wrapper">
+          <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -100,7 +100,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
                             <p>
@@ -108,27 +108,27 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="inventoryManage">
+                        <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="warehouseManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="stockManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="returnManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="material-icons">library_books</i>
                             <p>
@@ -136,7 +136,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="saleManage">
+                        <div class="collapse show" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="tradeManagement.aspx">
@@ -172,13 +172,12 @@
                 </ul>
             </div>
         </div>
-        </div>
         <div class="main-panel">
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">营销管理</a>
+                        <a class="navbar-brand" href="#pablo">出库管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -210,72 +209,72 @@
                     </div>
                 </div>
             </nav>
-
             <!-- 主界面内容 -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header card-header-danger">
-                                    <h4 class="card-title">营销管理</h4>
-                                    <p class="card-category">对销售、销退情况进行查询</p>
-                                </div>
-                                 <div class="card-body">
-                                    <div class="card-header from-group">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                              &nbsp;
+            <!-- 主界面内容 -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title">营销管理</h4>
+                                <p class="card-category">对销售、销退情况进行查询</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-header from-group">
+                                    <div class="input-group no-border">
+                                        <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
+                                        <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
+                                        &nbsp;
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add1"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销售</button>
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add2"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销退</button>
-                                        </div>
+                                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add2"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销退</button>
                                     </div>
+                                </div>
 
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="text-danger">                                               
-                                                <tr>
-                                                    <td>任务ID</td>                                                                                                      
-                                                    <td>任务ID</td>
-                                                    <td>默认折扣</td>
-                                                    <td>默认复本</td>                                                    
-                                                    <td>最大采购数</td>
-                                                    <td>单价上限</td>
-                                                    <td>码洋上限</td>
-                                                    <td>开始时间/结束时间</td>
-                                                    <td class="table-thead-th">备注</td>                                                    
-                                                </tr>
-                                            </thead>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="text-danger">
+                                            <tr>
+                                                <td>任务ID</td>
+                                                <td>任务ID</td>
+                                                <td>默认折扣</td>
+                                                <td>默认复本</td>
+                                                <td>最大采购数</td>
+                                                <td>单价上限</td>
+                                                <td>码洋上限</td>
+                                                <td>开始时间/结束时间</td>
+                                                <td class="table-thead-th">备注</td>
+                                            </tr>
+                                        </thead>
 
-                                            <tbody>
-                                                <tr>
-                                                    <td>10000001</td>
-                                                    <td>3245554</td>
-                                                    <td>60%</td>
-                                                    <td></td>                                                   
-                                                    <td>435</td>
-                                                    <td>56</td>
-                                                    <td>456</td>
-                                                    <td>2018.12.3/2018.12.23</td>
-                                                    <td></td>
-                                                </tr>                                                                                           
-                                            </tbody>
-                                        </table>
-                                    </div> 
-                                     <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp;销售明细</button>
-                                     <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp;销退明细</button>
-                                     <div class="copyright float-right page-box">
-                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div>
-                                        </div>
+                                        <tbody>
+                                            <tr>
+                                                <td>10000001</td>
+                                                <td>3245554</td>
+                                                <td>60%</td>
+                                                <td></td>
+                                                <td>435</td>
+                                                <td>56</td>
+                                                <td>456</td>
+                                                <td>2018.12.3/2018.12.23</td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp;销售明细</button>
+                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp;销退明细</button>
+                                <div class="copyright float-right page-box">
+                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                        <div class="m-style paging"></div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                
+
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">

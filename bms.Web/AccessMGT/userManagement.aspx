@@ -56,24 +56,20 @@
                         </a>
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../AccessMGT/userManagement.aspx">
+                                <li class="nav-item hoverColor foucsColor">
+                                    <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
+                                    <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
+                                    <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">功能管理</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
-                                        <span class="sidebar-normal">组织管理</span>
+
                                     </a>
                                 </li>
                             </ul>
@@ -91,19 +87,19 @@
                         <div class="collapse" id="userManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
+                                    <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
+                                    <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item ">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
                             <p>
@@ -114,17 +110,17 @@
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="warehouseManagement.aspx">
+                                    <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">出库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="stockManagement.aspx">
+                                    <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">入库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="returnManagement.aspx">
+                                    <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">退货</span>
                                     </a>
                                 </li>
@@ -142,8 +138,13 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销</span>
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">销售</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">销退</span>
                                     </a>
                                 </li>
                             </ul>
@@ -160,13 +161,18 @@
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
-                                        <span class="sidebar-normal">架位管理</span>
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">价位管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
+                                    <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item hoverColor">
+                                    <a class="nav-link" href="javascript:;">
+                                        <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -222,33 +228,28 @@
                                 <div class="card-body">
                                     <!--查询区域-->
                                     <div class="card-header from-group">
-                                        <div class="input-group no-border">
-                                            <select class="selectpicker" title="请选择分公司" data-style="btn-sm" id="select-region">
-                                                <option value="">请选择分公司</option>
-                                                <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
-                                                    { %>
-                                                <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                <%}%>
-                                            </select>
-                                            &nbsp
-                                            <select class="selectpicker" title="请选择职位" data-style="btn-sm" id="select-role">
-                                                <option value="">请选择职位</option>
-                                                <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
-                                                    {%>
-                                                <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
-                                                <%}%>
-                                            </select>
-                                            &nbsp &nbsp
-                                            <input type="text" value="" class="form-control col-sm-2" id="input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp 查询</button>
-                                            &nbsp
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" placeholder="请输入分公司">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" placeholder="请输入职位">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" placeholder="请输入用户名">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-info btn-sm" id="btnISBNS"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <!--数据展示区-->
                                     <div class="table-responsive">
-                                        <table class="table" id="table">
-                                            <thead class="text-danger">
+                                        <table class="table mostTable table-bordered text-center" id="table">
+                                            <thead>
                                                 <tr>
                                                     <th>序号</th>
                                                     <th>账号</th>
@@ -258,13 +259,24 @@
                                                     <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>
-                                            <%= getData() %>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>1001</td>
+                                                <td>张杰</td>
+                                                <td>嵩明新华书店</td>
+                                                <td>入库管理员</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm btn-edit" data-toggle="modal" data-target="#myModa2"><i class="fa fa-pencil fa-lg"></i>&nbsp 编辑</button>
+                                                    <button class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash-o fa-lg"></i>&nbsp 删除</button>
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
                                     <!--分页-->
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div> <%--分页栏--%>
+                                            <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -296,7 +308,8 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">分公司:</span></td>
                                     <td>
-                                        <select class="" title="请选择分公司" data-style="btn-sm" id="model-select-region">
+                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;"id="model-select-region">
+                                            <option value="">请选择分公司</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -307,8 +320,9 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">职位:</span></td>
                                     <td>
-                                        <select class="" title="请选择职位" data-style="btn-sm" id="model-select-role">
-                                            <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
+                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;" id="model-select-role">
+                                           <option value="">请选择职位</option>
+                                             <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
                                             <%}%>
@@ -352,7 +366,8 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">分公司:</span></td>
                                     <td>
-                                        <select class="" id="editRegion" title="请选择分公司" data-style="btn-sm">
+                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;"id="editRegion">
+                                            <option value="">请选择分公司</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 { %>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -363,8 +378,9 @@
                                 <tr>
                                     <td><span class="model-tab-td-span">职位:</span></td>
                                     <td>
-                                        <select class="" id="editRole" title="请选择职位" data-style="btn-sm">
-                                            <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
+                                        <select class="" id="editRole" style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;">
+                                           <option value="">请选择职位</option>
+                                             <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRole.Tables[0].Rows[i]["roleId"] %>"><%=dsRole.Tables[0].Rows[i]["roleName"] %></option>
                                             <%} %>
@@ -410,7 +426,7 @@
     <script src="../js/demo.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script>
-</script>
+    </script>
 </body>
 
 </html>
