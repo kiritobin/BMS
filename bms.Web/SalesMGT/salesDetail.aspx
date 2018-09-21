@@ -75,6 +75,8 @@
                                                         <button class="btn btn-danger">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                         </button>
+                                                        <button class="btn btn-success"> 
+                                                            <i class="fa fa-print" aria-hidden="true"></i></button> 
                                                     </td>
                                                 </tr>
                                             </tbody>
