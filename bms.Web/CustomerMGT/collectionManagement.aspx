@@ -315,7 +315,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <img src="../imgs/loading.gif" />
+                           <img style="width:450px;height:300px;" src="../imgs/loading.gif" />
                         </div>
                     </div>
                 </div>
