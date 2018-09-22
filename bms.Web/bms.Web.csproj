@@ -76,6 +76,7 @@
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="CustomerMGT\uploadCollection.aspx" />
     <Content Include="demo\sales_demo.aspx" />
+    <Content Include="imgs\loading.gif" />
     <Content Include="InventoryMGT\addReturn.aspx" />
     <Content Include="InventoryMGT\addStock.aspx" />
     <Content Include="InventoryMGT\addWarehouse.aspx" />
