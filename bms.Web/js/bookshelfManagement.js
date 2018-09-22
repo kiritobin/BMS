@@ -33,14 +33,14 @@
     $("#btn-search").click(function () {
         var region = $("#search_region").val().trim();
         var goods = $("#search_goods").val().trim();
-    $.ajax({
-        type: 'Post',
-        url: 'bookshelfManagement.aspx',
+        $.ajax({
+            type: 'Post',
+            url: 'bookshelfManagement.aspx',
             data: {
                 region: region,
                 goods: goods,
                 op: "paging"
-                },
+            },
             dataType: 'text',
             success: function (data) {
                 $("#intPageCount").remove();
@@ -74,18 +74,18 @@
                         });
                     }
                 });
-                }
-            })
-            })
+            }
+        })
+    })
 
     //删除按钮事件
     $("#table").delegate(".btn_delete", "click", function () {
         var shelId = $(this).parent().prev().prev().prev().text();
         //弹窗
         swal({
-            title: "是否删除？",
-            text: "删除了将无法恢复！！！",
-            type: "question",
+            title: "温馨提示:)",
+            text: "您确定要删除该条货架信息吗？删除将无法回复",
+            type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -139,46 +139,57 @@
 
     //添加按钮事件
     $("#btnAdd").click(function () {
-        var region = $("#model-select-region").find("option:selected").val();
-        var shelfName = $("#shelfName").val();
-        $.ajax({
-            type: 'Post',
-            url: 'bookshelfManagement.aspx',
-            data: {
-                regionId: region,
-                shelfName: shelfName,
-                op: "add"
-            },
-            dataType: 'text',
-            success: function (succ) {
-                if (succ == "添加成功") {
-                    swal({
-                        title: succ,
-                        text: succ,
-                        type: "success",
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: '确定',
-                        confirmButtonClass: 'btn btn-success',
-                        buttonsStyling: false,
-                        allowOutsideClick: false
-                    }).then(function () {
-                        window.location.reload();
-                    })
-                } else {
-                    swal({
-                        title: succ,
-                        text: succ,
-                        type: "success",
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: '确定',
-                        confirmButtonClass: 'btn btn-success',
-                        buttonsStyling: false,
-                        allowOutsideClick: false
-                    }).then(function () {
-                        window.location.reload();
-                    })
+        var region = $("#model-select-region").find("option:selected").val().trim();
+        var shelfName = $("#shelfName").val().trim();
+        if (region == "" || shelfName == "") {
+            swal({
+                title: "温馨提示:)",
+                text: "信息不完整，请确认后再次添加!",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else {
+            $.ajax({
+                type: 'Post',
+                url: 'bookshelfManagement.aspx',
+                data: {
+                    regionId: region,
+                    shelfName: shelfName,
+                    op: "add"
+                },
+                dataType: 'text',
+                success: function (succ) {
+                    if (succ == "添加成功") {
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
+                    } else {
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
+                    }
                 }
-            }
-        })
+            })
+        }
     })
 })

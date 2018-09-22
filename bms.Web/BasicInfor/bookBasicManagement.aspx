@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/demo.css">
@@ -39,7 +40,7 @@
             <div class="logo">
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台</a>
             </div>
-             <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -51,22 +52,22 @@
                         </a>
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
@@ -85,12 +86,12 @@
                         </a>
                         <div class="collapse" id="userManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
@@ -108,17 +109,17 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="stockManagement.aspx">
                                         <span class="sidebar-normal">入库</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="returnManagement.aspx">
                                         <span class="sidebar-normal">退货</span>
                                     </a>
@@ -136,7 +137,7 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="tradeManagement.aspx">
                                         <span class="sidebar-normal">营销</span>
                                     </a>
@@ -154,12 +155,12 @@
                         </a>
                         <div class="collapse show" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
@@ -218,20 +219,14 @@
                                         <%-- 表格头部按钮功能组 --%>
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="书名查询">
+                                                <input type="text" value="" class="search" id="bookName" placeholder="书名查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="书号查询">
+                                                <input type="text" value="" class="search" id="bookNum" placeholder="书号查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="标识查询">
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="备注查询">
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="ISBN查询">
-                                                <button class="btn btn-info btn-sm" id="btnISBNS"><i class="fa fa-search fa-lg"></i>查询</button>
+                                                <input type="text" value="" class="search" id="bookISBN" placeholder="ISBN查询">
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
@@ -239,7 +234,7 @@
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center">
+                                        <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr class="book-tab-tr">
                                                     <th>序号</th>
@@ -248,7 +243,7 @@
                                                     <th>作者</th>
                                                     <th>定价</th>
                                                     <th>出版日期</th>
-                                                    <th>出版社</th>
+                                                    <th>供应商</th>
                                                     <th>ISBN</th>
                                                     <th>编目</th>
                                                     <th>备注</th>
@@ -256,46 +251,13 @@
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>7115438546</td>
-                                                    <td>bootstrap 入门经典</td>
-                                                    <td>Jennife Kyrnin</td>
-                                                    <td>￥59.00</td>
-                                                    <td>2016年12月第一版</td>
-                                                    <td>人民邮电出版社</td>
-                                                    <td>7115438546</td>
-                                                    <td>B0000001</td>
-                                                    <td>最后一本图书</td>
-                                                    <td>Teach</td>
-                                                    <td>
-                                                        <button class="btn btn-danger">
-                                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item first" id="datatables_first"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="0" tabindex="0" class="page-link">首页</a></li>
-                                                <li class="paginate_button page-item previous" id="datatables_previous"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="1" tabindex="0" class="page-link">上一页</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="3"
-                                                    tabindex="0" class="page-link">2</a></li>
-                                                <!--类名active表示当前页 -->
-                                                <li class="paginate_button page-item"><a href="#" aria-controls="datatables" data-dt-idx="4"
-                                                    tabindex="0" class="page-link">3</a></li>
-                                                <li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="6" tabindex="0" class="page-link">下一页</a></li>
-                                                <li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables"
-                                                    data-dt-idx="7" tabindex="0" class="page-link">尾页</a></li>
-                                            </ul>
+                                            <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -306,107 +268,88 @@
             </div>
             <!--添加书籍模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="min-width: 1000px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加书籍</h4>
+                            <h4 class="modal-title float-left" id="myModalLabel">基础数据导入导入</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                 <i class="material-icons">clear</i>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <table class="table model-table">
+                        <div class="modal-body" style="max-height: 500px; overflow: auto;">
+                            <table class="table text-center model-table">
                                 <tr>
-                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">书名:</span></td>
                                     <td>
-                                        <input type="text" value="" name="书名" class="col-sm-12 txtTitle txtVerify"></td>
-                                    <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">作者:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="作者" class="col-sm-12 txtAuthor txtVerify"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">定价:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="定价" class="col-sm-12 txtPrice txtVerify"></td>
-                                    <td><span class="model-tab-td-span">出版日期:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="出版日期" class="col-sm-12 txtTime txtVerify"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">出版社:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="出版社" class="col-sm-12 txtPress txtVerify"></td>
-                                    <td><span class="model-tab-td-span">ISBN:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="ISBN" class="col-sm-12 txtISBN txtVerify"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">编目:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="编目" class="col-sm-12 txtCatalogue txtVerify"></td>
-                                    <td><span class="model-tab-td-span">标识:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="标识" class="col-sm-12 txtId txtVerify"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">备注:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="col-sm-12 remarks"></td>
+                                        <button class="btn btn-success" id="downEx">下载模板</button>
+                                        <span class="btn btn-success fileinput-button">
+                                            <span>选择文件</span>
+                                            <input type="file" style="">
+                                        </span>
+                                        <button class="btn btn-success" id="upload">上传</button>
+                                        <button type="submit" class="btn btn-success" id="btn_import">导入</button>
+                                    </td>
                                 </tr>
                             </table>
+                            <div style="">
+                                <table class="table mostTable table-bordered" id="bookBasicModal_table">
+                                    <thead>
+                                        <tr>
+                                            <td colspan="11" class="text-center">
+                                                <h4>重复数据</h4>
+                                            </td>
+                                        </tr>
+                                        <tr class="book-tab-tr">
+                                            <th>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" />
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </th>
+                                            <th>书号</th>
+                                            <th>书名</th>
+                                            <th>作者</th>
+                                            <th>定价</th>
+                                            <th>出版日期</th>
+                                            <th>供应商</th>
+                                            <th>ISBN</th>
+                                            <th>编目</th>
+                                            <th>备注</th>
+                                            <th>标识</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="book-tab-tr">
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" />
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>10000000000006</td>
+                                            <td>java</td>
+                                            <td>aouther</td>
+                                            <td>65￥</td>
+                                            <td>2015</td>
+                                            <td>新华书店</td>
+                                            <td>152255555553</td>
+                                            <td>湫隘说就</td>
+                                            <td>备注</td>
+                                            <td>标识</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--查看书籍模态框-->
-            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="width: 700px; max-width: 800px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">查看书籍信信息</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="material-icons">clear</i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table table-bordered model-table">
-                                <tr>
-                                    <td><span class="model-tab-td-span">书号:</span></td>
-                                    <td>711543854600000001</td>
-                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">书名:</span></td>
-                                    <td>bootstrap 入门经典</td>
-                                </tr>
-                                <tr>
-                                    <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">作者:</span></td>
-                                    <td>Jennife Kyrnin</td>
-                                    <td><span class="model-tab-td-span">定价:</span></td>
-                                    <td>59.00￥</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">出版日期:</span></td>
-                                    <td>2016年12月第一版</td>
-                                    <td><span class="model-tab-td-span">出版社:</span></td>
-                                    <td>人民邮电出版社</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">ISBN:</span></td>
-                                    <td>7115438546</td>
-                                    <td><span class="model-tab-td-span">编目:</span></td>
-                                    <td>编目</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">标识:</span></td>
-                                    <td>标识9</td>
-                                    <td><span class="model-tab-td-span">备注:</span></td>
-                                    <td>web前端框架</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" id="btnAdd">导入选中</button>
                         </div>
                     </div>
                 </div>
@@ -419,9 +362,7 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>
-                        , made with <i class="material-icons">favorite</i> by
-                        <a href="javascript:;" target="_blank"></a>for a better web.
+                        </script>&nbsp;版权所有
                     </div>
                 </div>
             </footer>
@@ -437,6 +378,8 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/bookBasicManagement.js"></script>
     <script>
         $(function () {
             $(".txtVerify").focus(function () {

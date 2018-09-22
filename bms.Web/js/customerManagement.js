@@ -75,51 +75,57 @@
 
     //添加客户
     $("#btnAdd").click(function () {
-        var id = $("#customerId").val();
-        var name = $("#customerName").val();
+        var id = $("#customerId").val().trim();
+        var name = $("#customerName").val().trim();
         if (id == "" || name == "") {
-            alert("账号、姓名都不能为空！");
+            swal({
+                title: "温馨提示:)",
+                text: "信息不完整，请确认后再次添加!",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
         }
         else {
-        $.ajax({
-            type: 'Post',
-            url: 'customerManagement.aspx',
-            data: {
-                customerId: id,
-                cutomerName: name,
-                op: "add"
-            },
-            dataType: 'text',
-            success: function (succ) {
-                if (succ == "添加成功") {
-                    swal({
-                        title: succ,
-                        text: succ,
-                        type: "success",
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: '确定',
-                        confirmButtonClass: 'btn btn-success',
-                        buttonsStyling: false,
-                        allowOutsideClick: false
-                    }).then(function () {
-                        window, location.reload();
-                    })
-                } else {
-                    swal({
-                        title: succ,
-                        text: succ,
-                        type: "warning",
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: '确定',
-                        confirmButtonClass: 'btn btn-success',
-                        buttonsStyling: false,
-                        allowOutsideClick: false
-                    }).then(function () {
-                        window, location.reload();
-                    })
+            $.ajax({
+                type: 'Post',
+                url: 'customerManagement.aspx',
+                data: {
+                    customerId: id,
+                    cutomerName: name,
+                    op: "add"
+                },
+                dataType: 'text',
+                success: function (succ) {
+                    if (succ == "添加成功") {
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    } else {
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    }
                 }
-            }
-        })
+            })
         }
     })
     //提交编辑
@@ -177,9 +183,9 @@
         var custId = $(this).parent().prev().prev().prev().text().trim();
         //弹窗
         swal({
-            title: "是否删除？",
-            text: "删除了将无法恢复！！！",
-            type: "question",
+            title: "温馨提示:)",
+            text: "删除了将无法恢复,确定删除该项吗？",
+            type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -234,9 +240,9 @@
     $("#table").delegate(".reset_pwd", "click", function () {
         var custId = $(this).parent().prev().prev().text().trim();
         swal({
-            title: "是否重置？",
-            text: "重置后将无法恢复！！！",
-            type: "question",
+            title: "温馨提示:)",
+            text: "重置后密码将无法恢复，确定重置密码吗？",
+            type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',

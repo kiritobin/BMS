@@ -70,5 +70,27 @@ namespace bms.Dao
                 return 0;
             }
         }
+        /// <summary>
+        /// 实现关联表的插入
+        /// </summary>
+        /// <param name="tabInsert">插入实体</param>
+        /// <returns></returns>
+        public DataSet InsertManyTable(TableInsertion tabInsert,out int count)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("sp_Insert");
+            MySqlParameter[] values =
+            {
+                new MySqlParameter("@inRegionName",MySqlDbType.VarChar),
+                new MySqlParameter("@inShelvesName",MySqlDbType.VarChar),
+                new MySqlParameter("@count",MySqlDbType.Int32)
+            };
+            values[0].Value = tabInsert.InRegionName;
+            values[1].Value = tabInsert.InShelvesName;
+            values[2].Direction = ParameterDirection.Output;
+            DataSet ds = db.FillDataSetBySP(strSql.ToString(), values);
+            count = Convert.ToInt32(values[2].Value);
+            return ds;
+        }
     }
 }

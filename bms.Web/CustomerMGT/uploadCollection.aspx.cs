@@ -22,7 +22,8 @@ namespace bms.Web.CustomerMGT
                 {
                     Directory.CreateDirectory(director);
                 }
-                string path = director + Path.GetFileName(files[0].FileName);
+                string now = DateTime.Now.ToString("yyyyMMddHHmmss");
+                string path = director + Path.GetFileName(now + "-" + files[0].FileName);
                 if (File.Exists(path))
                 {
                     msg = "上传失败，文件存在";

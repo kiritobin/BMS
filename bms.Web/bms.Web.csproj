@@ -74,7 +74,9 @@
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
+    <Content Include="CustomerMGT\uploadCollection.aspx" />
     <Content Include="demo\sales_demo.aspx" />
+    <Content Include="imgs\loading.gif" />
     <Content Include="InventoryMGT\addReturn.aspx" />
     <Content Include="InventoryMGT\addStock.aspx" />
     <Content Include="InventoryMGT\addWarehouse.aspx" />
@@ -110,6 +112,8 @@
     <Content Include="Global.asax" />
     <Content Include="imgs\login.jpg" />
     <Content Include="imgs\sidebar-2.jpg" />
+    <Content Include="js\ajaxfileupload.js" />
+    <Content Include="js\bookBasicManagement.js" />
     <Content Include="js\bookshelfManagement.js" />
     <Content Include="js\bootstrap-material-design.min.js" />
     <Content Include="js\bootstrap-selectpicker.js" />
@@ -181,6 +185,13 @@
     </Compile>
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerMGT\uploadCollection.aspx.cs">
+      <DependentUpon>uploadCollection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerMGT\uploadCollection.aspx.designer.cs">
+      <DependentUpon>uploadCollection.aspx</DependentUpon>
     </Compile>
     <Compile Include="demo\sales_demo.aspx.cs">
       <DependentUpon>sales_demo.aspx</DependentUpon>

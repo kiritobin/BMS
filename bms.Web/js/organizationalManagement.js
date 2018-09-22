@@ -11,7 +11,7 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var strWhere = $("#input-search").val().trim();
+            var strWhere = $("#input-search").val();
             $.ajax({
                 type: 'Post',
                 url: 'organizationalManagement.aspx',
@@ -77,9 +77,15 @@ $("#btn-search").click(function () {
 });
 //添加分公司
 $("#btnAdd").click(function () {
-    var name = $("#int-Name").val();
+    var name = $("#int-Name").val().trim();
     if (name == "" || name == null) {
-        alert("分公司名称不能为空");
+        swal({
+            title: "温馨提示:)",
+            text: "公司名称不能为空，请确认后再次提交!",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
     } else{
         $.ajax({
             type: 'Post',
@@ -91,9 +97,21 @@ $("#btnAdd").click(function () {
             dataType: 'text',
             success: function (data) {
                 if (data == "添加成功") {
-                    alert("添加成功");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "公司添加成功",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "success"
+                    }).catch(swal.noop)
                 } else {
-                    alert("添加失败");
+                    swal({
+                        title: '温馨提示:)',
+                        text: '公司添加失败',
+                        type: 'error',
+                        confirmButtonClass: "btn btn-info",
+                        buttonsStyling: false
+                    }).catch(swal.noop)
                 }
             }
         })
@@ -101,7 +119,17 @@ $("#btnAdd").click(function () {
 })
 //删除分公司
 $("#table").delegate(".btn-delete", "click", function () {
-    var flag = confirm("确定要删除吗？删除后不可找回");
+    var flag = swal({
+        title: '温馨提示:)',
+        text: '你确定要删除该分公司吗？',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '是的，删掉它!',
+        cancelButtonText: '不，让我思考一下',
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger",
+        buttonsStyling: false
+    });
     if (flag == true) {
         var id = $(this).parent().parent().find("#regionId").val().trim();
         $.ajax({
@@ -114,7 +142,13 @@ $("#table").delegate(".btn-delete", "click", function () {
             dataType: 'text',
             success: function (data) {
                 if (data == "删除成功") {
-                    alert("删除成功");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "公司删除成功",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "success"
+                    }).catch(swal.noop)
                 } else {
                     alert(data);
                 }

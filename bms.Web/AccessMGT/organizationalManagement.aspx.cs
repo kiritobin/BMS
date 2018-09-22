@@ -14,7 +14,7 @@ namespace bms.Web.AccessMGT
     using Result = Enums.OpResult;
     public partial class organizationalManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
+        public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search, regionId;
         public DataSet ds;
         RegionBll regionBll = new RegionBll();
@@ -40,29 +40,6 @@ namespace bms.Web.AccessMGT
                     goods.RegionId = region;
                     goods.ShelvesName = "未上架";
                     GoodsShelvesBll goodsBll = new GoodsShelvesBll();
-                    //Result good = goodsBll.insert(goods);
-                    //if (good == Result.添加成功)
-                    //{
-                    //    //添加销售计划
-                    //    SaleTaskBll saleBll = new SaleTaskBll();
-                    //    SaleTask sale = new SaleTask();
-                    //    Result result = saleBll.insert(sale);
-                    //    if (result == Result.添加成功)
-                    //    {
-                    //        Response.Write("添加成功");
-                    //        Response.End();
-                    //    }
-                    //    else
-                    //    {
-                    //        Response.Write("添加失败");
-                    //        Response.End();
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    Response.Write("添加失败");
-                    //    Response.End();
-                    //}
                 }
                 else
                 {
@@ -123,13 +100,13 @@ namespace bms.Web.AccessMGT
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
             //生成table
             StringBuilder sb = new StringBuilder();
-            sb.Append("<tbody>");
+            sb.Append("<tbody class='text-center'>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
                 sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[i]["regionId"].ToString() + "' id='regionId' />");
-                sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
+                sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></ tr >");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");

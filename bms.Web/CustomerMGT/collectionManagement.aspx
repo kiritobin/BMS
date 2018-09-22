@@ -228,14 +228,14 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="书名查询">
+                                                <input type="text" value="" class="search" id="bookSearch" placeholder="书名查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" placeholder="ISBN号查询">
+                                                <input type="text" value="" class="search" id="isbnSearch" placeholder="ISBN号查询">
                                                 <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                            <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
+                                                <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
                                             </div>
                                         </div>
                                     </div>
@@ -244,9 +244,9 @@
                                             <thead>
                                                 <tr class="book-tab-tr">
                                                     <th>序号</th>
-                                                    <th>客户名称</th>
-                                                    <th>书名</th>
                                                     <th>ISBN号</th>
+                                                    <th>书名</th>
+                                                    <th>客户名称</th>
                                                     <th>价格</th>
                                                     <th>数量(册)</th>
                                                 </tr>
@@ -282,7 +282,7 @@
                                 <tr>
                                     <td>
                                         <input type="file" class="" name="file" id="file" value="" />
-                                        <button class="btn btn-success">上传</button>
+                                        <button class="btn btn-success" id="upload">上传</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -290,17 +290,32 @@
                                         <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="model-select-custom">
                                             <option value="">请选择客户</option>
                                             <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
-                                                    { %>
-                                                <option value="<%=dsCustom.Tables[0].Rows[i]["customerId"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
-                                                <%}%>
+                                                { %>
+                                            <option value="<%=dsCustom.Tables[0].Rows[i]["customerId"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
+                                            <%}%>
                                         </select>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-success btn-link" id="">下载模板</button>
-                            <button class="btn btn-success" id="btnImport">导入</button>
+                            <button class="btn btn-success btn-link" id=""><a href="/uploads/muban/客户馆藏数据表.xls">下载模板</a></button>
+                            <button class="btn btn-success" id="btnImport"  data-toggle="modal" data-target="#myModal1">导入</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="width:500px;height:500px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabe1"></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                           <img style="width:450px;height:300px;" src="../imgs/loading.gif" />
                         </div>
                     </div>
                 </div>

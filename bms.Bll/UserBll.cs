@@ -142,5 +142,16 @@ namespace bms.Bll
                 return Enums.OpResult.记录不存在;
             }
         }
+
+        /// <summary>
+        /// 批量导入
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public int BulkInsert(DataTable table)
+        {
+            bulkLoad bulkLoad = new bulkLoad();
+            return bulkLoad.BulkInsert(table);
+        }
     }
 }
