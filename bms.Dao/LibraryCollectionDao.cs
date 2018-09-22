@@ -13,10 +13,10 @@ namespace bms.Dao
         /// 获取所有客户馆藏数据的ISBN，客户id
         /// </summary>
         /// <returns></returns>
-        public DataTable Select(int customerId)
+        public DataTable Select(string customerId)
         {
             MySqlHelp db = new MySqlHelp();
-            string comText = "select ISBN as ISBN,customerId as 客户ID from T_LibraryCollection where customerId=@customerId";
+            string comText = "select ISBN,bookName,price,collectionNum,customerId from T_LibraryCollection where customerId=@customerId";
             string[] param = { "@customerId" };
             string[] values = { customerId.ToString() };
             DataSet ds = db.FillDataSet(comText, param, values);
@@ -30,6 +30,9 @@ namespace bms.Dao
                 return null;
             }
         }
+
+
+
         /// <summary>
         /// 通过地区获取客户姓名和ID
         /// </summary>

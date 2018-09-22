@@ -12,7 +12,6 @@ namespace bms.Dao
 {
     public class bulkLoad
     {
-        //datatable导入mysql
         public int BulkInsert(DataTable table)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["sqlConn"].ConnectionString;
@@ -22,8 +21,8 @@ namespace bms.Dao
             string tmpPath = Path.GetTempFileName();
             string csv = DataTableToCsv(table);
             File.WriteAllText(tmpPath, csv);
-            MySqlConnection conn = new MySqlConnection(connectionString);
             MySqlTransaction tran = null;
+            MySqlConnection conn = new MySqlConnection(connectionString);
             try
             {
                 conn.Open();
@@ -41,7 +40,7 @@ namespace bms.Dao
                 insertCount = bulk.Load();
                 tran.Commit();
             }
-            catch (SqlException ex)
+            catch (MySqlException ex)
             {
                 if (tran != null) tran.Rollback();
                 throw ex;
@@ -50,8 +49,7 @@ namespace bms.Dao
             File.Delete(tmpPath);
             return insertCount;
         }
-        //datatable转csv方法
-        private string DataTableToCsv(DataTable table)
+        private static string DataTableToCsv(DataTable table)
         {
             DataColumn colum;
             StringBuilder sb = new StringBuilder();
