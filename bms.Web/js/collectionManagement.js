@@ -83,6 +83,7 @@
     $("#btnImport").click(function () {
         var custom = $("#model-select-custom").val();
         var file = $("#file").val();
+ 
         if (custom == "" || custom == null) {
             alert("请选择客户");
         }
@@ -90,6 +91,8 @@
             alert("请上传文件");
         }
         else {
+            $("#myModal1").modal("show");
+            $("#close").hide();
             $.ajax({
                 type: 'Post',
                 url: 'collectionManagement.aspx',
@@ -99,16 +102,18 @@
                 },
                 dataType: 'text',
                 success: function (data) {
-                    alert(data);
-                    //if (data.indexOf("导入成功") >= 0) {
-                    //    alert("导入成功");
-                    //    location.reload();
-                    //} else if (data.indexOf("导入失败") >= 0) {
-                    //    alert("导入失败");
-                    //}
-                    //else {
-                    //    alert(data);
-                    //}
+                    if (data.indexOf("导入成功") >= 0) {
+                        $("#myModalLabe1").html(data);
+                        $("#close").show();
+                        $("#img").attr("src", "../imgs/success.png");
+                    } else if (data.indexOf("导入失败") >= 0) {
+                        $("#myModalLabe1").html(data);
+                        $("#close").show();
+                        $("#img").attr("src", "../imgs/lose.png");
+                    }
+                    else {
+                        alert(data);
+                    }
                 }
             });
         }
@@ -128,6 +133,10 @@
         else {
             alert("只允许上传.xls格式的文件");
         }
+    });
+
+    $("#close").click(function () {
+        window.location.reload();
     });
 
     function ajaxFileUpload() {

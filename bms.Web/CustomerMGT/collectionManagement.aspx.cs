@@ -36,11 +36,12 @@ namespace bms.Web.CustomerMGT
                 dtInsert.TableName = "T_LibraryCollection"; //导入的表名
                 int a = userBll.BulkInsert(dtInsert);
                 watch.Stop();
-                double hour = ts.TotalHours; //计时
+                double minute = ts.TotalMinutes; //计时
+                string m = minute.ToString("0.00");
                 if (a > 0)
                 {
                     Session["path"] = null; //清除路径session
-                    Response.Write("导入成功，总数据有" + row+"条，共导入"+a+"条数据"+"，共用时："+ hour+"小时");
+                    Response.Write("导入成功，总数据有" + row+"条，共导入"+a+"条数据"+"，共用时："+ m+"分钟");
                     Response.End();
                 }
                 else
@@ -77,8 +78,8 @@ namespace bms.Web.CustomerMGT
                 DataRowCollection count = excelToDt().Rows;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
-
-                    DataRow[] rows = libraryCollectionBll.Select(custom).Select("customerId='" + custom + "' and ISBN='" + row[1].ToString().Trim() + "'");//查询excel数据集是否存在于表A，如果存在赋值给DataRow集合
+                   DataRow[] rows = libraryCollectionBll.Select(custom).Select(string.Format("customerId='{0}' and ISBN='{1}'",custom, row[1].ToString().Trim()));
+                    //DataRow[] rows = libraryCollectionBll.Select(custom).Select("customerId='" + custom + "' and ISBN='" + row[1].ToString().Trim() + "'");//查询excel数据集是否存在于表A，如果存在赋值给DataRow集合
                     if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                     {
                         dt3.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5]);
