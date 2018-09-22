@@ -40,7 +40,7 @@
             <div class="logo">
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台</a>
             </div>
-             <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -268,57 +268,88 @@
             </div>
             <!--添加书籍模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="min-width:700px;">
+                <div class="modal-dialog" style="min-width: 1000px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加书籍</h4>
+                            <h4 class="modal-title float-left" id="myModalLabel">基础数据导入导入</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                 <i class="material-icons">clear</i>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <table class="table model-table">
+                        <div class="modal-body" style="max-height: 500px; overflow: auto;">
+                            <table class="table text-center model-table">
                                 <tr>
-                                    <td class="table-tr-td-bookName"><span class="model-tab-td-span">书名:</span></td>
                                     <td>
-                                        <input type="text" value="" name="书名" class="col-sm-12 txtTitle txtVerify"></td>
-                                    <td class="table-tr-td-bookAuoth"><span class="model-tab-td-span">作者:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="作者" class="col-sm-12 txtAuthor txtVerify"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">定价:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="定价" class="col-sm-12 txtPrice txtVerify"></td>
-                                    <td><span class="model-tab-td-span">出版日期:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="出版日期" class="col-sm-12 txtTime txtVerify"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">出版社:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="出版社" class="col-sm-12 txtPress txtVerify"></td>
-                                    <td><span class="model-tab-td-span">ISBN:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="ISBN" class="col-sm-12 txtISBN txtVerify"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">编目:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="编目" class="col-sm-12 txtCatalogue txtVerify"></td>
-                                    <td><span class="model-tab-td-span">标识:</span></td>
-                                    <td>
-                                        <input type="text" value="" name="标识" class="col-sm-12 txtId txtVerify"></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="model-tab-td-span">备注:</span></td>
-                                    <td>
-                                        <input type="text" value="" class="col-sm-12 remarks"></td>
+                                        <button class="btn btn-success" id="downEx">下载模板</button>
+                                        <span class="btn btn-success fileinput-button">
+                                            <span>选择文件</span>
+                                            <input type="file" style="">
+                                        </span>
+                                        <button class="btn btn-success" id="upload">上传</button>
+                                        <button type="submit" class="btn btn-success" id="btn_import">导入</button>
+                                    </td>
                                 </tr>
                             </table>
+                            <div style="">
+                                <table class="table mostTable table-bordered" id="bookBasicModal_table">
+                                    <thead>
+                                        <tr>
+                                            <td colspan="11" class="text-center">
+                                                <h4>重复数据</h4>
+                                            </td>
+                                        </tr>
+                                        <tr class="book-tab-tr">
+                                            <th>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" />
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </th>
+                                            <th>书号</th>
+                                            <th>书名</th>
+                                            <th>作者</th>
+                                            <th>定价</th>
+                                            <th>出版日期</th>
+                                            <th>供应商</th>
+                                            <th>ISBN</th>
+                                            <th>编目</th>
+                                            <th>备注</th>
+                                            <th>标识</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="book-tab-tr">
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" />
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>10000000000006</td>
+                                            <td>java</td>
+                                            <td>aouther</td>
+                                            <td>65￥</td>
+                                            <td>2015</td>
+                                            <td>新华书店</td>
+                                            <td>152255555553</td>
+                                            <td>湫隘说就</td>
+                                            <td>备注</td>
+                                            <td>标识</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                            <button type="submit" class="btn btn-success" id="btnAdd">导入选中</button>
                         </div>
                     </div>
                 </div>

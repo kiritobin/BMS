@@ -83,6 +83,38 @@
     border-top: none;
 }
 
-.th_change{
+.th_change {
     border-top: 1px solid #DDD;
+}
+/*导入基础数据模态框样式*/
+#downEx {
+    margin-right: 20px;
+}
+
+.fileinput-button {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+    .fileinput-button input {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        opacity: 0;
+        -ms-filter: 'alpha(opacity=0)';
+        font-size: 200px;
+    }
+
+#bookBasicModal_table {
+    width: 95%;
+    margin: auto;
+}
+
+#upload, #btn_import {
+    margin-left: 20px;
+}
+
+#btnAdd {
+    margin-right: 30px;
 }

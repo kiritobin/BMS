@@ -38,7 +38,7 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -53,22 +53,22 @@
                         </a>
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
@@ -87,12 +87,12 @@
                         </a>
                         <div class="collapse" id="userManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
@@ -110,19 +110,19 @@
                         </a>
                         <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="warehouseManagement.aspx">
-                                        <span class="sidebar-normal">出库</span>
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="stockManagement.aspx">
-                                        <span class="sidebar-normal">入库</span>
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="returnManagement.aspx">
-                                        <span class="sidebar-normal">退货</span>
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -138,9 +138,9 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销</span>
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -156,12 +156,12 @@
                         </a>
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
@@ -176,6 +176,8 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                    </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -343,9 +345,7 @@
                             &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>
-                            , made with <i class="material-icons">favorite</i> by
-                        <a href="javascript:;" target="_blank"></a>for a better web.
+                        </script>&nbsp;版权所有
                         </div>
                     </div>
                 </footer>
@@ -359,8 +359,11 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <!-- selectpicker.js -->
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
+    <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script>
