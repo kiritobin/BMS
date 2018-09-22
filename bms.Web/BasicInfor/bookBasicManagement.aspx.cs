@@ -11,14 +11,42 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.BasicInfor
 {
+    using Result = Enums.OpResult;
     public partial class bookBasicManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 20,totalCount, intPageCount;
+        public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "";
         public DataSet ds;
+        BookBasicBll bookbll = new BookBasicBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            getData();
+            string op = Request["op"];
+            if (op == "del")
+            {
+                long bookNum = long.Parse(Request["bookNum"]);
+                Result row = isDelete();
+                if (row == Result.记录不存在)
+                {
+                    Result result = bookbll.Delete(bookNum);
+                    if (result == Result.删除成功)
+                    {
+                        Response.Write("删除成功");
+                        Response.End();
+                    }
+                    else
 
+                    {
+                        Response.Write("删除失败");
+                        Response.End();
+                    }
+                }
+                else
+                {
+                    Response.Write("在其他表中有关联不能删除");
+                    Response.End();
+                }
+            }
         }
         /// <summary>
         /// 获取数据
@@ -43,7 +71,7 @@ namespace bms.Web.BasicInfor
             }
             else if ((bookName == "" || bookName == null) && (bookNum != "" && bookNum != null) && (bookISBN == null || bookISBN == ""))
             {
-                search = "bookNum='" + bookNum + "'";
+                search = "bookNum=' " + bookNum + "'";
             }
             else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum == null || bookNum == ""))
             {
@@ -73,10 +101,9 @@ namespace bms.Web.BasicInfor
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
-             BookBasicBll bookbll = new BookBasicBll();
             //获取展示的用户数据
             ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
-        
+
             //生成table
             StringBuilder sb = new StringBuilder();
             sb.Append("<tbody>");
@@ -93,7 +120,7 @@ namespace bms.Web.BasicInfor
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["catalog"].ToString() + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["remarks"].ToString() + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["dentification"].ToString() + "</td>");
-                sb.Append("<td>"+"<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></tr>");
+                sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></tr>");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
@@ -104,6 +131,29 @@ namespace bms.Web.BasicInfor
                 Response.End();
             }
             return sb.ToString();
+        }
+
+        public Result isDelete()
+        {
+            string bookNum = Request["bookNum"];
+            Result row = Result.记录不存在;
+            if (bookbll.IsDelete("T_ReplenishmentMonomer", "bookNum", bookNum) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            if (bookbll.IsDelete("T_SellOffMonomer", "bookNum", bookNum) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            if (bookbll.IsDelete("T_SaleMonomer", "bookNo", bookNum) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            if (bookbll.IsDelete("T_Monomers", "bookNum", bookNum) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            return row;
         }
     }
 }
