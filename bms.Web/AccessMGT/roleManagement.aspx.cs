@@ -62,18 +62,21 @@ namespace bms.Web.AccessMGT
             {
                 int roleId = Convert.ToInt32(ds.Tables[0].Rows[i]["roleId"].ToString());
                 DataSet dsFunc = funBll.SelectByRoleId(roleId);
-                string function="", functions = "";
+                string function="", functions = "", funId="", funIds="";
                 int k = dsFunc.Tables[0].Rows.Count;
                 for (int j = 0; j < k; j++)
                 {
-                    function = dsFunc.Tables[0].Rows[j]["functionName"].ToString() + "、";
+                    funId = dsFunc.Tables[0].Rows[j]["functionId"].ToString() + ",";
+                    function = dsFunc.Tables[0].Rows[j]["functionName"].ToString() + ",";
                     functions = functions + function;
+                    funIds = funIds + funId;
                 }
                 functions = functions.Substring(0, functions.Length - 1);
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["roleName"].ToString() + "</ td >");
                 sb.Append("<td>" + functions + "</ td >");
-                sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " class='roleId' />");
+                sb.Append("<td><input type='hidden' value='" + ds.Tables[0].Rows[i]["roleId"].ToString() + "' class='roleId' />");
+                sb.Append("<input type = 'hidden' value = '" + funIds + "' id = 'funId' />");
                 sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button>");
                 sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
             }
@@ -87,7 +90,5 @@ namespace bms.Web.AccessMGT
             }
             return sb.ToString();
         }
-
-
     }
 }
