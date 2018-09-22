@@ -65,12 +65,12 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link" href="JurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
 
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <a class="nav-link" href="organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -162,7 +162,7 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
-                                        <span class="sidebar-normal">价位管理</span>
+                                        <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -250,7 +250,7 @@
                                                     <th>用户名</th>
                                                     <th>分公司</th>
                                                     <th>职位</th>
-                                                    <th class="table-thead-th">操作</th>
+                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
@@ -271,7 +271,7 @@
             </div>
             <!--添加用户模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="width:380px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">添加用户</h4>
@@ -282,19 +282,19 @@
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">账号:</span></td>
+                                    <td class="text-right"><span>账号:</span></td>
                                     <td>
-                                        <input type="text" class="form-control col-sm-9 input-search" id="inputAccount" placeholder="请输入账号"></td>
+                                        <input type="text" class="modal_search" id="inputAccount" placeholder="请输入账号"></td>
                                 </tr>
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">姓名:</span></td>
+                                    <td class="text-right"><span>姓名:</span></td>
                                     <td>
-                                        <input type="text" class="form-control col-sm-9 input-search" id="inputName" placeholder="请输入账号"></td>
+                                        <input type="text" class="modal_search" id="inputName" placeholder="请输入姓名"></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">分公司:</span></td>
+                                    <td class="text-right"><span>分公司:</span></td>
                                     <td>
-                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;"id="model-select-region">
+                                        <select class="modal_select" id="model-select-region">
                                             <option value="">请选择分公司</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 {%>
@@ -304,9 +304,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">职位:</span></td>
+                                    <td class="text-right"><span>职位:</span></td>
                                     <td>
-                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;" id="model-select-role">
+                                        <select class="modal_select" id="model-select-role">
                                            <option value="">请选择职位</option>
                                              <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>
@@ -325,7 +325,7 @@
             </div>
             <!--编辑用户模态框-->
             <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="width:380px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabe2">编辑用户</h4>
@@ -336,24 +336,24 @@
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left2"><span class="model-tab-td-span">账号:</span></td>
+                                    <td class="text-right"><span>账号:</span></td>
                                     <td>
-                                        <input type="text" readonly="readonly" id="edit-Account" /></td>
+                                        <input type="text" class="modal_search" readonly="readonly" id="edit-Account" /></td>
                                 </tr>
                                 <tr>
-                                    <td class="model-td-left2"><span class="model-tab-td-span">姓名:</span></td>
+                                    <td class="text-right"><span>姓名:</span></td>
                                     <td>
-                                        <input type="text" id="edit-Name" /></td>
+                                        <input type="text" class="modal_search" id="edit-Name" /></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">密码:</span></td>
+                                    <td class="text-right"><span>密码:</span></td>
                                     <td>
-                                        <button type="button" class="btn btn-default btn-sm" id="reset">重置密码</button></td>
+                                        <button type="button" class="btn btn-warning btn-sm" id="reset">重置密码</button></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">分公司:</span></td>
+                                    <td class="text-right"><span>分公司:</span></td>
                                     <td>
-                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;"id="editRegion">
+                                        <select class="modal_select" id="editRegion">
                                             <option value="">请选择分公司</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 { %>
@@ -363,9 +363,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">职位:</span></td>
+                                    <td class="text-right"><span>职位:</span></td>
                                     <td>
-                                        <select class="" id="editRole" style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;">
+                                        <select class="modal_select" id="editRole">
                                            <option value="">请选择职位</option>
                                              <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>

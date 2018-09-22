@@ -63,11 +63,11 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <%--<li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -274,23 +274,23 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+            </div>
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                            &nbsp;版权所有
-                        </div>
+                        &nbsp;版权所有
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
-        <script src="../js/jquery-3.3.1.min.js"></script>
+    </div>
+    <script src="../js/jquery-3.3.1.min.js"></script>
         <!-- 左侧导航栏所需js -->
         <script src="../js/popper.min.js"></script>
         <script src="../js/bootstrap-material-design.min.js"></script>
