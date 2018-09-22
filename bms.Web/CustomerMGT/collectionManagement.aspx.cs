@@ -59,21 +59,30 @@ namespace bms.Web.CustomerMGT
         {
             LibraryCollectionBll libraryCollectionBll = new LibraryCollectionBll();
             DataTable dt3 = new DataTable();//接受差集的dt3
-            dt3.Columns.Add("id", typeof(string));
-            dt3.Columns.Add("ISBN", typeof(string));
-            dt3.Columns.Add("书名", typeof(string));
-            dt3.Columns.Add("定价", typeof(double));
-            dt3.Columns.Add("馆藏数量", typeof(int));
-            dt3.Columns.Add("客户ID", typeof(string));
-            dt3.Columns.Add("state", typeof(int));
-            DataRowCollection count = excelToDt().Rows;
-            foreach (DataRow row in count)//遍历excel数据集
+            int j = libraryCollectionBll.Select(custom).Rows.Count;
+            //数据库无数据时直接导入excel
+            if (j<=0)
             {
-
-                DataRow[] rows = libraryCollectionBll.Select(custom).Select("customerId='" + custom + "' and ISBN='" + row[1].ToString().Trim() + "'");//查询excel数据集是否存在于表A，如果存在赋值给DataRow集合
-                if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
+                dt3 = excelToDt();
+            }
+            else
+            {
+                dt3.Columns.Add("id", typeof(string));
+                dt3.Columns.Add("ISBN", typeof(string));
+                dt3.Columns.Add("书名", typeof(string));
+                dt3.Columns.Add("定价", typeof(double));
+                dt3.Columns.Add("馆藏数量", typeof(int));
+                dt3.Columns.Add("客户ID", typeof(string));
+                dt3.Columns.Add("state", typeof(int));
+                DataRowCollection count = excelToDt().Rows;
+                foreach (DataRow row in count)//遍历excel数据集
                 {
-                    dt3.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5]);
+
+                    DataRow[] rows = libraryCollectionBll.Select(custom).Select("customerId='" + custom + "' and ISBN='" + row[1].ToString().Trim() + "'");//查询excel数据集是否存在于表A，如果存在赋值给DataRow集合
+                    if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
+                    {
+                        dt3.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5]);
+                    }
                 }
             }
             return dt3;
