@@ -100,6 +100,15 @@
                 dataType: 'text',
                 success: function (data) {
                     alert(data);
+                    //if (data.indexOf("导入成功") >= 0) {
+                    //    alert("导入成功");
+                    //    location.reload();
+                    //} else if (data.indexOf("导入失败") >= 0) {
+                    //    alert("导入失败");
+                    //}
+                    //else {
+                    //    alert(data);
+                    //}
                 }
             });
         }

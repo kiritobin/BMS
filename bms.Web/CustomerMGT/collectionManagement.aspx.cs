@@ -36,11 +36,11 @@ namespace bms.Web.CustomerMGT
                 dtInsert.TableName = "T_LibraryCollection"; //导入的表名
                 int a = userBll.BulkInsert(dtInsert);
                 watch.Stop();
-                double seconds = ts.TotalHours; //计时
+                double hour = ts.TotalHours; //计时
                 if (a > 0)
                 {
                     Session["path"] = null; //清除路径session
-                    Response.Write("导入成功，总数据有" + row+"条，共导入"+a+"条数据"+"，共用时："+seconds);
+                    Response.Write("导入成功，总数据有" + row+"条，共导入"+a+"条数据"+"，共用时："+ hour+"小时");
                     Response.End();
                 }
                 else
