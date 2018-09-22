@@ -55,6 +55,25 @@ namespace bms.Bll
                 return Result.更新失败;
             }
         }
+
+        /// <summary>
+        /// 在角色功能关系表中更新角色信息
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public Result UpdatePer(int roleId,int functionId)
+        {
+            int row = roleDao.UpdatePer(roleId, functionId);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+
         /// <summary>
         /// 删除角色
         /// </summary>
@@ -72,6 +91,25 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+
+        /// <summary>
+        /// 删除角色
+        /// </summary>
+        /// <param name="roleId">角色Id</param>
+        /// <returns></returns>
+        public Result DeletePer(int roleId)
+        {
+            int row = roleDao.DeletePer(roleId);
+            if (row > 0)
+            {
+                return Result.删除成功;
+            }
+            else
+            {
+                return Result.删除失败;
+            }
+        }
+
         /// <summary>
         /// 判断另外一张表中是否有引用
         /// </summary>

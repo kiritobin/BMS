@@ -42,7 +42,7 @@ namespace bms.Dao
         /// <returns>返回查询到的表格数据</returns>
         public DataSet SelectByRoleId(int roleId)
         {
-            string cmdText = "select functionName from V_Permission where roleId=@roleId";
+            string cmdText = "select functionName,functionId from V_Permission where roleId=@roleId";
             string[] param = { "@roleId" };
             object[] values = { roleId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
