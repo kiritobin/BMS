@@ -292,6 +292,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
+                            <label>上传成功才能入哟！</label>
                             <button class="btn btn-success" id="btnImport" data-toggle="modal">导入</button>
                         </div>
                     </div>
