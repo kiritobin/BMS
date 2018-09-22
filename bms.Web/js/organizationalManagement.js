@@ -11,7 +11,7 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var strWhere = $("#input-search").val().trim();
+            var strWhere = $("#input-search").val();
             $.ajax({
                 type: 'Post',
                 url: 'organizationalManagement.aspx',

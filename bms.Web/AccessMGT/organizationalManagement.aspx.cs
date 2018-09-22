@@ -14,7 +14,7 @@ namespace bms.Web.AccessMGT
     using Result = Enums.OpResult;
     public partial class organizationalManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
+        public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search, regionId;
         public DataSet ds;
         RegionBll regionBll = new RegionBll();
@@ -40,29 +40,6 @@ namespace bms.Web.AccessMGT
                     goods.RegionId = region;
                     goods.ShelvesName = "未上架";
                     GoodsShelvesBll goodsBll = new GoodsShelvesBll();
-                    //Result good = goodsBll.insert(goods);
-                    //if (good == Result.添加成功)
-                    //{
-                    //    //添加销售计划
-                    //    SaleTaskBll saleBll = new SaleTaskBll();
-                    //    SaleTask sale = new SaleTask();
-                    //    Result result = saleBll.insert(sale);
-                    //    if (result == Result.添加成功)
-                    //    {
-                    //        Response.Write("添加成功");
-                    //        Response.End();
-                    //    }
-                    //    else
-                    //    {
-                    //        Response.Write("添加失败");
-                    //        Response.End();
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    Response.Write("添加失败");
-                    //    Response.End();
-                    //}
                 }
                 else
                 {
