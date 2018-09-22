@@ -33,17 +33,19 @@ namespace bms.Web.CustomerMGT
                 watch.Start();
                 dtInsert = differentDt();
                 TimeSpan ts = watch.Elapsed;
-                dtInsert.TableName = "T_LibraryCollection";
+                dtInsert.TableName = "T_LibraryCollection"; //导入的表名
                 int a = userBll.BulkInsert(dtInsert);
                 watch.Stop();
-                double seconds = ts.TotalMinutes;
+                double hour = ts.TotalHours; //计时
                 if (a > 0)
                 {
-                    Response.Write("导入成功，总数据有" + row+"条，共导入"+a+"条数据"+"，共用时："+seconds);
+                    Session["path"] = null; //清除路径session
+                    Response.Write("导入成功，总数据有" + row+"条，共导入"+a+"条数据"+"，共用时："+ hour+"小时");
                     Response.End();
                 }
                 else
                 {
+                    Session["path"] = null; //清除路径session
                     Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据");
                     Response.End();
                 }
@@ -64,7 +66,8 @@ namespace bms.Web.CustomerMGT
             dt3.Columns.Add("馆藏数量", typeof(int));
             dt3.Columns.Add("客户ID", typeof(string));
             dt3.Columns.Add("state", typeof(int));
-            foreach (DataRow row in excelToDt().Rows)//遍历excel数据集
+            DataRowCollection count = excelToDt().Rows;
+            foreach (DataRow row in count)//遍历excel数据集
             {
 
                 DataRow[] rows = libraryCollectionBll.Select(custom).Select("customerId='" + custom + "' and ISBN='" + row[1].ToString().Trim() + "'");//查询excel数据集是否存在于表A，如果存在赋值给DataRow集合
@@ -73,25 +76,25 @@ namespace bms.Web.CustomerMGT
                     dt3.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5]);
                 }
             }
-            row = dt3.Rows.Count.ToString();
             return dt3;
         }
         private DataTable excelToDt()
         {
             int custom = Convert.ToInt32(Request["custom"]);
-            DataTable dt1 = new DataTable();
-            string strConn = "";
             string path = Session["path"].ToString();
-            string[] sArray = path.Split('.');
-            int count = sArray.Length - 1;
-            if (sArray[count] == "xls")
-            {
-                strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-            }
-            else if (sArray[count] == "xlsx")
-            {
-                strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-            }
+            DataTable dt1 = new DataTable();
+            string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+            //文件类型判断
+            //string[] sArray = path.Split('.');
+            //int count = sArray.Length - 1;
+            //if (sArray[count] == "xls")
+            //{
+            //    strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+            //}
+            //else if (sArray[count] == "xlsx")
+            //{
+            //    strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+            //}
             OleDbConnection conn = new OleDbConnection(strConn);
             try
             {
@@ -100,9 +103,10 @@ namespace bms.Web.CustomerMGT
                 OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
                 dt1.Columns.Add("id"); //id自增列
                 oda1.Fill(dt1);
+                row = dt1.Rows.Count.ToString(); //获取总数
                 DataColumn dc = new DataColumn("客户ID", typeof(string));
                 DataColumn dc2 = new DataColumn("state", typeof(int));
-                dc.DefaultValue = custom; //默认值列
+                dc.DefaultValue = custom; //默认客户值值列
                 dc2.DefaultValue = 0; //默认值列
                 dt1.Columns.Add(dc);
                 dt1.Columns.Add(dc2);
@@ -125,11 +129,13 @@ namespace bms.Web.CustomerMGT
         /// <returns></returns>
         private DataTable GetDistinctSelf(DataTable SourceDt, string field1, string field2)
         {
-            if (SourceDt.Rows.Count > 1)
+            int count = SourceDt.Rows.Count;
+            if (count > 1)
             {
-                for (int i = 1; i <= SourceDt.Rows.Count - 2; i++)
+                DataRowCollection drc = SourceDt.Rows;
+                for (int i = 1; i <= count - 2; i++)
                 {
-                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{2}' and {1}='{3}'", field1, field2, SourceDt.Rows[i][field1], SourceDt.Rows[i][field2]));
+                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{2}' and {1}='{3}'", field1, field2, drc[i][field1], drc[i][field2]));
                     if (rows.Length > 1)
                     {
                         SourceDt.Rows.RemoveAt(i);
@@ -184,14 +190,16 @@ namespace bms.Web.CustomerMGT
             //生成table
             StringBuilder sb = new StringBuilder();
             sb.Append("<tbody>");
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            int count = ds.Tables[0].Rows.Count;
+            DataRowCollection drc = ds.Tables[0].Rows;
+            for (int i = 0; i < count; i++)
             {
                 sb.Append("<tr><td>" +(i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"].ToString() + "</ td >");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</ td >");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "</ td >");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["collectionNum"].ToString() + "</ td ></ tr >");
+                sb.Append("<td>" + drc[i]["ISBN"].ToString() + "</ td >");
+                sb.Append("<td>" + drc[i]["bookName"].ToString() + "</ td >");
+                sb.Append("<td>" + drc[i]["customerName"].ToString() + "</td>");
+                sb.Append("<td>" + drc[i]["price"].ToString() + "</ td >");
+                sb.Append("<td>" + drc[i]["collectionNum"].ToString() + "</ td ></ tr >");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
