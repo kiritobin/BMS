@@ -56,6 +56,7 @@
     <Compile Include="SingleHead.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="TableBuilder.cs" />
+    <Compile Include="TableInsertion.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
