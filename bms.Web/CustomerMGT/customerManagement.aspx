@@ -30,7 +30,7 @@
         <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
-        <div class="sidebar" data-color="danger" data-background-color="white" data-image="imgs/sidebar-2.jpg">
+        <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!--
                 Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
         
@@ -38,7 +38,7 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -53,22 +53,22 @@
                         </a>
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
@@ -87,12 +87,12 @@
                         </a>
                         <div class="collapse show" id="userManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
@@ -110,19 +110,19 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="warehouseManagement.aspx">
-                                        <span class="sidebar-normal">出库</span>
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="stockManagement.aspx">
-                                        <span class="sidebar-normal">入库</span>
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="returnManagement.aspx">
-                                        <span class="sidebar-normal">退货</span>
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -138,9 +138,9 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销</span>
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -156,12 +156,12 @@
                         </a>
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
@@ -177,7 +177,6 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">客户管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -217,16 +216,13 @@
                             <div class="card">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title ">客户信息管理</h4>
-                                    <p class="card-category">可对客户进行操作</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                            <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" style="width:200px" class="search" id="search_All" placeholder="请输入客户名">
-                                            </div>
-                                            <div class="btn-group" role="group">
+                                                <input type="text" class="searchOne" id="search_All" placeholder="请输入客户名">
                                                 <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
@@ -236,19 +232,14 @@
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table" id="table">
-                                            <thead class="text-danger">
+                                        <table class="table table-bordered mostTable text-center" id="table">
+                                            <thead>
                                                 <tr>
-                                                    <th>序号
-                                                    </th>
-                                                    <th>账号
-                                                    </th>
-                                                    <th>名称
-                                                    </th>
-                                                    <th class="table-thead-th">重置密码
-                                                    </th>
-                                                    <th class="table-thead-th">操作
-                                                    </th>
+                                                    <th>序号</th>
+                                                    <th>账号</th>
+                                                    <th>名称</th>
+                                                    <th class="table-thead-th">重置密码</th>
+                                                    <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
@@ -268,28 +259,29 @@
             </div>
             <!--添加用户模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="width:400px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加客户
-                            </h4>
+                            <h4 class="modal-title float-left" id="myModalLabel">添加客户</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">账号:</span></td>
+                                    <td class="text-right"><span>账号:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入账号" id="customerId"></td>
+                                        <input type="text" value="" class="modal_search" placeholder="请您输入账号" id="customerId"></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">客户名称:</span></td>
+                                    <td class="text-right"><span>客户名称:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search" placeholder="请输入名称" id="customerName"></td>
+                                        <input type="text" value="" class="modal_search" placeholder="请您输入名称" id="customerName"></td>
                                 </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
                         </div>
                     </div>
@@ -297,28 +289,29 @@
             </div>
             <!--编辑客户模态框-->
             <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="width:400px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">编辑客户
-                            </h4>
+                            <h4 class="modal-title float-left" id="myModalLabe2">编辑客户</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left2"><span class="model-tab-td-span">账号:</span></td>
+                                    <td class="text-right"><span>账号:</span></td>
                                     <td class="editor_id">10001</td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">客户名称:</span></td>
+                                    <td class="text-right"><span>客户名称:</span></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-9 input-search editor_name" placeholder="">
+                                        <input type="text" value="" class=" modal_search editor_name">
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm sava_Editor">提交</button>
                         </div>
                     </div>
@@ -332,9 +325,7 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>
-                        , made with <i class="material-icons">favorite</i> by
-                        <a href="javascript:;" target="_blank"></a>for a better web.
+                        </script>&nbsp;版权所有
                     </div>
                 </div>
             </footer>
@@ -352,7 +343,9 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <!-- selectpicker.js -->
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
 </body>
 
