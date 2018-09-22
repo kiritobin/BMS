@@ -251,7 +251,7 @@
             buttonsStyling: false,
             allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
         }).then(function () {
-            var roleId = $(this).prev().prev().prev().val();
+            var roleId = $(".btn-delete").prev().prev().prev().val();
             $.ajax({
                 type: 'Post',
                 url: 'roleManagement.aspx',
