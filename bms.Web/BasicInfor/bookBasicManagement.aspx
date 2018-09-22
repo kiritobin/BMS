@@ -283,7 +283,7 @@
                                         <button class="btn btn-success" id="downEx">下载模板</button>
                                         <span class="btn btn-success fileinput-button">
                                             <span>选择文件</span>
-                                            <input type="file" style="">
+                                            <input type="file" >
                                         </span>
                                         <button class="btn btn-success" id="upload">上传</button>
                                         <button type="submit" class="btn btn-success" id="btn_import">导入</button>
