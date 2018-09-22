@@ -157,7 +157,7 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
-                                        <span class="sidebar-normal">架位管理</span>
+                                        <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">

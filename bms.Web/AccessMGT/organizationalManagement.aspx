@@ -107,17 +107,17 @@
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../InventoryMGT/addWarehouse.aspx">
-                                        <span class="sidebar-normal">出库</span>
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
-                                        <span class="sidebar-normal">入库</span>
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
-                                        <span class="sidebar-normal">退货</span>
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -135,12 +135,7 @@
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
-                                        <span class="sidebar-normal">销售</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../SalesMGT/backQuery.aspx">
-                                        <span class="sidebar-normal">销退</span>
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -164,11 +159,6 @@
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="organizationalManagement.aspx">
-                                        <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                             </ul>
