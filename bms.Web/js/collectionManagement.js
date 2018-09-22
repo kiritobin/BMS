@@ -100,6 +100,15 @@
                 dataType: 'text',
                 success: function (data) {
                     alert(data);
+                    //if (data.indexOf("导入成功") >= 0) {
+                    //    alert("导入成功");
+                    //    location.reload();
+                    //} else if (data.indexOf("导入失败") >= 0) {
+                    //    alert("导入失败");
+                    //}
+                    //else {
+                    //    alert(data);
+                    //}
                 }
             });
         }
@@ -113,11 +122,11 @@
         if (uploadFiles.length == 0) {
             alert("请选择要上传的文件");
         }
-        else if (type == ".xlsx" || type == ".xls") {
+        else if (type == ".xls") {
             ajaxFileUpload();
         }
         else {
-            alert("只允许上传.xlsx或者.xls格式的文件");
+            alert("只允许上传.xls格式的文件");
         }
     });
 

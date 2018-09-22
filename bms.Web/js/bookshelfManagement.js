@@ -139,8 +139,8 @@
 
     //添加按钮事件
     $("#btnAdd").click(function () {
-        var region = $("#model-select-region").find("option:selected").val();
-        var shelfName = $("#shelfName").val();
+        var region = $("#model-select-region").find("option:selected").val().trim();
+        var shelfName = $("#shelfName").val().trim();
         if (region == "" || shelfName == "") {
             swal({
                 title: "温馨提示:)",
