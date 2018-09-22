@@ -300,7 +300,22 @@
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-success btn-link" id=""><a href="/uploads/muban/客户馆藏数据表.xls">下载模板</a></button>
-                            <button class="btn btn-success" id="btnImport">导入</button>
+                            <button class="btn btn-success" id="btnImport"  data-toggle="modal">导入</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="width:500px;height:500px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
+                            <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index:100;">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                           <img style="width:450px;height:300px;" src="../imgs/loading.gif" id="img" />
                         </div>
                     </div>
                 </div>

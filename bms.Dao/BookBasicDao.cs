@@ -9,6 +9,7 @@ namespace bms.Dao
 {
     public class BookBasicDao
     {
+        MySqlHelp db = new MySqlHelp();
         /// <summary>
         /// 获取所有书本基础数据的ISBN，单价，书名
         /// </summary>
@@ -27,6 +28,13 @@ namespace bms.Dao
             {
                 return null;
             }
+        }
+        public int Delete(long bookNum)
+        {
+            string cmdText = "delete from T_BookBasicData where bookNum=@bookNum";
+            String[] param = { "@bookNum" };
+            String[] values = { bookNum.ToString() };
+            return db.ExecuteNoneQuery(cmdText, param, values);
         }
     }
 }

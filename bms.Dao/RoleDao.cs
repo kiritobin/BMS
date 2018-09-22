@@ -55,6 +55,36 @@ namespace bms.Dao
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
+
+        /// <summary>
+        /// 更新角色
+        /// </summary>
+        /// <param name="roleId">角色Id</param>
+        /// <param name="functionId">功能Id</param>
+        /// <returns></returns>
+        public int UpdatePer(int roleId,int functionId)
+        {
+            string cmdText = "update T_Permission set functionId=@functionId where roleId=@roleId";
+            string[] param = {"@roleId", "@functionId" };
+            object[] values = { roleId, functionId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 根据角色Id来删除角色功能关系
+        /// </summary>
+        /// <param name="roleId">角色Id</param>
+        /// <returns></returns>
+        public int DeletePer(int roleId)
+        {
+            string cmdText = "delete from T_Permission where roleId=@roleId";
+            string[] param = { "@roleId" };
+            object[] values = { roleId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
         /// <summary>
         /// 根据角色Id来删除角色
         /// </summary>
