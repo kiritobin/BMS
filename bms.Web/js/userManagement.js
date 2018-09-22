@@ -189,7 +189,18 @@ $("#reset").click(function () {
 //删除用户
 $("#table").delegate(".btn-delete", "click",function () {
     var account = $(this).parent().prev().prev().prev().prev().text().trim();
-    var flag = confirm("确定要删除账号为：" + account + "的用户吗？");
+    //var flag = confirm("确定要删除账号为：" + account + "的用户吗？");
+    var flag = swal({
+        title: '温馨提示:)',
+        text: '确定要删除账号为：' + account + '的用户吗？',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '是的，删掉它!',
+        cancelButtonText: '不，让我思考一下',
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger",
+        buttonsStyling: false
+    });
     if (flag == true) {
         $.ajax({
             type: 'Post',
