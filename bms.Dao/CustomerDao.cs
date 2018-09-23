@@ -69,7 +69,7 @@ namespace bms.Dao
         /// <returns></returns>
         public int delete(int customerID)
         {
-            string sql = "delete from T_Customer where customerID = @customerID";
+            string sql = "update T_Customer set deleteState=1 where customerID=@customerID";
             string[] param = { "@customerID" };
             object[] values = { customerID };
             return db.ExecuteNoneQuery(sql, param, values);
