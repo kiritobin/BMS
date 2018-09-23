@@ -267,7 +267,7 @@
                 </div>
             </div>
             <!--添加书籍模态框-->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal fade" id="myModal" style="height:800px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="min-width: 1000px;">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -280,16 +280,18 @@
                             <table class="table text-center model-table">
                                 <tr>
                                     <td>
-                                        <button class="btn btn-success" id="downEx">下载模板</button>
+                                        <button class="btn btn-success" id="downEx"><a href="/uploads/muban/基础数据表.xls">下载模板</a></button>
                                         <span class="btn btn-success fileinput-button">
                                             <span>选择文件</span>
-                                            <input type="file" style="">
+                                            <input type="file" name="file" id="file" style="">
                                         </span>
                                         <button class="btn btn-success" id="upload">上传</button>
-                                        <button type="submit" class="btn btn-success" id="btn_import">导入</button>
+                                        <button type="submit" class="btn btn-success" id="btnImport">导入</button>
                                     </td>
                                 </tr>
                             </table>
+
+
                             <div style="">
                                 <table class="table mostTable table-bordered" id="bookBasicModal_table">
                                     <thead>
@@ -310,40 +312,18 @@
                                                 </div>
                                             </th>
                                             <th>书号</th>
-                                            <th>书名</th>
-                                            <th>作者</th>
-                                            <th>定价</th>
-                                            <th>出版日期</th>
-                                            <th>供应商</th>
                                             <th>ISBN</th>
+                                            <th>书名</th>
+                                            <th>供应商</th>
+                                            <th>出版日期</th>
+                                            <th>单价</th>
                                             <th>编目</th>
+                                            <th>作者</th>
                                             <th>备注</th>
                                             <th>标识</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr class="book-tab-tr">
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" />
-                                                        <span class="form-check-sign">
-                                                            <span class="check functionCheck"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>10000000000006</td>
-                                            <td>java</td>
-                                            <td>aouther</td>
-                                            <td>65￥</td>
-                                            <td>2015</td>
-                                            <td>新华书店</td>
-                                            <td>152255555553</td>
-                                            <td>湫隘说就</td>
-                                            <td>备注</td>
-                                            <td>标识</td>
-                                        </tr>
+                                    <tbody id="appendData">
                                     </tbody>
                                 </table>
                             </div>
@@ -354,6 +334,38 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="width: 500px; max-height: 500px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
+                            <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="close_img" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabe12" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="width: 500px; max-height: 500px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title float-left" id="myModalLabe12">正在计算重复数据，请稍等</h3>
+                            <button type="button" class="close" id="close1" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -362,7 +374,8 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
+                        </script>
+                        &nbsp;版权所有
                     </div>
                 </div>
             </footer>
@@ -380,125 +393,7 @@
     <script src="../js/demo.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/bookBasicManagement.js"></script>
-    <script>
-        $(function () {
-            $(".txtVerify").focus(function () {
-                if ($(this).val().length == 0) {
-                    $(this).css("border-color", "#ddd");
-                }
-            });
-            $(".txtVerify").blur(function () {
-                if ($(this).val().length == 0) {
-                    $(this).css("border-color", "red");
-                }
-            });
-            //提交按钮单机非空验证
-            $("#btnAdd").click(function () {
-                //$(".txtVerify").each(function () {
-                //    var val = $(this).val().trim();
-                //    if (val == "") {
-                //        var name = $(this).attr("name");
-                //        alert("您的" + name + "信息为空，请确认后再次提交");
-                //        $(this).focus();
-                //        return false;
-                //    }
-                //    else {
-                //        alert("提交成功");
-                //    }
-                //});
-                if ($(".txtTitle").val() == "") {
-                    swal({
-                        title: "温馨提示:)",
-                        text: "书名不能为空，请确认后再次提交!",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                    $(this).focus();
-                }
-                else if ($(".txtAuthor").val() == "") {
-                    swal({
-                        title: "温馨提示:)",
-                        text: "作者不能为空，请确认后再次提交!",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                    $(this).focus();
-                }
-                else if ($(".txtPrice").val() == "") {
-                    swal({
-                        title: "温馨提示:)",
-                        text: "价格不能为空，请确认后再次提交!",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                    $(this).focus();
-                }
-                else if ($(".txtTime").val() == "") {
-                    swal({
-                        title: "温馨提示:)",
-                        text: "出版时间不能为空，请确认后再次提交!",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                    $(this).focus();
-                }
-                else if ($(".txtPress").val() == "") {
-                    swal({
-                        title: "温馨提示:)",
-                        text: "出版社不能为空，请确认后再次提交!",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                    $(this).focus();
-                }
-                else if ($(".txtISBN").val() == "") {
-                    swal({
-                        title: "温馨提示:)",
-                        text: "ISBN不能为空，请确认后再次提交!",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                    $(this).focus();
-                }
-                else if ($(".txtCatalogue").val() == "") {
-                    swal({
-                        title: "温馨提示:)",
-                        text: "编目不能为空，请确认后再次提交!",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                    $(this).focus();
-                }
-                else if ($(".txtId").val() == "") {
-                    swal({
-                        title: "温馨提示:)",
-                        text: "标识不能为空，请确认后再次提交!",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                    $(this).focus();
-                }
-                else {
-                    swal({
-                        title: "温馨提示:)",
-                        text: "数据添加成功",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-success",
-                        type: "success"
-                    }).catch(swal.noop)
-                }
-            });
-
-        });
-    </script>
+    <script src="../js/ajaxfileupload.js"></script>
 </body>
 
 </html>

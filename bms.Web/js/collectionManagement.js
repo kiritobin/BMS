@@ -90,6 +90,9 @@
         else if (file == "" || file == null) {
             alert("请上传文件");
         }
+        else if (sessionStorage.getItem("succ") != "上传成功") {
+            alert("文件未上传成功");
+        }
         else {
             $("#myModal1").modal("show");
             $("#close").hide();
@@ -106,10 +109,12 @@
                         $("#myModalLabe1").html(data);
                         $("#close").show();
                         $("#img").attr("src", "../imgs/success.png");
+                        sessionStorage.removeItem("succ");
                     } else if (data.indexOf("导入失败") >= 0) {
                         $("#myModalLabe1").html(data);
                         $("#close").show();
                         $("#img").attr("src", "../imgs/lose.png");
+                        sessionStorage.removeItem("succ");
                     }
                     else {
                         alert(data);
@@ -136,6 +141,9 @@
     });
 
     $("#close").click(function () {
+        $("#close").show();
+        $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
+        $("#img").attr("src", "../imgs/loading.gif");
         window.location.reload();
     });
 
@@ -154,6 +162,7 @@
                             alert(data.error);
                         } else {
                             alert(data.msg);
+                            sessionStorage.setItem("succ", data.msg);
                         }
                     }
                 },

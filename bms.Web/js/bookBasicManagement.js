@@ -1,4 +1,244 @@
 ﻿$(document).ready(function () {
+    $("#upload").click(function () {
+        var location = $("input[name='file']").val();
+        var point = location.lastIndexOf(".");
+        var type = location.substr(point).toLowerCase();
+        var uploadFiles = document.getElementById("file").files;
+        if (uploadFiles.length == 0) {
+            alert("请选择要上传的文件");
+        }
+        else if (type == ".xls") {
+            ajaxFileUpload();
+        }
+        else {
+            alert("只允许上传.xls格式的文件");
+        }
+    });
+
+    $("#btnImport").click(function () {
+        var file = $("#file").val();
+        if (file == "" || file == null) {
+            alert("请上传文件");
+        }
+        else if (sessionStorage.getItem("succ")!="上传成功") {
+            alert("文件未上传成功");
+        }
+        else {
+            $("#myModal1").modal("show");
+            $("#close").hide();
+            $.ajax({
+                type: 'Post',
+                url: 'bookBasicManagement.aspx',
+                data: {
+                    action: "import"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    if (data.indexOf("导入成功") >= 0) {
+                        $("#myModalLabe1").html(data);
+                        $("#close").show();
+                        $("#img").attr("src", "../imgs/success.png");
+                        sessionStorage.removeItem("succ");
+                        sessionStorage.setItem("import", "导入成功");
+                    } else if (data.indexOf("导入失败") >= 0) {
+                        $("#myModalLabe1").html(data);
+                        $("#close").show();
+                        $("#img").attr("src", "../imgs/lose.png");
+                        sessionStorage.removeItem("succ");
+                        sessionStorage.setItem("import", "导入失败");
+                    }
+                    else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+    });
+
+    $("#close").click(function () {
+        $("#close").show();
+        $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
+        $("#img").attr("src", "../imgs/loading.gif");
+
+        if ((sessionStorage.getItem("import") == "导入成功")) {
+            $("#myModal2").modal("show");
+            $("#close1").hide();
+
+            $.ajax({
+                type: 'Post',
+                url: 'bookBasicManagement.aspx',
+                data: {
+                    action: "close"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "" || data == null) {
+                        $("#myModalLabe12").html("无重复数据");
+                        $("#close_img").attr("src", "../imgs/success.png");
+                    }
+                    else {
+                        $("#close1").show();
+                        $("#myModalLabe12").html("关闭窗口，请选择重复数据添加");
+                        $("#close_img").attr("src", "../imgs/success.png");
+                        $("#appendData").append(data);
+                    }
+                }
+            });
+        }
+    });
+
+    $("#close1").click(function () {
+        $("#myModalLabe12").html("正在计算重复数据，请稍等");
+        $("#close_img").attr("src", "../imgs/loading.gif");
+    });
+
+    function ajaxFileUpload() {
+        $.ajaxFileUpload(
+            {
+                url: '../CustomerMGT/upload.aspx', //用于文件上传的服务器端请求地址
+                secureuri: false, //是否需要安全协议，一般设置为false
+                fileElementId: 'file', //文件上传域的ID
+                dataType: 'json', //返回值类型 一般设置为json
+                success: function (data, status)  //服务器成功响应处理函数
+                {
+                    console.log(data.msg);
+                    if (typeof (data.error) != 'undefined') {
+                        if (data.error != '') {
+                            alert(data.error);
+                        } else {
+                            alert(data.msg);
+                            sessionStorage.setItem("succ", data.msg);
+                        }
+                    }
+                },
+                error: function (data, status, e)//服务器响应失败处理函数
+                {
+                    alert(e);
+                }
+            }
+        );
+        return false;
+    }
+
+    $(function () {
+        $(".txtVerify").focus(function () {
+            if ($(this).val().length == 0) {
+                $(this).css("border-color", "#ddd");
+            }
+        });
+        $(".txtVerify").blur(function () {
+            if ($(this).val().length == 0) {
+                $(this).css("border-color", "red");
+            }
+        });
+        //提交按钮单机非空验证
+        $("#btnAdd").click(function () {
+            //$(".txtVerify").each(function () {
+            //    var val = $(this).val().trim();
+            //    if (val == "") {
+            //        var name = $(this).attr("name");
+            //        alert("您的" + name + "信息为空，请确认后再次提交");
+            //        $(this).focus();
+            //        return false;
+            //    }
+            //    else {
+            //        alert("提交成功");
+            //    }
+            //});
+            if ($(".txtTitle").val() == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "书名不能为空，请确认后再次提交!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+                $(this).focus();
+            }
+            else if ($(".txtAuthor").val() == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "作者不能为空，请确认后再次提交!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+                $(this).focus();
+            }
+            else if ($(".txtPrice").val() == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "价格不能为空，请确认后再次提交!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+                $(this).focus();
+            }
+            else if ($(".txtTime").val() == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "出版时间不能为空，请确认后再次提交!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+                $(this).focus();
+            }
+            else if ($(".txtPress").val() == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "出版社不能为空，请确认后再次提交!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+                $(this).focus();
+            }
+            else if ($(".txtISBN").val() == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "ISBN不能为空，请确认后再次提交!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+                $(this).focus();
+            }
+            else if ($(".txtCatalogue").val() == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "编目不能为空，请确认后再次提交!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+                $(this).focus();
+            }
+            else if ($(".txtId").val() == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "标识不能为空，请确认后再次提交!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+                $(this).focus();
+            }
+            else {
+                swal({
+                    title: "温馨提示:)",
+                    text: "数据添加成功",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-success",
+                    type: "success"
+                }).catch(swal.noop)
+            }
+        });
+
+    });
+
+
     $('.paging').pagination({
         //totalData: $("#totalCount").val(),
         //showData: $("#pageSize").val(),
@@ -13,7 +253,7 @@
         callback: function (api) {
             var bookName = $("#bookName").val().trim();
             var bookNum = $("#bookNum").val().trim();
-            var btnISBN = $("#btnISBN").val().trim();
+            var btnISBN = $("#bookISBN").val().trim();
             $.ajax({
                 type: 'Post',
                 url: 'bookBasicManagement.aspx',
