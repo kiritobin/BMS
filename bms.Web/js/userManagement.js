@@ -11,9 +11,9 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var strWhere = $("#input-search").val().trim();
-            var regionId = $("#select-region").val().trim();
-            var roleId = $("#select-role").val().trim();
+            var strWhere = $("#input-search").val();
+            var regionId = $("#select-region").val();
+            var roleId = $("#select-role").val();
             $.ajax({
                 type: 'Post',
                 url: 'userManagement.aspx',
@@ -89,16 +89,42 @@ $("#btn-search").click(function () {
 });
 //添加用户
 $("#btnAdd").click(function () {
-    var name = $("#inputName").val();
-    var account = $("#inputAccount").val();
-    var region = $("#model-select-region").val();
-    var role = $("#model-select-role").val();
-    if (account == null || account == "") {
-        alert("账号不能为空！");
+    var name = $("#inputName").val().trim();
+    var account = $("#inputAccount").val().trim();
+    var region = $("#model-select-region").val().trim();
+    var role = $("#model-select-role").val().trim();
+    if (name == null || name == "") {
+        swal({
+            title: "温馨提示:)",
+            text: "姓名不能为空，请确认后再次提交!",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+    } else if (account == null || account == "") {
+        swal({
+            title: "温馨提示:)",
+            text: "账号不能为空，请确认后再次提交!",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
     } else if (region == null || region == "") {
-        alert("组织不能为空！");
+        swal({
+            title: "温馨提示:)",
+            text: "分公司不能为空，请确认后再次提交!",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
     } else if (role == null || role == "") {
-        alert("角色不能为空！");
+        swal({
+            title: "温馨提示:)",
+            text: "职位不能为空，请确认后再次提交!",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
     } else {
         $.ajax({
             type: 'Post',
@@ -113,9 +139,29 @@ $("#btnAdd").click(function () {
             dataType: 'text',
             success: function (succ) {
                 if (succ == "添加成功") {
-                    alert("添加成功");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "用户添加成功",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "success"
+                    }).catch(swal.noop);
+                } else if (succ == "该用户已存在不能重复添加") {
+                    swal({
+                        title: '温馨提示:)',
+                        text: '该用户已存在不能重复添加',
+                        type: 'error',
+                        confirmButtonClass: "btn btn-info",
+                        buttonsStyling: false
+                    }).catch(swal.noop);
                 } else {
-                    alert("添加失败");
+                    swal({
+                        title: '温馨提示:)',
+                        text: '添加失败请联系管理员',
+                        type: 'error',
+                        confirmButtonClass: "btn btn-info",
+                        buttonsStyling: false
+                    }).catch(swal.noop);
                 }
             }
         });
@@ -159,9 +205,21 @@ $("#btnEdit").click(function () {
         dataType: 'text',
         success: function (succ) {
             if (succ == "更新成功") {
-                alert("修改成功");
+                swal({
+                    title: "温馨提示:)",
+                    text: "修改成功",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-success",
+                    type: "success"
+                }).catch(swal.noop);
             } else {
-                alert("修改失败");
+                swal({
+                    title: "温馨提示:)",
+                    text: "修改失败",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-success",
+                    type: "warning"
+                }).catch(swal.noop);
             }
         }
     })
@@ -179,18 +237,39 @@ $("#reset").click(function () {
         dataType: 'text',
         success: function (succ) {
             if (succ == "更新成功") {
-                alert("重置成功");
+                swal({
+                    title: "温馨提示:)",
+                    text: "密码重置成功",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-success",
+                    type: "success"
+                }).catch(swal.noop);
             } else {
-                alert("重置失败");
+                swal({
+                    title: "温馨提示:)",
+                    text: "密码重置发生异常",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-success",
+                    type: "warning"
+                }).catch(swal.noop);
             }
         }
     })
 })
 //删除用户
-$("#table").delegate(".btn-delete", "click",function () {
-    var account = $(this).parent().prev().prev().prev().prev().text().trim();
-    var flag = confirm("确定要删除账号为：" + account + "的用户吗？");
-    if (flag == true) {
+$("#table").delegate(".btn-delete", "click", function () {
+    var account = $(this).parent().prev().prev().prev().prev().text().trim(); swal({
+        title: '温馨提示:)',
+        text: '确定要删除账号为：' + account + '的用户吗？',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '是的，删掉它!',
+        cancelButtonText: '不，让我思考一下',
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger",
+        buttonsStyling: false,
+        allowOutsideClick: false
+    }).then(function () {
         $.ajax({
             type: 'Post',
             url: 'userManagement.aspx',
@@ -201,12 +280,18 @@ $("#table").delegate(".btn-delete", "click",function () {
             dataType: 'text',
             success: function (succ) {
                 if (succ == "删除成功") {
-                    alert("删除成功");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "用户删除成功",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "success"
+                    }).catch(swal.noop);
                     window.location.href = "userManagement.aspx";
                 } else {
                     alert("删除失败");
                 }
             }
         })
-    }
+    });
 })

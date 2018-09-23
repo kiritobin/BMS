@@ -137,6 +137,7 @@
             })
         }
     })
+    //关闭添加模态框
     $("#model-btnclose1").click(function () {
         var obj = $("input[name=checkbox]");//获取复选框
         for (var j = 0; j < obj.length; j++) {
@@ -147,14 +148,27 @@
     //编辑职位
     $("#table").delegate(".btn-edit", "click", function () {
         var roleName = $(this).parent().prev().prev().text().trim();
+        sessionStorage.setItem("roleName", roleName);
         $("#editRoleName").val(roleName);
+        var rows = $(this).prev().prev().prev().val();
+        sessionStorage.setItem("rows", rows);
         var roleId = $(this).prev().prev().val();
+        sessionStorage.setItem("roleId", roleId);
         var fun = $(this).prev().val();
+        sessionStorage.setItem("funId", fun);
+        $("#function").hide();
+        sessionStorage.setItem("editFun", "false");
+    });
+    //编辑功能
+    $("#editFun").click(function () {
+        $(this).hide();
+        $("#function").show();
+        var fun = sessionStorage.getItem("funId");
         var funId = fun.replace(" ", "");
-        var strs = new Array(); 
+        var strs = new Array();
         strs = funId.split(","); //分割功能id字符串 
         var obj = $("input[name=checkboxEdit]");//获取复选框
-        for (var i = 0; i < strs.length; i++){
+        for (var i = 0; i < strs.length; i++) {
             for (var j = 0; j < obj.length; j++) {
                 var a = obj[j].value;
                 var b = strs[i];
@@ -163,24 +177,84 @@
                 }
             }
         }
-    });
+        sessionStorage.setItem("editFun", "true");
+    })
+    //提交编辑
     $("#btnEdit").click(function () {
         var roleName = $("#editRoleName").val().trim();
-        var obj = $("input[name=checkboxEdit]");//获取复选框
-        var strs="";
-        if (obj.length > 0) {
-            for (var j = 0; j < obj.length; j++) {
-                if (obj[j].checked == true) {
-                    var str = obj[j].value + "?";
-                    strs = strs + str;
+        if (sessionStorage.getItem("editFun") == "true") {
+            var obj = $("input[name=checkboxEdit]");//获取复选框
+            var strs = "";
+            if (obj.length > 0) {
+                for (var j = 0; j < obj.length; j++) {
+                    if (obj[j].checked == true) {
+                        var str = obj[j].value + "?";
+                        strs = strs + str;
+                    }
                 }
+                $.ajax({
+                    type: 'Post',
+                    url: 'roleManagement.aspx',
+                    data: {
+                        rows: sessionStorage.getItem("rows"),
+                        roleId: sessionStorage.getItem("roleId"),
+                        oldName: sessionStorage.getItem("roleName"),
+                        roleName: roleName,
+                        funIds: strs,
+                        op: "editFun"
+                    },
+                    dataType: 'text',
+                    success: function (succ) {
+                        if (succ == "更新成功") {
+                            swal({
+                                title: succ,
+                                text: succ,
+                                type: "success",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                                window.location.reload();
+                            })
+                        } else {
+                            swal({
+                                title: succ,
+                                text: succ,
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                                window.location.reload();
+                            })
+                        }
+                    }
+                })
+            } else {
+                swal({
+                    title: "未选择任何项",
+                    text: "请至少选择一项权限",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                }).then(function () {
+                })
             }
+        }
+        else {
             $.ajax({
                 type: 'Post',
                 url: 'roleManagement.aspx',
                 data: {
+                    roleId: sessionStorage.getItem("roleId"),
                     roleName: roleName,
-                    strs: strs,
                     op: "edit"
                 },
                 dataType: 'text',
@@ -214,25 +288,15 @@
                     }
                 }
             })
-        } else {
-            swal({
-                title: "未选择任何项",
-                text: "请至少选择一项权限",
-                type: "warning",
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: '确定',
-                confirmButtonClass: 'btn btn-success',
-                buttonsStyling: false,
-                allowOutsideClick: false
-            }).then(function () {
-            })
         }
     })
+    //关闭编辑模态框
     $("#model-btnclose2").click(function () {
         var obj = $("input[name=checkboxEdit]");//获取复选框
         for (var j = 0; j < obj.length; j++) {
             obj[j].checked = false;
         }
+        $("#editFun").show();
     })
 
     //删除职位
@@ -251,11 +315,13 @@
             buttonsStyling: false,
             allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
         }).then(function () {
+            var rows = $(".btn-delete").prev().prev().prev().prev().val();
             var roleId = $(".btn-delete").prev().prev().prev().val();
             $.ajax({
                 type: 'Post',
                 url: 'roleManagement.aspx',
                 data: {
+                    rows: rows,
                     roleId: roleId,
                     op:'del'
                 },

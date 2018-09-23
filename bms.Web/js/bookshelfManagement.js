@@ -122,7 +122,7 @@
                         swal({
                             title: succ,
                             text: succ,
-                            type: "success",
+                            type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
                             confirmButtonClass: 'btn btn-success',
@@ -178,7 +178,7 @@
                         swal({
                             title: succ,
                             text: succ,
-                            type: "success",
+                            type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
                             confirmButtonClass: 'btn btn-success',

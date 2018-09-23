@@ -56,6 +56,19 @@ namespace bms.Bll
             return shelvesdao.Select();
         }
 
+        public Result selectByName(GoodsShelves shelves)
+        {
+            DataSet ds = shelvesdao.selectByName(shelves);
+            if (ds != null)
+            {
+                return Result.记录存在;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
+        }
+
         /// <summary>
         /// 获取分页数据
         /// </summary>

@@ -18,11 +18,25 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Insert(User user)
         {
-            string comText = "insert into T_User(userID,userPwd,userName,regionId,roleId) values(@userID, @userPwd,@userName,@regionId,@roleId)";
-            string[] param = { "@userID", "@userName", "@regionId", "@roleId" , "@userPwd" };
-            object[] values = { user.UserId, user.UserName, user.ReginId.RegionId, user.RoleId.RoleId ,user.Pwd};
-            int row = db.ExecuteNoneQuery(comText, param, values);
-            return row;
+            int row;
+            int userId = user.UserId;
+            string cmd = "select userId from T_User where userId=@userId";
+            string[] param1 = { "@userId" };
+            object[] values1 = { userId };
+            DataSet ds = db.FillDataSet(cmd, param1, values1);
+            if (ds != null)
+            {
+                return row = 0;
+            }
+            else
+            {
+                string comText = "insert into T_User(userID,userPwd,userName,regionId,roleId) values(@userID, @userPwd,@userName,@regionId,@roleId)";
+                string[] param = { "@userID", "@userName", "@regionId", "@roleId", "@userPwd" };
+                object[] values = { user.UserId, user.UserName, user.ReginId.RegionId, user.RoleId.RoleId, user.Pwd };
+                row = db.ExecuteNoneQuery(comText, param, values);
+                return row;
+            }
+
         }
 
         /// <summary>
@@ -60,7 +74,7 @@ namespace bms.Dao
         /// <returns></returns>
         public int Delete(int userID)
         {
-            string comText = "delete from T_User where userID = @userID";
+            string comText = "update T_User set deleteState=1 where userID = @userID";
             string[] param = { "@userID" };
             object[] values = { userID };
             int row = db.ExecuteNoneQuery(comText, param, values);

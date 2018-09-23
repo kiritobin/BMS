@@ -53,21 +53,21 @@
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <%--<li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">功能管理</span>
 
                                     </a>
-                                </li>
+                                </li>--%>
                             </ul>
                         </div>
                     </li>
@@ -83,12 +83,12 @@
                         <div class="collapse show" id="userManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor foucsColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
@@ -106,18 +106,18 @@
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">出库</span>
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">入库</span>
+                                    <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">退货</span>
+                                    <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -134,13 +134,8 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">销售</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">销退</span>
+                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -157,18 +152,13 @@
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">价位管理</span>
+                                    <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
+                                        <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                    <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -278,44 +268,47 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <table class="table table-bordered text-center model-table">
+                            <table class="table text-center model-table">
                                 <tr>
-                                    <td>
-                                        <input type="file" class="" name="file" id="file" value="" />
+                                    <td colspan="2">
+                                        <a class="btn btn-success" id="downEx" href="/uploads/muban/客户馆藏数据表.xls">下载模板</a>
+                                        <span class="btn btn-success fileinput-button">
+                                            <span>选择文件</span>
+                                            <input type="file" class="" name="file" id="file" value="">
+                                        </span>
                                         <button class="btn btn-success" id="upload">上传</button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="model-select-custom">
-                                            <option value="">请选择客户</option>
-                                            <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
-                                                { %>
-                                            <option value="<%=dsCustom.Tables[0].Rows[i]["customerId"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
-                                            <%}%>
-                                        </select>
-                                    </td>
-                                </tr>
                             </table>
+                            <div class="text-center">
+                                <span>请选择客户:</span>
+                                <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="model-select-custom" style="float: left;">
+                                    <option value="">请选择客户</option>
+                                    <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
+                                        { %>
+                                    <option value="<%=dsCustom.Tables[0].Rows[i]["customerId"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
+                                    <%}%>
+                                </select>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-success btn-link" id=""><a href="/uploads/muban/客户馆藏数据表.xls">下载模板</a></button>
-                            <button class="btn btn-success" id="btnImport"  data-toggle="modal">导入</button>
+                            <label>上传成功才能入哟！</label>
+                            <button class="btn btn-success" id="btnImport" data-toggle="modal">导入</button>
                         </div>
                     </div>
                 </div>
             </div>
-             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="width:500px;height:500px">
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="width: 500px; height: 500px">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
-                            <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index:100;">
+                            <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
                                 <i class="material-icons">clear</i>
                             </button>
                         </div>
                         <div class="modal-body">
-                           <img style="width:450px;height:300px;" src="../imgs/loading.gif" id="img" />
+                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
                         </div>
                     </div>
                 </div>
@@ -344,6 +337,7 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/sweetalert2.js"></script>
     <script src="../js/collectionManagement.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/ajaxfileupload.js"></script>

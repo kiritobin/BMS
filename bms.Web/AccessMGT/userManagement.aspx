@@ -32,8 +32,7 @@
         <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
-        <div class="sidebar" data-color="danger" data-background-color="white" data-image="
-            imgs/sidebar-2.jpg">
+        <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!--
                 Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
         
@@ -41,7 +40,7 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -56,19 +55,25 @@
                         </a>
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor foucsColor">
-                                    <a class="nav-link" href="javascript:;">
+                                <li class="nav-item foucsColor">
+                                    <a class="nav-link" href="userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                <!-- <li class="nav-item">
+                                    <a class="nav-link" href="JurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
+
+                                    </a>
+                                </li> -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="organizationalManagement.aspx">
+                                        <span class="sidebar-normal">组织管理</span>
 
                                     </a>
                                 </li>
@@ -86,13 +91,13 @@
                         </a>
                         <div class="collapse" id="userManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx"">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
@@ -109,19 +114,19 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">出库</span>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">入库</span>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">退货</span>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -137,14 +142,9 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">销售</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">销退</span>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -160,19 +160,14 @@
                         </a>
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">价位管理</span>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
+                                        <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="javascript:;">
-                                        <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -185,6 +180,7 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
+                    <div class="navbar-wrapper"></div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -255,7 +251,7 @@
                                                     <th>用户名</th>
                                                     <th>分公司</th>
                                                     <th>职位</th>
-                                                    <th class="table-thead-th">操作</th>
+                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
@@ -276,28 +272,30 @@
             </div>
             <!--添加用户模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="width:380px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">添加用户
-                            </h4>
+                            <h4 class="modal-title float-left" id="myModalLabel">添加用户</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">账号:</span></td>
+                                    <td class="text-right"><span>账号:</span></td>
                                     <td>
-                                        <input type="text" class="form-control col-sm-9 input-search" id="inputAccount" placeholder="请输入账号"></td>
+                                        <input type="text" class="modal_search" id="inputAccount" placeholder="请输入账号"></td>
                                 </tr>
                                 <tr>
-                                    <td class="model-td-left"><span class="model-tab-td-span">姓名:</span></td>
+                                    <td class="text-right"><span>姓名:</span></td>
                                     <td>
-                                        <input type="text" class="form-control col-sm-9 input-search" id="inputName" placeholder="请输入账号"></td>
+                                        <input type="text" class="modal_search" id="inputName" placeholder="请输入姓名"></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">分公司:</span></td>
+                                    <td class="text-right"><span>分公司:</span></td>
                                     <td>
-                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;"id="model-select-region">
+                                        <select class="modal_select" id="model-select-region">
                                             <option value="">请选择分公司</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 {%>
@@ -307,9 +305,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">职位:</span></td>
+                                    <td class="text-right"><span>职位:</span></td>
                                     <td>
-                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;" id="model-select-role">
+                                        <select class="modal_select" id="model-select-role">
                                            <option value="">请选择职位</option>
                                              <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>
@@ -321,7 +319,6 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm btn-Off" data-dismiss="modal" id="model-btnclose1">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
                         </div>
                     </div>
@@ -329,33 +326,35 @@
             </div>
             <!--编辑用户模态框-->
             <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="width:380px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabe2">编辑用户
-                            </h4>
+                            <h4 class="modal-title float-left" id="myModalLabe2">编辑用户</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
                                 <tr>
-                                    <td class="model-td-left2"><span class="model-tab-td-span">账号:</span></td>
+                                    <td class="text-right"><span>账号:</span></td>
                                     <td>
-                                        <input type="text" readonly="readonly" id="edit-Account" /></td>
+                                        <input type="text" class="modal_search" readonly="readonly" id="edit-Account" /></td>
                                 </tr>
                                 <tr>
-                                    <td class="model-td-left2"><span class="model-tab-td-span">姓名:</span></td>
+                                    <td class="text-right"><span>姓名:</span></td>
                                     <td>
-                                        <input type="text" id="edit-Name" /></td>
+                                        <input type="text" class="modal_search" id="edit-Name" /></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">密码:</span></td>
+                                    <td class="text-right"><span>密码:</span></td>
                                     <td>
-                                        <button type="button" class="btn btn-default btn-sm" id="reset">重置密码</button></td>
+                                        <button type="button" class="btn btn-warning btn-sm" id="reset">重置密码</button></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">分公司:</span></td>
+                                    <td class="text-right"><span>分公司:</span></td>
                                     <td>
-                                        <select style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;"id="editRegion">
+                                        <select class="modal_select" id="editRegion">
                                             <option value="">请选择分公司</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 { %>
@@ -365,9 +364,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><span class="model-tab-td-span">职位:</span></td>
+                                    <td class="text-right"><span>职位:</span></td>
                                     <td>
-                                        <select class="" id="editRole" style="width: 200px; height: 28px; border-radius: 5px; font-size: 12px;">
+                                        <select class="modal_select" id="editRole">
                                            <option value="">请选择职位</option>
                                              <%for (int i = 0; i < dsRole.Tables[0].Rows.Count; i++)
                                                 {%>
@@ -379,7 +378,6 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnEdit">提交</button>
                         </div>
                     </div>
@@ -393,9 +391,7 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>
-                        , made with <i class="material-icons">favorite</i> by
-                        <a href="javascript:;" target="_blank"></a>for a better web.
+                        </script>&nbsp;版权所有
                     </div>
                 </div>
             </footer>

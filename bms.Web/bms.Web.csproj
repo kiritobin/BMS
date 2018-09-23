@@ -77,6 +77,8 @@
     <Content Include="CustomerMGT\upload.aspx" />
     <Content Include="CustomerMGT\WebForm1.aspx" />
     <Content Include="demo\sales_demo.aspx" />
+    <Content Include="imgs\16.png" />
+    <Content Include="imgs\26.png" />
     <Content Include="imgs\loading.gif" />
     <Content Include="InventoryMGT\addReturn.aspx" />
     <Content Include="InventoryMGT\addStock.aspx" />

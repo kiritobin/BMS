@@ -15,7 +15,7 @@ namespace bms.Web.AccessMGT
     public partial class userManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
-        public string search="";
+        public string search = "";
         public DataSet dsRegion, dsRole, ds;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
@@ -29,7 +29,7 @@ namespace bms.Web.AccessMGT
             //增、删、改操作
             Region region = new Region();
             string op = Request["op"];
-            if(op == "add")
+            if (op == "add")
             {
                 string name = Request["name"];
                 string account = Request["account"];
@@ -43,7 +43,12 @@ namespace bms.Web.AccessMGT
                 user.ReginId = region;
                 user.RoleId = role;
                 Result row = userBll.Insert(user);
-                if(row  == Result.添加成功)
+                if (row == Result.记录存在)
+                {
+                    Response.Write("该用户已存在不能重复添加");
+                    Response.End();
+                }
+                else if (row == Result.添加成功)
                 {
                     Response.Write("添加成功");
                     Response.End();
@@ -55,7 +60,7 @@ namespace bms.Web.AccessMGT
                 }
 
             }
-            else if(op == "edit")
+            else if (op == "edit")
             {
                 string name = Request["name"];
                 string account = Request["account"];
@@ -78,7 +83,7 @@ namespace bms.Web.AccessMGT
                     Response.End();
                 }
             }
-            else if(op == "reset")
+            else if (op == "reset")
             {
                 string account = Request["account"];
                 user.UserId = Convert.ToInt32(account);
@@ -95,7 +100,7 @@ namespace bms.Web.AccessMGT
                     Response.End();
                 }
             }
-            else if(op == "del")
+            else if (op == "del")
             {
                 int account = Convert.ToInt32(Request["account"]);
                 Result row = IsdeleteAdmin();
@@ -136,46 +141,46 @@ namespace bms.Web.AccessMGT
             string role = Request["role"];
             if ((userName == "" || userName == null) && (region == null || region == "") && (role == null || role == ""))
             {
-                search = "";
+                search = "deleteState=0";
             }
             else if ((userName != "" && userName != null) && (region == null || region == "") && (role == null || role == ""))
             {
-                search = String.Format(" userName= '{0}'", userName);
+                search = String.Format(" userName= '{0}' and deleteState=0", userName);
             }
             else if ((userName == "" || userName == null) && (region != "" && region != null) && (role == null || role == ""))
             {
-                search = "regionName='" + region + "'";
+                search = "regionName='" + region + "'  and deleteState=0";
             }
             else if ((userName == "" || userName == null) && (role != "" && role != null) && (region == null || region == ""))
             {
-                search = "roleName='" + role + "'";
+                search = "roleName='" + role + "'  and deleteState=0";
             }
             else if ((userName == "" || userName == null) && (role != "" && role != null) && (region != null && region != ""))
             {
-                search = "regionName='" + region + "' and roleName='" + role+"'";
+                search = "regionName='" + region + "' and roleName='" + role + "'  and deleteState=0";
             }
             else if ((userName != "" && userName != null) && (region != null && region != "") && (role == null || role == ""))
             {
-                search = String.Format(" userName= '{0}' and regionName = '{1}'", userName, region);
+                search = String.Format(" userName= '{0}' and regionName = '{1}'  and deleteState=0", userName, region);
             }
             else if ((userName != "" && userName != null) && (region == null || region == "") && (role != null && role != ""))
             {
-                search = String.Format(" userName= '{0}' and roleName='{1}'", userName, role);
+                search = String.Format(" userName= '{0}' and roleName='{1}'  and deleteState=0", userName, role);
             }
             else
             {
-                search = String.Format(" userName= '{0}' and regionName = '{1}' and roleName='{2}'",userName, region, role);
+                search = String.Format(" userName= '{0}' and regionName = '{1}' and roleName='{2}'  and deleteState=0", userName, region, role);
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_User";
             tbd.OrderBy = "userID";
-            tbd.StrColumnlist = "userID,userName,regionName,roleName,regionId,roleId";
+            tbd.StrColumnlist = "userID,userName,regionName,roleName,regionId,roleId,deleteState";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
-            ds = userBll.selectByPage(tbd, out totalCount,out intPageCount);
+            ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
             //获取地区下拉框数据
             dsRegion = regionBll.select();
             //获取角色下拉框数据
@@ -192,11 +197,11 @@ namespace bms.Web.AccessMGT
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["roleName"].ToString() + "</ td >");
                 sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["regionId"].ToString() + " class='regionId' />");
                 sb.Append("<input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " class='roleId' />");
-                sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button>");
-                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
+                sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i></button>");
+                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></ tr >");
             }
             sb.Append("</tbody>");
-            sb.Append("<input type='hidden' value=' "+ intPageCount + " ' id='intPageCount' />");
+            sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {
