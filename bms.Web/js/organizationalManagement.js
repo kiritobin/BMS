@@ -105,16 +105,73 @@
                     } else {
                         swal({
                             title: '温馨提示:)',
-                            text: '公司添加失败',
+                            text: data,
                             type: 'error',
                             confirmButtonClass: "btn btn-info",
                             buttonsStyling: false
-                        }).catch(swal.noop)
+                        }).catch(swal.noop);
                     }
                 }
             })
         }
     })
+
+    //编辑组织名称
+    $("#table").delegate(".btn_Editor", "click", function () {
+        var name = $(this).parent().prev().text().trim();
+        var id = $(this).parent().next().text().trim();
+        $("#editor_Name").val(name);
+        $("#editor_id").val(id);
+    })
+    $("#save_Editor").click(function () {
+        var name = $("#editor_Name").val();
+        var id = $("#editor_id").val();
+        if (name == "" || name == null) {
+            swal({
+                title: "温馨提示:)",
+                text: "公司名称不能为空，请确认后再次提交!",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        } else {
+            $.ajax({
+                type: 'Post',
+                url: 'organizationalManagement.aspx',
+                data: {
+                    name: name,
+                    id: id,
+                    op: "editor"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "更新成功") {
+                        swal({
+                            title: data,
+                            text: data,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
+                    } else {
+                        swal({
+                            title: '温馨提示:)',
+                            text: data,
+                            type: 'error',
+                            confirmButtonClass: "btn btn-info",
+                            buttonsStyling: false
+                        }).catch(swal.noop);
+                    }
+                }
+            })
+        }
+    })
+    
     //删除分公司
     $("#table").delegate(".btn-delete", "click", function () {
         var flag = swal({
