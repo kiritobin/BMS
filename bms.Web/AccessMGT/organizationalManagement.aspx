@@ -273,6 +273,28 @@
                     </div>
                 </div>
             </div>
+            <!--编辑组织模态框-->
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel2">编辑分公司</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <span>分公司名称：</span>&nbsp;&nbsp;<input class="modal_search" type="text" id="editor_Name" />
+                                <input class="modal_search" type="hidden" id="editor_id" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success btn-sm" id="save_Editor">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">

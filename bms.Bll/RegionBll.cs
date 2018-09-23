@@ -77,5 +77,58 @@ namespace bms.Bll
                 return Enums.OpResult.记录不存在;
             }
         }
+        /// <summary>
+        /// 添加组织的同时分配名为“未上架”的货架
+        /// </summary>
+        /// <param name="tabInsert">添加类实体</param>
+        /// <param name="count">输入的参数</param>
+        /// <returns></returns>
+        public Result InsertManyTable(TableInsertion tabInsert, out int count)
+        {
+            PublicProcedure pb = new PublicProcedure();
+            DataSet ds = pb.InsertManyTable(tabInsert, out count);
+            if (count > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
+        }
+        /// <summary>
+        /// 判断组织是否存在
+        /// </summary>
+        /// <param name="regionName">组织名称</param>
+        /// <returns></returns>
+        public Result isExit(string regionName)
+        {
+            int row = regionDao.isExit(regionName);
+            if (row > 0)
+            {
+                return Result.记录存在;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
+        }
+        /// <summary>
+        /// 更新组织
+        /// </summary>
+        /// <param name="region">组织实体</param>
+        /// <returns>返回结果</returns>
+        public Result Update(Region region)
+        {
+            int row = regionDao.Update(region);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
     }
 }
