@@ -18,6 +18,10 @@
         color: #fff;
     }
 
+.activeNext {
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: rgb(206, 206, 206) 0px 0px 5px;
+}
 
 .main-panel > .content {
     margin-top: 27px;

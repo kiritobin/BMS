@@ -110,17 +110,17 @@
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../InventoryMGT/addWarehouse.aspx">
-                                        <span class="sidebar-normal">出库</span>
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
-                                        <span class="sidebar-normal">入库</span>
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
-                                        <span class="sidebar-normal">退货</span>
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -138,12 +138,12 @@
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
-                                        <span class="sidebar-normal">销售</span>
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../SalesMGT/backQuery.aspx">
-                                        <span class="sidebar-normal">销退</span>
+                                        <span class="sidebar-normal">销退管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -226,7 +226,7 @@
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2" id="input-search" placeholder="请输入查询条件">
+                                            <input type="text" value="" class="form-control col-sm-2" id="input-search" placeholder="请输入职位名称">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;&nbsp;查询</button>
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;&nbsp;添加</button>
                                         </div>
@@ -276,70 +276,70 @@
                             </table>
                             <div class="row">
                                 <table class="table">
-                                        <tr class="model-tab-function">
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkbox" value="48">仓库
+                                    <tr class="model-tab-function">
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="48">仓库
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkbox" value="44">入库
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="44">入库
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkbox" value="43">出库
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="43">出库
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkbox" value="47">收银
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="47">收银
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="model-tab-function">
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkbox" value="45">采购
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="model-tab-function">
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="45">采购
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkbox" value="46">销售
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="46">销售
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>
@@ -358,79 +358,86 @@
                             <h4 class="modal-title float-left" id="myModalLabe2">编辑职位</h4>
                         </div>
                         <table class="table model-table">
-                                <tr>
-                                    <td><span class="model-tab-td-span">职位:</span></td>
+                            <tr>
+                                <td><span class="model-tab-td-span">职位:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-10 input-search" id="editRoleName" placeholder="请输入角色名称">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="model-tab-td-span">功能:</span></td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" type="button" id="editFun">编辑功能</button></td>
+                            </tr>
+                        </table>
+                        <div class="modal-body">
+                            <table class="table" id="function">
+                                <tr class="model-tab-function">
+                                    <td></td>
                                     <td>
-                                        <input type="text" value="" class="form-control col-sm-10 input-search" id="editRoleName" placeholder="请输入角色名称">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="48">仓库
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="44">入库
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="43">出库
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="47">收银
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
                                     </td>
                                 </tr>
-                            </table>
-                        <div class="modal-body">
-                            <table class="table">
                                 <tr class="model-tab-function">
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkboxEdit" value="48">仓库
+                                    <td></td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="45">采购
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkboxEdit" value="44">入库
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="46">销售
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkboxEdit" value="43">出库
-                                                        <span class="form-check-sign">
-                                                            <span class="check functionCheck"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkboxEdit" value="47">收银
-                                                        <span class="form-check-sign">
-                                                            <span class="check functionCheck"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="model-tab-function">
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkboxEdit" value="45">采购
-                                                        <span class="form-check-sign">
-                                                            <span class="check functionCheck"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" name="checkboxEdit" value="46">销售
-                                                        <span class="form-check-sign">
-                                                            <span class="check functionCheck"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
