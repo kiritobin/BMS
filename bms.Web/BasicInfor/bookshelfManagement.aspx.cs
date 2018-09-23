@@ -36,15 +36,24 @@ namespace bms.Web.BasicInfor
                     ShelvesName = shelfName,
                     RegionId = reg
                 };
-                Result result = shelvesbll.Insert(shelves);
-                if (result == Result.添加成功)
+                Result row = shelvesbll.selectByName(shelves);
+                if (row == Result.记录不存在)
                 {
-                    Response.Write("添加成功");
-                    Response.End();
+                    Result result = shelvesbll.Insert(shelves);
+                    if (result == Result.添加成功)
+                    {
+                        Response.Write("添加成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("添加成功");
+                        Response.End();
+                    }
                 }
                 else
                 {
-                    Response.Write("添加成功");
+                    Response.Write("货架名已存在");
                     Response.End();
                 }
             }
