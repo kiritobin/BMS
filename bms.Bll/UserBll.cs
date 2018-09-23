@@ -20,13 +20,20 @@ namespace bms.Bll
         public Result Insert(User user)
         {
             int row = userDao.Insert(user);
-            if (row > 0)
+            if (row == 0)
             {
-                return Result.添加成功;
+                return Result.记录存在;
             }
             else
             {
-                return Result.添加失败;
+                if (row > 0)
+                {
+                    return Result.添加成功;
+                }
+                else
+                {
+                    return Result.添加失败;
+                }
             }
         }
 

@@ -101,7 +101,7 @@ $("#btnAdd").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-    }else if (account == null || account == "") {
+    } else if (account == null || account == "") {
         swal({
             title: "温馨提示:)",
             text: "账号不能为空，请确认后再次提交!",
@@ -146,10 +146,18 @@ $("#btnAdd").click(function () {
                         confirmButtonClass: "btn btn-success",
                         type: "success"
                     }).catch(swal.noop);
+                } else if (succ == "该用户已存在不能重复添加") {
+                    swal({
+                        title: '温馨提示:)',
+                        text: '该用户已存在不能重复添加',
+                        type: 'error',
+                        confirmButtonClass: "btn btn-info",
+                        buttonsStyling: false
+                    }).catch(swal.noop);
                 } else {
                     swal({
                         title: '温馨提示:)',
-                        text: '添加出现位置异常，请重新尝试添加',
+                        text: '添加失败请联系管理员',
                         type: 'error',
                         confirmButtonClass: "btn btn-info",
                         buttonsStyling: false
@@ -249,10 +257,8 @@ $("#reset").click(function () {
     })
 })
 //删除用户
-$("#table").delegate(".btn-delete", "click",function () {
-    var account = $(this).parent().prev().prev().prev().prev().text().trim();
-    //var flag = confirm("确定要删除账号为：" + account + "的用户吗？");
-    var flag = swal({
+$("#table").delegate(".btn-delete", "click", function () {
+    var account = $(this).parent().prev().prev().prev().prev().text().trim(); swal({
         title: '温馨提示:)',
         text: '确定要删除账号为：' + account + '的用户吗？',
         type: 'warning',
@@ -261,9 +267,9 @@ $("#table").delegate(".btn-delete", "click",function () {
         cancelButtonText: '不，让我思考一下',
         confirmButtonClass: "btn btn-success",
         cancelButtonClass: "btn btn-danger",
-        buttonsStyling: false
-    });
-    if (flag == true) {
+        buttonsStyling: false,
+        allowOutsideClick: false
+    }).then(function () {
         $.ajax({
             type: 'Post',
             url: 'userManagement.aspx',
@@ -287,5 +293,5 @@ $("#table").delegate(".btn-delete", "click",function () {
                 }
             }
         })
-    }
+    });
 })

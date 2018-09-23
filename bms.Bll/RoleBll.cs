@@ -21,6 +21,17 @@ namespace bms.Bll
         {
             return roleDao.select();
         }
+
+        /// <summary>
+        /// 根据角色名获取角色id
+        /// </summary>
+        /// <param name="roleName">角色名称</param>
+        /// <returns>角色id</returns>
+        public int selectByroleName(string roleName)
+        {
+            return roleDao.selectByroleName(roleName);
+        }
+
         /// <summary>
         /// 添加角色
         /// </summary>
@@ -38,6 +49,26 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
+
+        /// <summary>
+        /// 批量添加角色功能关系
+        /// </summary>
+        /// <param name="sqlText">添加的值</param>
+        /// <param name="count">添加的数量</param>
+        /// <returns></returns>
+        public Result InsertPer(string sqlText,int count)
+        {
+            int row = roleDao.InsertPer(sqlText, count);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
+        }
+
         /// <summary>
         /// 更新角色
         /// </summary>
@@ -46,24 +77,6 @@ namespace bms.Bll
         public Result Update(Role role)
         {
             int row = roleDao.Update(role);
-            if (row > 0)
-            {
-                return Result.更新成功;
-            }
-            else
-            {
-                return Result.更新失败;
-            }
-        }
-
-        /// <summary>
-        /// 在角色功能关系表中更新角色信息
-        /// </summary>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        public Result UpdatePer(int roleId,int functionId)
-        {
-            int row = roleDao.UpdatePer(roleId, functionId);
             if (row > 0)
             {
                 return Result.更新成功;
@@ -93,14 +106,19 @@ namespace bms.Bll
         }
 
         /// <summary>
-        /// 删除角色
+        /// 删除角色、功能的关系
         /// </summary>
-        /// <param name="roleId">角色Id</param>
+        /// <param name="roleId">角色id</param>
+        /// <param name="count">删除记录数</param>
         /// <returns></returns>
-        public Result DeletePer(int roleId)
+        public Result DeletePer(int roleId,int count)
         {
-            int row = roleDao.DeletePer(roleId);
-            if (row > 0)
+            //关闭外键约束
+            roleDao.changeKey(0);
+            string row = roleDao.DeletePer(roleId, count);
+            //开启外键约束
+            roleDao.changeKey(1);
+            if (row == "succ")
             {
                 return Result.删除成功;
             }

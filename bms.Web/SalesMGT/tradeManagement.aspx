@@ -210,7 +210,6 @@
                 </div>
             </nav>
             <!-- 主界面内容 -->
-            <!-- 主界面内容 -->
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -262,8 +261,8 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp;销售明细</button>
-                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp;销退明细</button>
+                                    <a class="btn btn-info btn-sm" href="../SalesMGT/salesDetail.aspx">&nbsp;销售明细</a>
+                                    <a class="btn btn-info btn-sm" href="../SalesMGT/backQuery.aspx">&nbsp;销退明细</a>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>

@@ -8,7 +8,7 @@ namespace bms.Model
     public class Role
     {
         private int roleId;
-        private int roleName;
+        private string roleName;
 
         /// <summary>
         /// 无参构造
@@ -19,7 +19,7 @@ namespace bms.Model
         /// </summary>
         /// <param name="roleId">角色ID</param>
         /// <param name="roleName">角色名称</param>
-        public Role(int roleId, int roleName)
+        public Role(int roleId, string roleName)
         {
             this.RoleId = roleId;
             this.RoleName = roleName;
@@ -42,7 +42,7 @@ namespace bms.Model
         /// <summary>
         /// 角色名称
         /// </summary>
-        public int RoleName
+        public string RoleName
         {
             get
             {
