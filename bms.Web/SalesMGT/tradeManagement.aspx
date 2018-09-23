@@ -41,7 +41,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
                 </a>
             </div>
-          <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -63,11 +63,11 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                               <%-- <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -112,17 +112,17 @@
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
-                                        <span class="sidebar-normal">出库</span>
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
-                                        <span class="sidebar-normal">入库</span>
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
-                                        <span class="sidebar-normal">退货</span>
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -140,7 +140,7 @@
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销</span>
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -158,7 +158,7 @@
                             <ul class="nav">
                                 <li class="nav-item hoverColor">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
-                                        <span class="sidebar-normal">架位管理</span>
+                                        <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item hoverColor">
@@ -210,63 +210,63 @@
                 </div>
             </nav>
             <!-- 主界面内容 -->
-            <!-- 主界面内容 -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header card-header-danger">
-                                <h4 class="card-title">营销管理</h4>
-                                <p class="card-category">对销售、销退情况进行查询</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="card-header from-group">
-                                    <div class="input-group no-border">
-                                        <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                        <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                        &nbsp;
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-danger">
+                                    <h4 class="card-title">营销管理</h4>
+                                    <p class="card-category">对销售、销退情况进行查询</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-header from-group">
+                                        <div class="input-group no-border">
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
+                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
+                                            &nbsp;
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add1"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销售</button>
-                                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add2"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销退</button>
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add2"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销退</button>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class="text-danger">
-                                            <tr>
-                                                <td>任务ID</td>
-                                                <td>任务ID</td>
-                                                <td>默认折扣</td>
-                                                <td>默认复本</td>
-                                                <td>最大采购数</td>
-                                                <td>单价上限</td>
-                                                <td>码洋上限</td>
-                                                <td>开始时间/结束时间</td>
-                                                <td class="table-thead-th">备注</td>
-                                            </tr>
-                                        </thead>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="text-danger">
+                                                <tr>
+                                                    <td>任务ID</td>
+                                                    <td>任务ID</td>
+                                                    <td>默认折扣</td>
+                                                    <td>默认复本</td>
+                                                    <td>最大采购数</td>
+                                                    <td>单价上限</td>
+                                                    <td>码洋上限</td>
+                                                    <td>开始时间/结束时间</td>
+                                                    <td class="table-thead-th">备注</td>
+                                                </tr>
+                                            </thead>
 
-                                        <tbody>
-                                            <tr>
-                                                <td>10000001</td>
-                                                <td>3245554</td>
-                                                <td>60%</td>
-                                                <td></td>
-                                                <td>435</td>
-                                                <td>56</td>
-                                                <td>456</td>
-                                                <td>2018.12.3/2018.12.23</td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp;销售明细</button>
-                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2">&nbsp;销退明细</button>
-                                <div class="copyright float-right page-box">
-                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                        <div class="m-style paging"></div>
+                                            <tbody>
+                                                <tr>
+                                                    <td>10000001</td>
+                                                    <td>3245554</td>
+                                                    <td>60%</td>
+                                                    <td></td>
+                                                    <td>435</td>
+                                                    <td>56</td>
+                                                    <td>456</td>
+                                                    <td>2018.12.3/2018.12.23</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <a class="btn btn-info btn-sm" href="../SalesMGT/salesDetail.aspx">&nbsp;销售明细</a>
+                                    <a class="btn btn-info btn-sm" href="../SalesMGT/backQuery.aspx">&nbsp;销退明细</a>
+                                    <div class="copyright float-right page-box">
+                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                            <div class="m-style paging"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -274,7 +274,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -288,6 +287,7 @@
                         <a href="javascript:;" target="_blank"></a>for a better web.
                     </div>
                 </div>
+
             </footer>
         </div>
     </div>

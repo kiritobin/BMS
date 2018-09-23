@@ -38,7 +38,7 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -53,17 +53,22 @@
                         </a>
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor foucsColor">
+                                <li class="nav-item foucsColor">
                                     <a class="nav-link" href="userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="organizationalManagement.aspx">
+                                        <span class="sidebar-normal">组织管理</span>
+                                    </a>
                                 </li>
-                                <!--<li class="nav-item hoverColor">
+                                </li>
+                                <!--<li class="nav-item">
                                     <a class="nav-link" href="jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
@@ -82,12 +87,12 @@
                         </a>
                         <div class="collapse" id="userManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
@@ -105,19 +110,19 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/addWarehouse.aspx">
-                                        <span class="sidebar-normal">出库</span>
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
-                                        <span class="sidebar-normal">入库</span>
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
-                                        <span class="sidebar-normal">退货</span>
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -133,14 +138,9 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
-                                        <span class="sidebar-normal">销售</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../SalesMGT/backQuery.aspx">
-                                        <span class="sidebar-normal">销退</span>
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -156,19 +156,14 @@
                         </a>
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="organizationalManagement.aspx">
-                                        <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -181,6 +176,7 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
+                    <div class="navbar-wrapper"></div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -224,7 +220,7 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" class="searchOne" placeholder="请输入查询条件" id="">
+                                                <input type="text" class="searchOne" placeholder="请输入查询条件" id="input-search">
                                                 <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
@@ -286,8 +282,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        , made with <i class="material-icons">favorite</i> by
-                        <a href="javascript:;" target="_blank"></a>for a better web.
+                        &nbsp版权所有
                     </div>
                 </div>
             </footer>

@@ -62,11 +62,11 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <%--<li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -111,17 +111,17 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="warehouseManagement.aspx">
-                                        <span class="sidebar-normal">出库</span>
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="stockManagement.aspx">
-                                        <span class="sidebar-normal">入库</span>
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="returnManagement.aspx">
-                                        <span class="sidebar-normal">退货</span>
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -139,7 +139,7 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销</span>
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -157,7 +157,7 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
-                                        <span class="sidebar-normal">架位管理</span>
+                                        <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -175,6 +175,7 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
+                    <div class="navbar-wrapper"></div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -283,7 +284,7 @@
                                         <button class="btn btn-success" id="downEx">下载模板</button>
                                         <span class="btn btn-success fileinput-button">
                                             <span>选择文件</span>
-                                            <input type="file" style="">
+                                            <input type="file" >
                                         </span>
                                         <button class="btn btn-success" id="upload">上传</button>
                                         <button type="submit" class="btn btn-success" id="btn_import">导入</button>
