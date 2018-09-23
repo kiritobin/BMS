@@ -35,6 +35,10 @@ namespace bms.Web.AccessMGT
             {
                 Update();
             }
+            if(op== "del")
+            {
+                Delete();
+            }
         }
 
         /// <summary>
@@ -50,17 +54,17 @@ namespace bms.Web.AccessMGT
             search = Request["search"];
             if (search != "" && search != null)
             {
-                search = String.Format(" regionName {0}", "like '%" + search + "%'");
+                search = String.Format(" regionName {0} and deleteState=0", "like '%" + search + "%'");
             }
             else
             {
-                search = "";
+                search = "deleteState=0";
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "T_Region";
             tbd.OrderBy = "regionId";
-            tbd.StrColumnlist = "regionId,regionName";
+            tbd.StrColumnlist = "regionId,regionName,deleteState";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
@@ -155,9 +159,27 @@ namespace bms.Web.AccessMGT
                 Response.End();
             }
         }
+        /// <summary>
+        /// 删除组织
+        /// </summary>
+        public void Delete()
+        {
+            string regId = Request["regionId"];
+            Result row = regionBll.delete(Convert.ToInt32(regId));
+            if(row == Result.删除成功)
+            {
+                Response.Write("删除成功");
+                Response.End();
+            }
+            else
+            {
+                Response.Write("删除失败");
+                Response.End();
+            }
+        }
 
 
-
+        
 
         /// <summary>
         /// 在删除前判断组织在其他表中是否被引用

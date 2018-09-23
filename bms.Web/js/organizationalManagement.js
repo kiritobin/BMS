@@ -174,7 +174,8 @@
     
     //删除分公司
     $("#table").delegate(".btn-delete", "click", function () {
-        var flag = swal({
+        var id = $(this).parent().next().text().trim();
+        swal({
             title: '温馨提示:)',
             text: '你确定要删除该分公司吗？',
             type: 'warning',
@@ -183,10 +184,9 @@
             cancelButtonText: '不，让我思考一下',
             confirmButtonClass: "btn btn-success",
             cancelButtonClass: "btn btn-danger",
-            buttonsStyling: false
-        });
-        if (flag == true) {
-            var id = $(this).parent().parent().find("#regionId").val().trim();
+            buttonsStyling: false,
+            allowOutsideClick: false
+        }).then(function () {
             $.ajax({
                 type: 'Post',
                 url: 'organizationalManagement.aspx',
@@ -195,20 +195,36 @@
                     op: "del"
                 },
                 dataType: 'text',
-                success: function (data) {
-                    if (data == "删除成功") {
+                success: function (succ) {
+                    if (succ == "删除成功") {
+                        swal({
+                            title: succ,
+                            text: succ,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
+                    } else {
                         swal({
                             title: "温馨提示:)",
                             text: "公司删除成功",
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
                             buttonsStyling: false,
-                            confirmButtonClass: "btn btn-success",
-                            type: "success"
-                        }).catch(swal.noop)
-                    } else {
-                        alert(data);
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
                     }
                 }
             })
-        }
+        });
     })
 })

@@ -72,17 +72,17 @@ namespace bms.Web.CustomerMGT
             string search = Request["search"];
             if(search == "" || search == null)
             {
-                search = "";
+                search = "deleteState=0";
             }
             else
             {
-                search = "customerName ='" + search +"'";
+                search = "customerName ='" + search + "' and deleteState=0";
             }
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "T_Customer";
             tb.OrderBy = "customerID";
-            tb.StrColumnlist = "customerID,customerName";
+            tb.StrColumnlist = "customerID,customerName,deleteState";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;

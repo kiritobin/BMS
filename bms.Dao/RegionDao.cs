@@ -44,13 +44,13 @@ namespace bms.Dao
         }
 
         /// <summary>
-        /// 删除分公司
+        /// 删除分公司(根据id来将删除状态改为1)
         /// </summary>
         /// <param name="regionId">分公司id</param>
         /// <returns></returns>
         public int delete(int regionId)
         {
-            string cmdText = "delete from T_Region where regionId = @regionId";
+            string cmdText = "update T_Region set deleteState=1 where regionId = @regionId";
             string[] param = { "@regionId" };
             object[] values = { regionId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
