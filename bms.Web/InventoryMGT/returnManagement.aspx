@@ -41,7 +41,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-           <div class="sidebar-wrapper">
+          <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -63,11 +63,11 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <%--<li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -139,7 +139,7 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="tradeManagement.aspx">
+                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
@@ -219,7 +219,7 @@
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title">退货管理</h4>
                                 </div>
-                                 <div class="card-body">
+                                <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
@@ -234,9 +234,9 @@
 
                                     <div class="table-responsive">
                                         <table class="table text-center mostTable table-bordered">
-                                            <thead>                                               
+                                            <thead>
                                                 <tr>
-                                                    <td>单编ID</td>                                                  
+                                                    <td>单编ID</td>
                                                     <td>制单时间</td>
                                                     <td>退货组织ID</td>
                                                     <td>退货接收组织ID</td>
@@ -244,7 +244,7 @@
                                                     <td>单据总数</td>
                                                     <td>总实洋</td>
                                                     <td>总码洋</td>
-                                                    <td>操作</td>                                                    
+                                                    <td>操作</td>
                                                 </tr>
                                             </thead>
 
@@ -253,30 +253,30 @@
                                                     <td>10000001</td>
                                                     <td>2018-12-23</td>
                                                     <td>13245</td>
-                                                    <td>3929845</td>                                                   
+                                                    <td>3929845</td>
                                                     <td>保罗</td>
                                                     <td>56</td>
                                                     <td>456</td>
                                                     <td>6546</td>
-                                                     <td>
+                                                    <td>
                                                         <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-search"></i></button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                                     </td>
-                                                </tr>                                                                                           
+                                                </tr>
                                             </tbody>
                                         </table>
-                                    </div> 
-                                     <div class="copyright float-right page-box">
+                                    </div>
+                                    <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -285,7 +285,8 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
+                        </script>
+                        &nbsp;版权所有
                     </div>
                 </div>
             </footer>

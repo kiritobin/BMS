@@ -175,6 +175,7 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
+                    <div class="navbar-wrapper"></div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -283,7 +284,7 @@
                                         <button class="btn btn-success" id="downEx">下载模板</button>
                                         <span class="btn btn-success fileinput-button">
                                             <span>选择文件</span>
-                                            <input type="file" style="">
+                                            <input type="file" >
                                         </span>
                                         <button class="btn btn-success" id="upload">上传</button>
                                         <button type="submit" class="btn btn-success" id="btn_import">导入</button>
