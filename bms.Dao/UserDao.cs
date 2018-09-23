@@ -74,7 +74,7 @@ namespace bms.Dao
         /// <returns></returns>
         public int Delete(int userID)
         {
-            string comText = "delete from T_User where userID = @userID";
+            string comText = "update T_User set deleteState=1 where userID = @userID";
             string[] param = { "@userID" };
             object[] values = { userID };
             int row = db.ExecuteNoneQuery(comText, param, values);

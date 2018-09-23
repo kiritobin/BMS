@@ -143,7 +143,7 @@ namespace bms.Web.AccessMGT
                         values = values + value;
                     }
                     sqlText = values.Substring(0, values.Length - 1);
-                    Result inserts = roleBll.InsertPer(sqlText, functions.Length);
+                    Result inserts = roleBll.InsertPer(sqlText, roleIds,"添加");
                     if (inserts == Result.添加失败)
                     {
                         Response.Write("添加失败");
@@ -213,7 +213,7 @@ namespace bms.Web.AccessMGT
             string funIds = Request["funIds"];
             if (oldName != roleName)
             {
-                if (userBll.IsDelete("T_Permission", "roleId", roleId.ToString()) == Result.关联引用)
+                if (userBll.IsDelete("T_User", "roleId", roleId.ToString()) == Result.关联引用)
                 {
                     Response.Write("该数据在其他表中被引用，不可编辑");
                     Response.End();
@@ -233,7 +233,7 @@ namespace bms.Web.AccessMGT
                             values = values + value;
                         }
                         sqlText = values.Substring(0, values.Length - 1);
-                        Result inserts = roleBll.InsertPer(sqlText, functions.Length);
+                        Result inserts = roleBll.InsertPer(sqlText, roleId,"更新");
                         if (inserts == Result.添加失败)
                         {
                             Response.Write("更新失败");
@@ -280,7 +280,7 @@ namespace bms.Web.AccessMGT
                         values = values + value;
                     }
                     sqlText = values.Substring(0, values.Length - 1);
-                    Result inserts = roleBll.InsertPer(sqlText, functions.Length);
+                    Result inserts = roleBll.InsertPer(sqlText, roleId,"更新");
                     if (inserts == Result.添加失败)
                     {
                         Response.Write("更新失败");
@@ -308,33 +308,24 @@ namespace bms.Web.AccessMGT
             int count = Convert.ToInt32(Request["rows"]);
             int roleId = Convert.ToInt32(Request["roleId"]);
             //批量删除
-            Result delete = roleBll.DeletePer(roleId, count);
-            if (delete == Result.删除成功)
+            if (userBll.IsDelete("T_User", "roleId", roleId.ToString()) == Result.关联引用)
             {
-                if (userBll.IsDelete("T_Permission", "roleId", roleId.ToString()) == Result.关联引用)
+                Response.Write("该数据在其他表中被引用，不可删除");
+                Response.End();
+            }
+            else
+            {
+                Result del = roleBll.Delete(roleId);
+                if (del == Result.删除成功)
                 {
-                    Response.Write("该数据在其他表中被引用，不可删除");
+                    Response.Write("删除成功");
                     Response.End();
                 }
                 else
                 {
-                    Result del = roleBll.Delete(roleId);
-                    if (del == Result.删除成功)
-                    {
-                        Response.Write("删除成功");
-                        Response.End();
-                    }
-                    else
-                    {
-                        Response.Write("删除失败");
-                        Response.End();
-                    }
+                    Response.Write("删除失败");
+                    Response.End();
                 }
-            }
-            else
-            {
-                Response.Write("删除失败");
-                Response.End();
             }
         }
     }
