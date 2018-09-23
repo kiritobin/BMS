@@ -56,9 +56,9 @@ namespace bms.Bll
         /// <param name="sqlText">添加的值</param>
         /// <param name="count">添加的数量</param>
         /// <returns></returns>
-        public Result InsertPer(string sqlText,int count)
+        public Result InsertPer(string sqlText,int roleId,string remark)
         {
-            int row = roleDao.InsertPer(sqlText, count);
+            int row = roleDao.InsertPer(sqlText, roleId,remark);
             if (row > 0)
             {
                 return Result.添加成功;

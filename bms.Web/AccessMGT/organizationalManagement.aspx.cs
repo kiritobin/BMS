@@ -17,11 +17,24 @@ namespace bms.Web.AccessMGT
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search, regionId;
         public DataSet ds;
+        public int count;
         RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            getData();
+            string op = Request["op"];
+            if (!IsPostBack)
+            {
+                getData();
+            }
+            if (op == "add")
+            {
+                Insert();
+            }
+            if(op== "editor")
+            {
+                Update();
+            }
         }
 
         /// <summary>
@@ -49,7 +62,7 @@ namespace bms.Web.AccessMGT
             tbd.OrderBy = "regionId";
             tbd.StrColumnlist = "regionId,regionName";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = search + " and deleteState=0";
+            tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
@@ -60,9 +73,10 @@ namespace bms.Web.AccessMGT
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
-                sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[i]["regionId"].ToString() + "' id='regionId' />");
-                sb.Append("<td><button class='btn btn-warning btn-sm btn_Editor'><i class='fa fa-pencil fa-lg'></i></button>");
-                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></ tr >");
+               // sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[i]["regionId"].ToString() + "' calss='regionId' />");
+                sb.Append("<td><button class='btn btn-warning btn-sm btn_Editor' data-toggle='modal' data-target='#myModal2'><i class='fa fa-pencil fa-lg'></i></button>");
+                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td>");
+                sb.Append("<td style='display:none' clall='id'>" + ds.Tables[0].Rows[i]["regionId"].ToString() + "</ td ></ tr >");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
@@ -74,6 +88,77 @@ namespace bms.Web.AccessMGT
             }
             return sb.ToString();
         }
+        /// <summary>
+        /// 添加组织，同时为添加的组织分配名为未上架的货架
+        /// </summary>
+        public void Insert()
+        {
+            string reName = Request["name"];
+            string shelvese = "未上架";
+            TableInsertion tb = new TableInsertion()
+            {
+                InRegionName = reName,
+                InShelvesName = shelvese,
+                OutCount = count
+            };
+            Result result = regionBll.isExit(reName);
+            if (result == Result.记录不存在)
+            {
+                Result row = regionBll.InsertManyTable(tb, out count);
+                if (row == Result.添加成功)
+                {
+                    Response.Write("添加成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
+            }
+            else
+            {
+                Response.Write("该名称已经存在");
+                Response.End();
+            }
+        }
+        /// <summary>
+        /// 更新地区
+        /// </summary>
+        public void Update()
+        {
+            string regionName = Request["name"];
+            string regionId = Request["id"];
+            Region region = new Region()
+            {
+                RegionId = Convert.ToInt32(regionId),
+                RegionName = regionName
+            };
+            Result result = regionBll.isExit(regionName);
+            if (result == Result.记录不存在)
+            {
+                Result row = regionBll.Update(region);
+                if (row == Result.更新成功)
+                {
+                    Response.Write("更新成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("更新失败");
+                    Response.End();
+                }
+            }
+            else
+            {
+                Response.Write("该名称已经存在");
+                Response.End();
+            }
+        }
+
+
+
+
         /// <summary>
         /// 在删除前判断组织在其他表中是否被引用
         /// </summary>
@@ -108,9 +193,9 @@ namespace bms.Web.AccessMGT
             return row;
         }
         /// <summary>
-        /// 
+        /// 判断货架是否在其他表被引用
         /// </summary>
-        /// <param name="shelvesId"></param>
+        /// <param name="shelvesId">货架Id</param>
         /// <returns></returns>
         public Result IsDeleteShelves(string shelvesId)
         {

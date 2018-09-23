@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using bms.Model;
 using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace bms.Dao
 {
@@ -65,6 +66,9 @@ namespace bms.Dao
             string[] param = { "@roleName" };
             object[] values = { role.RoleName };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
+
+
+
             if (row > 0) { 
                 return row;
             }
@@ -77,21 +81,37 @@ namespace bms.Dao
         /// <summary>
         /// 添加角色功能关系
         /// </summary>
+        /// <param name="sqlText">批量插入数据</param>
         /// <param name="roleId">角色Id</param>
-        /// <param name="functionId">功能Id</param>
+        /// <param name="remark">判断是插入方法调用还是更新方法调用</param>
         /// <returns>返回受影响的行数</returns>
-        public int InsertPer(string sqlText, int count)
+        public int InsertPer(string sqlText, int roleId, string remark)
         {
-            string cmdText = "insert into T_Permission(roleId,functionId) values" + sqlText;
-            int row = db.ExecuteNoneQuery(cmdText,null,null);
-            if (row == count)
+            int row=0;
+            string connectionString = ConfigurationManager.ConnectionStrings["sqlConn"].ConnectionString;
+            MySqlTransaction tran = null;
+            MySqlConnection conn = new MySqlConnection(connectionString);
+            try
             {
-                return row;
+                conn.Open();
+                tran = conn.BeginTransaction();
+                string cmdText = "insert into T_Permission(roleId,functionId) values" + sqlText;
+                row = db.ExecuteNoneQuery(cmdText, null, null);
+                tran.Commit();
             }
-            else
+            catch (MySqlException ex)
             {
-                return 0;
+                if (tran != null)
+                {
+                    tran.Rollback();
+                    if (remark == "添加")
+                    {
+                        delete(roleId);
+                    }
+                }
+                throw ex;
             }
+            return row;
         }
 
         /// <summary>
@@ -130,24 +150,53 @@ namespace bms.Dao
         }
 
         /// <summary>
+        /// 删除角色
+        /// </summary>
+        /// <param name="roleId"></param>
+        public void delete(int roleId)
+        {
+            string cmdText = "delete from T_Role where roleId=@roleId";
+            string[] param = { "@roleId" };
+            object[] values = { roleId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+        }
+
+        /// <summary>
         /// 根据角色Id来删除角色
         /// </summary>
         /// <param name="roleId">角色Id</param>
         /// <returns></returns>
         public int Delete(int roleId)
         {
-            string cmdText = "delete from T_Role where roleId=@roleId";
-            string[] param = { "@roleId" };
-            object[] values = { roleId };
-            int row = db.ExecuteNoneQuery(cmdText, param, values);
-            if (row > 0)
+            int row = 0;
+            string connectionString = ConfigurationManager.ConnectionStrings["sqlConn"].ConnectionString;
+            MySqlTransaction tran = null;
+            MySqlConnection conn = new MySqlConnection(connectionString);
+            try
             {
-                return row;
+                conn.Open();
+                tran = conn.BeginTransaction();
+                //删除角色、功能关系
+                string cmdTexts = "delete from T_Permission where roleId=@roleId";
+                string[] parames = { "@roleId" };
+                object[] value = { roleId };
+                int rows = db.ExecuteNoneQuery(cmdTexts, parames, value);
+                //删除角色
+                string cmdText = "delete from T_Role where roleId=@roleId";
+                string[] param = { "@roleId" };
+                object[] values = { roleId };
+                row = db.ExecuteNoneQuery(cmdText, param, values);
+                tran.Commit();
             }
-            else
+            catch (MySqlException ex)
             {
-                return 0;
+                if (tran != null)
+                {
+                    tran.Rollback();
+                }
+                throw ex;
             }
+            return row;
         }
 
         /// <summary>
