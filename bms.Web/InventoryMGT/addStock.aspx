@@ -139,7 +139,7 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="tradeManagement.aspx">
+                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
