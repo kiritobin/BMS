@@ -18,7 +18,7 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Delete(int goodsShelvesId)
         {
-            string cmdText = "delete from T_GoodsShelves where goodsShelvesId=@goodsShelvesId";
+            string cmdText = "update T_GoodsShelves set deleteState = 1 where goodsShelvesId=@goodsShelvesId";
             String[] param = { "@goodsShelvesId" };
             String[] values = { goodsShelvesId.ToString() };
             return db.ExecuteNoneQuery(cmdText, param, values);
