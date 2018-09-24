@@ -26,7 +26,7 @@
                 dataType: 'text',
                 success: function (succ) {
                     if (succ === "登录成功") {
-                        window.location.href = "/AccessMGT/organizationalManagement.aspx";
+                        window.location.href = "/main.aspx";
                     }
                     else {
                         alert("登录失败");

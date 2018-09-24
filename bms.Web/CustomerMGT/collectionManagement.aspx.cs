@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.CustomerMGT
 {
-    public partial class collectionManagement : System.Web.UI.Page
+    public partial class collectionManagement : CommonPage
     {
         public int totalCount, intPageCount,pageSize=20;
         public DataSet ds,dsCustom;
