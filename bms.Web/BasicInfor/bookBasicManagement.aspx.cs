@@ -14,7 +14,7 @@ using System.Web.UI.WebControls;
 namespace bms.Web.BasicInfor
 {
     using Result = Enums.OpResult;
-    public partial class bookBasicManagement : System.Web.UI.Page
+    public partial class bookBasicManagement : CommonPage
     {
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "", last, row, num;

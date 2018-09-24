@@ -344,7 +344,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="close_img" />
+                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
                         </div>
                     </div>
                 </div>
@@ -360,7 +360,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
+                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="close_img" />
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@ namespace bms.Web.CustomerMGT
 {
     using System.Text;
     using Result = Enums.OpResult;
-    public partial class customerManagement : System.Web.UI.Page
+    public partial class customerManagement : CommonPage
     {
 
         public int totalCount, intPageCount, pageSize = 20;
