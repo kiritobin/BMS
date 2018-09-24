@@ -16,7 +16,7 @@ namespace bms.Web.AccessMGT
     {
         public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
         public string search = "";
-        public DataSet ds;
+        public DataSet dsRegion,dsRole,ds;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
         RegionBll regionBll = new RegionBll();
@@ -181,6 +181,8 @@ namespace bms.Web.AccessMGT
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
+            dsRegion = regionBll.select();
+            dsRole = roleBll.select();
             //生成table
             StringBuilder sb = new StringBuilder();
             sb.Append("<tbody>");
