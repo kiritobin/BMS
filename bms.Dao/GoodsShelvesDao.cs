@@ -18,7 +18,7 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Delete(int goodsShelvesId)
         {
-            string cmdText = "delete from T_GoodsShelves where goodsShelvesId=@goodsShelvesId";
+            string cmdText = "update T_GoodsShelves set deleteState = 1 where goodsShelvesId=@goodsShelvesId";
             String[] param = { "@goodsShelvesId" };
             String[] values = { goodsShelvesId.ToString() };
             return db.ExecuteNoneQuery(cmdText, param, values);
@@ -44,6 +44,27 @@ namespace bms.Dao
             string cmdText = "select goodsShelvesId,shelvesName,regionId,regionName from V_GoodsShelves";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 查询货架名是否重复
+        /// </summary>
+        /// <param name="shelves">货架实体对象</param>
+        /// <returns></returns>
+        public DataSet selectByName(GoodsShelves shelves)
+        {
+            string cmdText = "select shelvesName=@shelvesName from T_GoodsShelves where regionId = @regionId";
+            String[] param = { "@shelvesName", "@regionId" };
+            String[] values = { shelves.ShelvesName, shelves.RegionId.RegionId.ToString() };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
                 return ds;
             }

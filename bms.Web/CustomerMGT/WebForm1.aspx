@@ -21,6 +21,7 @@
         </div>
         1
         <asp:Button ID="Button5" runat="server" OnClick="Button5_Click" Text="Button" />
+        <asp:Button ID="Button6" runat="server" OnClick="Button6_Click" Text="Button" />
         <asp:GridView ID="GridView1" runat="server">
         </asp:GridView>
         2
@@ -66,7 +67,7 @@
     function ajaxFileUpload() {
         $.ajaxFileUpload(
             {
-                url: '/CustomerMGT/uploadCollection.aspx', //用于文件上传的服务器端请求地址
+                url: '/CustomerMGT/upload.aspx', //用于文件上传的服务器端请求地址
                 secureuri: false, //是否需要安全协议，一般设置为false
                 fileElementId: 'file1', //文件上传域的ID
                 dataType: 'json', //返回值类型 一般设置为json
