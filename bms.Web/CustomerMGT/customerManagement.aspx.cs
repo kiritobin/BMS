@@ -14,20 +14,8 @@ namespace bms.Web.CustomerMGT
     using Result = Enums.OpResult;
     public partial class customerManagement : System.Web.UI.Page
     {
-        //protected DataSet ds = null;//获取客户数据集
-        //protected DataSet regionDs = null;//获取地区数据集
-        //protected int getCurrentPage;//当前页
-        //protected int totalPage;//总页数
-        //protected int pagesize = 4;
-        //protected string searchRegion;//下拉查询
-        //protected string showStr;//下拉查询
-        //protected string strWhere;//输入框查询
-        //protected string op;//请求ajax传入的op值
-        //RSACryptoService RSAC = new RSACryptoService();
-        //CustomerBll cBll = new CustomerBll();
-        //RegionBll reBll = new RegionBll();
 
-        public int totalCount, intPageCount, pageSize=20;
+        public int totalCount, intPageCount, pageSize = 20;
         public DataSet regionDs, ds;
         CustomerBll cbll = new CustomerBll();
         RegionBll rbll = new RegionBll();
@@ -40,19 +28,19 @@ namespace bms.Web.CustomerMGT
             {
                 getData();
             }
-            if(op == "add")
+            if (op == "add")
             {
                 AddCustomer();
             }
-            else if(op == "editor")
+            else if (op == "editor")
             {
                 UpdateCustomer();
             }
-            else if(op == "del")
+            else if (op == "del")
             {
                 Delete();
             }
-            else if(op == "reset")
+            else if (op == "reset")
             {
                 ResetPwd();
             }
@@ -70,7 +58,7 @@ namespace bms.Web.CustomerMGT
                 currentPage = 1;
             }
             string search = Request["search"];
-            if(search == "" || search == null)
+            if (search == "" || search == null)
             {
                 search = "deleteState=0";
             }
@@ -93,7 +81,7 @@ namespace bms.Web.CustomerMGT
             //生成table
             StringBuilder strb = new StringBuilder();
             strb.Append("<tbody>");
-            for(int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerID"].ToString() + "</td>");
@@ -120,25 +108,21 @@ namespace bms.Web.CustomerMGT
             string customerId = Request["customerId"];
             string customerName = Request["cutomerName"];
             string zoneId = Request["zoneId"];
-            //if(customerId == "" || customerName == "" || zoneId == "")
-            //{
-            //    Response.Write("有未填项");
-            //    Response.End();
-            //}
-            //else
-            //{
-                string pwd = rasc.Encrypt("000000");
-                Region reg = new Region()
-                {
-                    RegionId = Convert.ToInt32(zoneId)
-                };
-                Customer ct = new Customer()
-                {
-                    CustomerId = Convert.ToInt32(customerId),
-                    CustomerName = customerName,
-                    CustomerPwd = pwd,
-                    RegionId = reg
-                };
+            string pwd = rasc.Encrypt("000000");
+            Region reg = new Region()
+            {
+                RegionId = Convert.ToInt32(zoneId)
+            };
+            Customer ct = new Customer()
+            {
+                CustomerId = Convert.ToInt32(customerId),
+                CustomerName = customerName,
+                CustomerPwd = pwd,
+                RegionId = reg
+            };
+            bool bl = cbll.SelectById(customerId);
+            if (bl == false)
+            {
                 Result row = cbll.Insert(ct);
                 if (row == Result.添加成功)
                 {
@@ -150,7 +134,12 @@ namespace bms.Web.CustomerMGT
                     Response.Write("添加失败");
                     Response.End();
                 }
-            //}
+            }
+            else
+            {
+                Response.Write("该账号已经存在");
+                Response.End();
+            }
         }
         /// <summary>
         /// 更新客户信息
@@ -166,7 +155,7 @@ namespace bms.Web.CustomerMGT
                 CustomerName = name
             };
             Result row = cbll.update(cust);
-            if(row == Result.更新成功)
+            if (row == Result.更新成功)
             {
                 Response.Write("更新成功");
                 Response.End();
@@ -184,7 +173,7 @@ namespace bms.Web.CustomerMGT
         {
             int id = Convert.ToInt32(Request["cutomerId"]);
             Result isDelete = cbll.IsDelete("T_LibraryCollection", "customerId", id.ToString());
-            if(isDelete == Result.关联引用)
+            if (isDelete == Result.关联引用)
             {
                 Response.Write("该客户已被关联到其他表，不能删除！");
             }
@@ -211,7 +200,7 @@ namespace bms.Web.CustomerMGT
             int id = Convert.ToInt32(Request["customerid"]);
             string pwd = rasc.Encrypt("000000");
             Result row = cbll.ResetPwd(id, pwd);
-                if(row == Result.更新成功)
+            if (row == Result.更新成功)
             {
                 Response.Write("重置成功");
                 Response.End();
