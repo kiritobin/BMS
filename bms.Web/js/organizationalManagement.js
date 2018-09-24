@@ -100,22 +100,16 @@
                             text: "公司添加成功",
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-success",
-                            type: "success",
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
+                            type: "success"
+                        }).catch(swal.noop)
                     } else {
                         swal({
                             title: '温馨提示:)',
                             text: data,
                             type: 'error',
                             confirmButtonClass: "btn btn-info",
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
+                            buttonsStyling: false
+                        }).catch(swal.noop);
                     }
                 }
             })
@@ -167,14 +161,11 @@
                     } else {
                         swal({
                             title: '温馨提示:)',
-                            text: "更新失败",
+                            text: data,
                             type: 'error',
                             confirmButtonClass: "btn btn-info",
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
+                            buttonsStyling: false
+                        }).catch(swal.noop);
                     }
                 }
             })
@@ -183,7 +174,8 @@
     
     //删除分公司
     $("#table").delegate(".btn-delete", "click", function () {
-        var flag = swal({
+        var id = $(this).parent().next().text().trim();
+        swal({
             title: '温馨提示:)',
             text: '你确定要删除该分公司吗？',
             type: 'warning',
@@ -192,10 +184,9 @@
             cancelButtonText: '不，让我思考一下',
             confirmButtonClass: "btn btn-success",
             cancelButtonClass: "btn btn-danger",
-            buttonsStyling: false
-        });
-        if (flag == true) {
-            var id = $(this).parent().parent().find("#regionId").val().trim();
+            buttonsStyling: false,
+            allowOutsideClick: false
+        }).then(function () {
             $.ajax({
                 type: 'Post',
                 url: 'organizationalManagement.aspx',
@@ -204,14 +195,16 @@
                     op: "del"
                 },
                 dataType: 'text',
-                success: function (data) {
-                    if (data == "删除成功") {
+                success: function (succ) {
+                    if (succ == "删除成功") {
                         swal({
-                            title: "温馨提示:)",
-                            text: "公司删除成功",
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-success",
+                            title: succ,
+                            text: succ,
                             type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
                             window.location.reload();
@@ -219,10 +212,12 @@
                     } else {
                         swal({
                             title: "温馨提示:)",
-                            text: "公司删除失败",
+                            text: "公司删除成功",
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
                             buttonsStyling: false,
-                            confirmButtonClass: "btn btn-success",
-                            type: "warning",
                             allowOutsideClick: false
                         }).then(function () {
                             window.location.reload();
@@ -230,6 +225,6 @@
                     }
                 }
             })
-        }
+        });
     })
 })

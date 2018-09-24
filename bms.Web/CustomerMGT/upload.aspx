@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="uploadCollection.aspx.cs" Inherits="bms.Web.CustomerMGT.uploadCollection" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="upload.aspx.cs" Inherits="bms.Web.CustomerMGT.uploadCollection" %>
 
 <!DOCTYPE html>
 

@@ -74,6 +74,30 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
-
+        /// <summary>
+        /// 取得最新书号
+        /// </summary>
+        /// <returns></returns>
+        public BookBasicData getBookNum()
+        {
+            return basicDao.getBookNum();
+        }
+        /// <summary>
+        /// 更新最新书号
+        /// </summary>
+        /// <param name="bookNum"></param>
+        /// <returns></returns>
+        public Result updateBookNum(string bookNum)
+        {
+            int row = basicDao.updateBookNum(bookNum);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
     }
 }

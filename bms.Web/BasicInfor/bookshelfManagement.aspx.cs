@@ -36,24 +36,33 @@ namespace bms.Web.BasicInfor
                     ShelvesName = shelfName,
                     RegionId = reg
                 };
-                Result result = shelvesbll.Insert(shelves);
-                if (result == Result.添加成功)
+                Result row = shelvesbll.selectByName(shelves);
+                if (row == Result.记录不存在)
                 {
-                    Response.Write("添加成功");
-                    Response.End();
+                    Result result = shelvesbll.Insert(shelves);
+                    if (result == Result.添加成功)
+                    {
+                        Response.Write("添加成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("添加成功");
+                        Response.End();
+                    }
                 }
                 else
                 {
-                    Response.Write("添加成功");
+                    Response.Write("货架名已存在");
                     Response.End();
                 }
             }
             if (op == "del")
             {
                 int shelfId = int.Parse(Request["shelfId"]);
-                Result result = isDelete();
-                if (result == Result.记录不存在)
-                {
+                //Result result = isDelete();
+                //if (result == Result.记录不存在)
+                //{
                     Result row = shelvesbll.Delete(shelfId);
                     if (row == Result.删除成功)
                     {
@@ -65,12 +74,12 @@ namespace bms.Web.BasicInfor
                         Response.Write("删除失败");
                         Response.End();
                     }
-                }
-                else
-                {
-                    Response.Write("在其它表里关联引用，不能删除");
-                    Response.End();
-                }
+                //}
+                //else
+                //{
+                //    Response.Write("在其它表里关联引用，不能删除");
+                //    Response.End();
+                //}
             }
         }
 
@@ -117,26 +126,26 @@ namespace bms.Web.BasicInfor
             string search;
             if ((region == "" || region == null) && (goods == "" || goods == null))
             {
-                search = "";
+                search = "deleteState=0";
             }
             else if ((goods != null || goods != "") && (region == "" || region == null))
             {
 
-                search = String.Format("shelvesName= '{0}'", goods);
+                search = String.Format("shelvesName='{0}' and deleteState=0", goods);
             }
             else if ((goods == null || goods == "") && (region != "" || region != null))
             {
-                search = String.Format("regionName='{0}'", region);
+                search = String.Format("regionName='{0}' and deleteState=0", region);
             }
             else
             {
-                search = String.Format("regionName='{0}' and shelvesName= {1}", region, goods);
+                search = String.Format("regionName='{0}' and shelvesName='{1}' and deleteState=0", region, goods);
             }
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_GoodsShelves";
             tb.OrderBy = "goodsShelvesId";
-            tb.StrColumnlist = "goodsShelvesId,shelvesName,regionId,regionName";
+            tb.StrColumnlist = "goodsShelvesId,shelvesName,regionId,regionName,deleteState";
             tb.IntPageSize = 6;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;

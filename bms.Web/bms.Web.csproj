@@ -74,7 +74,8 @@
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
-    <Content Include="CustomerMGT\uploadCollection.aspx" />
+    <Content Include="CustomerMGT\upload.aspx" />
+    <Content Include="CustomerMGT\WebForm1.aspx" />
     <Content Include="demo\sales_demo.aspx" />
     <Content Include="imgs\16.png" />
     <Content Include="imgs\26.png" />
@@ -188,12 +189,19 @@
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CustomerMGT\uploadCollection.aspx.cs">
-      <DependentUpon>uploadCollection.aspx</DependentUpon>
+    <Compile Include="CustomerMGT\upload.aspx.cs">
+      <DependentUpon>upload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CustomerMGT\uploadCollection.aspx.designer.cs">
-      <DependentUpon>uploadCollection.aspx</DependentUpon>
+    <Compile Include="CustomerMGT\upload.aspx.designer.cs">
+      <DependentUpon>upload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerMGT\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerMGT\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="demo\sales_demo.aspx.cs">
       <DependentUpon>sales_demo.aspx</DependentUpon>
