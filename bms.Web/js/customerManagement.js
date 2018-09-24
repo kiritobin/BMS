@@ -99,8 +99,8 @@
                 success: function (succ) {
                     if (succ == "添加成功") {
                         swal({
-                            title: succ,
-                            text: succ,
+                            title: "温馨提示",
+                            text: "添加成功",
                             type: "success",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -112,8 +112,8 @@
                         })
                     } else {
                         swal({
-                            title: succ,
-                            text: succ,
+                            title: "温馨提示",
+                            text: "添加失败",
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -150,8 +150,8 @@
             success: function (succ) {
                 if (succ == "更新成功") {
                     swal({
-                        title: succ,
-                        text: succ,
+                        title: "温馨提示",
+                        text: "更新成功",
                         type: "success",
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: '确定',
@@ -163,8 +163,8 @@
                     })
                 } else {
                     swal({
-                        title: succ,
-                        text: succ,
+                        title: "温馨提示",
+                        text: "更新失败",
                         type: "warning",
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: '确定',
@@ -264,8 +264,8 @@
                 success: function (succ) {
                     if (succ == "重置成功") {
                         swal({
-                            title: succ,
-                            text: succ,
+                            title: "温馨提示",
+                            text: "重置成功",
                             type: "success",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -277,8 +277,8 @@
                         })
                     } else {
                         swal({
-                            title: succ,
-                            text: succ,
+                            title: "温馨提示",
+                            text: "重置失败",
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',

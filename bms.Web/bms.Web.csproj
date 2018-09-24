@@ -347,6 +347,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="css\jedatefont.ttf" />
     <Content Include="css\jedatefont.woff" />
+    <Content Include="uploads\20180922111449-9.xls" />
+    <Content Include="uploads\muban\客户馆藏数据表.xls" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

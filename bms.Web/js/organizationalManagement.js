@@ -100,16 +100,22 @@
                             text: "公司添加成功",
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-success",
-                            type: "success"
-                        }).catch(swal.noop)
+                            type: "success",
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
                     } else {
                         swal({
                             title: '温馨提示:)',
                             text: data,
                             type: 'error',
                             confirmButtonClass: "btn btn-info",
-                            buttonsStyling: false
-                        }).catch(swal.noop);
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
                     }
                 }
             })
@@ -161,11 +167,14 @@
                     } else {
                         swal({
                             title: '温馨提示:)',
-                            text: data,
+                            text: "更新失败",
                             type: 'error',
                             confirmButtonClass: "btn btn-info",
-                            buttonsStyling: false
-                        }).catch(swal.noop);
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
                     }
                 }
             })
@@ -202,10 +211,22 @@
                             text: "公司删除成功",
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-success",
-                            type: "success"
-                        }).catch(swal.noop)
+                            type: "success",
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
                     } else {
-                        alert(data);
+                        swal({
+                            title: "温馨提示:)",
+                            text: "公司删除失败",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-success",
+                            type: "warning",
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
                     }
                 }
             })
