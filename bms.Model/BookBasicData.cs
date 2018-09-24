@@ -17,6 +17,23 @@ namespace bms.Model
         private string author;
         private string remarks;
         private string dentification;
+        private string newBookNum;
+
+        /// <summary>
+        /// 最新的书号
+        /// </summary>
+        public string NewBookNum
+        {
+            get
+            {
+                return newBookNum;
+            }
+
+            set
+            {
+                newBookNum = value;
+            }
+        }
         /// <summary>
         /// 书号
         /// </summary>
@@ -185,7 +202,7 @@ namespace bms.Model
         /// <param name="author">作者</param>
         /// <param name="remarks">备注</param>
         /// <param name="dentification">标识</param>
-        public BookBasicData(long bookNum, string isbn, string bookName, DateTime publishTime, double price, string publisher, string catalog, string author, string remarks, string dentification)
+        public BookBasicData(string newBookNum,long bookNum, string isbn, string bookName, DateTime publishTime, double price, string publisher, string catalog, string author, string remarks, string dentification)
         {
             this.BookNum = bookNum;
             this.Isbn = isbn;
@@ -197,6 +214,7 @@ namespace bms.Model
             this.Author = author;
             this.Remarks = remarks;
             this.Dentification = dentification;
+            this.NewBookNum = newBookNum;
         }
     }
 }

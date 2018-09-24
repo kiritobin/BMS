@@ -108,6 +108,18 @@
                 allowOutsideClick: false
             })
         }
+        else if (sessionStorage.getItem("succ") != "上传成功") {
+            swal({
+                title: "提示",
+                text: "文件未上传成功",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            })
+        }
         else {
             $("#myModal1").modal("show");
             $("#close").hide();
@@ -130,7 +142,6 @@
                         $("#img").attr("src", "../imgs/lose.png");
                     }
                     else {
-                        alert(data);
                         swal({
                             title: "提示",
                             text: data,
@@ -182,19 +193,23 @@
     });
 
     $("#close").click(function () {
+        $("#close").show();
+        $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
+        $("#img").attr("src", "../imgs/loading.gif");
         window.location.reload();
     });
 
     function ajaxFileUpload() {
         $.ajaxFileUpload(
             {
-                url: '/CustomerMGT/uploadCollection.aspx', //用于文件上传的服务器端请求地址
+                url: '/CustomerMGT/upload.aspx', //用于文件上传的服务器端请求地址
                 secureuri: false, //是否需要安全协议，一般设置为false
                 fileElementId: 'file', //文件上传域的ID
                 dataType: 'json', //返回值类型 一般设置为json
                 success: function (data, status)  //服务器成功响应处理函数
                 {
                     console.log(data.msg);
+                    sessionStorage.setItem("succ", data.msg);
                     if (typeof (data.error) != 'undefined') {
                         if (data.error != '') {
                             swal({

@@ -214,10 +214,12 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
+                                <div class="card-body">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title">出库添加</h4>
                                 </div>
-                                <div class="card-body">
+                                 <div class="btn-group" role="group">                          
+                                     <button class="btn btn-info btn-sm" id="btn-search">确定添加</button></div>
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
                                             <tr>

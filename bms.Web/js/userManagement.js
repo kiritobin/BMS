@@ -144,24 +144,33 @@ $("#btnAdd").click(function () {
                         text: "用户添加成功",
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-success",
-                        type: "success"
-                    }).catch(swal.noop);
+                        type: "success",
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
                 } else if (succ == "该用户已存在不能重复添加") {
                     swal({
                         title: '温馨提示:)',
                         text: '该用户已存在不能重复添加',
                         type: 'error',
                         confirmButtonClass: "btn btn-info",
-                        buttonsStyling: false
-                    }).catch(swal.noop);
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
                 } else {
                     swal({
                         title: '温馨提示:)',
                         text: '添加失败请联系管理员',
                         type: 'error',
                         confirmButtonClass: "btn btn-info",
-                        buttonsStyling: false
-                    }).catch(swal.noop);
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
                 }
             }
         });
@@ -210,16 +219,22 @@ $("#btnEdit").click(function () {
                     text: "修改成功",
                     buttonsStyling: false,
                     confirmButtonClass: "btn btn-success",
-                    type: "success"
-                }).catch(swal.noop);
+                    type: "success",
+                    allowOutsideClick: false
+                }).then(function () {
+                    window.location.reload();
+                })
             } else {
                 swal({
                     title: "温馨提示:)",
                     text: "修改失败",
                     buttonsStyling: false,
                     confirmButtonClass: "btn btn-success",
-                    type: "warning"
-                }).catch(swal.noop);
+                    type: "warning",
+                    allowOutsideClick: false
+                }).then(function () {
+                    window.location.reload();
+                })
             }
         }
     })
@@ -242,16 +257,22 @@ $("#reset").click(function () {
                     text: "密码重置成功",
                     buttonsStyling: false,
                     confirmButtonClass: "btn btn-success",
-                    type: "success"
-                }).catch(swal.noop);
+                    type: "success",
+                    allowOutsideClick: false
+                }).then(function () {
+                    window.location.reload();
+                })
             } else {
                 swal({
                     title: "温馨提示:)",
                     text: "密码重置发生异常",
                     buttonsStyling: false,
                     confirmButtonClass: "btn btn-success",
-                    type: "warning"
-                }).catch(swal.noop);
+                    type: "warning",
+                    allowOutsideClick: false
+                }).then(function () {
+                    window.location.reload();
+                })
             }
         }
     })
@@ -285,11 +306,22 @@ $("#table").delegate(".btn-delete", "click", function () {
                         text: "用户删除成功",
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-success",
-                        type: "success"
-                    }).catch(swal.noop);
-                    window.location.href = "userManagement.aspx";
+                        type: "success",
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
                 } else {
-                    alert("删除失败");
+                    swal({
+                        title: "温馨提示:)",
+                        text: "用户删除失败",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "warning",
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
                 }
             }
         })

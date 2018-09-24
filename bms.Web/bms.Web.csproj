@@ -74,13 +74,12 @@
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
-    <Content Include="CustomerMGT\uploadCollection.aspx" />
+    <Content Include="CustomerMGT\upload.aspx" />
     <Content Include="CustomerMGT\WebForm1.aspx" />
-    <Content Include="CustomerMGT\WebForm2.aspx" />
     <Content Include="demo\sales_demo.aspx" />
-    <Content Include="imgs\16.png" />
-    <Content Include="imgs\26.png" />
     <Content Include="imgs\loading.gif" />
+    <Content Include="imgs\lose.png" />
+    <Content Include="imgs\success.png" />
     <Content Include="InventoryMGT\addReturn.aspx" />
     <Content Include="InventoryMGT\addStock.aspx" />
     <Content Include="InventoryMGT\addWarehouse.aspx" />
@@ -190,12 +189,12 @@
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CustomerMGT\uploadCollection.aspx.cs">
-      <DependentUpon>uploadCollection.aspx</DependentUpon>
+    <Compile Include="CustomerMGT\upload.aspx.cs">
+      <DependentUpon>upload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CustomerMGT\uploadCollection.aspx.designer.cs">
-      <DependentUpon>uploadCollection.aspx</DependentUpon>
+    <Compile Include="CustomerMGT\upload.aspx.designer.cs">
+      <DependentUpon>upload.aspx</DependentUpon>
     </Compile>
     <Compile Include="CustomerMGT\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
@@ -203,13 +202,6 @@
     </Compile>
     <Compile Include="CustomerMGT\WebForm1.aspx.designer.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerMGT\WebForm2.aspx.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CustomerMGT\WebForm2.aspx.designer.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
     </Compile>
     <Compile Include="demo\sales_demo.aspx.cs">
       <DependentUpon>sales_demo.aspx</DependentUpon>
@@ -363,6 +355,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="css\jedatefont.ttf" />
     <Content Include="css\jedatefont.woff" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="uploads\muban\客户馆藏数据表.xls" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
