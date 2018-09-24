@@ -5,23 +5,51 @@
         var type = location.substr(point).toLowerCase();
         var uploadFiles = document.getElementById("file").files;
         if (uploadFiles.length == 0) {
-            alert("请选择要上传的文件");
+            swal({
+                title: "温馨提示:)",
+                text: "请选择要上传的文件",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-success",
+                type: "warning",
+                allowOutsideClick: false
+            })
         }
         else if (type == ".xls") {
             ajaxFileUpload();
         }
         else {
-            alert("只允许上传.xls格式的文件");
+            swal({
+                title: "温馨提示:)",
+                text: "只允许上传.xls格式的文件",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-success",
+                type: "warning",
+                allowOutsideClick: false
+            })
         }
     });
 
     $("#btnImport").click(function () {
         var file = $("#file").val();
         if (file == "" || file == null) {
-            alert("请上传文件");
+            swal({
+                title: "温馨提示:)",
+                text: "请上传文件",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-success",
+                type: "warning",
+                allowOutsideClick: false
+            })
         }
         else if (sessionStorage.getItem("succ")!="上传成功") {
-            alert("文件未上传成功");
+            swal({
+                title: "温馨提示:)",
+                text: "文件未上传成功",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-success",
+                type: "warning",
+                allowOutsideClick: false
+            })
         }
         else {
             $("#myModal1").modal("show");
@@ -48,7 +76,14 @@
                         sessionStorage.setItem("import", "导入失败");
                     }
                     else {
-                        alert(data);
+                        swal({
+                            title: "温馨提示:)",
+                            text: data,
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-success",
+                            type: "warning",
+                            allowOutsideClick: false
+                        })
                     }
                 }
             });
@@ -104,16 +139,37 @@
                     console.log(data.msg);
                     if (typeof (data.error) != 'undefined') {
                         if (data.error != '') {
-                            alert(data.error);
+                            swal({
+                                title: "温馨提示:)",
+                                text: data.error,
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-success",
+                                type: "warning",
+                                allowOutsideClick: false
+                            })
                         } else {
-                            alert(data.msg);
+                            swal({
+                                title: "温馨提示:)",
+                                text: data.msg,
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-success",
+                                type: "warning",
+                                allowOutsideClick: false
+                            })
                             sessionStorage.setItem("succ", data.msg);
                         }
                     }
                 },
                 error: function (data, status, e)//服务器响应失败处理函数
                 {
-                    alert(e);
+                    swal({
+                        title: "温馨提示:)",
+                        text:e,
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "warning",
+                        allowOutsideClick: false
+                    })
                 }
             }
         );

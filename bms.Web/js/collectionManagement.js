@@ -109,7 +109,16 @@
             })
         }
         else if (sessionStorage.getItem("succ") != "上传成功") {
-            alert("文件未上传成功");
+            swal({
+                title: "提示",
+                text: "文件未上传成功",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            })
         }
         else {
             $("#myModal1").modal("show");
@@ -133,7 +142,6 @@
                         $("#img").attr("src", "../imgs/lose.png");
                     }
                     else {
-                        alert(data);
                         swal({
                             title: "提示",
                             text: data,
