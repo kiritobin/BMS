@@ -215,10 +215,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
+                                <div class="card-body">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title">出库查询</h4>
                                 </div>
-                                <div class="card-body">
+                                 <div class="btn-group" role="group">  
+                                <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i></button>
+                                        </div>
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
                                             <tr>
@@ -271,9 +274,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        </table>
-                                        <button class="btn btn-success">
-                                            <i class="fa fa-print" aria-hidden="true"></i></button> 
+                                        </table>                                        
                                         <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>

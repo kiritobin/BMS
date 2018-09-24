@@ -226,7 +226,7 @@
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
+                                                <button class="btn btn-success btn-sm" onclick="window.location.href='addWarehouse.aspx'" id="btn-add">添加</button>
                                             </div>
                                         </div>
                                     </div>
@@ -257,7 +257,7 @@
                                                     <td>6546</td>
                                                     <td>
                                                         <!-- 查询与删除按钮 -->
-                                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-search"></i></button>
+                                                        <button class="btn btn-info btn-sm" onclick="window.location.href='checkWarehouse.aspx'"><i class="fa fa-search"></i></button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                                     </td>
                                                 </tr>

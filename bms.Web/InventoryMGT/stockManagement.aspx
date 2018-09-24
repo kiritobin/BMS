@@ -257,7 +257,7 @@
                                                     <td>23</td>
                                                     <td>34</td>
                                                     <td>
-                                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModa2"><i class="fa fa-search"></i></button>
+                                                        <button class="btn btn-info btn-sm" onclick="window.location.href='checkStock.aspx'" ><i class="fa fa-search"></i></button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
                                                     </td>
                                                 </tr>

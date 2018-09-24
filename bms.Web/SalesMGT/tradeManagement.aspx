@@ -225,8 +225,8 @@
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
                                             &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add1"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销售</button>
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add2"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销退</button>
+                                            <button class="btn btn-success btn-sm" onclick="window.location.href='salesDetail.aspx'" id="btn-add1"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销售</button>
+                                            <button class="btn btn-success btn-sm" onclick="window.location.href='backQuery.aspx'" id="btn-add2"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销退</button>
                                         </div>
                                     </div>
 
