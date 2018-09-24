@@ -77,9 +77,9 @@
     <Content Include="CustomerMGT\upload.aspx" />
     <Content Include="CustomerMGT\WebForm1.aspx" />
     <Content Include="demo\sales_demo.aspx" />
-    <Content Include="imgs\16.png" />
-    <Content Include="imgs\26.png" />
     <Content Include="imgs\loading.gif" />
+    <Content Include="imgs\lose.png" />
+    <Content Include="imgs\success.png" />
     <Content Include="InventoryMGT\addReturn.aspx" />
     <Content Include="InventoryMGT\addStock.aspx" />
     <Content Include="InventoryMGT\addWarehouse.aspx" />
@@ -355,7 +355,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="css\jedatefont.ttf" />
     <Content Include="css\jedatefont.woff" />
-    <Content Include="uploads\20180922111449-9.xls" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="uploads\muban\客户馆藏数据表.xls" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
