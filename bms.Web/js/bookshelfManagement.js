@@ -105,10 +105,10 @@
                 },
                 dataType: 'text',
                 success: function (succ) {
-                    if (succ == "添加成功") {
+                    if (succ == "删除成功") {
                         swal({
-                            title: succ,
-                            text: succ,
+                            title: "温馨提示",
+                            text: "删除成功",
                             type: "success",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -120,8 +120,8 @@
                         })
                     } else {
                         swal({
-                            title: succ,
-                            text: succ,
+                            title: "温馨提示",
+                            text: "删除失败",
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -178,7 +178,7 @@
                         swal({
                             title: succ,
                             text: succ,
-                            type: "warning",
+                            type: "success",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
                             confirmButtonClass: 'btn btn-success',
