@@ -14,7 +14,7 @@ using System.Web.UI.WebControls;
 namespace bms.Web.BasicInfor
 {
     using Result = Enums.OpResult;
-    public partial class bookBasicManagement : CommonPage
+    public partial class bookBasicManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "", last, row, num;
@@ -120,18 +120,7 @@ private DataTable excelToDt()
 {
     DataTable dt1 = new DataTable();
     string path = Session["path"].ToString();
-    string strConn = "";
-    //文件类型判断
-    string[] sArray = path.Split('.');
-    int count = sArray.Length - 1;
-    if (sArray[count] == "xls")
-    {
-        strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-    }
-    else if (sArray[count] == "xlsx")
-    {
-        strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-    }
+    string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
     OleDbConnection conn = new OleDbConnection(strConn);
     try
     {

@@ -38,14 +38,14 @@ namespace bms.Web
 
         protected void Session_End(object sender, EventArgs e)
         {
-            Hashtable hOnline = (Hashtable)Application["Online"];
-            if (hOnline[Session.SessionID] != null)
-            {
-                hOnline.Remove(Session.SessionID);
-                Application.Lock();
-                Application["Online"] = hOnline;
-                Application.UnLock();
-            }
+            //Hashtable hOnline = (Hashtable)Application["Online"];
+            //if (hOnline[Session.SessionID] != null)
+            //{
+            //    hOnline.Remove(Session.SessionID);
+            //    Application.Lock();
+            //    Application["Online"] = hOnline;
+            //    Application.UnLock();
+            //}
         }
 
         protected void Application_End(object sender, EventArgs e)

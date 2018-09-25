@@ -12,7 +12,7 @@ namespace bms.Web.BasicInfor
     using Model;
     using System.Text;
     using Result = Enums.OpResult;
-    public partial class bookshelfManagement : CommonPage
+    public partial class bookshelfManagement : System.Web.UI.Page
     {
         public int totalCount, intPageCount;
         public DataSet regionDs, ds;

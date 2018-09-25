@@ -291,7 +291,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="btnAdd">导入</button>
+                            <button type="submit" class="btn btn-success" id="btnImport">导入</button>
                         </div>
                     </div>
                 </div>
