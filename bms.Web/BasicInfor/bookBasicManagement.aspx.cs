@@ -14,7 +14,7 @@ using System.Web.UI.WebControls;
 namespace bms.Web.BasicInfor
 {
     using Result = Enums.OpResult;
-    public partial class bookBasicManagement : System.Web.UI.Page
+    public partial class bookBasicManagement : CommonPage
     {
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "", last, row, num;
@@ -155,7 +155,15 @@ private DataTable excelToDt()
 private DataTable addBookId()
 {
     int row = excelToDt().Rows.Count;
-    long a = Convert.ToInt64(ViewState["i"].ToString().Substring(10, 8));
+    long a;
+    if (ViewState["i"].ToString().Length>=18)
+    {
+        a = Convert.ToInt64(ViewState["i"].ToString().Substring(10, 8));
+    }
+    else
+    {
+        a = 0;
+    }
     ArrayList list = new ArrayList();
     for (int i = 0; i < row; i++)
     {

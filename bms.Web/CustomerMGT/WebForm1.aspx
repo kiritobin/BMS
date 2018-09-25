@@ -16,12 +16,8 @@
             <input type="button" value="上传" id="upload" />
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
             <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Button" />
-            <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Button" />
-            <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="Button" />
         </div>
         1
-        <asp:Button ID="Button5" runat="server" OnClick="Button5_Click" Text="Button" />
-        <asp:Button ID="Button6" runat="server" OnClick="Button6_Click" Text="Button" />
         <asp:GridView ID="GridView1" runat="server">
         </asp:GridView>
         2
