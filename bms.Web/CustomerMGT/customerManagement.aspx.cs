@@ -112,7 +112,6 @@ namespace bms.Web.CustomerMGT
             {
                 CustomerId = Convert.ToInt32(customerId),
                 CustomerName = customerName,
-                CustomerPwd = pwd,
                 RegionId = reg
             };
             bool bl = cbll.SelectById(customerId);
