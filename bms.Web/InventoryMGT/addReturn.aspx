@@ -231,24 +231,22 @@
                                                 <td class="td_text"><span class="span-text">ISBN号:</span></td>
                                                 <td class="td_width">
                                                 <input type="text" value="" class="input_text" placeholder="ISBN号"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_text"><span class="span-text">商品总数:</span></td>
+                                                 <td class="td_text"><span class="span-text">商品总数:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="商品总数"></td>
+                                            </tr>
+                                            <tr>                                               
                                                 <td class="td_text"><span class="span-text">单价:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="单价"></td>
-                                            </tr>
-                                            <tr>
                                                 <td class="td_text"><span class="span-text">折扣:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="折扣"></td>
                                                 <td class="td_text"><span class="span-text">实洋:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="实洋"></td>                                                
+                                                    <input type="text" value="" class="input_text" placeholder="实洋"></td>
                                             </tr>
-                                            <tr>
+                                            <tr>                                                                                                                                           
                                                  <td class="td_text"><span class="span-text">货架号:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="货架号"></td> 
