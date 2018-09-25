@@ -240,7 +240,6 @@
                                                     <th>序号</th>
                                                     <th>账号</th>
                                                     <th>名称</th>
-                                                    <th class="table-thead-th">重置密码</th>
                                                     <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>
