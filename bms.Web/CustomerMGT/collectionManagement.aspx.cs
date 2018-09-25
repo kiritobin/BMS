@@ -139,13 +139,13 @@ namespace bms.Web.CustomerMGT
         /// <returns></returns>
         private DataTable GetDistinctSelf(DataTable SourceDt, string field1, string field2)
         {
-            int count = SourceDt.Rows.Count;
-            if (count > 1)
+            if (SourceDt.Rows.Count > 1)
             {
-                DataRowCollection drc = SourceDt.Rows;
-                for (int i = 1; i <= count - 2; i++)
+                for (int i = 1; i <= SourceDt.Rows.Count - 2; i++)
                 {
-                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{2}' and {1}='{3}'", field1, field2, drc[i][field1], drc[i][field2]));
+                    string isbn = SourceDt.Rows[i][field1].ToString();
+                    string customId = SourceDt.Rows[i][field2].ToString();
+                    DataRow[] rows = SourceDt.Select(string.Format("{0}= '{2}' and {1}= '{3}'", field1, field2, isbn, customId));
                     if (rows.Length > 1)
                     {
                         SourceDt.Rows.RemoveAt(i);
