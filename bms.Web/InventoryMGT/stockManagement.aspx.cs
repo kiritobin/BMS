@@ -13,13 +13,13 @@ namespace bms.Web.InventoryMGT
 {
     public partial class lnventoryList : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
+        public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "";
         public DataSet ds;
         UserBll userBll = new UserBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            getData();
         }
 
 
@@ -50,11 +50,11 @@ namespace bms.Web.InventoryMGT
             }
             else if ((userName == "" || userName == null) && (singHeadId != "" && singHeadId != null) && (region == null || region == ""))
             {
-                search = " and singHeadId='" + singHeadId + "'";
+                search = " and singleHeadId=" + singHeadId;
             }
             else if ((userName == "" || userName == null) && (singHeadId != "" && singHeadId != null) && (region != null && region != ""))
             {
-                search = " and regionName='" + region + "' and singHeadId='" + singHeadId + "'";
+                search = " and regionName='" + region + "' and singleHeadId=" + singHeadId;
             }
             else if ((userName != "" && userName != null) && (region != null && region != "") && (singHeadId == null || singHeadId == ""))
             {
@@ -62,17 +62,17 @@ namespace bms.Web.InventoryMGT
             }
             else if ((userName != "" && userName != null) && (region == null || region == "") && (singHeadId != null && singHeadId != ""))
             {
-                search = String.Format(" and userName= '{0}' and singHeadId='{1}'", userName, singHeadId);
+                search = String.Format(" and userName= '{0}' and singleHeadId={1}", userName, singHeadId);
             }
             else
             {
-                search = String.Format(" and userName= '{0}' and regionName = '{1}' and singHeadId='{2}'  and deleteState=0", userName, region, singHeadId);
+                search = String.Format(" and userName= '{0}' and regionName = '{1}' and singleHeadId={2}  and deleteState=0", userName, region, singHeadId);
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,time,regionName,userName,allBillCount,allTotalPrice,allRealPrice,type,deleteState,saveState";
+            tbd.StrColumnlist = "singleHeadId,regionId,userId,time,regionName,userName,allBillCount,allTotalPrice,allRealPrice,type,deleteState,saveState";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "type=1 and deleteState=0" + search;
             tbd.IntPageNum = currentPage;
@@ -84,7 +84,7 @@ namespace bms.Web.InventoryMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["singleHeadId"].ToString() + "</td></td>");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["singleHeadId"].ToString() + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["time"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</ td >");

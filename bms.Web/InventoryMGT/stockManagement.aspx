@@ -239,10 +239,11 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table text-center mostTable table-bordered">
+                                        <table class="table text-center mostTable table-bordered" id="table">
                                             <thead>
                                                 <tr>
-                                                    <td>单编号</td>
+                                                    <td>序号</td>
+                                                    <td>单据号</td>
                                                     <td>制单时间</td>
                                                     <td>接收组织</td>
                                                     <td>操作员</td>
@@ -258,6 +259,7 @@
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -296,7 +298,6 @@
     <script src="../js/sweetalert2.js"></script>
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/bookshelfManagement.js"></script>
 </body>
 
 </html>
