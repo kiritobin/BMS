@@ -34,7 +34,7 @@ namespace bms.Dao
         {
             string cmdText = "insert into T_Customer(customerID,customerName,customerPwd) values(@customerID,@customerName,@customerPwd)";
             String[] param = { "@customerID","@customerName", "@customerPwd"};
-            object[] values = { customer.CustomerId.ToString(), customer.CustomerName ,customer.CustomerPwd};
+            object[] values = { customer.CustomerId.ToString(), customer.CustomerName ,customer};
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
         /// <summary>
