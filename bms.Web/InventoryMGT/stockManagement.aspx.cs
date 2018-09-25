@@ -72,7 +72,7 @@ namespace bms.Web.InventoryMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,time,regionName,userName,allBillCount,allTotalPrice,allRealPrice,type,deleteState,saveState";
+            tbd.StrColumnlist = "singleHeadId,regionId,userId,time,regionName,userName,allBillCount,allTotalPrice,allRealPrice,type,deleteState,saveState";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "type=1 and deleteState=0" + search;
             tbd.IntPageNum = currentPage;
@@ -83,8 +83,7 @@ namespace bms.Web.InventoryMGT
             sb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["singleHeadId"].ToString() + "</td></td>");
+                sb.Append("<tr><td>" + ds.Tables[0].Rows[i]["singleHeadId"].ToString() + "</td></td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["time"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</ td >");

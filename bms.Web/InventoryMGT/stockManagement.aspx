@@ -296,7 +296,6 @@
     <script src="../js/sweetalert2.js"></script>
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/bookshelfManagement.js"></script>
 </body>
 
 </html>
