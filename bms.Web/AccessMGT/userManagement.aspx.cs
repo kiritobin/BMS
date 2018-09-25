@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 namespace bms.Web.AccessMGT
 {
     using Result = Enums.OpResult;
-    public partial class userManagement : CommonPage
+    public partial class userManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
         public string search = "";

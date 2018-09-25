@@ -146,13 +146,14 @@ namespace bms.Web.CustomerMGT
 
             int row = excelToDt().Rows.Count;
             long a;
-            if (num.Length>=8)
+            if (ViewState["i"].ToString().Length==1)
             {
-                 a = Convert.ToInt64(ViewState["i"].ToString().Substring(10, 8));
+                a = 0;
+               
             }
             else
             {
-                 a = 0;
+                a = Convert.ToInt64(ViewState["i"].ToString().Substring(10, 8));
             }
             
             ArrayList list = new ArrayList();

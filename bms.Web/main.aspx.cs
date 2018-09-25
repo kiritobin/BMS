@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web
 {
-    public partial class main : CommonPage
+    public partial class main : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

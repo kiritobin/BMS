@@ -12,7 +12,7 @@ namespace bms.Web.CustomerMGT
 {
     using System.Text;
     using Result = Enums.OpResult;
-    public partial class customerManagement : CommonPage
+    public partial class customerManagement : System.Web.UI.Page
     {
 
         public int totalCount, intPageCount, pageSize = 20;
@@ -60,7 +60,7 @@ namespace bms.Web.CustomerMGT
             }
             else
             {
-                search = "customerName ='" + search + "' and deleteState=0";
+                search = String.Format(" customerName {0} and deleteState=0", "like '%" + search + "%'");
             }
 
             TableBuilder tb = new TableBuilder();
@@ -186,8 +186,5 @@ namespace bms.Web.CustomerMGT
                 }
             }
         }
-        /// <summary>
-        /// 重置密码
-        /// </summary>
     }
 }

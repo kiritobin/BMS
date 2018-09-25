@@ -12,7 +12,7 @@ namespace bms.Web.AccessMGT
 {
     using System.Text;
     using Result = Enums.OpResult;
-    public partial class JurisdictionManagement : CommonPage
+    public partial class JurisdictionManagement : System.Web.UI.Page
     {
         public int totalCount, intPageCount;
         public DataSet ds;
