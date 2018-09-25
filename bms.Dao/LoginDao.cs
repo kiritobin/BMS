@@ -18,18 +18,21 @@ namespace bms.Dao
         /// <returns></returns>
         public User getPwdByUserId(string userID)
         {
-            string sql = "select userID,userPwd,roleId from T_User where userID=@userID";
+            string sql = "select userID,userPwd,roleId,regionId from T_User where userID=@userID";
             string[] param = { "@userID" };
             object[] values = { userID };
             User user = new User();
             MySqlDataReader reader = db.ExecuteReader(sql, param, values);
             Role role = new Role();
+            Region region = new Region();
             while (reader.Read())
             {
                 user.UserId = reader.GetInt32(0);
                 user.Pwd = reader.GetString(1);
                 role.RoleId = reader.GetInt32(2);
+                region.RegionId = reader.GetInt32(3);
                 user.RoleId = role;
+                user.ReginId = region;
             }
             reader.Close();
             return user; ;
@@ -41,7 +44,7 @@ namespace bms.Dao
         /// <returns></returns>
         public Customer getPwdByCustomId(string customerID)
         {
-            string sql = "select customerID,customerPwd from T_Customer where customerID=@customerID";
+            string sql = "select customerID from T_Customer where customerID=@customerID";
             string[] param = { "@customerID" };
             object[] values = { customerID };
             Customer custom = new Customer();
@@ -49,7 +52,6 @@ namespace bms.Dao
             while (reader.Read())
             {
                 custom.CustomerId = reader.GetInt32(0);
-                custom.CustomerPwd = reader.GetString(1);
             }
             reader.Close();
             return custom; ;
