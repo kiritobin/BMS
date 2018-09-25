@@ -8,10 +8,24 @@
         var pwd = $("#userPwd").val();
         var user = $('input[name="user"]:checked').val();
         if (userName == "") {
-            alert("用户名不能为空");
+            swal({
+                title: "温馨提示:)",
+                text: "用户名不能为空",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-success",
+                type: "warning",
+                allowOutsideClick: false
+            })
         }
         else if (pwd == "") {
-            alert("密码不能为空");
+            swal({
+                title: "温馨提示:)",
+                text: "密码不能为空",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-success",
+                type: "warning",
+                allowOutsideClick: false
+            })
         }
         else {
             $.ajax({
@@ -25,13 +39,31 @@
                 },
                 dataType: 'text',
                 success: function (succ) {
-                    if (succ === "登录成功") {
+                if (succ === "登录成功") {
+                    swal({
+                        title: "温馨提示:)",
+                        text: "登录成功",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "success",
+                        allowOutsideClick: false
+                    }).then(function () {
                         window.location.href = "/main.aspx";
-                    }
-                    else {
-                        alert("登录失败");
-                    }
+                    })
                 }
+                else {
+                    swal({
+                        title: "温馨提示:)",
+                        text: "登录失败",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "warning",
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
+                }
+            }
             });
         }
     });
