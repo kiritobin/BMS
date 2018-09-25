@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="bmd-form-group">
                                     <div class="text-right">
-                                        <label><a href="#">客户登录</a></label>
+                                        <label><a href="customerLogin.aspx">客户登录</a></label>
                                     </div>
                                 </div>
                             </div>
