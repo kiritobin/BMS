@@ -210,6 +210,7 @@ namespace bms.Web.CustomerMGT
                 sb.Append("<td>" + drc[i]["customerName"].ToString() + "</td>");
                 sb.Append("<td>" + drc[i]["price"].ToString() + "</ td >");
                 sb.Append("<td>" + drc[i]["collectionNum"].ToString() + "</ td ></ tr >");
+                sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "</button>"+ "</ td ></ tr >");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
