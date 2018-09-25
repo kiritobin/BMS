@@ -40,10 +40,6 @@ namespace bms.Web.CustomerMGT
             {
                 Delete();
             }
-            else if (op == "reset")
-            {
-                ResetPwd();
-            }
         }
         /// <summary>
         /// 获取基础数据及查询方法
@@ -86,7 +82,6 @@ namespace bms.Web.CustomerMGT
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerID"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
-                strb.Append("<td>" + "<button type='button' class='btn btn-default btn-sm reset_pwd'>" + "重置密码" + "</button>" + " </td>");
                 strb.Append("<td>" + "<button class='btn btn-warning btn-sm btn_Editor' data-toggle='modal' data-target='#myModa2'>" + "<i class='fa fa-pencil fa-lg'></i>" + "</button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "</button>" + " </td></tr>");
             }
@@ -195,21 +190,5 @@ namespace bms.Web.CustomerMGT
         /// <summary>
         /// 重置密码
         /// </summary>
-        public void ResetPwd()
-        {
-            int id = Convert.ToInt32(Request["customerid"]);
-            string pwd = rasc.Encrypt("000000");
-            Result row = cbll.ResetPwd(id, pwd);
-            if (row == Result.更新成功)
-            {
-                Response.Write("重置成功");
-                Response.End();
-            }
-            else
-            {
-                Response.Write("重置失败");
-                Response.End();
-            }
-        }
     }
 }
