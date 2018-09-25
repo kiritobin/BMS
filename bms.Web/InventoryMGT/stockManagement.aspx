@@ -242,7 +242,8 @@
                                         <table class="table text-center mostTable table-bordered" id="table">
                                             <thead>
                                                 <tr>
-                                                    <td>单编号</td>
+                                                    <td>序号</td>
+                                                    <td>单据号</td>
                                                     <td>制单时间</td>
                                                     <td>接收组织</td>
                                                     <td>操作员</td>

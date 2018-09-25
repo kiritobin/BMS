@@ -224,13 +224,13 @@
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
                                             <tr>
-                                                <td class="td_text"><span class="span-text">单据编号:</span></td>
+                                                <td class="td_text"><span class="span-text">单据号:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="单据编号"></td>
                                                 <td class="td_text"><span class="span-text">操作员:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="操作员"></td>
-                                                <td class="td_text"><span class="span-text">单据总数:</span></td>
+                                                <td class="td_text"><span class="span-text">单据数量:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="单据总数"></td>
                                             </tr>
@@ -263,9 +263,9 @@
                                                     <input type="text" value="" class="input_text" placeholder="总实洋"></td>
                                             </tr>
                                             <tr>
-                                                <td class="td_text"><span class="span-text">备注:</span></td>
+                                                <%--<td class="td_text"><span class="span-text">备注:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="备注"></td>
+                                                    <input type="text" value="" class="input_text" placeholder="备注"></td>--%>
                                                 <td class="td_text"><span class="span-text">制单日期:</span></td>
                                                 <td class="td_width">
                                                     <div class="jeinpbox">

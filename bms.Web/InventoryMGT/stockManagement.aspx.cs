@@ -13,7 +13,7 @@ namespace bms.Web.InventoryMGT
 {
     public partial class lnventoryList : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
+        public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "";
         public DataSet ds;
         UserBll userBll = new UserBll();
@@ -83,7 +83,8 @@ namespace bms.Web.InventoryMGT
             sb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                sb.Append("<tr><td>" + ds.Tables[0].Rows[i]["singleHeadId"].ToString() + "</td></td>");
+                sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["singleHeadId"].ToString() + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["time"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</ td >");
