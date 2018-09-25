@@ -28,7 +28,7 @@ namespace bms.Web.CustomerMGT
                 {
                     msg = "上传失败，文件存在";
                 }
-                if (files[0].ContentLength > (1024*1000)) //1G大小
+                if ((files[0].ContentLength/1000) > 1024000) //1G大小
                 {
                     msg = "文件大小超过限制";
                 }

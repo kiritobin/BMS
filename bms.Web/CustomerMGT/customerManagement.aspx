@@ -63,6 +63,12 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="organizationalManagement.aspx">
+                                        <span class="sidebar-normal">组织管理</span>
+
+                                    </a>
+                                </li>
                                 <%--<li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">功能管理</span>
@@ -234,7 +240,6 @@
                                                     <th>序号</th>
                                                     <th>账号</th>
                                                     <th>名称</th>
-                                                    <th class="table-thead-th">重置密码</th>
                                                     <th class="table-thead-th">操作</th>
                                                 </tr>
                                             </thead>

@@ -87,19 +87,5 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(cmdText, param, values);
             return ds;
         }
-        /// <summary>
-        /// 重置客户密码
-        /// </summary>
-        /// <param name="customerID">账户</param>
-        /// <param name="customerPwd">重置后的密码</param>
-        /// <returns></returns>
-        public int ResetPwd(int customerID,string customerPwd)
-        {
-            string sql = "update T_Customer set customerPwd=@customerPwd where customerID=@customerID";
-            string[] param = { "@customerID", "@customerPwd" };
-            object[] values = { customerID, customerPwd };
-            int row = db.ExecuteNoneQuery(sql, param, values);
-            return row;
-        }
     }
 }

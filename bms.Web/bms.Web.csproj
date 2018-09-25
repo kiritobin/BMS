@@ -74,6 +74,7 @@
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
+    <Content Include="customerLogin.aspx" />
     <Content Include="CustomerMGT\upload.aspx" />
     <Content Include="CustomerMGT\WebForm1.aspx" />
     <Content Include="CustomerMGT\WebForm2.aspx" />
@@ -190,6 +191,13 @@
     </Compile>
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="customerLogin.aspx.cs">
+      <DependentUpon>customerLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="customerLogin.aspx.designer.cs">
+      <DependentUpon>customerLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="CustomerMGT\upload.aspx.cs">
       <DependentUpon>upload.aspx</DependentUpon>
