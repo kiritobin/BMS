@@ -86,6 +86,7 @@
     <script src="js/demo.js"></script>
     <script src="js/customerLogin.js"></script>
     <script src="js/jsencrypt.min.js"></script>
+    <script src="js/sweetalert2.js"></script>
     <!-- 登录界面js -->
     <script>
         $(document).ready(function () {
