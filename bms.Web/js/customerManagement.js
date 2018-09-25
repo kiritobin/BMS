@@ -130,8 +130,8 @@
     })
     //提交编辑
     $("#table").delegate(".btn_Editor", "click", function () {
-        var custId = $(this).parent().prev().prev().prev().text().trim();
-        var custName = $(this).parent().prev().prev().text().trim();
+        var custId = $(this).parent().prev().prev().text().trim();
+        var custName = $(this).parent().prev().text().trim();
         $(".editor_name").val(custName);
         $(".editor_id").text(custId);
     })
@@ -180,7 +180,7 @@
     })
     //删除
     $("#table").delegate(".btn_delete", "click", function () {
-        var custId = $(this).parent().prev().prev().prev().text().trim();
+        var custId = $(this).parent().prev().prev().text().trim();
         //弹窗
         swal({
             title: "温馨提示:)",
@@ -221,7 +221,7 @@
                     } else {
                         swal({
                             title: "提示",
-                            text: "删除失败",
+                            text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',

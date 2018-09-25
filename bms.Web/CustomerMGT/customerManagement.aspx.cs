@@ -60,7 +60,7 @@ namespace bms.Web.CustomerMGT
             }
             else
             {
-                search = "customerName ='" + search + "' and deleteState=0";
+                search = String.Format(" customerName {0} and deleteState=0", "like '%" + search + "%'");
             }
 
             TableBuilder tb = new TableBuilder();
@@ -112,7 +112,6 @@ namespace bms.Web.CustomerMGT
             {
                 CustomerId = Convert.ToInt32(customerId),
                 CustomerName = customerName,
-                CustomerPwd = pwd,
                 RegionId = reg
             };
             bool bl = cbll.SelectById(customerId);
@@ -187,8 +186,5 @@ namespace bms.Web.CustomerMGT
                 }
             }
         }
-        /// <summary>
-        /// 重置密码
-        /// </summary>
     }
 }
