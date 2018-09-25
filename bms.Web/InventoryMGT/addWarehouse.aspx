@@ -222,23 +222,20 @@
                                      <button class="btn btn-info btn-sm" id="btn-search">确定添加</button></div>
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
-                                                                                   <tr>
+                                      <tr>
                                                 <td class="td_text"><span class="span-text">单据编号:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="单据编号"></td>
                                                 <td class="td_text"><span class="span-text">ISBN号:</span></td>
                                                 <td class="td_width">
                                                 <input type="text" value="" class="input_text" placeholder="ISBN号"></td>
-                                            </tr>
-                                            <tr>
                                                 <td class="td_text"><span class="span-text">商品总数:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="商品总数"></td>
+                                             <tr>
                                                 <td class="td_text"><span class="span-text">单价:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="单价"></td>
-                                            </tr>
-                                            <tr>
+                                                    <input type="text" value="" class="input_text" placeholder="单价"></td>                 
                                                 <td class="td_text"><span class="span-text">折扣:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="折扣"></td>
@@ -252,9 +249,7 @@
                                                     <input type="text" value="" class="input_text" placeholder="码洋"></td>
                                                  <td class="td_text"><span class="span-text">货架号:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="货架号"></td>
-                                                </tr>
-                                            <tr>
+                                                    <input type="text" value="" class="input_text" placeholder="货架号"></td>                                     
                                                 <td class="td_text"><span class="span-text">备注:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="备注"></td>
