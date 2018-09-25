@@ -14,13 +14,13 @@
                 allowOutsideClick: false
             })
         }
-        else if (type == ".xls") {
+        else if (type == ".xls"||type==".xlsx") {
             ajaxFileUpload();
         }
         else {
             swal({
                 title: "温馨提示:)",
-                text: "只允许上传.xls格式的文件",
+                text: "只允许上传.xls或许.xlsx格式的文件",
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-success",
                 type: "warning",
@@ -67,13 +67,11 @@
                         $("#close").show();
                         $("#img").attr("src", "../imgs/success.png");
                         sessionStorage.removeItem("succ");
-                        sessionStorage.setItem("import", "导入成功");
                     } else if (data.indexOf("导入失败") >= 0) {
                         $("#myModalLabe1").html(data);
                         $("#close").show();
                         $("#img").attr("src", "../imgs/lose.png");
                         sessionStorage.removeItem("succ");
-                        sessionStorage.setItem("import", "导入失败");
                     }
                     else {
                         swal({
@@ -94,37 +92,7 @@
         $("#close").show();
         $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
         $("#img").attr("src", "../imgs/loading.gif");
-
-        if ((sessionStorage.getItem("import") == "导入成功")) {
-            $("#myModal2").modal("show");
-            $("#close1").hide();
-
-            $.ajax({
-                type: 'Post',
-                url: 'bookBasicManagement.aspx',
-                data: {
-                    action: "close"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "" || data == null) {
-                        $("#myModalLabe12").html("无重复数据");
-                        $("#close_img").attr("src", "../imgs/success.png");
-                    }
-                    else {
-                        $("#close1").show();
-                        $("#myModalLabe12").html("关闭窗口，请选择重复数据添加");
-                        $("#close_img").attr("src", "../imgs/success.png");
-                        $("#appendData").append(data);
-                    }
-                }
-            });
-        }
-    });
-
-    $("#close1").click(function () {
-        $("#myModalLabe12").html("正在计算重复数据，请稍等");
-        $("#close_img").attr("src", "../imgs/loading.gif");
+        window.location.reload();
     });
 
     function ajaxFileUpload() {

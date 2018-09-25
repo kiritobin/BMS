@@ -103,6 +103,7 @@ namespace bms.Web.CustomerMGT
             string customerId = Request["customerId"];
             string customerName = Request["cutomerName"];
             string zoneId = Request["zoneId"];
+            string pwd = rasc.Encrypt("000000");
             Region reg = new Region()
             {
                 RegionId = Convert.ToInt32(zoneId)
@@ -111,6 +112,7 @@ namespace bms.Web.CustomerMGT
             {
                 CustomerId = Convert.ToInt32(customerId),
                 CustomerName = customerName,
+                CustomerPwd = pwd,
                 RegionId = reg
             };
             bool bl = cbll.SelectById(customerId);
@@ -185,5 +187,8 @@ namespace bms.Web.CustomerMGT
                 }
             }
         }
+        /// <summary>
+        /// 重置密码
+        /// </summary>
     }
 }
