@@ -63,6 +63,12 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="organizationalManagement.aspx">
+                                        <span class="sidebar-normal">组织管理</span>
+
+                                    </a>
+                                </li>
                                 <%--<li class="nav-item hoverColor">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">功能管理</span>

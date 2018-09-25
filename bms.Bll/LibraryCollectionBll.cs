@@ -7,6 +7,7 @@ using System.Text;
 
 namespace bms.Bll
 {
+    using Result = Enums.OpResult;
     public class LibraryCollectionBll
     {
         LibraryCollectionDao libraryDao = new LibraryCollectionDao();
@@ -18,11 +19,30 @@ namespace bms.Bll
         {
             return libraryDao.Select(customerId);
         }
+
         /// <summary>
-        /// 通过地区获取客户姓名和ID
+        /// replace批量导入数据库
         /// </summary>
+        /// <param name="strSql">导入数据字符串</param>
         /// <returns></returns>
-        public DataSet getCustomerByReg(int regionId)
+        public Result Replace(string strSql)
+        {
+            int row = libraryDao.Replace(strSql);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
+        }
+
+            /// <summary>
+            /// 通过地区获取客户姓名和ID
+            /// </summary>
+            /// <returns></returns>
+            public DataSet getCustomerByReg(int regionId)
         {
             return libraryDao.getCustomerByReg(regionId);
         }

@@ -9,13 +9,13 @@ namespace bms.Dao
 {
     public class LibraryCollectionDao
     {
+        MySqlHelp db = new MySqlHelp();
         /// <summary>
         /// 获取所有客户馆藏数据的ISBN，客户id
         /// </summary>
         /// <returns></returns>
         public DataTable Select(string customerId)
         {
-            MySqlHelp db = new MySqlHelp();
             string comText = "select ISBN,bookName,price,collectionNum,customerId from T_LibraryCollection where customerId=@customerId";
             string[] param = { "@customerId" };
             string[] values = { customerId.ToString() };
@@ -31,7 +31,18 @@ namespace bms.Dao
             }
         }
 
-
+        /// <summary>
+        /// replace批量导入数据库
+        /// </summary>
+        /// <param name="strSql">导入数据字符串</param>
+        /// <returns></returns>
+        public int Replace(string strSql)
+        {
+            int row = 0;
+            string cmdText = "replace into T_LibraryCollection(ISBN,bookName,price,collectionNum,customerId) SELECT ISBN,bookName,price values" + strSql;
+            row = db.ExecuteNoneQuery(cmdText, null, null);
+            return row;
+        }
 
         /// <summary>
         /// 通过地区获取客户姓名和ID

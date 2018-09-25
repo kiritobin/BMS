@@ -222,7 +222,13 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" placeholder="请输入查询条件">
+                                                <input type="text" class="searchOne" id="singHeadId" placeholder="请输入单据号">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" class="searchOne" id="regionName" placeholder="请输入接收组织">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" class="searchOne" id="userName" placeholder="请输入操作员">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
@@ -236,32 +242,17 @@
                                         <table class="table text-center mostTable table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <td>单编ID</td>
+                                                    <td>单编号</td>
                                                     <td>制单时间</td>
-                                                    <td>入库接收组织ID</td>
+                                                    <td>接收组织</td>
                                                     <td>单据总数</td>
-                                                    <td>操作员名称</td>
+                                                    <td>操作员</td>
                                                     <td>总码洋</td>
                                                     <td>总实洋</td>
                                                     <td class="table-thead-th">操作</td>
                                                 </tr>
                                             </thead>
-
-                                            <tbody>
-                                                <tr>
-                                                    <td>10000001</td>
-                                                    <td>2018-12-23</td>
-                                                    <td>23455</td>
-                                                    <td>434</td>
-                                                    <td>爱丽丝</td>
-                                                    <td>23</td>
-                                                    <td>34</td>
-                                                    <td>
-                                                        <button class="btn btn-info btn-sm" onclick="window.location.href='checkStock.aspx'" ><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">

@@ -344,22 +344,6 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="close_img" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabe12" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="width: 500px; max-height: 500px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title float-left" id="myModalLabe12">正在计算重复数据，请稍等</h3>
-                            <button type="button" class="close" id="close1" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
-                                <i class="material-icons">clear</i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
                             <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
                         </div>
                     </div>

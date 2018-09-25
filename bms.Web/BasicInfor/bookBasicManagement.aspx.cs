@@ -20,7 +20,6 @@ namespace bms.Web.BasicInfor
         public string search = "", last, row, num;
         public DataSet ds;
         DataTable except = new DataTable();//接受差集
-        DataTable intersection = new DataTable();//交集
         BookBasicBll bookbll = new BookBasicBll();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -94,29 +93,6 @@ namespace bms.Web.BasicInfor
                     Response.End();
                 }
             }
-            else if (action == "close") //关闭model时返回交集
-            {
-                differentDt();
-                //生成table
-                StringBuilder sb = new StringBuilder();
-                int count = intersection.Rows.Count;
-                for (int i = 0; i < count; i++)
-                {
-                    sb.Append("<tr><td>" + "<div class='form-check'><label class='form-check-label'><input class='form-check-input' type='checkbox' /><span class='form-check-sign'><span class='check functionCheck'></span> </span> </label></div>" + "</td>");
-                    sb.Append("<td>" + intersection.Rows[i]["书号"].ToString() + "</td>");
-                    sb.Append("<td>" + intersection.Rows[i]["ISBN"].ToString() + "</td >");
-                    sb.Append("<td>" + intersection.Rows[i]["书名"].ToString() + "</td >");
-                    sb.Append("<td>" + intersection.Rows[i]["供应商"].ToString() + "</td >");
-                    sb.Append("<td>" + intersection.Rows[i]["出版日期"].ToString() + "</td >");
-                    sb.Append("<td>" + intersection.Rows[i]["单价"].ToString() + "</td >");
-                    sb.Append("<td>" + intersection.Rows[i]["编目"].ToString() + "</td>");
-                    sb.Append("<td>" + intersection.Rows[i]["作者"].ToString() + "</td>");
-                    sb.Append("<td>" + intersection.Rows[i]["备注"].ToString() + "</td>");
-                    sb.Append("<td>" + intersection.Rows[i]["标识"].ToString() + "</td></tr>");
-                }
-                Response.Write(sb.ToString());
-                Response.End();
-            }
         }
 
         //某字段table去重方法
@@ -144,12 +120,23 @@ private DataTable excelToDt()
 {
     DataTable dt1 = new DataTable();
     string path = Session["path"].ToString();
-    string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+    string strConn = "";
+    //文件类型判断
+    string[] sArray = path.Split('.');
+    int count = sArray.Length - 1;
+    if (sArray[count] == "xls")
+    {
+        strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+    }
+    else if (sArray[count] == "xlsx")
+    {
+        strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+    }
     OleDbConnection conn = new OleDbConnection(strConn);
     try
     {
         conn.Open();
-        string strExcel1 = "select * from [QueryResult$]";
+        string strExcel1 = "select * from [Sheet1$]";
         OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
         dt1.Columns.Add("id"); //匹配列，与结构一致
         oda1.Fill(dt1);
@@ -383,18 +370,6 @@ private void differentDt()
         except.Columns.Add("备注", typeof(string));
         except.Columns.Add("标识", typeof(string));
 
-        intersection.Columns.Add("书号", typeof(long));
-        intersection.Columns.Add("id", typeof(string));
-        intersection.Columns.Add("ISBN", typeof(string));
-        intersection.Columns.Add("书名", typeof(string));
-        intersection.Columns.Add("供应商", typeof(string));
-        intersection.Columns.Add("出版日期", typeof(string));
-        intersection.Columns.Add("单价", typeof(double));
-        intersection.Columns.Add("编目", typeof(string));
-        intersection.Columns.Add("作者", typeof(string));
-        intersection.Columns.Add("备注", typeof(string));
-        intersection.Columns.Add("标识", typeof(string));
-
         DataRowCollection count = addBookId().Rows;
         foreach (DataRow row in count)//遍历excel数据集
         {
@@ -405,10 +380,6 @@ private void differentDt()
             if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
             {
                 except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]);
-            }
-            else
-            {
-                intersection.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]);
             }
         }
     }
