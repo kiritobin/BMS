@@ -226,8 +226,8 @@
                                                 <input type="text" value="" class="searchOne" placeholder="请输入查询条件">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" onclick="window.location.href='addReturn.aspx'" id="btn-add">添加</button>
+                                             <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
                                             </div>
                                         </div>
                                     </div>
@@ -237,13 +237,14 @@
                                             <thead>
                                                 <tr>
                                                     <td>单编ID</td>
-                                                    <td>制单时间</td>
-                                                    <td>退货组织ID</td>
-                                                    <td>退货接收组织ID</td>
+                                                    <td>组织名称</td>
                                                     <td>操作员名称</td>
                                                     <td>单据总数</td>
                                                     <td>总实洋</td>
                                                     <td>总码洋</td>
+                                                    <td>到货时间</td>
+                                                    <td>付款时间</td>
+                                                    <td>制单时间</td>
                                                     <td>操作</td>
                                                 </tr>
                                             </thead>
@@ -251,14 +252,16 @@
                                             <tbody>
                                                 <tr>
                                                     <td>10000001</td>
-                                                    <td>2018-12-23</td>
-                                                    <td>13245</td>
-                                                    <td>3929845</td>
+                                                    <td>加基森</td>
                                                     <td>保罗</td>
+                                                    <td>3929</td>
                                                     <td>56</td>
                                                     <td>456</td>
-                                                    <td>6546</td>
+                                                    <td>2018-12-23</td>
+                                                    <td>2019-8-9</td>
+                                                    <td>2020-9-8</td>
                                                     <td>
+                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='addReturn.aspx'"><i class="fa fa-plus fa-lg"></i></button>
                                                         <button class="btn btn-info btn-sm" onclick="window.location.href='checkReturn.aspx'"><i class="fa fa-search"></i></button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                                     </td>
@@ -277,6 +280,74 @@
                     </div>
                 </div>
             </div>
+<!--添加模态框-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left" id="myModalLabel">退货添加</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table model-table">
+                            <tr>
+                                <td class="model-td-left"><span class="model-tab-td-span">单据ID:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="headID" placeholder="">
+                                </td>
+                                <td class="model-td-left"><span class="model-tab-td-span">组织名称:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="regionID" placeholder="">
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="model-td-left"><span class="model-tab-td-span">操作员名称:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="userName" placeholder="">
+                                </td>
+                                <td class="model-td-left"><span class="model-tab-td-span">单据总数:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="billCount" placeholder="">
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="model-td-left"><span class="model-tab-td-span">总码洋:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="totalPrice" placeholder="">
+                                </td>
+                                <td class="model-td-left"><span class="model-tab-td-span">总实洋:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="realPrice" placeholder="">
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="model-td-left"><span class="model-tab-td-span">到货时间:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time1" placeholder="">
+                                </td>
+                                <td class="model-td-left"><span class="model-tab-td-span">付款时间:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time2" placeholder="">
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="model-td-left"><span class="model-tab-td-span">制单时间:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time3" placeholder="">
+                                </td>
+                                <td class="model-td-left"><span class="model-tab-td-span">备注:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="remarks" placeholder="">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
+                        <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
