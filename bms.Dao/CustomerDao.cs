@@ -14,7 +14,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet select()
         {
-            string cmdText = "select customerID,customerName,customerPwd from V_Customer";
+            string cmdText = "select customerID,customerName from T_Customer";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if(ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -32,9 +32,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int Insert(Customer customer)
         {
-            string cmdText = "insert into T_Customer(customerID,customerName,customerPwd) values(@customerID,@customerName,@customerPwd)";
-            String[] param = { "@customerID","@customerName", "@customerPwd"};
-            object[] values = { customer.CustomerId.ToString(), customer.CustomerName ,customer};
+            string cmdText = "insert into T_Customer(customerID,customerName) values(@customerID,@customerName)";
+            String[] param = { "@customerID","@customerName"};
+            object[] values = { customer.CustomerId.ToString(), customer.CustomerName };
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
         /// <summary>
@@ -72,7 +72,8 @@ namespace bms.Dao
             string sql = "update T_Customer set deleteState=1 where customerID=@customerID";
             string[] param = { "@customerID" };
             object[] values = { customerID };
-            return db.ExecuteNoneQuery(sql, param, values);
+            int row = db.ExecuteNoneQuery(sql, param, values);
+            return row;
         }
         /// <summary>
         /// 根据账号获取客户实体
@@ -81,7 +82,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet getCustomer(int customerID)
         {
-            string cmdText = "select customerID,customerName,customerPwd from T_Customer where customerID=@customerID";
+            string cmdText = "select customerID,customerName from T_Customer where customerID=@customerID";
             String[] param = { "@customerID" };
             object[] values = { customerID };
             DataSet ds = db.FillDataSet(cmdText, param, values);
