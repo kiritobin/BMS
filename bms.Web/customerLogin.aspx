@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="bms.Web.login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="customerLogin.aspx.cs" Inherits="bms.Web.customerLogin" %>
 
 <!DOCTYPE html>
 
@@ -23,7 +23,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white" id="navigation-example">
         <div class="container">
             <div class="navbar-wrapper">
-                <a class="navbar-brand" href="#pablo">图书综合平台</a>
+                <a class="navbar-brand" href="#pablo">图书综合平台客户登录</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                 aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
@@ -66,22 +66,7 @@
                                                 <i class="material-icons">person</i>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control" id="userName" placeholder="用户名..." />
-                                    </div>
-                                </div>
-                                <div class="bmd-form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="material-icons">lock</i>
-                                            </span>
-                                        </div>
-                                        <input type="password" class="form-control" id="userPwd" placeholder="密码..." />
-                                    </div>
-                                </div>
-                                <div class="bmd-form-group">
-                                    <div class="text-right">
-                                        <label><a href="#">客户登录</a></label>
+                                        <input type="text" class="form-control" id="userName" placeholder="请输入用户名..." />
                                     </div>
                                 </div>
                             </div>
