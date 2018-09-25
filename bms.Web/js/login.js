@@ -6,7 +6,6 @@
 
         var userName = $("#userName").val();
         var pwd = $("#userPwd").val();
-        var user = $('input[name="user"]:checked').val();
         if (userName == "") {
             swal({
                 title: "温馨提示:)",
@@ -34,7 +33,6 @@
                 data: {
                     userName: userName,
                     pwd: encrypt.encrypt(pwd),
-                    user:user,
                     op: "login"
                 },
                 dataType: 'text',
