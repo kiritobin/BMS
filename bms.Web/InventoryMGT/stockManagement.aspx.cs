@@ -13,13 +13,13 @@ namespace bms.Web.InventoryMGT
 {
     public partial class lnventoryList : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
+        public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "";
         public DataSet ds;
         UserBll userBll = new UserBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            getData();
         }
 
 
@@ -34,47 +34,47 @@ namespace bms.Web.InventoryMGT
                 currentPage = 1;
             }
             string userName = Request["userName"];
-            string region = Request["region"];
-            string role = Request["role"];
-            if ((userName == "" || userName == null) && (region == null || region == "") && (role == null || role == ""))
+            string region = Request["regionName"];
+            string singHeadId = Request["singHeadId"];
+            if ((userName == "" || userName == null) && (region == null || region == "") && (singHeadId == null || singHeadId == ""))
             {
-                search = "deleteState=0";
+                search = "";
             }
-            else if ((userName != "" && userName != null) && (region == null || region == "") && (role == null || role == ""))
+            else if ((userName != "" && userName != null) && (region == null || region == "") && (singHeadId == null || singHeadId == ""))
             {
-                search = String.Format(" userName= '{0}' and deleteState=0", userName);
+                search = String.Format(" and userName= '{0}'", userName);
             }
-            else if ((userName == "" || userName == null) && (region != "" && region != null) && (role == null || role == ""))
+            else if ((userName == "" || userName == null) && (region != "" && region != null) && (singHeadId == null || singHeadId == ""))
             {
-                search = "regionName='" + region + "'  and deleteState=0";
+                search = " and regionName='" + region + "'";
             }
-            else if ((userName == "" || userName == null) && (role != "" && role != null) && (region == null || region == ""))
+            else if ((userName == "" || userName == null) && (singHeadId != "" && singHeadId != null) && (region == null || region == ""))
             {
-                search = "roleName='" + role + "'  and deleteState=0";
+                search = " and singleHeadId=" + singHeadId;
             }
-            else if ((userName == "" || userName == null) && (role != "" && role != null) && (region != null && region != ""))
+            else if ((userName == "" || userName == null) && (singHeadId != "" && singHeadId != null) && (region != null && region != ""))
             {
-                search = "regionName='" + region + "' and roleName='" + role + "'  and deleteState=0";
+                search = " and regionName='" + region + "' and singleHeadId=" + singHeadId;
             }
-            else if ((userName != "" && userName != null) && (region != null && region != "") && (role == null || role == ""))
+            else if ((userName != "" && userName != null) && (region != null && region != "") && (singHeadId == null || singHeadId == ""))
             {
-                search = String.Format(" userName= '{0}' and regionName = '{1}'  and deleteState=0", userName, region);
+                search = String.Format(" and userName= '{0}' and regionName = '{1}'", userName, region);
             }
-            else if ((userName != "" && userName != null) && (region == null || region == "") && (role != null && role != ""))
+            else if ((userName != "" && userName != null) && (region == null || region == "") && (singHeadId != null && singHeadId != ""))
             {
-                search = String.Format(" userName= '{0}' and roleName='{1}'  and deleteState=0", userName, role);
+                search = String.Format(" and userName= '{0}' and singleHeadId={1}", userName, singHeadId);
             }
             else
             {
-                search = String.Format(" userName= '{0}' and regionName = '{1}' and roleName='{2}'  and deleteState=0", userName, region, role);
+                search = String.Format(" and userName= '{0}' and regionName = '{1}' and singleHeadId={2}  and deleteState=0", userName, region, singHeadId);
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "V_User";
-            tbd.OrderBy = "userID";
-            tbd.StrColumnlist = "userID,userName,regionName,roleName,regionId,roleId,deleteState";
+            tbd.StrTable = "V_SingleHead";
+            tbd.OrderBy = "singleHeadId";
+            tbd.StrColumnlist = "singleHeadId,regionId,userId,time,regionName,userName,allBillCount,allTotalPrice,allRealPrice,type,deleteState,saveState";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = search;
+            tbd.StrWhere = "type=1 and deleteState=0" + search;
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
@@ -84,14 +84,17 @@ namespace bms.Web.InventoryMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["userID"].ToString() + "</td></td>");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</ td >");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["singleHeadId"].ToString() + "</td>");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["time"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["roleName"].ToString() + "</ td >");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</ td >");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["allBillCount"].ToString() + "</ td >");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["allTotalPrice"].ToString() + "</ td >");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["allRealPrice"].ToString() + "</ td >");
                 sb.Append("<td><input type='hidden' value=" + ds.Tables[0].Rows[i]["regionId"].ToString() + " class='regionId' />");
-                sb.Append("<input type='hidden' value=" + ds.Tables[0].Rows[i]["roleId"].ToString() + " class='roleId' />");
-                sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i></button>");
-                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></ tr >");
+                sb.Append("<input type='hidden' value=" + ds.Tables[0].Rows[i]["userId"].ToString() + " class='userId' />");
+                sb.Append("<button class='btn btn-info btn-sm' onclick='window.location.href='checkReturn.aspx'' data-toggle='modal' data-target='#myModa2'><i class='fa fa-search'></i></button>");
+                sb.Append("<button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></ tr >");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");

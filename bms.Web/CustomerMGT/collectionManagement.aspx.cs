@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.CustomerMGT
 {
-    public partial class collectionManagement : CommonPage
+    public partial class collectionManagement : System.Web.UI.Page
     {
         public int totalCount, intPageCount,pageSize=20;
         public DataSet ds,dsCustom;
@@ -93,18 +93,18 @@ namespace bms.Web.CustomerMGT
             int custom = Convert.ToInt32(Request["custom"]);
             string path = Session["path"].ToString();
             DataTable dt1 = new DataTable();
-            string strConn = "";
+            string strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
             //文件类型判断
-            string[] sArray = path.Split('.');
-            int count = sArray.Length - 1;
-            if (sArray[count] == "xls")
-            {
-                strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-            }
-            else if (sArray[count] == "xlsx")
-            {
-                strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-            }
+            //string[] sArray = path.Split('.');
+            //int count = sArray.Length - 1;
+            //if (sArray[count] == "xls")
+            //{
+            //    strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+            //}
+            //else if (sArray[count] == "xlsx")
+            //{
+            //    strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+            //}
             OleDbConnection conn = new OleDbConnection(strConn);
             try
             {
@@ -139,13 +139,13 @@ namespace bms.Web.CustomerMGT
         /// <returns></returns>
         private DataTable GetDistinctSelf(DataTable SourceDt, string field1, string field2)
         {
-            int count = SourceDt.Rows.Count;
-            if (count > 1)
+            if (SourceDt.Rows.Count > 1)
             {
-                DataRowCollection drc = SourceDt.Rows;
-                for (int i = 1; i <= count - 2; i++)
+                for (int i = 1; i <= SourceDt.Rows.Count - 2; i++)
                 {
-                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{2}' and {1}='{3}'", field1, field2, drc[i][field1], drc[i][field2]));
+                    string isbn = SourceDt.Rows[i][field1].ToString();
+                    string customId = SourceDt.Rows[i][field2].ToString();
+                    DataRow[] rows = SourceDt.Select(string.Format("{0}= '{2}' and {1}= '{3}'", field1, field2, isbn, customId));
                     if (rows.Length > 1)
                     {
                         SourceDt.Rows.RemoveAt(i);
@@ -210,6 +210,7 @@ namespace bms.Web.CustomerMGT
                 sb.Append("<td>" + drc[i]["customerName"].ToString() + "</td>");
                 sb.Append("<td>" + drc[i]["price"].ToString() + "</ td >");
                 sb.Append("<td>" + drc[i]["collectionNum"].ToString() + "</ td ></ tr >");
+                sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "</button>"+ "</ td ></ tr >");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");

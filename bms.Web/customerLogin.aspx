@@ -84,8 +84,9 @@
     <script src="js/popper.min.js" type="text/javascript"></script>
     <script src="js/bootstrap-material-design.min.js" type="text/javascript"></script>
     <script src="js/demo.js"></script>
-    <script src="js/login.js"></script>
+    <script src="js/customerLogin.js"></script>
     <script src="js/jsencrypt.min.js"></script>
+    <script src="js/sweetalert2.js"></script>
     <!-- 登录界面js -->
     <script>
         $(document).ready(function () {

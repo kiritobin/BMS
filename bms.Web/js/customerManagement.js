@@ -130,8 +130,8 @@
     })
     //提交编辑
     $("#table").delegate(".btn_Editor", "click", function () {
-        var custId = $(this).parent().prev().prev().prev().text().trim();
-        var custName = $(this).parent().prev().prev().text().trim();
+        var custId = $(this).parent().prev().prev().text().trim();
+        var custName = $(this).parent().prev().text().trim();
         $(".editor_name").val(custName);
         $(".editor_id").text(custId);
     })
@@ -180,7 +180,7 @@
     })
     //删除
     $("#table").delegate(".btn_delete", "click", function () {
-        var custId = $(this).parent().prev().prev().prev().text().trim();
+        var custId = $(this).parent().prev().prev().text().trim();
         //弹窗
         swal({
             title: "温馨提示:)",
@@ -221,64 +221,7 @@
                     } else {
                         swal({
                             title: "提示",
-                            text: "删除失败",
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
-                    }
-                }
-            })
-        })
-    })
-    //重置密码
-    $("#table").delegate(".reset_pwd", "click", function () {
-        var custId = $(this).parent().prev().prev().text().trim();
-        swal({
-            title: "温馨提示:)",
-            text: "重置后密码将无法恢复，确定重置密码吗？",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            confirmButtonClass: 'btn btn-success',
-            cancelButtonClass: 'btn btn-danger',
-            buttonsStyling: false,
-            allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
-        }).then(function () {
-            $.ajax({
-                type: 'Post',
-                url: 'customerManagement.aspx',
-                data: {
-                    customerid: custId,
-                    op: "reset"
-                },
-                dataType: 'text',
-                success: function (succ) {
-                    if (succ == "重置成功") {
-                        swal({
-                            title: "温馨提示",
-                            text: "重置成功",
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
-                    } else {
-                        swal({
-                            title: "温馨提示",
-                            text: "重置失败",
+                            text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',

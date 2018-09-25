@@ -280,56 +280,18 @@
                             <table class="table text-center model-table">
                                 <tr>
                                     <td>
-                                        <button class="btn btn-success" id="downEx"><a href="/uploads/muban/基础数据表.xls">下载模板</a></button>
+                                        <button class="btn btn-success" id="downEx"><a style="color:white" href="/uploads/muban/基础数据表.xls">下载模板</a></button>
                                         <span class="btn btn-success fileinput-button">
                                             <span>选择文件</span>
                                             <input type="file" name="file" id="file" style="">
                                         </span>
                                         <button class="btn btn-success" id="upload">上传</button>
-                                        <button type="submit" class="btn btn-success" id="btnImport">导入</button>
                                     </td>
                                 </tr>
                             </table>
-
-
-                            <div style="">
-                                <table class="table mostTable table-bordered" id="bookBasicModal_table">
-                                    <thead>
-                                        <tr>
-                                            <td colspan="11" class="text-center">
-                                                <h4>重复数据</h4>
-                                            </td>
-                                        </tr>
-                                        <tr class="book-tab-tr">
-                                            <th>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" />
-                                                        <span class="form-check-sign">
-                                                            <span class="check functionCheck"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </th>
-                                            <th>书号</th>
-                                            <th>ISBN</th>
-                                            <th>书名</th>
-                                            <th>供应商</th>
-                                            <th>出版日期</th>
-                                            <th>单价</th>
-                                            <th>编目</th>
-                                            <th>作者</th>
-                                            <th>备注</th>
-                                            <th>标识</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="appendData">
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="btnAdd">导入选中</button>
+                            <button type="submit" class="btn btn-success" id="btnImport">导入</button>
                         </div>
                     </div>
                 </div>

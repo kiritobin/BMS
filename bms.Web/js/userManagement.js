@@ -87,6 +87,7 @@ $("#btn-search").click(function () {
         }
     });
 });
+
 //添加用户
 $("#btnAdd").click(function () {
     var name = $("#inputName").val().trim();

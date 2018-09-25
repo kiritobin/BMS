@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="bmd-form-group">
                                     <div class="text-right">
-                                        <label><a href="#">客户登录</a></label>
+                                        <label><a href="customerLogin.aspx">客户登录</a></label>
                                     </div>
                                 </div>
                             </div>
@@ -101,6 +101,7 @@
     <script src="js/demo.js"></script>
     <script src="js/login.js"></script>
     <script src="js/jsencrypt.min.js"></script>
+    <script src="js/sweetalert2.js"></script>
     <!-- 登录界面js -->
     <script>
         $(document).ready(function () {
