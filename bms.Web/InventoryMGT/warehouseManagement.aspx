@@ -226,7 +226,7 @@
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" onclick="window.location.href='addWarehouse.aspx'" id="btn-add">添加</button>
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
                                             </div>
                                         </div>
                                     </div>
@@ -257,6 +257,7 @@
                                                     <td>6546</td>
                                                     <td>
                                                         <!-- 查询与删除按钮 -->
+                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='addWarehouse.aspx'"><i class="fa fa-plus fa-lg"></i></button>
                                                         <button class="btn btn-info btn-sm" onclick="window.location.href='checkWarehouse.aspx'"><i class="fa fa-search"></i></button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                                     </td>
@@ -275,6 +276,74 @@
                     </div>
                 </div>
             </div>
+            <!--添加模态框-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left" id="myModalLabel">出库添加</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table model-table">
+                            <tr>
+                                <td class="model-td-left"><span class="model-tab-td-span">单据ID:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="headID" placeholder="">
+                                </td>
+                                <td class="model-td-left"><span class="model-tab-td-span">组织名称:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="regionID" placeholder="">
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="model-td-left"><span class="model-tab-td-span">操作员名称:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="userName" placeholder="">
+                                </td>
+                                <td class="model-td-left"><span class="model-tab-td-span">单据总数:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="billCount" placeholder="">
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="model-td-left"><span class="model-tab-td-span">总码洋:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="totalPrice" placeholder="">
+                                </td>
+                                <td class="model-td-left"><span class="model-tab-td-span">总实洋:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="realPrice" placeholder="">
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="model-td-left"><span class="model-tab-td-span">到货时间:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time1" placeholder="">
+                                </td>
+                                <td class="model-td-left"><span class="model-tab-td-span">付款时间:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time2" placeholder="">
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="model-td-left"><span class="model-tab-td-span">制单时间:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time3" placeholder="">
+                                </td>
+                                <td class="model-td-left"><span class="model-tab-td-span">备注:</span></td>
+                                <td>
+                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="remarks" placeholder="">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
+                        <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">

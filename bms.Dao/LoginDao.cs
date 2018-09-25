@@ -41,7 +41,7 @@ namespace bms.Dao
         /// <returns></returns>
         public Customer getPwdByCustomId(string customerID)
         {
-            string sql = "select customerID from T_Customer where customerID=@customerID";
+            string sql = "select customerID,customerPwd from T_Customer where customerID=@customerID";
             string[] param = { "@customerID" };
             object[] values = { customerID };
             Customer custom = new Customer();
@@ -49,6 +49,7 @@ namespace bms.Dao
             while (reader.Read())
             {
                 custom.CustomerId = reader.GetInt32(0);
+                custom.CustomerPwd = reader.GetString(1);
             }
             reader.Close();
             return custom; ;
