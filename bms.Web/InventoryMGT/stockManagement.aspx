@@ -245,8 +245,8 @@
                                                     <td>单编号</td>
                                                     <td>制单时间</td>
                                                     <td>接收组织</td>
-                                                    <td>单据总数</td>
                                                     <td>操作员</td>
+                                                    <td>单据总数</td>
                                                     <td>总码洋</td>
                                                     <td>总实洋</td>
                                                     <td class="table-thead-th">操作</td>
@@ -283,6 +283,7 @@
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/stockManagement.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>
