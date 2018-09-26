@@ -88,6 +88,19 @@
     width: 240px;
 }
 
+.modal_search_add {
+    border: 1px solid #ddd;
+    color: dimgray;
+    width: 180px;
+    text-align:center;
+}
+
+.modal_textarea {
+    border: 1px solid #ddd;
+    color: dimgray;
+    width: 100%;
+}
+
 /* 销售单页面样式 */
 .table-responsive > .table-bordered {
     border: 1px solid rgba(0,0,0,.06);
