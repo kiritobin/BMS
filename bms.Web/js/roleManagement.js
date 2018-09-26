@@ -77,16 +77,29 @@
 
     //添加职位
     $("#btnAdd").click(function () {
-        var roleName = $("#addRoleName").val();
-        var obj = document.getElementsByName('checkbox'); 
+        var roleName = $("#addRoleName").val().trim();
+        var obj = document.getElementsByName('checkbox');
         var functionId = "";
         for (var i = 0; i < obj.length; i++) {
             if (obj[i].checked) functionId += obj[i].value + '?';
         }
-        if (functionId == "") {
+        if (roleName == "") {
             swal({
-                title: "未选择任何项",
-                text: "请至少选择一项权限",
+                title: "温馨提示:)",
+                text: "职位不能为空，请您重新填写",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            }).then(function () {
+            })
+        }
+        else if (functionId == "") {
+            swal({
+                title: "温馨提示:)",
+                text: "请您至少选择一项权限",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
@@ -108,8 +121,8 @@
                 success: function (succ) {
                     if (succ == "添加成功") {
                         swal({
-                            title: succ,
-                            text: succ,
+                            title: "温馨提示:)",
+                            text: "添加成功！",
                             type: "success",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -121,7 +134,7 @@
                         })
                     } else {
                         swal({
-                            title: succ,
+                            title: "温馨提示:)",
                             text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',
@@ -291,7 +304,7 @@
         }
     })
     //关闭编辑模态框
-    $("#model-btnclose2").click(function () {
+    $(".close").click(function () {
         var obj = $("input[name=checkboxEdit]");//获取复选框
         for (var j = 0; j < obj.length; j++) {
             obj[j].checked = false;
@@ -302,9 +315,9 @@
     //删除职位
     $("#table").delegate(".btn-delete", "click", function () {
         swal({
-            title: "是否删除？",
-            text: "删除后将无法恢复！！！",
-            type: "question",
+            title: "温馨提示:)",
+            text: "删除后将无法恢复，您确定要删除吗？？？",
+            type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -323,13 +336,13 @@
                 data: {
                     rows: rows,
                     roleId: roleId,
-                    op:'del'
+                    op: 'del'
                 },
                 dataType: 'text',
                 success: function (succ) {
                     if (succ == "删除成功") {
                         swal({
-                            title: succ,
+                            title: "温馨提示:)",
                             text: succ,
                             type: "success",
                             confirmButtonColor: '#3085d6',
@@ -342,7 +355,7 @@
                         })
                     } else {
                         swal({
-                            title: succ,
+                            title: "温馨提示:)",
                             text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',

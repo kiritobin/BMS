@@ -132,3 +132,8 @@
 .card-header {
     padding-left: 0px;
 }
+
+/* 模态框复选按钮样式 */
+.modal .table .form-check .form-check-sign {
+    top: 0px;
+}
