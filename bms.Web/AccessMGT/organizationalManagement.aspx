@@ -30,7 +30,7 @@
         <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
-        <div class="sidebar" data-color="danger" data-background-color="white" data-image="imgs/sidebar-2.jpg">
+        <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!--
                 Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
         
@@ -53,7 +53,7 @@
                         </a>
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item foucsColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
@@ -62,11 +62,11 @@
                                     <a class="nav-link" href="roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
-                                    <li class="nav-item">
-                                    <a class="nav-link" href="organizationalManagement.aspx">
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
-                                </li>
                                 </li>
                                 <!--<li class="nav-item">
                                     <a class="nav-link" href="jurisdictionManagement.aspx">
@@ -75,7 +75,6 @@
                                 </li>-->
                             </ul>
                         </div>
-                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">

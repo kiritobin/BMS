@@ -25,3 +25,61 @@ function logout() {
         });
     })
 }
+
+$("#btnAdd").click(function () {
+    var ID = $("#ID").val();
+    var isbn = $("#isbn").val();
+    var allCount = $("#allCount").val();
+    var price = $("#price").val();
+    var discount = $("#discount").val();
+    var realPrice = $("#realPrice").val();
+    var allPrice = $("#allPrice").val();
+    var goodsShelf = $("#goodsShelf").val();
+    var remark = $("#remark").val();
+    $.ajax({
+        type: 'Post',
+        url: 'addStock.aspx',
+        data: {
+            ID: ID,
+            isbn: isbn,
+            allCount: allCount,
+            price: price,
+            discount: discount,
+            realPrice: realPrice,
+            allPrice: allPrice,
+            goodsShelf: goodsShelf,
+            remark: remark,
+            op:"add"
+        },
+        datatype: 'text',
+        success: function (succ) {
+            if (succ == "添加成功") {
+                swal({
+                    title: succ,
+                    text: succ,
+                    type: "success",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                }).then(function () {
+                    window.location.reload();
+                })
+            } else {
+                swal({
+                    title: succ,
+                    text: succ,
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                }).then(function () {
+                    window.location.reload();
+                })
+            }
+        }
+    })
+})
