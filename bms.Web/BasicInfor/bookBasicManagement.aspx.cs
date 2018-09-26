@@ -13,11 +13,12 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.BasicInfor
 {
+    using System.Web.Security;
     using Result = Enums.OpResult;
     public partial class bookBasicManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
-        public string search = "", last, row, num;
+        public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row;
+        public string search = "", last, num;
         public DataSet ds;
         DataTable except = new DataTable();//接受差集
         BookBasicBll bookbll = new BookBasicBll();
@@ -93,6 +94,15 @@ namespace bms.Web.BasicInfor
                     Response.End();
                 }
             }
+            if (op == "logout")
+            {
+                //删除身份凭证
+                FormsAuthentication.SignOut();
+                //设置Cookie的值为空
+                Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                //设置Cookie的过期时间为上个月今天
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
+            }
         }
 
         //某字段table去重方法
@@ -132,7 +142,7 @@ namespace bms.Web.BasicInfor
                 OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
                 dt1.Columns.Add("id"); //匹配列，与结构一致
                 oda1.Fill(dt1);
-                row = dt1.Rows.Count.ToString(); //获取总数
+                row = dt1.Rows.Count; //获取总数
                 GetDistinctSelf(dt1, "ISBN", "书名", "单价");
             }
             catch (Exception ex)

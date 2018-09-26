@@ -54,5 +54,22 @@ namespace bms.Bll
         {
             return libraryDao.getCustomer();
         }
+        /// <summary>
+        /// 删除馆藏
+        /// </summary>
+        /// <param name="libraryId"></param>
+        /// <returns></returns>
+        public Result Delete(int libraryId)
+        {
+            int count = libraryDao.Delete(libraryId);
+            if (count>0)
+            {
+                return Result.删除成功;
+            }
+            else
+            {
+                return Result.删除失败;
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 namespace bms.Web.AccessMGT
 {
     using System.Text;
+    using System.Web.Security;
     using Result = Enums.OpResult;
     public partial class JurisdictionManagement : CommonPage
     {
@@ -64,6 +65,15 @@ namespace bms.Web.AccessMGT
                     Response.Write("添加失败");
                 }
 
+            }
+            if (op== "logout")
+            {
+                //删除身份凭证
+                FormsAuthentication.SignOut();
+                //设置Cookie的值为空
+                Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                //设置Cookie的过期时间为上个月今天
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
         }
         public string getData()

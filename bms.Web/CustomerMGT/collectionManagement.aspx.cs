@@ -12,26 +12,29 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.CustomerMGT
 {
+    using System.Web.Security;
+    using Result = Enums.OpResult;
     public partial class collectionManagement : System.Web.UI.Page
     {
-        public int totalCount, intPageCount,pageSize=20;
+        public int totalCount, intPageCount,pageSize=20,row;
         public DataSet ds,dsCustom;
         RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
-        string row , custom;
+        string  custom;
         LibraryCollectionBll libraryCollectionBll = new LibraryCollectionBll();
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
             custom = Request["custom"];
             string action = Request["action"];
+            string op = Request["op"];
             if (action=="import")
             {
                 UserBll userBll = new UserBll();
                 DataTable dtInsert = new DataTable();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
-                dtInsert = differentDt();
+                dtInsert = excelToDt();
                 TimeSpan ts = watch.Elapsed;
                 dtInsert.TableName = "T_LibraryCollection"; //导入的表名
                 int a = userBll.BulkInsert(dtInsert);
@@ -46,48 +49,71 @@ namespace bms.Web.CustomerMGT
                 }
                 else
                 {
-                    Session["path"] = null; //清除路径session
                     Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据");
                     Response.End();
                 }
+            }
+            else if (action=="del")
+            {
+                int libraryId = Convert.ToInt32(Request["libraryId"]);
+                Result result = libraryCollectionBll.Delete(libraryId);
+                if (result==Result.删除成功)
+                {
+                    Response.Write("删除成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("删除失败");
+                    Response.End();
+                }
+            }
+            if (op == "logout")
+            {
+                //删除身份凭证
+                FormsAuthentication.SignOut();
+                //设置Cookie的值为空
+                Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                //设置Cookie的过期时间为上个月今天
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
         }
         /// <summary>
         /// 取差
         /// </summary>
         /// <returns></returns>
-        private DataTable differentDt()
-        {
-            LibraryCollectionBll libraryCollectionBll = new LibraryCollectionBll();
-            DataTable dt3 = new DataTable();//接受差集的dt3
-            int j = libraryCollectionBll.Select(custom).Rows.Count;
-            //数据库无数据时直接导入excel
-            if (j<=0)
-            {
-                dt3 = excelToDt();
-            }
-            else
-            {
-                dt3.Columns.Add("id", typeof(string));
-                dt3.Columns.Add("ISBN", typeof(string));
-                dt3.Columns.Add("书名", typeof(string));
-                dt3.Columns.Add("定价", typeof(double));
-                dt3.Columns.Add("馆藏数量", typeof(int));
-                dt3.Columns.Add("客户ID", typeof(string));
-                dt3.Columns.Add("state", typeof(int));
-                DataRowCollection count = excelToDt().Rows;
-                foreach (DataRow row in count)//遍历excel数据集
-                {
-                   DataRow[] rows = libraryCollectionBll.Select(custom).Select(string.Format("customerId='{0}' and ISBN='{1}'",custom, row[1].ToString().Trim()));
-                    //DataRow[] rows = libraryCollectionBll.Select(custom).Select("customerId='" + custom + "' and ISBN='" + row[1].ToString().Trim() + "'");//查询excel数据集是否存在于表A，如果存在赋值给DataRow集合
-                    if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
-                    {
-                        dt3.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5]);
-                    }
-                }
-            }
-            return dt3;
-        }
+        //private DataTable differentDt()
+        //{
+        //    LibraryCollectionBll libraryCollectionBll = new LibraryCollectionBll();
+        //    DataTable dt3 = new DataTable();//接受差集的dt3
+        //    int j = libraryCollectionBll.Select(custom).Rows.Count;
+        //    //数据库无数据时直接导入excel
+        //    if (j<=0)
+        //    {
+        //        dt3 = excelToDt();
+        //    }
+        //    else
+        //    {
+        //        dt3.Columns.Add("id", typeof(string));
+        //        dt3.Columns.Add("ISBN", typeof(string));
+        //        dt3.Columns.Add("书名", typeof(string));
+        //        dt3.Columns.Add("定价", typeof(double));
+        //        dt3.Columns.Add("馆藏数量", typeof(int));
+        //        dt3.Columns.Add("客户ID", typeof(string));
+        //        dt3.Columns.Add("state", typeof(int));
+        //        DataRowCollection count = excelToDt().Rows;
+        //        foreach (DataRow row in count)//遍历excel数据集
+        //        {
+        //           DataRow[] rows = libraryCollectionBll.Select(custom).Select(string.Format("customerId='{0}' and ISBN='{1}'",custom, row[1].ToString().Trim()));
+        //            //DataRow[] rows = libraryCollectionBll.Select(custom).Select("customerId='" + custom + "' and ISBN='" + row[1].ToString().Trim() + "'");//查询excel数据集是否存在于表A，如果存在赋值给DataRow集合
+        //            if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
+        //            {
+        //                dt3.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5]);
+        //            }
+        //        }
+        //    }
+        //    return dt3;
+        //}
         private DataTable excelToDt()
         {
             int custom = Convert.ToInt32(Request["custom"]);
@@ -113,14 +139,11 @@ namespace bms.Web.CustomerMGT
                 OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
                 dt1.Columns.Add("id"); //id自增列
                 oda1.Fill(dt1);
-                row = dt1.Rows.Count.ToString(); //获取总数
+                row = dt1.Rows.Count; //获取总数
                 DataColumn dc = new DataColumn("客户ID", typeof(string));
-                DataColumn dc2 = new DataColumn("state", typeof(int));
                 dc.DefaultValue = custom; //默认客户值值列
-                dc2.DefaultValue = 0; //默认值列
                 dt1.Columns.Add(dc);
-                dt1.Columns.Add(dc2);
-                GetDistinctSelf(dt1, "ISBN", "客户ID"); //去重字段
+                //GetDistinctSelf(dt1, "ISBN", "客户ID"); //去重字段
             }
             catch (Exception ex)
             {
@@ -137,23 +160,23 @@ namespace bms.Web.CustomerMGT
         /// <param name="field1"></param>
         /// <param name="field2"></param>
         /// <returns></returns>
-        private DataTable GetDistinctSelf(DataTable SourceDt, string field1, string field2)
-        {
-            if (SourceDt.Rows.Count > 1)
-            {
-                for (int i = 1; i <= SourceDt.Rows.Count - 2; i++)
-                {
-                    string isbn = SourceDt.Rows[i][field1].ToString();
-                    string customId = SourceDt.Rows[i][field2].ToString();
-                    DataRow[] rows = SourceDt.Select(string.Format("{0}= '{2}' and {1}= '{3}'", field1, field2, isbn, customId));
-                    if (rows.Length > 1)
-                    {
-                        SourceDt.Rows.RemoveAt(i);
-                    }
-                }
-            }
-            return SourceDt;
-        }
+        //private DataTable GetDistinctSelf(DataTable SourceDt, string field1, string field2)
+        //{
+        //    if (SourceDt.Rows.Count > 1)
+        //    {
+        //        for (int i = 1; i <= SourceDt.Rows.Count - 2; i++)
+        //        {
+        //            string isbn = SourceDt.Rows[i][field1].ToString();
+        //            string customId = SourceDt.Rows[i][field2].ToString();
+        //            DataRow[] rows = SourceDt.Select(string.Format("{0}= '{2}' and {1}= '{3}'", field1, field2, isbn, customId));
+        //            if (rows.Length > 1)
+        //            {
+        //                SourceDt.Rows.RemoveAt(i);
+        //            }
+        //        }
+        //    }
+        //    return SourceDt;
+        //}
 
         /// <summary>
         /// 获取数据
@@ -188,7 +211,7 @@ namespace bms.Web.CustomerMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_LibraryCollection";
             tbd.OrderBy = "ISBN";
-            tbd.StrColumnlist = "bookName,ISBN,price,collectionNum,customerName";
+            tbd.StrColumnlist = "libraryId,bookName,ISBN,price,collectionNum,customerName";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
@@ -205,6 +228,7 @@ namespace bms.Web.CustomerMGT
             for (int i = 0; i < count; i++)
             {
                 sb.Append("<tr><td>" +(i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                sb.Append("<td style='display: none'>" + drc[i]["libraryId"].ToString() + "</ td >");
                 sb.Append("<td>" + drc[i]["ISBN"].ToString() + "</ td >");
                 sb.Append("<td>" + drc[i]["bookName"].ToString() + "</ td >");
                 sb.Append("<td>" + drc[i]["customerName"].ToString() + "</td>");
