@@ -11,6 +11,7 @@ namespace bms.Web.BasicInfor
 {
     using Model;
     using System.Text;
+    using System.Web.Security;
     using Result = Enums.OpResult;
     public partial class bookshelfManagement : System.Web.UI.Page
     {
@@ -80,6 +81,15 @@ namespace bms.Web.BasicInfor
                 //    Response.Write("在其它表里关联引用，不能删除");
                 //    Response.End();
                 //}
+            }
+            if (op == "logout")
+            {
+                //删除身份凭证
+                FormsAuthentication.SignOut();
+                //设置Cookie的值为空
+                Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                //设置Cookie的过期时间为上个月今天
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
         }
 

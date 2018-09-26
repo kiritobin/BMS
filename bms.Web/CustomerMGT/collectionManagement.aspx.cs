@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.CustomerMGT
 {
+    using System.Web.Security;
     using Result = Enums.OpResult;
     public partial class collectionManagement : System.Web.UI.Page
     {
@@ -26,6 +27,7 @@ namespace bms.Web.CustomerMGT
             getData();
             custom = Request["custom"];
             string action = Request["action"];
+            string op = Request["op"];
             if (action=="import")
             {
                 UserBll userBll = new UserBll();
@@ -65,6 +67,15 @@ namespace bms.Web.CustomerMGT
                     Response.Write("删除失败");
                     Response.End();
                 }
+            }
+            if (op == "logout")
+            {
+                //删除身份凭证
+                FormsAuthentication.SignOut();
+                //设置Cookie的值为空
+                Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                //设置Cookie的过期时间为上个月今天
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
         }
         /// <summary>
