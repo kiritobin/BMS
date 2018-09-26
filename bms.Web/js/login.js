@@ -37,31 +37,29 @@
                 },
                 dataType: 'text',
                 success: function (succ) {
-                if (succ === "登录成功") {
-                    swal({
-                        title: "温馨提示:)",
-                        text: "登录成功",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-success",
-                        type: "success",
-                        allowOutsideClick: false
-                    }).then(function () {
-                        window.location.href = "/AccessMGT/userManagement.aspx";
-                    })
+                    if (succ === "登录成功") {
+                        swal({
+                            title: "温馨提示:)",
+                            text: "登录成功",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-success",
+                            type: "success",
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.href = "/AccessMGT/userManagement.aspx";
+                        })
+                    }
+                    else {
+                        swal({
+                            title: "温馨提示:)",
+                            text: "登录失败",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-success",
+                            type: "warning",
+                            allowOutsideClick: false
+                        })
+                    }
                 }
-                else {
-                    swal({
-                        title: "温馨提示:)",
-                        text: "登录失败",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-success",
-                        type: "warning",
-                        allowOutsideClick: false
-                    }).then(function () {
-                        window.location.reload();
-                    })
-                }
-            }
             });
         }
     });

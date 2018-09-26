@@ -127,6 +127,7 @@
     <Content Include="js\bootstrap-material-design.min.js" />
     <Content Include="js\bootstrap-selectpicker.js" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\changePwd.js" />
     <Content Include="js\checkReturn.js" />
     <Content Include="js\checkStock.js" />
     <Content Include="js\checkWarehouse.js" />
