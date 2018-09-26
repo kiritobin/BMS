@@ -199,9 +199,8 @@
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">个人中心</a>
-                                    <a class="dropdown-item" href="#">修改密码</a>
-                                    <a class="dropdown-item" href="#">退出系统</a>
+                                    <a class="dropdown-item" href="../changePwd.aspx">修改密码</a>
+                                    <a class="dropdown-item" href="javascript:logout();">退出系统</a>
                                 </div>
                             </li>
                         </ul>
@@ -364,6 +363,7 @@
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
+    <script src="../js/checkReturn.js"></script>
     <script>
         var enLang = {
             name: "en",

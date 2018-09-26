@@ -13,6 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.BasicInfor
 {
+    using System.Web.Security;
     using Result = Enums.OpResult;
     public partial class bookBasicManagement : System.Web.UI.Page
     {
@@ -92,6 +93,15 @@ namespace bms.Web.BasicInfor
                     Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据");
                     Response.End();
                 }
+            }
+            if (op == "logout")
+            {
+                //删除身份凭证
+                FormsAuthentication.SignOut();
+                //设置Cookie的值为空
+                Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                //设置Cookie的过期时间为上个月今天
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
         }
 
