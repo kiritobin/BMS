@@ -9,6 +9,7 @@ namespace bms.Model
     {
         private int customerId;
         private string customerName;
+        private string customerPwd;
         private Region regionId;
         
         /// <summary>
@@ -22,10 +23,11 @@ namespace bms.Model
         /// <param name="customerName">客户姓名</param>
         /// <param name="customerPwd">客户密码</param>
         /// <param name="regionId">地区ID</param>
-        public Customer(int customerId, string customerName,Region regionId)
+        public Customer(int customerId, string customerName, string customerPwd, Region regionId)
         {
             this.CustomerId = customerId;
             this.CustomerName = customerName;
+            this.CustomerPwd = customerPwd;
             this.RegionId = regionId;
         }
         /// <summary>
@@ -61,6 +63,18 @@ namespace bms.Model
         /// <summary>
         /// 客户密码
         /// </summary>
+        public string CustomerPwd
+        {
+            get
+            {
+                return customerPwd;
+            }
+
+            set
+            {
+                customerPwd = value;
+            }
+        }
         /// <summary>
         /// 地区ID
         /// </summary>

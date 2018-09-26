@@ -240,44 +240,6 @@ $("#btnEdit").click(function () {
         }
     })
 })
-//重置密码
-$("#reset").click(function () {
-    var account = $("#edit-Account").val();
-    $.ajax({
-        type: 'Post',
-        url: 'userManagement.aspx',
-        data: {
-            account: account,
-            op: "reset"
-        },
-        dataType: 'text',
-        success: function (succ) {
-            if (succ == "更新成功") {
-                swal({
-                    title: "温馨提示:)",
-                    text: "密码重置成功",
-                    buttonsStyling: false,
-                    confirmButtonClass: "btn btn-success",
-                    type: "success",
-                    allowOutsideClick: false
-                }).then(function () {
-                    window.location.reload();
-                })
-            } else {
-                swal({
-                    title: "温馨提示:)",
-                    text: "密码重置发生异常",
-                    buttonsStyling: false,
-                    confirmButtonClass: "btn btn-success",
-                    type: "warning",
-                    allowOutsideClick: false
-                }).then(function () {
-                    window.location.reload();
-                })
-            }
-        }
-    })
-})
 //删除用户
 $("#table").delegate(".btn-delete", "click", function () {
     var account = $(this).parent().prev().prev().prev().prev().text().trim(); swal({

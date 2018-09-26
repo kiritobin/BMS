@@ -18,18 +18,21 @@ namespace bms.Dao
         /// <returns></returns>
         public User getPwdByUserId(string userID)
         {
-            string sql = "select userID,userPwd,roleId from T_User where userID=@userID";
+            string sql = "select userID,userPwd,roleId,regionId from T_User where userID=@userID";
             string[] param = { "@userID" };
             object[] values = { userID };
             User user = new User();
             MySqlDataReader reader = db.ExecuteReader(sql, param, values);
             Role role = new Role();
+            Region region = new Region();
             while (reader.Read())
             {
                 user.UserId = reader.GetInt32(0);
                 user.Pwd = reader.GetString(1);
                 role.RoleId = reader.GetInt32(2);
+                region.RegionId = reader.GetInt32(3);
                 user.RoleId = role;
+                user.ReginId = region;
             }
             reader.Close();
             return user; ;

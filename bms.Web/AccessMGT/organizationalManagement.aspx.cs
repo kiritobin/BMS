@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 namespace bms.Web.AccessMGT
 {
     using Result = Enums.OpResult;
-    public partial class organizationalManagement : System.Web.UI.Page
+    public partial class organizationalManagement : CommonPage
     {
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search, regionId;

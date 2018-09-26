@@ -220,58 +220,40 @@
                                     <h4 class="card-title">入库添加</h4>
                                 </div>
                                 <div class="btn-group" role="group">                          
-                                                <button class="btn btn-info btn-sm" id="btn-search">确定添加</button></div>
+                                    <button class="btn btn-info btn-sm" id="btn-search">确定添加</button></div>
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
-                                            <tr>
+                                         <tr>
                                                 <td class="td_text"><span class="span-text">单据编号:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="单据编号"></td>
-                                                <td class="td_text"><span class="span-text">操作员:</span></td>
+                                                <td class="td_text"><span class="span-text">ISBN号:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="操作员"></td>
-                                                <td class="td_text"><span class="span-text">单据总数:</span></td>
+                                                <input type="text" value="" class="input_text" placeholder="ISBN号"></td>
+                                                <td class="td_text"><span class="span-text">商品总数:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="单据总数"></td>
+                                                    <input type="text" value="" class="input_text" placeholder="商品总数"></td>
+                                             <tr>
+                                                <td class="td_text"><span class="span-text">单价:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class="input_text" placeholder="单价"></td>                 
+                                                <td class="td_text"><span class="span-text">折扣:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class="input_text" placeholder="折扣"></td>
+                                                <td class="td_text"><span class="span-text">实洋:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class="input_text" placeholder="实洋"></td>                                                
                                             </tr>
                                             <tr>
-                                                <td class="td_text"><span class="span-text">入库组织:</span></td>
+                                                <td class="td_text"><span class="span-text">码洋:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="入库组织"></td>
-                                                <td class="td_text"><span class="span-text">商品来源:</span></td>
+                                                    <input type="text" value="" class="input_text" placeholder="码洋"></td>
+                                                 <td class="td_text"><span class="span-text">货架号:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="商品来源"></td>
-                                                <td class="td_text"><span class="span-text">总码洋:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="总码洋"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_text"><span class="span-text">到货日期:</span></td>
-                                                <td class="td_width">
-                                                    <div class="jeinpbox">
-                                                        <input type="text" class="jeinput input_text" id="test12" placeholder="YYYY年MM月DD日">
-                                                    </div>
-                                                </td>
-                                                <td class="td_text"><span class="span-text">付款日期:</span></td>
-                                                <td class="td_width">
-                                                    <div class="jeinpbox">
-                                                        <input type="text" class="jeinput input_text" id="test1" placeholder="YYYY年MM月DD日">
-                                                    </div>
-                                                </td>
-                                                <td class="td_text"><span class="span-text">总实洋:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="总实洋"></td>
-                                            </tr>
-                                            <tr>
+                                                    <input type="text" value="" class="input_text" placeholder="货架号"></td>                                     
                                                 <td class="td_text"><span class="span-text">备注:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="" class="input_text" placeholder="备注"></td>
-                                                <td class="td_text"><span class="span-text">制单日期:</span></td>
-                                                <td class="td_width">
-                                                    <div class="jeinpbox">
-                                                        <input type="text" class="jeinput input_text" id="test2" placeholder="YYYY年MM月DD日">
-                                                    </div>
-                                                </td>
                                             </tr>
                                         </table>
                                         <%--<div class="input-group no-border">
@@ -311,18 +293,7 @@
                                                     <td>23</td>
                                                     <td>34</td>
                                                     <td>货架一</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>10000001</td>
-                                                    <td>1552621533</td>
-                                                    <td>100</td>
-                                                    <td>30￥</td>
-                                                    <td>0.6</td>
-                                                    <td>23</td>
-                                                    <td>34</td>
-                                                    <td>货架一</td>
-                                                </tr>
+                                                </tr>                                          
                                             </tbody>
                                         </table>
                                     </div>
@@ -352,7 +323,6 @@
                 </footer>
             </div>
         </div>
-    </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
@@ -367,7 +337,7 @@
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
-    <script>
+    <%-- <script>
         var enLang = {
             name: "en",
             month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
@@ -380,7 +350,7 @@
             yes: "Confirm",
             close: "Close"
         }
-        //自定义格式选择
+       //自定义格式选择
         jeDate("#test12", {
             theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
             format: "YYYY年MM月DD日"
@@ -393,7 +363,7 @@
             theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
             format: "YYYY年MM月DD日"
         });
-    </script>
+    </script>--%>
 </body>
 
 </html>

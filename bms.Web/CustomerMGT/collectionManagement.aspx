@@ -245,6 +245,7 @@
                                                     <th>客户名称</th>
                                                     <th>价格</th>
                                                     <th>数量(册)</th>
+                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
                                             <%= getData() %>
