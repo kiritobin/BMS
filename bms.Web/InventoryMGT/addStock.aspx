@@ -15,9 +15,10 @@
     <link rel="stylesheet" href="../css/materialdesignicons.css">
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <!--分页样式-->
+    <link rel="stylesheet" href="../css/pagination.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
-    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
@@ -219,40 +220,40 @@
                                     <h4 class="card-title">入库添加</h4>
                                 </div>
                                 <div class="btn-group" role="group">                          
-                                    <button class="btn btn-info btn-sm" id="btn-search">确定添加</button></div>
+                                    <button class="btn btn-info btn-sm" id="btnAdd">确定添加</button></div>
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
                                          <tr>
                                                 <td class="td_text"><span class="span-text">单据编号:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="单据编号"></td>
+                                                    <input type="text" id="ID" class="input_text" placeholder="单据编号"></td>
                                                 <td class="td_text"><span class="span-text">ISBN号:</span></td>
                                                 <td class="td_width">
-                                                <input type="text" value="" class="input_text" placeholder="ISBN号"></td>
+                                                <input type="text" id="isbn" class="input_text" placeholder="ISBN号"></td>
                                                 <td class="td_text"><span class="span-text">商品总数:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="商品总数"></td>
+                                                    <input type="text" id="allCount" class="input_text" placeholder="商品总数"></td>
                                              <tr>
                                                 <td class="td_text"><span class="span-text">单价:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="单价"></td>                 
+                                                    <input type="text" id="price" class="input_text" placeholder="单价"></td>                 
                                                 <td class="td_text"><span class="span-text">折扣:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="折扣"></td>
+                                                    <input type="text" id="discount" class="input_text" placeholder="折扣"></td>
                                                 <td class="td_text"><span class="span-text">实洋:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="实洋"></td>                                                
+                                                    <input type="text" id="realPrice" class="input_text" placeholder="实洋"></td>                                                
                                             </tr>
                                             <tr>
                                                 <td class="td_text"><span class="span-text">码洋:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="码洋"></td>
+                                                    <input type="text" id="allPrice" class="input_text" placeholder="码洋"></td>
                                                  <td class="td_text"><span class="span-text">货架号:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="货架号"></td>                                     
+                                                    <input type="text" id="goodsShelf" class="input_text" placeholder="货架号"></td>                                     
                                                 <td class="td_text"><span class="span-text">备注:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="备注"></td>
+                                                    <input type="text" id="remark" class="input_text" placeholder="备注"></td>
                                             </tr>
                                         </table>
                                         <%--<div class="input-group no-border">
