@@ -14,7 +14,7 @@ namespace bms.Web.BasicInfor
     using Result = Enums.OpResult;
     public partial class replenishList : System.Web.UI.Page
     {
-        public int totalCount, intPageCount, pageSize = 20, row, count = 0;
+        public int totalCount, intPageCount, pageSize = 20, row, count;
         public DataSet ds;
         UserBll userBll = new UserBll();
         WarehousingBll wareBll = new WarehousingBll();
@@ -32,11 +32,11 @@ namespace bms.Web.BasicInfor
                 single.AllBillCount = Convert.ToInt32(billCount);
                 single.AllRealPrice = Convert.ToInt32(realPrice);
                 single.AllTotalPrice = Convert.ToInt32(totalPrice);
-                single.Region = user.ReginId;
-                single.SingleHeadId = "TH"+DateTime.Now+ count.ToString().PadLeft(6, '0');
+                single.SingleHeadId = "TH"+DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                 single.Time = DateTime.Now;
                 single.Type = 2;
                 single.User = user;
+                single.Region = user.ReginId;
                 Result row = wareBll.insertHead(single);
                 if(row == Result.添加成功)
                 {
