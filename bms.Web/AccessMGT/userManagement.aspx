@@ -55,8 +55,8 @@
                         </a>
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item foucsColor">
-                                    <a class="nav-link" href="userManagement.aspx">
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
