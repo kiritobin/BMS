@@ -323,7 +323,7 @@ namespace bms.Web.BasicInfor
                 sb.Append("<td>" + dr["catalog"].ToString() + "</td>");
                 sb.Append("<td>" + dr["remarks"].ToString() + "</td>");
                 sb.Append("<td>" + dr["dentification"].ToString() + "</td>");
-                sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></tr>");
+                sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></tr>");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
