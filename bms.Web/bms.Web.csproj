@@ -72,6 +72,7 @@
     <Content Include="bin\bms.DBHelper.pdb" />
     <Content Include="bin\bms.Model.pdb" />
     <Content Include="bin\MySql.Data.dll" />
+    <Content Include="changePwd.aspx" />
     <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="customerLogin.aspx" />
@@ -135,6 +136,7 @@
     <Content Include="js\demo.js" />
     <Content Include="js\Exit.js" />
     <Content Include="js\jedate.min.js" />
+    <Content Include="js\jquery.validate.min.js" />
     <Content Include="js\jurisdictionManagement.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
     <Content Include="js\jquery.min.js" />
@@ -201,6 +203,13 @@
     </Compile>
     <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="changePwd.aspx.cs">
+      <DependentUpon>changePwd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="changePwd.aspx.designer.cs">
+      <DependentUpon>changePwd.aspx</DependentUpon>
     </Compile>
     <Compile Include="customerLogin.aspx.cs">
       <DependentUpon>customerLogin.aspx</DependentUpon>
