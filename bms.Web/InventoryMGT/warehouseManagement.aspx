@@ -314,7 +314,7 @@
                                     <input type="text" value="" class="form-control col-sm-15 input-search" id="realPrice" placeholder="">
                                 </td>
                             </tr>
-                             <tr>
+<%--                             <tr>
                                 <td class="model-td-left"><span class="model-tab-td-span">到货时间:</span></td>
                                 <td>
                                     <input type="text" value="" class="form-control col-sm-15 input-search" id="time1" placeholder="">
@@ -323,7 +323,7 @@
                                 <td>
                                     <input type="text" value="" class="form-control col-sm-15 input-search" id="time2" placeholder="">
                                 </td>
-                            </tr>
+                            </tr>--%>
                              <tr>
                                 <td class="model-td-left"><span class="model-tab-td-span">制单时间:</span></td>
                                 <td>
