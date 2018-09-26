@@ -13,17 +13,17 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 材料图标样式 -->
-    <link rel="stylesheet" href="../css/materialdesignicons.css">
+    <link rel="stylesheet" href="../css/materialdesignicons.css"/>
     <!-- 字体图标样式 -->
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
     <!-- css样式 -->
-    <link rel="stylesheet" href="../css/material-dashboard.min.css">
+    <link rel="stylesheet" href="../css/material-dashboard.min.css"/>
     <link rel="stylesheet" href="../css/pagination.css" />
-    <link rel="stylesheet" href="../css/zgz.css">
-    <link rel="stylesheet" href="../css/lgd.css">
-    <link rel="stylesheet" href="../css/qc.css">
-    
-    <link rel="stylesheet" href="../css/jedate.css">
+    <link rel="stylesheet" href="../css/zgz.css"/>
+    <link rel="stylesheet" href="../css/lgd.css"/>
+    <link rel="stylesheet" href="../css/qc.css"/>
+    <!-- 时间input样式 -->
+    <link rel="stylesheet" href="../css/jedate.css"/>
 </head>
 
 <body>
@@ -292,59 +292,41 @@
                     </div>
                     <div class="modal-body">
                         <table class="table model-table">
-                            <tr>
-                                <td class="text-right"><span>单据ID:</span></td>
-                                <td>
-                                    <input type="text" value="" class="modal_search_add" id="headID" placeholder="">
-                                </td>
-                                <td class="text-right"><span>组织名称:</span></td>
-                                <td>
-                                    <input type="text" value="" class="modal_search_add" id="regionID" placeholder="">
-                                </td>
-                            </tr>
                              <tr>
-                                <td class="text-right"><span>操作员名称:</span></td>
-                                <td>
-                                    <input type="text" value="" class="modal_search_add" id="userName" placeholder="">
-                                </td>
                                 <td class="text-right"><span>单据总数:</span></td>
                                 <td>
                                     <input type="text" value="" class="modal_search_add" id="billCount" placeholder="">
                                 </td>
-                            </tr>
-                             <tr>
                                 <td class="text-right"><span>总码洋:</span></td>
                                 <td>
                                     <input type="text" value="" class="modal_search_add" id="totalPrice" placeholder="">
                                 </td>
+                            </tr>
+                             <tr>
                                 <td class="text-right"><span>总实洋:</span></td>
                                 <td>
                                     <input type="text" value="" class="modal_search_add" id="realPrice" placeholder="">
                                 </td>
-                            </tr>
-                             <tr>
                                 <td class="text-right"><span>到货时间:</span></td>
                                 <td>
                                     <div class="jeinpbox">
                                         <input type="text" class="jeinput modal_search_add" id="arrivalTime" placeholder="YYYY年MM月DD日">
                                     </div>
                                 </td>
+                            </tr>
+                             <tr>
                                 <td class="text-right"><span>付款时间:</span></td>
                                 <td>
                                     <div class="jeinpbox">
                                         <input type="text" class="jeinput modal_search_add" id="payTime" placeholder="YYYY年MM月DD日">
                                     </div>
                                 </td>
-                            </tr>
-                             <tr>
                                 <td class="text-right"><span>制单时间:</span></td>
                                 <td>
                                     <div class="jeinpbox">
                                         <input type="text" class="jeinput modal_search_add" id="makeTime" placeholder="YYYY年MM月DD日">
                                     </div>
                                 </td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td class="text-right"><span>备注:</span></td>
@@ -390,7 +372,7 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/bookshelfManagement.js"></script>
     <script src="../js/returnManagement.js"></script>
-    
+    <!-- 时间inputjs -->
     <script src="../js/jedate.min.js"></script>
     <script>
         var enLang = {
