@@ -104,8 +104,27 @@ namespace bms.Dao
             string cmdText = "select count(singleHeadId) from T_SingleHead where type=@type";
             string[] param = { "@type" };
             object[] values = { type };
-            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
             return row;
+        }
+        /// <summary>
+        /// 根据单体id查询已存在行数
+        /// </summary>
+        /// <returns>行数</returns>
+        public int SelectBymonId(int singleHeadId)
+        {
+            string comText = "select COUNT(monId) from T_Monomers where singleHeadId=@singleHeadId";
+            string[] param = { "@singleHeadId" };
+            object[] values = { singleHeadId };
+            int row = db.ExecuteNoneQuery(comText, param, values);
+            if (row > 0)
+            {
+                return row;
+            }
+            else
+            {
+                return row = 0;
+            }
         }
     }
 }

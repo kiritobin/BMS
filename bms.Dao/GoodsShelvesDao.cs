@@ -35,14 +35,17 @@ namespace bms.Dao
             String[] values = { shelves.ShelvesName,shelves.RegionId.RegionId.ToString() };
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
-        /// <summary>
-        /// 查询所有功能
-        /// </summary>
-        /// <returns>返回查询的数据表</returns>
-        public DataSet Select()
+       /// <summary>
+       /// 根据地区id查询货架
+       /// </summary>
+       /// <param name="regionId">地区id</param>
+       /// <returns></returns>
+        public DataSet Select(int regionId)
         {
-            string cmdText = "select goodsShelvesId,shelvesName,regionId,regionName from V_GoodsShelves";
-            DataSet ds = db.FillDataSet(cmdText, null, null);
+            string cmdText = "select goodsShelvesId,shelvesName,regionId,regionName from V_GoodsShelves where regionId = @regionId";
+            String[] param = { "@regionId" };
+            String[] values = { regionId.ToString() };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
                 return ds;
@@ -52,7 +55,6 @@ namespace bms.Dao
                 return null;
             }
         }
-
         /// <summary>
         /// 查询货架名是否重复
         /// </summary>
