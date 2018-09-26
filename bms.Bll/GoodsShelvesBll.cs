@@ -51,9 +51,9 @@ namespace bms.Bll
         /// 查询所有数据
         /// </summary>
         /// <returns>返回查询到的表格数据</returns>
-        public DataSet Select()
+        public DataSet Select(int regionId)
         {
-            return shelvesdao.Select();
+            return shelvesdao.Select(regionId);
         }
 
         public Result selectByName(GoodsShelves shelves)
