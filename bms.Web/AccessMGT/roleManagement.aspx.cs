@@ -13,7 +13,7 @@ namespace bms.Web.AccessMGT
 {
     using System.Web.Security;
     using Result = Enums.OpResult;
-    public partial class roleManagement : CommonPage
+    public partial class roleManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 3, totalCount, intPageCount;
         public string search, roleId;

@@ -15,8 +15,8 @@ namespace bms.Web.CustomerMGT
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
-        public string search = "", last, row, num;
+        public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row;
+        public string search = "", last, num;
 
         protected void Button2_Click(object sender, EventArgs e)
         {
@@ -49,9 +49,9 @@ namespace bms.Web.CustomerMGT
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            differentDt();
-            except.Columns.Remove("id"); //移除匹配列
-            GridView1.DataSource = except;
+            //differentDt();
+            //except.Columns.Remove("id"); //移除匹配列
+            GridView1.DataSource = excelToDt();
             GridView1.DataBind();
         }
 
@@ -97,30 +97,41 @@ namespace bms.Web.CustomerMGT
         //excel读到table
         private DataTable excelToDt()
         {
-            DataTable dt1 = new DataTable();
+            WarehousingBll warehousingBll = new WarehousingBll();
+            string h2o = (warehousingBll.countHead(1) + 1).ToString().PadLeft(6, '0');
+            string now = DateTime.Now.ToString("yyyyMMdd");
+            string id = "RK" + now + h2o;
             string path = Session["path"].ToString();
-            string strConn = "";
+            DataTable dt1 = new DataTable();
+            string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
             //文件类型判断
-            string[] sArray = path.Split('.');
-            int count = sArray.Length - 1;
-            if (sArray[count] == "xls")
-            {
-                strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-            }
-            else if (sArray[count] == "xlsx")
-            {
-                strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-            }
+            //string[] sArray = path.Split('.');
+            //int count = sArray.Length - 1;
+            //if (sArray[count] == "xls")
+            //{
+            //    strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+            //}
+            //else if (sArray[count] == "xlsx")
+            //{
+            //    strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+            //}
             OleDbConnection conn = new OleDbConnection(strConn);
             try
             {
                 conn.Open();
                 string strExcel1 = "select * from [Sheet1$]";
                 OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
-                dt1.Columns.Add("id"); //匹配列，与结构一致
+                DataColumn dcId = new DataColumn("dcId", typeof(string));
+                DataColumn dcH2o = new DataColumn("dcH2o", typeof(string));
+                dcId.DefaultValue = 1; //默认值列
+                dcH2o.DefaultValue = (id);
+                dt1.Columns.Add(dcId);
+                dt1.Columns.Add(dcH2o);
                 oda1.Fill(dt1);
-                row = dt1.Rows.Count.ToString(); //获取总数
-                GetDistinctSelf(dt1, "ISBN", "书名", "单价");
+                row = dt1.Rows.Count; //获取总数
+                DataColumn dc = new DataColumn("type", typeof(int));
+                dc.DefaultValue = 1; //默认值列
+                dt1.Columns.Add(dc);
             }
             catch (Exception ex)
             {

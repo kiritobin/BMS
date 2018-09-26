@@ -142,6 +142,7 @@
                         $("#img").attr("src", "../imgs/lose.png");
                     }
                     else {
+                        $("#close").show();
                         swal({
                             title: "提示",
                             text: data,

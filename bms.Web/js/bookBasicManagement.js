@@ -74,6 +74,7 @@
                         sessionStorage.removeItem("succ");
                     }
                     else {
+                        $("#close").show();
                         swal({
                             title: "温馨提示:)",
                             text: data,
