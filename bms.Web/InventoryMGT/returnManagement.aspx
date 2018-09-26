@@ -223,7 +223,9 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" placeholder="请输入查询条件">
+                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
+                                                <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
+                                                <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                              <div class="btn-group" role="group">
@@ -233,40 +235,20 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center">
+                                        <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>单编ID</th>
+                                                    <th>单据号</th>
                                                     <th>组织名称</th>
                                                     <th>操作员名称</th>
                                                     <th>单据总数</th>
-                                                    <th>总实洋</th>
                                                     <th>总码洋</th>
-                                                    <th>到货时间</th>
-                                                    <th>付款时间</th>
+                                                    <th>总实洋</th>
                                                     <th>制单时间</th>
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
-
-                                            <tbody>
-                                                <tr>
-                                                    <td>10000001</td>
-                                                    <td>加基森</td>
-                                                    <td>保罗</td>
-                                                    <td>3929</td>
-                                                    <td>56</td>
-                                                    <td>456</td>
-                                                    <td>2018-12-23</td>
-                                                    <td>2019-8-9</td>
-                                                    <td>2020-9-8</td>
-                                                    <td>
-                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='addReturn.aspx'"><i class="fa fa-plus fa-lg"></i></button>
-                                                        <button class="btn btn-info btn-sm" onclick="window.location.href='checkReturn.aspx'"><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -282,7 +264,7 @@
             </div>
 <!--添加模态框-->
         <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="max-width:630px;">
+            <div class="modal-dialog" style="max-width:700px;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title float-left" id="myModalLabel">退货添加</h4>
@@ -293,45 +275,17 @@
                     <div class="modal-body">
                         <table class="table model-table">
                              <tr>
-                                <td class="text-right"><span>单据总数:</span></td>
+                                <td class="text-right"><span><nobr>单据总数:</nobr></span></td>
                                 <td>
-                                    <input type="text" value="" class="modal_search_add" id="billCount" placeholder="">
+                                    <input type="text" class="modal_search_add float-left" id="billCount">
                                 </td>
-                                <td class="text-right"><span>总码洋:</span></td>
+                                <td class="text-right"><span><nobr>总码洋:</nobr></span></td>
                                 <td>
-                                    <input type="text" value="" class="modal_search_add" id="totalPrice" placeholder="">
+                                    <input type="text" class="modal_search_add float-left" id="totalPrice">
                                 </td>
-                            </tr>
-                             <tr>
-                                <td class="text-right"><span>总实洋:</span></td>
+                                <td class="text-right"><span><nobr>总实洋:</nobr></span></td>
                                 <td>
-                                    <input type="text" value="" class="modal_search_add" id="realPrice" placeholder="">
-                                </td>
-                                <td class="text-right"><span>到货时间:</span></td>
-                                <td>
-                                    <div class="jeinpbox">
-                                        <input type="text" class="jeinput modal_search_add" id="arrivalTime" placeholder="YYYY年MM月DD日">
-                                    </div>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td class="text-right"><span>付款时间:</span></td>
-                                <td>
-                                    <div class="jeinpbox">
-                                        <input type="text" class="jeinput modal_search_add" id="payTime" placeholder="YYYY年MM月DD日">
-                                    </div>
-                                </td>
-                                <td class="text-right"><span>制单时间:</span></td>
-                                <td>
-                                    <div class="jeinpbox">
-                                        <input type="text" class="jeinput modal_search_add" id="makeTime" placeholder="YYYY年MM月DD日">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-right"><span>备注:</span></td>
-                                <td colspan="3">
-                                    <textarea class="modal_textarea" rows="3"></textarea>
+                                    <input type="text" class="modal_search_add float-left" id="realPrice">
                                 </td>
                             </tr>
                         </table>
@@ -373,7 +327,7 @@
     <script src="../js/bookshelfManagement.js"></script>
     <script src="../js/returnManagement.js"></script>
     <!-- 时间inputjs -->
-    <script src="../js/jedate.min.js"></script>
+    <%--<script src="../js/jedate.min.js"></script>
     <script>
         var enLang = {
             name: "en",
@@ -400,7 +354,7 @@
             theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
             format: "YYYY年MM月DD日"
         });
-    </script>
+    </script>--%>
 </body>
 
 </html>
