@@ -33,7 +33,7 @@
         <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
-        <div class="sidebar" data-color="danger" data-background-color="white" data-image="imgs/sidebar-2.jpg">
+        <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!--
                 Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
         
@@ -41,7 +41,7 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -56,17 +56,22 @@
                         </a>
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor foucsColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="roleManagement.aspx">
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <!--<li class="nav-item hoverColor">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="organizationalManagement.aspx">
+                                        <span class="sidebar-normal">组织管理</span>
+                                    </a>
+                                </li>
+                                <!--<li class="nav-item">
                                     <a class="nav-link" href="jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
@@ -85,12 +90,12 @@
                         </a>
                         <div class="collapse" id="userManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
@@ -108,17 +113,17 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/addWarehouse.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
@@ -136,12 +141,12 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/backQuery.aspx">
                                         <span class="sidebar-normal">销退管理</span>
                                     </a>
@@ -159,17 +164,17 @@
                         </a>
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
@@ -224,16 +229,20 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2" id="input-search" placeholder="请输入职位名称">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;&nbsp;查询</button>
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;&nbsp;添加</button>
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" class="searchOne" placeholder="请输入查询条件" id="input-search">
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table" id="table">
-                                            <thead class="text-danger">
+                                        <table class="table table-bordered mostTable text-center" id="table">
+                                            <thead>
                                                 <tr>
                                                     <th>序号</th>
                                                     <th>职位</th>
@@ -259,10 +268,13 @@
             </div>
             <!--添加角色模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="min-width: 800px">
+                <div class="modal-dialog" style="max-width: 800px">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">添加职位</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
@@ -277,7 +289,7 @@
                                 <table class="table">
                                     <tr class="model-tab-function">
                                         <td>
-                                            <div class="form-check">
+                                            <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="checkbox" name="checkbox" value="1">组织管理
                                                         <span class="form-check-sign">
@@ -417,7 +429,6 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
                         </div>
                     </div>
@@ -425,10 +436,13 @@
             </div>
             <!--编辑职位模态框-->
             <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="max-width: 800px">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabe2">编辑职位</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
                         </div>
                         <table class="table model-table">
                             <tr>
@@ -440,7 +454,7 @@
                             <tr>
                                 <td><span class="model-tab-td-span">功能:</span></td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm" type="button" id="editFun">编辑功能</button></td>
+                                    <button class="btn btn-outline-info btn-sm" type="button" id="editFun">编辑功能</button></td>
                             </tr>
                         </table>
                         <div class="modal-body">
@@ -450,7 +464,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="1">组织管理
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="1">组织管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -460,7 +474,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="2">角色管理
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="2">角色管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -470,7 +484,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="3">用户管理
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="3">用户管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -480,50 +494,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="4">货架管理
-                                                        <span class="form-check-sign">
-                                                            <span class="check functionCheck"></span>
-                                                        </span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="model-tab-function">
-                                    <td></td>
-                                    <td>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="5">客户管理
-                                                        <span class="form-check-sign">
-                                                            <span class="check functionCheck"></span>
-                                                        </span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="6">客户馆藏导入
-                                                        <span class="form-check-sign">
-                                                            <span class="check functionCheck"></span>
-                                                        </span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="7">书籍基础数据导入
-                                                        <span class="form-check-sign">
-                                                            <span class="check functionCheck"></span>
-                                                        </span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="8">入库管理
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="4">货架管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -536,7 +507,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="9">出库管理
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="5">客户管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -546,7 +517,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="10">销售管理
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="6">客户馆藏导入
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -556,7 +527,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="11">销退管理
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="7">书籍基础数据导入
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -566,7 +537,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="12">退货管理
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="8">入库管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -579,7 +550,50 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="13">补货管理
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="9">出库管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="10">销售管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="11">销退管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="12">退货管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="model-tab-function">
+                                    <td></td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="13">补货管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -590,7 +604,6 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose2">关闭</button>
                             <button type="submit" class="btn btn-success btn-sm" id="btnEdit">提交</button>
                         </div>
                     </div>
@@ -605,8 +618,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        , made with <i class="material-icons">favorite</i> by
-                        <a href="javascript:;" target="_blank"></a>for a better web.
+                        &nbsp;版权所有
                     </div>
                 </div>
             </footer>
