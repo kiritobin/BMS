@@ -47,13 +47,29 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
-
+        /// <summary>
+        /// 获取行数
+        /// </summary>
+        /// <param name="monId">单头id</param>
+        /// <returns>返回行数</returns>
+        public int getCount(int singleHeadId)
+        {
+            int row = monoDao.SelectBymonId(singleHeadId);
+            if (row > 0)
+            {
+                return row;
+            }
+            else
+            {
+                return row = 0;
+            }
+        }
         /// <summary>
         /// 获取出库单头的所有信息
         /// </summary>
         /// <param name="type">1为入库，0为出库，2为退货</param>
         /// <returns></returns>
-        public DataTable SelectSingleHead(int type,string singleHeadId)
+        public DataTable SelectSingleHead(int type, string singleHeadId)
         {
             return monoDao.SelectSingleHead(type, singleHeadId);
         }

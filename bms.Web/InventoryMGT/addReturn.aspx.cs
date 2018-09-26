@@ -37,9 +37,9 @@ namespace bms.Web.InventoryMGT
             }
             if (op == "add")
             {
-                int singleHeadId = int.Parse(Session["returnId"].ToString());
+                string singleHeadId = Session["returnId"].ToString();
                 
-                int count = warebll.getCount(singleHeadId);
+                int count = warebll.getCount(int.Parse(singleHeadId));
                 int monId;
                 if (count > 0)
                 {
@@ -68,7 +68,7 @@ namespace bms.Web.InventoryMGT
                 mon.RealPrice = int.Parse(Ocean);
                 mon.GoodsShelvesId.GoodsShelvesId = int.Parse(shelfId);
                 mon.Type = type;
-               Result reslt =  warebll.insert(mon);
+               Result reslt =  warebll.insertMono(mon);
                 if (reslt==Result.添加成功)
                 {
                     Response.Write("添加成功");

@@ -47,7 +47,7 @@
         } else {
             $.ajax({
                 type: 'Post',
-                url: 'addReturn.aspx',
+                url: '../InventoryMGT/addReturn.aspx',
                 data: {
                     addISBN: addISBN,
                     addNum: addNum,
