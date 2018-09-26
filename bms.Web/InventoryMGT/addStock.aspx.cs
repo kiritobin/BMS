@@ -15,18 +15,18 @@ namespace bms.Web.InventoryMGT
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            int singleHeadId=0;
+            string singleHeadId="";
             if (!IsPostBack)
             {
                 string id = Request.QueryString["singleHeadId"];
                 if(id != null&& id != "")
                 {
                     Session["id"] = id;
-                    singleHeadId = Convert.ToInt32(id);
+                    singleHeadId = id;
                 }
                 else
                 {
-                    singleHeadId = Convert.ToInt32(Session["id"]);
+                    singleHeadId = Session["id"].ToString();
                 }
             }
             string op = Request["op"];
@@ -43,7 +43,7 @@ namespace bms.Web.InventoryMGT
                 string remark = Request["remark"];
                 Monomers monomers = new Monomers();
                 monomers.MonomersId = Convert.ToInt32(monomerID);
-                monomers.SingleHeadId.SingleHeadId = Convert.ToInt32(singleHeadId);
+                monomers.SingleHeadId.SingleHeadId = singleHeadId;
                 monomers.Isbn.Isbn = isbn;
                 monomers.Number = Convert.ToInt32(allCount);
                 monomers.UPrice.Price = Convert.ToDouble(price);
@@ -53,7 +53,7 @@ namespace bms.Web.InventoryMGT
                 monomers.GoodsShelvesId.GoodsShelvesId = Convert.ToInt32(goodsShelf);
                 monomers.Type = 1;
                 WarehousingBll wareBll = new WarehousingBll();
-                Result row = wareBll.insert(monomers);
+                Result row = wareBll.insertMono(monomers);
                 if(row == Result.添加成功)
                 {
                     Response.Write("添加成功");

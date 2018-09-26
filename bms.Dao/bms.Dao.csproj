@@ -56,7 +56,7 @@
     <Compile Include="RoleDao.cs" />
     <Compile Include="SaleTaskDao.cs" />
     <Compile Include="UserDao.cs" />
-    <Compile Include="Warehousing.cs" />
+    <Compile Include="WarehousingDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\bms.Dao.dll" />

@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
+    <!-- 时间input样式 -->
+    <link rel="stylesheet" href="../css/jedate.css"/>
 </head>
 
 <body>
@@ -111,7 +113,7 @@
                         <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="warehouseManagement.aspx">
+                                    <a class="nav-link activeNext" href="warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
@@ -234,14 +236,14 @@
                                         <table class="table text-center table-bordered mostTable">
                                             <thead>
                                                 <tr>
-                                                    <td>单编ID</td>
-                                                    <td>制单时间</td>
-                                                    <td>出库接收组织ID</td>
-                                                    <td>单据总数</td>
-                                                    <td>操作员名称</td>
-                                                    <td>总码洋</td>
-                                                    <td>总实洋</td>
-                                                    <td>操作</td>
+                                                    <th>单编ID</th>
+                                                    <th>制单时间</th>
+                                                    <th>出库接收组织ID</th>
+                                                    <th>单据总数</th>
+                                                    <th>操作员名称</th>
+                                                    <th>总码洋</th>
+                                                    <th>总实洋</th>
+                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
 
@@ -277,67 +279,37 @@
             </div>
             <!--添加模态框-->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="max-width:350px;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title float-left" id="myModalLabel">出库添加</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="material-icons">clear</i>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <table class="table model-table">
+                             <tr>
+                                <td class="text-right"><span>单据总数:</span></td>
+                                <td>
+                                    <input type="text" value="" class="modal_search_add" id="billCount" placeholder="">
+                                </td>
+                            </tr>
                             <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span">单据ID:</span></td>
+                                <td class="text-right"><span>总码洋:</span></td>
                                 <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="headID" placeholder="">
-                                </td>
-                                <td class="model-td-left"><span class="model-tab-td-span">组织名称:</span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="regionID" placeholder="">
+                                    <input type="text" value="" class="modal_search_add" id="totalPrice" placeholder="">
                                 </td>
                             </tr>
                              <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span">操作员名称:</span></td>
+                                <td class="text-right"><span>总实洋:</span></td>
                                 <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="userName" placeholder="">
-                                </td>
-                                <td class="model-td-left"><span class="model-tab-td-span">单据总数:</span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="billCount" placeholder="">
-                                </td>
-                            </tr>
-                             <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span">总码洋:</span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="totalPrice" placeholder="">
-                                </td>
-                                <td class="model-td-left"><span class="model-tab-td-span">总实洋:</span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="realPrice" placeholder="">
-                                </td>
-                            </tr>
-                             <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span">到货时间:</span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time1" placeholder="">
-                                </td>
-                                <td class="model-td-left"><span class="model-tab-td-span">付款时间:</span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time2" placeholder="">
-                                </td>
-                            </tr>
-                             <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span">制单时间:</span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time3" placeholder="">
-                                </td>
-                                <td class="model-td-left"><span class="model-tab-td-span">备注:</span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="remarks" placeholder="">
+                                    <input type="text" value="" class="modal_search_add" id="realPrice" placeholder="">
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
                         <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
                     </div>
                 </div>
