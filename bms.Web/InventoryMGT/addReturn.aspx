@@ -41,7 +41,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-         <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -215,43 +215,45 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                <div class="card-header card-header-danger">
-                                    <h4 class="card-title">退货添加</h4>
-                                </div>
-                                 <div class="btn-group" role="group">                          
-                                                <button class="btn btn-info btn-sm" id="btn-search">确定添加</button>
-                                            </div>
+                                    <div class="card-header card-header-danger">
+                                        <h4 class="card-title">退货添加</h4>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-info btn-sm" id="btn-add">确定添加</button>
+                                    </div>
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
                                             <tr>
-                                                <td class="td_text"><span class="span-text">单据编号:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="单据编号"></td>
                                                 <td class="td_text"><span class="span-text">ISBN号:</span></td>
                                                 <td class="td_width">
-                                                <input type="text" value="" class="input_text" placeholder="ISBN号"></td>
-                                                 <td class="td_text"><span class="span-text">商品总数:</span></td>
+                                                    <input type="text" id="addISBN" class="input_text"></td>
+                                                <td class="td_text"><span class="span-text">商品总数:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="商品总数"></td>
-                                            </tr>
-                                            <tr>                                               
+                                                    <input type="text" id="addNum" class="input_text"></td>
                                                 <td class="td_text"><span class="span-text">单价:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="单价"></td>
+                                                    <input type="text" id="addPrice" class="input_text"></td>
+                                            </tr>
+                                            <tr>
+
                                                 <td class="td_text"><span class="span-text">折扣:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="折扣"></td>
+                                                    <input type="text" id="addTotalPrice" class="input_text"></td>
+                                                <td class="td_text"><span class="span-text">码洋:</span></td>
+                                                <td class="td_width">
+                                                    <input type="text" id="addDiscount" class="input_text"></td>
                                                 <td class="td_text"><span class="span-text">实洋:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="实洋"></td>
-                                            </tr>
-                                            <tr>                                                                                                                                           
-                                                 <td class="td_text"><span class="span-text">货架号:</span></td>
+                                                    <input type="text" id="addOcean" class="input_text"></td>
+                                                <td class="td_text"><span class="span-text">货架号:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="货架号"></td> 
-                                                <td class="td_text"><span class="span-text">备注:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="备注"></td>
+                                                    <select class="input_text" id="shelfId">
+                                                        <option>请选择货架</option>
+                                                        <%for (int i=0;i<shelf.Tables[0].Rows.Count;i++)
+                                                            { %>
+                                                        <option value="<%=shelf.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=shelf.Tables[0].Rows[i]["shelvesName"] %></option>
+                                                            <%} %>
+                                                    </select></td>
                                             </tr>
                                         </table>
                                         <%--<div class="input-group no-border">
@@ -275,7 +277,7 @@
                                                     <td>商品数量</td>
                                                     <td>单价</td>
                                                     <td>折扣</td>
-                                                    <td>实洋</td>                                         
+                                                    <td>实洋</td>
                                                     <td>货架号</td>
                                                 </tr>
                                             </thead>
@@ -289,7 +291,7 @@
                                                     <td>0.6</td>
                                                     <td>23</td>
                                                     <td>货架一</td>
-                                                </tr>                                   
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -312,7 +314,8 @@
                             &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
+                        </script>
+                            &nbsp;版权所有
                         </div>
                     </div>
                 </footer>
@@ -334,7 +337,7 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addReturn.js"></script>
- <%-- <script>
+    <%-- <script>
         var enLang = {
             name: "en",
             month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
