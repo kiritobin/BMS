@@ -32,11 +32,14 @@ namespace bms.Dao
         /// <summary>
         /// 获取出库单头的所有信息
         /// </summary>
+        /// <param name="type">1为入库，0为出库，2为退货</param>
         /// <returns></returns>
-        public DataTable SelectSingleHead()
+        public DataTable SelectSingleHead(int type,string singleHeadId)
         {
-            string cmdText = "select singleHeadId,time,userName,regionName,allBillCount,allTotalPrice,allRealPrice where type=1";
-            DataSet ds = db.FillDataSet(cmdText, null, null);
+            string cmdText = "select singleHeadId,time,userName,regionName,allBillCount,allTotalPrice,allRealPrice from V_SingleHead where singleHeadId=@singleHeadId and type=@type";
+            string[] param = { "@type", "@singleHeadId" };
+            object[] values = { type,singleHeadId};
+            DataSet ds = db.FillDataSet(cmdText, param, values);
             if(ds != null || ds.Tables[0].Rows.Count > 0)
             {
                 DataTable dt = ds.Tables[0];
