@@ -7,11 +7,10 @@ namespace bms.Model
 {
     public class SingleHead
     {
-        private int singleHeadId;
+        private string singleHeadId;
         private DateTime time;
-        private Region regionId;
-        private User userId;
-        private User userName;
+        private Region region;
+        private User user;
         private int allBillCount;
         private double allTotalPrice;
         private double allRealPrice;
@@ -19,7 +18,7 @@ namespace bms.Model
         /// <summary>
         /// 单头id
         /// </summary>
-        public int SingleHeadId
+        public string SingleHeadId
         {
             get
             {
@@ -49,46 +48,31 @@ namespace bms.Model
         /// <summary>
         /// 地区id
         /// </summary>
-        public Region RegionId
+        public Region Region
         {
             get
             {
-                return regionId;
+                return region;
             }
 
             set
             {
-                regionId = value;
+                region = value;
             }
         }
         /// <summary>
         /// 用户id
         /// </summary>
-        public User UserId
+        public User User
         {
             get
             {
-                return userId;
+                return user;
             }
 
             set
             {
-                userId = value;
-            }
-        }
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        public User UserName
-        {
-            get
-            {
-                return userName;
-            }
-
-            set
-            {
-                userName = value;
+                user = value;
             }
         }
         /// <summary>
@@ -137,7 +121,7 @@ namespace bms.Model
             }
         }
         /// <summary>
-        /// 状态（0为出库，1为入库）
+        /// 状态（0为出库，1为入库,2为退货）
         /// </summary>
         public int Type
         {
@@ -171,13 +155,12 @@ namespace bms.Model
         /// <param name="allTotalPrice">总码洋</param>
         /// <param name="allRealPrice">总实洋</param>
         /// <param name="type">状态（0为出库，1为入库）</param>
-        public SingleHead(int singleHeadId, DateTime time, Region regionId, User userId, User userName, int allBillCount, double allTotalPrice, double allRealPrice, int type)
+        public SingleHead(string singleHeadId, DateTime time, Region region, User user, int allBillCount, double allTotalPrice, double allRealPrice, int type)
         {
             this.SingleHeadId = singleHeadId;
             this.Time = time;
-            this.RegionId = regionId;
-            this.UserId = userId;
-            this.UserName = userName;
+            this.region = region;
+            this.User = user;
             this.AllBillCount = allBillCount;
             this.AllTotalPrice = allTotalPrice;
             this.AllRealPrice = allRealPrice;

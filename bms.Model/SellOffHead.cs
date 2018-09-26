@@ -7,7 +7,7 @@ namespace bms.Model
 {
     public class SellOffHead
     {
-        private int sellOffHeadId;
+        private string sellOffHeadId;
         private SaleTask saleTaskId;
         private string kinds;
         private int count;
@@ -20,7 +20,7 @@ namespace bms.Model
         /// <summary>
         /// 销退单头id
         /// </summary>
-        public int SellOffHeadId
+        public string SellOffHeadId
         {
             get
             {
@@ -186,7 +186,7 @@ namespace bms.Model
         /// <param name="state">状态（0为未处理，1为已处理）</param>
         /// <param name="regionId">地区id</param>
         /// <param name="makingTime">制单时间</param>
-        public SellOffHead(int sellOffHeadId, SaleTask saleTaskId, string kinds, int count, double totalPrice, double realPrice, User userId, int state, Region regionId, DateTime makingTime)
+        public SellOffHead(string sellOffHeadId, SaleTask saleTaskId, string kinds, int count, double totalPrice, double realPrice, User userId, int state, Region regionId, DateTime makingTime)
         {
             this.sellOffHeadId = sellOffHeadId;
             this.saleTaskId = saleTaskId;
