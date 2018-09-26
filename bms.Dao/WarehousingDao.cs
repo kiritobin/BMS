@@ -8,7 +8,7 @@ using System.Text;
 
 namespace bms.Dao
 {
-    public class Warehousing
+    public class WarehousingDao
     {
         MySqlHelp db = new MySqlHelp();
         /// <summary>
@@ -29,6 +29,7 @@ namespace bms.Dao
                 return null;
             }
         }
+
         /// <summary>
         /// 获取出库单头的所有信息
         /// </summary>
@@ -50,16 +51,59 @@ namespace bms.Dao
                 return null;
             }
         }
+
+        /// <summary>
+        /// 添加单头信息
+        /// </summary>
+        /// <param name="single">单头实体对象</param>
+        /// <returns></returns>
+        public int insertHead(SingleHead single)
+        {
+            string cmdText = "insert into T_SingleHead(singleHeadId,time,regionId,userId,allBillCount,allTotalPrice,allRealPrice,type) values(@singleHeadId,@time,@regionId,@userId,@allBillCount,@allTotalPrice,@allRealPrice,@type)";
+            string[] param = { "@singleHeadId", "@time","@regionId","@userId","@allBillCount","@allTotalPrice","@allRealPrice", "@type" };
+            object[] values = { single.SingleHeadId, single.Time, single.Region.RegionId, single.User.UserId, single.AllBillCount, single.AllTotalPrice, single.AllRealPrice, single.Type };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
         /// <summary>
         /// 添加单体信息
         /// </summary>
         /// <param name="monomers">单体实体对象</param>
         /// <returns></returns>
-        public int insert(Monomers monomers)
+        public int insertMono(Monomers monomers)
         {
             string cmdText = "insert into T_Monomers(monId,singleHeadId,ISBN,number,uPrice,totalPrice,realPrice,discount,goodsShelvesId,type) values(@monId,@singleHeadId,@ISBN,@number,@uPrice,@totalPrice,@realPrice,@discount,@goodsShelvesId,@type)";
             string[] param = { "@monId", "@singleHeadId", "@ISBN", "@number", "@uPrice", "@totalPrice", "@realPrice", "@discount", "@goodsShelvesId", "@type" };
             object[] values = { monomers.MonomersId, monomers.SingleHeadId.SingleHeadId, monomers.Isbn.Isbn, monomers.Number, monomers.UPrice.Price, monomers.TotalPrice, monomers.RealPrice, monomers.Discount, monomers.GoodsShelvesId.GoodsShelvesId, monomers.Type };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 假删除单头信息
+        /// </summary>
+        /// <param name="singleHeadId">单头id</param>
+        /// <returns></returns>
+        public int deleteHead(string singleHeadId)
+        {
+            string cmdText = "update T_SingleHead set deleteState=1 where type=2 and singleHeadId=@singleHeadId";
+            string[] param = { "@singleHeadId"};
+            object[] values = { singleHeadId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 查看单头数量
+        /// </summary>
+        /// <param name="type">类型，0：出库，1：入库，2：退货</param>
+        /// <returns></returns>
+        public int countHead(int type)
+        {
+            string cmdText = "select count(singleHeadId) from T_SingleHead where type=@type";
+            string[] param = { "@type" };
+            object[] values = { type };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
