@@ -29,7 +29,24 @@ namespace bms.Dao
                 return null;
             }
         }
-
+        /// <summary>
+        /// 获取出库单头的所有信息
+        /// </summary>
+        /// <returns></returns>
+        public DataTable SelectSingleHead()
+        {
+            string cmdText = "select singleHeadId,time,userName,regionName,allBillCount,allTotalPrice,allRealPrice where type=1";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            if(ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                return dt;
+            }
+            else
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// 添加单体信息
         /// </summary>
