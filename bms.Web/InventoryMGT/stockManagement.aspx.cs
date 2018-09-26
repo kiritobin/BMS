@@ -83,7 +83,7 @@ namespace bms.Web.InventoryMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,regionId,userId,time,regionName,userName,allBillCount,allTotalPrice,allRealPrice,type,deleteState,saveState";
+            tbd.StrColumnlist = "singleHeadId,regionId,userId,time,regionName,userName,allBillCount,allTotalPrice,allRealPrice,type,deleteState";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "type=1 and deleteState=0" + search;
             tbd.IntPageNum = currentPage;

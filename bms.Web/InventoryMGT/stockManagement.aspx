@@ -41,7 +41,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-         <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -116,7 +116,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="stockManagement.aspx">
+                                    <a class="nav-link activeNext" href="stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
@@ -219,7 +219,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
-                                        <div class="input-group">                                            
+                                        <div class="input-group">
                                             <div class="btn-group" role="group">
                                                 <input type="text" class="searchOne" id="btn-search1" placeholder="请输入查询内容">
                                                 <button class="btn btn-info btn-sm" id="btn-search2">查询</button>
@@ -233,16 +233,16 @@
                                         <table class="table text-center mostTable table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <td>单编ID</td>
-                                                    <td>组织名称</td>
-                                                    <td>操作员名称</td>
-                                                    <td>单据总数</td>
-                                                    <td>总实洋</td>
-                                                    <td>总码洋</td>
-                                                    <td>到货时间</td>
-                                                    <td>付款时间</td>
-                                                    <td>制单时间</td>
-                                                    <td>操作</td>
+                                                    <th>单编ID</th>
+                                                    <th>组织名称</th>
+                                                    <th>操作员名称</th>
+                                                    <th>单据总数</th>
+                                                    <th>总实洋</th>
+                                                    <th>总码洋</th>
+                                                    <th>到货时间</th>
+                                                    <th>付款时间</th>
+                                                    <th>制单时间</th>
+                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -275,83 +275,59 @@
                         </div>
                     </div>
                 </div>
-                
-<!--添加模态框-->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title float-left" id="myModalLabel">入库添加</h4>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table model-table">
-                            <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>单据ID:</nobr></span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="headID" placeholder="">
-                                </td>
-                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>单据总数:</nobr></span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="billCount" placeholder="">
-                                </td>
-                            </tr>
-                             <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>总码洋:</nobr></span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="totalPrice" placeholder="">
-                                </td>
-                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>总实洋:</nobr></span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="realPrice" placeholder="">
-                                </td>
-                            </tr>
-                             <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>到货时间:</nobr></span></td>
-                                <td>
-                                    <div class="jeinpbox">
-                                        <input type="text" class="jeinput input_text" id="test12" class="form-control">
-                                    </div>
-                                </td>
-                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>付款时间:</nobr></span></td>
-                                <td>
-                                    <div class="jeinpbox">
-                                        <input type="text" class="jeinput input_text" id="test1">
-                                    </div>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>制单时间:</nobr></span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time3" placeholder="">
-                                </td>
-                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>备注:</nobr></span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="remarks" placeholder="">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="model-btnclose1">关闭</button>
-                        <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+
+                <!--添加模态框-->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                    <div class="modal-dialog" style="max-width: 350px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title float-left" id="myModalLabel">入库添加</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    <i class="material-icons">clear</i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table model-table">
+                                    <tr>
+                                        <td class="text-right"><span>单据总数:</span></td>
+                                        <td>
+                                            <input type="text" value="" class="modal_search_add" id="billCount" placeholder="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><span>总码洋:</span></td>
+                                        <td>
+                                            <input type="text" value="" class="modal_search_add" id="totalPrice" placeholder="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><span>总实洋:</span></td>
+                                        <td>
+                                            <input type="text" value="" class="modal_search_add" id="realPrice" placeholder="">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                            &nbsp;版权所有
-                        </div>
+                        &nbsp;版权所有
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
