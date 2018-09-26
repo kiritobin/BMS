@@ -286,51 +286,45 @@
                     <div class="modal-body">
                         <table class="table model-table">
                             <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span">单据ID:</span></td>
+                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>单据ID:</nobr></span></td>
                                 <td>
                                     <input type="text" value="" class="form-control col-sm-15 input-search" id="headID" placeholder="">
                                 </td>
-                                <td class="model-td-left"><span class="model-tab-td-span">组织名称:</span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="regionID" placeholder="">
-                                </td>
-                            </tr>
-                             <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span">操作员名称:</span></td>
-                                <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="userName" placeholder="">
-                                </td>
-                                <td class="model-td-left"><span class="model-tab-td-span">单据总数:</span></td>
+                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>单据总数:</nobr></span></td>
                                 <td>
                                     <input type="text" value="" class="form-control col-sm-15 input-search" id="billCount" placeholder="">
                                 </td>
                             </tr>
                              <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span">总码洋:</span></td>
+                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>总码洋:</nobr></span></td>
                                 <td>
                                     <input type="text" value="" class="form-control col-sm-15 input-search" id="totalPrice" placeholder="">
                                 </td>
-                                <td class="model-td-left"><span class="model-tab-td-span">总实洋:</span></td>
+                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>总实洋:</nobr></span></td>
                                 <td>
                                     <input type="text" value="" class="form-control col-sm-15 input-search" id="realPrice" placeholder="">
                                 </td>
                             </tr>
                              <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span">到货时间:</span></td>
+                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>到货时间:</nobr></span></td>
                                 <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time1" placeholder="">
+                                    <div class="jeinpbox">
+                                        <input type="text" class="jeinput input_text" id="test12" class="form-control">
+                                    </div>
                                 </td>
-                                <td class="model-td-left"><span class="model-tab-td-span">付款时间:</span></td>
+                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>付款时间:</nobr></span></td>
                                 <td>
-                                    <input type="text" value="" class="form-control col-sm-15 input-search" id="time2" placeholder="">
+                                    <div class="jeinpbox">
+                                        <input type="text" class="jeinput input_text" id="test1">
+                                    </div>
                                 </td>
                             </tr>
                              <tr>
-                                <td class="model-td-left"><span class="model-tab-td-span">制单时间:</span></td>
+                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>制单时间:</nobr></span></td>
                                 <td>
                                     <input type="text" value="" class="form-control col-sm-15 input-search" id="time3" placeholder="">
                                 </td>
-                                <td class="model-td-left"><span class="model-tab-td-span">备注:</span></td>
+                                <td class="model-td-left"><span class="model-tab-td-span"><nobr>备注:</nobr></span></td>
                                 <td>
                                     <input type="text" value="" class="form-control col-sm-15 input-search" id="remarks" placeholder="">
                                 </td>
