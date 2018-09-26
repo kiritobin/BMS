@@ -237,18 +237,18 @@
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr class="book-tab-tr">
-                                                    <th>序号</th>
-                                                    <th>书号</th>
-                                                    <th>书名</th>
-                                                    <th>作者</th>
-                                                    <th>定价</th>
-                                                    <th>出版日期</th>
-                                                    <th>供应商</th>
-                                                    <th>ISBN</th>
-                                                    <th>编目</th>
-                                                    <th>备注</th>
-                                                    <th>标识</th>
-                                                    <th>操作</th>
+                                                    <th><nobr>序号</nobr></th>
+                                                    <th><nobr>书号</nobr></th>
+                                                    <th><nobr>书名</nobr></th>
+                                                    <th><nobr>作者</nobr></th>
+                                                    <th><nobr>定价</nobr></th>
+                                                    <th><nobr>出版日期</nobr></th>
+                                                    <th><nobr>供应商</nobr></th>
+                                                    <th><nobr>ISBN</nobr></th>
+                                                    <th><nobr>编目</nobr></th>
+                                                    <th><nobr>备注</nobr></th>
+                                                    <th><nobr>标识</nobr></th>
+                                                    <th><nobr>操作</nobr></th>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
