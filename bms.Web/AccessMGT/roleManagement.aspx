@@ -280,7 +280,7 @@
                                         <td>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="48">仓库
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="1">组织管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -290,7 +290,7 @@
                                         <td>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="44">入库
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="2">角色管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -300,7 +300,7 @@
                                         <td>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="43">出库
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="3">用户管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -310,7 +310,7 @@
                                         <td>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="47">收银
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="4">货架管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -322,7 +322,7 @@
                                         <td>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="45">采购
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="5">客户管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -332,7 +332,81 @@
                                         <td>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="46">销售
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="6">客户馆藏导入
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="7">书籍基础数据导入
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="8">入库管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="model-tab-function">
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="9">出库管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="10">销售管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="11">销退管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="12">退货管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="model-tab-function">
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="13">补货管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -377,7 +451,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="48">仓库
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="1">组织管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -387,7 +461,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="44">入库
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="2">角色管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -397,7 +471,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="43">出库
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="3">用户管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -407,7 +481,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="47">收银
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="4">货架管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -420,7 +494,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="45">采购
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="5">客户管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -430,7 +504,83 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="46">销售
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="6">客户馆藏导入
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="7">书籍基础数据导入
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="8">入库管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="model-tab-function">
+                                    <td></td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="9">出库管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="10">销售管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="11">销退管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="12">退货管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="model-tab-function">
+                                    <td></td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="13">补货管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>

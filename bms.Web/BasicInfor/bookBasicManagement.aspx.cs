@@ -16,8 +16,8 @@ namespace bms.Web.BasicInfor
     using Result = Enums.OpResult;
     public partial class bookBasicManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
-        public string search = "", last, row, num;
+        public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row;
+        public string search = "", last, num;
         public DataSet ds;
         DataTable except = new DataTable();//接受差集
         BookBasicBll bookbll = new BookBasicBll();
@@ -132,7 +132,7 @@ namespace bms.Web.BasicInfor
                 OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
                 dt1.Columns.Add("id"); //匹配列，与结构一致
                 oda1.Fill(dt1);
-                row = dt1.Rows.Count.ToString(); //获取总数
+                row = dt1.Rows.Count; //获取总数
                 GetDistinctSelf(dt1, "ISBN", "书名", "单价");
             }
             catch (Exception ex)

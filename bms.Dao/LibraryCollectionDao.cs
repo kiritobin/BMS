@@ -82,5 +82,18 @@ namespace bms.Dao
                 return null;
             }
         }
+
+        /// <summary>
+        /// 删除馆藏 
+        /// </summary>
+        /// <param name="libraryId"></param>
+        /// <returns></returns>
+        public int Delete(int libraryId)
+        {
+            string cmdText = "delete from T_LibraryCollection where libraryId=@libraryId";
+            String[] param = { "@libraryId" };
+            String[] values = { libraryId.ToString() };
+            return db.ExecuteNoneQuery(cmdText, param, values);
+        }
     }
 }

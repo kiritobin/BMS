@@ -46,7 +46,7 @@
                         type: "success",
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.href = "/main.aspx";
+                        window.location.href = "/AccessMGT/userManagement.aspx";
                     })
                 }
                 else {
