@@ -21,8 +21,6 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="css/material-dashboard.min.css">
     <link rel="stylesheet" href="css/zgz.css">
-    <style>
-    </style>
 </head>
 
 <body>
@@ -213,35 +211,32 @@
                 <div class="container-fluid">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-6" style="margin:0 auto;">
-                                <form id="RegisterValidation" action="" method="">
-                                    <div class="card ">
-                                        <div class="card-header card-header-danger">
-                                                <h4 class="card-title">修改密码</h4>
+                            <div class="col-md-6" style="margin: 0 auto;">
+                                <div class="card ">
+                                    <div class="card-header card-header-danger">
+                                        <h4 class="card-title">修改密码</h4>
+                                    </div>
+                                    <div class="card-body ">
+                                        <div class="form-group">
+                                            <label for="oldPwd" class="bmd-label-floating">旧密码：</label>
+                                            <input type="password" class="form-control" id="oldPwd" required="true">
                                         </div>
-                                        <div class="card-body ">
-                                            <div class="form-group">
-                                                <label for="oldPwd" class="bmd-label-floating">旧密码：</label>
-                                                <input type="password" class="form-control" id="oldPwd" required="true">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="newPwd" class="bmd-label-floating">新密码：</label>
-                                                <input type="password" class="form-control" id="newPwd" required="true"
-                                                    name="password">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="confirPwd" class="bmd-label-floating">
-                                                    确认密码：
-                                                </label>
-                                                <input type="password" class="form-control" id="" required="true"
-                                                    equalto="#examplePassword" name="confirPwd">
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="newPwd" class="bmd-label-floating">新密码：</label>
+                                            <input type="password" class="form-control" id="newPwd" required="true"
+                                                name="password">
                                         </div>
-                                        <div class=" card-footer ml-auto mr-auto">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">确认修改</button>
+                                        <div class="form-group">
+                                            <label for="confirPwd" class="bmd-label-floating">
+                                                确认密码：
+                                            </label>
+                                            <input type="password" class="form-control" id="confirmpwd" required="true" equalto="#newPwd" name="confirPwd">
                                         </div>
                                     </div>
-                                </form>
+                                    <div class=" card-footer ml-auto mr-auto">
+                                        <button class="btn btn-sm btn-outline-danger" id="btnchange">确认修改</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -256,7 +251,8 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
+                        </script>
+                        &nbsp;版权所有
                     </div>
                 </div>
             </footer>
@@ -271,10 +267,8 @@
     <script src="js/material-dashboard.min.js"></script>
     <!-- validate.js -->
     <script src="js/jquery.validate.min.js"></script>
-    <script>
-</script>
-
-
+    <script src="js/sweetalert2.js"></script>
+    <script src="js/changePwd.js"></script>
 </body>
 
 </html>

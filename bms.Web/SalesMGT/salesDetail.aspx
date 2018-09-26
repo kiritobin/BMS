@@ -44,9 +44,6 @@
                                         <button class="btn btn-success" data-toggle="modal" data-target="#myModa2">添加销售</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-warning">所有销售</button>
-                                    </div>
-                                    <div class="btn-group" role="group">
                                         <input type="text" value="" class="sales_search">
                                         <button class="btn btn-info">查询</button>
                                     </div>
@@ -98,9 +95,9 @@
             </div>
         </div>
     </div>
-    <!--添加用户模态框-->
+    <!--模态框-->
     <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog" style="max-width: 800px;">
+        <div class="modal-dialog" style="max-width: 900px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title float-left" id="myModalLabel">添加销售</h4>
@@ -130,32 +127,6 @@
                                 <input type="text" value="" class="sales_search"></td>
                         </tr>
                     </table>
-                    <div class="table-responsive col-md-12">
-                        <table class="table mostTable table-bordered text-center">
-                            <thead>
-                                <tr>
-                                    <th>书号</th>
-                                    <th>ISBN号</th>
-                                    <th>实际折扣</th>
-                                    <th>单价</th>
-                                    <th>数量</th>
-                                    <th>实洋</th>
-                                    <th>时间</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                    <td>5</td>
-                                    <td>6</td>
-                                    <td>7</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
