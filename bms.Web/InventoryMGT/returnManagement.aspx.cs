@@ -20,6 +20,7 @@ namespace bms.Web.BasicInfor
         WarehousingBll wareBll = new WarehousingBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            getData();
             User user = (User)Session["user"];
             string op = Request["op"];
             if (op == "add")
@@ -89,43 +90,40 @@ namespace bms.Web.BasicInfor
             }
             string op = Request["op"];
             string search = "";
-            if(op == "search")
+            string singleHeadId = Request["ID"];
+            string regionName = Request["region"];
+            string userName = Request["user"];
+            if((singleHeadId ==""||singleHeadId == null)&& (regionName == "" || regionName == null)&& (userName == "" || userName == null))
             {
-                string singleHeadId = Request["ID"];
-                string regionName = Request["region"];
-                string userName = Request["user"];
-                if((singleHeadId ==""||singleHeadId == null)&& (regionName == "" || regionName == null)&& (userName == "" || userName == null))
-                {
-                    search = "";
-                }
-                else if(singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null) && (userName == "" || userName == null))
-                {
-                    search = "singleHeadId='" + singleHeadId + "'";
-                }
-                else if (regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
-                {
-                    search = "regionName='" + regionName + "'";
-                }
-                else if (userName != "" && userName != null && (regionName == "" || regionName == null) && (singleHeadId == "" || singleHeadId == null))
-                {
-                    search = "userName='" + userName + "'";
-                }
-                else if (userName != "" && userName != null && regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null))
-                {
-                    search = "userName='" + userName + "' and regionName='" + regionName + "'";
-                }
-                else if (userName != "" && userName != null && singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null))
-                {
-                    search = "userName='" + userName + "' and singleHeadId='" + singleHeadId + "'";
-                }
-                else if (singleHeadId != "" && singleHeadId != null && regionName != "" && regionName != null && (userName == "" || userName == null))
-                {
-                    search = "singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "'";
-                }
-                else
-                {
-                    search = "singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "' and userName='" + userName + "'";
-                }
+                search = "deleteState=1 and type=2";
+            }
+            else if(singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null) && (userName == "" || userName == null))
+            {
+                search = "deleteState=1 and type=2 and singleHeadId='" + singleHeadId + "'";
+            }
+            else if (regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
+            {
+                search = "deleteState=1 and type=2 and regionName='" + regionName + "'";
+            }
+            else if (userName != "" && userName != null && (regionName == "" || regionName == null) && (singleHeadId == "" || singleHeadId == null))
+            {
+                search = "deleteState=1 and type=2 and userName='" + userName + "'";
+            }
+            else if (userName != "" && userName != null && regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null))
+            {
+                search = "deleteState=1 and type=2 and userName='" + userName + "' and regionName='" + regionName + "'";
+            }
+            else if (userName != "" && userName != null && singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null))
+            {
+                search = "deleteState=1 and type=2 and userName='" + userName + "' and singleHeadId='" + singleHeadId + "'";
+            }
+            else if (singleHeadId != "" && singleHeadId != null && regionName != "" && regionName != null && (userName == "" || userName == null))
+            {
+                search = "deleteState=1 and type=2 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "'";
+            }
+            else
+            {
+                search = "deleteState=1 and type=2 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "' and userName='" + userName + "'";
             }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
@@ -145,7 +143,7 @@ namespace bms.Web.BasicInfor
             for (int i = 0; i < count; i++)
             {
                 DataRow dr = dt.Rows[i];
-                sb.Append("<tr><td id='singleHeadId'>" + dr["singleHeadId"].ToString() + "</td>");
+                sb.Append("<tr><td class='singleHeadId'>" + dr["singleHeadId"].ToString() + "</td>");
                 sb.Append("<td>" + dr["regionName"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["userName"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["allBillCount"].ToString() + "</ td >");
@@ -154,10 +152,11 @@ namespace bms.Web.BasicInfor
                 sb.Append("<td>" + dr["time"].ToString() + "</ td ></ tr >");
                 sb.Append("<td><a href='addReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-success btn-sm'><i class='fa fa-plus fa-lg'></i></button></a>");
                 sb.Append("<a href='checkReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-info btn-sm'><i class='fa fa-search'></i></button></a>");
+                sb.Append("<input type='hidden' value='" + dr["singleHeadId"].ToString() + "'/>");
                 sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></ td ></ tr >");
             }
             sb.Append("</tbody>");
-            sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             if (op == "paging")
             {
                 Response.Write(sb.ToString());

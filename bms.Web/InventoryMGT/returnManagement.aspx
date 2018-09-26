@@ -324,7 +324,6 @@
     <script src="../js/sweetalert2.js"></script>
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/bookshelfManagement.js"></script>
     <script src="../js/returnManagement.js"></script>
     <!-- 时间inputjs -->
     <%--<script src="../js/jedate.min.js"></script>
