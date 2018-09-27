@@ -160,8 +160,10 @@
     <Content Include="login.aspx" />
     <Content Include="main.aspx" />
     <Content Include="demo\paging.html" />
+    <Content Include="SalesMGT\backManagement.aspx" />
     <Content Include="SalesMGT\backQuery.aspx" />
     <Content Include="SalesMGT\salesDetail.aspx" />
+    <Content Include="SalesMGT\salesManagement.aspx" />
     <Content Include="SalesMGT\tradeManagement.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -380,6 +382,13 @@
       <DependentUpon>main.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesMGT\backManagement.aspx.cs">
+      <DependentUpon>backManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\backManagement.aspx.designer.cs">
+      <DependentUpon>backManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SalesMGT\backQuery.aspx.cs">
       <DependentUpon>backQuery.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -393,6 +402,13 @@
     </Compile>
     <Compile Include="SalesMGT\salesDetail.aspx.designer.cs">
       <DependentUpon>salesDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\salesManagement.aspx.cs">
+      <DependentUpon>salesManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\salesManagement.aspx.designer.cs">
+      <DependentUpon>salesManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesMGT\tradeManagement.aspx.cs">
       <DependentUpon>tradeManagement.aspx</DependentUpon>
