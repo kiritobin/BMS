@@ -301,6 +301,18 @@
                                         <input type="text" class="modal_search_add" id="realPrice">
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td class="text-right"><span>
+                                        <nobr>接收组织:</nobr>
+                                    </span></td>
+                                    <td>
+                                        <select id="regionId">
+                                            <%for(int i=0;i<dsRegion.Tables[0].Rows.Count;i++){ %>
+                                            <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"].ToString() %>"><%=dsRegion.Tables[0].Rows[i]["regionName"].ToString() %></option>
+                                            <%} %>
+                                        </select>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                         <div class="modal-footer">

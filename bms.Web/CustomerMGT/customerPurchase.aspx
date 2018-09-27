@@ -1,7 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="checkStock.aspx.cs" Inherits="bms.Web.InventoryMGT.checkStock" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="customerPurchase.aspx.cs" Inherits="bms.Web.CustomerMGT.customerPurchase" %>
 
 <!DOCTYPE html>
-
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
 
@@ -17,11 +20,9 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
-    <link rel="stylesheet" href="../css/pagination.css" />
-    <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
-    <link rel="stylesheet" href="../css/lgd.css">
-    <link rel="stylesheet" href="../css/qc.css">
+    <style>
+    </style>
 </head>
 
 <body>
@@ -38,10 +39,11 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">
+                    图书综合管理平台
                 </a>
             </div>
-        <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -63,7 +65,7 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <%--<li class="nav-item">
+                               <%-- <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
@@ -77,7 +79,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="material-icons">person</i>
                             <p>
@@ -85,22 +87,27 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="userManage">
+                        <div class="collapse show" id="userManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
+                                    <a class="nav-link" href="customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
+                                    <a class="nav-link" href="collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="customerPurchase.aspx">
+                                        <span class="sidebar-normal">客户采购查询</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
                             <p>
@@ -108,27 +115,27 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="inventoryManage">
+                        <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="warehouseManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="stockManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="returnManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="material-icons">library_books</i>
                             <p>
@@ -158,7 +165,7 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
-                                        <span class="sidebar-normal">架位管理</span>
+                                        <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -176,8 +183,7 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                    </div>
+                    <div class="navbar-wrapper"></div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -199,96 +205,64 @@
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="../changePwd.aspx">修改密码</a>
-                                    <a class="dropdown-item" href="javascript:logout();">退出系统</a>
+                                    <a class="dropdown-item" href="#">修改密码</a>
+                                    <a class="dropdown-item" href="#">退出系统</a>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-
             <!-- 主界面内容 -->
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-body">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">入库查询</h4>
+                                    <h4 class="card-title">客户采购查询</h4>
                                 </div>
-                                 <div class="btn-group" role="group">  
-                                <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true">打印</i></button>
-                                        </div>
+                                <div class="card-body">
                                     <div class="card-header from-group">
-                                        <table class="table text-center table_stock">
-                                            <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>单据编号:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putId %>" class="form-control"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>操作员:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putOperator %>" class="form-control"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>单据总数:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putCount %>" class="form-control"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>入库组织:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putRegionName %>" class="form-control"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>总码洋:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putTotalPrice %>" class="form-control"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>总实洋:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putRealPrice %>" class="form-control">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>制单日期:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <div class="jeinpbox">
-                                                        <input type="text" value="<%=putTime %>" class="form-control" id="test2">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>                                      
-                                        <%--<div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                              &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
-                                        </div>--%>
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="searchOne" id="isbnSearch" placeholder="请输入查询关键字">
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            </div>
+                                        </div>
                                     </div>
-
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
-                                                <tr style="border: 2px solid #DDD">
-                                                    <td colspan="9">商品</td>
-                                                </tr>
                                                 <tr>
-                                                    <td>序号</td>
-                                                    <td>单据编号</td>
-                                                    <td>ISBN号</td>
-                                                    <td>商品数量</td>
-                                                    <td>单价</td>
-                                                    <td>折扣</td>
-                                                    <td>实洋</td>
-                                                    <td>码洋</td>
-                                                    <td>货架号</td>
+                                                    <th>采购编码</th>
+                                                    <th>书名</th>
+                                                    <th>供应商</th>
+                                                    <th>采购人员</th>
+                                                    <th>采购数量（册）</th>
+                                                    <th>采购单价（元）</th>
+                                                    <th>采购总价（元）</th>
+                                                    <th>采购日期</th>
                                                 </tr>
                                             </thead>
-                                            <%=getData() %>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1001</td>
+                                                    <td>bootstrap</td>
+                                                    <td>新华书店</td>
+                                                    <td>张三</td>
+                                                    <td>12</td>
+                                                    <td>20</td>
+                                                    <td>240</td>
+                                                    <td>2018-9-27</td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -296,20 +270,20 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
-                        </div>
-                    </div>
-                </footer>
             </div>
+
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>&nbsp;版权所有
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
@@ -319,13 +293,10 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
-    <!-- selectpicker.js -->
-    <script src="../js/bootstrap-selectpicker.js"></script>
-    <!-- alert.js -->
-    <script src="../js/sweetalert2.js"></script>
-    <!-- paging.js -->
-    <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/jedate.min.js"></script>
-    <script src="../js/checkStock.js"></script>
+    <script>
+    </script>
+
+
 </body>
+
 </html>

@@ -135,8 +135,8 @@ namespace bms.Dao
         public int deleteMonomer(string singleHeadId,int monId)
         {
             string cmdText = "update T_Monomers set deleteState=1 where type=2 and singleHeadId=@singleHeadId and monId=@monId";
-            string[] param = { "@singleHeadId" };
-            object[] values = { singleHeadId };
+            string[] param = { "@singleHeadId", "@monId" };
+            object[] values = { singleHeadId, monId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
