@@ -61,6 +61,7 @@ $("#btnAdd").click(function () {
     var billCount = $("#billCount").val();
     var totalPrice = $("#totalPrice").val();
     var realPrice = $("#realPrice").val();
+    var region = $("#region").val();
     if (billCount == "") {
         swal({
             title: "温馨提示:)",
@@ -90,6 +91,7 @@ $("#btnAdd").click(function () {
             type: 'Post',
             url: 'returnManagement.aspx',
             data: {
+                region: region,
                 billCount: billCount,
                 totalPrice: totalPrice,
                 realPrice: realPrice,

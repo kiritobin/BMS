@@ -218,7 +218,7 @@
                                         <h4 class="card-title">出库添加</h4>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="btn-search">确定添加</button>
+                                        <button class="btn btn-info btn-sm" id="btnAdd">确定添加</button>
                                     </div>
                                     <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
@@ -226,39 +226,35 @@
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
                                             <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>单据编号:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="" class=""></td>
                                                 <td class="td_text"><span class="span-text"><nobr>ISBN号:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class=""></td>
+                                                    <input type="text" id="isbn"></td>
                                                 <td class="td_text"><span class="span-text"><nobr>商品总数:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class=""></td>
+                                                    <input type="text" id="billCount"></td>
                                                 <td class="td_text"><span class="span-text"><nobr>单价:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" class="float-left"></td>
+                                                    <input type="text" id="uPrice"></td>
                                                 <tr>
 
                                                     <td class="td_text"><span class="span-text"><nobr>折扣:</nobr></span></td>
                                                     <td class="td_width">
-                                                        <input type="text" value="" class=""></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>实洋:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" value="" class=""></td>
+                                                        <input type="text" id="discount"></td>
                                                     <td class="td_text"><span class="span-text"><nobr>码洋:</nobr></span></td>
                                                     <td class="td_width">
-                                                        <input type="text" value="" class=""></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>货架号:</nobr></span></td>
+                                                        <input type="text" id="totalPrice"></td>
+                                                    <td class="td_text"><span class="span-text"><nobr>实洋:</nobr></span></td>
                                                     <td class="td_width">
-                                                        <input type="text" class="float-left"></td>
+                                                        <input type="text" id="realPrice"></td>
+                                                    <td class="td_text"><span class="span-text"><nobr>货架:</nobr></span></td>
+                                                    <td class="td_width">
+                                                        <select id="goods">
+                                                            <%for(int i=0;i<dsGoods.Tables[0].Rows.Count;i++){ %>
+                                                            <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
+                                                            <%} %>
+                                                        </select>
+                                                    </td>
                                                 </tr>
-                                            <tr>
-
-                                                <td class="td_text"><span class="span-text"><nobr>备注:</nobr></span></td>
-                                                <td class="td_width" colspan="2">
-                                                    <textarea class="float_left"></textarea></td>
-                                            </tr>
                                         </table>
                                         <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
@@ -269,47 +265,23 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center">
+                                        <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr style="border: 2px solid #DDD">
                                                     <td colspan="9">商品</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>序号</td>
                                                     <td>单据编号</td>
                                                     <td>ISBN号</td>
                                                     <td>商品数量</td>
                                                     <td>单价</td>
                                                     <td>折扣</td>
-                                                    <td>实洋</td>
                                                     <td>码洋</td>
-                                                    <td>货架号</td>
+                                                    <td>实洋</td>
+                                                    <td>货架名称</td>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>10000001</td>
-                                                    <td>1552621533</td>
-                                                    <td>100</td>
-                                                    <td>30￥</td>
-                                                    <td>0.6</td>
-                                                    <td>23</td>
-                                                    <td>34</td>
-                                                    <td>货架一</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>10000001</td>
-                                                    <td>1552621533</td>
-                                                    <td>100</td>
-                                                    <td>30￥</td>
-                                                    <td>0.6</td>
-                                                    <td>23</td>
-                                                    <td>34</td>
-                                                    <td>货架一</td>
-                                                </tr>
-                                            </tbody>
+                                            
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
