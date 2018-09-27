@@ -226,50 +226,30 @@
                                             <tr>
                                                 <td class="td_text"><span class="span-text">单据编号:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="单据编号"></td>
+                                                    <input type="text" readonly="readonly" value="<%=shId %>"></td>
                                                 <td class="td_text"><span class="span-text">操作员:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="操作员"></td>
+                                                    <input type="text" readonly="readonly" value="<%=shOperator %>"></td>
                                                 <td class="td_text"><span class="span-text">单据总数:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="单据总数"></td>
+                                                    <input type="text" readonly="readonly" value="<%=shCount %>"></td>
                                             </tr>
                                             <tr>
                                                 <td class="td_text"><span class="span-text">入库组织:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="入库组织"></td>
-                                                <td class="td_text"><span class="span-text">商品来源:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="商品来源"></td>
+                                                    <input type="text" readonly="readonly" value="<%=shRegionName %>"></td>
                                                 <td class="td_text"><span class="span-text">总码洋:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="总码洋"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_text"><span class="span-text">到货日期:</span></td>
-                                                <td class="td_width">
-                                                    <div class="jeinpbox">
-                                                        <input type="text" class="jeinput input_text" id="test12" placeholder="YYYY年MM月DD日">
-                                                    </div>
-                                                </td>
-                                                <td class="td_text"><span class="span-text">付款日期:</span></td>
-                                                <td class="td_width">
-                                                    <div class="jeinpbox">
-                                                        <input type="text" class="jeinput input_text" id="test1" placeholder="YYYY年MM月DD日">
-                                                    </div>
-                                                </td>
+                                                    <input type="text" readonly="readonly" value="<%=shTotalPrice %>"></td>
                                                 <td class="td_text"><span class="span-text">总实洋:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="总实洋"></td>
+                                                    <input type="text" readonly="readonly" value="<%=shRealPrice %>"></td>
                                             </tr>
                                             <tr>
-                                                <td class="td_text"><span class="span-text">备注:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="" class="input_text" placeholder="备注"></td>
                                                 <td class="td_text"><span class="span-text">制单日期:</span></td>
                                                 <td class="td_width">
                                                     <div class="jeinpbox">
-                                                        <input type="text" class="jeinput input_text" id="test2" placeholder="YYYY年MM月DD日">
+                                                        <input type="text" class="jeinput input_text" readonly="readonly" value="<%=shTime %>" />
                                                     </div>
                                                 </td>
                                             </tr>
@@ -283,13 +263,12 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center">
+                                        <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr style="border: 2px solid #DDD">
                                                     <td colspan="9">商品</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>序号</td>
                                                     <td>单据编号</td>
                                                     <td>ISBN号</td>
                                                     <td>商品数量</td>
@@ -297,33 +276,10 @@
                                                     <td>折扣</td>
                                                     <td>实洋</td>
                                                     <td>码洋</td>
-                                                    <td>货架号</td>
+                                                    <td>货架</td>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>10000001</td>
-                                                    <td>1552621533</td>
-                                                    <td>100</td>
-                                                    <td>30￥</td>
-                                                    <td>0.6</td>
-                                                    <td>23</td>
-                                                    <td>34</td>
-                                                    <td>货架一</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>10000001</td>
-                                                    <td>1552621533</td>
-                                                    <td>100</td>
-                                                    <td>30￥</td>
-                                                    <td>0.6</td>
-                                                    <td>23</td>
-                                                    <td>34</td>
-                                                    <td>货架一</td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -367,33 +323,6 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/checkWarehouse.js"></script>
-    <script>
-        var enLang = {
-            name: "en",
-            month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
-            weeks: ["SUN", "MON", "TUR", "WED", "THU", "FRI", "SAT"],
-            times: ["Hour", "Minute", "Second"],
-            timetxt: ["Time", "Start Time", "End Time"],
-            backtxt: "Back",
-            clear: "Clear",
-            today: "Now",
-            yes: "Confirm",
-            close: "Close"
-        }
-        //自定义格式选择
-        jeDate("#test12", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-        jeDate("#test1", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-        jeDate("#test2", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-    </script>
 </body>
 
 </html>
