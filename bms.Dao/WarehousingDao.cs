@@ -111,12 +111,12 @@ namespace bms.Dao
         /// 根据单体id查询已存在行数
         /// </summary>
         /// <returns>行数</returns>
-        public int SelectBymonId(int singleHeadId)
+        public int SelectBymonId(long singleHeadId)
         {
             string comText = "select COUNT(monId) from T_Monomers where singleHeadId=@singleHeadId";
             string[] param = { "@singleHeadId" };
             object[] values = { singleHeadId };
-            int row = db.ExecuteNoneQuery(comText, param, values);
+            int row =Convert.ToInt32( db.ExecuteScalar(comText, param, values));
             if (row > 0)
             {
                 return row;
@@ -125,6 +125,20 @@ namespace bms.Dao
             {
                 return row = 0;
             }
+        }
+        /// <summary>
+        /// 假删除单体
+        /// </summary>
+        /// <param name="singleHeadId">单头Id</param>
+        /// <param name="monId">单体ID</param>
+        /// <returns>受影响行数</returns>
+        public int deleteMonomer(string singleHeadId,int monId)
+        {
+            string cmdText = "update T_Monomers set deleteState=1 where type=2 and singleHeadId=@singleHeadId and monId=@monId";
+            string[] param = { "@singleHeadId" };
+            object[] values = { singleHeadId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
         }
     }
 }
