@@ -85,11 +85,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="singleHeadId">单头id</param>
         /// <returns></returns>
-        public int deleteHead(string singleHeadId)
+        public int deleteHead(string singleHeadId,int type)
         {
-            string cmdText = "update T_SingleHead set deleteState=1 where type=2 and singleHeadId=@singleHeadId";
-            string[] param = { "@singleHeadId"};
-            object[] values = { singleHeadId };
+            string cmdText = "update T_SingleHead set deleteState=1 where type=@type and singleHeadId=@singleHeadId";
+            string[] param = { "@singleHeadId", "@type" };
+            object[] values = { singleHeadId, type };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -111,7 +111,7 @@ namespace bms.Dao
         /// 根据单体id查询已存在行数
         /// </summary>
         /// <returns>行数</returns>
-        public int SelectBymonId(long singleHeadId)
+        public long SelectBymonId(long singleHeadId)
         {
             string comText = "select COUNT(monId) from T_Monomers where singleHeadId=@singleHeadId";
             string[] param = { "@singleHeadId" };

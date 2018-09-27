@@ -53,7 +53,7 @@ namespace bms.Web.BasicInfor
             if (op == "del")
             {
                 string Id = Request["ID"];
-                Result row = wareBll.deleteHead(Id);
+                Result row = wareBll.deleteHead(Id,0);
                 if (row == Result.删除成功)
                 {
                     Response.Write("删除成功");
