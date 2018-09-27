@@ -217,20 +217,17 @@ $(document).ready(function () {
 });
 
 $("#btnAdd").click(function () {
-    var ID = $("#ID").val();
     var isbn = $("#isbn").val();
     var allCount = $("#allCount").val();
     var price = $("#price").val();
     var discount = $("#discount").val();
     var realPrice = $("#realPrice").val();
     var allPrice = $("#allPrice").val();
-    var goodsShelf = $("#goodsShelf").val();
-    var remark = $("#remark").val();
+    var goodsShelf = $("#goodsShelf").find("option:selected").val();
     $.ajax({
         type: 'Post',
         url: 'addStock.aspx',
         data: {
-            ID: ID,
             isbn: isbn,
             allCount: allCount,
             price: price,
@@ -238,7 +235,6 @@ $("#btnAdd").click(function () {
             realPrice: realPrice,
             allPrice: allPrice,
             goodsShelf: goodsShelf,
-            remark: remark,
             op:"add"
         },
         datatype: 'text',
