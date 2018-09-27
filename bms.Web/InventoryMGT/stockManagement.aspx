@@ -221,13 +221,17 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" class="searchOne" id="btn-id" placeholder="单据编号">
-                                                 <input type="text" class="searchOne" id="btn-region" placeholder="组织名称">
-                                                 <input type="text" class="searchOne" id="btn-user" placeholder="操作员名称">
-                                                <button class="btn btn-info btn-sm" id="btn-search2">查询</button>
+                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                                <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
+                                                <button class="btn btn-info btn-sm" id="btn-search">查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                             </div>
                                         </div>
                                     </div>
