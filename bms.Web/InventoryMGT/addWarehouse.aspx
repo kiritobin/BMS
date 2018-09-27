@@ -213,70 +213,52 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
+                                <div class="card-header card-header-danger">
+                                    <h4 class="card-title">出库添加</h4>
+                                </div>
                                 <div class="card-body">
-                                    <div class="card-header card-header-danger">
-                                        <h4 class="card-title">出库添加</h4>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="btnAdd">确定添加</button>
-                                    </div>
                                     <div class="card-header from-group">
-                                        <table class="table text-center table_stock">
+                                        <table class="table table_stock">
                                             <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>ISBN号:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="isbn"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>商品总数:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="billCount"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>单价:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="uPrice"></td>
-                                                <tr>
-
-                                                    <td class="td_text"><span class="span-text"><nobr>折扣:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" id="discount"></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>码洋:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" id="totalPrice"></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>实洋:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" id="realPrice"></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>货架:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <select id="goods">
-                                                            <%for(int i=0;i<dsGoods.Tables[0].Rows.Count;i++){ %>
-                                                            <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
-                                                            <%} %>
-                                                        </select>
-                                                    </td>
-                                                </tr>
+                                                <td class="text-right"><span><nobr>ISBN号:</nobr></span></td>
+                                                <td><input type="text" class="modal_search_add" id="isbn"></td>
+                                                <td class="text-right"><span><nobr>商品总数:</nobr></span></td>
+                                                <td><input type="text" class="modal_search_add" id="billCount"></td>
+                                                <td class="text-right"><span><nobr>单价:</nobr></span></td>
+                                                <td><input type="text" class="modal_search_add" id="uPrice"></td>
+                                                <td class="text-right"><span><nobr>货架:</nobr></span></td>
+                                                <td>
+                                                    <select id="goods" class="modal_search_add">
+                                                        <%for(int i=0;i<dsGoods.Tables[0].Rows.Count;i++){ %>
+                                                        <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
+                                                        <%} %>
+                                                    </select>
+                                                </td>
+                                            <tr>
+                                                <td class="text-right"><span><nobr>折扣:</nobr></span></td>
+                                                <td><input type="text" class="modal_search_add" id="discount"></td>
+                                                <td class="text-right"><span><nobr>码洋:</nobr></span></td>
+                                                <td><input type="text" class="modal_search_add" id="totalPrice"></td>
+                                                <td class="text-right"><span><nobr>实洋:</nobr></span></td>
+                                                <td><input type="text" class="modal_search_add" id="realPrice"></td>
+                                                <td colspan="2"><button class="btn btn-success btn-sm" id="btnAdd">确定添加</button></td>
+                                            </tr>
                                         </table>
-                                        <%--<div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                              &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
-                                        </div>--%>
                                     </div>
 
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
-                                                <tr style="border: 2px solid #DDD">
-                                                    <td colspan="9">商品</td>
-                                                </tr>
                                                 <tr>
-                                                    <td>单据编号</td>
-                                                    <td>ISBN号</td>
-                                                    <td>商品数量</td>
-                                                    <td>单价</td>
-                                                    <td>折扣</td>
-                                                    <td>码洋</td>
-                                                    <td>实洋</td>
-                                                    <td>货架名称</td>
-                                                    <td>操作</td>
+                                                    <th>单据编号</th>
+                                                    <th>ISBN号</th>
+                                                    <th>商品数量</th>
+                                                    <th>单价</th>
+                                                    <th>折扣</th>
+                                                    <th>码洋</th>
+                                                    <th>实洋</th>
+                                                    <th>货架名称</th>
+                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
@@ -292,20 +274,20 @@
                         </div>
                     </div>
                 </div>
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                            &nbsp;版权所有
-                        </div>
-                    </div>
-                </footer>
             </div>
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                        &nbsp;版权所有
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
