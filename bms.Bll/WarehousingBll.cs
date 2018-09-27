@@ -101,14 +101,17 @@ namespace bms.Bll
         {
             return monoDao.countHead(type);
         }
+       
         /// <summary>
-        /// 
+        /// 假删除单体信息
         /// </summary>
-        /// <param name="singleHeadId"></param>
+        /// <param name="singleHeadId">单头id</param>
+        /// <param name="monId">单体id</param>
+        /// <param name="type">单体类型（0：出库，1：入库，2：退货）</param>
         /// <returns></returns>
-        public Result deleteMonomer(string singleHeadId,int monId)
+        public Result deleteMonomer(string singleHeadId,int monId, int type)
         {
-            int row = monoDao.deleteMonomer(singleHeadId,monId);
+            int row = monoDao.deleteMonomer(singleHeadId,monId,type);
             if (row > 0)
             {
                 return Result.删除成功;

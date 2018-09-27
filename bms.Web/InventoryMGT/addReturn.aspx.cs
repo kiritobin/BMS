@@ -103,7 +103,7 @@ namespace bms.Web.InventoryMGT
             {
 
                 int monId = Convert.ToInt32(Request["ID"]);
-                Result row = warebll.deleteMonomer(singId, monId);
+                Result row = warebll.deleteMonomer(singId, monId,2);
                 if (row == Result.删除成功)
                 {
                     Response.Write("删除成功");

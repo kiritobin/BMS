@@ -78,7 +78,7 @@ namespace bms.Web.InventoryMGT
             if(op == "del")
             {
                 int Id = Convert.ToInt32(Request["ID"]);
-                Result row = warehousingBll.deleteMonomer(singleHeadId, Id);
+                Result row = warehousingBll.deleteMonomer(singleHeadId, Id,0);
                 if (row == Result.删除成功)
                 {
                     Response.Write("删除成功");
