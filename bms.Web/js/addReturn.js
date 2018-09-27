@@ -9,13 +9,11 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var search = $("#btn-search").val();
             $.ajax({
                 type: 'Post',
                 url: '../InventoryMGT/addReturn.aspx',
                 data: {
                     page: api.getCurrent(), //页码
-                    search: search,
                     op: "paging"
                 },
                 dataType: 'text',
