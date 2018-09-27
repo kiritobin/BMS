@@ -149,7 +149,10 @@ namespace bms.Web.BasicInfor
             {
                 Response.Write(ex.Message);
             }
-            conn.Close();
+            finally
+            {
+                conn.Close();
+            }
             return dt1;
         }
 
@@ -166,14 +169,13 @@ namespace bms.Web.BasicInfor
             {
                 a = 0;
             }
-            ArrayList list = new ArrayList();
             DataTable dt = new DataTable();
             DataColumn dc = new DataColumn("书号");
             dt.Columns.Add(dc);
             DataRow dataRow = null;
+            string bookId;
             for (int i = 0; i < row; i++)
             {
-                string bookId;
                 a++;
                 ViewState["i"] = a;
                 string ss = a.ToString().PadLeft(8, '0');

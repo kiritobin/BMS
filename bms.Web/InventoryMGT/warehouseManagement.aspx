@@ -223,7 +223,9 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" placeholder="请输入查询条件">
+                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
+                                                <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
+                                                <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
@@ -233,37 +235,20 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table text-center table-bordered mostTable">
+                                        <table class="table text-center table-bordered mostTable" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>单编ID</th>
-                                                    <th>制单时间</th>
-                                                    <th>出库接收组织ID</th>
-                                                    <th>单据总数</th>
+                                                    <th>单据编号</th>
+                                                    <th>出库接收组织</th>
                                                     <th>操作员名称</th>
+                                                    <th>单据总数</th>
                                                     <th>总码洋</th>
                                                     <th>总实洋</th>
+                                                    <th>制单时间</th>
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
-
-                                            <tbody>
-                                                <tr>
-                                                    <td>10000001</td>
-                                                    <td>2018-12-23</td>
-                                                    <td>13245</td>
-                                                    <td>56</td>
-                                                    <td>保罗</td>
-                                                    <td>456</td>
-                                                    <td>6546</td>
-                                                    <td>
-                                                        <!-- 查询与删除按钮 -->
-                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='addWarehouse.aspx'"><i class="fa fa-plus fa-lg"></i></button>
-                                                        <button class="btn btn-info btn-sm" onclick="window.location.href='checkWarehouse.aspx'"><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -292,19 +277,19 @@
                              <tr>
                                 <td class="text-right"><span>单据总数:</span></td>
                                 <td>
-                                    <input type="text" value="" class="modal_search_add" id="billCount" placeholder="">
+                                    <input type="text" class="modal_search_add" id="billCount">
                                 </td>
                             </tr>
                             <tr>
                                 <td class="text-right"><span>总码洋:</span></td>
                                 <td>
-                                    <input type="text" value="" class="modal_search_add" id="totalPrice" placeholder="">
+                                    <input type="text" class="modal_search_add" id="totalPrice">
                                 </td>
                             </tr>
                              <tr>
                                 <td class="text-right"><span>总实洋:</span></td>
                                 <td>
-                                    <input type="text" value="" class="modal_search_add" id="realPrice" placeholder="">
+                                    <input type="text" class="modal_search_add" id="realPrice">
                                 </td>
                             </tr>
                         </table>

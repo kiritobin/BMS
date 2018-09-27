@@ -141,10 +141,10 @@ $("#btn-search").click(function () {
             ID: ID,
             region: region,
             user: user,
-            op: "search"
+            op: "paging"
         },
         datatype: 'text',
-        success: function (succ) {
+        success: function (data) {
             $("#intPageCount").remove();
             $("#table tr:not(:first)").empty(); //清空table处首行
             $("#table").append(data); //加载table
@@ -197,7 +197,7 @@ $("#table").delegate(".btn-delete", "click", function () {
         buttonsStyling: false,
         allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
     }).then(function () {
-        var ID = $(".btn-delete").parent().parent().find("#singleHeadId").text().trim();
+        var ID = $(".btn-delete").prev().val();
         $.ajax({
             type: 'Post',
             url: 'returnManagement.aspx',
