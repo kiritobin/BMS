@@ -185,7 +185,7 @@ namespace bms.Web.AccessMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_User";
             tbd.OrderBy = "userID";
-            tbd.StrColumnlist = "userID,userName,regionName,roleName,regionId,roleId,deleteState";
+            tbd.StrColumnlist = "userID,userName,regionName,roleName,regionId,roleId";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;

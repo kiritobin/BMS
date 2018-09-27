@@ -32,13 +32,15 @@
             });
         }
     });
+
+
 })
 
 //点击查询按钮时
-$("#btn-search").click(function () {
-    var singHeadId = $("#singHeadId").val().trim();
-    var regionName = $("#regionName").val().trim();
-    var userName = $("#userName").val().trim();
+$("#btn-search2").click(function () {
+    var singHeadId = $("#btn-id").val().trim();
+    var regionName = $("#btn-region").val().trim();
+    var userName = $("#btn-user").val().trim();
     $.ajax({
         type: 'Post',
         url: 'stockManagement.aspx',
@@ -87,6 +89,112 @@ $("#btn-search").click(function () {
         }
     });
 });
+
+//删除用户
+$("#table").delegate(".btn-danger", "click", function () {
+    var account = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+    swal({
+        title: '温馨提示:)',
+        text: '确定要删除账号为：' + account + '的用户吗？',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '是的，删掉它!',
+        cancelButtonText: '不，让我思考一下',
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger",
+        buttonsStyling: false,
+        allowOutsideClick: false
+    }).then(function () {
+        $.ajax({
+            type: 'Post',
+            url: 'stockManagement.aspx',
+            data: {
+                account: account,
+                op: "del"
+            },
+            dataType: 'text',
+            success: function (succ) {
+                if (succ == "删除成功") {
+                    swal({
+                        title: "温馨提示:)",
+                        text: "用户删除成功",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "success",
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
+                } else {
+                    swal({
+                        title: "温馨提示:)",
+                        text: "用户删除失败",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "warning",
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
+                }
+            }
+        })
+    });
+})
+
+$("#btnAdd").click(function () {
+    var count = $("#billCount").val().trim();
+    var totalPrice = $("#totalPrice").val().trim();
+    var realPrice = $("#realPrice").val().trim();
+    var source = $("#source").val().trim();
+    if (count == "" || totalPrice == "" || realPrice == "" || source == "") {
+        alert("含有未填项");
+    }
+    else {
+        $.ajax({
+            type: 'Post',
+            url: 'stockManagement.aspx',
+            data: {
+                count: count,
+                totalPrice: totalPrice,
+                realPrice: realPrice,
+                source: source,
+                op:"add"
+            },
+            dataType: 'text',
+            success: function (data) {
+                if (data == "添加成功") {
+                    swal({
+                        title: "温馨提示:)",
+                        text: "添加成功",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "success",
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
+                }
+                else {
+                    swal({
+                        title: "温馨提示:)",
+                        text: "添加失败",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "warning",
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
+                }
+            }
+        });
+    }
+});
+$("#close").click(function () {
+    window.location.reload();
+});
+
 //退出系统
 function logout() {
     swal({
