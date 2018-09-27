@@ -61,6 +61,7 @@ $("#btnAdd").click(function () {
     var billCount = $("#billCount").val();
     var totalPrice = $("#totalPrice").val();
     var realPrice = $("#realPrice").val();
+    var regionId = $("#regionId").val();
     if (billCount == "") {
         alert("单据总数不能为空");
     } else if (totalPrice == "") {

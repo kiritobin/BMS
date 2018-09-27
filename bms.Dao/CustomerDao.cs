@@ -95,11 +95,24 @@ namespace bms.Dao
         /// <returns></returns>
         public int ResetPwd(int customerID,string customerPwd)
         {
-            string sql = "update T_Customer set customerPwd=@customerPwd where customerID=@customerID";
+            string sql = "update T_Customer set customerPwd=@customerPwd where customerID=customerID";
             string[] param = { "@customerID", "@customerPwd" };
             object[] values = { customerID, customerPwd };
             int row = db.ExecuteNoneQuery(sql, param, values);
             return row;
+        }
+        /// <summary>
+        /// 查看客户的删除状态
+        /// </summary>
+        /// <param name="customerId">客户ID</param>
+        /// <returns></returns>
+        public DataSet DeleteState(int customerId)
+        {
+            string cmdText = "select deleteState=1 from T_Customer where  customerID=@customerId";
+            string[] param = { "@customerID" };
+            object[] values = { customerId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
         }
     }
 }

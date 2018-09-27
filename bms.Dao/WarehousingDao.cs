@@ -132,11 +132,11 @@ namespace bms.Dao
         /// <param name="singleHeadId">单头Id</param>
         /// <param name="monId">单体ID</param>
         /// <returns>受影响行数</returns>
-        public int deleteMonomer(string singleHeadId,int monId)
+        public int deleteMonomer(string singleHeadId,int monId,int type)
         {
-            string cmdText = "update T_Monomers set deleteState=1 where type=2 and singleHeadId=@singleHeadId and monId=@monId";
-            string[] param = { "@singleHeadId", "@monId" };
-            object[] values = { singleHeadId, monId };
+            string cmdText = "update T_Monomers set deleteState=1 where type=@type and singleHeadId=@singleHeadId and monId=@monId";
+            string[] param = { "@singleHeadId", "@monId","@type" };
+            object[] values = { singleHeadId, monId ,type};
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }

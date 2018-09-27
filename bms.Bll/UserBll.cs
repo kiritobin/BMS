@@ -160,5 +160,23 @@ namespace bms.Bll
             bulkLoad bulkLoad = new bulkLoad();
             return bulkLoad.BulkInsert(table);
         }
+        /// <summary>
+        /// 判断该账号是否已经被删除
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Result SelectDeleteState(int userId)
+        {
+            DataSet ds = userDao.SelectDeleteState(userId);
+            int row = Convert.ToInt32(ds.Tables[0].Rows[0]["deleteState=1"].ToString());
+            if (row > 0)
+            {
+                return Result.记录不存在;
+            }
+            else
+            {
+                return Result.记录存在;
+            }
+        }
     }
 }

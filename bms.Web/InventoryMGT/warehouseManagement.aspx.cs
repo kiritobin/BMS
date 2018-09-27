@@ -15,12 +15,14 @@ namespace bms.Web.BasicInfor
     public partial class outboundList : System.Web.UI.Page
     {
         public int totalCount, intPageCount, pageSize = 20, row, count;
-        public DataSet ds;
+        public DataSet ds, dsRegion;
         UserBll userBll = new UserBll();
         WarehousingBll wareBll = new WarehousingBll();
+        RegionBll regionBll = new RegionBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            getData();
+            dsRegion = regionBll.select();
+            getData(); 
             Model.User user = (User)Session["user"];
             string op = Request["op"];
             if (op == "add")
@@ -29,6 +31,7 @@ namespace bms.Web.BasicInfor
                 string billCount = Request["billCount"];
                 string totalPrice = Request["totalPrice"];
                 string realPrice = Request["realPrice"];
+                string regionId = Request["regionId"];
                 SingleHead single = new SingleHead();
                 single.AllBillCount = Convert.ToInt32(billCount);
                 single.AllRealPrice = Convert.ToInt32(realPrice);
@@ -37,7 +40,9 @@ namespace bms.Web.BasicInfor
                 single.Time = DateTime.Now;
                 single.Type = 0;
                 single.User = user;
-                single.Region = user.ReginId;
+                Region region = new Region();
+                region.RegionId = Convert.ToInt32(regionId);
+                single.Region = region;
                 Result row = wareBll.insertHead(single);
                 if (row == Result.添加成功)
                 {

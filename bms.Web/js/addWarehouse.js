@@ -102,7 +102,7 @@ $("#btnAdd").click(function () {
     else if (goods == "") {
         swal({
             title: "温馨提示:)",
-            text: "单据总数不能为空，请您重新输入",
+            text: "货架不能为空，请您选择任一货架",
             buttonsStyling: false,
             confirmButtonClass: "btn btn-warning",
             type: "warning"
@@ -128,9 +128,13 @@ $("#btnAdd").click(function () {
             type: 'Post',
             url: 'addWarehouse.aspx',
             data: {
+                isbn:isbn,
                 billCount: billCount,
                 totalPrice: totalPrice,
                 realPrice: realPrice,
+                discount: discount,
+                goods: goods,
+                uPrice: uPrice,
                 op: "add"
             },
             datatype: 'text',
@@ -166,58 +170,6 @@ $("#btnAdd").click(function () {
         })
     }
 })
-
-//查询
-$("#btn-search").click(function () {
-    var ID = $("#ID").val();
-    var region = $("#region").val();
-    var user = $("#user").val();
-    $.ajax({
-        type: 'Post',
-        url: 'addWarehouse.aspx',
-        data: {
-            ID: ID,
-            region: region,
-            user: user,
-            op: "paging"
-        },
-        datatype: 'text',
-        success: function (data) {
-            $("#intPageCount").remove();
-            $("#table tr:not(:first)").empty(); //清空table处首行
-            $("#table").append(data); //加载table
-            $(".paging").empty();
-            $(".paging").pagination({
-                pageCount: $("#intPageCount").val(), //总页数
-                jump: true,
-                mode: 'fixed',//固定页码数量
-                coping: true,
-                homePage: '首页',
-                endPage: '尾页',
-                prevContent: '上页',
-                nextContent: '下页',
-                callback: function (api) {
-                    $.ajax({
-                        type: 'Post',
-                        url: 'addWarehouse.aspx',
-                        data: {
-                            page: api.getCurrent(), //页码
-                            ID: ID,
-                            region: region,
-                            user: user,
-                            op: "paging"
-                        },
-                        dataType: 'text',
-                        success: function (data) {
-                            $("#table tr:not(:first)").empty(); //清空table处首行
-                            $("#table").append(data); //加载table
-                        }
-                    });
-                }
-            });
-        }
-    })
-});
 
 //删除
 $("#table").delegate(".btn-delete", "click", function () {

@@ -11,18 +11,20 @@ using bms.Model;
 
 namespace bms.Web.InventoryMGT
 {
+    using Result = Enums.OpResult;
     public partial class addWarehouse : System.Web.UI.Page
     {
         protected DataSet dsGoods,ds;
-        protected int pageSize, totalCount, intPageCount;
+        protected int pageSize=20, totalCount, intPageCount;
         UserBll userBll = new UserBll();
+        string singleHeadId;
+        WarehousingBll warehousingBll = new WarehousingBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            getData();
             if (!IsPostBack)
             {
-                string singleHeadId = Request.QueryString["sId"];
-                if(singleHeadId!=""|| singleHeadId != null)
+                singleHeadId = Request.QueryString["sId"];
+                if(singleHeadId!="" && singleHeadId != null)
                 {
                     Session["singleHeadId"] = singleHeadId;
                 }
@@ -31,8 +33,63 @@ namespace bms.Web.InventoryMGT
                     singleHeadId = Session["singleHeadId"].ToString();
                 }
             }
+            getData();
             User user = (User)Session["user"];
             string op = Request["op"];
+            if(op == "add")
+            {
+                string isbn = Request["isbn"];
+                string billCount = Request["billCount"];
+                string totalPrice = Request["totalPrice"];
+                string realPrice = Request["realPrice"];
+                string discount = Request["discount"];
+                string uPrice = Request["uPrice"];
+                string goodsId = Request["goods"];
+                Monomers monomers = new Monomers();
+                monomers.Discount = Convert.ToInt32(discount);
+                GoodsShelves shelves = new GoodsShelves();
+                shelves.GoodsShelvesId = Convert.ToInt32(goodsId);
+                monomers.GoodsShelvesId = shelves;
+                BookBasicData bookBasic = new BookBasicData();
+                bookBasic.Isbn = isbn;
+                bookBasic.Price = Convert.ToDouble(uPrice);
+                monomers.Isbn = bookBasic;
+                monomers.UPrice = bookBasic;
+                monomers.MonomersId = 1;
+                monomers.Number = Convert.ToInt32(billCount);
+                monomers.RealPrice = Convert.ToDouble(realPrice);
+                SingleHead single = new SingleHead();
+                single.SingleHeadId = singleHeadId;
+                monomers.SingleHeadId = single;
+                monomers.TotalPrice = Convert.ToDouble(totalPrice);
+                monomers.Type = 0;
+                Result row = warehousingBll.insertMono(monomers);
+                if(row == Result.添加成功)
+                {
+                    Response.Write("添加成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
+            }
+            if(op == "del")
+            {
+                int Id = Convert.ToInt32(Request["ID"]);
+                Result row = warehousingBll.deleteMonomer(singleHeadId, Id,0);
+                if (row == Result.删除成功)
+                {
+                    Response.Write("删除成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("删除失败");
+                    Response.End();
+                }
+            }
             if (op == "logout")
             {
                 //删除身份凭证
@@ -61,10 +118,10 @@ namespace bms.Web.InventoryMGT
             string op = Request["op"];
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_Monomers";
-            tbd.OrderBy = "singleHeadId";
+            tbd.OrderBy = "monId";
             tbd.StrColumnlist = "singleHeadId,monId,ISBN,number,uPrice,totalPrice,realPrice,discount,goodsShelvesId,shelvesName,type,deleteState";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "deleteState = 0 and type = 0";
+            tbd.StrWhere = "deleteState=0 and singleHeadId='" + singleHeadId+"'";
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
@@ -76,18 +133,16 @@ namespace bms.Web.InventoryMGT
             for (int i = 0; i < count; i++)
             {
                 System.Data.DataRow dr = ds.Tables[0].Rows[i];
-                sb.Append("<tr><td class='singleHeadId'>" + dr["monId"].ToString() + "</td>");
-                sb.Append("<td>" + dr["ISBN"].ToString() + "</ td >");
-                sb.Append("<td>" + dr["number"].ToString() + "</ td >");
-                sb.Append("<td>" + dr["uPrice"].ToString() + "</ td >");
+                sb.Append("<tr><td>" + dr["monId"].ToString() + "</td>");
+                sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                sb.Append("<td>" + dr["number"].ToString() + "</td>");
+                sb.Append("<td>" + dr["uPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
-                sb.Append("<td>" + dr["realPrice"].ToString() + "</ td >");
-                sb.Append("<td>" + dr["discount"].ToString() + "</ td >");
-                sb.Append("<td>" + dr["shelvesName"].ToString() + "</ td ></ tr >");
-                sb.Append("<td><a href='addWarehouse.aspx?sId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-success btn-sm'><i class='fa fa-plus fa-lg'></i></button></a>");
-                sb.Append("<a href='checkWarehouse.aspx?sId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-info btn-sm'><i class='fa fa-search'></i></button></a>");
-                sb.Append("<input type='hidden' value='" + dr["singleHeadId"].ToString() + "'/>");
-                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></ td ></ tr >");
+                sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
+                sb.Append("<td>" + dr["discount"].ToString() + "</td>");
+                sb.Append("<td>" + dr["shelvesName"].ToString() + "</td>");
+                sb.Append("<td><input type='hidden' value='" + dr["monId"].ToString() + "'/>");
+                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></td></tr>");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
