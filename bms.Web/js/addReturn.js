@@ -116,6 +116,7 @@ $("#btn-add").click(function () {
 
 //删除事件
 $("#table").delegate(".btn-delete", "click", function () {
+    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
     swal({
         title: "是否删除？",
         text: "删除后将无法恢复！！！",
@@ -130,7 +131,7 @@ $("#table").delegate(".btn-delete", "click", function () {
         buttonsStyling: false,
         allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
     }).then(function () {
-        var ID = $(".btn-delete").parent().parent().find("#monId").text().trim();
+        
         $.ajax({
             type: 'Post',
             url: '../InventoryMGT/addReturn.aspx',

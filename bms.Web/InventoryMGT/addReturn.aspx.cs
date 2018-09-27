@@ -23,14 +23,15 @@ namespace bms.Web.InventoryMGT
         string singId;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            singId = Session["singId"].ToString();
             if (!IsPostBack)
             {
-                singId = Session["singId"].ToString();
+                getData();
+                User user = (User)Session["user"];
+                int regId = user.ReginId.RegionId;
+                shelf = shelfbll.Select(regId);
             }
-            getData();
-            User user = (User)Session["user"];
-            int regId = user.ReginId.RegionId;
-            shelf = shelfbll.Select(regId);
             string op = Request["op"];
             if (op == "logout")
             {
@@ -102,7 +103,7 @@ namespace bms.Web.InventoryMGT
             {
 
                 int monId = Convert.ToInt32(Request["ID"]);
-                Result row = warebll.deleteMonomer(Session["returnId"].ToString(), monId);
+                Result row = warebll.deleteMonomer(singId, monId);
                 if (row == Result.删除成功)
                 {
                     Response.Write("删除成功");
@@ -130,7 +131,7 @@ namespace bms.Web.InventoryMGT
             tbd.OrderBy = "monId";
             tbd.StrColumnlist = "monId,ISBN,number,uPrice,totalPrice,realPrice,discount,shelvesName";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "deleteState=0 and singleHeadId=" + Session["returnId"].ToString();
+            tbd.StrWhere = "deleteState=0 and singleHeadId=" + singId;
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
@@ -143,7 +144,7 @@ namespace bms.Web.InventoryMGT
             for (int i = 0; i < count; i++)
             {
                 DataRow dr = dt.Rows[i];
-                sb.Append("<tr><td id='monId'>" + dr["monId"].ToString() + "</td>");
+                sb.Append("<tr><td>" + dr["monId"].ToString() + "</td>");
                 sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
                 sb.Append("<td>" + dr["number"].ToString() + "</td>");
                 sb.Append("<td>" + dr["uPrice"].ToString() + "</td>");
