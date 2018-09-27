@@ -224,12 +224,16 @@
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
+                                            </div>
+                                            <div class="btn-group" role="group">
                                                 <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
+                                            </div>
+                                            <div class="btn-group" role="group">
                                                 <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                             </div>
                                         </div>
                                     </div>
@@ -297,7 +301,7 @@
                                         <nobr>接收组织:</nobr>
                                     </span></td>
                                     <td>
-                                        <select id="regionId">
+                                        <select id="regionId" class="modal_search_add">
                                             <%for(int i=0;i<dsRegion.Tables[0].Rows.Count;i++){ %>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"].ToString() %>"><%=dsRegion.Tables[0].Rows[i]["regionName"].ToString() %></option>
                                             <%} %>
