@@ -226,48 +226,33 @@
                                             <tr>
                                                 <td class="td_text"><span class="span-text"><nobr>单据编号:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" class="form-control"></td>
+                                                    <input type="text" value="<%=putId %>" class="form-control"></td>
                                                 <td class="td_text"><span class="span-text"><nobr>操作员:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" class="form-control"></td>
+                                                    <input type="text" value="<%=putOperator %>" class="form-control"></td>
                                                 <td class="td_text"><span class="span-text"><nobr>单据总数:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" class="form-control"></td>
+                                                    <input type="text" value="<%=putCount %>" class="form-control"></td>
                                             </tr>
                                             <tr>
                                                 <td class="td_text"><span class="span-text"><nobr>入库组织:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" class="form-control"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>商品来源:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" class="form-control"></td>
+                                                    <input type="text" value="<%=putRegionName %>" class="form-control"></td>
                                                 <td class="td_text"><span class="span-text"><nobr>总码洋:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" class="form-control"></td>
+                                                    <input type="text" value="<%=putTotalPrice %>" class="form-control"></td>
                                             </tr>
                                             <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>到货日期:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" class="form-control">
-                                                </td>
-                                                <td class="td_text"><span class="span-text"><nobr>付款日期:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" class="form-control">
-                                                </td>
                                                 <td class="td_text"><span class="span-text"><nobr>总实洋:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" value="<%=putRealPrice %>" class="form-control">
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>备注:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <textarea></textarea>
-                                                </td>
                                                 <td class="td_text"><span class="span-text"><nobr>制单日期:</nobr></span></td>
                                                 <td class="td_width">
                                                     <div class="jeinpbox">
-                                                        <input type="text" class="jeinput input_text" id="test2">
+                                                        <input type="text" value="<%=putTime %>" class="form-control" id="test2">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -281,7 +266,7 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center">
+                                        <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr style="border: 2px solid #DDD">
                                                     <td colspan="9">商品</td>
@@ -298,30 +283,7 @@
                                                     <td>货架号</td>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>10000001</td>
-                                                    <td>1552621533</td>
-                                                    <td>100</td>
-                                                    <td>30￥</td>
-                                                    <td>0.6</td>
-                                                    <td>23</td>
-                                                    <td>34</td>
-                                                    <td>货架一</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>10000001</td>
-                                                    <td>1552621533</td>
-                                                    <td>100</td>
-                                                    <td>30￥</td>
-                                                    <td>0.6</td>
-                                                    <td>23</td>
-                                                    <td>34</td>
-                                                    <td>货架一</td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -365,33 +327,5 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/checkStock.js"></script>
-    <script>
-        var enLang = {
-            name: "en",
-            month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
-            weeks: ["SUN", "MON", "TUR", "WED", "THU", "FRI", "SAT"],
-            times: ["Hour", "Minute", "Second"],
-            timetxt: ["Time", "Start Time", "End Time"],
-            backtxt: "Back",
-            clear: "Clear",
-            today: "Now",
-            yes: "Confirm",
-            close: "Close"
-        }
-        //自定义格式选择
-        jeDate("#test12", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-        jeDate("#test1", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-        jeDate("#test2", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-    </script>
 </body>
-
 </html>
