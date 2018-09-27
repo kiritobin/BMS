@@ -245,16 +245,19 @@
                                                 <td class="td_text"><span class="span-text">实洋:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" id="addOcean" class="input_text"></td>
+                                            </tr>
+                                            <tr>
                                                 <td class="td_text"><span class="span-text">货架号:</span></td>
                                                 <td class="td_width">
                                                     <select class="input_text" id="shelfId">
                                                         <option>请选择货架</option>
-                                                        <%for (int i=0;i<shelf.Tables[0].Rows.Count;i++)
+                                                        <%for (int i = 0; i < shelf.Tables[0].Rows.Count; i++)
                                                             { %>
                                                         <option value="<%=shelf.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=shelf.Tables[0].Rows[i]["shelvesName"] %></option>
-                                                            <%} %>
+                                                        <%} %>
                                                     </select></td>
                                             </tr>
+
                                         </table>
                                         <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
@@ -265,34 +268,24 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center">
+                                        <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr style="border: 2px solid #DDD">
                                                     <td colspan="9">商品</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>序号</td>
                                                     <td>单据编号</td>
                                                     <td>ISBN号</td>
                                                     <td>商品数量</td>
                                                     <td>单价</td>
+                                                    <td>码洋</td>
                                                     <td>折扣</td>
                                                     <td>实洋</td>
-                                                    <td>货架号</td>
+                                                    <td>货架名称</td>
+                                                    <td>操作</td>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>10000001</td>
-                                                    <td>1552621533</td>
-                                                    <td>100</td>
-                                                    <td>30￥</td>
-                                                    <td>0.6</td>
-                                                    <td>23</td>
-                                                    <td>货架一</td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">

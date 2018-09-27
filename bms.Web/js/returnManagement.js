@@ -58,9 +58,10 @@ function logout() {
 
 //添加退货单头
 $("#btnAdd").click(function () {
-    var billCount = $("#billCount").val();
-    var totalPrice = $("#totalPrice").val();
-    var realPrice = $("#realPrice").val();
+    var billCount = $("#billCount").val().trim();
+    var totalPrice = $("#totalPrice").val().trim();
+    var realPrice = $("#realPrice").val().trim();
+    var regionId = $("#regionId").val().trim();
     if (billCount == "") {
         swal({
             title: "温馨提示:)",
@@ -90,10 +91,11 @@ $("#btnAdd").click(function () {
             type: 'Post',
             url: 'returnManagement.aspx',
             data: {
+                regionId: regionId,
                 billCount: billCount,
                 totalPrice: totalPrice,
                 realPrice: realPrice,
-                op:"add"
+                op: "add"
             },
             datatype: 'text',
             success: function (succ) {
@@ -141,10 +143,10 @@ $("#btn-search").click(function () {
             ID: ID,
             region: region,
             user: user,
-            op: "search"
+            op: "paging"
         },
         datatype: 'text',
-        success: function (succ) {
+        success: function (data) {
             $("#intPageCount").remove();
             $("#table tr:not(:first)").empty(); //清空table处首行
             $("#table").append(data); //加载table
@@ -181,6 +183,22 @@ $("#btn-search").click(function () {
     })
 });
 
+
+$("#table").delegate(".btn-add", "click", function () {
+    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+    $.ajax({
+        type: 'Post',
+        url: 'returnManagement.aspx',
+        data: {
+            ID: ID,
+            op: "session"
+        },
+        dataType: 'text',
+        success: function (succ) {
+            window.location.href = "../InventoryMGT/addReturn.aspx";
+        }
+    });
+})
 //删除
 $("#table").delegate(".btn-delete", "click", function () {
     swal({
@@ -197,7 +215,7 @@ $("#table").delegate(".btn-delete", "click", function () {
         buttonsStyling: false,
         allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
     }).then(function () {
-        var ID = $(".btn-delete").parent().parent().find("#singleHeadId").text().trim();
+        var ID = $(".btn-delete").prev().val();
         $.ajax({
             type: 'Post',
             url: 'returnManagement.aspx',

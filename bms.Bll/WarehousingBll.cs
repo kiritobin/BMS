@@ -52,9 +52,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="monId">单头id</param>
         /// <returns>返回行数</returns>
-        public int getCount(int singleHeadId)
+        public long getCount(long singleHeadId)
         {
-            int row = monoDao.SelectBymonId(singleHeadId);
+            long row = monoDao.SelectBymonId(singleHeadId);
             if (row > 0)
             {
                 return row;
@@ -79,9 +79,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="singleHeadId">单头id</param>
         /// <returns></returns>
-        public Result deleteHead(string singleHeadId)
+        public Result deleteHead(string singleHeadId,int type)
         {
-            int row = monoDao.deleteHead(singleHeadId);
+            int row = monoDao.deleteHead(singleHeadId,type);
             if (row > 0)
             {
                 return Result.删除成功;
@@ -100,6 +100,23 @@ namespace bms.Bll
         public int countHead(int type)
         {
             return monoDao.countHead(type);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="singleHeadId"></param>
+        /// <returns></returns>
+        public Result deleteMonomer(string singleHeadId,int monId)
+        {
+            int row = monoDao.deleteMonomer(singleHeadId,monId);
+            if (row > 0)
+            {
+                return Result.删除成功;
+            }
+            else
+            {
+                return Result.删除失败;
+            }
         }
     }
 }

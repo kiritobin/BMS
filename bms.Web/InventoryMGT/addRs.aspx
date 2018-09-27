@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addWarehouse.aspx.cs" Inherits="bms.Web.InventoryMGT.addWarehouse" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addRs.aspx.cs" Inherits="bms.Web.InventoryMGT.addRs" %>
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -215,10 +214,10 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="card-header card-header-danger">
-                                        <h4 class="card-title">出库添加</h4>
+                                        <h4 class="card-title">补货添加</h4>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="btnAdd">确定添加</button>
+                                        <button class="btn btn-info btn-sm" id="btn-search">确定添加</button>
                                     </div>
                                     <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
@@ -226,35 +225,39 @@
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
                                             <tr>
+                                                <td class="td_text"><span class="span-text"><nobr>补货单编号:</nobr></span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class=""></td>
+                                                <td class="td_text"><span class="span-text"><nobr>书号:</nobr></span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class=""></td>
                                                 <td class="td_text"><span class="span-text"><nobr>ISBN号:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" id="isbn"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>商品总数:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="billCount"></td>
+                                                    <input type="text" value="" class=""></td>
                                                 <td class="td_text"><span class="span-text"><nobr>单价:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" id="uPrice"></td>
-                                                <tr>
-
-                                                    <td class="td_text"><span class="span-text"><nobr>折扣:</nobr></span></td>
+                                                    <input type="text" class="float-left"></td>
+                                                
+                                                <tr>                                                   
+                                                    <td class="td_text"><span class="span-text"><nobr>实际折扣:</nobr></span></td>
                                                     <td class="td_width">
-                                                        <input type="text" id="discount"></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>码洋:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" id="totalPrice"></td>
+                                                        <input type="text" value="" class=""></td>
                                                     <td class="td_text"><span class="span-text"><nobr>实洋:</nobr></span></td>
                                                     <td class="td_width">
-                                                        <input type="text" id="realPrice"></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>货架:</nobr></span></td>
+                                                        <input type="text" value="" class=""></td>
+                                                    <td class="td_text"><span class="span-text"><nobr>码洋:</nobr></span></td>
                                                     <td class="td_width">
-                                                        <select id="goods">
-                                                            <%for(int i=0;i<dsGoods.Tables[0].Rows.Count;i++){ %>
-                                                            <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
-                                                            <%} %>
-                                                        </select>
-                                                    </td>
+                                                        <input type="text" value="" class=""></td>
+                                                     <td class="td_text"><span class="span-text"><nobr>总价:</nobr></span></td>
+                                                    <td class="td_width">
+                                                    <input type="text" class="float-left"></td>                                                     
                                                 </tr>
+
+                                            <tr>
+                                                <td class="td_text"><span class="span-text"><nobr>备注:</nobr></span></td>
+                                                <td class="td_width" colspan="2">
+                                                    <textarea class="float_left"></textarea></td>
+                                            </tr>
                                         </table>
                                         <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
@@ -265,23 +268,40 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center" id="table">
+                                        <table class="table mostTable table-bordered text-center">
                                             <thead>
                                                 <tr style="border: 2px solid #DDD">
-                                                    <td colspan="9">商品</td>
+                                                    <td colspan="11">商品</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>单据编号</td>
+                                                    <td>序号</td>
+                                                    <td>补货单编号</td>
+                                                    <td>补货日期</td>
+                                                    <td>书号</td>
                                                     <td>ISBN号</td>
-                                                    <td>商品数量</td>
+                                                    <td>总价</td>
                                                     <td>单价</td>
-                                                    <td>折扣</td>
-                                                    <td>码洋</td>
+                                                    <td>数量</td>
+                                                    <td>实际折扣</td>
                                                     <td>实洋</td>
-                                                    <td>货架名称</td>
+                                                    <td>码洋</td>                                                    
                                                 </tr>
                                             </thead>
-                                            
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>10000001</td>
+                                                    <td>2018-7-9</td>
+                                                    <td>11324340</td>
+                                                    <td>100</td>
+                                                    <td>1130￥</td>
+                                                    <td>30￥</td>
+                                                    <td>307</td>
+                                                    <td>0.6</td>
+                                                    <td>23</td>
+                                                    <td>34</td>
+                                                </tr>                                                
+                                            </tbody>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">

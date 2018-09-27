@@ -1,9 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addWarehouse.aspx.cs" Inherits="bms.Web.InventoryMGT.addWarehouse" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="checkRs.aspx.cs" Inherits="bms.Web.InventoryMGT.checkRs" %>
 
 <!DOCTYPE html>
 
 <html class="no-js">
 <!--<![endif]-->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -40,7 +41,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-            <div class="sidebar-wrapper">
+        <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -214,48 +215,38 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="card-header card-header-danger">
-                                        <h4 class="card-title">出库添加</h4>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="btnAdd">确定添加</button>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
-                                            </div>
+                                <div class="card-header card-header-danger">
+                                    <h4 class="card-title">补货查询</h4>
+                                </div>
+                                 <div class="btn-group" role="group">  
+                                <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true">打印</i></button>
+                                        </div>
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
                                             <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>ISBN号:</nobr></span></td>
+                                                <td class="td_text"><span class="span-text"><nobr>操作员:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" id="isbn"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>商品总数:</nobr></span></td>
+                                                    <input type="text" class="form-control"></td>
+                                                <td class="td_text"><span class="span-text"><nobr>书号:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" id="billCount"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>单价:</nobr></span></td>
+                                                    <input type="text" class="form-control"></td>
+                                                 <td class="td_text"><span class="span-text"><nobr>ISBN:</nobr></span></td>
                                                 <td class="td_width">
-                                                    <input type="text" id="uPrice"></td>
-                                                <tr>
-
-                                                    <td class="td_text"><span class="span-text"><nobr>折扣:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" id="discount"></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>码洋:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" id="totalPrice"></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>实洋:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" id="realPrice"></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>货架:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <select id="goods">
-                                                            <%for(int i=0;i<dsGoods.Tables[0].Rows.Count;i++){ %>
-                                                            <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
-                                                            <%} %>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                        </table>
+                                                    <input type="text" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td_text"><span class="span-text"><nobr>备注:</nobr></span></td>
+                                                <td class="td_width">
+                                                    <textarea></textarea>
+                                                </td>
+                                                <td class="td_text"><span class="span-text"><nobr>制单日期:</nobr></span></td>
+                                                <td class="td_width">
+                                                    <div class="jeinpbox">
+                                                        <input type="text" class="jeinput input_text" id="test1">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>                                      
                                         <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
@@ -265,23 +256,34 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center" id="table">
+                                        <table class="table mostTable table-bordered text-center">
                                             <thead>
                                                 <tr style="border: 2px solid #DDD">
                                                     <td colspan="9">商品</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>单据编号</td>
-                                                    <td>ISBN号</td>
-                                                    <td>商品数量</td>
+                                                    <td>序号</td>
                                                     <td>单价</td>
-                                                    <td>折扣</td>
-                                                    <td>码洋</td>
+                                                    <td>数量</td>
+                                                    <td>总价</td>
+                                                    <td>实际折扣</td>
                                                     <td>实洋</td>
-                                                    <td>货架名称</td>
+                                                    <td>码洋</td>
+                                                    <td>日期</td>
                                                 </tr>
                                             </thead>
-                                            
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>10</td>
+                                                    <td>155</td>
+                                                    <td>100￥</td>
+                                                    <td>0.6</td>
+                                                    <td>23</td>
+                                                    <td>34</td>
+                                                    <td>2012-10-2</td>
+                                                </tr>                                                
+                                            </tbody>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -294,52 +296,7 @@
                         </div>
                     </div>
                 </div>
-                <!--导入模态框-->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">数据操作
-                            </h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="material-icons">clear</i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table text-center model-table">
-                                <tr>
-                                    <td colspan="2">
-                                        <a class="btn btn-success" id="downEx" href="/uploads/muban/客户馆藏数据表.xls">下载模板</a>
-                                        <span class="btn btn-success fileinput-button">
-                                            <span>选择文件</span>
-                                            <input type="file" class="" name="file" id="file" value="">
-                                        </span>
-                                        <button class="btn btn-success" id="upload">上传</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-success" id="btnImport" data-toggle="modal">导入</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="width: 500px; height: 500px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
-                            <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
-                                <i class="material-icons">clear</i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+
                 <!-- 主界面页脚部分 -->
                 <footer class="footer">
                     <div class="container-fluid">
@@ -348,8 +305,7 @@
                             &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>
-                            &nbsp;版权所有
+                        </script>&nbsp;版权所有
                         </div>
                     </div>
                 </footer>
@@ -370,8 +326,8 @@
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
-    <script src="../js/addWarehouse.js"></script>
-    <%-- <script>
+    <script src="../js/checkStock.js"></script>
+    <script>
         var enLang = {
             name: "en",
             month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
@@ -384,20 +340,12 @@
             yes: "Confirm",
             close: "Close"
         }
-       //自定义格式选择
-        jeDate("#test12", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
+        //自定义格式选择
         jeDate("#test1", {
             theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
             format: "YYYY年MM月DD日"
         });
-        jeDate("#test2", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-    </script>--%>
+    </script>
 </body>
 
 </html>
