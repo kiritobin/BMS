@@ -245,6 +245,8 @@
                                                 <td class="td_text"><span class="span-text">实洋:</span></td>
                                                 <td class="td_width">
                                                     <input type="text" id="addOcean" class="input_text"></td>
+                                            </tr>
+                                            <tr>
                                                 <td class="td_text"><span class="span-text">货架号:</span></td>
                                                 <td class="td_width">
                                                     <select class="input_text" id="shelfId">
@@ -255,6 +257,7 @@
                                                         <%} %>
                                                     </select></td>
                                             </tr>
+
                                         </table>
                                         <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
@@ -265,7 +268,7 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center"  id="table">
+                                        <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr style="border: 2px solid #DDD">
                                                     <td colspan="9">商品</td>
@@ -282,10 +285,10 @@
                                                     <td>操作</td>
                                                 </tr>
                                             </thead>
-                                           <%=getData() %>
+                                            <%=getData() %>
                                         </table>
                                     </div>
-                                     <div class="copyright float-right page-box">
+                                    <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
                                         </div>

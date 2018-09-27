@@ -15,11 +15,13 @@ namespace bms.Web.BasicInfor
     public partial class replenishList : System.Web.UI.Page
     {
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
-        public DataSet ds;
+        public DataSet ds,dsRegion;
         UserBll userBll = new UserBll();
+        RegionBll regionBll = new RegionBll();
         WarehousingBll wareBll = new WarehousingBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            dsRegion = regionBll.select();
             User user = (User)Session["user"];
             string op = Request["op"];
             if (op == "add")
@@ -28,12 +30,15 @@ namespace bms.Web.BasicInfor
                 string billCount = Request["billCount"];
                 string totalPrice = Request["totalPrice"];
                 string realPrice = Request["realPrice"];
+                string regionId = Request["regionId"];
                 SingleHead single = new SingleHead();
                 single.AllBillCount = Convert.ToInt32(billCount);
                 single.AllRealPrice = Convert.ToInt32(realPrice);
                 single.AllTotalPrice = Convert.ToInt32(totalPrice);
-                single.Region = user.ReginId;
-                single.SingleHeadId = "TH"+DateTime.Now+ count.ToString().PadLeft(6, '0');
+                Region region = new Region();
+                region.RegionId = Convert.ToInt32(regionId);
+                single.Region = region;
+                single.SingleHeadId = "TH"+DateTime.Now.Date.ToString("yyyyMMdd")+ count.ToString().PadLeft(6, '0');
                 single.Time = DateTime.Now;
                 single.Type = 2;
                 single.User = user;
@@ -63,6 +68,12 @@ namespace bms.Web.BasicInfor
                     Response.Write("删除失败");
                     Response.End();
                 }
+            }
+            if (op== "session")
+            {
+                Session["singId"] = Request["ID"];
+                Response.Write("成功");
+                Response.End();
             }
             if (op == "logout")
             {
@@ -142,16 +153,17 @@ namespace bms.Web.BasicInfor
             for (int i = 0; i < count; i++)
             {
                 DataRow dr = dt.Rows[i];
-                sb.Append("<tr><td id='singleHeadId'>" + dr["singleHeadId"].ToString() + "</td>");
-                sb.Append("<td>" + dr["regionName"].ToString() + "</ td >");
-                sb.Append("<td>" + dr["userName"].ToString() + "</ td >");
-                sb.Append("<td>" + dr["allBillCount"].ToString() + "</ td >");
+                sb.Append("<tr><td>" + dr["singleHeadId"].ToString() + "</td>");
+                sb.Append("<td>" + dr["regionName"].ToString() + "</td>");
+                sb.Append("<td>" + dr["userName"].ToString() + "</td>");
+                sb.Append("<td>" + dr["allBillCount"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
-                sb.Append("<td>" + dr["allRealPrice"].ToString() + "</ td >");
-                sb.Append("<td>" + dr["time"].ToString() + "</ td ></ tr >");
-                sb.Append("<td><a href='addReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-success'><i class='fa fa-plus'></i></button></a>");
-                sb.Append("<a href='checkReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-info'><i class='fa fa-search'></i></button></a>");
-                sb.Append("<button class='btn btn-danger btn-delete'><i class='fa fa-trash'></i></button></ td ></ tr >");
+                sb.Append("<td>" + dr["allRealPrice"].ToString() + "</td>");
+                sb.Append("<td>" + dr["time"].ToString() + "</ td >");
+                sb.Append("<td><button class='btn btn-success btn-add'><i class='fa fa-plus'></i></button>");
+                sb.Append("<button class='btn btn-info btn-add'><i class='fa fa-search'></i></button>");
+                sb.Append("<input type='hidden' value='" + dr["singleHeadId"].ToString() + "' />");
+                sb.Append("<button class='btn btn-danger btn-delete'><i class='fa fa-trash'></i></button></td></tr>");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");

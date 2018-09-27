@@ -47,6 +47,9 @@
                                         <input type="text" value="" class="sales_search">
                                         <button class="btn btn-info">查询</button>
                                     </div>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print" aria-hidden="true"></i></button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="content_tab col-md-12">
@@ -76,9 +79,6 @@
                                                 <td>
                                                     <button class="btn btn-danger">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </button>
-                                                    <button class="btn btn-success">
-                                                        <i class="fa fa-print" aria-hidden="true"></i>
                                                     </button>
                                                 </td>
                                             </tr>

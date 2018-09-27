@@ -9,13 +9,11 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var search = $("#btn-search").val();
             $.ajax({
                 type: 'Post',
                 url: '../InventoryMGT/addReturn.aspx',
                 data: {
                     page: api.getCurrent(), //页码
-                    search: search,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -118,6 +116,7 @@ $("#btn-add").click(function () {
 
 //删除事件
 $("#table").delegate(".btn-delete", "click", function () {
+    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
     swal({
         title: "是否删除？",
         text: "删除后将无法恢复！！！",
@@ -132,7 +131,7 @@ $("#table").delegate(".btn-delete", "click", function () {
         buttonsStyling: false,
         allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
     }).then(function () {
-        var ID = $(".btn-delete").parent().parent().find("#monId").text().trim();
+        
         $.ajax({
             type: 'Post',
             url: '../InventoryMGT/addReturn.aspx',
