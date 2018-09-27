@@ -14,21 +14,19 @@ namespace bms.Web.InventoryMGT
     using Result = Enums.OpResult;
     public partial class addReturn : System.Web.UI.Page
     {
+
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
         GoodsShelvesBll shelfbll = new GoodsShelvesBll();
         UserBll userBll = new UserBll();
         protected DataSet ds, shelf;
         WarehousingBll warebll = new WarehousingBll();
-        string singleId;
+        string singId;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (Session["returnId"] == null)
+            if (!IsPostBack)
             {
-                string returnId = Request.QueryString["returnId"];
-                Session["returnId"] = returnId;
+                singId = Session["singId"].ToString();
             }
-            singleId = Request.QueryString["returnId"];
             getData();
             User user = (User)Session["user"];
             int regId = user.ReginId.RegionId;
@@ -104,7 +102,7 @@ namespace bms.Web.InventoryMGT
             {
 
                 int monId = Convert.ToInt32(Request["ID"]);
-                Result row = warebll.deleteMonomer(singleId, monId);
+                Result row = warebll.deleteMonomer(Session["returnId"].ToString(), monId);
                 if (row == Result.删除成功)
                 {
                     Response.Write("删除成功");
@@ -132,7 +130,7 @@ namespace bms.Web.InventoryMGT
             tbd.OrderBy = "monId";
             tbd.StrColumnlist = "monId,ISBN,number,uPrice,totalPrice,realPrice,discount,shelvesName";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "deleteState=0 and singleHeadId=" + singleId;
+            tbd.StrWhere = "deleteState=0 and singleHeadId=" + Session["returnId"].ToString();
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
