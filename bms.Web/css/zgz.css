@@ -64,7 +64,8 @@
     padding-bottom: 0px;
 }
 
-.mostTable > tbody > tr > td > button {
+.mostTable > tbody > tr > td > button,
+.mostTable > tbody > tr > td > a > button {
     padding: 5px !important;
 }
 

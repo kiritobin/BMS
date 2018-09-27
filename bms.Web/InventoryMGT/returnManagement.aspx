@@ -13,17 +13,17 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 材料图标样式 -->
-    <link rel="stylesheet" href="../css/materialdesignicons.css"/>
+    <link rel="stylesheet" href="../css/materialdesignicons.css" />
     <!-- 字体图标样式 -->
-    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css" />
     <!-- css样式 -->
-    <link rel="stylesheet" href="../css/material-dashboard.min.css"/>
+    <link rel="stylesheet" href="../css/material-dashboard.min.css" />
     <link rel="stylesheet" href="../css/pagination.css" />
-    <link rel="stylesheet" href="../css/zgz.css"/>
-    <link rel="stylesheet" href="../css/lgd.css"/>
-    <link rel="stylesheet" href="../css/qc.css"/>
+    <link rel="stylesheet" href="../css/zgz.css" />
+    <link rel="stylesheet" href="../css/lgd.css" />
+    <link rel="stylesheet" href="../css/qc.css" />
     <!-- 时间input样式 -->
-    <link rel="stylesheet" href="../css/jedate.css"/>
+    <link rel="stylesheet" href="../css/jedate.css" />
 </head>
 
 <body>
@@ -43,7 +43,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-          <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -178,8 +178,7 @@
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                    </div>
+                    <div class="navbar-wrapper"></div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -224,12 +223,16 @@
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
+                                            </div>
+                                            <div class="btn-group" role="group">
                                                 <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
+                                            </div>
+                                            <div class="btn-group" role="group">
                                                 <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
-                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                             </div>
                                         </div>
                                     </div>
@@ -262,40 +265,50 @@
                     </div>
                 </div>
             </div>
-<!--添加模态框-->
-        <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="max-width:700px;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title float-left" id="myModalLabel">退货添加</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            <i class="material-icons">clear</i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table model-table">
-                             <tr>
-                                <td class="text-right"><span><nobr>单据总数:</nobr></span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add float-left" id="billCount">
-                                </td>
-                                <td class="text-right"><span><nobr>总码洋:</nobr></span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add float-left" id="totalPrice">
-                                </td>
-                                <td class="text-right"><span><nobr>总实洋:</nobr></span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add float-left" id="realPrice">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+            <!--添加模态框-->
+            <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="max-width: 350px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel">退货添加</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table model-table">
+                                <tr>
+                                    <td class="text-right"><span>
+                                        <nobr>单据总数:</nobr>
+                                    </span></td>
+                                    <td>
+                                        <input type="text" class="modal_search_add" id="billCount">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"><span>
+                                        <nobr>总码洋:</nobr>
+                                    </span></td>
+                                    <td>
+                                        <input type="text" class="modal_search_add" id="totalPrice">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"><span>
+                                        <nobr>总实洋:</nobr>
+                                    </span></td>
+                                    <td>
+                                        <input type="text" class="modal_search_add" id="realPrice">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -324,7 +337,6 @@
     <script src="../js/sweetalert2.js"></script>
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/bookshelfManagement.js"></script>
     <script src="../js/returnManagement.js"></script>
     <!-- 时间inputjs -->
     <%--<script src="../js/jedate.min.js"></script>

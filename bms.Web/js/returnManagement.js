@@ -62,11 +62,29 @@ $("#btnAdd").click(function () {
     var totalPrice = $("#totalPrice").val();
     var realPrice = $("#realPrice").val();
     if (billCount == "") {
-        alert("单据总数不能为空");
+        swal({
+            title: "温馨提示:)",
+            text: "单据总数不能为空，请您重新输入",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
     } else if (totalPrice == "") {
-        alert("总码洋不能为空");
+        swal({
+            title: "温馨提示:)",
+            text: "总码洋不能为空，请您重新输入",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
     } else if (realPrice == "") {
-        alert("总实洋不能为空");
+        swal({
+            title: "温馨提示:)",
+            text: "总实洋不能为空，请您重新输入",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);;
     } else {
         $.ajax({
             type: 'Post',
@@ -81,7 +99,7 @@ $("#btnAdd").click(function () {
             success: function (succ) {
                 if (succ == "添加成功") {
                     swal({
-                        title: succ,
+                        title: "温馨提示:)",
                         text: succ,
                         type: "success",
                         confirmButtonColor: '#3085d6',
@@ -94,7 +112,7 @@ $("#btnAdd").click(function () {
                     })
                 } else {
                     swal({
-                        title: succ,
+                        title: "温馨提示:)",
                         text: succ,
                         type: "warning",
                         confirmButtonColor: '#3085d6',
@@ -123,10 +141,10 @@ $("#btn-search").click(function () {
             ID: ID,
             region: region,
             user: user,
-            op: "search"
+            op: "paging"
         },
         datatype: 'text',
-        success: function (succ) {
+        success: function (data) {
             $("#intPageCount").remove();
             $("#table tr:not(:first)").empty(); //清空table处首行
             $("#table").append(data); //加载table
@@ -166,8 +184,8 @@ $("#btn-search").click(function () {
 //删除
 $("#table").delegate(".btn-delete", "click", function () {
     swal({
-        title: "是否删除？",
-        text: "删除后将无法恢复！！！",
+        title: "温馨提示:)",
+        text: "删除后将无法恢复,您确定要删除吗？？？",
         type: "question",
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -179,7 +197,7 @@ $("#table").delegate(".btn-delete", "click", function () {
         buttonsStyling: false,
         allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
     }).then(function () {
-        var ID = $(".btn-delete").parent().parent().find("#singleHeadId").text().trim();
+        var ID = $(".btn-delete").prev().val();
         $.ajax({
             type: 'Post',
             url: 'returnManagement.aspx',
