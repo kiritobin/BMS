@@ -306,7 +306,7 @@
                                         <nobr>接收组织:</nobr>
                                     </span></td>
                                     <td>
-                                        <select id="region">
+                                        <select id="regionId">
                                             <%for(int i=0;i<dsRegion.Tables[0].Rows.Count;i++){ %>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"].ToString() %>"><%=dsRegion.Tables[0].Rows[i]["regionName"].ToString() %></option>
                                             <%} %>

@@ -30,7 +30,7 @@ namespace bms.Web.BasicInfor
                 string billCount = Request["billCount"];
                 string totalPrice = Request["totalPrice"];
                 string realPrice = Request["realPrice"];
-                string regionId = Request["region"];
+                string regionId = Request["regionId"];
                 SingleHead single = new SingleHead();
                 single.AllBillCount = Convert.ToInt32(billCount);
                 single.AllRealPrice = Convert.ToInt32(realPrice);
@@ -38,7 +38,7 @@ namespace bms.Web.BasicInfor
                 Region region = new Region();
                 region.RegionId = Convert.ToInt32(regionId);
                 single.Region = region;
-                single.SingleHeadId = "TH"+DateTime.Now+ count.ToString().PadLeft(6, '0');
+                single.SingleHeadId = "TH"+DateTime.Now.Date.ToString("yyyyMMdd")+ count.ToString().PadLeft(6, '0');
                 single.Time = DateTime.Now;
                 single.Type = 2;
                 single.User = user;

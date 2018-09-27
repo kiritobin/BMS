@@ -58,10 +58,10 @@ function logout() {
 
 //添加退货单头
 $("#btnAdd").click(function () {
-    var billCount = $("#billCount").val();
-    var totalPrice = $("#totalPrice").val();
-    var realPrice = $("#realPrice").val();
-    var region = $("#region").val();
+    var billCount = $("#billCount").val().trim();
+    var totalPrice = $("#totalPrice").val().trim();
+    var realPrice = $("#realPrice").val().trim();
+    var regionId = $("#regionId").val().trim();
     if (billCount == "") {
         swal({
             title: "温馨提示:)",
@@ -91,7 +91,7 @@ $("#btnAdd").click(function () {
             type: 'Post',
             url: 'returnManagement.aspx',
             data: {
-                region: region,
+                regionId: regionId,
                 billCount: billCount,
                 totalPrice: totalPrice,
                 realPrice: realPrice,
