@@ -119,5 +119,18 @@ namespace bms.Dao
                 return null;
             }
         }
+        /// <summary>
+        /// 判断该用户是否已经被删除
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <returns>返回受影响的行数</returns>
+        public DataSet SelectDeleteState(int userId)
+        {
+            string cmdText = "select deleteState=1 from T_User where userID=@userId";
+            string[] param = { "@userId" };
+            object[] values = { userId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
+        }
     }
 }
