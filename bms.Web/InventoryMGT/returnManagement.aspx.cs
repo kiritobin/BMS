@@ -152,9 +152,9 @@ namespace bms.Web.BasicInfor
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allRealPrice"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["time"].ToString() + "</ td ></ tr >");
-                sb.Append("<td><a href='addReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-success btn-sm'><i class='fa fa-plus fa-lg'></i></button></a>");
-                sb.Append("<a href='checkReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-info btn-sm'><i class='fa fa-search'></i></button></a>");
-                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></ td ></ tr >");
+                sb.Append("<td><a href='addReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-success'><i class='fa fa-plus'></i></button></a>");
+                sb.Append("<a href='checkReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-info'><i class='fa fa-search'></i></button></a>");
+                sb.Append("<button class='btn btn-danger btn-delete'><i class='fa fa-trash'></i></button></ td ></ tr >");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
