@@ -171,5 +171,24 @@ namespace bms.Bll
                 return Result.记录不存在;
             }
         }
+
+        /// <summary>
+        /// 查询客户的删除状态
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public Result DeleteState(int customerId)
+        {
+            DataSet ds = customerDao.DeleteState(customerId);
+            int row = Convert.ToInt32(ds.Tables[0].Rows[0]["deleteState=1"]);
+            if (row > 0)
+            {
+                return Result.记录不存在;
+            }
+            else
+            {
+                return Result.记录存在;
+            }
+        }
     }
 }

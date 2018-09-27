@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web
 {
+    using Result = Enums.OpResult;
     public partial class login : System.Web.UI.Page
     {
         LoginBll loginBll = new LoginBll();
@@ -51,6 +52,7 @@ namespace bms.Web
         //}
         protected void Page_Load(object sender, EventArgs e)
         {
+            UserBll userBll = new UserBll();
             string op = Request["op"];
             string userType = Request["user"];
             if (op == "login")
@@ -59,23 +61,32 @@ namespace bms.Web
                 string pwd = rsa.Decrypt(Request["pwd"]);
                 User user = loginBll.getPwdByUserId(account);
                 string userPwd = rsa.Decrypt(user.Pwd);
-                if (user.UserId.ToString() == account && userPwd == pwd)
+                Result row = userBll.SelectDeleteState(int.Parse(account));
+                if (row == Result.记录不存在)
                 {
-                    Session["user"] = user;
-                    Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
-                    FormsAuthenticationTicket Ticket = new FormsAuthenticationTicket(1, account, DateTime.Now, DateTime.Now.AddMinutes(30), true, "staff"); //建立身份验证票对象 
-                    string HashTicket = FormsAuthentication.Encrypt(Ticket); //加密序列化验证票为字符串 
-                    Session["HashTicket"] = HashTicket;
-                    HttpCookie UserCookie = new HttpCookie(FormsAuthentication.FormsCookieName, HashTicket); //生成Cookie 
-                    Context.Response.Cookies.Add(UserCookie); //票据写入Cookie
-                    //isLogined(account);
-                    Response.Write("登录成功");
+                    Response.Write("该账号不存在");
                     Response.End();
                 }
                 else
                 {
-                    Response.Write("登录失败");
-                    Response.End();
+                    if (user.UserId.ToString() == account && userPwd == pwd)
+                    {
+                        Session["user"] = user;
+                        Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                        FormsAuthenticationTicket Ticket = new FormsAuthenticationTicket(1, account, DateTime.Now, DateTime.Now.AddMinutes(30), true, "staff"); //建立身份验证票对象 
+                        string HashTicket = FormsAuthentication.Encrypt(Ticket); //加密序列化验证票为字符串 
+                        Session["HashTicket"] = HashTicket;
+                        HttpCookie UserCookie = new HttpCookie(FormsAuthentication.FormsCookieName, HashTicket); //生成Cookie 
+                        Context.Response.Cookies.Add(UserCookie); //票据写入Cookie
+                                                                  //isLogined(account);
+                        Response.Write("登录成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("登录失败");
+                        Response.End();
+                    }
                 }
             }
         }

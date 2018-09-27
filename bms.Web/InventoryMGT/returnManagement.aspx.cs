@@ -69,6 +69,12 @@ namespace bms.Web.BasicInfor
                     Response.End();
                 }
             }
+            if (op== "session")
+            {
+                Session["singId"] = Request["ID"];
+                Response.Write("成功");
+                Response.End();
+            }
             if (op == "logout")
             {
                 //删除身份凭证
@@ -154,8 +160,8 @@ namespace bms.Web.BasicInfor
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allRealPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["time"].ToString() + "</ td >");
-                sb.Append("<td><a href='addReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-success'><i class='fa fa-plus'></i></button></a>");
-                sb.Append("<a href='checkReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-info'><i class='fa fa-search'></i></button></a>");
+                sb.Append("<td><button class='btn btn-success btn-add'><i class='fa fa-plus'></i></button>");
+                sb.Append("<button class='btn btn-info btn-add'><i class='fa fa-search'></i></button>");
                 sb.Append("<input type='hidden' value='" + dr["singleHeadId"].ToString() + "' />");
                 sb.Append("<button class='btn btn-danger btn-delete'><i class='fa fa-trash'></i></button></td></tr>");
             }

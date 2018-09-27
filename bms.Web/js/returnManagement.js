@@ -95,7 +95,7 @@ $("#btnAdd").click(function () {
                 billCount: billCount,
                 totalPrice: totalPrice,
                 realPrice: realPrice,
-                op:"add"
+                op: "add"
             },
             datatype: 'text',
             success: function (succ) {
@@ -183,6 +183,22 @@ $("#btn-search").click(function () {
     })
 });
 
+
+$("#table").delegate(".btn-add", "click", function () {
+    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+    $.ajax({
+        type: 'Post',
+        url: 'returnManagement.aspx',
+        data: {
+            ID: ID,
+            op: "session"
+        },
+        dataType: 'text',
+        success: function (succ) {
+            window.location.href = "../InventoryMGT/addReturn.aspx";
+        }
+    });
+})
 //删除
 $("#table").delegate(".btn-delete", "click", function () {
     swal({

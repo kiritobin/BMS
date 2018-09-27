@@ -1,5 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="checkStock.aspx.cs" Inherits="bms.Web.InventoryMGT.checkStock" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="replenishMent.aspx.cs" Inherits="bms.Web.InventoryMGT.replenishMent" %>
 
+<%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -18,10 +19,11 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/pagination.css" />
-    <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
+    <!-- 时间input样式 -->
+    <link rel="stylesheet" href="../css/jedate.css"/>
 </head>
 
 <body>
@@ -41,7 +43,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-        <div class="sidebar-wrapper">
+           <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -111,7 +113,7 @@
                         <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="warehouseManagement.aspx">
+                                    <a class="nav-link activeNext" href="warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
@@ -214,76 +216,58 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-body">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">入库查询</h4>
+                                    <h4 class="card-title">补货管理</h4>
                                 </div>
-                                 <div class="btn-group" role="group">  
-                                <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true">打印</i></button>
-                                        </div>
+                                <div class="card-body">
                                     <div class="card-header from-group">
-                                        <table class="table text-center table_stock">
-                                            <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>单据编号:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putId %>" class="form-control"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>操作员:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putOperator %>" class="form-control"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>单据总数:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putCount %>" class="form-control"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>入库组织:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putRegionName %>" class="form-control"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>总码洋:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putTotalPrice %>" class="form-control"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>总实洋:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="<%=putRealPrice %>" class="form-control">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>制单日期:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <div class="jeinpbox">
-                                                        <input type="text" value="<%=putTime %>" class="form-control" id="test2">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>                                      
-                                        <%--<div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                              &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
-                                        </div>--%>
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="searchOne" placeholder="请输入查询条件">
+                                                <button class="btn btn-info btn-sm" id="btn-search">查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center" id="table">
+                                        <table class="table text-center table-bordered mostTable">
                                             <thead>
-                                                <tr style="border: 2px solid #DDD">
-                                                    <td colspan="9">商品</td>
-                                                </tr>
                                                 <tr>
-                                                    <td>序号</td>
-                                                    <td>单据编号</td>
-                                                    <td>ISBN号</td>
-                                                    <td>商品数量</td>
-                                                    <td>单价</td>
-                                                    <td>折扣</td>
-                                                    <td>实洋</td>
-                                                    <td>码洋</td>
-                                                    <td>货架号</td>
+                                                    <th>补货单ID</th>
+                                                    <th>销售任务ID</th>
+                                                    <th>品种数</th>
+                                                    <th>数量</th>
+                                                    <th>操作员名称</th>
+                                                    <th>状态</th>
+                                                    <th>制单时间</th>
+                                                    <th>总实洋</th>
+                                                    <th>总码洋</th>
+                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
-                                            <%=getData() %>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td>10000023</td>
+                                                    <td>10899923</td>
+                                                    <td>103</td>
+                                                    <td>100</td>
+                                                    <td>爱丽丝</td>
+                                                    <td>0</td>
+                                                    <td>2018-8-7</td>
+                                                    <td>673</td>
+                                                    <td>536</td>                                                   
+                                                    <td>
+                                                        <!-- 查询与删除按钮 -->
+                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='addRs.aspx'"><i class="fa fa-plus fa-lg"></i></button>
+                                                        <button class="btn btn-info btn-sm" onclick="window.location.href='checkRs.aspx'"><i class="fa fa-search"></i></button>
+                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -296,36 +280,74 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+            </div>
+            <!--添加模态框-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" style="max-width:350px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left" id="myModalLabel">补货添加</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="material-icons">clear</i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table model-table">
+                             <tr>
+                                <td class="text-right"><span>数量:</span></td>
+                                <td>
+                                    <input type="text" value="" class="modal_search_add" id="billCount" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><span>总码用:</span></td>
+                                <td>
+                                    <input type="text" value="" class="modal_search_add" id="totalPrice" placeholder="">
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="text-right"><span>总实洋:</span></td>
+                                <td>
+                                    <input type="text" value="" class="modal_search_add" id="realPrice" placeholder="">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
-                        </div>
+                        </script>
+                        &nbsp;版权所有
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
-    <!-- 左侧导航栏所需js -->
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/bootstrap-material-design.min.js"></script>
-    <!-- 移动端手机菜单所需js -->
-    <script src="../js/perfect-scrollbar.jquery.min.js"></script>
-    <script src="../js/material-dashboard.min.js"></script>
-    <!-- selectpicker.js -->
-    <script src="../js/bootstrap-selectpicker.js"></script>
-    <!-- alert.js -->
-    <script src="../js/sweetalert2.js"></script>
-    <!-- paging.js -->
-    <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/jedate.min.js"></script>
-    <script src="../js/checkStock.js"></script>
+        <!-- 左侧导航栏所需js -->
+        <script src="../js/popper.min.js"></script>
+        <script src="../js/bootstrap-material-design.min.js"></script>
+        <!-- 移动端手机菜单所需js -->
+        <script src="../js/perfect-scrollbar.jquery.min.js"></script>
+        <script src="../js/material-dashboard.min.js"></script>
+        <!-- selectpicker.js -->
+        <script src="../js/bootstrap-selectpicker.js"></script>
+        <!-- alert.js -->
+        <script src="../js/sweetalert2.js"></script>
+        <!-- paging -->
+        <script src="../js/jquery.pagination.js"></script>
+        <script src="../js/warehouseManagement.js"></script>
 </body>
+
 </html>
