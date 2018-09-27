@@ -221,48 +221,35 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" class="searchOne" id="btn-search1" placeholder="请输入查询内容">
-                                                <button class="btn btn-info btn-sm" id="btn-search2">查询</button>
+                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                                <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
+                                                <button class="btn btn-info btn-sm" id="btn-search">查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table text-center mostTable table-bordered">
+                                        <table class="table text-center mostTable table-bordered" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>单编ID</th>
+                                                    <th>单据编号</th>
                                                     <th>组织名称</th>
                                                     <th>操作员名称</th>
                                                     <th>单据总数</th>
                                                     <th>总实洋</th>
                                                     <th>总码洋</th>
-                                                    <th>到货时间</th>
-                                                    <th>付款时间</th>
                                                     <th>制单时间</th>
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>10000001</td>
-                                                    <td>加基森</td>
-                                                    <td>保罗</td>
-                                                    <td>3929</td>
-                                                    <td>56</td>
-                                                    <td>456</td>
-                                                    <td>2018-12-23</td>
-                                                    <td>2019-8-9</td>
-                                                    <td>2020-9-8</td>
-                                                    <td>
-                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='addStock.aspx'"><i class="fa fa-plus fa-lg"></i></button>
-                                                        <button class="btn btn-info btn-sm" onclick="window.location.href='checkStock.aspx'"><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -282,7 +269,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title float-left" id="myModalLabel">入库添加</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close">
                                     <i class="material-icons">clear</i>
                                 </button>
                             </div>
@@ -304,6 +291,18 @@
                                         <td class="text-right"><span>总实洋:</span></td>
                                         <td>
                                             <input type="text" value="" class="modal_search_add" id="realPrice" placeholder="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><span>入库来源:</span></td>
+                                        <td>
+                                            <select class="modal_select" id="source">
+                                            <option value="">请选择分公司</option>
+                                            <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                {%>
+                                            <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                            <%} %>
+                                        </select>
                                         </td>
                                     </tr>
                                 </table>

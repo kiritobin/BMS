@@ -223,11 +223,17 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" placeholder="请输入查询条件">
+                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                             </div>
                                         </div>
                                     </div>

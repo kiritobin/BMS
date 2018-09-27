@@ -14,11 +14,16 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 材料图标样式 -->
+    <link rel="stylesheet" href="../css/materialdesignicons.css">
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <!-- css file -->
+    <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
-    <link href="../css/zgz.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/zgz.css">
+    <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/demo.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
 </head>
 
 <body>
@@ -31,55 +36,55 @@
                 <div class="col-md-12">
                     <div class="card">
                         <h3 class="text-center">销&nbsp;退</h3>
-                        <hr />                      
+                        <hr />
                         <div class="card-body">
                             <div class="card-header card_btn">
                                 <div class="input-group">
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2">添加销售</button>
+                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2">添加销退</button>
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="sales_search">
                                         <button class="btn btn-info">查询</button>
                                     </div>
-                                     <div class="btn-group" role="group">
+                                    <div class="btn-group" role="group">
                                         <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </div>
                             <div class="content_tab col-md-12">
-                                    <div class="table-responsive col-md-10">
-                                        <table class="table mostTable table-bordered text-center">
-                                            <thead>
-                                                <tr>
-                                                    <th>书号</th>
-                                                    <th>ISBN号</th>
-                                                    <th>实际折扣</th>
-                                                    <th>单价</th>
-                                                    <th>数量</th>
-                                                    <th>实洋</th>
-                                                    <th>时间</th>
-                                                    <th>操作</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>2</td>
-                                                    <td>3</td>
-                                                    <td>4</td>
-                                                    <td>5</td>
-                                                    <td>6</td>
-                                                    <td>7</td>
-                                                    <td>
-                                                        <button class="btn btn-danger">
-                                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                                        </button>                                                       
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <div class="table-responsive col-md-10">
+                                    <table class="table mostTable table-bordered text-center">
+                                        <thead>
+                                            <tr>
+                                                <th>书号</th>
+                                                <th>ISBN号</th>
+                                                <th>实际折扣</th>
+                                                <th>单价</th>
+                                                <th>数量</th>
+                                                <th>实洋</th>
+                                                <th>时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>3</td>
+                                                <td>4</td>
+                                                <td>5</td>
+                                                <td>6</td>
+                                                <td>7</td>
+                                                <td>
+                                                    <button class="btn btn-danger">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div class="statistics col-md-2">
                                     统计
                                 </div>
@@ -131,16 +136,17 @@
     </div>
     <!-- js file -->
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <!-- 左侧导航栏所需js -->
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap-material-design.min.js"></script>
+    <!-- 事物处理 -->
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/demo.js"></script>
+    <!-- 移动端手机菜单所需js -->
+    <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
-    <script>
-    function print(){
-        var printData = $('.bootstrap-table').parent().html();
-        window.document.body.innerHTML = printData;
-        // 开始打印
-        window.print();
-        window.location.reload(true);
-    }</script>
-
+    <!-- selectpicker.js -->
+    <script src="../js/bootstrap-selectpicker.js"></script>
 </body>
 
 </html>
