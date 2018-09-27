@@ -253,11 +253,6 @@
                                                 <td class="td_width">
                                                     <input type="text" id="goodsShelf" class="float-left" placeholder=""></td>                                                  
                                             </tr>
-                                            <tr>                                 
-                                                <td class="td_text"><span class="span-text"><nobr>备注:</nobr></span></td>
-                                                <td class="td_width" colspan="2">
-                                                    <textarea class="float_left" id="remark"></textarea></td>
-                                            </tr>
                                         </table>
                                         <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
@@ -268,7 +263,7 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center">
+                                        <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr style="border: 2px solid #DDD">
                                                     <td colspan="9">商品</td>
@@ -285,19 +280,7 @@
                                                     <td>货架号</td>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>10000001</td>
-                                                    <td>1552621533</td>
-                                                    <td>100</td>
-                                                    <td>30￥</td>
-                                                    <td>0.6</td>
-                                                    <td>23</td>
-                                                    <td>34</td>
-                                                    <td>货架一</td>
-                                                </tr>                                          
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -316,7 +299,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">数据操作
+                            <h4 class="modal-title float-left" id="myModalLabel"><%=Session["id"] %>数据导入
                             </h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                 <i class="material-icons">clear</i>
@@ -386,33 +369,6 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addStock.js"></script>
-    <%-- <script>
-        var enLang = {
-            name: "en",
-            month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
-            weeks: ["SUN", "MON", "TUR", "WED", "THU", "FRI", "SAT"],
-            times: ["Hour", "Minute", "Second"],
-            timetxt: ["Time", "Start Time", "End Time"],
-            backtxt: "Back",
-            clear: "Clear",
-            today: "Now",
-            yes: "Confirm",
-            close: "Close"
-        }
-       //自定义格式选择
-        jeDate("#test12", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-        jeDate("#test1", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-        jeDate("#test2", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-    </script>--%>
+    <script src="../js/ajaxfileupload.js"></script>
 </body>
-
 </html>

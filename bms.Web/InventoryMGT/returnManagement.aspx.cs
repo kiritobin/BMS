@@ -14,13 +14,12 @@ namespace bms.Web.BasicInfor
     using Result = Enums.OpResult;
     public partial class replenishList : System.Web.UI.Page
     {
-        public int totalCount, intPageCount, pageSize = 20, row, count;
+        public int totalCount, intPageCount, pageSize = 20, row, count = 0;
         public DataSet ds;
         UserBll userBll = new UserBll();
         WarehousingBll wareBll = new WarehousingBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            getData();
             User user = (User)Session["user"];
             string op = Request["op"];
             if (op == "add")
@@ -33,11 +32,11 @@ namespace bms.Web.BasicInfor
                 single.AllBillCount = Convert.ToInt32(billCount);
                 single.AllRealPrice = Convert.ToInt32(realPrice);
                 single.AllTotalPrice = Convert.ToInt32(totalPrice);
-                single.SingleHeadId = "TH"+DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                single.Region = user.ReginId;
+                single.SingleHeadId = "TH"+DateTime.Now+ count.ToString().PadLeft(6, '0');
                 single.Time = DateTime.Now;
                 single.Type = 2;
                 single.User = user;
-                single.Region = user.ReginId;
                 Result row = wareBll.insertHead(single);
                 if(row == Result.添加成功)
                 {
@@ -90,40 +89,43 @@ namespace bms.Web.BasicInfor
             }
             string op = Request["op"];
             string search = "";
-            string singleHeadId = Request["ID"];
-            string regionName = Request["region"];
-            string userName = Request["user"];
-            if((singleHeadId ==""||singleHeadId == null)&& (regionName == "" || regionName == null)&& (userName == "" || userName == null))
+            if(op == "search")
             {
-                search = "deleteState=1 and type=2";
-            }
-            else if(singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null) && (userName == "" || userName == null))
-            {
-                search = "deleteState=1 and type=2 and singleHeadId='" + singleHeadId + "'";
-            }
-            else if (regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
-            {
-                search = "deleteState=1 and type=2 and regionName='" + regionName + "'";
-            }
-            else if (userName != "" && userName != null && (regionName == "" || regionName == null) && (singleHeadId == "" || singleHeadId == null))
-            {
-                search = "deleteState=1 and type=2 and userName='" + userName + "'";
-            }
-            else if (userName != "" && userName != null && regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null))
-            {
-                search = "deleteState=1 and type=2 and userName='" + userName + "' and regionName='" + regionName + "'";
-            }
-            else if (userName != "" && userName != null && singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null))
-            {
-                search = "deleteState=1 and type=2 and userName='" + userName + "' and singleHeadId='" + singleHeadId + "'";
-            }
-            else if (singleHeadId != "" && singleHeadId != null && regionName != "" && regionName != null && (userName == "" || userName == null))
-            {
-                search = "deleteState=1 and type=2 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "'";
-            }
-            else
-            {
-                search = "deleteState=1 and type=2 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "' and userName='" + userName + "'";
+                string singleHeadId = Request["ID"];
+                string regionName = Request["region"];
+                string userName = Request["user"];
+                if((singleHeadId ==""||singleHeadId == null)&& (regionName == "" || regionName == null)&& (userName == "" || userName == null))
+                {
+                    search = "";
+                }
+                else if(singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null) && (userName == "" || userName == null))
+                {
+                    search = "singleHeadId='" + singleHeadId + "'";
+                }
+                else if (regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
+                {
+                    search = "regionName='" + regionName + "'";
+                }
+                else if (userName != "" && userName != null && (regionName == "" || regionName == null) && (singleHeadId == "" || singleHeadId == null))
+                {
+                    search = "userName='" + userName + "'";
+                }
+                else if (userName != "" && userName != null && regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null))
+                {
+                    search = "userName='" + userName + "' and regionName='" + regionName + "'";
+                }
+                else if (userName != "" && userName != null && singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null))
+                {
+                    search = "userName='" + userName + "' and singleHeadId='" + singleHeadId + "'";
+                }
+                else if (singleHeadId != "" && singleHeadId != null && regionName != "" && regionName != null && (userName == "" || userName == null))
+                {
+                    search = "singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "'";
+                }
+                else
+                {
+                    search = "singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "' and userName='" + userName + "'";
+                }
             }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
@@ -143,20 +145,19 @@ namespace bms.Web.BasicInfor
             for (int i = 0; i < count; i++)
             {
                 DataRow dr = dt.Rows[i];
-                sb.Append("<tr><td class='singleHeadId'>" + dr["singleHeadId"].ToString() + "</td>");
+                sb.Append("<tr><td id='singleHeadId'>" + dr["singleHeadId"].ToString() + "</td>");
                 sb.Append("<td>" + dr["regionName"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["userName"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["allBillCount"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allRealPrice"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["time"].ToString() + "</ td ></ tr >");
-                sb.Append("<td><a href='addReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-success btn-sm'><i class='fa fa-plus fa-lg'></i></button></a>");
-                sb.Append("<a href='checkReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-info btn-sm'><i class='fa fa-search'></i></button></a>");
-                sb.Append("<input type='hidden' value='" + dr["singleHeadId"].ToString() + "'/>");
-                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></ td ></ tr >");
+                sb.Append("<td><a href='addReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-success'><i class='fa fa-plus'></i></button></a>");
+                sb.Append("<a href='checkReturn.aspx?returnId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-info'><i class='fa fa-search'></i></button></a>");
+                sb.Append("<button class='btn btn-danger btn-delete'><i class='fa fa-trash'></i></button></ td ></ tr >");
             }
             sb.Append("</tbody>");
-            sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
+            sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
             if (op == "paging")
             {
                 Response.Write(sb.ToString());

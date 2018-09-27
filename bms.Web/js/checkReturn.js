@@ -41,7 +41,7 @@ $(document).ready(function () {
         callback: function (api) {
             $.ajax({
                 type: 'Post',
-                url: 'collectionManagement.aspx',
+                url: 'checkReturn.aspx',
                 data: {
                     page: api.getCurrent(), //页码
                     op: "paging"

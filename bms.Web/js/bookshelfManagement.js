@@ -141,10 +141,10 @@
     $("#btnAdd").click(function () {
         var region = $("#model-select-region").find("option:selected").val().trim();
         var shelfName = $("#shelfName").val().trim();
-        if (region == "" || shelfName == "") {
+        if (shelfName == "") {
             swal({
                 title: "温馨提示:)",
-                text: "信息不完整，请确认后再次添加!",
+                text: "货架不能为空，请您输入货架号!",
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"
