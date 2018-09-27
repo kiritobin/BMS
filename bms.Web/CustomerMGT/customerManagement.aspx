@@ -53,12 +53,12 @@
                         </a>
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
@@ -69,7 +69,7 @@
 
                                     </a>
                                 </li>
-                                <%--<li class="nav-item hoverColor">
+                                <%--<li class="nav-item">
                                     <a class="nav-link" href="javascript:;">
                                         <span class="sidebar-normal">功能管理</span>
 
@@ -89,12 +89,12 @@
                         </a>
                         <div class="collapse show" id="userManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="customerManagement.aspx">
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor foucsColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
@@ -112,17 +112,17 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
@@ -140,7 +140,7 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">营销管理</span>
                                     </a>
@@ -158,12 +158,12 @@
                         </a>
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>

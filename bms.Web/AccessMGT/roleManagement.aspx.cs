@@ -13,7 +13,7 @@ namespace bms.Web.AccessMGT
 {
     using System.Web.Security;
     using Result = Enums.OpResult;
-    public partial class roleManagement : CommonPage
+    public partial class roleManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 3, totalCount, intPageCount;
         public string search, roleId;
@@ -113,8 +113,8 @@ namespace bms.Web.AccessMGT
                 sb.Append("<td><input type='hidden' value='" + rows + "' />");
                 sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[i]["roleId"].ToString() + "' />");
                 sb.Append("<input type = 'hidden' value = '" + funIds + "' />");
-                sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i>&nbsp 编辑</button>");
-                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i>&nbsp 删除</button></td></ tr >");
+                sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i></button>");
+                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></ tr >");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
@@ -173,7 +173,7 @@ namespace bms.Web.AccessMGT
             }
             else
             {
-                Response.Write("该职位名已存在");
+                Response.Write("该职位名已存在，请您输入新的职位名");
                 Response.End();
             }
         }
@@ -205,7 +205,7 @@ namespace bms.Web.AccessMGT
             }
             else
             {
-                Response.Write("该职位名已存在");
+                Response.Write("该职位名已存在，请您输入新的职位名");
                 Response.End();
             }
         }
