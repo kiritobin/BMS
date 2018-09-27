@@ -38,7 +38,7 @@ namespace bms.Web.InventoryMGT
             }
             string op = Request["op"];
             WarehousingBll warehousingBll = new WarehousingBll();
-            long flow = (warehousingBll.getCount(Convert.ToInt32(singleHeadId)) + 1);
+            long flow = (warehousingBll.getCount(Convert.ToInt64(singleHeadId)) + 1);
             if (op == "add")
             {
                 string monomerID = flow.ToString();
@@ -225,7 +225,7 @@ namespace bms.Web.InventoryMGT
             DataRow dataRow = null;
             for (int i = 0; i < row; i++)
             {
-                string id = (warehousingBll.getCount(Convert.ToInt32(Session["id"])) + i+1).ToString();
+                string id = (warehousingBll.getCount(Convert.ToInt64(Session["id"])) + i+1).ToString();
                 dataRow = dt.NewRow();
                 dataRow["流水号"] = id;
                 dt.Rows.Add(id);

@@ -24,19 +24,16 @@ namespace bms.Web.CustomerMGT
             DataTable dtInsert = new DataTable();
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             watch.Start();
-            differentDt();
-            except.Columns.Remove("id"); //移除匹配列
-            dtInsert = except; //赋给新table
+            dtInsert = serialNumber();
             TimeSpan ts = watch.Elapsed;
-            dtInsert.TableName = "T_BookBasicData"; //导入的表名
+            dtInsert.TableName = "T_Monomers"; //导入的表名
             int a = userBll.BulkInsert(dtInsert);
             watch.Stop();
             double minute = ts.TotalMinutes; //计时
             string m = minute.ToString("0.00");
             if (a > 0)
             {
-                BookBasicData bookNum = bookbll.getBookNum();
-                OpResult result = bookbll.updateBookNum(last); //更新书号
+                Session["path"] = null; //清除路径session
                 Response.Write("导入成功，总数据有" + row + "条，共导入" + a + "条数据" + "，共用时：" + m + "分钟");
                 Response.End();
             }
@@ -118,14 +115,20 @@ namespace bms.Web.CustomerMGT
                 string strExcel1 = "select * from [Sheet1$]";
                 OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
                 dt1.Columns.Add("id"); //id自增列
-                DataColumn monomerId = new DataColumn("单头ID", typeof(string));
-                monomerId.DefaultValue = "2"; //默认值列
-                dt1.Columns.Add(monomerId);
+                DataColumn sid = new DataColumn("单头ID", typeof(string));
+                sid.DefaultValue = "20180926000002"; //默认值列
+                dt1.Columns.Add(sid);
                 oda1.Fill(dt1);
                 row = dt1.Rows.Count; //获取总数
                 DataColumn dc = new DataColumn("type", typeof(int));
                 dc.DefaultValue = 1; //默认值列
                 dt1.Columns.Add(dc);
+                DataColumn del = new DataColumn("del", typeof(int));
+                del.DefaultValue = 0; //默认值列
+                dt1.Columns.Add(del);
+                DataColumn sav = new DataColumn("sav", typeof(int));
+                sav.DefaultValue = 0; //默认值列
+                dt1.Columns.Add(sav);
             }
             catch (Exception ex)
             {
@@ -149,7 +152,7 @@ namespace bms.Web.CustomerMGT
             DataRow dataRow = null;
             for (int i = 0; i < row; i++)
             {
-                string id = (warehousingBll.countHead(1) + i + 1).ToString();
+                string id = (warehousingBll.getCount(20180926000002) + i + 1).ToString();
                 dataRow = dt.NewRow();
                 dataRow["流水号"] = id;
                 dt.Rows.Add(id);

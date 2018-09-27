@@ -46,8 +46,8 @@ namespace bms.Web.InventoryMGT
             if (op == "add")
             {
                 string singleHeadId = Session["returnId"].ToString();
-                int count = warebll.getCount(Convert.ToInt64(singleHeadId));
-                int monId;
+                long count = warebll.getCount(Convert.ToInt64(singleHeadId));
+                long monId;
                 if (count > 0)
                 {
                     monId = count + 1;
@@ -69,7 +69,7 @@ namespace bms.Web.InventoryMGT
                     SingleHeadId = singleHeadId
                 };
                 mon.SingleHeadId = newHead;
-                mon.MonomersId = monId;
+                mon.MonomersId = Convert.ToInt32(monId);
                 mon.Number = Num;
                 BookBasicData newBook = new BookBasicData()
                 {
