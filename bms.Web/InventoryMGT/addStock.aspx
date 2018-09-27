@@ -42,7 +42,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-         <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -216,43 +216,61 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                <div class="card-header card-header-danger">
-                                    <h4 class="card-title">入库添加</h4>
-                                </div>
-                                <div class="btn-group" role="group">                          
-                                    <button class="btn btn-info btn-sm" id="btnAdd">确定添加</button></div>
+                                    <div class="card-header card-header-danger">
+                                        <h4 class="card-title">入库添加</h4>
+                                    </div>
                                     <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
-                                            </div>
+                                        <button class="btn btn-info btn-sm" id="btnAdd">确定添加</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
+                                    </div>
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
-                                         <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>单据编号:</nobr></span></td>
+                                            <tr>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>ISBN号:</nobr>
+                                                </span></td>
                                                 <td class="td_width">
-                                                    <input type="text" id="ID" class=""></td>
-                                                <td class="td_text"><span class="span-text"><nobr>ISBN号:</nobr></span></td>
-                                                <td class="td_width">
-                                                <input type="text" id="isbn" class="" placeholder=""></td>
-                                                <td class="td_text"><span class="span-text"><nobr>商品总数:</nobr></span></td>
+                                                    <input type="text" id="isbn" class="" placeholder=""></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>商品总数:</nobr>
+                                                </span></td>
                                                 <td class="td_width">
                                                     <input type="text" id="allCount" class="" placeholder=""></td>
-                                                <td class="td_text"><span class="span-text"><nobr>单价:</nobr></span></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>单价:</nobr>
+                                                </span></td>
                                                 <td class="td_width">
-                                                    <input type="text" id="price" class="float-left"></td>   
-                                             <tr>              
-                                                <td class="td_text"><span class="span-text"><nobr>折扣:</nobr></span></td>
+                                                    <input type="text" id="price" class="float-left"></td>
+                                                <tr>
+                                                    <td class="td_text"><span class="span-text">
+                                                        <nobr>折扣:</nobr>
+                                                    </span></td>
                                                     <td class="td_width">
                                                         <input type="text" id="discount" class=""></td>
-                                                <td class="td_text"><span class="span-text"><nobr>实洋:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="realPrice" class="" placeholder=""></td>  
-                                                <td class="td_text"><span class="span-text"><nobr>码洋:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="allPrice" class="" placeholder=""></td>
-                                                 <td class="td_text"><span class="span-text"><nobr>货架号:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="goodsShelf" class="float-left" placeholder=""></td>                                                  
-                                            </tr>
+                                                    <td class="td_text"><span class="span-text">
+                                                        <nobr>实洋:</nobr>
+                                                    </span></td>
+                                                    <td class="td_width">
+                                                        <input type="text" id="realPrice" class="" placeholder=""></td>
+                                                    <td class="td_text"><span class="span-text">
+                                                        <nobr>码洋:</nobr>
+                                                    </span></td>
+                                                    <td class="td_width">
+                                                        <input type="text" id="allPrice" class="" placeholder=""></td>
+                                                    <td class="td_text"><span class="span-text">
+                                                        <nobr>货架号:</nobr>
+                                                    </span></td>
+                                                    <td class="td_width">
+                                                        <select class="selectpicker" title="请选择货架" data-style="btn-sm" id="goodsShelf" style="float: left;">
+                                                            <option value="">请选择货架</option>
+                                                            <%for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
+                                                                { %>
+                                                            <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
+                                                            <%}%>
+                                                        </select></td>
+                                                </tr>
                                         </table>
                                         <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
@@ -290,10 +308,10 @@
                                     </div>
                                 </div>
                             </div>
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
             <!--导入模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
@@ -340,20 +358,21 @@
                     </div>
                 </div>
             </div>
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
-                        </div>
+                        </script>
+                        &nbsp;版权所有
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
+    </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>

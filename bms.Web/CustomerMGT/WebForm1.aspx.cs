@@ -51,7 +51,7 @@ namespace bms.Web.CustomerMGT
         {
             //differentDt();
             //except.Columns.Remove("id"); //移除匹配列
-            GridView1.DataSource = excelToDt();
+            GridView1.DataSource = serialNumber();
             GridView1.DataBind();
         }
 
@@ -97,10 +97,6 @@ namespace bms.Web.CustomerMGT
         //excel读到table
         private DataTable excelToDt()
         {
-            WarehousingBll warehousingBll = new WarehousingBll();
-            string h2o = (warehousingBll.countHead(1) + 1).ToString().PadLeft(6, '0');
-            string now = DateTime.Now.ToString("yyyyMMdd");
-            string id = "RK" + now + h2o;
             string path = Session["path"].ToString();
             DataTable dt1 = new DataTable();
             string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
@@ -121,12 +117,10 @@ namespace bms.Web.CustomerMGT
                 conn.Open();
                 string strExcel1 = "select * from [Sheet1$]";
                 OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
-                DataColumn dcId = new DataColumn("dcId", typeof(string));
-                DataColumn dcH2o = new DataColumn("dcH2o", typeof(string));
-                dcId.DefaultValue = 1; //默认值列
-                dcH2o.DefaultValue = (id);
-                dt1.Columns.Add(dcId);
-                dt1.Columns.Add(dcH2o);
+                dt1.Columns.Add("id"); //id自增列
+                DataColumn monomerId = new DataColumn("单头ID", typeof(string));
+                monomerId.DefaultValue = "2"; //默认值列
+                dt1.Columns.Add(monomerId);
                 oda1.Fill(dt1);
                 row = dt1.Rows.Count; //获取总数
                 DataColumn dc = new DataColumn("type", typeof(int));
@@ -137,8 +131,30 @@ namespace bms.Web.CustomerMGT
             {
                 Response.Write(ex.Message);
             }
-            conn.Close();
+            finally
+            {
+                conn.Close();
+            }
             return dt1;
+        }
+
+        public DataTable serialNumber()
+        {
+            WarehousingBll warehousingBll = new WarehousingBll();
+            int row = excelToDt().Rows.Count;
+            string now = DateTime.Now.ToString("yyyyMMdd");
+            DataTable dt = new DataTable();
+            DataColumn dc = new DataColumn("流水号");
+            dt.Columns.Add(dc);
+            DataRow dataRow = null;
+            for (int i = 0; i < row; i++)
+            {
+                string id = (warehousingBll.countHead(1) + i + 1).ToString();
+                dataRow = dt.NewRow();
+                dataRow["流水号"] = id;
+                dt.Rows.Add(id);
+            }
+            return UniteDataTable(excelToDt(), dt);
         }
 
         //书号算法并生成datatable列

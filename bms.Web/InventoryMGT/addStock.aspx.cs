@@ -17,7 +17,7 @@ namespace bms.Web.InventoryMGT
     public partial class addStock : System.Web.UI.Page
     {
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
-        public DataSet ds;
+        public DataSet ds, dsGoods;
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
@@ -37,9 +37,11 @@ namespace bms.Web.InventoryMGT
                 }
             }
             string op = Request["op"];
-            if(op == "add")
+            WarehousingBll warehousingBll = new WarehousingBll();
+            long flow = (warehousingBll.getCount(Convert.ToInt32(singleHeadId)) + 1);
+            if (op == "add")
             {
-                string monomerID = Request["ID"];
+                string monomerID = flow.ToString();
                 string isbn = Request["isbn"];
                 string allCount = Request["allCount"];
                 string price = Request["price"];
@@ -47,7 +49,6 @@ namespace bms.Web.InventoryMGT
                 string realPrice = Request["realPrice"];
                 string allPrice = Request["allPrice"];
                 string goodsShelf = Request["goodsShelf"];
-                string remark = Request["remark"];
                 Monomers monomers = new Monomers();
                 monomers.MonomersId = Convert.ToInt32(monomerID);
                 SingleHead singleHead = new SingleHead();
@@ -96,7 +97,7 @@ namespace bms.Web.InventoryMGT
                 DataTable dtInsert = new DataTable();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
-                dtInsert = excelToDt();
+                dtInsert = serialNumber();
                 TimeSpan ts = watch.Elapsed;
                 dtInsert.TableName = "T_Monomers"; //导入的表名
                 int a = userBll.BulkInsert(dtInsert);
@@ -120,6 +121,9 @@ namespace bms.Web.InventoryMGT
         protected string getData()
         {
             UserBll userBll = new UserBll();
+            GoodsShelvesBll goodsShelvesBll = new GoodsShelvesBll();
+            User user = (User)Session["user"];
+            int regionId = user.ReginId.RegionId;
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
@@ -134,7 +138,8 @@ namespace bms.Web.InventoryMGT
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
-
+            //展示货架
+            dsGoods = goodsShelvesBll.Select(regionId);
             //生成table
             StringBuilder sb = new StringBuilder();
             sb.Append("<tbody>");
@@ -165,10 +170,6 @@ namespace bms.Web.InventoryMGT
 
         private DataTable excelToDt()
         {
-            WarehousingBll warehousingBll = new WarehousingBll();
-            string h2o = (warehousingBll.countHead(1)+1).ToString().PadLeft(6, '0');
-            string now = DateTime.Now.ToString("yyyyMMdd");
-            string id = "RK"+now+ h2o;
             string path = Session["path"].ToString();
             DataTable dt1 = new DataTable();
             string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
@@ -189,12 +190,10 @@ namespace bms.Web.InventoryMGT
                 conn.Open();
                 string strExcel1 = "select * from [Sheet1$]";
                 OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
-                DataColumn dcId = new DataColumn("dcId", typeof(string));
-                DataColumn dcH2o = new DataColumn("dcH2o", typeof(string));
-                dcId.DefaultValue = Session[id].ToString(); //默认值列
-                dcH2o.DefaultValue = (id);
-                dt1.Columns.Add(dcId);
-                dt1.Columns.Add(dcH2o);
+                dt1.Columns.Add("id"); //id自增列
+                DataColumn sid = new DataColumn("单头ID", typeof(string));
+                sid.DefaultValue = Session["id"].ToString(); //默认值列
+                dt1.Columns.Add(sid);
                 oda1.Fill(dt1);
                 row = dt1.Rows.Count; //获取总数
                 DataColumn dc = new DataColumn("type", typeof(int));
@@ -205,8 +204,77 @@ namespace bms.Web.InventoryMGT
             {
                 Response.Write(ex.Message);
             }
-            conn.Close();
+            finally
+            {
+                conn.Close();
+            }
             return dt1;
+        }
+        /// <summary>
+        /// 流水号
+        /// </summary>
+        /// <returns></returns>
+        private DataTable serialNumber()
+        {
+            WarehousingBll warehousingBll = new WarehousingBll();
+            int row = excelToDt().Rows.Count;
+            string now = DateTime.Now.ToString("yyyyMMdd");
+            DataTable dt = new DataTable();
+            DataColumn dc = new DataColumn("流水号");
+            dt.Columns.Add(dc);
+            DataRow dataRow = null;
+            for (int i = 0; i < row; i++)
+            {
+                string id = (warehousingBll.getCount(Convert.ToInt32(Session["id"])) + i+1).ToString();
+                dataRow = dt.NewRow();
+                dataRow["流水号"] = id;
+                dt.Rows.Add(id);
+            }
+            return UniteDataTable(excelToDt(), dt);
+        }
+        //合并两个table方法
+        private DataTable UniteDataTable(DataTable udt1, DataTable udt2)
+        {
+            DataTable udt3 = udt1.Clone();
+            for (int i = 0; i < udt2.Columns.Count; i++)
+            {
+                udt3.Columns.Add(udt2.Columns[i].ColumnName);
+            }
+            object[] obj = new object[udt3.Columns.Count];
+
+            for (int i = 0; i < udt1.Rows.Count; i++)
+            {
+                udt1.Rows[i].ItemArray.CopyTo(obj, 0);
+                udt3.Rows.Add(obj);
+            }
+
+            if (udt1.Rows.Count >= udt2.Rows.Count)
+            {
+                for (int i = 0; i < udt2.Rows.Count; i++)
+                {
+                    for (int j = 0; j < udt2.Columns.Count; j++)
+                    {
+                        udt3.Rows[i][j + udt1.Columns.Count] = udt2.Rows[i][j].ToString();
+                    }
+                }
+            }
+            else
+            {
+                DataRow dr3;
+                for (int i = 0; i < udt2.Rows.Count - udt1.Rows.Count; i++)
+                {
+                    dr3 = udt3.NewRow();
+                    udt3.Rows.Add(dr3);
+                }
+                for (int i = 0; i < udt2.Rows.Count; i++)
+                {
+                    for (int j = 0; j < udt2.Columns.Count; j++)
+                    {
+                        udt3.Rows[i][j + udt1.Columns.Count] = udt2.Rows[i][j].ToString();
+                    }
+                }
+            }
+            return udt3;
         }
     }
 }
