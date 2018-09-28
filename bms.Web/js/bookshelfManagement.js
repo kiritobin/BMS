@@ -84,7 +84,7 @@
         //弹窗
         swal({
             title: "温馨提示:)",
-            text: "您确定要删除该条货架信息吗？删除将无法回复",
+            text: "您确定要删除该条货架信息吗？删除将无法恢复",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

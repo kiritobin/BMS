@@ -110,17 +110,17 @@
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="warehouseManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="stockManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="returnManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货</span>
                                     </a>
                                 </li>
@@ -138,7 +138,7 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="tradeManagement.aspx">
+                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">营销</span>
                                     </a>
                                 </li>
@@ -237,18 +237,42 @@
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr class="book-tab-tr">
-                                                    <th><nobr>序号</nobr></th>
-                                                    <th><nobr>书号</nobr></th>
-                                                    <th><nobr>书名</nobr></th>
-                                                    <th><nobr>作者</nobr></th>
-                                                    <th><nobr>定价</nobr></th>
-                                                    <th><nobr>出版日期</nobr></th>
-                                                    <th><nobr>供应商</nobr></th>
-                                                    <th><nobr>ISBN</nobr></th>
-                                                    <th><nobr>编目</nobr></th>
-                                                    <th><nobr>备注</nobr></th>
-                                                    <th><nobr>标识</nobr></th>
-                                                    <th><nobr>操作</nobr></th>
+                                                    <th>
+                                                        <nobr>序号</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>书号</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>书名</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>作者</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>定价</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>出版日期</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>供应商</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>ISBN</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>编目</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>备注</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>标识</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>操作</nobr>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
@@ -267,7 +291,7 @@
                 </div>
             </div>
             <!--添加书籍模态框-->
-            <div class="modal fade" id="myModal" style="height:800px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal fade" id="myModal" style="height: 800px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="min-width: 1000px;">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -280,7 +304,7 @@
                             <table class="table text-center model-table">
                                 <tr>
                                     <td>
-                                        <button class="btn btn-success" id="downEx"><a style="color:white" href="/uploads/muban/基础数据表.xls">下载模板</a></button>
+                                        <button class="btn btn-success" id="downEx"><a style="color: white" href="/uploads/muban/基础数据表.xls">下载模板</a></button>
                                         <span class="btn btn-success fileinput-button">
                                             <span>选择文件</span>
                                             <input type="file" name="file" id="file" style="">
