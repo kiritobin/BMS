@@ -41,11 +41,11 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-        <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
-                            <i class="material-icons">security</i>
+                            <i class="fa fa-cogs"></i>
                             <p>
                                 权限管理
                                 <b class="caret"></b>
@@ -79,7 +79,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
-                            <i class="material-icons">person</i>
+                            <i class="fa fa-user fa-lg"></i>
                             <p>
                                 客户管理
                                 <b class="caret"></b>
@@ -102,7 +102,7 @@
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
-                            <i class="material-icons">book</i>
+                            <i class="fa fa-book"></i>
                             <p>
                                 库存管理
                                 <b class="caret"></b>
@@ -130,7 +130,7 @@
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
-                            <i class="material-icons">library_books</i>
+                            <i class="fa fa-area-chart"></i>
                             <p>
                                 销售管理
                                 <b class="caret"></b>
@@ -148,7 +148,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
-                            <i class="material-icons">bubble_chart</i>
+                            <i class="fa fa-file-archive-o"></i>
                             <p>
                                 基础信息
                                 <b class="caret"></b>
@@ -215,48 +215,62 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                <div class="card-header card-header-danger">
-                                    <h4 class="card-title">入库查询</h4>
-                                </div>
-                                 <div class="btn-group" role="group">  
-                                <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true">打印</i></button>
-                                        </div>
+                                    <div class="card-header card-header-danger">
+                                        <h4 class="card-title">入库查询</h4>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true">打印</i></button>
+                                    </div>
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
                                             <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>单据编号:</nobr></span></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>单据编号:</nobr>
+                                                </span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="<%=putId %>" class="form-control"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>操作员:</nobr></span></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>操作员:</nobr>
+                                                </span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="<%=putOperator %>" class="form-control"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>单据总数:</nobr></span></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>单据总数:</nobr>
+                                                </span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="<%=putCount %>" class="form-control"></td>
                                             </tr>
                                             <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>入库组织:</nobr></span></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>入库组织:</nobr>
+                                                </span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="<%=putRegionName %>" class="form-control"></td>
-                                                <td class="td_text"><span class="span-text"><nobr>总码洋:</nobr></span></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>总码洋:</nobr>
+                                                </span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="<%=putTotalPrice %>" class="form-control"></td>
                                             </tr>
                                             <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>总实洋:</nobr></span></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>总实洋:</nobr>
+                                                </span></td>
                                                 <td class="td_width">
                                                     <input type="text" value="<%=putRealPrice %>" class="form-control">
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>制单日期:</nobr></span></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>制单日期:</nobr>
+                                                </span></td>
                                                 <td class="td_width">
                                                     <div class="jeinpbox">
                                                         <input type="text" value="<%=putTime %>" class="form-control" id="test2">
                                                     </div>
                                                 </td>
                                             </tr>
-                                        </table>                                      
+                                        </table>
                                         <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
@@ -305,7 +319,8 @@
                             &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
+                        </script>
+                            &nbsp;版权所有
                         </div>
                     </div>
                 </footer>
