@@ -63,7 +63,7 @@
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="material-icons">person</i>
+                                                <i class="fa fa-user fa-lg"></i>
                                             </span>
                                         </div>
                                         <input type="text" class="form-control" id="userName" placeholder="用户名..." />
@@ -73,7 +73,7 @@
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="material-icons">lock</i>
+                                                <i class="fa fa-lock fa-lg"></i>
                                             </span>
                                         </div>
                                         <input type="password" class="form-control" id="userPwd" placeholder="密码..." />

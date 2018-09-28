@@ -183,6 +183,7 @@
 
     //删除分公司
     $("#table").delegate(".btn-delete", "click", function () {
+        var id = $(this).prev().val().trim();
         swal({
             title: '温馨提示:)',
             text: '你确定要删除该分公司吗？',

@@ -1,8 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="tradeManagement.aspx.cs" Inherits="bms.Web.SalesMGT.tradeManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="inventoryManagement.aspx.cs" Inherits="bms.Web.InventoryMGT.inventoryManagement" %>
 
-<%="" %>
 <!DOCTYPE html>
-
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
 
@@ -18,10 +20,9 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
-    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/zgz.css">
-    <link rel="stylesheet" href="../css/lgd.css">
-    <link rel="stylesheet" href="../css/qc.css">
+    <style>
+    </style>
 </head>
 
 <body>
@@ -53,22 +54,22 @@
                         </a>
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                               <%-- <li class="nav-item hoverColor">
+                                <%-- <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
                                 </li>--%>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
@@ -87,12 +88,12 @@
                         </a>
                         <div class="collapse" id="userManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
@@ -100,7 +101,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="material-icons">book</i>
                             <p>
@@ -108,27 +109,32 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="inventoryManage">
+                        <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="inventoryManagement.aspx">
+                                        <span class="sidebar-normal">库存管理</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="material-icons">library_books</i>
                             <p>
@@ -136,10 +142,10 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="saleManage">
+                        <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
-                                    <a class="nav-link" href="tradeManagement.aspx">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
@@ -156,12 +162,12 @@
                         </a>
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item hoverColor">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
@@ -177,7 +183,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">出库管理</a>
+                        <a class="navbar-brand" href="#pablo">权限管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -216,52 +222,81 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">销售任务</h4>
-                                    <p class="card-category">可对情况进行查询</p>
+                                    <h4 class="card-title">库存管理</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                            &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i></button>                                         
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="searchOne" id="isbnSearch" placeholder="请输入查询关键字">
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            </div>
                                         </div>
                                     </div>
-
                                     <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="text-danger">
+                                        <table class="table mostTable table-bordered text-center" id="table">
+                                            <thead>
                                                 <tr>
-                                                    <td>任务ID</td>
-                                                    <td>默认折扣</td>
-                                                    <td>最大采购数</td>
-                                                    <td>单价上限</td>
-                                                    <td>码洋上限</td>
-                                                    <td>开始时间/结束时间</td>
-                                                    <td class="table-thead-th">操作</td>
+                                                    <th>ISBN</th>
+                                                    <th>书名</th>
+                                                    <th>出版社</th>
+                                                    <th>定价</th>
+                                                    <th>地区</th>
+                                                    <th>货架</th>
+                                                    <th>库存数量</th>
+                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
-
                                             <tbody>
                                                 <tr>
-                                                    <td>3245554</td>
-                                                    <td>60%</td>
-                                                    <td>435</td>
-                                                    <td>56</td>
-                                                    <td>456</td>
-                                                    <td>2018.12.3/2018.12.23</td>
+                                                    <td>1</td>
+                                                    <td>2</td>
+                                                    <td>3</td>
+                                                    <td>4</td>
+                                                    <td>5</td>
+                                                    <td>6</td>
+                                                    <td>7</td>
                                                     <td>
-                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='salesManagement.aspx'">售</button>
-                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='backManagement.aspx'">退</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
+                                                        <button class="btn btn-warning" data-toggle="modal" data-target="#myModal10"><span class="fa fa-pencil"></span></button>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </div>                                    
+                                    </div>
+                                    <!-- 编辑模态框 -->
+                                    <div class="modal fade modal-mini modal-primary" id="myModal10" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog" style="max-width:380px;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="myModalLabel">编辑库存</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <table class="table model-table">
+                                                        <tr>
+                                                            <td class="text-right"><span>货架号:</span></td>
+                                                            <td>
+                                                                <select class="modal_select" id="regionId">
+                                                                    <option value="">201</option>
+                                                                 </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success btn-sm">
+                                                        确定
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -270,50 +305,7 @@
                     </div>
                 </div>
             </div>
-            <!--添加模态框-->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="max-width:350px;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title float-left" id="myModalLabel">任务添加</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            <i class="material-icons">clear</i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table model-table">
-                             <tr>
-                                <td class="text-right"><span>最大采购数:</span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add" id="billCount">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-right"><span>单价上限:</span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add" id="totalPrice">
-                                </td>
-                            </tr>
-                             <tr>
-                                <td class="text-right"><span>码洋上限:</span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add" id="realPrice">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-right"><span>默认折扣:</span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add" id="Price">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -336,10 +328,11 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
-    <script src="../js/bootstrap-selectpicker.js"></script>
-    <script src="../js/sweetalert2.js"></script>
-    <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/bookshelfManagement.js"></script>
+    <script>
+</script>
+
+
 </body>
 
 </html>
+

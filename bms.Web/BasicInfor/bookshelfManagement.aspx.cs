@@ -155,7 +155,7 @@ namespace bms.Web.BasicInfor
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_GoodsShelves";
             tb.OrderBy = "goodsShelvesId";
-            tb.StrColumnlist = "goodsShelvesId,shelvesName,regionId,regionName,deleteState";
+            tb.StrColumnlist = "goodsShelvesId,shelvesName,regionId,regionName";
             tb.IntPageSize = PageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
