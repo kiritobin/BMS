@@ -261,6 +261,7 @@
                                                     <td>2016-2-1</td>                                                                                            
                                                     <td>
                                                         <!-- 查询与删除按钮 -->
+                                                        <button class="btn btn-success btn-sm" onclick=""><i class="fa fa-plus fa-lg"></i></button>
                                                         <button class="btn btn-info btn-sm" onclick="window.location.href='salesDetail.aspx'"><i class="fa fa-search"></i></button>
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                                     </td>
