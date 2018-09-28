@@ -64,9 +64,6 @@ namespace bms.Web.InventoryMGT
                 monomers.TotalPrice = Convert.ToDouble(allPrice);
                 monomers.RealPrice = Convert.ToDouble(realPrice);
                 monomers.Discount = Convert.ToDouble(discount);
-                GoodsShelves goodsShelves = new GoodsShelves();
-                goodsShelves.GoodsShelvesId = Convert.ToInt32(goodsShelf);
-                monomers.GoodsShelvesId = goodsShelves;
                 monomers.Type = 1;
                 WarehousingBll wareBll = new WarehousingBll();
                 Result row = wareBll.insertMono(monomers);
@@ -76,6 +73,8 @@ namespace bms.Web.InventoryMGT
                     stock.StockNum = Convert.ToInt32(allCount);
                     stock.ISBN = bookBasicData;
                     stock.RegionId = user.ReginId;
+                    GoodsShelves goodsShelves = new GoodsShelves();
+                    goodsShelves.GoodsShelvesId = Convert.ToInt32(goodsShelf);
                     stock.GoodsShelvesId = goodsShelves;
                     StockBll stockBll = new StockBll();
                     Result result = stockBll.insert(stock);

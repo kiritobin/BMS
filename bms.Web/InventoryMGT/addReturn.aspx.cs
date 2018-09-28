@@ -20,6 +20,7 @@ namespace bms.Web.InventoryMGT
         UserBll userBll = new UserBll();
         protected DataSet ds, shelf;
         WarehousingBll warebll = new WarehousingBll();
+        StockBll stockBll = new StockBll();
         string singId;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -45,11 +46,11 @@ namespace bms.Web.InventoryMGT
             if (op == "add")
             {
                 string singleHeadId = Session["returnId"].ToString();
-                long count = warebll.getCount(Convert.ToInt64(singleHeadId));
+                long counts = warebll.getCount(Convert.ToInt64(singleHeadId));
                 long monId;
-                if (count > 0)
+                if (counts > 0)
                 {
-                    monId = count + 1;
+                    monId = counts + 1;
                 }
                 else
                 {
@@ -61,7 +62,6 @@ namespace bms.Web.InventoryMGT
                 string Discount = Request["addDiscount"];
                 string TotalPrice = Request["addTotalPrice"];
                 string Ocean = Request["addOcean"];
-                string shelfId = Request["shelfId"];
                 Monomers mon = new Monomers();
                 SingleHead newHead = new SingleHead()
                 {
@@ -81,17 +81,64 @@ namespace bms.Web.InventoryMGT
 
                 mon.TotalPrice = double.Parse(TotalPrice);
                 mon.RealPrice = int.Parse(Ocean);
-                GoodsShelves newShelf = new GoodsShelves()
-                {
-                    GoodsShelvesId = int.Parse(shelfId)
-                };
-                mon.GoodsShelvesId = newShelf;
                 mon.Type = 2;
                 Result reslt = warebll.insertMono(mon);
                 if (reslt == Result.添加成功)
                 {
                     Response.Write("添加成功");
                     Response.End();
+                    DataSet dsGoods = stockBll.SelectByIsbn(ISBN);
+                    int count = Num;
+                    int allCount = 0, allCounts = 0;
+                    for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
+                    {
+                        allCount = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["stockNum"]);
+                    }
+                    allCounts = allCounts + allCount;
+                    if (Num > allCounts)
+                    {
+                        Response.Write("库存数量不足");
+                        Response.End();
+                    }
+                    else
+                    {
+                        for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
+                        {
+                            Num = count;
+                            int stockNum = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["stockNum"]);
+                            int goodsId = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["goodsShelvesId"]);
+                            if (Num <= stockNum)
+                            {
+                                int a = stockNum - Num;
+                                Result result = stockBll.update(a, goodsId);
+                                if (result == Result.更新成功)
+                                {
+                                    Response.Write("添加成功");
+                                    Response.End();
+                                }
+                                else
+                                {
+                                    Response.Write("添加失败");
+                                    Response.End();
+                                }
+                            }
+                            else
+                            {
+                                count = Num - stockNum;
+                                Result result = stockBll.update(0, goodsId);
+                                if (count == 0)
+                                {
+                                    Response.Write("添加成功");
+                                    Response.End();
+                                }
+                                if (result == Result.更新失败)
+                                {
+                                    Response.Write("添加失败");
+                                    Response.End();
+                                }
+                            }
+                        }
+                    }
                 }
                 else
                 {

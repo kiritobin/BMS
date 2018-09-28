@@ -21,6 +21,7 @@ namespace bms.Web.BasicInfor
         WarehousingBll wareBll = new WarehousingBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            getData();
             dsRegion = regionBll.select();
             User user = (User)Session["user"];
             string op = Request["op"];

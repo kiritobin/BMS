@@ -99,15 +99,7 @@ $("#btnAdd").click(function () {
             type: "warning"
         }).catch(swal.noop);
     }
-    else if (goods == "") {
-        swal({
-            title: "温馨提示:)",
-            text: "货架不能为空，请您选择任一货架",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else if (totalPrice == "") {
+    else if (totalPrice == "") {
         swal({
             title: "温馨提示:)",
             text: "总码洋不能为空，请您重新输入",
@@ -133,7 +125,6 @@ $("#btnAdd").click(function () {
                 totalPrice: totalPrice,
                 realPrice: realPrice,
                 discount: discount,
-                goods: goods,
                 uPrice: uPrice,
                 op: "add"
             },
@@ -141,7 +132,7 @@ $("#btnAdd").click(function () {
             success: function (succ) {
                 if (succ == "添加成功") {
                     swal({
-                        title: "温馨提示:)",
+                        title: succ,
                         text: succ,
                         type: "success",
                         confirmButtonColor: '#3085d6',
@@ -154,7 +145,7 @@ $("#btnAdd").click(function () {
                     })
                 } else {
                     swal({
-                        title: "温馨提示:)",
+                        title: succ,
                         text: succ,
                         type: "warning",
                         confirmButtonColor: '#3085d6',
