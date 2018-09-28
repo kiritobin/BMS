@@ -113,17 +113,17 @@
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="warehouseManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="stockManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="returnManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
