@@ -62,11 +62,11 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <%--<li class="nav-item">
+                                <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
-                                </li>--%>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -110,18 +110,18 @@
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="warehouseManagement.aspx">
-                                        <span class="sidebar-normal">出库管理</span>
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
+                                        <span class="sidebar-normal">出库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="stockManagement.aspx">
-                                        <span class="sidebar-normal">入库管理</span>
+                                    <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
+                                        <span class="sidebar-normal">入库</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="returnManagement.aspx">
-                                        <span class="sidebar-normal">退货管理</span>
+                                    <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
+                                        <span class="sidebar-normal">退货</span>
                                     </a>
                                 </li>
                             </ul>
@@ -138,8 +138,8 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销管理</span>
+                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
+                                        <span class="sidebar-normal">营销</span>
                                     </a>
                                 </li>
                             </ul>
@@ -157,7 +157,7 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../BasicInfor/bookshelfManagement.aspx">
-                                        <span class="sidebar-normal">货架管理</span>
+                                        <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -219,13 +219,13 @@
                                         <!-- 表格头部按钮功能组 -->
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" placeholder="请输入分公司名称">
+                                                <input type="text" id="search_region" class="searchOne" placeholder="请输入分公司名称">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" placeholder="请输入货架名称">
+                                                <input type="text" id="search_goods" value="" class="searchOne" placeholder="请输入货架名称">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" id="btnISBNS">查询</button>
+                                                <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>

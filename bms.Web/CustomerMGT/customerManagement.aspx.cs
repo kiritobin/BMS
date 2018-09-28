@@ -113,7 +113,6 @@ namespace bms.Web.CustomerMGT
             string customerId = Request["customerId"];
             string customerName = Request["cutomerName"];
             string zoneId = Request["zoneId"];
-            string pwd = rasc.Encrypt("000000");
             Region reg = new Region()
             {
                 RegionId = Convert.ToInt32(zoneId)

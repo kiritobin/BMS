@@ -216,8 +216,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">营销管理</h4>
-                                    <p class="card-category">对销售、销退情况进行查询</p>
+                                    <h4 class="card-title">销售任务</h4>
+                                    <p class="card-category">可对情况进行查询</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
@@ -225,8 +225,7 @@
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
                                             &nbsp;
-                                            <button class="btn btn-success btn-sm" onclick="window.location.href='salesDetail.aspx'" id="btn-add1"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销售</button>
-                                            <button class="btn btn-success btn-sm" onclick="window.location.href='backQuery.aspx'" id="btn-add2"><i class="fa fa-plus fa-lg"></i>&nbsp;添加销退</button>
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i></button>                                         
                                         </div>
                                     </div>
 
@@ -235,34 +234,31 @@
                                             <thead class="text-danger">
                                                 <tr>
                                                     <td>任务ID</td>
-                                                    <td>任务ID</td>
                                                     <td>默认折扣</td>
-                                                    <td>默认复本</td>
                                                     <td>最大采购数</td>
                                                     <td>单价上限</td>
                                                     <td>码洋上限</td>
                                                     <td>开始时间/结束时间</td>
-                                                    <td class="table-thead-th">备注</td>
+                                                    <td class="table-thead-th">操作</td>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
                                                 <tr>
-                                                    <td>10000001</td>
                                                     <td>3245554</td>
                                                     <td>60%</td>
-                                                    <td></td>
                                                     <td>435</td>
                                                     <td>56</td>
                                                     <td>456</td>
                                                     <td>2018.12.3/2018.12.23</td>
-                                                    <td></td>
+                                                    <td>
+                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='salesManagement.aspx'">售</button>
+                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='backManagement.aspx'">退</button>
+                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </div>
-                                    <a class="btn btn-info btn-sm" href="../SalesMGT/salesDetail.aspx">&nbsp;销售明细</a>
-                                    <a class="btn btn-info btn-sm" href="../SalesMGT/backQuery.aspx">&nbsp;销退明细</a>
+                                    </div>                                    
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
@@ -274,6 +270,50 @@
                     </div>
                 </div>
             </div>
+            <!--添加模态框-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" style="max-width:350px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left" id="myModalLabel">任务添加</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="material-icons">clear</i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table model-table">
+                             <tr>
+                                <td class="text-right"><span>最大采购数:</span></td>
+                                <td>
+                                    <input type="text" class="modal_search_add" id="billCount">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><span>单价上限:</span></td>
+                                <td>
+                                    <input type="text" class="modal_search_add" id="totalPrice">
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="text-right"><span>码洋上限:</span></td>
+                                <td>
+                                    <input type="text" class="modal_search_add" id="realPrice">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><span>默认折扣:</span></td>
+                                <td>
+                                    <input type="text" class="modal_search_add" id="Price">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
