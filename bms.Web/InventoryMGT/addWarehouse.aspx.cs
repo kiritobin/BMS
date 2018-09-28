@@ -73,8 +73,6 @@ namespace bms.Web.InventoryMGT
                 Result row = warehousingBll.insertMono(monomers);
                 if (row == Result.添加成功)
                 {
-                    Response.Write("添加成功");
-                    Response.End();
                     DataSet dsGoods = stockBll.SelectByIsbn(isbn);
                     int count= billCount;
                     int allCount = 0,allCounts=0;
