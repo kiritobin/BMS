@@ -61,9 +61,8 @@ $("#btn-add").click(function () {
     var addDiscount = $("#addDiscount").val().trim();
     var addOcean = $("#addOcean").val().trim();
     var addTotalPrice = $("#addTotalPrice").val().trim();
-    // $("#shelfId").find("option:selected").text();
     var shelfId = $("#shelfId").val().trim();
-    if (addISBN == "" || addNum == "" || addPrice == "" || addDiscount == "" || addOcean == "" || shelfId == "") {
+    if (addISBN == "" || addNum == "" || addPrice == "" || addDiscount == "" || addOcean == "") {
         swal({
             title: "温馨提示:)",
             text: "不能含有未填项",
@@ -82,7 +81,6 @@ $("#btn-add").click(function () {
                 addPrice: addPrice,
                 addDiscount: addDiscount,
                 addOcean: addOcean,
-                shelfId: shelfId,
                 addTotalPrice: addTotalPrice,
                 op: "add"
             }, datatype: 'text',

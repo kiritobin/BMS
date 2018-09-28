@@ -182,8 +182,9 @@
             $obj.off().on('click', 'a', function () {
                 if ($(this).hasClass(opts.nextCls)) {
                     if ($obj.find('.' + opts.activeCls).text() >= pageCount) {
-                        $(this).addClass('disabled');
-                        return false;
+                        index = parseInt($obj.find('.' + opts.activeCls).text()) + 1;
+                        //$(this).addClass('disabled');
+                        //return false;
                     } else {
                         index = parseInt($obj.find('.' + opts.activeCls).text()) + 1;
                     }
