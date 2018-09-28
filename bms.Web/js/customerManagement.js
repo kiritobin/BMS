@@ -133,7 +133,7 @@
                     } else {
                         swal({
                             title: "温馨提示",
-                            text: "添加失败",
+                            text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -193,7 +193,7 @@
                     } else {
                         swal({
                             title: "温馨提示",
-                            text: "更新失败",
+                            text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
