@@ -45,7 +45,7 @@ namespace bms.Web.InventoryMGT
                 string realPrice = Request["realPrice"];
                 string discount = Request["discount"];
                 string uPrice = Request["uPrice"];
-                //string goodsInsert = Request["goods"];
+                string goodsInsert = Request["goods"];
                 DataSet dsGoods = stockBll.SelectByIsbn(isbn);
                 int count= billCount;
                 int allCount = 0,allCounts=0;
@@ -96,9 +96,9 @@ namespace bms.Web.InventoryMGT
                 Monomers monomers = new Monomers();
                 monomers.Discount = Convert.ToInt32(discount);
 
-                //GoodsShelves shelves = new GoodsShelves();
-                //shelves.GoodsShelvesId = Convert.ToInt32(goodsInsert);
-                //monomers.GoodsShelvesId = shelves;
+                GoodsShelves shelves = new GoodsShelves();
+                shelves.GoodsShelvesId = Convert.ToInt32(goodsInsert);
+                monomers.GoodsShelvesId = shelves;
 
                 BookBasicData bookBasic = new BookBasicData();
                 bookBasic.Isbn = isbn;
