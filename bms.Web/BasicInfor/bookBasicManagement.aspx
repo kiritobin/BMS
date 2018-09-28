@@ -139,7 +139,7 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销</span>
+                                        <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
                             </ul>
