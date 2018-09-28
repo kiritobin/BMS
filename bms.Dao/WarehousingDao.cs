@@ -140,5 +140,23 @@ namespace bms.Dao
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
+        /// <summary>
+        /// 读取isbn
+        /// </summary>
+        /// <returns></returns>
+        public DataTable getISBN()
+        {
+            string cmdText = "select ISBN from T_BookBasicData";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                return dt;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

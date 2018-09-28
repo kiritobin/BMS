@@ -48,12 +48,12 @@ namespace bms.Web.CustomerMGT
         {
             //differentDt();
             //except.Columns.Remove("id"); //移除匹配列
-            GridView1.DataSource = serialNumber();
+            GridView1.DataSource = differentDt();
             GridView1.DataBind();
         }
 
         public DataSet ds;
-        DataTable except = new DataTable();//接受差集
+       
         BookBasicBll bookbll = new BookBasicBll();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -71,25 +71,6 @@ namespace bms.Web.CustomerMGT
             //    ViewState["i"] = num;
             //}
         }
-        //某字段table去重方法
-        private DataTable GetDistinctSelf(DataTable SourceDt, string field1, string field2, string field3)
-        {
-            if (SourceDt.Rows.Count > 1)
-            {
-                for (int i = 1; i <= SourceDt.Rows.Count - 2; i++)
-                {
-                    string isbn = SourceDt.Rows[i][field1].ToString();
-                    string bookName = SourceDt.Rows[i][field2].ToString();
-                    double price = Convert.ToDouble(SourceDt.Rows[i][field3]);
-                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{3}' and {1}='{4}' and {2}={5}", field1, field2, field3, isbn, ToSBC(bookName), price));
-                    if (rows.Length > 1)
-                    {
-                        SourceDt.Rows.RemoveAt(i);
-                    }
-                }
-            }
-            return SourceDt;
-        }
 
         //excel读到table
         private DataTable excelToDt()
@@ -97,17 +78,6 @@ namespace bms.Web.CustomerMGT
             string path = Session["path"].ToString();
             DataTable dt1 = new DataTable();
             string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-            //文件类型判断
-            //string[] sArray = path.Split('.');
-            //int count = sArray.Length - 1;
-            //if (sArray[count] == "xls")
-            //{
-            //    strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-            //}
-            //else if (sArray[count] == "xlsx")
-            //{
-            //    strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-            //}
             OleDbConnection conn = new OleDbConnection(strConn);
             try
             {
@@ -123,12 +93,6 @@ namespace bms.Web.CustomerMGT
                 DataColumn dc = new DataColumn("type", typeof(int));
                 dc.DefaultValue = 1; //默认值列
                 dt1.Columns.Add(dc);
-                DataColumn del = new DataColumn("del", typeof(int));
-                del.DefaultValue = 0; //默认值列
-                dt1.Columns.Add(del);
-                DataColumn sav = new DataColumn("sav", typeof(int));
-                sav.DefaultValue = 0; //默认值列
-                dt1.Columns.Add(sav);
             }
             catch (Exception ex)
             {
@@ -159,72 +123,44 @@ namespace bms.Web.CustomerMGT
             }
             return UniteDataTable(excelToDt(), dt);
         }
-
-        //书号算法并生成datatable列
-        private DataTable addBookId()
+        private DataTable differentDt()
         {
-            BookBasicData _bookId = bookbll.getBookNum();
-            if (_bookId.NewBookNum == "0" || _bookId.NewBookNum == null)
+            DataTable except = new DataTable();//接受差集
+            WarehousingBll warehousingBll = new WarehousingBll();
+            int j = warehousingBll.getISBN().Rows.Count;
+            //数据库无数据时直接导入excel
+            if (j <= 0)
             {
-                num = "0";
+                except = serialNumber();
             }
             else
             {
-                num = _bookId.NewBookNum;
-            }
-            ViewState["i"] = num;
+                except.Columns.Add("id", typeof(int));
+                except.Columns.Add("单头ID", typeof(string));
+                except.Columns.Add("ISBN", typeof(string));
+                except.Columns.Add("商品数量", typeof(int));
+                except.Columns.Add("单价", typeof(double));
+                except.Columns.Add("码洋", typeof(double));
+                except.Columns.Add("实洋", typeof(double));
+                except.Columns.Add("折扣", typeof(double));
+                except.Columns.Add("货架号", typeof(int));
+                except.Columns.Add("type", typeof(int));
+                except.Columns.Add("流水号", typeof(string));
 
-            int row = excelToDt().Rows.Count;
-            long a;
-            if (ViewState["i"].ToString().Length==1)
-            {
-                a = 0;
-               
-            }
-            else
-            {
-                a = Convert.ToInt64(ViewState["i"].ToString().Substring(10, 8));
-            }
-            
-            ArrayList list = new ArrayList();
-            for (int i = 0; i < row; i++)
-            {
-                string bookId;
-                a++;
-                ViewState["i"] = a;
-                string ss = a.ToString().PadLeft(8, '0');
-                string isbn = excelToDt().Rows[i]["ISBN"].ToString();
-                int count = isbn.Length;
-                if (count >= 13) //大于13位书号
+                DataRowCollection count = serialNumber().Rows;
+                foreach (DataRow row in count)//遍历excel数据集
                 {
-                    bookId = isbn.Substring(3, 10);
-                    bookId = bookId + ss;
+                    string isbn = row[2].ToString().Trim();
+                    DataRow[] rows = warehousingBll.getISBN().Select(string.Format("ISBN='{0}'", isbn));
+                    if (rows.Length != 0)
+                    {
+                        except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9],row[10]);
+                    }
                 }
-                else
-                {
-                    bookId = isbn + ss;
-                }
-                list.Add(bookId);
             }
-            DataTable dt = new DataTable();
-            DataColumn dc = new DataColumn("书号");
-            dt.Columns.Add(dc);
-            DataRow dataRow;
-            int j = list.Count;
-            for (int i = 0; i < list.Count; i++)
-            {
-
-                dataRow = dt.NewRow();
-                string k = list[i].ToString();
-                dataRow["书号"] = list[i].ToString();
-                dt.Rows.Add(k);
-            }
-            DataRow dr_last = dt.AsEnumerable().Last<DataRow>();
-            last = dr_last["书号"].ToString();
-            return UniteDataTable(dt, excelToDt());
+            return except;
         }
-
-        //合并两个table方法,合并书号列
+        //合并两个table方法
         private DataTable UniteDataTable(DataTable udt1, DataTable udt2)
         {
             DataTable udt3 = udt1.Clone();
@@ -267,43 +203,6 @@ namespace bms.Web.CustomerMGT
                 }
             }
             return udt3;
-        }
-        private void differentDt()
-        {
-            BookBasicBll bookBasicBll = new BookBasicBll();
-            int j = bookBasicBll.Select().Rows.Count;
-            //数据库无数据时直接导入excel
-            if (j <= 0)
-            {
-                except = addBookId();
-            }
-            else
-            {
-                except.Columns.Add("书号", typeof(long));
-                except.Columns.Add("id", typeof(string));
-                except.Columns.Add("ISBN", typeof(string));
-                except.Columns.Add("书名", typeof(string));
-                except.Columns.Add("供应商", typeof(string));
-                except.Columns.Add("出版日期", typeof(string));
-                except.Columns.Add("单价", typeof(double));
-                except.Columns.Add("编目", typeof(string));
-                except.Columns.Add("作者", typeof(string));
-                except.Columns.Add("备注", typeof(string));
-                except.Columns.Add("标识", typeof(string));
-
-                DataRowCollection count = addBookId().Rows;
-                foreach (DataRow row in count)//遍历excel数据集
-                {
-                    string isbn = row[2].ToString().Trim();
-                    string bookName = ToSBC(row[3].ToString().Trim());
-                    double price = Convert.ToDouble(row[6]);
-                    DataRow[] rows = bookBasicBll.Select().Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, price));
-                    if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
-                    {
-                        except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]);
-                    }
-                }
-            }
         }
         // 半角转全角：书名列
         private String ToSBC(String input)

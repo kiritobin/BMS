@@ -291,5 +291,42 @@ namespace bms.Web.InventoryMGT
             }
             return udt3;
         }
+
+        private void differentDt()
+        {
+            DataTable except = new DataTable();//接受差集
+            WarehousingBll warehousingBll = new WarehousingBll();
+            int j = warehousingBll.getISBN().Rows.Count;
+            //数据库无数据时直接导入excel
+            if (j <= 0)
+            {
+                except = serialNumber();
+            }
+            else
+            {
+                except.Columns.Add("书号", typeof(long));
+                except.Columns.Add("id", typeof(string));
+                except.Columns.Add("ISBN", typeof(string));
+                except.Columns.Add("书名", typeof(string));
+                except.Columns.Add("供应商", typeof(string));
+                except.Columns.Add("出版日期", typeof(string));
+                except.Columns.Add("单价", typeof(double));
+                except.Columns.Add("编目", typeof(string));
+                except.Columns.Add("作者", typeof(string));
+                except.Columns.Add("备注", typeof(string));
+                except.Columns.Add("标识", typeof(string));
+
+                DataRowCollection count = serialNumber().Rows;
+                foreach (DataRow row in count)//遍历excel数据集
+                {
+                    string isbn = row[0].ToString().Trim();
+                    DataRow[] rows = warehousingBll.getISBN().Select(string.Format("ISBN='{0}'", isbn));
+                    if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
+                    {
+                        except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]);
+                    }
+                }
+            }
+        }
     }
 }

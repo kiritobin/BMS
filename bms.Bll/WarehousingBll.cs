@@ -121,5 +121,13 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+        /// <summary>
+        /// 读取isbn
+        /// </summary>
+        /// <returns></returns>
+        public DataTable getISBN()
+        {
+            return monoDao.getISBN();
+        }
     }
 }
