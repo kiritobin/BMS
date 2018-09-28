@@ -102,7 +102,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="fa fa-book"></i>
                             <p>
@@ -110,10 +110,10 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="inventoryManage">
+                        <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="warehouseManagement.aspx">
+                                    <a class="nav-link" href="warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
@@ -130,7 +130,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                              <i class="fa fa-area-chart"></i>
                             <p>
@@ -138,10 +138,10 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="saleManage">
+                        <div class="collapse show" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
+                                    <a class="nav-link activeNext" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
