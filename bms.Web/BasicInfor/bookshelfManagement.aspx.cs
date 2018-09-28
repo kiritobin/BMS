@@ -15,7 +15,7 @@ namespace bms.Web.BasicInfor
     using Result = Enums.OpResult;
     public partial class bookshelfManagement : System.Web.UI.Page
     {
-        public int totalCount, intPageCount;
+        public int totalCount, intPageCount, PageSize=10;
         public DataSet regionDs, ds;
         GoodsShelvesBll shelvesbll = new GoodsShelvesBll();
         RegionBll rbll = new RegionBll();
@@ -156,7 +156,7 @@ namespace bms.Web.BasicInfor
             tb.StrTable = "V_GoodsShelves";
             tb.OrderBy = "goodsShelvesId";
             tb.StrColumnlist = "goodsShelvesId,shelvesName,regionId,regionName,deleteState";
-            tb.IntPageSize = 6;
+            tb.IntPageSize = PageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
             //获取展示的客户数据
@@ -168,7 +168,7 @@ namespace bms.Web.BasicInfor
             strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * 3)) + "</td>");
+                strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * PageSize)) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["goodsShelvesId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["shelvesName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");

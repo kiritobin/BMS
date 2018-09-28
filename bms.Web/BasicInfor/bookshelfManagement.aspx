@@ -40,7 +40,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-            <div class="sidebar-wrapper">
+             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -156,12 +156,12 @@
                         <div class="collapse show" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
+                                    <a class="nav-link activeNext" href="../BasicInfor/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../BasicInfor/bookBasicManagement.aspx">
+                                    <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
                                 </li>
@@ -274,17 +274,17 @@
                                     <td class="text-right"><span>货架所在地区:</span></td>
                                     <td>
                                         <select class="modal_select" title="请选择地区" data-style="btn-sm" id="model-select-region">
-                                            <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
-                                                { %>
-                                            <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"] %></option>
-                                            <%} %>
+                                             <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
+                                                    { %>
+                                                <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"] %></option>
+                                                <%} %>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-right"><span>货架名称:</span></td>
                                     <td>
-                                        <input type="text" value="" class="modal_search" id="shelfName" placeholder="请输入货架名称">
+                                       <input type="text" value="" class="modal_search" id="shelfName" placeholder="请输入货架名称"> 
                                     </td>
                                 </tr>
                             </table>
@@ -303,8 +303,7 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>
-                        &nbsp;版权所有
+                        </script>&nbsp;版权所有
                     </div>
                 </div>
             </footer>
