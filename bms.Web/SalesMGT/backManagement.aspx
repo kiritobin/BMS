@@ -232,6 +232,9 @@
                                                 <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
+                                             <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
+                                            </div>
                                         </div>
                                     </div>
 

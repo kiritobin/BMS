@@ -323,11 +323,9 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        , made with <i class="material-icons">favorite</i> by
-                        <a href="javascript:;" target="_blank"></a>for a better web.
+                        &nbsp;版权所有
                     </div>
                 </div>
-
             </footer>
         </div>
     </div>
