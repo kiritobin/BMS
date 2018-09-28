@@ -20,11 +20,11 @@ namespace bms.Dao
         {
             int row;
             int userId = user.UserId;
-            string cmd = "select userId from T_User where userId=@userId";
+            string cmd = "select count(userId) from T_User where userId=@userId";
             string[] param1 = { "@userId" };
             object[] values1 = { userId };
-            DataSet ds = db.FillDataSet(cmd, param1, values1);
-            if (ds != null)
+            row = Convert.ToInt32(db.ExecuteScalar(cmd, param1, values1));
+            if (row > 0)
             {
                 return row = 0;
             }
@@ -46,9 +46,9 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Update(User user)
         {
-            string comText = "update T_User set userName=@userName,regionId=@regionId,roleId=@roleId";
-            string[] param = { "@userName", "@regionId", "@roleId" };
-            object[] values = { user.UserName, user.ReginId.RegionId, user.RoleId.RoleId };
+            string comText = "update T_User set userName=@userName,regionId=@regionId,roleId=@roleId where UserId=@UserId";
+            string[] param = { "@userName", "@regionId", "@roleId", "@UserId" };
+            object[] values = { user.UserName, user.ReginId.RegionId, user.RoleId.RoleId,user.UserId };
             int row = db.ExecuteNoneQuery(comText, param, values);
             return row;
         }

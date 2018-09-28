@@ -32,11 +32,11 @@ namespace bms.Web.AccessMGT
             {
                 Insert();
             }
-            if(op== "editor")
+            if (op == "editor")
             {
                 Update();
             }
-            if(op== "del")
+            if (op == "del")
             {
                 Delete();
             }
@@ -87,9 +87,8 @@ namespace bms.Web.AccessMGT
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
-               // sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[i]["regionId"].ToString() + "' calss='regionId' />");
                 sb.Append("<td><button class='btn btn-warning btn-sm btn_Editor' data-toggle='modal' data-target='#myModal2'><i class='fa fa-pencil fa-lg'></i></button>");
-                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td>");
+                sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[i]["regionId"].ToString() + "' /><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td>");
                 sb.Append("<td style='display:none' clall='id'>" + ds.Tables[0].Rows[i]["regionId"].ToString() + "</ td ></ tr >");
             }
             sb.Append("</tbody>");
@@ -176,7 +175,7 @@ namespace bms.Web.AccessMGT
         {
             string regId = Request["regionId"];
             Result row = regionBll.delete(Convert.ToInt32(regId));
-            if(row == Result.删除成功)
+            if (row == Result.删除成功)
             {
                 Response.Write("删除成功");
                 Response.End();
@@ -189,7 +188,7 @@ namespace bms.Web.AccessMGT
         }
 
 
-        
+
 
         /// <summary>
         /// 在删除前判断组织在其他表中是否被引用
@@ -235,7 +234,7 @@ namespace bms.Web.AccessMGT
             Result monomers = regionBll.IsDelete("T_Monomers", "goodsShelvesId", shelvesId);
             if (stock == Result.记录不存在)
             {
-                if(monomers == Result.记录不存在)
+                if (monomers == Result.记录不存在)
                 {
                     return Result.记录不存在;
                 }

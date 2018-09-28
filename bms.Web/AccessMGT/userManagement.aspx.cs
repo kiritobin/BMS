@@ -64,11 +64,12 @@ namespace bms.Web.AccessMGT
             else if (op == "edit")
             {
                 string name = Request["name"];
-                string account = Request["account"];
+                int account = Convert.ToInt32(Request["account"]);
                 string regionID = Request["region"];
                 string roleID = Request["role"];
                 region.RegionId = Convert.ToInt32(regionID);
                 role.RoleId = Convert.ToInt32(roleID);
+                user.UserId = account;
                 user.UserName = name;
                 user.ReginId = region;
                 user.RoleId = role;
@@ -92,12 +93,12 @@ namespace bms.Web.AccessMGT
                 Result row = userBll.UpdatePwd(user);
                 if (row == Result.更新成功)
                 {
-                    Response.Write("更新成功");
+                    Response.Write("重置成功");
                     Response.End();
                 }
                 else
                 {
-                    Response.Write("更新失败");
+                    Response.Write("重置失败");
                     Response.End();
                 }
             }
