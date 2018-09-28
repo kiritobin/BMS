@@ -229,8 +229,8 @@
                                                 <td class="text-right"><span><nobr>货架:</nobr></span></td>
                                                 <td>
                                                     <select id="goods" class="modal_search_add">
-                                                        <%for(int i=0;i<dsGoods.Tables[0].Rows.Count;i++){ %>
-                                                        <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
+                                                        <%for(int i=0;i<dsGood.Tables[0].Rows.Count;i++){ %>
+                                                        <option value="<%=dsGood.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGood.Tables[0].Rows[i]["shelvesName"] %></option>
                                                         <%} %>
                                                     </select>
                                                 </td>

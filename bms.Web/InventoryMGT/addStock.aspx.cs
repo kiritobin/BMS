@@ -20,7 +20,6 @@ namespace bms.Web.InventoryMGT
         public DataSet ds, dsGoods;
         protected void Page_Load(object sender, EventArgs e)
         {
-            getData();
             string singleHeadId="";
             if (!IsPostBack)
             {
@@ -36,6 +35,8 @@ namespace bms.Web.InventoryMGT
                     singleHeadId = Session["id"].ToString();
                 }
             }
+            User user = (User)Session["user"];
+            getData();
             string op = Request["op"];
             WarehousingBll warehousingBll = new WarehousingBll();
             long flow = (warehousingBll.getCount(Convert.ToInt64(singleHeadId)) + 1);
@@ -71,8 +72,23 @@ namespace bms.Web.InventoryMGT
                 Result row = wareBll.insertMono(monomers);
                 if(row == Result.添加成功)
                 {
-                    Response.Write("添加成功");
-                    Response.End();
+                    Stock stock = new Stock();
+                    stock.StockNum = Convert.ToInt32(allCount);
+                    stock.ISBN = bookBasicData;
+                    stock.RegionId = user.ReginId;
+                    stock.GoodsShelvesId = goodsShelves;
+                    StockBll stockBll = new StockBll();
+                    Result result = stockBll.insert(stock);
+                    if (result == Result.添加成功)
+                    {
+                        Response.Write("添加成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("添加失败");
+                        Response.End();
+                    }
                 }
                 else
                 {

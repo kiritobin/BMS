@@ -51,6 +51,7 @@
     <Compile Include="RoleBll.cs" />
     <Compile Include="RSACryptoService.cs" />
     <Compile Include="SaleTaskBll.cs" />
+    <Compile Include="StockBll.cs" />
     <Compile Include="UserBll.cs" />
     <Compile Include="WarehousingBll.cs" />
   </ItemGroup>

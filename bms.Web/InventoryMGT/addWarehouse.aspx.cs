@@ -14,11 +14,12 @@ namespace bms.Web.InventoryMGT
     using Result = Enums.OpResult;
     public partial class addWarehouse : System.Web.UI.Page
     {
-        protected DataSet dsGoods,ds;
+        protected DataSet ds, dsGood;
         protected int pageSize=20, totalCount, intPageCount;
-        UserBll userBll = new UserBll();
         string singleHeadId;
+        UserBll userBll = new UserBll();
         WarehousingBll warehousingBll = new WarehousingBll();
+        StockBll stockBll = new StockBll();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -39,24 +40,73 @@ namespace bms.Web.InventoryMGT
             if(op == "add")
             {
                 string isbn = Request["isbn"];
-                string billCount = Request["billCount"];
+                int billCount = Convert.ToInt32(Request["billCount"]);
                 string totalPrice = Request["totalPrice"];
                 string realPrice = Request["realPrice"];
                 string discount = Request["discount"];
                 string uPrice = Request["uPrice"];
-                string goodsId = Request["goods"];
+                //string goodsInsert = Request["goods"];
+                DataSet dsGoods = stockBll.SelectByIsbn(isbn);
+                int count= billCount;
+                int allCount = 0,allCounts=0;
+                for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
+                {
+                    allCount = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["stockNum"]);
+                }
+                allCounts = allCounts + allCount;
+                if (billCount > allCounts)
+                {
+                    Response.Write("库存数量不足");
+                    Response.End();
+                }
+                else
+                {
+                    for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
+                    {
+                        billCount = count;
+                        int stockNum = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["stockNum"]);
+                        int goodsId = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["goodsShelvesId"]);
+                        if (billCount <= stockNum)
+                        {
+                            int a = stockNum - billCount;
+                            Result result = stockBll.update(a, goodsId);
+                            if (result == Result.更新成功)
+                            {
+                                Response.Write("添加成功");
+                                Response.End();
+                            }
+                            else
+                            {
+                                Response.Write("添加失败");
+                                Response.End();
+                            }
+                        }
+                        else
+                        {
+                            count = billCount - stockNum;
+                            Result result = stockBll.update(0, goodsId);
+                            if (result == Result.更新失败)
+                            {
+                                Response.Write("添加失败");
+                                Response.End();
+                            }
+                        }
+                    }
+                }
                 Monomers monomers = new Monomers();
                 monomers.Discount = Convert.ToInt32(discount);
-                GoodsShelves shelves = new GoodsShelves();
-                shelves.GoodsShelvesId = Convert.ToInt32(goodsId);
-                monomers.GoodsShelvesId = shelves;
+
+                //GoodsShelves shelves = new GoodsShelves();
+                //shelves.GoodsShelvesId = Convert.ToInt32(goodsInsert);
+                //monomers.GoodsShelvesId = shelves;
+
                 BookBasicData bookBasic = new BookBasicData();
                 bookBasic.Isbn = isbn;
                 bookBasic.Price = Convert.ToDouble(uPrice);
                 monomers.Isbn = bookBasic;
                 monomers.UPrice = bookBasic;
                 monomers.MonomersId = 1;
-                monomers.Number = Convert.ToInt32(billCount);
+                monomers.Number = billCount;
                 monomers.RealPrice = Convert.ToDouble(realPrice);
                 SingleHead single = new SingleHead();
                 single.SingleHeadId = singleHeadId;
@@ -101,7 +151,7 @@ namespace bms.Web.InventoryMGT
             }
             GoodsShelvesBll goods = new GoodsShelvesBll();
             int regionId = user.ReginId.RegionId;
-            dsGoods = goods.Select(regionId);
+            dsGood = goods.Select(regionId);
         }
         /// <summary>
         /// 获取分页数据

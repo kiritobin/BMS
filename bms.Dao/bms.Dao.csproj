@@ -55,6 +55,7 @@
     <Compile Include="RegionDao.cs" />
     <Compile Include="RoleDao.cs" />
     <Compile Include="SaleTaskDao.cs" />
+    <Compile Include="StockDao.cs" />
     <Compile Include="UserDao.cs" />
     <Compile Include="WarehousingDao.cs" />
   </ItemGroup>
