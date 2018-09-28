@@ -241,7 +241,6 @@
                                                     <th>折扣</th>
                                                     <th>码洋</th>
                                                     <th>实洋</th>
-                                                    <th>货架名称</th>
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
