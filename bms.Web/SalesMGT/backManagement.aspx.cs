@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using bms.Bll;
+using bms.Model;
 
 namespace bms.Web.SalesMGT
 {
@@ -11,7 +14,7 @@ namespace bms.Web.SalesMGT
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            string sql = "select sellOffHeadID,saleTaskId,kinds,count"
         }
     }
 }

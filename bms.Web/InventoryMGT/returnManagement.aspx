@@ -47,7 +47,7 @@
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
-                            <i class="material-icons">security</i>
+                            <i class="fa fa-cogs"></i>
                             <p>
                                 权限管理
                                 <b class="caret"></b>
@@ -81,7 +81,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
-                            <i class="material-icons">person</i>
+                           <i class="fa fa-user fa-lg"></i>
                             <p>
                                 客户管理
                                 <b class="caret"></b>
@@ -104,7 +104,7 @@
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
-                            <i class="material-icons">book</i>
+                            <i class="fa fa-book"></i>
                             <p>
                                 库存管理
                                 <b class="caret"></b>
@@ -123,7 +123,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="returnManagement.aspx">
+                                    <a class="nav-link" href="returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
@@ -132,7 +132,7 @@
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
-                            <i class="material-icons">library_books</i>
+                             <i class="fa fa-area-chart"></i>
                             <p>
                                 销售管理
                                 <b class="caret"></b>
@@ -150,7 +150,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
-                            <i class="material-icons">bubble_chart</i>
+                             <i class="fa fa-file-archive-o"></i>
                             <p>
                                 基础信息
                                 <b class="caret"></b>
@@ -194,7 +194,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">settings</i>
+                                     <i class="fa fa-gear"></i>
                                     <p class="d-lg-none d-md-block">
                                         更多设置
                                     </p>
