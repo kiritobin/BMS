@@ -40,10 +40,39 @@ namespace bms.Dao
         public BookBasicData SelectById(long bookNum)
         {
             MySqlHelp db = new MySqlHelp();
+            string comText = "select ISBN,price,remarks from T_BookBasicData where bookNum=@bookNum";
+            string[] param = { "@bookNum" };
+            object[] values = { bookNum };
+            DataSet ds = db.FillDataSet(comText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                string isbn = ds.Tables[0].Rows[0]["isbn"].ToString();
+                string price = ds.Tables[0].Rows[0]["price"].ToString();
+                string remarks = ds.Tables[0].Rows[0]["remarks"].ToString();
+                BookBasicData bookBasic = new BookBasicData();
+                bookBasic.Isbn = isbn;
+                bookBasic.Price = Convert.ToDouble(price);
+                bookBasic.Remarks = remarks;
+                return bookBasic;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
-            string comTexts = "select count(bookNum) from T_BookBasicData where bookNum=@bookNum";
-            string[] parames = { "@bookNum" };
-            object[] value = { bookNum };
+
+        /// <summary>
+        /// 根据ISBN查找书号，单价，折扣
+        /// </summary>
+        /// <param name="ISBN">ISBN</param>
+        /// <returns></returns>
+        public DataSet SelectByIsbn(string ISBN)
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comTexts = "select count(bookNum) from T_BookBasicData where ISBN=@ISBN";
+            string[] parames = { "@ISBN" };
+            object[] value = { ISBN };
             int row = Convert.ToInt32(db.ExecuteScalar(comTexts, parames, value));
             if (row == 0)
             {
@@ -51,20 +80,13 @@ namespace bms.Dao
             }
             else
             {
-                string comText = "select ISBN,price,remarks from T_BookBasicData where bookNum=@bookNum";
-                string[] param = { "@bookNum" };
-                object[] values = { bookNum };
+                string comText = "select bookNum,ISBN,price,bookName,supplier from T_BookBasicData where ISBN=@ISBN";
+                string[] param = { "@ISBN" };
+                object[] values = { ISBN };
                 DataSet ds = db.FillDataSet(comText, param, values);
                 if (ds != null || ds.Tables[0].Rows.Count > 0)
                 {
-                    string isbn = ds.Tables[0].Rows[0]["isbn"].ToString();
-                    string price = ds.Tables[0].Rows[0]["price"].ToString();
-                    string remarks = ds.Tables[0].Rows[0]["remarks"].ToString();
-                    BookBasicData bookBasic = new BookBasicData();
-                    bookBasic.Isbn = isbn;
-                    bookBasic.Price = Convert.ToDouble(price);
-                    bookBasic.Remarks = remarks;
-                    return bookBasic;
+                    return ds;
                 }
                 else
                 {

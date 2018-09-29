@@ -40,7 +40,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-          <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -78,7 +78,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
-                           <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-user fa-lg"></i>
                             <p>
                                 客户管理
                                 <b class="caret"></b>
@@ -129,7 +129,7 @@
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
-                             <i class="fa fa-area-chart"></i>
+                            <i class="fa fa-area-chart"></i>
                             <p>
                                 销售管理
                                 <b class="caret"></b>
@@ -147,7 +147,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
-                             <i class="fa fa-file-archive-o"></i>
+                            <i class="fa fa-file-archive-o"></i>
                             <p>
                                 基础信息
                                 <b class="caret"></b>
@@ -192,7 +192,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                   <i class="fa fa-gear"></i>
+                                    <i class="fa fa-gear"></i>
                                     <p class="d-lg-none d-md-block">
                                         更多设置
                                     </p>
@@ -218,44 +218,90 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                    <div class="card-header from-group">
-                                        <table class="table table_stock">
-                                            <tr>
-                                                <td class="text-right"><span><nobr>书号:</nobr></span></td>
-                                                <td><input type="text" class="modal_search_add" id="bookNum"></td>
-                                                <td class="text-right"><span><nobr>商品数量:</nobr></span></td>                                              
-                                                <td><input type="text" class="modal_search_add" id="billCount"></td>
-                                                <td colspan="2"><button class="btn btn-success btn-sm" id="btnAdd">确定添加</button></td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                                        <div class="card-header from-group">
+                                            <div class="input-group">
+                                                <div class="btn-group" role="group">
+                                                    <input type="text" class="searchOne" placeholder="请输入查询条件" id="input-search">
+                                                    <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                                </div>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                    <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center" id="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>单据编号</th>
-                                                    <th>书号</th>
-                                                    <th>ISBN号</th>
-                                                    <th>商品数量</th>
-                                                    <th>单价</th>
-                                                    <th>折扣</th>
-                                                    <th>码洋</th>
-                                                    <th>实洋</th>
-                                                    <th>操作</th>
-                                                </tr>
-                                            </thead>
-                                            <%=getData() %>
-                                        </table>
-                                    </div>
-                                    <div class="copyright float-right page-box">
-                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div>
+                                        <div class="table-responsive">
+                                            <table class="table mostTable table-bordered text-center" id="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>单据编号</th>
+                                                        <th>书号</th>
+                                                        <th>ISBN号</th>
+                                                        <th>商品数量</th>
+                                                        <th>单价</th>
+                                                        <th>折扣</th>
+                                                        <th>码洋</th>
+                                                        <th>实洋</th>
+                                                        <th>操作</th>
+                                                    </tr>
+                                                </thead>
+                                                <%=getData() %>
+                                            </table>
+                                        </div>
+                                        <div class="copyright float-right page-box">
+                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                                <div class="m-style paging"></div>
+                                            </div>
                                         </div>
                                     </div>
-                                        </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--添加模态框-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="max-width: 800px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel">输入数据后按下Enter键查看书籍信息</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-right">
+                                <span>
+                                    <nobr>ISBN:</nobr>
+                                </span>
+                                <input type="text" class="modal_search_add" id="isbn">
+                                <span>
+                                    <nobr>折扣:</nobr>
+                                </span>
+                                <input type="text" class="modal_search_add" id="disCount">
+                                <span>
+                                    <nobr>商品数量:</nobr>
+                                </span>
+                                <input type="text" class="modal_search_add" id="billCount">
+                            </div><br />
+                            <table class="table table-bordered mostTable text-center" id="table2">
+                                <thead>
+                                    <tr>
+                                        <%--<th><input type="checkbox" name="checkbox" class="check" value="" disabled="disabled" /></th>--%>
+                                        <th><input type="radio" name="radio" class="radio" value="" disabled="disabled" /></th>
+                                        <th>书号</th>
+                                        <th>ISBN</th>
+                                        <th>书名</th>
+                                        <th>单价</th>
+                                        <th>出版社</th>
+                                    </tr>
+                                </thead>
+                                <%=getIsbn() %>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success btn-sm" id="btnAdd">提交</button>
                         </div>
                     </div>
                 </div>
