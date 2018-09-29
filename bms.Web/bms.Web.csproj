@@ -139,6 +139,7 @@
     <Content Include="js\collectionManagement.js" />
     <Content Include="js\customerLogin.js" />
     <Content Include="js\customerManagement.js" />
+    <Content Include="js\customerPurchase.js" />
     <Content Include="js\demo.js" />
     <Content Include="js\jedate.min.js" />
     <Content Include="js\jquery.validate.min.js" />

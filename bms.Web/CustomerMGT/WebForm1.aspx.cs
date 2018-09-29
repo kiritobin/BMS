@@ -119,7 +119,7 @@ namespace bms.Web.CustomerMGT
             DataRow dataRow = null;
             for (int i = 0; i < row; i++)
             {
-                string id = (warehousingBll.getCount(20180926000002) + i + 1).ToString();
+                string id = (warehousingBll.getCount("") + i + 1).ToString();
                 dataRow = dt.NewRow();
                 dataRow["流水号"] = id;
                 dt.Rows.Add(id);

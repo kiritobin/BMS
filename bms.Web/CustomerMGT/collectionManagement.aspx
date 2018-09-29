@@ -224,8 +224,7 @@
                                                 <input type="text" value="" class="searchOne" id="bookSearch" placeholder="书名查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="isbnSearch" placeholder="ISBN号查询">
-                                                
+                                                <input type="text" value="" class="searchOne" id="isbnSearch" placeholder="ISBN号查询"> 
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" value="" class="searchOne" id="cusSearch" placeholder="客户查询">
