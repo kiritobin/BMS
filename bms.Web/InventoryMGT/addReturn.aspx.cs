@@ -46,7 +46,7 @@ namespace bms.Web.InventoryMGT
             }
             if (op == "add")
             {
-                string singleHeadId = singId;
+                long singleHeadId = Convert.ToInt64(singId);
                 long counts = wareBll.getCount(singleHeadId);
                 long bookNum = Convert.ToInt64(Request["bookNum"]);
                 int billCount = Convert.ToInt32(Request["billCount"].ToString());
@@ -90,7 +90,7 @@ namespace bms.Web.InventoryMGT
                 monomers.Number = billCount;
                 monomers.RealPrice = Convert.ToDouble((billCount * uPrice * discount).ToString("0.00"));
                 SingleHead single = new SingleHead();
-                single.SingleHeadId = singleHeadId;
+                single.SingleHeadId = singleHeadId.ToString();
                 monomers.SingleHeadId = single;
                 monomers.TotalPrice = Convert.ToDouble((billCount * uPrice).ToString("0.00"));
                 monomers.Type = 2;

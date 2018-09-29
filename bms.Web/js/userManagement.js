@@ -200,7 +200,7 @@ $("#btnAdd").click(function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.reload();
+                       
                     })
                 } else {
                     swal({

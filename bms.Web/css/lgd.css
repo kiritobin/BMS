@@ -125,5 +125,16 @@
 
 .float_left {
     float: left;
-    width:250px;
+    width: 250px;
+}
+/*销售*/
+#btn-addSale {
+    height: 35px;
+}
+
+#saleCustmer {
+    border: 1px solid #ccc;
+    color: dimgray;
+    width: 180px;
+    height:28px;
 }

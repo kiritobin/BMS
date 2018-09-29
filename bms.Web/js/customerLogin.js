@@ -33,7 +33,6 @@
                             type: "warning",
                             allowOutsideClick: false
                         }).then(function () {
-                            window.location.reload();
                         })
                     }
                 }

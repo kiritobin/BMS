@@ -58,7 +58,7 @@ namespace bms.Web.InventoryMGT
                     discount = discount * 0.01;
                 }
                 double uPrice = bookBasicData.Price;
-                long monCount = warehousingBll.getCount(singleHeadId);
+                long monCount = warehousingBll.getCount(Convert.ToInt64(singleHeadId));
                 long monId;
                 if (monCount > 0)
                 {

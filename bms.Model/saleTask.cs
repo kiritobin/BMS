@@ -17,6 +17,7 @@ namespace bms.Model
         private int numberLimit;
         private double priceLimit;
         private double totalPiceLimit;
+        private Customer customer;
         private DateTime startTime;
         private DateTime finishTime;
 
@@ -32,7 +33,7 @@ namespace bms.Model
         /// <param name="totalPiceLimit">码洋上限</param>
         /// <param name="startTime">开始时间</param>
         /// <param name="finishTime">结束时间</param>
-        public SaleTask(string saleTaskId, int userId, double defaultDiscount, string defaultCopy, int numberLimit, double priceLimit, double totalPiceLimit, DateTime startTime, DateTime finishTime)
+        public SaleTask(string saleTaskId, int userId, double defaultDiscount, string defaultCopy, int numberLimit, double priceLimit, double totalPiceLimit, DateTime startTime, DateTime finishTime, Customer customer)
         {
             this.saleTaskId = saleTaskId;
             this.userId = userId;
@@ -43,6 +44,7 @@ namespace bms.Model
             this.totalPiceLimit = totalPiceLimit;
             this.startTime = startTime;
             this.finishTime = finishTime;
+            this.customer = customer;
         }
         /// <summary>
         /// 销售任务ID
@@ -177,6 +179,18 @@ namespace bms.Model
             set
             {
                 finishTime = value;
+            }
+        }
+        public Customer customerID
+        {
+            get
+            {
+                return customerID;
+            }
+
+            set
+            {
+                customerID = value;
             }
         }
         /// <summary>

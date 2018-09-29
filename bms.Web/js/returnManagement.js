@@ -123,7 +123,6 @@ $("#btnAdd").click(function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.reload();
                     })
                 }
             }
@@ -249,7 +248,6 @@ $("#table").delegate(".btn-delete", "click", function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.reload();
                     })
                 }
             }
