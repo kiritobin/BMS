@@ -136,5 +136,9 @@
     border: 1px solid #ccc;
     color: dimgray;
     width: 180px;
-    height:28px;
+    height: 28px;
+}
+
+#source {
+    width: 180px;
 }

@@ -265,12 +265,12 @@
 
                 <!--添加模态框-->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                    <div class="modal-dialog" style="max-width: 350px;">
+                    <div class="modal-dialog" style="max-width: 400px;">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title float-left" id="myModalLabel">入库添加</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close">
-                                    <i class="material-icons">clear</i>
+                                    <i class="fa fa-close"></i>
                                 </button>
                             </div>
                             <div class="modal-body">
