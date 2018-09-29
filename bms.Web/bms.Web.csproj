@@ -156,6 +156,7 @@
     <Content Include="js\roleManagement.js" />
     <Content Include="js\stockManagement.js" />
     <Content Include="js\sweetalert2.js" />
+    <Content Include="js\tradeManagement.js" />
     <Content Include="js\userManagement.js" />
     <Content Include="js\warehouseManagement.js" />
     <Content Include="login.aspx" />
