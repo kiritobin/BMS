@@ -125,7 +125,6 @@
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window, location.reload();
                         })
                     }
                 }

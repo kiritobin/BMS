@@ -52,7 +52,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="monId">单头id</param>
         /// <returns>返回行数</returns>
-        public long getCount(string singleHeadId)
+        public long getCount(long singleHeadId)
         {
             long row = monoDao.SelectBymonId(singleHeadId);
             if (row > 0)

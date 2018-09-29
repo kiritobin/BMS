@@ -111,7 +111,7 @@ namespace bms.Dao
         /// 根据单体id查询已存在行数
         /// </summary>
         /// <returns>行数</returns>
-        public long SelectBymonId(string singleHeadId)
+        public long SelectBymonId(long singleHeadId)
         {
             string comText = "select COUNT(monId) from T_Monomers where singleHeadId=@singleHeadId";
             string[] param = { "@singleHeadId" };

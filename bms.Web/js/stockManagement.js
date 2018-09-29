@@ -134,7 +134,6 @@ $("#table").delegate(".btn-danger", "click", function () {
                         type: "warning",
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.reload();
                     })
                 }
             }
@@ -184,7 +183,6 @@ $("#btnAdd").click(function () {
                         type: "warning",
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.reload();
                     })
                 }
             }

@@ -129,7 +129,6 @@
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window.location.reload();
                         })
                     }
                 }
@@ -185,7 +184,6 @@
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window.location.reload();
                         })
                     }
                 }
