@@ -31,6 +31,53 @@ namespace bms.Dao
                 return null;
             }
         }
+
+        /// <summary>
+        /// 根据书号查找isbn，单价，折扣
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public BookBasicData SelectById(long bookNum)
+        {
+            MySqlHelp db = new MySqlHelp();
+
+            string comTexts = "select count(bookNum) from T_BookBasicData where bookNum=@bookNum";
+            string[] parames = { "@bookNum" };
+            object[] value = { bookNum };
+            int row = Convert.ToInt32(db.ExecuteScalar(comTexts, parames, value));
+            if (row == 0)
+            {
+                return null;
+            }
+            else
+            {
+                string comText = "select ISBN,price,remarks from T_BookBasicData where bookNum=@bookNum";
+                string[] param = { "@bookNum" };
+                object[] values = { bookNum };
+                DataSet ds = db.FillDataSet(comText, param, values);
+                if (ds != null || ds.Tables[0].Rows.Count > 0)
+                {
+                    string isbn = ds.Tables[0].Rows[0]["isbn"].ToString();
+                    string price = ds.Tables[0].Rows[0]["price"].ToString();
+                    string remarks = ds.Tables[0].Rows[0]["remarks"].ToString();
+                    BookBasicData bookBasic = new BookBasicData();
+                    bookBasic.Isbn = isbn;
+                    bookBasic.Price = Convert.ToDouble(price);
+                    bookBasic.Remarks = remarks;
+                    return bookBasic;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 删除基础数据
+        /// </summary>
+        /// <param name="bookNum">s书号</param>
+        /// <returns></returns>
         public int Delete(long bookNum)
         {
             string cmdText = "delete from T_BookBasicData where bookNum=@bookNum";

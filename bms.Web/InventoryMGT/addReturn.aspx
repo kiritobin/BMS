@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addReturn.aspx.cs" Inherits="bms.Web.InventoryMGT.addReturn" %>
-
+<%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -224,38 +224,12 @@
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
                                             <tr>
-                                                <td class="td_text"><span class="span-text">ISBN号:</span></td>
+                                                <td class="td_text"><span class="span-text">书号:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" id="addISBN" class="input_text"></td>
+                                                    <input type="text" id="bookNum" class="input_text"></td>
                                                 <td class="td_text"><span class="span-text">商品总数:</span></td>
                                                 <td class="td_width">
-                                                    <input type="text" id="addNum" class="input_text"></td>
-                                                <td class="td_text"><span class="span-text">单价:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="addPrice" class="input_text"></td>
-                                            </tr>
-                                            <tr>
-
-                                                <td class="td_text"><span class="span-text">折扣:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="addTotalPrice" class="input_text"></td>
-                                                <td class="td_text"><span class="span-text">码洋:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="addDiscount" class="input_text"></td>
-                                                <td class="td_text"><span class="span-text">实洋:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="addOcean" class="input_text"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_text"><span class="span-text">货架号:</span></td>
-                                                <td class="td_width">
-                                                    <select class="input_text" id="shelfId">
-                                                        <option>请选择货架</option>
-                                                        <%for (int i = 0; i < shelf.Tables[0].Rows.Count; i++)
-                                                            { %>
-                                                        <option value="<%=shelf.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=shelf.Tables[0].Rows[i]["shelvesName"] %></option>
-                                                        <%} %>
-                                                    </select></td>
+                                                    <input type="text" id="billCount" class="input_text"></td>
                                             </tr>
 
                                         </table>
@@ -275,13 +249,13 @@
                                                 </tr>
                                                 <tr>
                                                     <td>单据编号</td>
+                                                    <td>书号</td>
                                                     <td>ISBN号</td>
                                                     <td>商品数量</td>
                                                     <td>单价</td>
-                                                    <td>码洋</td>
                                                     <td>折扣</td>
+                                                    <td>码洋</td>
                                                     <td>实洋</td>
-                                                    <td>货架名称</td>
                                                     <td>操作</td>
                                                 </tr>
                                             </thead>

@@ -58,17 +58,12 @@ $(document).ready(function () {
 
 //添加退货单头
 $("#btnAdd").click(function () {
-    var isbn = $("#isbn").val();
+    var bookNum = $("#bookNum").val();
     var billCount = $("#billCount").val();
-    var totalPrice = $("#totalPrice").val();
-    var realPrice = $("#realPrice").val();
-    var uPrice = $("#uPrice").val();
-    var discount = $("#discount").val();
-    var goods = $("#goods").val();
-    if (isbn == "") {
+    if (bookNum == "") {
         swal({
             title: "温馨提示:)",
-            text: "ISBN号不能为空，请您重新输入",
+            text: "书号不能为空，请您重新输入",
             buttonsStyling: false,
             confirmButtonClass: "btn btn-warning",
             type: "warning"
@@ -77,55 +72,18 @@ $("#btnAdd").click(function () {
     else if (billCount == "") {
         swal({
             title: "温馨提示:)",
-            text: "单据总数不能为空，请您重新输入",
+            text: "商品总数不能为空，请您重新输入",
             buttonsStyling: false,
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-    } else if (uPrice == "") {
-        swal({
-            title: "温馨提示:)",
-            text: "单价不能为空，请您重新输入",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else if (discount == "") {
-        swal({
-            title: "温馨提示:)",
-            text: "折扣不能为空，请您重新输入",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    }
-    else if (totalPrice == "") {
-        swal({
-            title: "温馨提示:)",
-            text: "总码洋不能为空，请您重新输入",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else if (realPrice == "") {
-        swal({
-            title: "温馨提示:)",
-            text: "总实洋不能为空，请您重新输入",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);;
     } else {
         $.ajax({
             type: 'Post',
             url: 'addWarehouse.aspx',
             data: {
-                isbn:isbn,
+                bookNum: bookNum,
                 billCount: billCount,
-                totalPrice: totalPrice,
-                realPrice: realPrice,
-                discount: discount,
-                uPrice: uPrice,
                 op: "add"
             },
             datatype: 'text',
