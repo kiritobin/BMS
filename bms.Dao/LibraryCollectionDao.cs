@@ -95,5 +95,12 @@ namespace bms.Dao
             String[] values = { libraryId.ToString() };
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
+        public int deleteByCus(int customId)
+        {
+            string cmdText = "delete from T_LibraryCollection where customerId=@customerId";
+            String[] param = { "@customerId" };
+            String[] values = { customId.ToString() };
+            return db.ExecuteNoneQuery(cmdText, param, values);
+        }
     }
 }

@@ -55,8 +55,8 @@ namespace bms.Web.CustomerMGT
             }
             else if (action=="del")
             {
-                int libraryId = Convert.ToInt32(Request["libraryId"]);
-                Result result = libraryCollectionBll.Delete(libraryId);
+                int custom = Convert.ToInt32(Request["custom"]);
+                Result result = libraryCollectionBll.deleteByCus(custom);
                 if (result==Result.删除成功)
                 {
                     Response.Write("删除成功");
@@ -191,22 +191,39 @@ namespace bms.Web.CustomerMGT
             }
             string book = Request["book"];
             string isbn = Request["isbn"];
+            string custom = Request["custom"];
             string search = "";
-            if ((book == "" || book == null) && (isbn == "" || isbn == null))
+            if ((book == "" || book == null) && (isbn == null || isbn == "") && (custom == null || custom == ""))
             {
                 search = "";
             }
-            else if (book == "")
+            else if ((book != "" && book != null) && (isbn == null || isbn == "") && (custom == null || custom == ""))
+            {
+                search = String.Format(" bookName like '%{0}%'", book);
+            }
+            else if ((book == "" || book == null) && (isbn != "" && isbn != null) && (custom == null || custom == ""))
             {
                 search = "ISBN=" + isbn;
             }
-            else if (isbn == "")
+            else if ((book == "" || book == null) && (custom != "" && custom != null) && (isbn == null || isbn == ""))
             {
-                search = "bookName like '%" + book+"%'";
+                search = "customerName='" + custom + "'";
+            }
+            else if ((book == "" || book == null) && (custom != "" && custom != null) && (isbn != null && isbn != ""))
+            {
+                search = "ISBN='" + isbn + "' and customerName='" + custom + "'";
+            }
+            else if ((book != "" && book != null) && (isbn != null && isbn != "") && (custom == null || custom == ""))
+            {
+                search = String.Format(" bookName like '%{0}%' and ISBN = '{1}'", book, isbn);
+            }
+            else if ((book != "" && book != null) && (isbn == null || isbn == "") && (custom != null && custom != ""))
+            {
+                search = String.Format(" bookName like '%{0}%' and customerName='{1}'", book, custom);
             }
             else
             {
-                search = "ISBN=" + isbn+ " and bookName like '%" + book+"%'";
+                search = String.Format(" bookName like '%{0}%' and ISBN = '{1}' and customerName='{2}'", book, isbn, custom);
             }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_LibraryCollection";
@@ -234,7 +251,6 @@ namespace bms.Web.CustomerMGT
                 sb.Append("<td>" + drc[i]["customerName"].ToString() + "</td>");
                 sb.Append("<td>" + drc[i]["price"].ToString() + "</ td >");
                 sb.Append("<td>" + drc[i]["collectionNum"].ToString() + "</ td ></ tr >");
-                sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "</button>"+ "</ td ></ tr >");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");

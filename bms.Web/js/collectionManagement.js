@@ -36,12 +36,14 @@
     $("#btn-search").click(function () {
         var book = $("#bookSearch").val().trim();
         var isbn = $("#isbnSearch").val().trim();
+        var custom = $("#cusSearch").val().trim();
         $.ajax({
             type: 'Post',
             url: 'collectionManagement.aspx',
             data: {
                 book: book,
                 isbn: isbn,
+                custom: custom,
                 op: "paging"
             },
             dataType: 'text',
@@ -141,12 +143,15 @@
                         $("#myModalLabe1").html(data);
                         $("#close").show();
                         $("#img").attr("src", "../imgs/success.png");
+                        sessionStorage.setItem("import","导入成功");
                     } else if (data.indexOf("导入失败") >= 0) {
                         $("#myModalLabe1").html(data);
                         $("#close").show();
                         $("#img").attr("src", "../imgs/lose.png");
+                        sessionStorage.setItem("import", "导入失败");
                     }
                     else {
+                        sessionStorage.setItem("import", "导入失败");
                         $("#close").show();
                         swal({
                             title: "提示",
@@ -163,6 +168,70 @@
             });
         }
     });
+
+    $("#btndel").click(function () {
+        var custom = $("#sel-del").val().trim();
+        if (custom == "") {
+            swal({
+                title: "提示",
+                text: "请选择客户",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            })
+        }
+        else {
+            swal({
+                title: '温馨提示:)',
+                text: '确定要删除吗？',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '是的，删掉它!',
+                cancelButtonText: '不，让我思考一下',
+                confirmButtonClass: "btn btn-success",
+                cancelButtonClass: "btn btn-danger",
+                buttonsStyling: false,
+                allowOutsideClick: false
+            }).then(function () {
+                $.ajax({
+                    type: 'Post',
+                    url: 'collectionManagement.aspx',
+                    data: {
+                        custom: custom,
+                        action: "del"
+                    },
+                    dataType: 'text',
+                    success: function (data) {
+                        if (data == "删除成功") {
+                            swal({
+                                title: "温馨提示:)",
+                                text: "用户删除成功",
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-success",
+                                type: "success",
+                                allowOutsideClick: false
+                            }).then(function () {
+                                window.location.reload();
+                            })
+                        } else {
+                            swal({
+                                title: "温馨提示:)",
+                                text: "删除失败，无客户数据",
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-success",
+                                type: "warning",
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
+                        }
+                    }
+                });
+            })
+        }
+    })
 
     $("#upload").click(function () {
         var location = $("input[name='file']").val();
@@ -202,7 +271,9 @@
         $("#close").show();
         $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
         $("#img").attr("src", "../imgs/loading.gif");
-        window.location.reload();
+        if (sessionStorage.getItem("import")=="导入成功") {
+            window.location.reload();
+        }
     });
 
     function ajaxFileUpload() {
@@ -260,55 +331,55 @@
         return false;
     }
 
-    $("#table").delegate(".btn_delete", "click", function () {
-        var libraryId = $(this).parent().prev().prev().prev().prev().prev().prev().text().trim();
-        swal({
-            title: '温馨提示:)',
-            text: '确定要删除吗？',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: '是的，删掉它!',
-            cancelButtonText: '不，让我思考一下',
-            confirmButtonClass: "btn btn-success",
-            cancelButtonClass: "btn btn-danger",
-            buttonsStyling: false,
-            allowOutsideClick: false
-        }).then(function () {
-            $.ajax({
-                type: 'Post',
-                url: 'collectionManagement.aspx',
-                data: {
-                    libraryId: libraryId,
-                    action: "del"
-                },
-                dataType: 'text',
-                success: function (succ) {
-                    if (succ == "删除成功") {
-                        swal({
-                            title: "温馨提示:)",
-                            text: "用户删除成功",
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-success",
-                            type: "success",
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
-                    } else {
-                        swal({
-                            title: "温馨提示:)",
-                            text: "删除失败",
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-success",
-                            type: "warning",
-                            allowOutsideClick: false
-                        }).then(function () {
-                        })
-                    }
-                }
-            })
-        });
-    })
+    //$("#table").delegate(".btn_delete", "click", function () {
+    //    var libraryId = $(this).parent().prev().prev().prev().prev().prev().prev().text().trim();
+    //    swal({
+    //        title: '温馨提示:)',
+    //        text: '确定要删除吗？',
+    //        type: 'warning',
+    //        showCancelButton: true,
+    //        confirmButtonText: '是的，删掉它!',
+    //        cancelButtonText: '不，让我思考一下',
+    //        confirmButtonClass: "btn btn-success",
+    //        cancelButtonClass: "btn btn-danger",
+    //        buttonsStyling: false,
+    //        allowOutsideClick: false
+    //    }).then(function () {
+    //        $.ajax({
+    //            type: 'Post',
+    //            url: 'collectionManagement.aspx',
+    //            data: {
+    //                libraryId: libraryId,
+    //                action: "del"
+    //            },
+    //            dataType: 'text',
+    //            success: function (succ) {
+    //                if (succ == "删除成功") {
+    //                    swal({
+    //                        title: "温馨提示:)",
+    //                        text: "用户删除成功",
+    //                        buttonsStyling: false,
+    //                        confirmButtonClass: "btn btn-success",
+    //                        type: "success",
+    //                        allowOutsideClick: false
+    //                    }).then(function () {
+    //                        window.location.reload();
+    //                    })
+    //                } else {
+    //                    swal({
+    //                        title: "温馨提示:)",
+    //                        text: "删除失败",
+    //                        buttonsStyling: false,
+    //                        confirmButtonClass: "btn btn-success",
+    //                        type: "warning",
+    //                        allowOutsideClick: false
+    //                    }).then(function () {
+    //                    })
+    //                }
+    //            }
+    //        })
+    //    });
+    //})
 });
 //退出系统
 function logout() {
