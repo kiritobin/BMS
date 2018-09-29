@@ -92,5 +92,44 @@ namespace bms.Dao
             count = Convert.ToInt32(values[2].Value);
             return ds;
         }
+
+        /// <summary>
+        /// 根据索引和pagesize返回记录
+        /// </summary>
+        /// <param name="dt">记录集 DataTable</param>
+        /// <param name="PageIndex">当前页</param>
+        /// <param name="pagesize">一页的记录数</param>
+        /// <returns></returns>
+        public DataTable SplitDataTable(DataTable dt, int PageIndex, int PageSize)
+        {
+            if (dt == null)
+            {
+                return null;
+            }
+            if (PageIndex == 0)
+                return dt;
+            DataTable newdt = dt.Clone();
+            //newdt.Clear();
+            int rowbegin = (PageIndex - 1) * PageSize;
+            int rowend = PageIndex * PageSize;
+
+            if (rowbegin >= dt.Rows.Count)
+                return newdt;
+
+            if (rowend > dt.Rows.Count)
+                rowend = dt.Rows.Count;
+            for (int i = rowbegin; i <= rowend - 1; i++)
+            {
+                DataRow newdr = newdt.NewRow();
+                DataRow dr = dt.Rows[i];
+                foreach (DataColumn column in dt.Columns)
+                {
+                    newdr[column.ColumnName] = dr[column.ColumnName];
+                }
+                newdt.Rows.Add(newdr);
+            }
+
+            return newdt;
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace bms.Web.InventoryMGT
         UserBll userBll = new UserBll();
         WarehousingBll warehousingBll = new WarehousingBll();
         StockBll stockBll = new StockBll();
+        BookBasicBll basicBll = new BookBasicBll();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -39,13 +40,25 @@ namespace bms.Web.InventoryMGT
             string op = Request["op"];
             if(op == "add")
             {
-                string isbn = Request["isbn"];
+                long bookNum = Convert.ToInt64(Request["bookNum"]);
+                BookBasicData bookBasicData = basicBll.SelectById(Convert.ToInt64(bookNum));
+                if(bookBasicData == null)
+                {
+                    Response.Write("书号不存在");
+                    Response.End();
+                }
+                string isbn = bookBasicData.Isbn;
                 int billCount = Convert.ToInt32(Request["billCount"]);
-                string totalPrice = Request["totalPrice"];
-                string realPrice = Request["realPrice"];
-                string discount = Request["discount"];
-                string uPrice = Request["uPrice"];
-                long monCount = warehousingBll.getCount(Convert.ToInt64(singleHeadId));
+                double discount = Convert.ToDouble(bookBasicData.Remarks);
+                if (discount > 1 && discount <= 10)
+                {
+                    discount = discount * 0.1;
+                }else if(discount > 10)
+                {
+                    discount = discount * 0.01;
+                }
+                double uPrice = bookBasicData.Price;
+                long monCount = warehousingBll.getCount(singleHeadId);
                 long monId;
                 if (monCount > 0)
                 {
@@ -56,19 +69,21 @@ namespace bms.Web.InventoryMGT
                     monId = 1;
                 }
                 Monomers monomers = new Monomers();
-                monomers.Discount = Convert.ToInt32(discount);
                 BookBasicData bookBasic = new BookBasicData();
                 bookBasic.Isbn = isbn;
                 bookBasic.Price = Convert.ToDouble(uPrice);
+                bookBasic.BookNum = bookNum;
+                monomers.BookNum = bookBasic;
+                monomers.Discount = discount;
                 monomers.Isbn = bookBasic;
                 monomers.UPrice = bookBasic;
                 monomers.MonomersId = Convert.ToInt32(monId);
                 monomers.Number = billCount;
-                monomers.RealPrice = Convert.ToDouble(realPrice);
+                monomers.RealPrice = Convert.ToDouble((billCount * uPrice* discount).ToString("0.00"));
                 SingleHead single = new SingleHead();
                 single.SingleHeadId = singleHeadId;
                 monomers.SingleHeadId = single;
-                monomers.TotalPrice = Convert.ToDouble(totalPrice);
+                monomers.TotalPrice = Convert.ToDouble((billCount* uPrice).ToString("0.00"));
                 monomers.Type = 0;
                 Result row = warehousingBll.insertMono(monomers);
                 if (row == Result.添加成功)
@@ -79,8 +94,8 @@ namespace bms.Web.InventoryMGT
                     for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
                     {
                         allCount = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["stockNum"]);
+                        allCounts = allCounts + allCount;
                     }
-                    allCounts = allCounts + allCount;
                     if (billCount > allCounts)
                     {
                         Response.Write("库存数量不足");
@@ -175,9 +190,9 @@ namespace bms.Web.InventoryMGT
             }
             string op = Request["op"];
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "V_Monomers";
+            tbd.StrTable = "T_Monomers";
             tbd.OrderBy = "monId";
-            tbd.StrColumnlist = "singleHeadId,monId,ISBN,number,uPrice,totalPrice,realPrice,discount,goodsShelvesId,shelvesName,type,deleteState";
+            tbd.StrColumnlist = "bookNum,singleHeadId,monId,ISBN,number,uPrice,totalPrice,realPrice,discount,type,deleteState";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "deleteState=0 and singleHeadId='" + singleHeadId+"'";
             tbd.IntPageNum = currentPage;
@@ -192,13 +207,13 @@ namespace bms.Web.InventoryMGT
             {
                 System.Data.DataRow dr = ds.Tables[0].Rows[i];
                 sb.Append("<tr><td>" + dr["monId"].ToString() + "</td>");
+                sb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
                 sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
                 sb.Append("<td>" + dr["number"].ToString() + "</td>");
                 sb.Append("<td>" + dr["uPrice"].ToString() + "</td>");
+                sb.Append("<td>" + dr["discount"].ToString() + "</td>");
                 sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
-                sb.Append("<td>" + dr["discount"].ToString() + "</td>");
-                sb.Append("<td>" + dr["shelvesName"].ToString() + "</td>");
                 sb.Append("<td><input type='hidden' value='" + dr["monId"].ToString() + "'/>");
                 sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></td></tr>");
             }

@@ -48,7 +48,10 @@ namespace bms.Web.CustomerMGT
         {
             //differentDt();
             //except.Columns.Remove("id"); //移除匹配列
-            GridView1.DataSource = differentDt();
+            UserBll userBll = new UserBll();
+            WarehousingBll warehousingBll = new WarehousingBll();
+            DataTable dt = userBll.SplitDataTable(differentDt(), 1,1);
+            GridView1.DataSource = dt;
             GridView1.DataBind();
         }
 
@@ -127,7 +130,7 @@ namespace bms.Web.CustomerMGT
         {
             DataTable except = new DataTable();//接受差集
             WarehousingBll warehousingBll = new WarehousingBll();
-            int j = warehousingBll.getISBN().Rows.Count;
+            int j = warehousingBll.getISBNbook().Rows.Count;
             //数据库无数据时直接导入excel
             if (j <= 0)
             {
@@ -137,24 +140,26 @@ namespace bms.Web.CustomerMGT
             {
                 except.Columns.Add("id", typeof(int));
                 except.Columns.Add("单头ID", typeof(string));
+                except.Columns.Add("书名", typeof(string));
+                except.Columns.Add("书号", typeof(string));
                 except.Columns.Add("ISBN", typeof(string));
                 except.Columns.Add("商品数量", typeof(int));
                 except.Columns.Add("单价", typeof(double));
                 except.Columns.Add("码洋", typeof(double));
                 except.Columns.Add("实洋", typeof(double));
                 except.Columns.Add("折扣", typeof(double));
-                except.Columns.Add("货架号", typeof(int));
                 except.Columns.Add("type", typeof(int));
                 except.Columns.Add("流水号", typeof(string));
 
                 DataRowCollection count = serialNumber().Rows;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
-                    string isbn = row[2].ToString().Trim();
-                    DataRow[] rows = warehousingBll.getISBN().Select(string.Format("ISBN='{0}'", isbn));
+                    string bookName = row[2].ToString().Trim();
+                    string isbn = row[4].ToString().Trim();
+                    DataRow[] rows = warehousingBll.getISBNbook().Select(string.Format("ISBN='{0}' and bookName='{1}'", isbn, ToSBC(bookName)));
                     if (rows.Length != 0)
                     {
-                        except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9],row[10]);
+                        except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9],row[10],row[11]);
                     }
                 }
             }

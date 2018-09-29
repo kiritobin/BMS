@@ -221,10 +221,10 @@
                                     <div class="card-header from-group">
                                         <table class="table table_stock">
                                             <tr>
-                                                <td class="text-right"><span><nobr>ISBN号:</nobr></span></td>
-                                                <td><input type="text" class="modal_search_add" id="isbn"></td>
-                                                <td class="text-right"><span><nobr>商品总数:</nobr></span></td>                                              
-                                                <td><input type="text" class="modal_search_add" id="realPrice"></td>
+                                                <td class="text-right"><span><nobr>书号:</nobr></span></td>
+                                                <td><input type="text" class="modal_search_add" id="bookNum"></td>
+                                                <td class="text-right"><span><nobr>商品数量:</nobr></span></td>                                              
+                                                <td><input type="text" class="modal_search_add" id="billCount"></td>
                                                 <td colspan="2"><button class="btn btn-success btn-sm" id="btnAdd">确定添加</button></td>
                                             </tr>
                                         </table>
@@ -235,6 +235,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>单据编号</th>
+                                                    <th>书号</th>
                                                     <th>ISBN号</th>
                                                     <th>商品数量</th>
                                                     <th>单价</th>

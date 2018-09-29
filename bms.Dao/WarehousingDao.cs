@@ -73,9 +73,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int insertMono(Monomers monomers)
         {
-            string cmdText = "insert into T_Monomers(monId,singleHeadId,ISBN,number,uPrice,totalPrice,realPrice,discount,type) values(@monId,@singleHeadId,@ISBN,@number,@uPrice,@totalPrice,@realPrice,@discount,@type)";
-            string[] param = { "@monId", "@singleHeadId", "@ISBN", "@number", "@uPrice", "@totalPrice", "@realPrice", "@discount", "@type" };
-            object[] values = { monomers.MonomersId, monomers.SingleHeadId.SingleHeadId, monomers.Isbn.Isbn, monomers.Number, monomers.UPrice.Price, monomers.TotalPrice, monomers.RealPrice, monomers.Discount, monomers.Type };
+            string cmdText = "insert into T_Monomers(monId,singleHeadId,bookNum,ISBN,number,uPrice,totalPrice,realPrice,discount,type) values(@monId,@singleHeadId,@bookNum,@ISBN,@number,@uPrice,@totalPrice,@realPrice,@discount,@type)";
+            string[] param = { "@monId", "@singleHeadId", "@bookNum", "@ISBN", "@number", "@uPrice", "@totalPrice", "@realPrice", "@discount", "@type" };
+            object[] values = { monomers.MonomersId, monomers.SingleHeadId.SingleHeadId,monomers.BookNum.BookNum, monomers.Isbn.Isbn, monomers.Number, monomers.UPrice.Price, monomers.TotalPrice, monomers.RealPrice, monomers.Discount, monomers.Type };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -111,7 +111,7 @@ namespace bms.Dao
         /// 根据单体id查询已存在行数
         /// </summary>
         /// <returns>行数</returns>
-        public long SelectBymonId(long singleHeadId)
+        public long SelectBymonId(string singleHeadId)
         {
             string comText = "select COUNT(monId) from T_Monomers where singleHeadId=@singleHeadId";
             string[] param = { "@singleHeadId" };
@@ -144,9 +144,9 @@ namespace bms.Dao
         /// 读取isbn
         /// </summary>
         /// <returns></returns>
-        public DataTable getISBN()
+        public DataTable getISBNbook()
         {
-            string cmdText = "select ISBN from T_BookBasicData";
+            string cmdText = "select ISBN,bookName from T_BookBasicData";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {

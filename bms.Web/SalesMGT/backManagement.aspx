@@ -244,15 +244,16 @@
                                                 <tr>
                                                     <th>销退ID</th>
                                                     <th>任务ID</th>
-                                                    <th>组织名称</th>
-                                                    <th>操作员名称</th>
+                                                    <th>操作员</th>
+                                                    <th>客户</th>
                                                     <th>品种数</th>
+                                                    <th>总数量</th>
                                                     <th>码洋</th>
                                                     <th>实洋</th>
                                                     <th>制单时间</th>
                                                     <th>操作</th>
                                                 </tr>
-                                                <tbody>
+                                                <%--<tbody>
                                                 <tr>
                                                     <td>10000023</td>
                                                     <td>10899923</td>
@@ -269,7 +270,7 @@
                                                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                                     </td>
                                                 </tr>
-                                            </tbody>
+                                            </tbody>--%>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">

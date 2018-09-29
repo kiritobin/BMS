@@ -55,14 +55,9 @@ function logout() {
 
 //添加事件
 $("#btn-add").click(function () {
-    var addISBN = $("#addISBN").val().trim();
-    var addNum = $("#addNum").val().trim();
-    var addPrice = $("#addPrice").val().trim();
-    var addDiscount = $("#addDiscount").val().trim();
-    var addOcean = $("#addOcean").val().trim();
-    var addTotalPrice = $("#addTotalPrice").val().trim();
-    var shelfId = $("#shelfId").val().trim();
-    if (addISBN == "" || addNum == "" || addPrice == "" || addDiscount == "" || addOcean == "") {
+    var bookNum = $("#bookNum").val().trim();
+    var billCount = $("#billCount").val().trim();
+    if (bookNum == "" || billCount == "") {
         swal({
             title: "温馨提示:)",
             text: "不能含有未填项",
@@ -76,12 +71,8 @@ $("#btn-add").click(function () {
             type: 'Post',
             url: '../InventoryMGT/addReturn.aspx',
             data: {
-                addISBN: addISBN,
-                addNum: addNum,
-                addPrice: addPrice,
-                addDiscount: addDiscount,
-                addOcean: addOcean,
-                addTotalPrice: addTotalPrice,
+                bookNum: bookNum,
+                billCount: billCount,
                 op: "add"
             }, datatype: 'text',
             success: function (succ) {
