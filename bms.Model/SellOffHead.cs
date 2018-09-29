@@ -9,16 +9,20 @@ namespace bms.Model
     {
         private string sellOffHeadId;
         private SaleTask saleTaskId;
-        private string kinds;
+        private int kinds;
         private int count;
         private double totalPrice;
         private double realPrice;
-        private User userId;
+        private User user;
         private int state;
-        private Region regionId;
         private DateTime makingTime;
+        private int deleteState;
         /// <summary>
-        /// 销退单头id
+        /// 无参构造函数
+        /// </summary>
+        public SellOffHead() { }
+        /// <summary>
+        /// 销退ID
         /// </summary>
         public string SellOffHeadId
         {
@@ -33,24 +37,9 @@ namespace bms.Model
             }
         }
         /// <summary>
-        /// 销售任务id
+        /// 品种数
         /// </summary>
-        public SaleTask SaleTaskId
-        {
-            get
-            {
-                return saleTaskId;
-            }
-
-            set
-            {
-                saleTaskId = value;
-            }
-        }
-        /// <summary>
-        /// 品种
-        /// </summary>
-        public string Kinds
+        public int Kinds
         {
             get
             {
@@ -63,7 +52,7 @@ namespace bms.Model
             }
         }
         /// <summary>
-        /// 数量
+        /// 总数量
         /// </summary>
         public int Count
         {
@@ -108,22 +97,22 @@ namespace bms.Model
             }
         }
         /// <summary>
-        /// 用户id
+        /// 用户
         /// </summary>
-        public User UserId
+        public User User
         {
             get
             {
-                return userId;
+                return user;
             }
 
             set
             {
-                userId = value;
+                user = value;
             }
         }
         /// <summary>
-        /// 状态（0为未处理，1为已处理）
+        /// 状态(0:新建单据 状态为“采集中”;1:单据完成后 状态为“已完成”)
         /// </summary>
         public int State
         {
@@ -135,21 +124,6 @@ namespace bms.Model
             set
             {
                 state = value;
-            }
-        }
-        /// <summary>
-        /// 地区id
-        /// </summary>
-        public Region RegionId
-        {
-            get
-            {
-                return regionId;
-            }
-
-            set
-            {
-                regionId = value;
             }
         }
         /// <summary>
@@ -167,37 +141,62 @@ namespace bms.Model
                 makingTime = value;
             }
         }
+        /// <summary>
+        /// 删除状态
+        /// </summary>
+        public int DeleteState
+        {
+            get
+            {
+                return deleteState;
+            }
+
+            set
+            {
+                deleteState = value;
+            }
+        }
+        /// <summary>
+        /// 销售任务Id
+        /// </summary>
+        public SaleTask SaleTaskId
+        {
+            get
+            {
+                return saleTaskId;
+            }
+
+            set
+            {
+                saleTaskId = value;
+            }
+        }
 
         /// <summary>
-        /// 销退单头无参构造函数
+        /// 参数构造函数
         /// </summary>
-        public SellOffHead() { }
-
-        /// <summary>
-        /// 销退单头参数构造函数
-        /// </summary>
-        /// <param name="sellOffHeadId">销退单头</param>
-        /// <param name="saleTaskId">销售任务id</param>
-        /// <param name="kinds">种类</param>
-        /// <param name="count">数量</param>
+        /// <param name="sellOffHeadId">销退ID</param>
+        /// <param name="saleTaskId">销售任务ID</param>
+        /// <param name="kinds">品种数</param>
+        /// <param name="count">总数量</param>
         /// <param name="totalPrice">码洋</param>
         /// <param name="realPrice">实洋</param>
-        /// <param name="userId">用户id</param>
-        /// <param name="state">状态（0为未处理，1为已处理）</param>
-        /// <param name="regionId">地区id</param>
+        /// <param name="user">操作员</param>
+        /// <param name="state">状态(0:新建单据 状态为“采集中”;1:单据完成后 状态为“已完成”)</param>
         /// <param name="makingTime">制单时间</param>
-        public SellOffHead(string sellOffHeadId, SaleTask saleTaskId, string kinds, int count, double totalPrice, double realPrice, User userId, int state, Region regionId, DateTime makingTime)
+        /// <param name="deleteState">删除状态</param>
+        public SellOffHead(string sellOffHeadId, SaleTask saleTaskId, int kinds, int count, double totalPrice, double realPrice, User user, int state, DateTime makingTime, int deleteState)
         {
-            this.sellOffHeadId = sellOffHeadId;
-            this.saleTaskId = saleTaskId;
-            this.kinds = kinds;
-            this.count = count;
-            this.totalPrice = totalPrice;
-            this.realPrice = realPrice;
-            this.userId = userId;
-            this.state = state;
-            this.regionId = regionId;
-            this.makingTime = makingTime;
+            this.SellOffHeadId = sellOffHeadId;
+            this.SaleTaskId = saleTaskId;
+            this.Kinds = kinds;
+            this.Count = count;
+            this.TotalPrice = totalPrice;
+            this.RealPrice = realPrice;
+            this.User = user;
+            this.State = state;
+            this.MakingTime = makingTime;
+            this.DeleteState = deleteState;
         }
     }
 }

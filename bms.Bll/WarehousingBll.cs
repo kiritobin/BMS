@@ -125,9 +125,9 @@ namespace bms.Bll
         /// 读取isbn
         /// </summary>
         /// <returns></returns>
-        public DataTable getISBN()
+        public DataTable getISBNbook()
         {
-            return monoDao.getISBN();
+            return monoDao.getISBNbook();
         }
     }
 }

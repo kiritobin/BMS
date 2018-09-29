@@ -41,7 +41,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
                 </a>
             </div>
-            <div class="sidebar-wrapper">
+ <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -100,7 +100,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="fa fa-book"></i>
                             <p>
@@ -108,27 +108,27 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="inventoryManage">
+                        <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="warehouseManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="stockManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="returnManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                              <i class="fa fa-area-chart"></i>
                             <p>
@@ -136,10 +136,10 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="saleManage">
+                        <div class="collapse show" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
+                                    <a class="nav-link activeNext" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>

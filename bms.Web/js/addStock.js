@@ -55,6 +55,34 @@ $(document).ready(function () {
         }
     });
 
+    $('.paging2').pagination({
+        //totalData: $("#countPage").val(), //数据总数
+        //showData: $("#totalCount").val(), //每页显示的条数
+        pageCount: $("#intPageCount2").val(), //总页数
+        jump: false,
+        mode: 'fixed',//固定页码数量
+        coping: true,
+        homePage: '首页',
+        endPage: '尾页',
+        prevContent: '上页',
+        nextContent: '下页',
+        callback: function (api) {
+            $.ajax({
+                type: 'Post',
+                url: 'addStock.aspx',
+                data: {
+                    page: api.getCurrent(),
+                    action:"showIntersect"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    $("#table2 tr:gt(1)").empty(); //清空table2行
+                    $("#table2").append(data); //加载table
+                }
+            });
+        }
+    });
+
     $("#upload").click(function () {
         var location = $("input[name='file']").val();
         var point = location.lastIndexOf(".");
@@ -151,7 +179,11 @@ $(document).ready(function () {
         return false;
     }
 
-    $("#btnImport").click(function () {
+    $("#showIntersect").click(function () {
+        $("#myModal2").modal("hide");
+        $("#myModal1").modal("show");
+        $("#myModalLabe1").html("正在读取数据");
+        $("#close").hide();
         var file = $("#file").val();
         if (file == "" || file == null) {
             swal({
@@ -178,8 +210,28 @@ $(document).ready(function () {
             })
         }
         else {
-            $("#myModal1").modal("show");
             $("#close").hide();
+            $.ajax({
+                type: 'Post',
+                url: 'addStock.aspx',
+                data: {
+                    action: "showIntersect"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    $("#myModal2").modal("show");
+                    $("#myModal1").modal("hide");
+                    $("#table2 tr:gt(1)").empty(); //清空table2行
+                    $("#table2").append(data); //加载table
+                }
+            });
+        }
+    });
+});
+
+$("#btnImport").click(function () {
+    $("#close").hide();
+    $("#myModalLabe1").html("正在导入");
             $.ajax({
                 type: 'Post',
                 url: 'addStock.aspx',
@@ -212,8 +264,6 @@ $(document).ready(function () {
                     }
                 }
             });
-        }
-    });
 });
 
 $("#btnAdd").click(function () {
