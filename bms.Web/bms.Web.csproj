@@ -80,7 +80,6 @@
     <Content Include="CustomerMGT\upload.aspx" />
     <Content Include="CustomerMGT\WebForm1.aspx" />
     <Content Include="CustomerMGT\WebForm2.aspx" />
-    <Content Include="CustomerMGT\WebForm3.aspx" />
     <Content Include="demo\sales_demo.aspx" />
     <Content Include="imgs\loading.gif" />
     <Content Include="imgs\lose.png" />
@@ -255,12 +254,6 @@
     </Compile>
     <Compile Include="CustomerMGT\WebForm2.aspx.designer.cs">
       <DependentUpon>WebForm2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerMGT\WebForm3.aspx.cs">
-      <DependentUpon>WebForm3.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerMGT\WebForm3.aspx.designer.cs">
-      <DependentUpon>WebForm3.aspx</DependentUpon>
     </Compile>
     <Compile Include="demo\sales_demo.aspx.cs">
       <DependentUpon>sales_demo.aspx</DependentUpon>

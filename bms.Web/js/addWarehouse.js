@@ -28,6 +28,7 @@ function logout() {
 
 $(document).ready(function () {
     //sessionStorage.setItem("flag", "false");
+    $("#btnAdd").attr("disabled", false);
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -60,6 +61,7 @@ $(document).ready(function () {
 //回车时间
 $("#isbn").keypress(function (e) {
     if (e.keyCode == 13) {
+        $("#btnAdd").attr("disabled", true);
         var isbn = $("#isbn").val();
         if (isbn == "" || isbn == null) {
             swal({
@@ -126,7 +128,7 @@ $("#btnAdd").click(function () {
     var bookNum = $("input[name='radio']:checked").val();
     var billCount = $("#billCount").val();
     var disCount = $("#disCount").val();
-    if (bookNum == "") {
+    if (bookNum == "" || bookNum == null) {
         swal({
             title: "温馨提示:)",
             text: "书号不能为空，请您重新输入",
