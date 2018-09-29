@@ -71,5 +71,22 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+        /// <summary>
+        /// 通过客户id删除
+        /// </summary>
+        /// <param name="customId"></param>
+        /// <returns></returns>
+        public Result deleteByCus(int customId)
+        {
+            int count = libraryDao.deleteByCus(customId);
+            if (count > 0)
+            {
+                return Result.删除成功;
+            }
+            else
+            {
+                return Result.删除失败;
+            }
+        }
     }
 }

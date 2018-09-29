@@ -225,10 +225,17 @@
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" value="" class="searchOne" id="isbnSearch" placeholder="ISBN号查询">
+                                                
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="searchOne" id="cusSearch" placeholder="客户查询">
                                                 <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal2">删除</button>
                                             </div>
                                         </div>
                                     </div>
@@ -242,7 +249,6 @@
                                                     <th>客户名称</th>
                                                     <th>价格</th>
                                                     <th>数量(册)</th>
-                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
                                             <%= getData() %>
@@ -301,6 +307,36 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel2">删除客户数据
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <span>请选择客户:</span>
+                                <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="sel-del" style="float: left;">
+                                    <option value="">请选择客户</option>
+                                    <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
+                                        { %>
+                                    <option value="<%=dsCustom.Tables[0].Rows[i]["customerId"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
+                                    <%}%>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success" id="btndel" data-toggle="modal">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="width: 500px; height: 500px">
                     <div class="modal-content">
