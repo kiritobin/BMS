@@ -144,9 +144,18 @@ namespace bms.Web.InventoryMGT
                     dt = userBll.SplitDataTable(dtInsert, pageIndex, 1);
                     DataRowCollection drc = dt.Rows;
                     sb.Append("<tbody>");
+                    int allPage = count % pageSize;
+                    if (allPage==0)
+                    {
+                        allPage = count/pageSize;
+                    }
+                    else
+                    {
+                        allPage = count / pageSize+1;
+                    }
                     for (int i=0;i< count; i++)
                     {
-                        sb.Append("<tr><td>" + (i + 1 + ((pageIndex - 1) * pageSize)) + "</td>");
+                        sb.Append("<tr><td>" + (i + 1 + ((allPage - 1) * pageSize)) + "</td>");
                         sb.Append("<td>" + drc[i]["单头ID"].ToString() + "</td >");
                         sb.Append("<td>" + drc[i]["书名"].ToString() + "</td >");
                         sb.Append("<td>" + drc[i]["书号"].ToString() + "</td>");
@@ -159,8 +168,7 @@ namespace bms.Web.InventoryMGT
                         sb.Append("<td>" + drc[i]["流水号"].ToString() + "</td ></tr>");
                     }
                     sb.Append("</tbody>");
-                    int allPage = count / pageSize;
-                    sb.Append("<input type='hidden' value=' " +(allPage) + " ' id='intPageCount2' />");
+                    sb.Append("<input type='hidden' value='" +allPage + "' id='intPageCount2' />");
                     Response.Write(sb.ToString());
                     Response.End();
                 }
