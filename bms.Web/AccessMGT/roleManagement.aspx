@@ -245,10 +245,10 @@
                                         <table class="table table-bordered mostTable text-center" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>序号</th>
-                                                    <th>职位</th>
-                                                    <th>功能</th>
-                                                    <th class="table-thead-th">操作</th>
+                                                    <th><nobr>序号</nobr></th>
+                                                    <th><nobr>职位</nobr></th>
+                                                    <th style="width:500px;"><nobr>功能</nobr></th>
+                                                    <th class="table-thead-th"><nobr>操作</nobr></th>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>

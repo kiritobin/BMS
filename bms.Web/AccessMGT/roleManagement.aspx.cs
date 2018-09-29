@@ -109,7 +109,7 @@ namespace bms.Web.AccessMGT
                 }
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["roleName"].ToString() + "</ td >");
-                sb.Append("<td>" + functions + "</ td >");
+                sb.Append("<td style='width:500px;'>" + functions + "</ td >");
                 sb.Append("<td><input type='hidden' value='" + rows + "' />");
                 sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[i]["roleId"].ToString() + "' />");
                 sb.Append("<input type = 'hidden' value = '" + funIds + "' />");
