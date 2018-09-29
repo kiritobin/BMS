@@ -159,7 +159,8 @@ namespace bms.Web.InventoryMGT
                         sb.Append("<td>" + drc[i]["流水号"].ToString() + "</td ></tr>");
                     }
                     sb.Append("</tbody>");
-                    sb.Append("<input type='hidden' value=' " +(count) + " ' id='intPageCount2' />");
+                    int allPage = count / pageSize;
+                    sb.Append("<input type='hidden' value=' " +(allPage) + " ' id='intPageCount2' />");
                     Response.Write(sb.ToString());
                     Response.End();
                 }

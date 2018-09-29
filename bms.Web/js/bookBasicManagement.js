@@ -66,12 +66,14 @@
                         $("#myModalLabe1").html(data);
                         $("#close").show();
                         $("#img").attr("src", "../imgs/success.png");
+                        sessionStorage.setItem("import", "导入成功");
                         sessionStorage.removeItem("succ");
                     } else if (data.indexOf("导入失败") >= 0) {
                         $("#myModalLabe1").html(data);
                         $("#close").show();
                         $("#img").attr("src", "../imgs/lose.png");
                         sessionStorage.removeItem("succ");
+                        sessionStorage.setItem("import", "导入失败");
                     }
                     else {
                         $("#close").show();
@@ -83,6 +85,7 @@
                             type: "warning",
                             allowOutsideClick: false
                         })
+                        sessionStorage.setItem("import", "导入失败");
                     }
                 }
             });
@@ -93,7 +96,9 @@
         $("#close").show();
         $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
         $("#img").attr("src", "../imgs/loading.gif");
-        window.location.reload();
+        if (sessionStorage.getItem("import")=="导入成功") {
+            window.location.reload();
+        }
     });
 
     function ajaxFileUpload() {
@@ -402,7 +407,7 @@ $("#table").delegate(".btn-delete", "click", function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.reload();
+                      
                     })
                 }
             }

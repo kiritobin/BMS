@@ -21,6 +21,7 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
     <style>
     </style>
 </head>
@@ -39,8 +40,7 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">
-                    图书综合管理平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -65,7 +65,7 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                               <%-- <li class="nav-item">
+                                <%-- <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
@@ -109,7 +109,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
-                             <i class="fa fa-book"></i>
+                            <i class="fa fa-book"></i>
                             <p>
                                 库存管理
                                 <b class="caret"></b>
@@ -137,7 +137,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
-                           <i class="fa fa-area-chart"></i>
+                            <i class="fa fa-area-chart"></i>
                             <p>
                                 销售管理
                                 <b class="caret"></b>
@@ -155,7 +155,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
-                             <i class="fa fa-file-archive-o"></i>
+                            <i class="fa fa-file-archive-o"></i>
                             <p>
                                 基础信息
                                 <b class="caret"></b>
@@ -226,7 +226,12 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="isbnSearch" placeholder="请输入查询关键字">
+                                                <input type="text" value="" class="searchOne" id="bookSearch" placeholder="书名查询">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="searchOne" id="goodsSearch" placeholder="供应商查询"> 
+                                            </div>
+                                            <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
                                         </div>
@@ -235,28 +240,19 @@
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>采购编码</th>
+                                                    <th>单据编号</th>
+                                                    <th>ISBN</th>
                                                     <th>书名</th>
+                                                    <th>单价</th>
+                                                    <th>数量</th>
+                                                    <th>码洋（册）</th>
+                                                    <th>实洋</th>
+                                                    <th>折扣</th>
                                                     <th>供应商</th>
-                                                    <th>采购人员</th>
-                                                    <th>采购数量（册）</th>
-                                                    <th>采购单价（元）</th>
-                                                    <th>采购总价（元）</th>
                                                     <th>采购日期</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1001</td>
-                                                    <td>bootstrap</td>
-                                                    <td>新华书店</td>
-                                                    <td>张三</td>
-                                                    <td>12</td>
-                                                    <td>20</td>
-                                                    <td>240</td>
-                                                    <td>2018-9-27</td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -280,7 +276,8 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear());
-                        </script>&nbsp;版权所有
+                        </script>
+                        &nbsp;版权所有
                     </div>
                 </div>
             </footer>
@@ -293,10 +290,7 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
-    <script>
-    </script>
-
-
+    <script src="../js/customerPurchase.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
 </body>
-
 </html>
