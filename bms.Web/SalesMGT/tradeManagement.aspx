@@ -41,11 +41,11 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
                 </a>
             </div>
- <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
-                           <i class="fa fa-cogs"></i>
+                            <i class="fa fa-cogs"></i>
                             <p>
                                 权限管理
                                 <b class="caret"></b>
@@ -79,7 +79,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
-                           <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-user fa-lg"></i>
                             <p>
                                 客户管理
                                 <b class="caret"></b>
@@ -130,7 +130,7 @@
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
-                             <i class="fa fa-area-chart"></i>
+                            <i class="fa fa-area-chart"></i>
                             <p>
                                 销售管理
                                 <b class="caret"></b>
@@ -221,44 +221,31 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                            &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i></button>                                         
+                                        <div class="btn-group" role="group">
+                                            <input type="text" class="searchOne" id="search_All" placeholder="请输入任务ID">
+                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-success" data-toggle="modal" data-target="#myModal" id="btn-addSale"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
                                         </div>
                                     </div>
-
                                     <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="text-danger">
+                                        <table class="table table-bordered mostTable text-center" id="table">
+                                            <thead>
                                                 <tr>
                                                     <td>任务ID</td>
                                                     <td>默认折扣</td>
                                                     <td>最大采购数</td>
                                                     <td>单价上限</td>
                                                     <td>码洋上限</td>
-                                                    <td>开始时间/结束时间</td>
+                                                    <td>开始时间</td>
+                                                    <td>结束时间</td>
                                                     <td class="table-thead-th">操作</td>
                                                 </tr>
                                             </thead>
-
-                                            <tbody>
-                                                <tr>
-                                                    <td>3245554</td>
-                                                    <td>60%</td>
-                                                    <td>435</td>
-                                                    <td>56</td>
-                                                    <td>456</td>
-                                                    <td>2018.12.3/2018.12.23</td>
-                                                    <td>
-                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='salesManagement.aspx'">售</button>
-                                                        <button class="btn btn-success btn-sm" onclick="window.location.href='backManagement.aspx'">退</button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData()%>
                                         </table>
-                                    </div>                                    
+                                    </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
@@ -271,49 +258,61 @@
                 </div>
             </div>
             <!--添加模态框-->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" style="max-width:350px;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title float-left" id="myModalLabel">任务添加</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            <i class="material-icons">clear</i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table model-table">
-                             <tr>
-                                <td class="text-right"><span>最大采购数:</span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add" id="billCount">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-right"><span>单价上限:</span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add" id="totalPrice">
-                                </td>
-                            </tr>
-                             <tr>
-                                <td class="text-right"><span>码洋上限:</span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add" id="realPrice">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-right"><span>默认折扣:</span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add" id="Price">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="max-width: 350px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel">任务添加</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table model-table">
+                                <tr>
+                                    <td class="text-right"><span>请选择客户:</span></td>
+                                    <td>
+                                        <select id="saleCustmer">
+                                            <option value="">请选择客户</option>
+                                            <%for (int i = 0; i < customerds.Tables[0].Rows.Count; i++)
+                                                {%>
+                                            <option value="<%=customerds.Tables[0].Rows[i]["customerID"] %>"><%=customerds.Tables[0].Rows[i]["customerName"] %></option>
+                                            <%} %>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"><span>最大采购数:</span></td>
+                                    <td>
+                                        <input type="text" class="modal_search_add" id="billCount">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"><span>单价上限:</span></td>
+                                    <td>
+                                        <input type="text" class="modal_search_add" id="totalPrice">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"><span>码洋上限:</span></td>
+                                    <td>
+                                        <input type="text" class="modal_search_add" id="realPrice">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"><span>默认折扣:</span></td>
+                                    <td>
+                                        <input type="text" class="modal_search_add" id="Price">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -339,7 +338,7 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/bookshelfManagement.js"></script>
+    <script src="../js/tradeManagement.js"></script>
 </body>
 
 </html>
