@@ -18,6 +18,8 @@ namespace bms.Web.InventoryMGT
     {
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
         public DataSet ds, dsGoods;
+        public DataTable dt;
+        DataTable dtInsert = new DataTable();
         protected void Page_Load(object sender, EventArgs e)
         {
             string singleHeadId="";
@@ -109,10 +111,9 @@ namespace bms.Web.InventoryMGT
             if (action == "import")
             {
                 UserBll userBll = new UserBll();
-                DataTable dtInsert = new DataTable();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
-                dtInsert = serialNumber();
+                //dtInsert = differentDt();
                 TimeSpan ts = watch.Elapsed;
                 dtInsert.TableName = "T_Monomers"; //导入的表名
                 int a = userBll.BulkInsert(dtInsert);
@@ -131,6 +132,43 @@ namespace bms.Web.InventoryMGT
                     Response.End();
                 }
             }
+            else if (action== "showIntersect")
+            {
+                int count = differentDt().Rows.Count;
+                if (count>0)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    UserBll userBll = new UserBll();
+                    int pageIndex = Convert.ToInt32(Request["page"]);
+                    dtInsert = differentDt();
+                    dt = userBll.SplitDataTable(dtInsert, pageIndex, 1);
+                    DataRowCollection drc = dt.Rows;
+                    sb.Append("<tbody>");
+                    for (int i=0;i< count; i++)
+                    {
+                        sb.Append("<tr><td>" + (i + 1 + ((pageIndex - 1) * pageSize)) + "</td>");
+                        sb.Append("<td>" + drc[i]["单头ID"].ToString() + "</td >");
+                        sb.Append("<td>" + drc[i]["书名"].ToString() + "</td >");
+                        sb.Append("<td>" + drc[i]["书号"].ToString() + "</td>");
+                        sb.Append("<td>" + drc[i]["ISBN"].ToString() + "</td >");
+                        sb.Append("<td>" + drc[i]["商品数量"].ToString() + "</td >");
+                        sb.Append("<td>" + drc[i]["单价"].ToString() + "</td >");
+                        sb.Append("<td>" + drc[i]["码洋"].ToString() + "</td >");
+                        sb.Append("<td>" + drc[i]["实洋"].ToString() + "</td >");
+                        sb.Append("<td>" + drc[i]["折扣"].ToString() + "</td >");
+                        sb.Append("<td>" + drc[i]["流水号"].ToString() + "</td ></tr>");
+                    }
+                    sb.Append("</tbody>");
+                    sb.Append("<input type='hidden' value=' " +(count) + " ' id='intPageCount2' />");
+                    Response.Write(sb.ToString());
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("库存中找不到数据");
+                    Response.End();
+                }
+            }
         }
 
         protected string getData()
@@ -145,9 +183,9 @@ namespace bms.Web.InventoryMGT
                 currentPage = 1;
             }
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "V_Monomers";
+            tbd.StrTable = "T_Monomers";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName";
+            tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "";
             tbd.IntPageNum = currentPage;
@@ -169,8 +207,7 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<td>" + drc[i]["uPrice"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["discount"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["totalPrice"].ToString() + "</td >");
-                sb.Append("<td>" + drc[i]["realPrice"].ToString() + "</td >");
-                sb.Append("<td>" + drc[i]["shelvesName"].ToString() + "</td ></tr >");
+                sb.Append("<td>" + drc[i]["realPrice"].ToString() + "</td ></tr>");
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
@@ -188,17 +225,6 @@ namespace bms.Web.InventoryMGT
             string path = Session["path"].ToString();
             DataTable dt1 = new DataTable();
             string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-            //文件类型判断
-            //string[] sArray = path.Split('.');
-            //int count = sArray.Length - 1;
-            //if (sArray[count] == "xls")
-            //{
-            //    strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-            //}
-            //else if (sArray[count] == "xlsx")
-            //{
-            //    strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-            //}
             OleDbConnection conn = new OleDbConnection(strConn);
             try
             {
@@ -292,41 +318,61 @@ namespace bms.Web.InventoryMGT
             return udt3;
         }
 
-        private void differentDt()
+        private DataTable differentDt()
         {
-            DataTable except = new DataTable();//接受差集
+            DataTable intersect = new DataTable();//接受交集
             WarehousingBll warehousingBll = new WarehousingBll();
-            int j = warehousingBll.getISBN().Rows.Count;
+            int j = warehousingBll.getISBNbook().Rows.Count;
             //数据库无数据时直接导入excel
             if (j <= 0)
             {
-                except = serialNumber();
+                intersect = serialNumber();
             }
             else
             {
-                except.Columns.Add("书号", typeof(long));
-                except.Columns.Add("id", typeof(string));
-                except.Columns.Add("ISBN", typeof(string));
-                except.Columns.Add("书名", typeof(string));
-                except.Columns.Add("供应商", typeof(string));
-                except.Columns.Add("出版日期", typeof(string));
-                except.Columns.Add("单价", typeof(double));
-                except.Columns.Add("编目", typeof(string));
-                except.Columns.Add("作者", typeof(string));
-                except.Columns.Add("备注", typeof(string));
-                except.Columns.Add("标识", typeof(string));
+                intersect.Columns.Add("id", typeof(int));
+                intersect.Columns.Add("单头ID", typeof(string));
+                intersect.Columns.Add("书名", typeof(string));
+                intersect.Columns.Add("书号", typeof(string));
+                intersect.Columns.Add("ISBN", typeof(string));
+                intersect.Columns.Add("商品数量", typeof(int));
+                intersect.Columns.Add("单价", typeof(double));
+                intersect.Columns.Add("码洋", typeof(double));
+                intersect.Columns.Add("实洋", typeof(double));
+                intersect.Columns.Add("折扣", typeof(double));
+                intersect.Columns.Add("type", typeof(int));
+                intersect.Columns.Add("流水号", typeof(string));
 
                 DataRowCollection count = serialNumber().Rows;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
-                    string isbn = row[0].ToString().Trim();
-                    DataRow[] rows = warehousingBll.getISBN().Select(string.Format("ISBN='{0}'", isbn));
-                    if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
+                    string bookName = row[2].ToString().Trim();
+                    string isbn = row[4].ToString().Trim();
+                    DataRow[] rows = warehousingBll.getISBNbook().Select(string.Format("ISBN='{0}' and bookName='{1}'", isbn, ToSBC(bookName)));
+                    if (rows.Length != 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                     {
-                        except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]);
+                        intersect.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]);
                     }
                 }
             }
+            return intersect;
+        }
+
+        // 半角转全角：书名列
+        private String ToSBC(String input)
+        {
+            char[] c = input.ToCharArray();
+            for (int i = 0; i < c.Length; i++)
+            {
+                if (c[i] == 32)
+                {
+                    c[i] = (char)12288;
+                    continue;
+                }
+                if (c[i] < 127)
+                    c[i] = (char)(c[i] + 65248);
+            }
+            return new String(c);
         }
     }
 }

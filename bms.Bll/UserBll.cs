@@ -178,5 +178,17 @@ namespace bms.Bll
                 return Result.记录存在;
             }
         }
+        /// <summary>
+        /// 根据索引和pagesize返回记录
+        /// </summary>
+        /// <param name="dt">记录集 DataTable</param>
+        /// <param name="PageIndex">当前页</param>
+        /// <param name="pagesize">一页的记录数</param>
+        /// <returns></returns>
+        public DataTable SplitDataTable(DataTable dt, int PageIndex, int PageSize)
+        {
+            PublicProcedure publicProcedure = new PublicProcedure();
+            return publicProcedure.SplitDataTable(dt,PageIndex, PageSize);
+        }
     }
 }

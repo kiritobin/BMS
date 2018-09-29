@@ -144,9 +144,9 @@ namespace bms.Dao
         /// 读取isbn
         /// </summary>
         /// <returns></returns>
-        public DataTable getISBN()
+        public DataTable getISBNbook()
         {
-            string cmdText = "select ISBN from T_BookBasicData";
+            string cmdText = "select ISBN,bookName from T_BookBasicData";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {

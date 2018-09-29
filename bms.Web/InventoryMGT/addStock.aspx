@@ -295,7 +295,6 @@
                                                     <td>折扣</td>
                                                     <td>实洋</td>
                                                     <td>码洋</td>
-                                                    <td>货架号</td>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
@@ -338,11 +337,50 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-success" id="btnImport" data-toggle="modal">导入</button>
+                            <button class="btn btn-success" id="showIntersect" data-toggle="modal">导入</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="myModal2" style="height: 800px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="min-width: 1000px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel2">导入</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="max-height: 500px; overflow: auto;">
+                            <button type="button" class="btn btn-success" data-toggle="modal" id="btnImport">确认导入</button>
+                            <table class="table mostTable table-bordered text-center" id="table2">
+                                <thead>
+                                    <tr style="border: 2px solid #DDD">
+                                        <td colspan="11">商品</td>
+                                    </tr>
+                                    <tr>
+                                        <td>序号</td>
+                                        <td>单据编号</td>
+                                        <td>书名</td>
+                                        <td>书号</td>
+                                        <td>ISBN号</td>
+                                        <td>商品数量</td>
+                                        <td>单价</td>
+                                        <td>码洋</td>
+                                         <td>实洋</td>
+                                        <td>折扣</td>
+                                        <td>流水号</td>
+                                    </tr>
+                                </thead>
+                                
+                            </table>
+                        </div>
+                        <div class="m-style paging2"></div>
+                    </div>
+                </div>
+            </div>
+
             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="width: 500px; height: 500px">
                     <div class="modal-content">
