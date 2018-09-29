@@ -29,14 +29,24 @@ namespace bms.Bll
             return basicDao.SelectById(bookNum);
         }
 
-            /// <summary>
-            /// 获取分页数据
-            /// </summary>
-            /// <param name="tablebuilder"></param>
-            /// <param name="totalCount"></param>
-            /// <param name="intPageCount"></param>
-            /// <returns></returns>
-            public DataSet selectBypage(TableBuilder tablebuilder, out int totalCount, out int intPageCount)
+        /// <summary>
+        /// 根据ISBN查找书号，单价，折扣
+        /// </summary>
+        /// <param name="ISBN">ISBN</param>
+        /// <returns></returns>
+        public DataSet SelectByIsbn(string ISBN)
+        {
+            return basicDao.SelectByIsbn(ISBN);
+        }
+
+        /// <summary>
+        /// 获取分页数据
+        /// </summary>
+        /// <param name="tablebuilder"></param>
+        /// <param name="totalCount"></param>
+        /// <param name="intPageCount"></param>
+        /// <returns></returns>
+        public DataSet selectBypage(TableBuilder tablebuilder, out int totalCount, out int intPageCount)
         {
             PublicProcedure procedure = new PublicProcedure();
             DataSet ds = procedure.SelectBypage(tablebuilder, out totalCount, out intPageCount);

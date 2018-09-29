@@ -27,6 +27,7 @@ function logout() {
 }
 
 $(document).ready(function () {
+    //sessionStorage.setItem("flag", "false");
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -56,10 +57,75 @@ $(document).ready(function () {
     })
 })
 
-//添加退货单头
+//回车时间
+$("#isbn").keypress(function (e) {
+    if (e.keyCode == 13) {
+        var isbn = $("#isbn").val();
+        if (isbn == "" || isbn == null) {
+            swal({
+                title: "温馨提示:)",
+                text: "ISBN不能为空，请您重新输入",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        } else {
+            $.ajax({
+                type: 'Post',
+                url: 'addWarehouse.aspx',
+                data: {
+                    isbn: isbn,
+                    op: "isbn"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "ISBN不存在") {
+                        swal({
+                            title: "错误提示:)",
+                            text: "ISBN不存在",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning",
+                            type: "warning"
+                        }).catch(swal.noop);
+                    } else {
+                        $("#table2 tr:not(:first)").empty(); //清空table处首行
+                        $("#table2").append(data); //加载table
+                    }
+                }
+            })
+        }
+    }
+})
+
+//$("#table2").delegate("input[type='checkbox']", "click",function () {
+//    if (sessionStorage.getItem("flag") == "true") {
+//        sessionStorage.setItem("flag", "false");
+//    }
+//    else {
+//        sessionStorage.setItem("flag", "true");
+//    }
+//    if (sessionStorage.getItem("flag") == "true") {
+//      $("input[type='checkbox']").not(this).attr("checked", false);
+//    } else {
+//        $("input[type='checkbox']").attr("checked", false);
+//        alert("false");
+//    }
+//    if (sessionStorage.getItem("flag") == "false") {
+//        swal({
+//            title: "温馨提示:)",
+//            text: "请选择一条图书信息",
+//            buttonsStyling: false,
+//            confirmButtonClass: "btn btn-warning",
+//            type: "warning"
+//        }).catch(swal.noop);
+//    }
+//})
+
+//添加出库单头
 $("#btnAdd").click(function () {
-    var bookNum = $("#bookNum").val();
+    var bookNum = $("input[name='radio']:checked").val();
     var billCount = $("#billCount").val();
+    var disCount = $("#disCount").val();
     if (bookNum == "") {
         swal({
             title: "温馨提示:)",
@@ -84,6 +150,7 @@ $("#btnAdd").click(function () {
             data: {
                 bookNum: bookNum,
                 billCount: billCount,
+                disCount: disCount,
                 op: "add"
             },
             datatype: 'text',
@@ -112,7 +179,6 @@ $("#btnAdd").click(function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.reload();
                     })
                 }
             }
@@ -170,7 +236,6 @@ $("#table").delegate(".btn-delete", "click", function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.reload();
                     })
                 }
             }

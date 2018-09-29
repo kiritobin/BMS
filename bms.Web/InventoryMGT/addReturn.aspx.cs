@@ -47,7 +47,7 @@ namespace bms.Web.InventoryMGT
             if (op == "add")
             {
                 long singleHeadId = Convert.ToInt64(singId);
-                long counts = wareBll.getCount(singleHeadId);
+                long counts = wareBll.getCount(singleHeadId.ToString());
                 long bookNum = Convert.ToInt64(Request["bookNum"]);
                 int billCount = Convert.ToInt32(Request["billCount"].ToString());
                 BookBasicData bookBasicData = basicBll.SelectById(Convert.ToInt64(bookNum));
@@ -67,7 +67,7 @@ namespace bms.Web.InventoryMGT
                     discount = discount * 0.01;
                 }
                 double uPrice = bookBasicData.Price;
-                long monCount = wareBll.getCount(singleHeadId);
+                long monCount = wareBll.getCount(singleHeadId.ToString());
                 long monId;
                 if (monCount > 0)
                 {
