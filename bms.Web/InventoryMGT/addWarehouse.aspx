@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 
 <body>
@@ -289,7 +291,12 @@
                                 <thead>
                                     <tr>
                                         <%--<th><input type="checkbox" name="checkbox" class="check" value="" disabled="disabled" /></th>--%>
-                                        <th><input type="radio" name="radio" class="radio" value="" disabled="disabled" /></th>
+                                        <th>
+                                            <div class="pretty inline">
+                                                <input type="radio" name="radio2" disabled="disabled">
+                                                <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
+                                            </div>
+                                        </th>
                                         <th>书号</th>
                                         <th>ISBN</th>
                                         <th>书名</th>

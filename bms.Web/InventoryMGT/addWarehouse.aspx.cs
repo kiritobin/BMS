@@ -255,7 +255,8 @@ namespace bms.Web.InventoryMGT
                     {
                         DataRow dr = dsBook.Tables[0].Rows[i];
                         //sb.Append("<tr><td><input type='checkbox' name='checkbox' class='check' value='" + dr["bookNum"].ToString() + "' /></td>");
-                        sb.Append("<tr><td><input type='radio' name='radio' class='radio' value='" + dr["bookNum"].ToString() + "' /></td>");
+                        //sb.Append("<tr><td><input type='radio' name='radio' class='radio' value='" + dr["bookNum"].ToString() + "' /></td>");
+                        sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio2'><label><i class='mdi mdi-check'></i></label></div></td>");
                         sb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
                         sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
                         sb.Append("<td>" + dr["bookName"].ToString() + "</td>");

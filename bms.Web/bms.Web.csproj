@@ -75,6 +75,8 @@
     <Content Include="changePwd.aspx" />
     <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
+    <Content Include="css\materialdesignicons.min.css" />
+    <Content Include="css\pretty.min.css" />
     <Content Include="customerLogin.aspx" />
     <Content Include="CustomerMGT\customerPurchase.aspx" />
     <Content Include="CustomerMGT\upload.aspx" />
