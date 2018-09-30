@@ -9,13 +9,15 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var search = $("#btn-search").val().trim();
+            var bookName = $("#sales_bookName").val().trim();
+            var ISBN = $("#sales_ISBN").val().trim();
             $.ajax({
                 type: 'Post',
-                url: 'tradeManagement.aspx',
+                url: 'salesDetail.aspx',
                 data: {
                     page: api.getCurrent(), //页码
-                    search: search,
+                    bookName: bookName,
+                    ISBN: ISBN,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -26,14 +28,16 @@
             });
         }
     });
-    //点击查询按钮时
-    $("#btn-search").click(function () {
-        var search = $("#search_All").val().trim();
+    //查询
+    $("#btn_search").click(function () {
+        var bookName = $("#sales_bookName").val().trim();
+        var ISBN = $("#sales_ISBN").val().trim();
         $.ajax({
             type: 'Post',
-            url: 'tradeManagement.aspx',
+            url: 'salesDetail.aspx',
             data: {
-                search: search,
+                bookName: bookName,
+                ISBN: ISBN,
                 op: "paging"
             },
             dataType: 'text',
@@ -42,7 +46,9 @@
                 $("#table tr:not(:first)").empty(); //清空table处首行
                 $("#table").append(data); //加载table
                 $(".paging").empty();
-                $(".paging").pagination({
+                $('.paging').pagination({
+                    //totalData: $("#countPage").val(), //数据总数
+                    //showData: $("#totalCount").val(), //每页显示的条数
                     pageCount: $("#intPageCount").val(), //总页数
                     jump: true,
                     mode: 'fixed',//固定页码数量
@@ -54,10 +60,11 @@
                     callback: function (api) {
                         $.ajax({
                             type: 'Post',
-                            url: 'tradeManagement.aspx',
+                            url: 'salesDetail.aspx',
                             data: {
                                 page: api.getCurrent(), //页码
-                                search: search,
+                                bookName: bookName,
+                                ISBN: ISBN,
                                 op: "paging"
                             },
                             dataType: 'text',
@@ -71,7 +78,8 @@
             }
         });
     });
-    //添加销售任务
+
+    //添加
     $("#btnAdd").click(function () {
         var billCount = $("#billCount").val().trim();
         var totalPrice = $("#totalPrice").val().trim();
@@ -90,7 +98,7 @@
         else {
             $.ajax({
                 type: 'Post',
-                url: 'tradeManagement.aspx',
+                url: 'salesDetail.aspx',
                 data: {
                     Custmer: saleCustmer,
                     numberLimit: billCount,
@@ -150,7 +158,7 @@
         }).then(function () {
             $.ajax({
                 type: 'Post',
-                url: 'tradeManagement.aspx',
+                url: 'salesDetail.aspx',
                 data: {
                     ID: ID,
                     op: 'del'
@@ -187,41 +195,4 @@
             })
         })
     });
-
-    //售
-    $("#table").delegate(".btn_sale", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
-        $.ajax({
-            type: 'Post',
-            url: 'tradeManagement.aspx',
-            data: {
-                ID: ID,
-                op: 'sale'
-            },
-            dataType: 'text',
-            success: function (succ) {
-                if (succ == "成功") {
-                    window.location.href = "../SalesMGT/salesManagement.aspx";
-                }
-            }
-        })
-    })
-    //退
-    $("#table").delegate(".btn_back", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
-        $.ajax({
-            type: 'Post',
-            url: 'tradeManagement.aspx',
-            data: {
-                ID: ID,
-                op: 'sale'
-            },
-            dataType: 'text',
-            success: function (succ) {
-                if (succ == "成功") {
-                    window.location.href = "../SalesMGT/backManagement.aspx";
-                }
-            }
-        })
-    })
 })

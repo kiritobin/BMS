@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.SalesMGT
 {
+    using Result = Enums.OpResult;
     public partial class tradeManagement : System.Web.UI.Page
     {
         public DataSet ds, customerds;
@@ -23,17 +24,48 @@ namespace bms.Web.SalesMGT
             string op = Request["op"];
             if (op == "add")
             {
-                string Custmer = Request["Custmer"];
-                string numberLimit = Request["numberLimit"];
-                string priceLimit = Request["priceLimit"];
-                string totalPriceLimit = Request["totalPriceLimit"];
-                double defaultDiscount = double.Parse(Request["defaultDiscount"]);
-                Customer customer = new Customer();
-                SaleTask sale = new SaleTask()
+                //string Custmer = Request["Custmer"];
+                //string numberLimit = Request["numberLimit"];
+                //string priceLimit = Request["priceLimit"];
+                //string totalPriceLimit = Request["totalPriceLimit"];
+                //double defaultDiscount = double.Parse(Request["defaultDiscount"]);
+                //Customer customer = new Customer();
+                //SaleTask sale = new SaleTask()
+                //{
+                //    DefaultDiscount = defaultDiscount,
+
+                //};
+            }
+            if (op == "del")
+            {
+                string saleID = Request["ID"];
+                Result isDelete = saleBll.IsDelete("T_SellOffHead", "saleTaskId", saleID);
+                isDelete = saleBll.IsDelete("T_ReplenishmentHead", "saleTaskId", saleID);
+                if (isDelete == Result.关联引用)
                 {
-                    DefaultDiscount = defaultDiscount,
-                    
-                };
+                    Response.Write("该客户已被关联到其他表，不能删除！");
+                }
+                else
+                {
+                    Result result = saleBll.Delete(saleID);
+                    if (result == Result.删除成功)
+                    {
+                        Response.Write("删除成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("删除失败");
+                        Response.End();
+                    }
+                }
+            }
+            if (op == "sale")
+            {
+                string saleId = Request["ID"];
+                Session["saleId"] = saleId;
+                Response.Write("成功");
+                Response.End();
             }
         }
         /// <summary>
@@ -81,9 +113,9 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPriceLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["startTime"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["finishTime"].ToString() + "</td>");
-                strb.Append("<td>" + "<button class='btn btn-success btn-sm' onclick=window.location.href = 'salesManagement.aspx''>&nbsp 售 &nbsp</button>");
-                strb.Append("<button class='btn btn-success btn-sm' onclick='window.location.href = 'backManagement.aspx''>&nbsp 退 &nbsp</button>");
-                strb.Append("<button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button>" + " </td></tr>");
+                strb.Append("<td>" + "<button class='btn btn-success btn-sm btn_sale'>&nbsp 售 &nbsp</button>");
+                strb.Append("<button class='btn btn-success btn-sm btn_back'>&nbsp 退 &nbsp</button>");
+                strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + " </td></tr>");
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");

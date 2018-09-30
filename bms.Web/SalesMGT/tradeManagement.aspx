@@ -1,6 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="tradeManagement.aspx.cs" Inherits="bms.Web.SalesMGT.tradeManagement" %>
-
-<%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">

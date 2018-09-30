@@ -1,25 +1,25 @@
-﻿using bms.Dao;
-using bms.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace bms.Bll
 {
+    using Dao;
+    using Model;
     using System.Data;
     using Result = Enums.OpResult;
-    public class SaleTaskBll
+    public class SaleMonomerBll
     {
-        readonly SaleTaskDao saleDao = new SaleTaskDao();
+        SaleMonomerDao SaleMonomerdao = new SaleMonomerDao();
         /// <summary>
-        /// 添加销售任务方法
+        /// 单体添加
         /// </summary>
-        /// <param name="task">实体销售任务</param>
+        /// <param name="salemonomer">单体实体</param>
         /// <returns>返回结果</returns>
-        public Result insert(SaleTask sale)
+        public Result Insert(SaleMonomer salemonomer)
         {
-            int row = saleDao.Insert(sale);
+            int row = SaleMonomerdao.Insert(salemonomer);
             if (row > 0)
             {
                 return Result.添加成功;
@@ -29,18 +29,21 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
+
         /// <summary>
-        /// 销售任务删除
+        /// 删除单体
         /// </summary>
-        /// <param name="saleTaskId">销售任务ID</param>
-        /// <returns>返回结果</returns>
-        public Result Delete(string saleTaskId)
+        /// <param name="saleIdMonomerId">单体id</param>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns></returns>
+        public Result Delete(string saleIdMonomerId, string saleHeadId)
         {
-          int row=  saleDao.Delete(saleTaskId);
-            if (row>0)
+            int row = SaleMonomerdao.Delete(saleIdMonomerId, saleHeadId);
+            if (row > 0)
             {
-                return Result.删除失败;
-            } else
+                return Result.删除成功;
+            }
+            else
             {
                 return Result.删除失败;
             }
@@ -65,7 +68,6 @@ namespace bms.Bll
                 return Result.记录不存在;
             }
         }
-
         /// <summary>
         /// 获取分页数据
         /// </summary>

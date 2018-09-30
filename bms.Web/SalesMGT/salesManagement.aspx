@@ -223,13 +223,13 @@
                                      <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
+                                                <input type="text" id="ID" class="searchOne" placeholder="请输入任务编号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
+                                                <input type="text" id="regionName" class="searchOne" placeholder="请输入组织名称">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
+                                                <input type="text" id="userName" class="searchOne" placeholder="请输入操作员名称">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                              <div class="btn-group" role="group">
@@ -242,7 +242,7 @@
                                         <table class="table text-center table-bordered mostTable" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>销退ID</th>
+                                                    <th>销售ID</th>
                                                     <th>任务ID</th>
                                                     <th>组织名称</th>
                                                     <th>操作员名称</th>
@@ -252,24 +252,7 @@
                                                     <th>制单时间</th>
                                                     <th>操作</th>
                                                 </tr>
-                                                <tbody>
-                                                <tr>
-                                                    <td>10000023</td>
-                                                    <td>10899923</td>
-                                                    <td>保罗</td>
-                                                    <td>爱丽丝</td>
-                                                    <td>23</td>
-                                                    <td>30</td>
-                                                    <td>20</td>
-                                                    <td>2016-2-1</td>                                                                                            
-                                                    <td>
-                                                        <!-- 查询与删除按钮 -->
-                                                        <button class="btn btn-success btn-sm" onclick=""><i class="fa fa-plus fa-lg"></i></button>
-                                                        <button class="btn btn-info btn-sm" onclick="window.location.href='salesDetail.aspx'"><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                               <%=getData()%>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -312,7 +295,7 @@
         <script src="../js/sweetalert2.js"></script>
         <!-- paging -->
         <script src="../js/jquery.pagination.js"></script>
-        <script src="../js/warehouseManagement.js"></script>
+        <script src="../js/salesManagement.js"></script>
 </body>
 
 </html>
