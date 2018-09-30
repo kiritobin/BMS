@@ -243,8 +243,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>单据编号</th>
-                                                    <th>出库接收组织</th>
                                                     <th>操作员名称</th>
+                                                    <%--<th>发货组织</th>--%>
+                                                    <th>收货组织</th>
                                                     <th>单据总数</th>
                                                     <th>总码洋</th>
                                                     <th>总实洋</th>
@@ -278,36 +279,18 @@
                     </div>
                     <div class="modal-body">
                         <table class="table model-table">
-                             <tr>
-                                <td class="text-right"><span>单据总数:</span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add" id="billCount">
-                                </td>
-                            </tr>
                             <tr>
-                                <td class="text-right"><span>总码洋:</span></td>
+                                <td class="text-right"><span>
+                                    <nobr>收货组织:</nobr>
+                                </span></td>
                                 <td>
-                                    <input type="text" class="modal_search_add" id="totalPrice">
+                                    <select id="regionId" class="modal_search_add">
+                                        <%for(int i=0;i<dsRegion.Tables[0].Rows.Count;i++){ %>
+                                        <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"].ToString() %>"><%=dsRegion.Tables[0].Rows[i]["regionName"].ToString() %></option>
+                                        <%} %>
+                                    </select>
                                 </td>
                             </tr>
-                             <tr>
-                                <td class="text-right"><span>总实洋:</span></td>
-                                <td>
-                                    <input type="text" class="modal_search_add" id="realPrice">
-                                </td>
-                            </tr>
-                                <tr>
-                                    <td class="text-right"><span>
-                                        <nobr>接收组织:</nobr>
-                                    </span></td>
-                                    <td>
-                                        <select id="regionId" class="modal_search_add">
-                                            <%for(int i=0;i<dsRegion.Tables[0].Rows.Count;i++){ %>
-                                            <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"].ToString() %>"><%=dsRegion.Tables[0].Rows[i]["regionName"].ToString() %></option>
-                                            <%} %>
-                                        </select>
-                                    </td>
-                                </tr>
                         </table>
                     </div>
                     <div class="modal-footer">

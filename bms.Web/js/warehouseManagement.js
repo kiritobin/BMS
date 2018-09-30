@@ -58,24 +58,21 @@ $(document).ready(function () {
 
 //添加退货单头
 $("#btnAdd").click(function () {
-    var billCount = $("#billCount").val();
-    var totalPrice = $("#totalPrice").val();
-    var realPrice = $("#realPrice").val();
     var regionId = $("#regionId").val();
-    if (billCount == "") {
-        alert("单据总数不能为空");
-    } else if (totalPrice == "") {
-        alert("总码洋不能为空");
-    } else if (realPrice == "") {
-        alert("总实洋不能为空");
+    if (regionId == "") {
+        swal({
+            title: "温馨提示:)",
+            text: "请选择收货组织",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
     } else {
         $.ajax({
             type: 'Post',
             url: 'warehouseManagement.aspx',
             data: {
-                billCount: billCount,
-                totalPrice: totalPrice,
-                realPrice: realPrice,
+                regionId: regionId,
                 op: "add"
             },
             datatype: 'text',

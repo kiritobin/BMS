@@ -19,7 +19,6 @@ namespace bms.Web.InventoryMGT
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
         public DataSet ds, dsGoods;
         public DataTable dt;
-        DataTable dtInsert = new DataTable();
         protected void Page_Load(object sender, EventArgs e)
         {
             string singleHeadId="";
@@ -71,19 +70,45 @@ namespace bms.Web.InventoryMGT
                 Result row = wareBll.insertMono(monomers);
                 if(row == Result.添加成功)
                 {
-                    Stock stock = new Stock();
-                    stock.StockNum = Convert.ToInt32(allCount);
-                    stock.ISBN = bookBasicData;
-                    stock.RegionId = user.ReginId;
-                    GoodsShelves goodsShelves = new GoodsShelves();
-                    goodsShelves.GoodsShelvesId = Convert.ToInt32(goodsShelf);
-                    stock.GoodsShelvesId = goodsShelves;
-                    StockBll stockBll = new StockBll();
-                    Result result = stockBll.insert(stock);
-                    if (result == Result.添加成功)
+                    int number, allBillCount = 0;
+                    double totalPrice, allTotalPrice = 0, realPrices, allRealPrice = 0;
+                    DataTable dtHead = warehousingBll.SelectMonomers(singleHeadId);
+                    int j = dtHead.Rows.Count;
+                    for (int i = 0; i < j; i++)
                     {
-                        Response.Write("添加成功");
-                        Response.End();
+                        DataRow dr = dtHead.Rows[i];
+                        number = Convert.ToInt32(dr["number"]);
+                        totalPrice = Convert.ToDouble(dr["totalPrice"]);
+                        realPrices = Convert.ToDouble(dr["realPrice"]);
+                        allBillCount = allBillCount + number;
+                        allTotalPrice = allTotalPrice + totalPrice;
+                        allRealPrice = allRealPrice + realPrices;
+                    }
+                    singleHead.AllBillCount = allBillCount;
+                    singleHead.AllTotalPrice = allTotalPrice;
+                    singleHead.AllRealPrice = allRealPrice;
+                    Result update = wareBll.updateHead(singleHead);
+                    if (update == Result.更新成功)
+                    {
+                        Stock stock = new Stock();
+                        stock.StockNum = Convert.ToInt32(allCount);
+                        stock.ISBN = bookBasicData;
+                        stock.RegionId = user.ReginId;
+                        GoodsShelves goodsShelves = new GoodsShelves();
+                        goodsShelves.GoodsShelvesId = Convert.ToInt32(goodsShelf);
+                        stock.GoodsShelvesId = goodsShelves;
+                        StockBll stockBll = new StockBll();
+                        Result result = stockBll.insert(stock);
+                        if (result == Result.添加成功)
+                        {
+                            Response.Write("添加成功");
+                            Response.End();
+                        }
+                        else
+                        {
+                            Response.Write("添加失败");
+                            Response.End();
+                        }
                     }
                     else
                     {
@@ -106,14 +131,17 @@ namespace bms.Web.InventoryMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
-
+            
             string action = Request["action"];
             if (action == "import")
             {
+                DataTable dtInsert = new DataTable();
                 UserBll userBll = new UserBll();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
                 //dtInsert = differentDt();
+                dtInsert.Columns.Remove("书名");
+                int j = dtInsert.Rows.Count;
                 TimeSpan ts = watch.Elapsed;
                 dtInsert.TableName = "T_Monomers"; //导入的表名
                 int a = userBll.BulkInsert(dtInsert);
@@ -140,13 +168,21 @@ namespace bms.Web.InventoryMGT
                     StringBuilder sb = new StringBuilder();
                     UserBll userBll = new UserBll();
                     int pageIndex = Convert.ToInt32(Request["page"]);
-                    dtInsert = differentDt();
-                    dt = userBll.SplitDataTable(dtInsert, pageIndex, 1);
+                    dt = userBll.SplitDataTable(differentDt(), pageIndex, 1);
                     DataRowCollection drc = dt.Rows;
                     sb.Append("<tbody>");
+                    int allPage = count % pageSize;
+                    if (allPage==0)
+                    {
+                        allPage = count/pageSize;
+                    }
+                    else
+                    {
+                        allPage = count / pageSize+1;
+                    }
                     for (int i=0;i< count; i++)
                     {
-                        sb.Append("<tr><td>" + (i + 1 + ((pageIndex - 1) * pageSize)) + "</td>");
+                        sb.Append("<tr><td>" + (i + 1 + ((allPage - 1) * pageSize)) + "</td>");
                         sb.Append("<td>" + drc[i]["单头ID"].ToString() + "</td >");
                         sb.Append("<td>" + drc[i]["书名"].ToString() + "</td >");
                         sb.Append("<td>" + drc[i]["书号"].ToString() + "</td>");
@@ -159,8 +195,7 @@ namespace bms.Web.InventoryMGT
                         sb.Append("<td>" + drc[i]["流水号"].ToString() + "</td ></tr>");
                     }
                     sb.Append("</tbody>");
-                    int allPage = count / pageSize;
-                    sb.Append("<input type='hidden' value=' " +(allPage) + " ' id='intPageCount2' />");
+                    sb.Append("<input type='hidden' value='" +allPage + "' id='intPageCount2' />");
                     Response.Write(sb.ToString());
                     Response.End();
                 }
@@ -356,6 +391,7 @@ namespace bms.Web.InventoryMGT
                     }
                 }
             }
+
             return intersect;
         }
 
