@@ -1,5 +1,6 @@
 ﻿using bms.DBHelper;
 using bms.Model;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -194,6 +195,37 @@ namespace bms.Dao
             {
                 return null;
             }
+        }
+        /// <summary>
+        /// 获取折扣
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public Monomers getDiscount()
+        {
+            string sql = "select disCount from T_NewBook";
+            Monomers monomers = new Monomers();
+            MySqlDataReader reader = db.ExecuteReader(sql, null, null);
+            while (reader.Read())
+            {
+                monomers.Discount = reader.GetDouble(0);
+            }
+            reader.Close();
+            return monomers; ;
+        }
+
+        /// <summary>
+        /// 更新折扣
+        /// </summary>
+        /// <param name="disCount"></param>
+        /// <returns></returns>
+        public int updateDiscount(double disCount)
+        {
+            string cmdText = "update T_NewBook set disCount=@disCount";
+            string[] param = { "@disCount" };
+            object[] values = { disCount };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
         }
     }
 }

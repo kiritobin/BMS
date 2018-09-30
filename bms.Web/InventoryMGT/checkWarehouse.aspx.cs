@@ -72,7 +72,7 @@ namespace bms.Web.InventoryMGT
             }
             string op = Request["op"];
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "V_Monomers";
+            tbd.StrTable = "V_Monomer";
             tbd.OrderBy = "monId";
             tbd.StrColumnlist = "singleHeadId,monId,ISBN,number,uPrice,totalPrice,realPrice,discount,goodsShelvesId,shelvesName,type,deleteState";
             tbd.IntPageSize = pageSize;
