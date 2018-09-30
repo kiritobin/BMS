@@ -158,5 +158,28 @@ namespace bms.Bll
         {
             return monoDao.getISBNbook();
         }
+
+        public Monomers getDiscount()
+        {
+            return monoDao.getDiscount();
+        }
+
+        /// <summary>
+        /// 更新折扣
+        /// </summary>
+        /// <param name="discount"></param>
+        /// <returns></returns>
+        public Result updateDiscount(double discount)
+        {
+            int row = monoDao.updateDiscount(discount);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
     }
 }

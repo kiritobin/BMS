@@ -10,8 +10,7 @@
     <title>图书综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 材料图标样式 -->
-    <link rel="stylesheet" href="../css/materialdesignicons.css">
+   
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
@@ -289,7 +288,7 @@
                                 <span>
                                     <nobr>折扣:</nobr>
                                 </span>
-                                <input type="text" class="modal_search_add" id="disCount">
+                                <input type="text" class="modal_search_add" value="<%=dsicount %>" id="disCount">
                             </div><br />
                             <table class="table table-bordered mostTable text-center" id="table2">
                                 <thead>
