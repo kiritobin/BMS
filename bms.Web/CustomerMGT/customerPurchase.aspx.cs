@@ -33,24 +33,26 @@ namespace bms.Web.CustomerMGT
 
         protected string getData()
         {
+            Customer custom=(Customer)Session["user"];
+            int cusId = custom.CustomerId;
             string search = "";
             string bookName = Request["bookName"];
             string source = Request["source"];
             if ((bookName == ""|| bookName==null)&&(source==""||source==null))
             {
-                search = "deleteState2=0";
+                search = "deleteState2=0 and customerId="+ cusId;
             }
             else if ((bookName == "" || bookName == null)&&(source != "" || source != null))
             {
-                search = "deleteState2=0 and regionName '"+source+"'";
+                search = "deleteState2=0 and regionName '"+source+ "' and customerId="+cusId;
             }
             else if ((bookName != "" || bookName != null) && (source == "" || source == null))
             {
-                search = "deleteState2=0 and bookName '" + bookName + "'";
+                search = "deleteState2=0 and bookName '" + bookName + "' and customerId="+cusId;
             }
             else
             {
-                search = "deleteState2=0 and bookName '" + bookName + "' and regionName='"+ source + "'";
+                search = "deleteState2=0 and bookName '" + bookName + "' and regionName='"+ source + "' and customerId="+cusId;
             }
             currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)

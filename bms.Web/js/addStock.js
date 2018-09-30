@@ -54,7 +54,7 @@ $(document).ready(function () {
             });
         }
     });
-
+    
     $('.paging2').pagination({
         //totalData: $("#countPage").val(), //数据总数
         //showData: $("#totalCount").val(), //每页显示的条数
@@ -118,10 +118,21 @@ $(document).ready(function () {
     });
 
     $("#close").click(function () {
+        $(" #file").val("");
+        sessionStorage.removeItem("import");
+        sessionStorage.removeItem("succ");
         $("#close").show();
         $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
         $("#img").attr("src", "../imgs/loading.gif");
-        window.location.reload();
+        if (sessionStorage.getItem("import")=="导入成功") {
+            window.location.reload();
+        }
+    });
+
+    $("#close2").click(function () {
+        $(" #file").val("");
+        sessionStorage.removeItem("import");
+        sessionStorage.removeItem("succ");
     });
 
     function ajaxFileUpload() {
@@ -180,10 +191,6 @@ $(document).ready(function () {
     }
 
     $("#showIntersect").click(function () {
-        $("#myModal2").modal("hide");
-        $("#myModal1").modal("show");
-        $("#myModalLabe1").html("正在读取数据");
-        $("#close").hide();
         var file = $("#file").val();
         if (file == "" || file == null) {
             swal({
@@ -210,6 +217,9 @@ $(document).ready(function () {
             })
         }
         else {
+            $("#myModal2").modal("hide");
+            $("#myModal1").modal("show");
+            $("#myModalLabe1").html("正在读取数据");
             $("#close").hide();
             $.ajax({
                 type: 'Post',
@@ -219,10 +229,40 @@ $(document).ready(function () {
                 },
                 dataType: 'text',
                 success: function (data) {
+                    $("#intPageCount2").remove();
+                    $(".paging2").empty();
                     $("#myModal2").modal("show");
                     $("#myModal1").modal("hide");
                     $("#table2 tr:gt(1)").empty(); //清空table2行
                     $("#table2").append(data); //加载table
+
+                    $('.paging2').pagination({
+                        //totalData: $("#countPage").val(), //数据总数
+                        //showData: $("#totalCount").val(), //每页显示的条数
+                        pageCount: $("#intPageCount2").val(), //总页数
+                        jump: false,
+                        mode: 'fixed',//固定页码数量
+                        coping: true,
+                        homePage: '首页',
+                        endPage: '尾页',
+                        prevContent: '上页',
+                        nextContent: '下页',
+                        callback: function (api) {
+                            $.ajax({
+                                type: 'Post',
+                                url: 'addStock.aspx',
+                                data: {
+                                    page: api.getCurrent(),
+                                    action: "showIntersect"
+                                },
+                                dataType: 'text',
+                                success: function (data) {
+                                    $("#table2 tr:gt(1)").empty(); //清空table2行
+                                    $("#table2").append(data); //加载table
+                                }
+                            });
+                        }
+                    });
                 }
             });
         }
@@ -230,6 +270,8 @@ $(document).ready(function () {
 });
 
 $("#btnImport").click(function () {
+    $("#myModal2").modal("hide");
+    $("#myModal1").modal("show");
     $("#close").hide();
     $("#myModalLabe1").html("正在导入");
             $.ajax({
@@ -244,10 +286,12 @@ $("#btnImport").click(function () {
                         $("#myModalLabe1").html(data);
                         $("#close").show();
                         $("#img").attr("src", "../imgs/success.png");
+                        sessionStorage.setItem("import","导入成功");
                     } else if (data.indexOf("导入失败") >= 0) {
                         $("#myModalLabe1").html(data);
                         $("#close").show();
                         $("#img").attr("src", "../imgs/lose.png");
+                        sessionStorage.setItem("import", "导入失败");
                     }
                     else {
                         $("#close").show();
@@ -261,6 +305,7 @@ $("#btnImport").click(function () {
                             buttonsStyling: false,
                             allowOutsideClick: false
                         })
+                        sessionStorage.setItem("import", "导入失败");
                     }
                 }
             });
