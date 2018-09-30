@@ -157,6 +157,8 @@
     <Content Include="js\popper.min.js" />
     <Content Include="js\returnManagement.js" />
     <Content Include="js\roleManagement.js" />
+    <Content Include="js\salesDetail.js" />
+    <Content Include="js\salesManagement.js" />
     <Content Include="js\stockManagement.js" />
     <Content Include="js\sweetalert2.js" />
     <Content Include="js\tradeManagement.js" />

@@ -44,49 +44,64 @@
                                         <button class="btn btn-success" data-toggle="modal" data-target="#myModa2">添加销售</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="sales_search">
-                                        <button class="btn btn-info">查询</button>
+                                        <input type="text" value="" class="" id="sales_bookName" placeholder="请输入书名">
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print" aria-hidden="true"></i></button>
+                                        <input type="text" value="" class="" id="sales_ISBN" placeholder="请输入ISBN">
+                                        <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>
+                                    <%if (type == "addsale")
+                                        {%>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print"></i></button>
+                                    </div>
+                                    <%} %>
                                 </div>
                             </div>
                             <div class="content_tab col-md-12">
                                 <div class="table-responsive col-md-10">
-                                    <table class="table mostTable table-bordered text-center">
+                                    <table class="table mostTable table-bordered text-center" id="table">
                                         <thead>
                                             <tr>
-                                                <th>书号</th>
-                                                <th>ISBN号</th>
-                                                <th>实际折扣</th>
-                                                <th>单价</th>
-                                                <th>数量</th>
-                                                <th>实洋</th>
-                                                <th>时间</th>
-                                                <th>操作</th>
+                                                <th>
+                                                    <nobr>序号</nobr>
+                                                </th>
+                                                <th>
+                                                    <nobr>书名</nobr>
+                                                </th>
+                                                <th>
+                                                    <nobr>ISBN号</nobr>
+                                                </th>
+                                                <th>
+                                                    <nobr>单价</nobr>
+                                                </th>
+                                                <th>
+                                                    <nobr>数量</nobr>
+                                                </th>
+                                                <th>
+                                                    <nobr>实际折扣</nobr>
+                                                </th>
+                                                <th>
+                                                    <nobr>实洋</nobr>
+                                                </th>
+                                                <th>
+                                                    <nobr>时间</nobr>
+                                                </th>
+                                                <th>
+                                                    <nobr>操作</nobr>
+                                                </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>5</td>
-                                                <td>6</td>
-                                                <td>7</td>
-                                                <td>
-                                                    <button class="btn btn-danger">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        <%=getData() %>
                                     </table>
                                 </div>
                                 <div class="statistics col-md-2">
                                     统计
+                                </div>
+                                <div class="copyright float-right page-box">
+                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                        <div class="m-style paging"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +137,7 @@
                             <td>数量</td>
                             <td>
                                 <input type="text" value="" class="sales_search"></td>
-                             <td>实洋</td>
+                            <td>实洋</td>
                             <td>
                                 <input type="text" value="" class="sales_search"></td>
                         </tr>
@@ -147,6 +162,8 @@
     <script src="../js/material-dashboard.min.js"></script>
     <!-- selectpicker.js -->
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/salesDetail.js"></script>
 </body>
 
 </html>

@@ -54,7 +54,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleTaskId">销售任务ID</param>
         /// <returns>受影响行数</returns>
-        public int Delete(int saleTaskId)
+        public int Delete(string saleTaskId)
         {
             string cmdText = "update T_SaleTask set deleteState = 1 where saleTaskId=@saleTaskId";
             String[] param = { "@saleTaskId" };

@@ -1,25 +1,27 @@
-﻿using bms.Dao;
-using bms.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace bms.Bll
 {
+    using Dao;
+    using Model;
     using System.Data;
     using Result = Enums.OpResult;
-    public class SaleTaskBll
+    public class SaleHeadBll
     {
-        readonly SaleTaskDao saleDao = new SaleTaskDao();
+
+        SaleHeadDao saleHeaddao = new SaleHeadDao();
+
         /// <summary>
-        /// 添加销售任务方法
+        /// 销售单头添加
         /// </summary>
-        /// <param name="task">实体销售任务</param>
+        /// <param name="salehead">销售单头实体</param>
         /// <returns>返回结果</returns>
-        public Result insert(SaleTask sale)
+        public Result Insert(SaleHead salehead)
         {
-            int row = saleDao.Insert(sale);
+            int row = saleHeaddao.Insert(salehead);
             if (row > 0)
             {
                 return Result.添加成功;
@@ -30,17 +32,19 @@ namespace bms.Bll
             }
         }
         /// <summary>
-        /// 销售任务删除
+        /// 删除单头
         /// </summary>
         /// <param name="saleTaskId">销售任务ID</param>
-        /// <returns>返回结果</returns>
-        public Result Delete(string saleTaskId)
+        /// <param name="saleHeadId">单头Id</param>
+        /// <returns></returns>
+        public Result Delete(string saleTaskId, string saleHeadId)
         {
-          int row=  saleDao.Delete(saleTaskId);
-            if (row>0)
+            int row = saleHeaddao.Delete(saleTaskId, saleHeadId);
+            if (row > 0)
             {
-                return Result.删除失败;
-            } else
+                return Result.删除成功;
+            }
+            else
             {
                 return Result.删除失败;
             }
@@ -65,7 +69,6 @@ namespace bms.Bll
                 return Result.记录不存在;
             }
         }
-
         /// <summary>
         /// 获取分页数据
         /// </summary>

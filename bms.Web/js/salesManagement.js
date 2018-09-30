@@ -12,7 +12,7 @@
             var search = $("#btn-search").val().trim();
             $.ajax({
                 type: 'Post',
-                url: 'tradeManagement.aspx',
+                url: 'salesManagement.aspx',
                 data: {
                     page: api.getCurrent(), //页码
                     search: search,
@@ -26,14 +26,18 @@
             });
         }
     });
-    //点击查询按钮时
+    //查询
     $("#btn-search").click(function () {
-        var search = $("#search_All").val().trim();
+        var saleTaskId = $("#ID").val().trim();
+        var regionName = $("#regionName").val().trim();
+        var userName = $("#userName").val().trim();
         $.ajax({
             type: 'Post',
-            url: 'tradeManagement.aspx',
+            url: 'salesManagement.aspx',
             data: {
-                search: search,
+                saleTaskId: saleTaskId,
+                regionName: regionName,
+                userName: userName,
                 op: "paging"
             },
             dataType: 'text',
@@ -42,7 +46,9 @@
                 $("#table tr:not(:first)").empty(); //清空table处首行
                 $("#table").append(data); //加载table
                 $(".paging").empty();
-                $(".paging").pagination({
+                $('.paging').pagination({
+                    //totalData: $("#countPage").val(), //数据总数
+                    //showData: $("#totalCount").val(), //每页显示的条数
                     pageCount: $("#intPageCount").val(), //总页数
                     jump: true,
                     mode: 'fixed',//固定页码数量
@@ -54,10 +60,12 @@
                     callback: function (api) {
                         $.ajax({
                             type: 'Post',
-                            url: 'tradeManagement.aspx',
+                            url: 'salesManagement.aspx',
                             data: {
                                 page: api.getCurrent(), //页码
-                                search: search,
+                                saleTaskId: saleTaskId,
+                                regionName: regionName,
+                                userName: userName,
                                 op: "paging"
                             },
                             dataType: 'text',
@@ -71,7 +79,8 @@
             }
         });
     });
-    //添加销售任务
+
+    //添加
     $("#btnAdd").click(function () {
         var billCount = $("#billCount").val().trim();
         var totalPrice = $("#totalPrice").val().trim();
@@ -90,7 +99,7 @@
         else {
             $.ajax({
                 type: 'Post',
-                url: 'tradeManagement.aspx',
+                url: 'salesManagement.aspx',
                 data: {
                     Custmer: saleCustmer,
                     numberLimit: billCount,
@@ -150,7 +159,7 @@
         }).then(function () {
             $.ajax({
                 type: 'Post',
-                url: 'tradeManagement.aspx',
+                url: 'salesManagement.aspx',
                 data: {
                     ID: ID,
                     op: 'del'
@@ -188,38 +197,38 @@
         })
     });
 
-    //售
-    $("#table").delegate(".btn_sale", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
+    //加
+    $("#table").delegate(".add", "click", function () {
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text();
         $.ajax({
             type: 'Post',
-            url: 'tradeManagement.aspx',
+            url: 'salesManagement.aspx',
             data: {
                 ID: ID,
-                op: 'sale'
+                op: 'addDetail'
             },
             dataType: 'text',
             success: function (succ) {
                 if (succ == "成功") {
-                    window.location.href = "../SalesMGT/salesManagement.aspx";
+                    window.location.href = "../SalesMGT/salesDetail.aspx";
                 }
             }
         })
     })
-    //退
-    $("#table").delegate(".btn_back", "click", function () {
+    //看
+    $("#table").delegate(".look", "click", function () {
         var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
         $.ajax({
             type: 'Post',
-            url: 'tradeManagement.aspx',
+            url: 'salesManagement.aspx',
             data: {
                 ID: ID,
-                op: 'sale'
+                op: 'look'
             },
             dataType: 'text',
             success: function (succ) {
                 if (succ == "成功") {
-                    window.location.href = "../SalesMGT/backManagement.aspx";
+                    window.location.href = "../SalesMGT/salesDetail.aspx";
                 }
             }
         })
