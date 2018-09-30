@@ -118,6 +118,9 @@ $(document).ready(function () {
     });
 
     $("#close").click(function () {
+        $(" #file").val("");
+        sessionStorage.removeItem("import");
+        sessionStorage.removeItem("succ");
         $("#close").show();
         $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
         $("#img").attr("src", "../imgs/loading.gif");
@@ -188,10 +191,6 @@ $(document).ready(function () {
     }
 
     $("#showIntersect").click(function () {
-        $("#myModal2").modal("hide");
-        $("#myModal1").modal("show");
-        $("#myModalLabe1").html("正在读取数据");
-        $("#close").hide();
         var file = $("#file").val();
         if (file == "" || file == null) {
             swal({
@@ -218,6 +217,9 @@ $(document).ready(function () {
             })
         }
         else {
+            $("#myModal2").modal("hide");
+            $("#myModal1").modal("show");
+            $("#myModalLabe1").html("正在读取数据");
             $("#close").hide();
             $.ajax({
                 type: 'Post',
@@ -268,6 +270,8 @@ $(document).ready(function () {
 });
 
 $("#btnImport").click(function () {
+    $("#myModal2").modal("hide");
+    $("#myModal1").modal("show");
     $("#close").hide();
     $("#myModalLabe1").html("正在导入");
             $.ajax({
