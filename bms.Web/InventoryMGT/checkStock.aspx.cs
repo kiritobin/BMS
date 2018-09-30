@@ -23,7 +23,7 @@ namespace bms.Web.InventoryMGT
             getData();
             string singleHeadId = Request.QueryString["returnId"];
             //string singleHeadId = "20180927000001";
-            putDt = warehousingBll.SelectSingleHead(1, singleHeadId);
+            putDt = warehousingBll.SelectSingleHead(singleHeadId);
             int count = putDt.Rows.Count;
             for (int i = 0; i < count; i++)
             {

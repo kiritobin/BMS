@@ -58,7 +58,7 @@ $(document).ready(function () {
     })
 })
 
-//回车时间
+//回车事件
 $("#isbn").keypress(function (e) {
     if (e.keyCode == 13) {
         $("#btnAdd").attr("disabled", false);
@@ -99,33 +99,15 @@ $("#isbn").keypress(function (e) {
     }
 })
 
-//$("#table2").delegate("input[type='checkbox']", "click",function () {
-//    if (sessionStorage.getItem("flag") == "true") {
-//        sessionStorage.setItem("flag", "false");
-//    }
-//    else {
-//        sessionStorage.setItem("flag", "true");
-//    }
-//    if (sessionStorage.getItem("flag") == "true") {
-//      $("input[type='checkbox']").not(this).attr("checked", false);
-//    } else {
-//        $("input[type='checkbox']").attr("checked", false);
-//        alert("false");
-//    }
-//    if (sessionStorage.getItem("flag") == "false") {
-//        swal({
-//            title: "温馨提示:)",
-//            text: "请选择一条图书信息",
-//            buttonsStyling: false,
-//            confirmButtonClass: "btn btn-warning",
-//            type: "warning"
-//        }).catch(swal.noop);
-//    }
-//})
+//返回按钮点击事件
+$("#back").click(function () {
+    window.location.href = "warehouseManagement.aspx";
+})
 
 //添加出库单头
 $("#btnAdd").click(function () {
-    var bookNum = $("input[name='radio']:checked").val();
+    //var bookNum = $("input[name='radio']:checked").val();
+    var bookNum = $("input[type='radio']:checked").val();
     var billCount = $("#billCount").val();
     var disCount = $("#disCount").val();
     if (bookNum == "" || bookNum == null) {

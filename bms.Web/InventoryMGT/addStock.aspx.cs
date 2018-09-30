@@ -70,19 +70,45 @@ namespace bms.Web.InventoryMGT
                 Result row = wareBll.insertMono(monomers);
                 if(row == Result.添加成功)
                 {
-                    Stock stock = new Stock();
-                    stock.StockNum = Convert.ToInt32(allCount);
-                    stock.ISBN = bookBasicData;
-                    stock.RegionId = user.ReginId;
-                    GoodsShelves goodsShelves = new GoodsShelves();
-                    goodsShelves.GoodsShelvesId = Convert.ToInt32(goodsShelf);
-                    stock.GoodsShelvesId = goodsShelves;
-                    StockBll stockBll = new StockBll();
-                    Result result = stockBll.insert(stock);
-                    if (result == Result.添加成功)
+                    int number, allBillCount = 0;
+                    double totalPrice, allTotalPrice = 0, realPrices, allRealPrice = 0;
+                    DataTable dtHead = warehousingBll.SelectMonomers(singleHeadId);
+                    int j = dtHead.Rows.Count;
+                    for (int i = 0; i < j; i++)
                     {
-                        Response.Write("添加成功");
-                        Response.End();
+                        DataRow dr = dtHead.Rows[i];
+                        number = Convert.ToInt32(dr["number"]);
+                        totalPrice = Convert.ToDouble(dr["totalPrice"]);
+                        realPrices = Convert.ToDouble(dr["realPrice"]);
+                        allBillCount = allBillCount + number;
+                        allTotalPrice = allTotalPrice + totalPrice;
+                        allRealPrice = allRealPrice + realPrices;
+                    }
+                    singleHead.AllBillCount = allBillCount;
+                    singleHead.AllTotalPrice = allTotalPrice;
+                    singleHead.AllRealPrice = allRealPrice;
+                    Result update = wareBll.updateHead(singleHead);
+                    if (update == Result.更新成功)
+                    {
+                        Stock stock = new Stock();
+                        stock.StockNum = Convert.ToInt32(allCount);
+                        stock.ISBN = bookBasicData;
+                        stock.RegionId = user.ReginId;
+                        GoodsShelves goodsShelves = new GoodsShelves();
+                        goodsShelves.GoodsShelvesId = Convert.ToInt32(goodsShelf);
+                        stock.GoodsShelvesId = goodsShelves;
+                        StockBll stockBll = new StockBll();
+                        Result result = stockBll.insert(stock);
+                        if (result == Result.添加成功)
+                        {
+                            Response.Write("添加成功");
+                            Response.End();
+                        }
+                        else
+                        {
+                            Response.Write("添加失败");
+                            Response.End();
+                        }
                     }
                     else
                     {

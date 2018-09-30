@@ -35,7 +35,7 @@ namespace bms.Web.InventoryMGT
                 }
             }
             getData();
-            shDt = warehousingBll.SelectSingleHead(0, singleHeadId);
+            shDt = warehousingBll.SelectSingleHead(singleHeadId);
             int count = shDt.Rows.Count;
             for (int i = 0; i < count; i++)
             {

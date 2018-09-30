@@ -34,7 +34,7 @@ namespace bms.Web.InventoryMGT
             }
             string singleHeadId = Request.QueryString["returnId"];
             //string singleHeadId = "20180927000002";
-            shDt = warehousingBll.SelectSingleHead(2, singleHeadId);
+            shDt = warehousingBll.SelectSingleHead(singleHeadId);
             int count = shDt.Rows.Count;
             for (int i = 0; i < count; i++)
             {

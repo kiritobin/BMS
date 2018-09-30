@@ -28,14 +28,8 @@ namespace bms.Web.BasicInfor
             if (op == "add")
             {
                 count = wareBll.countHead(0) + 1;
-                string billCount = Request["billCount"];
-                string totalPrice = Request["totalPrice"];
-                string realPrice = Request["realPrice"];
                 string regionId = Request["regionId"];
                 SingleHead single = new SingleHead();
-                single.AllBillCount = Convert.ToInt32(billCount);
-                single.AllRealPrice = Convert.ToInt32(realPrice);
-                single.AllTotalPrice = Convert.ToInt32(totalPrice);
                 single.SingleHeadId = "CK" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                 single.Time = DateTime.Now;
                 single.Type = 0;
@@ -147,8 +141,8 @@ namespace bms.Web.BasicInfor
             {
                 System.Data.DataRow dr = ds.Tables[0].Rows[i];
                 sb.Append("<tr><td class='singleHeadId'>" + dr["singleHeadId"].ToString() + "</td>");
-                sb.Append("<td>" + dr["regionName"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["userName"].ToString() + "</ td >");
+                sb.Append("<td>" + dr["regionName"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["allBillCount"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allRealPrice"].ToString() + "</ td >");

@@ -35,13 +35,36 @@ namespace bms.Dao
         /// </summary>
         /// <param name="type">1为入库，0为出库，2为退货</param>
         /// <returns></returns>
-        public DataTable SelectSingleHead(int type,string singleHeadId)
+        public DataTable SelectSingleHead(string singleHeadId)
         {
-            string cmdText = "select singleHeadId,time,userName,regionName,allBillCount,allTotalPrice,allRealPrice from V_SingleHead where singleHeadId=@singleHeadId and type=@type";
-            string[] param = { "@type", "@singleHeadId" };
-            object[] values = { type,singleHeadId};
+            string cmdText = "select singleHeadId,time,userName,regionName,allBillCount,allTotalPrice,allRealPrice from V_SingleHead where singleHeadId=@singleHeadId";
+            string[] param = { "@singleHeadId" };
+            object[] values = { singleHeadId};
             DataSet ds = db.FillDataSet(cmdText, param, values);
             if(ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                return dt;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// 获取出库单体的所有信息
+        /// </summary>
+        /// <param name="type">1为入库，0为出库，2为退货</param>
+        /// <returns></returns>
+        public DataTable SelectMonomers(string singleHeadId)
+        {
+            string cmdText = "select number,totalPrice,realPrice from T_Monomers where singleHeadId=@singleHeadId";
+            string[] param = { "@singleHeadId" };
+            object[] values = { singleHeadId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
                 DataTable dt = ds.Tables[0];
                 return dt;
@@ -59,9 +82,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int insertHead(SingleHead single)
         {
-            string cmdText = "insert into T_SingleHead(singleHeadId,time,regionId,userId,allBillCount,allTotalPrice,allRealPrice,type) values(@singleHeadId,@time,@regionId,@userId,@allBillCount,@allTotalPrice,@allRealPrice,@type)";
-            string[] param = { "@singleHeadId", "@time","@regionId","@userId","@allBillCount","@allTotalPrice","@allRealPrice", "@type" };
-            object[] values = { single.SingleHeadId, single.Time, single.Region.RegionId, single.User.UserId, single.AllBillCount, single.AllTotalPrice, single.AllRealPrice, single.Type };
+            string cmdText = "insert into T_SingleHead(singleHeadId,time,regionId,userId,type) values(@singleHeadId,@time,@regionId,@userId,@type)";
+            string[] param = { "@singleHeadId", "@time","@regionId","@userId", "@type" };
+            object[] values = { single.SingleHeadId, single.Time, single.Region.RegionId, single.User.UserId,single.Type };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -77,6 +100,20 @@ namespace bms.Dao
             string[] param = { "@monId", "@singleHeadId", "@bookNum", "@ISBN", "@number", "@uPrice", "@totalPrice", "@realPrice", "@discount", "@type" };
             object[] values = { monomers.MonomersId, monomers.SingleHeadId.SingleHeadId,monomers.BookNum.BookNum, monomers.Isbn.Isbn, monomers.Number, monomers.UPrice.Price, monomers.TotalPrice, monomers.RealPrice, monomers.Discount, monomers.Type };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 更新单头数量，码洋，实洋
+        /// </summary>
+        /// <param name="single"></param>
+        /// <returns></returns>
+        public int updateHead(SingleHead single)
+        {
+            string cmdTexts = "update T_SingleHead set allBillCount=@allBillCount,allTotalPrice=@allTotalPrice,allRealPrice=@allRealPrice where singleHeadId=@singleHeadId";
+            string[] parames = { "@singleHeadId", "@allBillCount", "@allTotalPrice", "@allRealPrice" };
+            object[] value = { single.SingleHeadId, single.AllBillCount, single.AllTotalPrice, single.AllRealPrice };
+            int row = db.ExecuteNoneQuery(cmdTexts, parames, value);
             return row;
         }
 

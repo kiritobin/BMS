@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
-    <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
+    <link async rel="stylesheet" href="https://cdn.materialdesignicons.com/1.8.36/css/materialdesignicons.min.css"/>
+    <%--<link rel="stylesheet" href="../css/materialdesignicons.min.css" />--%>
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 
@@ -217,6 +218,7 @@
                             <div class="card">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title">出库添加</h4>
+                                    <button class="btn btn-sm pull-right" style="background-color:white;color:black;" id="back">返回</button>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -293,7 +295,7 @@
                                         <%--<th><input type="checkbox" name="checkbox" class="check" value="" disabled="disabled" /></th>--%>
                                         <th>
                                             <div class="pretty inline">
-                                                <input type="radio" name="radio2" disabled="disabled">
+                                                <input type="radio" name="radio" disabled="disabled">
                                                 <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
                                             </div>
                                         </th>

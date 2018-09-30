@@ -47,12 +47,30 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
+
         /// <summary>
-        /// 获取行数
+        /// 更新单头数量，码洋，实洋
         /// </summary>
-        /// <param name="monId">单头id</param>
-        /// <returns>返回行数</returns>
-        public long getCount(string singleHeadId)
+        /// <param name="single"></param>
+        /// <returns></returns>
+        public Result updateHead(SingleHead single)
+        {
+            int row = monoDao.updateHead(single);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else {
+                return Result.更新失败;
+            }
+        }
+
+            /// <summary>
+            /// 获取行数
+            /// </summary>
+            /// <param name="monId">单头id</param>
+            /// <returns>返回行数</returns>
+            public long getCount(string singleHeadId)
         {
             long row = monoDao.SelectBymonId(singleHeadId);
             if (row > 0)
@@ -64,22 +82,33 @@ namespace bms.Bll
                 return 0;
             }
         }
+
         /// <summary>
         /// 获取出库单头的所有信息
         /// </summary>
         /// <param name="type">1为入库，0为出库，2为退货</param>
         /// <returns></returns>
-        public DataTable SelectSingleHead(int type, string singleHeadId)
+        public DataTable SelectSingleHead(string singleHeadId)
         {
-            return monoDao.SelectSingleHead(type, singleHeadId);
+            return monoDao.SelectSingleHead(singleHeadId);
         }
 
         /// <summary>
-        /// 假删除单头信息
+        /// 获取出库单体的所有信息
         /// </summary>
-        /// <param name="singleHeadId">单头id</param>
+        /// <param name="type">1为入库，0为出库，2为退货</param>
         /// <returns></returns>
-        public Result deleteHead(string singleHeadId,int type)
+        public DataTable SelectMonomers(string singleHeadId)
+        {
+            return monoDao.SelectMonomers(singleHeadId);
+        }
+
+            /// <summary>
+            /// 假删除单头信息
+            /// </summary>
+            /// <param name="singleHeadId">单头id</param>
+            /// <returns></returns>
+            public Result deleteHead(string singleHeadId,int type)
         {
             int row = monoDao.deleteHead(singleHeadId,type);
             if (row > 0)
