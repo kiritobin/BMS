@@ -127,7 +127,16 @@ $("#btnAdd").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-    } else {
+    }
+    else if (disCount == "") {
+        swal({
+            title: "温馨提示:)",
+            text: "折扣不能为空，请您重新输入",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+    }else {
         $.ajax({
             type: 'Post',
             url: 'addWarehouse.aspx',

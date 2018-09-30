@@ -42,9 +42,6 @@ namespace bms.Web.InventoryMGT
                 double realPrice = Convert.ToDouble(Request["realPrice"]);
                 string source = Request["source"];
                 SingleHead single = new SingleHead();
-                single.AllBillCount = count;
-                single.AllRealPrice = realPrice;
-                single.AllTotalPrice = totalPrice;
                 Region region = new Region();
                 region.RegionId = Convert.ToInt32(source);
                 single.Region = region;

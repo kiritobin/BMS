@@ -142,11 +142,8 @@ $("#table").delegate(".btn-danger", "click", function () {
 })
 
 $("#btnAdd").click(function () {
-    var count = $("#billCount").val().trim();
-    var totalPrice = $("#totalPrice").val().trim();
-    var realPrice = $("#realPrice").val().trim();
     var source = $("#source").val().trim();
-    if (count == "" || totalPrice == "" || realPrice == "" || source == "") {
+    if (source == "") {
         alert("含有未填项");
     }
     else {
@@ -154,9 +151,6 @@ $("#btnAdd").click(function () {
             type: 'Post',
             url: 'stockManagement.aspx',
             data: {
-                count: count,
-                totalPrice: totalPrice,
-                realPrice: realPrice,
                 source: source,
                 op:"add"
             },
