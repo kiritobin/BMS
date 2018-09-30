@@ -88,5 +88,22 @@ namespace bms.Bll
                 return null;
             }
         }
+        /// <summary>
+        /// 更新销售单体
+        /// </summary>
+        /// <param name="salemonomer">销售单体实体</param>
+        /// <returns></returns>
+        public Result Update(SaleMonomer salemonomer)
+        {
+            int row = SaleMonomerdao.Update(salemonomer);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
     }
 }
