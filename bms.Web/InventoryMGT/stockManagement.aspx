@@ -276,24 +276,6 @@
                             <div class="modal-body">
                                 <table class="table model-table">
                                     <tr>
-                                        <td class="text-right"><span>单据总数:</span></td>
-                                        <td>
-                                            <input type="text" value="" class="modal_search_add" id="billCount" placeholder="">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-right"><span>总码洋:</span></td>
-                                        <td>
-                                            <input type="text" value="" class="modal_search_add" id="totalPrice" placeholder="">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-right"><span>总实洋:</span></td>
-                                        <td>
-                                            <input type="text" value="" class="modal_search_add" id="realPrice" placeholder="">
-                                        </td>
-                                    </tr>
-                                    <tr>
                                         <td class="text-right"><span>入库来源:</span></td>
                                         <td>
                                             <select class="modal_select" id="source">
