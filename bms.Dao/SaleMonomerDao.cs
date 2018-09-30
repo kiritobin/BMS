@@ -63,5 +63,18 @@ namespace bms.Dao
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
+        /// <summary>
+        /// 更新销售单体
+        /// </summary>
+        /// <param name="salemonomer">销售单体实体</param>
+        /// <returns></returns>
+        public int Update(SaleMonomer salemonomer)
+        {
+            string cmdText = "update T_SaleMonomer set number=@number or uPrice=@uPrice or totalPice=@totalPrice or realPrice=@realPrice or discount=@discount or type=@type";
+            string[] param = { "@number", "@uPrice", "@totalPrice", "@realPrice", "@discount", "@type" };
+            object[] values = { salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealDiscount, salemonomer.Type };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
     }
 }

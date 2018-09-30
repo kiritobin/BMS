@@ -17,6 +17,7 @@ namespace bms.Model
         private double realDiscount;
         private double realPrice;
         private DateTime datetime;
+        private int type;
 
         /// <summary>
         /// 参数构造函数
@@ -31,7 +32,7 @@ namespace bms.Model
         /// <param name="realDiscount">实际折扣</param>
         /// <param name="realPrice">实洋</param>
         /// <param name="datetime">采集时间</param>
-        public SaleMonomer(int saleIdMonomerId, long bookNum, string iSBN, int saleHeadId, double unitPrice, int number, double totalPrice, double realDiscount, double realPrice, DateTime datetime)
+        public SaleMonomer(int saleIdMonomerId, long bookNum, string iSBN, int saleHeadId, double unitPrice, int number, double totalPrice, double realDiscount, double realPrice, DateTime datetime,int type)
         {
             this.saleIdMonomerId = saleIdMonomerId;
             this.bookNum = bookNum;
@@ -43,6 +44,7 @@ namespace bms.Model
             this.realDiscount = realDiscount;
             this.realPrice = realPrice;
             this.datetime = datetime;
+            this.type = type;
         }
 
         /// <summary>
@@ -195,6 +197,22 @@ namespace bms.Model
                 datetime = value;
             }
         }
+        /// <summary>
+        /// 类型 出库0  入库1 退货2
+        /// </summary>
+        public int Type
+        {
+            get
+            {
+                return type;
+            }
+
+            set
+            {
+                type = value;
+            }
+        }
+
         /// <summary>
         /// 无参构造函数
         /// </summary>
