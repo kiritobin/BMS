@@ -31,6 +31,21 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
+        public int getCount(string saleTaskId)
+        {
+            int count = saleHeaddao.countHead(saleTaskId);
+            if (count > 0)
+            {
+                return count;
+            }
+            else
+            {
+                return count = 0;
+            }
+
+        }
+
+
         /// <summary>
         /// 删除单头
         /// </summary>

@@ -60,14 +60,19 @@
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <%--<li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
+                                        <span class="sidebar-normal">架位管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -90,8 +95,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
-                                        <span class="sidebar-normal">客户馆藏数据</span>
+                                    <a class="nav-link" href="../CustomerMGT/customerPurchase.aspx">
+                                        <span class="sidebar-normal">客户采购查询</span>
                                     </a>
                                 </li>
                             </ul>
@@ -109,17 +114,17 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
-                                        <span class="sidebar-normal">出库</span>
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
-                                        <span class="sidebar-normal">入库</span>
+                                        <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
-                                        <span class="sidebar-normal">退货</span>
+                                        <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -140,6 +145,11 @@
                                         <span class="sidebar-normal">营销管理</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../SalesMGT/backQuery.aspx">
+                                        <span class="sidebar-normal">销退管理</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -154,13 +164,13 @@
                         <div class="collapse show" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
-                                        <span class="sidebar-normal">架位管理</span>
+                                    <a class="nav-link activeNext" href="../BasicInfor/bookBasicManagement.aspx">
+                                        <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../BasicInfor/bookBasicManagement.aspx">
-                                        <span class="sidebar-normal">书籍基础数据管理</span>
+                                    <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
+                                        <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
                             </ul>
@@ -295,7 +305,7 @@
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">基础数据导入导入</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="material-icons">clear</i>
+                                <i class="fa fa-close"></i>
                             </button>
                         </div>
                         <div class="modal-body" style="max-height: 500px; overflow: auto;">
@@ -324,7 +334,7 @@
                         <div class="modal-header">
                             <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
                             <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
-                                <i class="material-icons">clear</i>
+                                <i class="fa fa-close"></i>
                             </button>
                         </div>
                         <div class="modal-body">
