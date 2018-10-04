@@ -82,13 +82,24 @@ namespace bms.Bll
                 return 0;
             }
         }
-
-        /// <summary>
-        /// 获取出库单头的所有信息
-        /// </summary>
-        /// <param name="type">1为入库，0为出库，2为退货</param>
-        /// <returns></returns>
-        public DataTable SelectSingleHead(string singleHeadId)
+        public Result SelectBybookNum(string bookNum)
+        {
+            int row = monoDao.SelectBybookNum(bookNum);
+            if (row > 0)
+            {
+                return Result.记录存在;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
+        }
+            /// <summary>
+            /// 获取出库单头的所有信息
+            /// </summary>
+            /// <param name="type">1为入库，0为出库，2为退货</param>
+            /// <returns></returns>
+            public DataTable SelectSingleHead(string singleHeadId)
         {
             return monoDao.SelectSingleHead(singleHeadId);
         }
