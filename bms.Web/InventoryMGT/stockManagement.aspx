@@ -238,8 +238,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>单据编号</th>
-                                                    <th>组织名称</th>
-                                                    <th>操作员名称</th>
+                                                    <th>入库来源</th>
+                                                    <th>操作员</th>
                                                     <th>单据总数</th>
                                                     <th>总实洋</th>
                                                     <th>总码洋</th>
@@ -277,7 +277,7 @@
                                         <td class="text-right"><span>入库来源:</span></td>
                                         <td>
                                             <select class="modal_select" id="source">
-                                            <option value="">请选择分公司</option>
+                                            <option value="">请选择入库来源</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>

@@ -51,7 +51,7 @@ namespace bms.Web.InventoryMGT
                 int billCount = Convert.ToInt32(Request["billCount"]);
                 DataSet dsGoods = stockBll.SelectByIsbn(isbn);
                 if (dsGoods != null && dsGoods.Tables[0].Rows.Count > 0)
-                {
+                {//判断库存
                     int count = billCount;
                     int allCount = 0, allCounts = 0;
                     for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
@@ -65,7 +65,7 @@ namespace bms.Web.InventoryMGT
                         Response.End();
                     }
                     else
-                    {
+                    {//添加单体
                         double discount = Convert.ToInt32(Request["disCount"]);
                         if (discount > 1 && discount <= 10)
                         {
@@ -107,7 +107,7 @@ namespace bms.Web.InventoryMGT
                         {
                             Result row = warehousingBll.insertMono(monomers);
                             if (row == Result.添加成功)
-                            {
+                            {//获取单头数据并更新单头
                                 int number, allBillCount = 0;
                                 double totalPrice, allTotalPrice = 0, realPrice, allRealPrice = 0;
                                 DataTable dtHead = warehousingBll.SelectMonomers(singleHeadId);

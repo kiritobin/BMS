@@ -269,6 +269,69 @@ $(document).ready(function () {
     });
 });
 
+//回车事件
+$("#isbn").keypress(function (e) {
+    if (e.keyCode == 13) {
+        $("#btnAdd").attr("disabled", false);
+        var isbn = $("#isbn").val();
+        var billCount = $("#billCount").val();
+        var disCount = $("#disCount").val();
+        var goodsShelf = $("#goodsShelf").val();
+        if (isbn == "" || isbn == null) {
+            swal({
+                title: "温馨提示:)",
+                text: "ISBN不能为空，请您重新输入",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        } else if (allCount == "" || allCount == null) {
+            swal({
+                title: "温馨提示:)",
+                text: "商品数量不能为空，请您重新输入",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        } else if (discount == "" || discount == null) {
+            swal({
+                title: "温馨提示:)",
+                text: "折扣不能为空，请您重新输入",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        } else {
+            $.ajax({
+                type: 'Post',
+                url: 'addWarehouse.aspx',
+                data: {
+                    isbn: isbn,
+                    billCount: billCount,
+                    disCount: disCount,
+                    goodsShelf: goodsShelf,
+                    op: "isbn"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "ISBN不存在") {
+                        swal({
+                            title: "错误提示:)",
+                            text: "ISBN不存在",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning",
+                            type: "warning"
+                        }).catch(swal.noop);
+                    } else {
+                        $("#table3 tr:not(:first)").empty(); //清空table处首行
+                        $("#table3").append(data); //加载table
+                    }
+                }
+            })
+        }
+    }
+})
+
 $("#btnImport").click(function () {
     $("#myModal2").modal("hide");
     $("#myModal1").modal("show");

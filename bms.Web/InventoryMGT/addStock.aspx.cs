@@ -19,8 +19,13 @@ namespace bms.Web.InventoryMGT
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
         public DataSet ds, dsGoods;
         public DataTable dt;
+        public double discount;
+        BookBasicBll basicBll = new BookBasicBll();
+        WarehousingBll warehousingBll = new WarehousingBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            Monomers monoDiscount = warehousingBll.getDiscount();
+            discount = monoDiscount.Discount;
             string singleHeadId="";
             if (!IsPostBack)
             {
@@ -38,38 +43,59 @@ namespace bms.Web.InventoryMGT
             }
             User user = (User)Session["user"];
             getData();
+            getIsbn();
             string op = Request["op"];
-            WarehousingBll warehousingBll = new WarehousingBll();
             long flow = (warehousingBll.getCount(singleHeadId) + 1);
             if (op == "add")
             {
-                string monomerID = flow.ToString();
-                string isbn = Request["isbn"];
-                string allCount = Request["allCount"];
-                string price = Request["price"];
-                string discount = Request["discount"];
-                string realPrice = Request["realPrice"];
-                string allPrice = Request["allPrice"];
+                long bookNum = Convert.ToInt64(Request["bookNum"]);
+                BookBasicData bookBasicData = basicBll.SelectById(Convert.ToInt64(bookNum));
+                string isbn = bookBasicData.Isbn;
+                int billCount = Convert.ToInt32(Request["billCount"]);
+                //添加单体信息
+                long monomerID = flow;
+                long monId;
+                if (monomerID > 0)
+                {
+                    monId = monomerID + 1;
+                }
+                else
+                {
+                    monId = 1;
+                }
+                int allCount = Convert.ToInt32(Request["allCount"]);
+                discount = Convert.ToDouble(Request["discount"]);
+                if (discount > 1 && discount <= 10)
+                {
+                    discount = discount * 0.1;
+                }
+                else if (discount > 10)
+                {
+                    discount = discount * 0.01;
+                }
                 string goodsShelf = Request["goodsShelf"];
+                double price = bookBasicData.Price;
                 Monomers monomers = new Monomers();
-                monomers.MonomersId = Convert.ToInt32(monomerID);
+                monomers.MonomersId = Convert.ToInt32(monId);
                 SingleHead singleHead = new SingleHead();
                 singleHead.SingleHeadId = singleHeadId; 
                 monomers.SingleHeadId= singleHead;
-                BookBasicData bookBasicData = new BookBasicData();
-                bookBasicData.Isbn = isbn;
-                monomers.Isbn = bookBasicData;
-                monomers.Number = Convert.ToInt32(allCount);
-                bookBasicData.Price = Convert.ToDouble(price);
-                monomers.UPrice = bookBasicData;
-                monomers.TotalPrice = Convert.ToDouble(allPrice);
-                monomers.RealPrice = Convert.ToDouble(realPrice);
-                monomers.Discount = Convert.ToDouble(discount);
+                monomers.Discount = discount*100;
+                monomers.Number = allCount;
                 monomers.Type = 1;
+                BookBasicData bookBasic = new BookBasicData();
+                bookBasic.Isbn = isbn;
+                bookBasic.Price = price;
+                bookBasic.BookNum = bookNum;
+                monomers.Isbn = bookBasic;
+                monomers.UPrice = bookBasic;
+                monomers.BookNum = bookBasic;
+                monomers.TotalPrice = Convert.ToDouble((price * allCount).ToString("0.00"));
+                monomers.RealPrice = Convert.ToDouble((price * allCount * discount).ToString("0.00"));
                 WarehousingBll wareBll = new WarehousingBll();
                 Result row = wareBll.insertMono(monomers);
                 if(row == Result.添加成功)
-                {
+                {//获取单头数据并更新单头
                     int number, allBillCount = 0;
                     double totalPrice, allTotalPrice = 0, realPrices, allRealPrice = 0;
                     DataTable dtHead = warehousingBll.SelectMonomers(singleHeadId);
@@ -89,9 +115,9 @@ namespace bms.Web.InventoryMGT
                     singleHead.AllRealPrice = allRealPrice;
                     Result update = wareBll.updateHead(singleHead);
                     if (update == Result.更新成功)
-                    {
+                    {//添加库存信息
                         Stock stock = new Stock();
-                        stock.StockNum = Convert.ToInt32(allCount);
+                        stock.StockNum = allCount;
                         stock.ISBN = bookBasicData;
                         stock.RegionId = user.ReginId;
                         GoodsShelves goodsShelves = new GoodsShelves();
@@ -131,7 +157,6 @@ namespace bms.Web.InventoryMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
-            
             string action = Request["action"];
             if (action == "import")
             {
@@ -219,9 +244,9 @@ namespace bms.Web.InventoryMGT
                 currentPage = 1;
             }
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "T_Monomers";
+            tbd.StrTable = "V_Monomer";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice";
+            tbd.StrColumnlist = "singleHeadId,ISBN,bookName,supplier,number,uPrice,discount,totalPrice,realPrice";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "";
             tbd.IntPageNum = currentPage;
@@ -239,6 +264,8 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + drc[i]["singleHeadId"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["ISBN"].ToString() + "</td >");
+                sb.Append("<td>" + drc[i]["bookName"].ToString() + "</td >");
+                sb.Append("<td>" + drc[i]["supplier"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["number"].ToString() + "</td>");
                 sb.Append("<td>" + drc[i]["uPrice"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["discount"].ToString() + "</td >");
@@ -256,6 +283,10 @@ namespace bms.Web.InventoryMGT
             return sb.ToString();
         }
 
+        /// <summary>
+        /// 读取excel数据到table中
+        /// </summary>
+        /// <returns></returns>
         private DataTable excelToDt()
         {
             string path = Session["path"].ToString();
@@ -287,6 +318,7 @@ namespace bms.Web.InventoryMGT
             }
             return dt1;
         }
+
         /// <summary>
         /// 流水号
         /// </summary>
@@ -309,7 +341,13 @@ namespace bms.Web.InventoryMGT
             }
             return UniteDataTable(excelToDt(), dt);
         }
-        //合并两个table方法
+
+        /// <summary>
+        /// 合并两个table方法
+        /// </summary>
+        /// <param name="udt1">表1</param>
+        /// <param name="udt2">表2</param>
+        /// <returns></returns>
         private DataTable UniteDataTable(DataTable udt1, DataTable udt2)
         {
             DataTable udt3 = udt1.Clone();
@@ -354,6 +392,10 @@ namespace bms.Web.InventoryMGT
             return udt3;
         }
 
+        /// <summary>
+        /// 取两个table的差集
+        /// </summary>
+        /// <returns></returns>
         private DataTable differentDt()
         {
             DataTable intersect = new DataTable();//接受交集
@@ -395,7 +437,11 @@ namespace bms.Web.InventoryMGT
             return intersect;
         }
 
-        // 半角转全角：书名列
+        /// <summary>
+        /// 半角转全角：书名列
+        /// </summary>
+        /// <param name="input">需要转换的字符串</param>
+        /// <returns></returns>
         private String ToSBC(String input)
         {
             char[] c = input.ToCharArray();
@@ -410,6 +456,52 @@ namespace bms.Web.InventoryMGT
                     c[i] = (char)(c[i] + 65248);
             }
             return new String(c);
+        }
+
+        /// <summary>
+        /// 通过isbn获取图书基础信息
+        /// </summary>
+        /// <returns></returns>
+        public string getIsbn()
+        {
+            string op = Request["op"];
+            string isbn = Request["isbn"];
+            if (isbn != null && isbn != "")
+            {
+                DataSet dsBook = basicBll.SelectByIsbn(isbn);
+                StringBuilder sb = new StringBuilder();
+                if (dsBook == null || dsBook.Tables[0].Rows.Count <= 0)
+                {
+                    Response.Write("ISBN不存在");
+                    Response.End();
+                }
+                else
+                {
+                    //生成table
+                    sb.Append("<tbody id='tbody'>");
+                    int count = dsBook.Tables[0].Rows.Count;
+                    for (int i = 0; i < count; i++)
+                    {
+                        DataRow dr = dsBook.Tables[0].Rows[i];
+                        //sb.Append("<tr><td><input type='checkbox' name='checkbox' class='check' value='" + dr["bookNum"].ToString() + "' /></td>");
+                        //sb.Append("<tr><td><input type='radio' name='radio' class='radio' value='" + dr["bookNum"].ToString() + "' /></td>");
+                        sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
+                        sb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["price"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
+                    }
+                    sb.Append("</tbody>");
+                    if (op == "isbn")
+                    {
+                        Response.Write(sb.ToString());
+                        Response.End();
+                    }
+                }
+                return sb.ToString();
+            }
+            return null;
         }
     }
 }
