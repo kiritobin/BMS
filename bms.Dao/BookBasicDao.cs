@@ -98,7 +98,7 @@ namespace bms.Dao
         /// <summary>
         /// 删除基础数据
         /// </summary>
-        /// <param name="bookNum">s书号</param>
+        /// <param name="bookNum">书号</param>
         /// <returns></returns>
         public int Delete(long bookNum)
         {

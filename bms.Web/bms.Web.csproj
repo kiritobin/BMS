@@ -64,7 +64,7 @@
     <Content Include="AccessMGT\roleManagement.aspx" />
     <Content Include="AccessMGT\userManagement.aspx" />
     <Content Include="BasicInfor\bookBasicManagement.aspx" />
-    <Content Include="BasicInfor\bookshelfManagement.aspx" />
+    <Content Include="AccessMGT\bookshelfManagement.aspx" />
     <Content Include="bin\bms.Bll.pdb" />
     <Content Include="bin\bms.Dao.dll" />
     <Content Include="bin\bms.Dao.pdb" />
@@ -103,7 +103,7 @@
     <Content Include="bin\bms.Model.dll" />
     <Content Include="css\pagination.css" />
     <Content Include="css\qc.css" />
-    <Content Include="CustomerMGT\collectionManagement.aspx" />
+    <Content Include="BasicInfor\collectionManagement.aspx" />
     <Content Include="CustomerMGT\customerManagement.aspx" />
     <Content Include="demo\alert.html" />
     <Content Include="bin\bms.Web.dll" />
@@ -210,11 +210,11 @@
     <Compile Include="BasicInfor\bookBasicManagement.aspx.designer.cs">
       <DependentUpon>bookBasicManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BasicInfor\bookshelfManagement.aspx.cs">
+    <Compile Include="AccessMGT\bookshelfManagement.aspx.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BasicInfor\bookshelfManagement.aspx.designer.cs">
+    <Compile Include="AccessMGT\bookshelfManagement.aspx.designer.cs">
       <DependentUpon>bookshelfManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="changePwd.aspx.cs">
@@ -364,11 +364,11 @@
     <Compile Include="CommonPage.aspx.designer.cs">
       <DependentUpon>CommonPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CustomerMGT\collectionManagement.aspx.cs">
+    <Compile Include="BasicInfor\collectionManagement.aspx.cs">
       <DependentUpon>collectionManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CustomerMGT\collectionManagement.aspx.designer.cs">
+    <Compile Include="BasicInfor\collectionManagement.aspx.designer.cs">
       <DependentUpon>collectionManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="CustomerMGT\customerManagement.aspx.cs">
