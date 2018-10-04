@@ -165,6 +165,19 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 通过书号查询存不存在
+        /// </summary>
+        /// <param name="bookNum"></param>
+        /// <returns></returns>
+        public int SelectBybookNum(string bookNum)
+        {
+            string comText = "select COUNT(monId) from T_Monomers where bookNum=@bookNum";
+            string[] param = { "@bookNum" };
+            object[] values = { bookNum };
+            int row = Convert.ToInt32(db.ExecuteScalar(comText, param, values));
+            return row;
+        }
+        /// <summary>
         /// 假删除单体
         /// </summary>
         /// <param name="singleHeadId">单头Id</param>
