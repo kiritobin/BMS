@@ -36,9 +36,9 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Insert(SaleTask sale)
         {
-            string cmdText = "insert into T_SaleTask(userId,defaultDiscount,defaultCopy,numberLimit,priceLimit,totalPriceLimit,startTime,finishTime) values(@userId,@defaultDiscount,@defaultCopy,@numberLimit,@priceLimit,@totalPriceLimit,@startTime,@finishTime)";
-            string[] param = { "@userId", "@defaultDiscount", "@defaultCopy", "@numberLimit", "@priceLimit", "@totalPriceLimit", "@startTime", "@finishTime" };
-            object[] values = { sale.UserId, sale.DefaultDiscount, sale.NumberLimit, sale.PriceLimit, sale.TotalPiceLimit, sale.StartTime, sale.FinishTime };
+            string cmdText = "insert into T_SaleTask(userId,customreId,defaultDiscount,defaultCopy,numberLimit,priceLimit,totalPriceLimit,startTime,finishTime) values(@userId,@customreId,@defaultDiscount,@defaultCopy,@numberLimit,@priceLimit,@totalPriceLimit,@startTime,@finishTime)";
+            string[] param = { "@userId", "@customreId", "@defaultDiscount", "@defaultCopy", "@numberLimit", "@priceLimit", "@totalPriceLimit", "@startTime", "@finishTime" };
+            object[] values = { sale.UserId,sale.customerID, sale.DefaultDiscount, sale.NumberLimit, sale.PriceLimit, sale.TotalPiceLimit, sale.StartTime, sale.FinishTime };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             if (row > 0)
             {

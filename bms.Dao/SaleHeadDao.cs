@@ -29,15 +29,29 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 判断单头编号
+        /// </summary>
+        /// <param name="saleHeadId">销售任务ID</param>
+        /// <returns></returns>
+        public int countHead(string saleTaskId)
+        {
+            string cmdText = "select count(saleHeadId) from T_SaleHead where saleTaskId=@saleTaskId";
+            string[] param = { "@saleTaskId" };
+            object[] values = { saleTaskId };
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            return row;
+        }
+
+        /// <summary>
         /// 添加销售单头
         /// </summary>
         /// <param name="task">销售单头实体</param>
         /// <returns>受影响行数</returns>
         public int Insert(SaleHead salehead)
         {
-            string cmdText = "insert into T_SaleHead(saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,userId,regionId) values(@saleHeadId,@saleTaskId,@kindsNum,@number,@allTotalPrice,@allRealPrice,@userId,@regionId)";
-            string[] param = { "@saleHeadId", "@saleTaskId", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@userId", "@regionId" };
-            object[] values = { salehead.SaleHeadId, salehead.SaleTaskId, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.UserId, salehead.RegionId };
+            string cmdText = "insert into T_SaleHead(saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,userId,regionId,dateTime) values(@saleHeadId,@saleTaskId,@kindsNum,@number,@allTotalPrice,@allRealPrice,@userId,@regionId,@dateTime)";
+            string[] param = { "@saleHeadId", "@saleTaskId", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@userId", "@regionId" , "@dateTime" };
+            object[] values = { salehead.SaleHeadId, salehead.SaleTaskId, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.UserId, salehead.RegionId,salehead.DateTime };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             if (row > 0)
             {
