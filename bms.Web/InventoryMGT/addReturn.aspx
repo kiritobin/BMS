@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">

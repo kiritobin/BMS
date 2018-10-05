@@ -12,6 +12,27 @@ namespace bms.Bll
     public class SaleMonomerBll
     {
         SaleMonomerDao SaleMonomerdao = new SaleMonomerDao();
+        public Result SelectBySaleHeadId(string saleHeadId)
+        {
+            int count = SaleMonomerdao.SelectBySaleHeadId(saleHeadId);
+            if (count == 0)
+            {
+                int row = SaleMonomerdao.realDelete(saleHeadId);
+                if (row > 0)
+                {
+                    return Result.删除成功;
+                }
+                else
+                {
+                    return Result.删除失败;
+                }
+            }
+            else
+            {
+                return Result.记录存在;
+            }
+        }
+
         /// <summary>
         /// 单体添加
         /// </summary>
