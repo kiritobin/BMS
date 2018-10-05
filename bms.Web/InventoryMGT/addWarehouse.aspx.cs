@@ -17,7 +17,7 @@ namespace bms.Web.InventoryMGT
     {
         protected DataSet ds, dsGood;
         protected int pageSize=20, totalCount, intPageCount;
-        public double dsicount;
+        public double discount;
         string singleHeadId;
         SingleHead single = new SingleHead();
         UserBll userBll = new UserBll();
@@ -28,7 +28,7 @@ namespace bms.Web.InventoryMGT
         protected void Page_Load(object sender, EventArgs e)
         {
             Monomers monoDiscount = warehousingBll.getDiscount();
-            dsicount = monoDiscount.Discount;
+            discount = monoDiscount.Discount;
             if (!IsPostBack)
             {
                 singleHeadId = Request.QueryString["sId"];
