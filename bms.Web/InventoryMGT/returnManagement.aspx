@@ -277,34 +277,10 @@
                             <table class="table model-table">
                                 <tr>
                                     <td class="text-right"><span>
-                                        <nobr>单据总数:</nobr>
-                                    </span></td>
-                                    <td>
-                                        <input type="text" class="modal_search_add" id="billCount">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-right"><span>
-                                        <nobr>总码洋:</nobr>
-                                    </span></td>
-                                    <td>
-                                        <input type="text" class="modal_search_add" id="totalPrice">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-right"><span>
-                                        <nobr>总实洋:</nobr>
-                                    </span></td>
-                                    <td>
-                                        <input type="text" class="modal_search_add" id="realPrice">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-right"><span>
                                         <nobr>接收组织:</nobr>
                                     </span></td>
                                     <td>
-                                        <select id="regionId">
+                                        <select id="regionId" class="modal_search_add">
                                             <%for(int i=0;i<dsRegion.Tables[0].Rows.Count;i++){ %>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"].ToString() %>"><%=dsRegion.Tables[0].Rows[i]["regionName"].ToString() %></option>
                                             <%} %>

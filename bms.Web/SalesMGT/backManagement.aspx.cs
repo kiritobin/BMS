@@ -8,7 +8,6 @@ using System.Data;
 using bms.Bll;
 using bms.Model;
 using System.Text;
-using bms.Bll;
 
 namespace bms.Web.SalesMGT
 {

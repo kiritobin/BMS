@@ -31,6 +31,11 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
+        /// <summary>
+        /// 获取单头编号数量
+        /// </summary>
+        /// <param name="saleTaskId">销售任务ID</param>
+        /// <returns>行数</returns>
         public int getCount(string saleTaskId)
         {
             int count = saleHeaddao.countHead(saleTaskId);
@@ -44,8 +49,6 @@ namespace bms.Bll
             }
 
         }
-
-
         /// <summary>
         /// 删除单头
         /// </summary>
