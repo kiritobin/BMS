@@ -62,6 +62,8 @@ $(document).ready(function () {
 $("#isbn").keypress(function (e) {
     if (e.keyCode == 13) {
         $("#btnAdd").attr("disabled", false);
+        var billCount = $("#billCount").val();
+        var disCount = $("#disCount").val();
         var isbn = $("#isbn").val();
         if (isbn == "" || isbn == null) {
             swal({
@@ -76,6 +78,8 @@ $("#isbn").keypress(function (e) {
                 type: 'Post',
                 url: 'addWarehouse.aspx',
                 data: {
+                    billCount: billCount,
+                    disCount: disCount,
                     isbn: isbn,
                     op: "isbn"
                 },
@@ -89,7 +93,26 @@ $("#isbn").keypress(function (e) {
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
                         }).catch(swal.noop);
-                    } else {
+                    }
+                    else if (data=="添加成功") {
+                        swal({
+                            title: "温馨提示:)",
+                            text: "添加成功",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-success",
+                            type: "success"
+                        }).catch(swal.noop);
+                    }
+                    else if (data=="添加失败") {
+                        swal({
+                            title: "错误提示:)",
+                            text: "添加失败",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning",
+                            type: "warning"
+                        }).catch(swal.noop);
+                    }
+                    else {
                         $("#table2 tr:not(:first)").empty(); //清空table处首行
                         $("#table2").append(data); //加载table
                     }

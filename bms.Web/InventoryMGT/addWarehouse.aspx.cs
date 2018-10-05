@@ -51,7 +51,7 @@ namespace bms.Web.InventoryMGT
                 int billCount = Convert.ToInt32(Request["billCount"]);
                 DataSet dsGoods = stockBll.SelectByIsbn(isbn);
                 if (dsGoods != null && dsGoods.Tables[0].Rows.Count > 0)
-                {//判断库存
+                {
                     int count = billCount;
                     int allCount = 0, allCounts = 0;
                     for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
@@ -65,7 +65,7 @@ namespace bms.Web.InventoryMGT
                         Response.End();
                     }
                     else
-                    {//添加单体
+                    {
                         double discount = Convert.ToInt32(Request["disCount"]);
                         if (discount > 1 && discount <= 10)
                         {
@@ -103,66 +103,75 @@ namespace bms.Web.InventoryMGT
                         single.SingleHeadId = singleHeadId;
                         monomers.SingleHeadId = single;
                         Result res = warehousingBll.updateDiscount(discount);
-                        if (res == Result.更新成功)
+                        Result re = warehousingBll.SelectBybookNum(bookNum.ToString());
+                        if (re == Result.记录不存在)
                         {
-                            Result row = warehousingBll.insertMono(monomers);
-                            if (row == Result.添加成功)
-                            {//获取单头数据并更新单头
-                                int number, allBillCount = 0;
-                                double totalPrice, allTotalPrice = 0, realPrice, allRealPrice = 0;
-                                DataTable dtHead = warehousingBll.SelectMonomers(singleHeadId);
-                                int j = dtHead.Rows.Count;
-                                for (int i = 0; i < j; i++)
+                            if (res == Result.更新成功)
+                            {
+                                Result row = warehousingBll.insertMono(monomers);
+                                if (row == Result.添加成功)
                                 {
-                                    DataRow dr = dtHead.Rows[i];
-                                    number = Convert.ToInt32(dr["number"]);
-                                    totalPrice = Convert.ToDouble(dr["totalPrice"]);
-                                    realPrice = Convert.ToDouble(dr["realPrice"]);
-                                    allBillCount = allBillCount + number;
-                                    allTotalPrice = allTotalPrice + totalPrice;
-                                    allRealPrice = allRealPrice + realPrice;
-                                }
-                                single.AllBillCount = allBillCount;
-                                single.AllTotalPrice = allTotalPrice;
-                                single.AllRealPrice = allRealPrice;
-                                Result update = warehousingBll.updateHead(single);
-                                if (update == Result.更新成功)
-                                {
-                                    for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
+                                    int number, allBillCount = 0;
+                                    double totalPrice, allTotalPrice = 0, realPrice, allRealPrice = 0;
+                                    DataTable dtHead = warehousingBll.SelectMonomers(singleHeadId);
+                                    int j = dtHead.Rows.Count;
+                                    for (int i = 0; i < j; i++)
                                     {
-                                        billCount = count;
-                                        int stockNum = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["stockNum"]);
-                                        int goodsId = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["goodsShelvesId"]);
-                                        if (billCount <= stockNum)
+                                        DataRow dr = dtHead.Rows[i];
+                                        number = Convert.ToInt32(dr["number"]);
+                                        totalPrice = Convert.ToDouble(dr["totalPrice"]);
+                                        realPrice = Convert.ToDouble(dr["realPrice"]);
+                                        allBillCount = allBillCount + number;
+                                        allTotalPrice = allTotalPrice + totalPrice;
+                                        allRealPrice = allRealPrice + realPrice;
+                                    }
+                                    single.AllBillCount = allBillCount;
+                                    single.AllTotalPrice = allTotalPrice;
+                                    single.AllRealPrice = allRealPrice;
+                                    Result update = warehousingBll.updateHead(single);
+                                    if (update == Result.更新成功)
+                                    {
+                                        for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
                                         {
-                                            int a = stockNum - billCount;
-                                            Result result = stockBll.update(a, goodsId);
-                                            if (result == Result.更新成功)
+                                            billCount = count;
+                                            int stockNum = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["stockNum"]);
+                                            int goodsId = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["goodsShelvesId"]);
+                                            if (billCount <= stockNum)
                                             {
-                                                Response.Write("添加成功");
-                                                Response.End();
+                                                int a = stockNum - billCount;
+                                                Result result = stockBll.update(a, goodsId);
+                                                if (result == Result.更新成功)
+                                                {
+                                                    Response.Write("添加成功");
+                                                    Response.End();
+                                                }
+                                                else
+                                                {
+                                                    Response.Write("添加失败");
+                                                    Response.End();
+                                                }
                                             }
                                             else
                                             {
-                                                Response.Write("添加失败");
-                                                Response.End();
+                                                count = billCount - stockNum;
+                                                Result result = stockBll.update(0, goodsId);
+                                                if (count == 0)
+                                                {
+                                                    Response.Write("添加成功");
+                                                    Response.End();
+                                                }
+                                                if (result == Result.更新失败)
+                                                {
+                                                    Response.Write("添加失败");
+                                                    Response.End();
+                                                }
                                             }
                                         }
-                                        else
-                                        {
-                                            count = billCount - stockNum;
-                                            Result result = stockBll.update(0, goodsId);
-                                            if (count == 0)
-                                            {
-                                                Response.Write("添加成功");
-                                                Response.End();
-                                            }
-                                            if (result == Result.更新失败)
-                                            {
-                                                Response.Write("添加失败");
-                                                Response.End();
-                                            }
-                                        }
+                                    }
+                                    else
+                                    {
+                                        Response.Write("添加失败");
+                                        Response.End();
                                     }
                                 }
                                 else
@@ -170,11 +179,6 @@ namespace bms.Web.InventoryMGT
                                     Response.Write("添加失败");
                                     Response.End();
                                 }
-                            }
-                            else
-                            {
-                                Response.Write("添加失败");
-                                Response.End();
                             }
                         }
                         else
@@ -276,6 +280,25 @@ namespace bms.Web.InventoryMGT
         {
             string op = Request["op"];
             string isbn = Request["isbn"];
+            double disCount =Convert.ToDouble(Request["disCount"]);
+            int billCount = Convert.ToInt32(Request["billCount"]);
+            BookBasicBll bookBasicBll = new BookBasicBll();
+            DataSet bookDs = bookBasicBll.SelectByIsbn(isbn);
+            double price = Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]);
+            long bookNum = Convert.ToInt64(bookDs.Tables[0].Rows[0]["bookNum"]) ;
+            double totalPrice = Convert.ToDouble((billCount * price * disCount).ToString("0.00"));
+            double realPrice = Convert.ToDouble((billCount * price).ToString("0.00"));
+            string singleId = Session["singleHeadId"].ToString();
+            long monCount = warehousingBll.getCount(singleHeadId);
+            long monId;
+            if (monCount > 0)
+            {
+                monId = monCount + 1;
+            }
+            else
+            {
+                monId = 1;
+            }
             if (isbn != null && isbn != "")
             {
                 DataSet dsBook = basicBll.SelectByIsbn(isbn);
@@ -284,6 +307,45 @@ namespace bms.Web.InventoryMGT
                 {
                     Response.Write("ISBN不存在");
                     Response.End();
+                }
+                else if (dsBook.Tables[0].Rows.Count==1)
+                {
+                    Monomers monomers = new Monomers();
+                    BookBasicData bookBasic = new BookBasicData();
+                    SingleHead singleHead = new SingleHead();
+                    bookBasic.Isbn = isbn;
+                    bookBasic.Price = price;
+                    bookBasic.BookNum = bookNum;
+                    singleHead.SingleHeadId = singleHeadId;
+                    monomers.Isbn = bookBasic;
+                    monomers.UPrice = bookBasic;
+                    monomers.BookNum = bookBasic;
+                    monomers.Discount = disCount;
+                    monomers.MonomersId = Convert.ToInt32(monId);
+                    monomers.Number = billCount;
+                    monomers.TotalPrice = totalPrice;
+                    monomers.RealPrice = realPrice;
+                    monomers.SingleHeadId = singleHead;
+                    monomers.Type = 0;
+                    Result re = warehousingBll.SelectBybookNum(bookNum.ToString());
+                    Result res = warehousingBll.updateDiscount(disCount);
+                    if (re == Result.记录不存在)
+                    {
+                        if (res == Result.更新成功)
+                        {
+                            Result row = warehousingBll.insertMono(monomers);
+                            if (row == Result.添加成功)
+                            {
+                                Response.Write("添加成功");
+                                Response.End();
+                            }
+                            else
+                            {
+                                Response.Write("添加失败");
+                                Response.End();
+                            }
+                        }
+                    }
                 }
                 else
                 {
