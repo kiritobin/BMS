@@ -73,7 +73,26 @@ $("#isbn").keypress(function (e) {
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"
             }).catch(swal.noop);
-        } else {
+        }
+        else if (billCount == null || billCount=="") {
+            swal({
+                title: "温馨提示:)",
+                text: "商品数量不能为空，请您重新输入",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else if (disCount == "" || disCount == null) {
+            swal({
+                title: "温馨提示:)",
+                text: "折扣不能为空，请您重新输入",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else {
             $.ajax({
                 type: 'Post',
                 url: 'addWarehouse.aspx',
@@ -130,6 +149,7 @@ $("#isbn").keypress(function (e) {
                         $("#btnAdd").attr("disabled", true);
                     }
                     else {
+                        $("#btnAdd").attr("disabled", false);
                         $("#table2 tr:not(:first)").empty(); //清空table处首行
                         $("#table2").append(data); //加载table
                     }

@@ -40,19 +40,19 @@ namespace bms.Web.CustomerMGT
             string source = Request["source"];
             if ((bookName == ""|| bookName==null)&&(source==""||source==null))
             {
-                search = "deleteState2=0 and customerID=" + cusId;
+                search = "deleteState=0 and customerID=" + cusId;
             }
             else if ((bookName == "" || bookName == null)&&(source != "" || source != null))
             {
-                search = "deleteState2=0 and regionName '"+source+ "' and customerID=" + cusId;
+                search = "deleteState=0 and regionName '"+source+ "' and customerID=" + cusId;
             }
             else if ((bookName != "" || bookName != null) && (source == "" || source == null))
             {
-                search = "deleteState2=0 and bookName '" + bookName + "' and customerID=" + cusId;
+                search = "deleteState=0 and bookName '" + bookName + "' and customerID=" + cusId;
             }
             else
             {
-                search = "deleteState2=0 and bookName '" + bookName + "' and regionName='"+ source + "' and customerID=" + cusId;
+                search = "deleteState=0 and bookName '" + bookName + "' and regionName='"+ source + "' and customerID=" + cusId;
             }
             currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
