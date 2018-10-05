@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    //用户名输入框获取焦点
+    $("#userName").focus();
+    提交事件
     $("#submit").click(function () {
         var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAnNXR7lHTpPH/97QOxIp+UusK9/RH5elvEPv6ssL37xGo8vQHh7CCsOonUWWVdi1iVegi7fRCkWeUVlta61EuX141+eKnZcdJe81NeUZ1h3N77JbzElbhhi8Wln6U27xpfkskKASLhQ4dS9DqoJQN/YUhBaBpER287Wjf3X6WmQIDAQAB";
         var encrypt = new JSEncrypt();
