@@ -19,6 +19,7 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
     <style>
     </style>
 </head>
@@ -221,7 +222,13 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="isbnSearch" placeholder="请输入查询关键字">
+                                                <input type="text" value="" class="search" id="isbn" placeholder="ISBN查询">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" id="bookName" placeholder="书名查询">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="search" id="area" placeholder="地区查询">
                                                 <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
                                         </div>
@@ -237,23 +244,9 @@
                                                     <th>地区</th>
                                                     <th>货架</th>
                                                     <th>库存数量</th>
-                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>2</td>
-                                                    <td>3</td>
-                                                    <td>4</td>
-                                                    <td>5</td>
-                                                    <td>6</td>
-                                                    <td>7</td>
-                                                    <td>
-                                                        <button class="btn btn-warning" data-toggle="modal" data-target="#myModal10"><span class="fa fa-pencil"></span></button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <!-- 编辑模态框 -->
@@ -321,11 +314,8 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
-    <script>
-</script>
-
-
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/inventoryManagement.js"></script>
 </body>
-
 </html>
 

@@ -17,7 +17,7 @@ namespace bms.Web.InventoryMGT
     {
         protected DataSet ds, dsGood;
         protected int pageSize=20, totalCount, intPageCount;
-        public double dsicount;
+        public double discount;
         string singleHeadId;
         UserBll userBll = new UserBll();
         WarehousingBll warehousingBll = new WarehousingBll();
@@ -26,7 +26,7 @@ namespace bms.Web.InventoryMGT
         protected void Page_Load(object sender, EventArgs e)
         {
             Monomers monoDiscount = warehousingBll.getDiscount();
-            dsicount = monoDiscount.Discount;
+            discount = monoDiscount.Discount;
             if (!IsPostBack)
             {
                 singleHeadId = Request.QueryString["sId"];
@@ -284,8 +284,13 @@ namespace bms.Web.InventoryMGT
             int billCount = Convert.ToInt32(Request["billCount"]);
             BookBasicBll bookBasicBll = new BookBasicBll();
             DataSet bookDs = bookBasicBll.SelectByIsbn(isbn);
-            double price = Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]);
-            long bookNum = Convert.ToInt64(bookDs.Tables[0].Rows[0]["bookNum"]) ;
+            double price=0.0;
+            long bookNum=0;
+            if (bookDs != null)
+            {
+                price = Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]);
+                bookNum = Convert.ToInt64(bookDs.Tables[0].Rows[0]["bookNum"]);
+            }
             double totalPrice = Convert.ToDouble((billCount * price * disCount).ToString("0.00"));
             double realPrice = Convert.ToDouble((billCount * price).ToString("0.00"));
             string singleId = Session["singleHeadId"].ToString();

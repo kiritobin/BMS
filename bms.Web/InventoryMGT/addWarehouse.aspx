@@ -288,7 +288,7 @@
                                 <span>
                                     <nobr>折扣:</nobr>
                                 </span>
-                                <input type="text" class="modal_search_add" value="<%=dsicount %>" id="disCount">
+                                <input type="text" class="modal_search_add" value="<%=discount %>" id="disCount">
                             </div><br />
                             <table class="table table-bordered mostTable text-center" id="table2">
                                 <thead>
