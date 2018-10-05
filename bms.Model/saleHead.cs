@@ -13,11 +13,11 @@ namespace bms.Model
         /// <summary>
         /// 销售单头Id
         /// </summary>
-        private int saleHeadId;
+        private string saleHeadId;
         /// <summary>
         /// 销售任务Id
         /// </summary>
-        private int saleTaskId;
+        private string saleTaskId;
         /// <summary>
         /// 品种数量
         /// </summary>
@@ -54,7 +54,7 @@ namespace bms.Model
         /// <summary>
         /// 销售单头Id
         /// </summary>
-        public int SaleHeadId
+        public string SaleHeadId
         {
             get
             {
@@ -69,7 +69,7 @@ namespace bms.Model
         /// <summary>
         /// 销售任务ID
         /// </summary>
-        public int SaleTaskId
+        public string SaleTaskId
         {
             get
             {
@@ -220,7 +220,7 @@ namespace bms.Model
         /// <param name="state">状态（0为未操作，1为已操作）</param>
         /// <param name="regionId">地区Id</param>
         /// <param name="dateTime">制单时间</param>
-        public SaleHead(int saleHeadId, int saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, int userId, int state, int regionId, DateTime dateTime)
+        public SaleHead(string saleHeadId, string saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, int userId, int state, int regionId, DateTime dateTime)
         {
             SaleHeadId = saleHeadId;
             SaleTaskId = saleTaskId;

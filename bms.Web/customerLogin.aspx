@@ -61,7 +61,7 @@
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
-                                                <i class="material-icons">person</i>
+                                                <i class="fa fa-user fa-lg"></i>
                                             </span>
                                         </div>
                                         <input type="text" class="form-control" id="userName" placeholder="请输入用户名..." />
