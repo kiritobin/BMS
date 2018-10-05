@@ -36,9 +36,9 @@ namespace bms.Bll
         /// <param name="stockNum">库存数量</param>
         /// <param name="goodsShelvesId">货架号</param>
         /// <returns></returns>
-        public Result update(int stockNum, int goodsShelvesId)
+        public Result update(int stockNum, int goodsShelvesId, long bookNum)
         {
-            int row = stockDao.update(stockNum, goodsShelvesId);
+            int row = stockDao.update(stockNum, goodsShelvesId, bookNum);
             if (row > 0)
             {
                 return Result.更新成功;
@@ -52,22 +52,41 @@ namespace bms.Bll
         /// <summary>
         /// 根据ISBN查询货架id，库存数量
         /// </summary>
-        /// <param name="ISBN">ISBN</param>
+        /// <param name="bookNum">书号</param>
         /// <returns></returns>
-        public DataSet SelectByIsbn(string ISBN)
+        public DataSet SelectByBookNum(long bookNum)
         {
-            return stockDao.SelectByIsbn(ISBN);
+            return stockDao.SelectByBookNum(bookNum);
         }
 
         /// <summary>
-        /// 根据货架id和ISBN查询库存数量
+        /// 判断此书号是否有库存
         /// </summary>
-        /// <param name="goodsShelvesId">货架id</param>
-        /// <param name="ISBN">ISBN</param>
+        /// <param name="bookNum">书号</param>
+        /// <param name="goodsShelf">货架号</param>
         /// <returns></returns>
-        public int SelectByGoodsId(int goodsShelvesId, string ISBN)
+        public Result GetByBookNum(long bookNum, int goodsShelf)
         {
-            return stockDao.SelectByGoodsId(goodsShelvesId, ISBN);
+            int row = stockDao.GetByBookNum(bookNum, goodsShelf);
+            if (row > 0)
+            {
+                return Result.记录存在;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
+        }
+
+        /// <summary>
+        /// 获取库存数量
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <param name="goodsShelf">货架Id</param>
+        /// <returns></returns>
+        public int getStockNum(long bookNum, int goodsShelf)
+        {
+            return stockDao.getStockNum(bookNum, goodsShelf);
         }
     }
 }

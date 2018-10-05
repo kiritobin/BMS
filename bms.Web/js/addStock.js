@@ -27,6 +27,7 @@ function logout() {
 }
 
 $(document).ready(function () {
+    $("#btnAdd").attr("disabled", true);
     $('.paging').pagination({
         //totalData: $("#countPage").val(), //数据总数
         //showData: $("#totalCount").val(), //每页显示的条数
@@ -285,7 +286,7 @@ $("#isbn").keypress(function (e) {
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"
             }).catch(swal.noop);
-        } else if (allCount == "" || allCount == null) {
+        } else if (billCount == "" || billCount == null) {
             swal({
                 title: "温馨提示:)",
                 text: "商品数量不能为空，请您重新输入",
@@ -293,7 +294,7 @@ $("#isbn").keypress(function (e) {
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"
             }).catch(swal.noop);
-        } else if (discount == "" || discount == null) {
+        } else if (disCount == "" || disCount == null) {
             swal({
                 title: "温馨提示:)",
                 text: "折扣不能为空，请您重新输入",
@@ -304,7 +305,7 @@ $("#isbn").keypress(function (e) {
         } else {
             $.ajax({
                 type: 'Post',
-                url: 'addWarehouse.aspx',
+                url: 'addStock.aspx',
                 data: {
                     isbn: isbn,
                     billCount: billCount,
@@ -318,6 +319,27 @@ $("#isbn").keypress(function (e) {
                         swal({
                             title: "错误提示:)",
                             text: "ISBN不存在",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning",
+                            type: "warning"
+                        }).catch(swal.noop);
+                    } else if (data == "添加成功") {
+                        swal({
+                            title: data,
+                            text: data,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
+                    } else if (data == "添加失败") {
+                        swal({
+                            title: data,
+                            text: data,
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
@@ -375,55 +397,75 @@ $("#btnImport").click(function () {
 });
 
 $("#btnAdd").click(function () {
-    var isbn = $("#isbn").val();
-    var allCount = $("#allCount").val();
-    var price = $("#price").val();
-    var discount = $("#discount").val();
-    var realPrice = $("#realPrice").val();
-    var allPrice = $("#allPrice").val();
-    var goodsShelf = $("#goodsShelf").find("option:selected").val();
-    $.ajax({
-        type: 'Post',
-        url: 'addStock.aspx',
-        data: {
-            isbn: isbn,
-            allCount: allCount,
-            price: price,
-            discount: discount,
-            realPrice: realPrice,
-            allPrice: allPrice,
-            goodsShelf: goodsShelf,
-            op:"add"
-        },
-        datatype: 'text',
-        success: function (succ) {
-            if (succ == "添加成功") {
-                swal({
-                    title: succ,
-                    text: succ,
-                    type: "success",
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '确定',
-                    confirmButtonClass: 'btn btn-success',
-                    buttonsStyling: false,
-                    allowOutsideClick: false
-                }).then(function () {
-                    window.location.reload();
-                })
-            } else {
-                swal({
-                    title: succ,
-                    text: succ,
-                    type: "warning",
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '确定',
-                    confirmButtonClass: 'btn btn-success',
-                    buttonsStyling: false,
-                    allowOutsideClick: false
-                }).then(function () {
-                    window.location.reload();
-                })
+    var bookNum = $("input[type='radio']:checked").val();
+    var billCount = $("#billCount").val();
+    var disCount = $("#disCount").val();
+    var goodsShelf = $("#goodsShelf").val();
+    if (bookNum == "" || bookNum == null) {
+        swal({
+            title: "温馨提示:)",
+            text: "请选择一条图书信息",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+    } else if (billCount == "" || billCount == null) {
+        swal({
+            title: "温馨提示:)",
+            text: "商品数量不能为空，请您重新输入",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+    } else if (disCount == "" || disCount == null) {
+        swal({
+            title: "温馨提示:)",
+            text: "折扣不能为空，请您重新输入",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+    } else {
+        $.ajax({
+            type: 'Post',
+            url: 'addStock.aspx',
+            data: {
+                bookNum: bookNum,
+                billCount: billCount,
+                disCount: disCount,
+                goodsShelf: goodsShelf,
+                op: "add"
+            },
+            datatype: 'text',
+            success: function (succ) {
+                if (succ == "添加成功") {
+                    swal({
+                        title: succ,
+                        text: succ,
+                        type: "success",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
+                } else {
+                    swal({
+                        title: succ,
+                        text: succ,
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window.location.reload();
+                    })
+                }
             }
-        }
-    })
+        })
+    }
 })

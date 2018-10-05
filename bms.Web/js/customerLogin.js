@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    //用户名输入框获取焦点
+    $("#userName").focus();
+    //提交事件
     $("#submit").click(function () {
         var userName = $("#userName").val();
         if (userName == "") {
@@ -39,5 +42,4 @@
             });
         }
     })
-
 })
