@@ -129,6 +129,7 @@
     <Content Include="js\addStock.js" />
     <Content Include="js\addWarehouse.js" />
     <Content Include="js\ajaxfileupload.js" />
+    <Content Include="js\backManagement.js" />
     <Content Include="js\bookBasicManagement.js" />
     <Content Include="js\bookshelfManagement.js" />
     <Content Include="js\bootstrap-material-design.min.js" />

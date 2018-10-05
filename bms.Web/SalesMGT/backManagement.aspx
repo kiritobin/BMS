@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
     <!-- 时间input样式 -->
-    <link rel="stylesheet" href="../css/jedate.css"/>
+    <link rel="stylesheet" href="../css/jedate.css" />
 </head>
 
 <body>
@@ -41,11 +41,11 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-           <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
-                           <i class="fa fa-cogs"></i>
+                            <i class="fa fa-cogs"></i>
                             <p>
                                 权限管理
                                 <b class="caret"></b>
@@ -79,7 +79,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
-                           <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-user fa-lg"></i>
                             <p>
                                 客户管理
                                 <b class="caret"></b>
@@ -130,7 +130,7 @@
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
-                             <i class="fa fa-area-chart"></i>
+                            <i class="fa fa-area-chart"></i>
                             <p>
                                 销售管理
                                 <b class="caret"></b>
@@ -193,7 +193,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                   <i class="fa fa-gear"></i>
+                                    <i class="fa fa-gear"></i>
                                     <p class="d-lg-none d-md-block">
                                         更多设置
                                     </p>
@@ -218,20 +218,20 @@
                                     <h4 class="card-title">销退管理</h4>
                                 </div>
                                 <div class="card-body">
-                                     <div class="card-header from-group">
+                                    <div class="card-header from-group">
                                         <div class="input-group">
+                                            <%--<div class="btn-group" role="group">
+                                                <input type="text" id="bill" class="searchOne" placeholder="请输入销售任务单据编号">
+                                            </div>--%>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
+                                                <input type="text" id="region" class="searchOne" placeholder="请输入销退单据编号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
+                                                <input type="text" id="customer" class="searchOne" placeholder="请输入客户名称">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
-                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModa2" id="btn-add">添加</button>
                                             </div>
                                         </div>
                                     </div>
@@ -240,37 +240,22 @@
                                         <table class="table text-center table-bordered mostTable" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>销退ID</th>
-                                                    <th>任务ID</th>
+                                                    <th>任务单据编号</th>
+                                                    <th>销退单据编号</th>
                                                     <th>操作员</th>
                                                     <th>客户</th>
                                                     <th>品种数</th>
                                                     <th>总数量</th>
+                                                    <th>实际折扣</th>
                                                     <th>码洋</th>
                                                     <th>实洋</th>
                                                     <th>制单时间</th>
                                                     <th>操作</th>
                                                 </tr>
-                                                <%--<tbody>
-                                                <tr>
-                                                    <td>10000023</td>
-                                                    <td>10899923</td>
-                                                    <td>保罗</td>
-                                                    <td>爱丽丝</td>
-                                                    <td>23</td>
-                                                    <td>30</td>
-                                                    <td>20</td>
-                                                    <td>2016-2-1</td>                                                                                            
-                                                    <td>
-                                                        <!-- 查询与删除按钮 -->
-                                                        <button class="btn btn-success btn-sm" onclick=""><i class="fa fa-plus fa-lg"></i></button>
-                                                        <button class="btn btn-info btn-sm" onclick="window.location.href='backQuery.aspx'"><i class="fa fa-search"></i></button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>--%>
+                                                <%=getData() %>
                                         </table>
                                     </div>
+                                    <!--分页-->
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
@@ -282,7 +267,56 @@
                     </div>
                 </div>
             </div>
-         
+            <!--添加模态框-->
+            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="max-width: 900px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel">添加销退</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table model-table">
+                                <tr>
+                                    <td>销售任务单据编号</td>
+                                    <td>
+                                        <input type="text" value="" class="sales_search"></td>
+                                    <td>客户</td>
+                                    <td>
+                                        <select id="selectCustomer" class="selectpicker" style="width:50%">
+                                            <%for (int i = 0; i < cutds.Tables[0].Rows.Count; i++)
+                                                { %>
+                                            <option value="<%=cutds.Tables[0].Rows[i]["customerId"] %>"><%=cutds.Tables[0].Rows[i]["customerName"] %></option>
+                                            <%} %>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>操作员</td>
+                                    <td>
+                                        <input type="text" value="" class="sales_search"></td>
+                                    <td>品种数</td>
+                                    <td>
+                                        <input type="text" value="" class="sales_search"></td>
+                                </tr>
+                                <tr>
+                                    <td>总数量</td>
+                                    <td>
+                                        <input type="text" value="" class="sales_search"></td>
+                                    <td>默认折扣</td>
+                                    <td>
+                                        <input type="text" value="" class="sales_search"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -299,19 +333,19 @@
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
-        <!-- 左侧导航栏所需js -->
-        <script src="../js/popper.min.js"></script>
-        <script src="../js/bootstrap-material-design.min.js"></script>
-        <!-- 移动端手机菜单所需js -->
-        <script src="../js/perfect-scrollbar.jquery.min.js"></script>
-        <script src="../js/material-dashboard.min.js"></script>
-        <!-- selectpicker.js -->
-        <script src="../js/bootstrap-selectpicker.js"></script>
-        <!-- alert.js -->
-        <script src="../js/sweetalert2.js"></script>
-        <!-- paging -->
-        <script src="../js/jquery.pagination.js"></script>
-        <script src="../js/warehouseManagement.js"></script>
+    <!-- 左侧导航栏所需js -->
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap-material-design.min.js"></script>
+    <!-- 移动端手机菜单所需js -->
+    <script src="../js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../js/material-dashboard.min.js"></script>
+    <!-- selectpicker.js -->
+    <script src="../js/bootstrap-selectpicker.js"></script>
+    <!-- alert.js -->
+    <script src="../js/sweetalert2.js"></script>
+    <!-- paging -->
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/backManagement.js"></script>
 </body>
 
 </html>
