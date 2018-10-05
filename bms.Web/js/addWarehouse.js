@@ -109,7 +109,7 @@ $("#isbn").keypress(function (e) {
                         }).catch(swal.noop);
                         $("#btnAdd").attr("disabled", true);
                     }
-                    else if (data == "库存不足"){
+                    else if (data == "库存数量不足"){
                         swal({
                             title: data,
                             text: data,

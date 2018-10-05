@@ -281,23 +281,22 @@ namespace bms.Web.InventoryMGT
         {
             string op = Request["op"];
             string isbn = Request["isbn"];
+            double disCount = Convert.ToDouble(Request["disCount"]);
+            int billCount = Convert.ToInt32(Request["billCount"]);
             if (isbn != null && isbn != "")
             {
-                double disCount = Convert.ToDouble(Request["disCount"]);
-                if (disCount > 1 && disCount <= 10)
-                {
-                    disCount = disCount * 0.1;
-                }
-                else if (disCount > 10)
-                {
-                    disCount = disCount * 0.01;
-                }
-                int billCount = Convert.ToInt32(Request["billCount"]);
-                int count = billCount;
                 BookBasicBll bookBasicBll = new BookBasicBll();
                 DataSet bookDs = bookBasicBll.SelectByIsbn(isbn);
                 if (bookDs != null && bookDs.Tables[0].Rows.Count > 0)
                 {
+                    if (disCount > 1 && disCount <= 10)
+                    {
+                        disCount = disCount * 0.1;
+                    }
+                    else if (disCount > 10)
+                    {
+                        disCount = disCount * 0.01;
+                    }
                     double price = Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]);
                     long bookNum = Convert.ToInt64(bookDs.Tables[0].Rows[0]["bookNum"]);
                     double totalPrice = Convert.ToDouble((billCount * price).ToString("0.00"));
@@ -313,72 +312,79 @@ namespace bms.Web.InventoryMGT
                     {
                         monId = 1;
                     }
-                    if (isbn != null && isbn != "")
+                    StringBuilder sb = new StringBuilder();
+                    if (bookDs.Tables[0].Rows.Count == 1)
                     {
-                        DataSet dsBook = basicBll.SelectByIsbn(isbn);
-                        StringBuilder sb = new StringBuilder();
-                        if (dsBook == null || dsBook.Tables[0].Rows.Count <= 0)
+                        DataSet dsBooks = stockBll.SelectByBookNum(bookNum);
+                        if (dsBooks != null && dsBooks.Tables[0].Rows.Count > 0)
                         {
-                            Response.Write("ISBN不存在");
-                            Response.End();
-                        }
-                        else if (dsBook.Tables[0].Rows.Count == 1)
-                        {//添加单体
-                            Monomers monomers = new Monomers();
-                            BookBasicData bookBasic = new BookBasicData();
-                            SingleHead singleHead = new SingleHead();
-                            bookBasic.Isbn = isbn;
-                            bookBasic.Price = price;
-                            bookBasic.BookNum = bookNum;
-                            singleHead.SingleHeadId = singleHeadId;
-                            monomers.Isbn = bookBasic;
-                            monomers.UPrice = bookBasic;
-                            monomers.BookNum = bookBasic;
-                            monomers.Discount = disCount * 100;
-                            monomers.MonomersId = Convert.ToInt32(monId);
-                            monomers.Number = billCount;
-                            monomers.TotalPrice = totalPrice;
-                            monomers.RealPrice = realPrice;
-                            monomers.SingleHeadId = singleHead;
-                            monomers.Type = 0;
-                            Result re = warehousingBll.SelectBybookNum(singleHeadId,bookNum.ToString(), 0);
-                            Result res = warehousingBll.updateDiscount(disCount*100);
-                            if (re == Result.记录不存在)
+                            int count = billCount;
+                            int allCount = 0, allCounts = 0;
+                            for (int i = 0; i < dsBooks.Tables[0].Rows.Count; i++)
                             {
-                                if (res == Result.更新成功)
+                                allCount = Convert.ToInt32(dsBooks.Tables[0].Rows[i]["stockNum"]);
+                                allCounts = allCounts + allCount;
+                            }
+                            if (billCount > allCounts)
+                            {
+                                Response.Write("库存数量不足");
+                                Response.End();
+                            }
+                            else
+                            {
+                                //添加单体
+                                Monomers monomers = new Monomers();
+                                BookBasicData bookBasic = new BookBasicData();
+                                SingleHead singleHead = new SingleHead();
+                                bookBasic.Isbn = isbn;
+                                bookBasic.Price = price;
+                                bookBasic.BookNum = bookNum;
+                                singleHead.SingleHeadId = singleHeadId;
+                                monomers.Isbn = bookBasic;
+                                monomers.UPrice = bookBasic;
+                                monomers.BookNum = bookBasic;
+                                monomers.Discount = disCount * 100;
+                                monomers.MonomersId = Convert.ToInt32(monId);
+                                monomers.Number = billCount;
+                                monomers.TotalPrice = totalPrice;
+                                monomers.RealPrice = realPrice;
+                                monomers.SingleHeadId = singleHead;
+                                monomers.Type = 0;
+                                Result re = warehousingBll.SelectBybookNum(singleHeadId, bookNum.ToString(), 0);
+                                Result res = warehousingBll.updateDiscount(disCount * 100);
+                                if (re == Result.记录不存在)
                                 {
-                                    Result row = warehousingBll.insertMono(monomers);
-                                    if (row == Result.添加成功)
-                                    {//更新单头信息
-                                        int number, allBillCount = 0;
-                                        double totalPrices, allTotalPrice = 0, realPrices, allRealPrice = 0;
-                                        DataTable dtHead = warehousingBll.SelectMonomers(singleHeadId);
-                                        int j = dtHead.Rows.Count;
-                                        for (int i = 0; i < j; i++)
-                                        {
-                                            DataRow dr = dtHead.Rows[i];
-                                            number = Convert.ToInt32(dr["number"]);
-                                            totalPrices = Convert.ToDouble(dr["totalPrice"]);
-                                            realPrices = Convert.ToDouble(dr["realPrice"]);
-                                            allBillCount = allBillCount + number;
-                                            allTotalPrice = allTotalPrice + totalPrices;
-                                            allRealPrice = allRealPrice + realPrices;
-                                        }
-                                        single.SingleHeadId = singleHeadId;
-                                        single.AllBillCount = allBillCount;
-                                        single.AllTotalPrice = allTotalPrice;
-                                        single.AllRealPrice = allRealPrice;
-                                        Result update = warehousingBll.updateHead(single);
-                                        if (update == Result.更新成功)
-                                        {//更新库存信息
-                                            DataSet dsGoods = stockBll.SelectByBookNum(bookNum);
-                                            if (dsGoods != null && dsGoods.Tables[0].Rows.Count > 0)
+                                    if (res == Result.更新成功)
+                                    {
+                                        Result row = warehousingBll.insertMono(monomers);
+                                        if (row == Result.添加成功)
+                                        {//更新单头信息
+                                            int number, allBillCount = 0;
+                                            double totalPrices, allTotalPrice = 0, realPrices, allRealPrice = 0;
+                                            DataTable dtHead = warehousingBll.SelectMonomers(singleHeadId);
+                                            int j = dtHead.Rows.Count;
+                                            for (int i = 0; i < j; i++)
                                             {
-                                                for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
+                                                DataRow dr = dtHead.Rows[i];
+                                                number = Convert.ToInt32(dr["number"]);
+                                                totalPrices = Convert.ToDouble(dr["totalPrice"]);
+                                                realPrices = Convert.ToDouble(dr["realPrice"]);
+                                                allBillCount = allBillCount + number;
+                                                allTotalPrice = allTotalPrice + totalPrices;
+                                                allRealPrice = allRealPrice + realPrices;
+                                            }
+                                            single.SingleHeadId = singleHeadId;
+                                            single.AllBillCount = allBillCount;
+                                            single.AllTotalPrice = allTotalPrice;
+                                            single.AllRealPrice = allRealPrice;
+                                            Result update = warehousingBll.updateHead(single);
+                                            if (update == Result.更新成功)
+                                            {//更新库存信息
+                                                for (int i = 0; i < dsBooks.Tables[0].Rows.Count; i++)
                                                 {
                                                     billCount = count;
-                                                    int stockNum = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["stockNum"]);
-                                                    int goodsId = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["goodsShelvesId"]);
+                                                    int stockNum = Convert.ToInt32(dsBooks.Tables[0].Rows[i]["stockNum"]);
+                                                    int goodsId = Convert.ToInt32(dsBooks.Tables[0].Rows[i]["goodsShelvesId"]);
                                                     if (billCount <= stockNum)
                                                     {
                                                         int a = stockNum - billCount;
@@ -413,7 +419,7 @@ namespace bms.Web.InventoryMGT
                                             }
                                             else
                                             {
-                                                Response.Write("库存不足");
+                                                Response.Write("添加失败");
                                                 Response.End();
                                             }
                                         }
@@ -429,36 +435,41 @@ namespace bms.Web.InventoryMGT
                                         Response.End();
                                     }
                                 }
-                            }
-                            else
-                            {
-                                Response.Write("已添加过相同记录");
-                                Response.End();
+                                else
+                                {
+                                    Response.Write("已添加过相同记录");
+                                    Response.End();
+                                }
                             }
                         }
                         else
                         {
-                            //生成table
-                            sb.Append("<tbody id='tbody'>");
-                            int counts = dsBook.Tables[0].Rows.Count;
-                            for (int i = 0; i < counts; i++)
-                            {
-                                DataRow dr = dsBook.Tables[0].Rows[i];
-                                //sb.Append("<tr><td><input type='checkbox' name='checkbox' class='check' value='" + dr["bookNum"].ToString() + "' /></td>");
-                                //sb.Append("<tr><td><input type='radio' name='radio' class='radio' value='" + dr["bookNum"].ToString() + "' /></td>");
-                                sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
-                                sb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
-                                sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                                sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-                                sb.Append("<td>" + dr["price"].ToString() + "</td>");
-                                sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
-                            }
-                            sb.Append("</tbody>");
-                            if (op == "isbn")
-                            {
-                                Response.Write(sb.ToString());
-                                Response.End();
-                            }
+                            Response.Write("库存数量不足");
+                            Response.End();
+                        }
+                    }
+                    else
+                    {
+                        //生成table
+                        sb.Append("<tbody id='tbody'>");
+                        int counts = bookDs.Tables[0].Rows.Count;
+                        for (int i = 0; i < counts; i++)
+                        {
+                            DataRow dr = bookDs.Tables[0].Rows[i];
+                            //sb.Append("<tr><td><input type='checkbox' name='checkbox' class='check' value='" + dr["bookNum"].ToString() + "' /></td>");
+                            //sb.Append("<tr><td><input type='radio' name='radio' class='radio' value='" + dr["bookNum"].ToString() + "' /></td>");
+                            sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
+                            sb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
+                            sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                            sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
+                            sb.Append("<td>" + dr["price"].ToString() + "</td>");
+                            sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
+                        }
+                        sb.Append("</tbody>");
+                        if (op == "isbn")
+                        {
+                            Response.Write(sb.ToString());
+                            Response.End();
                         }
                         return sb.ToString();
                     }
