@@ -56,7 +56,6 @@
                                 <h4 class="card-title">登&nbsp;&nbsp;录</h4>
                             </div>
                             <div class="card-body ">
-                                <p class="card-description text-center">为您提供一个稳定高效的平台</p>
                                 <div class="bmd-form-group">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
