@@ -28,14 +28,8 @@ namespace bms.Web.BasicInfor
             if (op == "add")
             {
                 count = wareBll.countHead(2)+1;
-                string billCount = Request["billCount"];
-                string totalPrice = Request["totalPrice"];
-                string realPrice = Request["realPrice"];
                 string regionId = Request["regionId"];
                 SingleHead single = new SingleHead();
-                single.AllBillCount = Convert.ToInt32(billCount);
-                single.AllRealPrice = Convert.ToInt32(realPrice);
-                single.AllTotalPrice = Convert.ToInt32(totalPrice);
                 Region region = new Region();
                 region.RegionId = Convert.ToInt32(regionId);
                 single.Region = region;

@@ -42,7 +42,7 @@ namespace bms.Dao
 
 
         /// <summary>
-        /// 根据ISBN查询货架id
+        /// 根据ISBN查询货架id，库存数量
         /// </summary>
         /// <param name="ISBN">ISBN</param>
         /// <returns></returns>

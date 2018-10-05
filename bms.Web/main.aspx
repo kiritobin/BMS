@@ -43,49 +43,54 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
-                            <i class="material-icons">security</i>
+                            <i class="fa fa-cogs"></i>
                             <p>
                                 权限管理
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="securityManage">
+                        <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="AccessMGT/userManagement.aspx">
+                                    <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="AccessMGT/roleManagement.aspx">
+                                    <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
-                               <%-- <li class="nav-item">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
+                                        <span class="sidebar-normal">组织管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
+                                        <span class="sidebar-normal">货架管理</span>
+                                    </a>
+                                </li>
+                                <%-- <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
                                         <span class="sidebar-normal">功能管理</span>
                                     </a>
                                 </li>--%>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="AccessMGT/organizationalManagement.aspx">
-                                        <span class="sidebar-normal">组织管理</span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
-                            <i class="material-icons">person</i>
+                            <i class="fa fa-user fa-lg"></i>
                             <p>
                                 客户管理
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="userManage">
+                        <div class="collapse show" id="userManage">
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="CustomerMGT/customerManagement.aspx">
@@ -93,8 +98,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="CustomerMGT/collectionManagement.aspx">
-                                        <span class="sidebar-normal">客户馆藏数据</span>
+                                    <a class="nav-link activeNext" href="CustomerMGT/customerPurchase.aspx">
+                                        <span class="sidebar-normal">客户采购查询</span>
                                     </a>
                                 </li>
                             </ul>
@@ -102,7 +107,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
-                            <i class="material-icons">book</i>
+                            <i class="fa fa-book"></i>
                             <p>
                                 库存管理
                                 <b class="caret"></b>
@@ -111,17 +116,17 @@
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="InventoryMGT/warehouseManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="InventoryMGT/stockManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="InventoryMGT/returnManagement.aspx">
+                                    <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
@@ -130,7 +135,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
-                            <i class="material-icons">library_books</i>
+                            <i class="fa fa-area-chart"></i>
                             <p>
                                 销售管理
                                 <b class="caret"></b>
@@ -139,8 +144,13 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="SalesMGT/tradeManagement.aspx">
+                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">营销管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../SalesMGT/backQuery.aspx">
+                                        <span class="sidebar-normal">销退管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -148,7 +158,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
-                            <i class="material-icons">bubble_chart</i>
+                            <i class="fa fa-file-archive-o"></i>
                             <p>
                                 基础信息
                                 <b class="caret"></b>
@@ -157,13 +167,13 @@
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="BasicInfor/bookshelfManagement.aspx">
-                                        <span class="sidebar-normal">货架管理</span>
+                                    <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
+                                        <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="BasicInfor/bookBasicManagement.aspx">
-                                        <span class="sidebar-normal">书籍基础数据管理</span>
+                                    <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
+                                        <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
                             </ul>
@@ -177,7 +187,6 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">权限管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -194,13 +203,12 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">settings</i>
+                                    <i class="fa fa-gear"></i>
                                     <p class="d-lg-none d-md-block">
                                         更多设置
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">个人中心</a>
                                     <a class="dropdown-item" href="#">修改密码</a>
                                     <a class="dropdown-item" href="#">退出系统</a>
                                 </div>
@@ -217,7 +225,6 @@
                             <div class="card">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title">用户管理</h4>
-                                    <p class="card-category">可对用户进行操作</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -290,8 +297,7 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>, made with <i class="material-icons">favorite</i> by
-                        <a href="javascript:;" target="_blank"></a> for a better web.
+                        </script>&nbsp;版权所有
                     </div>
                 </div>
             </footer>

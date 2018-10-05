@@ -22,7 +22,7 @@
                 dataType: 'text',
                 success: function (succ) {
                     if (succ === "登录成功") {
-                        window.location.href = "/main.aspx";
+                        window.location.href = "/CustomerMGT/customerPurchase.aspx";
                     }
                     else {
                         swal({
