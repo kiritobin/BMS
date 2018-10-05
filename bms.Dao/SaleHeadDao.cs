@@ -50,20 +50,13 @@ namespace bms.Dao
         public int Insert(SaleHead salehead)
         {
             string cmdText = "insert into T_SaleHead(saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,userId,regionId,dateTime) values(@saleHeadId,@saleTaskId,@kindsNum,@number,@allTotalPrice,@allRealPrice,@userId,@regionId,@dateTime)";
-            string[] param = { "@saleHeadId", "@saleTaskId", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@userId", "@regionId" , "@dateTime" };
-            object[] values = { salehead.SaleHeadId, salehead.SaleTaskId, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.UserId, salehead.RegionId,salehead.DateTime };
+            string[] param = { "@saleHeadId", "@saleTaskId", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@userId", "@regionId", "@dateTime" };
+            object[] values = { salehead.SaleHeadId, salehead.SaleTaskId, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.UserId, salehead.RegionId, salehead.DateTime };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
-            if (row > 0)
-            {
-                return row;
-            }
-            else
-            {
-                return 0;
-            }
+            return row;
         }
         /// <summary>
-        /// 删除销售单头
+        /// 假删除销售单头
         /// </summary>
         /// <param name="saleTaskId">销售任务ID</param>
         /// <param name="saleHeadId">销售单头ID</param>
@@ -71,7 +64,7 @@ namespace bms.Dao
         public int Delete(string saleTaskId, string saleHeadId)
         {
             string cmdText = "update T_SaleHead set deleteState = 1 where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
-            String[] param = { "@saleTaskId", @saleHeadId };
+            String[] param = { "@saleTaskId", "@saleHeadId" };
             String[] values = { saleTaskId, saleHeadId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
