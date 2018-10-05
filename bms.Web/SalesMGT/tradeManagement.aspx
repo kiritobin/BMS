@@ -280,25 +280,25 @@
                                 <tr>
                                     <td class="text-right"><span>最大采购数:</span></td>
                                     <td>
-                                        <input type="text" class="modal_search_add" id="billCount">
+                                        <input type="text" class="modal_search_add" id="billCount" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-right"><span>单价上限:</span></td>
                                     <td>
-                                        <input type="text" class="modal_search_add" id="totalPrice">
+                                         <input type="text" class="modal_search_add" id="totalPrice" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-right"><span>码洋上限:</span></td>
                                     <td>
-                                        <input type="text" class="modal_search_add" id="realPrice">
+                                         <input type="text" class="modal_search_add" id="realPrice" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-right"><span>默认折扣:</span></td>
                                     <td>
-                                        <input type="text" class="modal_search_add" id="Price">
+                                        <input type="text" class="modal_search_add" id="Price" maxlength="4">
                                     </td>
                                 </tr>
                             </table>
