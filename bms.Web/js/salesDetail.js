@@ -92,6 +92,8 @@
                 },
                 dataType: 'text',
                 success: function (data) {
+                    $("#tablebook th:not(:first)").empty(); //清空table处首行
+                    $("#tablebook").append(data); //加载table
                 }
             });
         }

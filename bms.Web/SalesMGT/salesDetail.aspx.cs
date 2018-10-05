@@ -16,11 +16,12 @@ namespace bms.Web.SalesMGT
     {
         public int totalCount, intPageCount, pageSize = 20;
         public string type;
-        DataSet ds;
+        public DataSet ds, bookds;
         SaleMonomerBll salemonbll = new SaleMonomerBll();
+        public StringBuilder strbook = new StringBuilder();
         protected void Page_Load(object sender, EventArgs e)
         {
-             getData();
+            getData();
             string op = Request["op"];
             if (op == "back")
             {
@@ -45,6 +46,38 @@ namespace bms.Web.SalesMGT
             if (op == "search")
             {
                 string ISBN = Request["ISBN"];
+                BookBasicBll bookbll = new BookBasicBll();
+                bookds = bookbll.SelectByIsbn(ISBN);
+                if (bookds != null)
+                {
+                    strbook.Append("<thead>");
+                    strbook.Append("<tr>");
+                    strbook.Append("<th>" + "<div class='pretty inline'><input type = 'radio' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
+                    strbook.Append("<th>" + "书号" + "</th>");
+                    strbook.Append("<th>" + "ISBN" + "</th>");
+                    strbook.Append("<th>" + "书名" + "</th>");
+                    strbook.Append("<th>" + "单价" + "</th>");
+                    strbook.Append("<th>" + "出版社" + "</th>");
+                    strbook.Append("</tr>");
+                    strbook.Append("</thead>");
+                    strbook.Append("<tbody>");
+                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    {
+                        strbook.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["unitPrice"].ToString() + "</td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["number"].ToString() + "</td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["realPrice"].ToString() + "</td></tr>");
+                    }
+                    strbook.Append("</tbody>");
+                }
+                else
+                {
+                    Response.Write("无数据");
+                    Response.End();
+                }
             }
         }
         public string getData()
