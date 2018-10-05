@@ -243,16 +243,16 @@
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>单据编号</th>
-                                                    <th>ISBN</th>
-                                                    <th>书名</th>
-                                                    <th>单价</th>
-                                                    <th>数量</th>
-                                                    <th>码洋（册）</th>
-                                                    <th>实洋</th>
-                                                    <th>折扣</th>
-                                                    <th>供应商</th>
-                                                    <th>采购日期</th>
+                                                    <th><nobr>单据编号</nobr></th>
+                                                    <th><nobr>ISBN</nobr></th>
+                                                    <th><nobr>书名</nobr></th>
+                                                    <th><nobr>单价</nobr></th>
+                                                    <th><nobr>数量</nobr></th>
+                                                    <th><nobr>码洋（册）</nobr></th>
+                                                    <th><nobr>实洋</nobr></th>
+                                                    <th><nobr>折扣</nobr></th>
+                                                    <th><nobr>供应商</nobr></th>
+                                                    <th><nobr>采购日期</nobr></th>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
