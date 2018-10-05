@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 
 <body>
@@ -218,76 +220,30 @@
                                         <h4 class="card-title">入库添加</h4>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="btnAdd">确定添加</button>
+                                        <input type="text" class="searchOne" placeholder="请输入单据编号" id="ID">
+                                        <input type="text" class="searchOne" placeholder="请输入ISBN" id="ISBN">
+                                        <input type="text" class="searchOne" placeholder="请输入书名" id="bookName">
+                                        <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal3" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
                                     </div>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
-                                    </div>
-                                    <div class="card-header from-group">
-                                        <table class="table text-center table_stock">
-                                            <tr>
-                                                <td class="td_text"><span class="span-text">
-                                                    <nobr>ISBN号:</nobr>
-                                                </span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="isbn" class="" placeholder=""></td>
-                                                <td class="td_text"><span class="span-text">
-                                                    <nobr>商品总数:</nobr>
-                                                </span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="allCount" class="" placeholder=""></td>
-                                                <td class="td_text"><span class="span-text">
-                                                    <nobr>单价:</nobr>
-                                                </span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="price" class="float-left"></td>
-                                                <tr>
-                                                    <td class="td_text"><span class="span-text">
-                                                        <nobr>折扣:</nobr>
-                                                    </span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" id="discount" class=""></td>
-                                                    <td class="td_text"><span class="span-text">
-                                                        <nobr>实洋:</nobr>
-                                                    </span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" id="realPrice" class="" placeholder=""></td>
-                                                    <td class="td_text"><span class="span-text">
-                                                        <nobr>码洋:</nobr>
-                                                    </span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" id="allPrice" class="" placeholder=""></td>
-                                                    <td class="td_text"><span class="span-text">
-                                                        <nobr>货架号:</nobr>
-                                                    </span></td>
-                                                    <td class="td_width">
-                                                        <select class="selectpicker" title="请选择货架" data-style="btn-sm" id="goodsShelf" style="float: left;">
-                                                            <option value="">请选择货架</option>
-                                                            <%for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
-                                                                { %>
-                                                            <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
-                                                            <%}%>
-                                                        </select></td>
-                                                </tr>
-                                        </table>
-                                        <%--<div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                              &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
-                                        </div>--%>
                                     </div>
 
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr style="border: 2px solid #DDD">
-                                                    <td colspan="9">商品</td>
+                                                    <td colspan="10">商品</td>
                                                 </tr>
                                                 <tr>
                                                     <td>序号</td>
                                                     <td>单据编号</td>
                                                     <td>ISBN号</td>
+                                                    <td>书名</td>
+                                                    <td>出版社</td>
                                                     <td>商品数量</td>
                                                     <td>单价</td>
                                                     <td>折扣</td>
@@ -309,6 +265,67 @@
                     </div>
                 </div>
             </div>
+
+            <!--添加单体模态框-->
+            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="max-width: 1100px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel3">添加入库明细</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-right">
+                                <span>
+                                    <nobr>ISBN:</nobr>
+                                </span>
+                                <input type="text" class="modal_search_add" id="isbn">
+                                <span>
+                                    <nobr>商品数量:</nobr>
+                                </span>
+                                <input type="text" class="modal_search_add" id="billCount">
+                                <span>
+                                    <nobr>货架号:</nobr>
+                                </span>
+                                <select class="selectpicker" data-style="btn-sm" id="goodsShelf" style="float: left;">
+                                    <%for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
+                                        { %>
+                                    <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
+                                    <%}%>
+                                </select>
+                                <span>
+                                    <nobr>折扣:</nobr>
+                                </span>
+                                <input type="text" class="modal_search_add" value="<%=discount %>" id="disCount">
+                            </div><br />
+                            <table class="table table-bordered mostTable text-center" id="table3">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="pretty inline">
+                                                <input type="radio" name="radio" disabled="disabled">
+                                                <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
+                                            </div>
+                                        </th>
+                                        <th>书号</th>
+                                        <th>ISBN</th>
+                                        <th>书名</th>
+                                        <th>单价</th>
+                                        <th>出版社</th>
+                                    </tr>
+                                </thead>
+                                <%=getIsbn() %>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success btn-sm" id="btnAdd">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!--导入模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">

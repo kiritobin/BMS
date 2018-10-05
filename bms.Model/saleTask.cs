@@ -20,7 +20,6 @@ namespace bms.Model
         private Customer customer;
         private DateTime startTime;
         private DateTime finishTime;
-
         /// <summary>
         /// 参数构造函数
         /// </summary>
@@ -181,16 +180,16 @@ namespace bms.Model
                 finishTime = value;
             }
         }
-        public Customer customerID
+        public Customer Customer
         {
             get
             {
-                return customerID;
+                return customer;
             }
 
             set
             {
-                customerID = value;
+                customer = value;
             }
         }
         /// <summary>

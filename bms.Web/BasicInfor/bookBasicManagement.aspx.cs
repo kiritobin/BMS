@@ -270,7 +270,7 @@ namespace bms.Web.BasicInfor
             }
             else if ((bookName != "" && bookName != null) && (bookNum == null || bookNum == "") && (bookISBN == null || bookISBN == ""))
             {
-                search = String.Format(" bookName= '{0}'", bookName);
+                search = String.Format(" bookName like '%{0}%'", bookName);
             }
             else if ((bookName == "" || bookName == null) && (bookNum != "" && bookNum != null) && (bookISBN == null || bookISBN == ""))
             {
@@ -286,15 +286,15 @@ namespace bms.Web.BasicInfor
             }
             else if ((bookName != "" && bookName != null) && (bookNum != null && bookNum != "") && (bookISBN == null || bookISBN == ""))
             {
-                search = String.Format(" bookName= '{0}' and bookNum = '{1}'", bookName, bookNum);
+                search = String.Format(" bookName like '%{0}%' and bookNum = '{1}'", bookName, bookNum);
             }
             else if ((bookName != "" && bookName != null) && (bookNum == null || bookNum == "") && (bookISBN != null && bookISBN != ""))
             {
-                search = String.Format(" bookName= '{0}' and ISBN='{1}'", bookName, bookISBN);
+                search = String.Format(" bookName like '%{0}%' and ISBN='{1}'", bookName, bookISBN);
             }
             else
             {
-                search = String.Format(" bookName= '{0}' and bookNum = '{1}' and ISBN='{2}'", bookName, bookNum, bookISBN);
+                search = String.Format(" bookName like '%{0}%' and bookNum = '{1}' and ISBN='{2}'", bookName, bookNum, bookISBN);
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();

@@ -13,6 +13,28 @@ namespace bms.Dao
 
         MySqlHelp db = new MySqlHelp();
         /// <summary>
+        /// 查询该单头下是否有单体
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>行数</returns>
+
+        public int SelectBySaleHeadId(string saleHeadId)
+        {
+            string cmdText = "select count(saleIdMonomerId) from T_SaleMonomer where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            if (row > 0)
+            {
+                return row;
+            }
+            else
+            {
+                return row = 0;
+            }
+        }
+
+        /// <summary>
         /// 查询所有销售单体
         /// </summary>
         /// <returns>数据集</returns>
@@ -37,17 +59,10 @@ namespace bms.Dao
         public int Insert(SaleMonomer salemonomer)
         {
             string cmdText = "insert into T_SaleMonomer(bookNo,ISBN,saleHeadId,number,unitPrice,number,totalPrice,realDiscount,realPrice,dateTime) values(@bookNo,@ISBN,@saleHeadId,@number,@unitPrice,@number,@totalPrice,@realDiscount,@realPrice,@dateTime)";
-            string[] param = { "@bookNo","@ISBN","@saleHeadId","@number","@unitPrice","@number","@totalPrice","@realDiscount","@realPrice","@dateTime" };
+            string[] param = { "@bookNo", "@ISBN", "@saleHeadId", "@number", "@unitPrice", "@number", "@totalPrice", "@realDiscount", "@realPrice", "@dateTime" };
             object[] values = { salemonomer.BookNum, salemonomer.ISBN1, salemonomer.SaleHeadId, salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealPrice, salemonomer.Datetime };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
-            if (row > 0)
-            {
-                return row;
-            }
-            else
-            {
-                return 0;
-            }
+            return row;
         }
         /// <summary>
         /// 删除销售单体
@@ -73,6 +88,19 @@ namespace bms.Dao
             string cmdText = "update T_SaleMonomer set number=@number or uPrice=@uPrice or totalPice=@totalPrice or realPrice=@realPrice or discount=@discount or type=@type";
             string[] param = { "@number", "@uPrice", "@totalPrice", "@realPrice", "@discount", "@type" };
             object[] values = { salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealDiscount, salemonomer.Type };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+        /// <summary>
+        /// 根据销售单头ID真删除销售单头
+        /// </summary>
+        /// <param name="saleHeadId">销售单头ID</param>
+        /// <returns>受影响行数</returns>
+        public int realDelete(string saleHeadId)
+        {
+            string cmdText = "delete from T_SaleHead where saleHeadId=@saleHeadId"; 
+             String[] param = { "@saleHeadId" };
+            String[] values = { saleHeadId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }

@@ -31,26 +31,26 @@ namespace bms.Dao
         /// <param name="stockNum">库存数量</param>
         /// <param name="goodsShelvesId">货架号</param>
         /// <returns></returns>
-        public int update(int stockNum,int goodsShelvesId)
+        public int update(int stockNum,int goodsShelvesId,long bookNum)
         {
-            string cmdText = "update T_Stock set stockNum=@stockNum where goodsShelvesId=@goodsShelvesId";
-            string[] param = { "@stockNum", "@goodsShelvesId" };
-            object[] values = { stockNum,goodsShelvesId };
+            string cmdText = "update T_Stock set stockNum=@stockNum where goodsShelvesId=@goodsShelvesId and bookNum=@bookNum";
+            string[] param = { "@stockNum", "@goodsShelvesId","@bookNum" };
+            object[] values = { stockNum,goodsShelvesId, bookNum };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
 
 
         /// <summary>
-        /// 根据ISBN查询货架id
+        /// 根据ISBN查询货架id，库存数量
         /// </summary>
         /// <param name="ISBN">ISBN</param>
         /// <returns></returns>
-        public DataSet SelectByIsbn(string ISBN)
+        public DataSet SelectByBookNum(long bookNum)
         {
-            string cmdText = "select goodsShelvesId,stockNum from T_Stock where ISBN = @ISBN order by stockNum desc";
-            String[] param = { "@ISBN" };
-            String[] values = { ISBN };
+            string cmdText = "select goodsShelvesId,stockNum from T_Stock where bookNum = @bookNum order by stockNum desc";
+            String[] param = { "@bookNum" };
+            String[] values = { bookNum.ToString() };
             DataSet ds = db.FillDataSet(cmdText, param, values);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -63,16 +63,16 @@ namespace bms.Dao
         }
 
         /// <summary>
-        /// 根据货架id和ISBN查询库存数量
+        /// 获取库存数量
         /// </summary>
-        /// <param name="goodsShelvesId">货架id</param>
-        /// <param name="ISBN">ISBN</param>
+        /// <param name="bookNum">书号</param>
+        /// <param name="goodsShelf">货架Id</param>
         /// <returns></returns>
-        public int SelectByGoodsId(int goodsShelvesId,string ISBN)
+        public int getStockNum(long bookNum, int goodsShelf)
         {
-            string cmdText = "select stockNum from T_Stock where goodsShelvesId = @goodsShelvesId and ISBN=@ISBN";
-            String[] param = { "@goodsShelvesId" , "@ISBN" };
-            String[] values = { goodsShelvesId.ToString(), ISBN };
+            string cmdText = "select stockNum from T_Stock where goodsShelvesId = @goodsShelf and bookNum=@bookNum";
+            String[] param = { "@goodsShelvesId" , "@bookNum" };
+            String[] values = { goodsShelf.ToString(), bookNum.ToString() };
             DataSet ds = db.FillDataSet(cmdText, param, values);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -83,6 +83,21 @@ namespace bms.Dao
             {
                 return 0;
             }
+        }
+
+        /// <summary>
+        /// 判断此书号是否有库存
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <param name="goodsShelf">货架号</param>
+        /// <returns></returns>
+        public int GetByBookNum(long bookNum, int goodsShelf)
+        {
+            string cmdText = "select count(stockId) from T_Stock where bookNum = @bookNum order by stockNum desc";
+            String[] param = { "@bookNum" };
+            String[] values = { bookNum.ToString() };
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            return row;
         }
     }
 }

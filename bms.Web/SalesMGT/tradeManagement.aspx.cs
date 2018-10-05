@@ -18,26 +18,60 @@ namespace bms.Web.SalesMGT
         public int totalCount, intPageCount, pageSize = 20;
         SaleTaskBll saleBll = new SaleTaskBll();
         CustomerBll custBll = new CustomerBll();
+        string SaleHeadId, saleTaskId;
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
             string op = Request["op"];
+            //添加销售任务
             if (op == "add")
             {
-                string Custmer = Request["Custmer"];
-                string numberLimit = Request["numberLimit"];
-                string priceLimit = Request["priceLimit"];
-                string totalPriceLimit = Request["totalPriceLimit"];
+                int count = saleBll.getCount();
+                if (count > 0)
+                {
+                    count += 1;
+                    saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                }
+                else
+                {
+                    count = 1;
+                    saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                }
+                int custmerID = Convert.ToInt32(Request["Custmer"]);
+                Customer customer = new Customer();
+                customer.CustomerId = custmerID;
+                int numberLimit = Convert.ToInt32(Request["numberLimit"]);
+                int priceLimit = Convert.ToInt32(Request["priceLimit"]);
+                int totalPriceLimit = Convert.ToInt32(Request["totalPriceLimit"]);
                 double defaultDiscount = double.Parse(Request["defaultDiscount"]);
                 User user = (User)Session["user"];
                 int userId = user.UserId;
                 DateTime StartTime = DateTime.Now.ToLocalTime();
-                SaleTask sale = new SaleTask()
+                DateTime finishTime = DateTime.Now.ToLocalTime();
+                SaleTask saleTask = new SaleTask()
                 {
+                    SaleTaskId=saleTaskId,
+                    UserId = userId,
+                    Customer = customer,
                     DefaultDiscount = defaultDiscount,
-
+                    DefaultCopy = "",
+                    NumberLimit = numberLimit,
+                    PriceLimit = priceLimit,
+                    TotalPiceLimit = totalPriceLimit,
+                    StartTime = StartTime,
+                    FinishTime = finishTime
                 };
-                saleBll.insert(sale);
+                Result result = saleBll.insert(saleTask);
+                if (result == Result.添加成功)
+                {
+                    Response.Write("添加成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
             }
             if (op == "del")
             {
@@ -72,7 +106,7 @@ namespace bms.Web.SalesMGT
                 Session["saleId"] = saleId;
                 Session["saleType"] = "look";
                 int count = saleheadbll.getCount(saleId);
-                string SaleHeadId;
+
                 if (count > 0)
                 {
                     count += 1;
@@ -148,9 +182,9 @@ namespace bms.Web.SalesMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["defaultDiscount"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["priceLimit"].ToString() + "</td>");
+                strb.Append("<td>" + Double.Parse(ds.Tables[0].Rows[i]["defaultDiscount"].ToString())*100 + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["numberLimit"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["priceLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPriceLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["startTime"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["finishTime"].ToString() + "</td>");

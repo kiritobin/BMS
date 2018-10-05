@@ -20,8 +20,7 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
-    <link async rel="stylesheet" href="https://cdn.materialdesignicons.com/1.8.36/css/materialdesignicons.min.css"/>
-    <%--<link rel="stylesheet" href="../css/materialdesignicons.min.css" />--%>
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 
@@ -288,7 +287,7 @@
                                 <span>
                                     <nobr>折扣:</nobr>
                                 </span>
-                                <input type="text" class="modal_search_add" value="<%=dsicount %>" id="disCount">
+                                <input type="text" class="modal_search_add" value="<%=discount %>" id="disCount">
                             </div><br />
                             <table class="table table-bordered mostTable text-center" id="table2">
                                 <thead>
@@ -346,33 +345,6 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addWarehouse.js"></script>
-    <%-- <script>
-        var enLang = {
-            name: "en",
-            month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
-            weeks: ["SUN", "MON", "TUR", "WED", "THU", "FRI", "SAT"],
-            times: ["Hour", "Minute", "Second"],
-            timetxt: ["Time", "Start Time", "End Time"],
-            backtxt: "Back",
-            clear: "Clear",
-            today: "Now",
-            yes: "Confirm",
-            close: "Close"
-        }
-       //自定义格式选择
-        jeDate("#test12", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-        jeDate("#test1", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-        jeDate("#test2", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-    </script>--%>
 </body>
 
 </html>

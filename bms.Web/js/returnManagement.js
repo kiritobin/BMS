@@ -58,43 +58,12 @@ function logout() {
 
 //添加退货单头
 $("#btnAdd").click(function () {
-    var billCount = $("#billCount").val().trim();
-    var totalPrice = $("#totalPrice").val().trim();
-    var realPrice = $("#realPrice").val().trim();
     var regionId = $("#regionId").val().trim();
-    if (billCount == "") {
-        swal({
-            title: "温馨提示:)",
-            text: "单据总数不能为空，请您重新输入",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else if (totalPrice == "") {
-        swal({
-            title: "温馨提示:)",
-            text: "总码洋不能为空，请您重新输入",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else if (realPrice == "") {
-        swal({
-            title: "温馨提示:)",
-            text: "总实洋不能为空，请您重新输入",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);;
-    } else {
         $.ajax({
             type: 'Post',
             url: 'returnManagement.aspx',
             data: {
                 regionId: regionId,
-                billCount: billCount,
-                totalPrice: totalPrice,
-                realPrice: realPrice,
                 op: "add"
             },
             datatype: 'text',
@@ -127,7 +96,6 @@ $("#btnAdd").click(function () {
                 }
             }
         })
-    }
 })
 
 //查询

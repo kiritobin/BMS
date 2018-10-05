@@ -33,20 +33,22 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <h3 class="text-center">销&nbsp;售</h3>
-                        <hr />
+                        <div class="container-fluid">
+                            <h3 class="text-center">销&nbsp;售</h3>
+                            <button class="btn btn-success pull-right" id="back">返回</button>
+                        </div>
                         <div class="card-body">
                             <div class="card-header card_btn">
                                 <div class="input-group">
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2">添加销售</button>
-                                    </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="sales_bookName" placeholder="请输入书名">
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="sales_ISBN" placeholder="请输入ISBN">
                                         <button class="btn btn-info" id="btn_search">查询</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2">添加销售</button>
                                     </div>
                                     <%if (type == "addsale")
                                         {%>
@@ -90,11 +92,25 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <%=getData() %>
+                                        <%--<%=getData() %>--%>
                                     </table>
                                 </div>
-                                <div class="statistics col-md-2">
+                                <div class="container col-md-2">
                                     统计
+                                    <table class="table">
+                                        <tr>
+                                            <td>书籍种数</td>
+                                            <td>66</td>
+                                        </tr>
+                                        <tr>
+                                            <td>书本总数</td>
+                                            <td>666</td>
+                                        </tr>
+                                        <tr>
+                                            <td>总码洋</td>
+                                            <td>6666</td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <div class="copyright float-right page-box">
                                     <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
@@ -123,21 +139,13 @@
                         <tr>
                             <td>ISBN号</td>
                             <td>
-                                <input type="text" value="" class="sales_search"></td>
+                                <input type="text" id="ISBN" class="sales_search"></td>
                             <td>实际折扣</td>
                             <td>
-                                <input type="text" value="" class="sales_search"></td>
-                            <td>单价</td>
-                            <td>
-                                <input type="text" value="" class="sales_search"></td>
-                        </tr>
-                        <tr>
+                                <input type="text" id="disCount" class="sales_search"></td>
                             <td>数量</td>
                             <td>
-                                <input type="text" value="" class="sales_search"></td>
-                            <td>实洋</td>
-                            <td>
-                                <input type="text" value="" class="sales_search"></td>
+                                <input type="text" id="number" class="sales_search"></td>
                         </tr>
                     </table>
                 </div>

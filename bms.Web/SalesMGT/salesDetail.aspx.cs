@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.SalesMGT
 {
+    using Result = Enums.OpResult;
     public partial class salesDetail : System.Web.UI.Page
     {
         public int totalCount, intPageCount, pageSize = 20;
@@ -19,7 +20,32 @@ namespace bms.Web.SalesMGT
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            getData();
+             getData();
+            string op = Request["op"];
+            if (op == "back")
+            {
+                string SaleHeadId = Session["saleheadId"].ToString();
+                Result result = salemonbll.SelectBySaleHeadId(SaleHeadId);
+                if (result == Result.删除成功)
+                {
+                    Response.Write("删除成功");
+                    Response.End();
+                }
+                else if (result == Result.删除失败)
+                {
+                    Response.Write("删除失败");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("已有数据");
+                    Response.End();
+                }
+            }
+            if (op == "search")
+            {
+                string ISBN = Request["ISBN"];
+            }
         }
         public string getData()
         {
@@ -59,7 +85,7 @@ namespace bms.Web.SalesMGT
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             //tb.StrWhere = search;
-            tb.StrWhere = search == "" ? "deleteState3=0 and saleHeadId=" + "'" + saleheadId + "'" : search + " and deleteState3=0 and saleHeadId=" + "'" + saleheadId + "'";
+            tb.StrWhere = search == "" ? "deleteState=0 and saleHeadId=" + "'" + saleheadId + "'" : search + " and deleteState=0 and saleHeadId=" + "'" + saleheadId + "'";
             //获取展示的客户数据
             ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
             //获取客户下拉数据

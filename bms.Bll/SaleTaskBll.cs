@@ -13,6 +13,25 @@ namespace bms.Bll
     {
         readonly SaleTaskDao saleDao = new SaleTaskDao();
         /// <summary>
+        /// 获取销售任务id数量
+        /// </summary>
+        /// <param name="saleTaskId">销售任务</param>
+        /// <returns>行数</returns>
+        public int getCount()
+        {
+            int count = saleDao.countSaleTask();
+            if (count > 0)
+            {
+                return count;
+            }
+            else
+            {
+                return count = 0;
+            }
+
+        }
+
+        /// <summary>
         /// 添加销售任务方法
         /// </summary>
         /// <param name="task">实体销售任务</param>
@@ -36,11 +55,12 @@ namespace bms.Bll
         /// <returns>返回结果</returns>
         public Result Delete(string saleTaskId)
         {
-          int row=  saleDao.Delete(saleTaskId);
-            if (row>0)
+            int row = saleDao.Delete(saleTaskId);
+            if (row > 0)
             {
-                return Result.删除失败;
-            } else
+                return Result.删除成功;
+            }
+            else
             {
                 return Result.删除失败;
             }

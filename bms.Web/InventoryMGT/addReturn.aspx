@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addReturn.aspx.cs" Inherits="bms.Web.InventoryMGT.addReturn" %>
-<%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -15,6 +14,7 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
@@ -39,7 +39,7 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-             <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
@@ -77,7 +77,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
-                           <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-user fa-lg"></i>
                             <p>
                                 客户管理
                                 <b class="caret"></b>
@@ -128,7 +128,7 @@
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
-                             <i class="fa fa-area-chart"></i>
+                            <i class="fa fa-area-chart"></i>
                             <p>
                                 销售管理
                                 <b class="caret"></b>
@@ -146,7 +146,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
-                             <i class="fa fa-file-archive-o"></i>
+                            <i class="fa fa-file-archive-o"></i>
                             <p>
                                 基础信息
                                 <b class="caret"></b>
@@ -191,7 +191,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                     <i class="fa fa-gear"></i>
+                                    <i class="fa fa-gear"></i>
                                     <p class="d-lg-none d-md-block">
                                         更多设置
                                     </p>
@@ -216,27 +216,16 @@
                                     <div class="card-header card-header-danger">
                                         <h4 class="card-title">退货添加</h4>
                                     </div>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="btn-add">确定添加</button>
-                                    </div>
                                     <div class="card-header from-group">
-                                        <table class="table text-center table_stock">
-                                            <tr>
-                                                <td class="td_text"><span class="span-text">书号:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="bookNum" class="input_text"></td>
-                                                <td class="td_text"><span class="span-text">商品总数:</span></td>
-                                                <td class="td_width">
-                                                    <input type="text" id="billCount" class="input_text"></td>
-                                            </tr>
-
-                                        </table>
-                                        <%--<div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                              &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
-                                        </div>--%>
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <input type="text" class="searchOne" placeholder="请输入查询条件" id="input-search">
+                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="table-responsive">
@@ -266,6 +255,59 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--添加模态框-->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                    <div class="modal-dialog" style="max-width: 800px">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title float-left" id="myModalLabel">输入数据后按下Enter键查看书籍信息</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    <i class="material-icons">clear</i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="text-right">
+                                    <span>
+                                        <nobr>ISBN:</nobr>
+                                    </span>
+                                    <input type="text" class="modal_search_add" id="isbn">
+                                    <span>
+                                        <nobr>商品数量:</nobr>
+                                    </span>
+                                    <input type="text" class="modal_search_add" id="billCount">
+                                    <span>
+                                        <nobr>折扣:</nobr>
+                                    </span>
+                                    <input type="text" class="modal_search_add" value="" id="disCount">
+                                </div>
+                                <br />
+                                <table class="table table-bordered mostTable text-center" id="table2">
+                                    <thead>
+                                        <tr>
+                                            <%--<th><input type="checkbox" name="checkbox" class="check" value="" disabled="disabled" /></th>--%>
+                                            <th>
+                                                <div class="pretty inline">
+                                                    <input type="radio" name="radio" disabled="disabled">
+                                                    <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
+                                                </div>
+                                            </th>
+                                            <th>书号</th>
+                                            <th>ISBN</th>
+                                            <th>书名</th>
+                                            <th>单价</th>
+                                            <th>出版社</th>
+                                        </tr>
+                                    </thead>
+                                   
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success btn-sm" id="btnAdd">提交</button>
                             </div>
                         </div>
                     </div>
@@ -302,33 +344,6 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addReturn.js"></script>
-    <%-- <script>
-        var enLang = {
-            name: "en",
-            month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
-            weeks: ["SUN", "MON", "TUR", "WED", "THU", "FRI", "SAT"],
-            times: ["Hour", "Minute", "Second"],
-            timetxt: ["Time", "Start Time", "End Time"],
-            backtxt: "Back",
-            clear: "Clear",
-            today: "Now",
-            yes: "Confirm",
-            close: "Close"
-        }
-       //自定义格式选择
-        jeDate("#test12", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-        jeDate("#test1", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-        jeDate("#test2", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-    </script>--%>
 </body>
 
 </html>
