@@ -164,19 +164,36 @@ namespace bms.Dao
                 return row = 0;
             }
         }
+
         /// <summary>
-        /// 通过书号查询存不存在
+        /// 通过书号查询在单体中是否存在记录
         /// </summary>
-        /// <param name="bookNum"></param>
+        /// <param name="bookNum">书号</param>
+        /// <param name="type">单体类型（0：出库，1：入库，2：退货）</param>
         /// <returns></returns>
-        public int SelectBybookNum(string bookNum)
+        public int SelectBybookNum(string singleHeadId,string bookNum, int type)
         {
-            string comText = "select COUNT(monId) from T_Monomers where bookNum=@bookNum";
+            string comText = "select COUNT(monId) from T_Monomers where bookNum=@bookNum and type=@type and singleHeadId=@singleHeadId";
+            string[] param = { "@bookNum", "@type", "@singleHeadId" };
+            object[] values = { bookNum, type, singleHeadId };
+            int row = Convert.ToInt32(db.ExecuteScalar(comText, param, values));
+            return row;
+        }
+
+        /// <summary>
+        /// 通过书号查询在单头中是否存在记录
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public int SelectBybookNumInHead(string bookNum)
+        {
+            string comText = "select COUNT(monId) from T_SingleHead where bookNum=@bookNum";
             string[] param = { "@bookNum" };
             object[] values = { bookNum };
             int row = Convert.ToInt32(db.ExecuteScalar(comText, param, values));
             return row;
         }
+
         /// <summary>
         /// 假删除单体
         /// </summary>

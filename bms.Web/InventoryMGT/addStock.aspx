@@ -304,7 +304,6 @@
                             <table class="table table-bordered mostTable text-center" id="table3">
                                 <thead>
                                     <tr>
-                                        <%--<th><input type="checkbox" name="checkbox" class="check" value="" disabled="disabled" /></th>--%>
                                         <th>
                                             <div class="pretty inline">
                                                 <input type="radio" name="radio" disabled="disabled">

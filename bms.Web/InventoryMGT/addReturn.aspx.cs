@@ -117,7 +117,7 @@ namespace bms.Web.InventoryMGT
                     Result update = wareBll.updateHead(single);
                     if (update == Result.更新成功)
                     {
-                        DataSet dsGoods = stockBll.SelectByIsbn(isbn);
+                        DataSet dsGoods = stockBll.SelectByBookNum(bookNum);
                         int count = billCount;
                         int allCount = 0, allCounts = 0;
                         for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
@@ -140,7 +140,7 @@ namespace bms.Web.InventoryMGT
                                 if (billCount <= stockNum)
                                 {
                                     int a = stockNum - billCount;
-                                    Result result = stockBll.update(a, goodsId);
+                                    Result result = stockBll.update(a, goodsId, bookNum);
                                     if (result == Result.更新成功)
                                     {
                                         Response.Write("添加成功");
@@ -155,7 +155,7 @@ namespace bms.Web.InventoryMGT
                                 else
                                 {
                                     count = billCount - stockNum;
-                                    Result result = stockBll.update(0, goodsId);
+                                    Result result = stockBll.update(0, goodsId, bookNum);
                                     if (count == 0)
                                     {
                                         Response.Write("添加成功");

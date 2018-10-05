@@ -85,32 +85,49 @@ $("#isbn").keypress(function (e) {
                 },
                 dataType: 'text',
                 success: function (data) {
-                    if (data == "ISBN不存在") {
+                    if (data=="添加成功") {
                         swal({
-                            title: "错误提示:)",
-                            text: "ISBN不存在",
+                            title: data,
+                            text: data,
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
+                    }
+                    else if (data == "添加失败") {
+                        swal({
+                            title: data,
+                            text: data,
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
                         }).catch(swal.noop);
+                        $("#btnAdd").attr("disabled", true);
                     }
-                    else if (data=="添加成功") {
+                    else if (data == "库存不足"){
                         swal({
-                            title: "温馨提示:)",
-                            text: "添加成功",
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-success",
-                            type: "success"
-                        }).catch(swal.noop);
-                    }
-                    else if (data=="添加失败") {
-                        swal({
-                            title: "错误提示:)",
-                            text: "添加失败",
+                            title: data,
+                            text: data,
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
                         }).catch(swal.noop);
+                        $("#btnAdd").attr("disabled", true);
+                    }
+                    else if (data == "已添加过相同记录") {
+                        swal({
+                            title: data,
+                            text: data,
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning",
+                            type: "warning"
+                        }).catch(swal.noop);
+                        $("#btnAdd").attr("disabled", true);
                     }
                     else {
                         $("#table2 tr:not(:first)").empty(); //清空table处首行

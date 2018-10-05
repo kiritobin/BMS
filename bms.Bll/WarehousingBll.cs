@@ -82,9 +82,16 @@ namespace bms.Bll
                 return 0;
             }
         }
-        public Result SelectBybookNum(string bookNum)
+
+        /// <summary>
+        /// 通过书号查询在单体中是否存在记录
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <param name="type">单体类型（0：出库，1：入库，2：退货）</param>
+        /// <returns></returns>
+        public Result SelectBybookNum(string singleHeadId,string bookNum,int type)
         {
-            int row = monoDao.SelectBybookNum(bookNum);
+            int row = monoDao.SelectBybookNum(singleHeadId,bookNum, type);
             if (row > 0)
             {
                 return Result.记录存在;
@@ -94,12 +101,13 @@ namespace bms.Bll
                 return Result.记录不存在;
             }
         }
-            /// <summary>
-            /// 获取出库单头的所有信息
-            /// </summary>
-            /// <param name="type">1为入库，0为出库，2为退货</param>
-            /// <returns></returns>
-            public DataTable SelectSingleHead(string singleHeadId)
+
+        /// <summary>
+        /// 获取出库单头的所有信息
+        /// </summary>
+        /// <param name="type">1为入库，0为出库，2为退货</param>
+        /// <returns></returns>
+        public DataTable SelectSingleHead(string singleHeadId)
         {
             return monoDao.SelectSingleHead(singleHeadId);
         }
