@@ -16,11 +16,11 @@ function logout() {
     }).then(function () {
         $.ajax({
             type: 'get',
-            url: 'addStock.aspx?op=logout',
+            url: 'customerPurchase.aspx?op=logout',
             datatype: 'text',
             data: {},
             success: function (data) {
-                window.location.href = "../login.aspx";
+                window.location.href = "../customerLogin.aspx";
             }
         });
     })
@@ -41,7 +41,7 @@ $(document).ready(function () {
         callback: function (api) {
             $.ajax({
                 type: 'Post',
-                url: 'addStock.aspx',
+                url: 'customerPurchase.aspx',
                 data: {
                     page: api.getCurrent(), //页码
                     op: "paging"
