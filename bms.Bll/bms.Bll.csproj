@@ -54,6 +54,7 @@
     <Compile Include="SaleMonomerBll.cs" />
     <Compile Include="SaleTaskBll.cs" />
     <Compile Include="sellOffHeadBll.cs" />
+    <Compile Include="SellOffMonomerBll.cs" />
     <Compile Include="StockBll.cs" />
     <Compile Include="UserBll.cs" />
     <Compile Include="WarehousingBll.cs" />
