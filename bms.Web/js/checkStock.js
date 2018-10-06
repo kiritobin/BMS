@@ -55,3 +55,25 @@ $(document).ready(function () {
         }
     });
 })
+
+$("#export").click(function () {
+    $.ajax({
+        type: 'Post',
+        url: 'checkStock.aspx',
+        data: {
+            op:'export'
+        },
+        dataType: 'text',
+        success: function (data) {
+            if (data == "没有数据，不能执行导出操作!") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "ISBN不能为空，请您重新输入",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            }
+        }
+    })
+})

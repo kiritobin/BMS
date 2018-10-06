@@ -200,5 +200,20 @@ namespace bms.Bll
                 return Result.更新失败;
             }
         }
+
+        /// <summary>
+        /// 导出成Excel表
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <returns>返回一个DataTable的选题记录集合</returns>
+        public DataTable ExportExcel(string strWhere)
+        {
+            DataTable dt = monoDao.ExportExcel(strWhere);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                return dt;
+            }
+            return null;
+        }
     }
 }
