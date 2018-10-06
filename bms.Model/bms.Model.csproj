@@ -53,6 +53,7 @@
     <Compile Include="SaleMonomer.cs" />
     <Compile Include="SaleTask.cs" />
     <Compile Include="SellOffHead.cs" />
+    <Compile Include="SellOffMonomer.cs" />
     <Compile Include="SingleHead.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="TableBuilder.cs" />

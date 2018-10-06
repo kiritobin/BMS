@@ -327,13 +327,9 @@ namespace bms.Web.BasicInfor
                 sb.Append("<td>" + dr["catalog"].ToString() + "</td>");
                 sb.Append("<td>" + dr["remarks"].ToString() + "</td>");
                 sb.Append("<td>" + dr["dentification"].ToString() + "</td>");
-                for (int k = 0; k < funCount; k++)
+                if (funcBook)
                 {
-                    int functionId = Convert.ToInt32(dsPer.Tables[0].Rows[k]["functionId"]);
-                    if (functionId == 7)
-                    {
-                        sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></tr>");
-                    }
+                    sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></tr>");
                 }
             }
             sb.Append("</tbody>");

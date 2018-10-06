@@ -59,7 +59,7 @@ namespace bms.Web.InventoryMGT
                 currentPage = 1;
             }
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "V_Monomers";
+            tbd.StrTable = "V_Monomer";
             tbd.OrderBy = "singleHeadId";
             tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName";
             tbd.IntPageSize = pageSize;

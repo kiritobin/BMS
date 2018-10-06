@@ -48,5 +48,22 @@ namespace bms.Bll
             int row = dao.getCount(saleTaskId);
             return row;
         }
+        /// <summary>
+        /// 删除销退单头
+        /// </summary>
+        /// <param name="sellOffHeadId"></param>
+        /// <returns></returns>
+        public Result Delete(string sellOffHeadId)
+        {
+            int row = dao.Delete(sellOffHeadId);
+            if (row > 0)
+            {
+                return Result.删除成功;
+            }
+            else
+            {
+                return Result.删除失败;
+            }
+        }
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="SaleMonomerDao.cs" />
     <Compile Include="SaleTaskDao.cs" />
     <Compile Include="sellOffHeadDao.cs" />
+    <Compile Include="SellOffMonomerDao.cs" />
     <Compile Include="StockDao.cs" />
     <Compile Include="UserDao.cs" />
     <Compile Include="WarehousingDao.cs" />
