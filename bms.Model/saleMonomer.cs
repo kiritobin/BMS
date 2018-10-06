@@ -10,7 +10,7 @@ namespace bms.Model
         private int saleIdMonomerId;
         private long  bookNum;
         private string ISBN;
-        private int saleHeadId;
+        private string saleHeadId;
         private double unitPrice;
         private int number;
         private double totalPrice;
@@ -32,7 +32,7 @@ namespace bms.Model
         /// <param name="realDiscount">实际折扣</param>
         /// <param name="realPrice">实洋</param>
         /// <param name="datetime">采集时间</param>
-        public SaleMonomer(int saleIdMonomerId, long bookNum, string iSBN, int saleHeadId, double unitPrice, int number, double totalPrice, double realDiscount, double realPrice, DateTime datetime,int type)
+        public SaleMonomer(int saleIdMonomerId, long bookNum, string iSBN, string saleHeadId, double unitPrice, int number, double totalPrice, double realDiscount, double realPrice, DateTime datetime,int type)
         {
             this.saleIdMonomerId = saleIdMonomerId;
             this.bookNum = bookNum;
@@ -95,7 +95,7 @@ namespace bms.Model
         /// <summary>
         /// 销售单头id
         /// </summary>
-        public int SaleHeadId
+        public string SaleHeadId
         {
             get
             {

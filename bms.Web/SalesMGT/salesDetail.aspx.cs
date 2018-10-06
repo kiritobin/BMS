@@ -15,13 +15,18 @@ namespace bms.Web.SalesMGT
     public partial class salesDetail : System.Web.UI.Page
     {
         public int totalCount, intPageCount, pageSize = 20;
-        public string type;
+        public string type, defaultdiscount;
         public DataSet ds, bookds;
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         public StringBuilder strbook = new StringBuilder();
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
+
+            string saleId = Session["saleId"].ToString();
+            SaleTaskBll saletaskbll = new SaleTaskBll();
+            SaleTask task = saletaskbll.selectById(saleId);
+            defaultdiscount = ((task.DefaultDiscount) * 100).ToString();
             string op = Request["op"];
             if (op == "back")
             {
@@ -50,28 +55,15 @@ namespace bms.Web.SalesMGT
                 bookds = bookbll.SelectByIsbn(ISBN);
                 if (bookds != null)
                 {
-                    strbook.Append("<thead>");
-                    strbook.Append("<tr>");
-                    strbook.Append("<th>" + "<div class='pretty inline'><input type = 'radio' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
-                    strbook.Append("<th>" + "书号" + "</th>");
-                    strbook.Append("<th>" + "ISBN" + "</th>");
-                    strbook.Append("<th>" + "书名" + "</th>");
-                    strbook.Append("<th>" + "单价" + "</th>");
-                    strbook.Append("<th>" + "出版社" + "</th>");
-                    strbook.Append("</tr>");
-                    strbook.Append("</thead>");
-                    strbook.Append("<tbody>");
-                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    //如果有两条及两条以上显示表格
+                    if (bookds.Tables[0].Rows.Count > 1)
                     {
-                        strbook.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
-                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
-                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
-                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["unitPrice"].ToString() + "</td>");
-                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["number"].ToString() + "</td>");
-                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
-                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["realPrice"].ToString() + "</td></tr>");
+                        getbook();
                     }
-                    strbook.Append("</tbody>");
+                    else
+                    {
+                        addSalemon();
+                    }
                 }
                 else
                 {
@@ -79,6 +71,63 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
+            if (op == "add")
+            {
+
+            }
+        }
+        public void addSalemon()
+        {
+            string bookISBN = Request["ISBN"];
+            int disCount = int.Parse(Request["disCount"])/100;
+            int number = Convert.ToInt32(Request["number"]);
+            long bookNum = long.Parse(bookds.Tables[0].Rows[0]["bookNum"].ToString());
+            string saleHeadId = Session["saleheadId"].ToString();
+            int price = Convert.ToInt32(bookds.Tables[0].Rows[0]["price"].ToString());
+            int totalPrice = price * number;
+            int realPrice = totalPrice * disCount;
+            DateTime Time = DateTime.Now.ToLocalTime();
+            SaleMonomer newSalemon = new SaleMonomer()
+            {
+                BookNum = bookNum,
+                ISBN1 = bookISBN,
+                SaleHeadId = saleHeadId,
+                Number = number,
+                UnitPrice = price,
+                TotalPrice = totalPrice,
+                RealPrice = realPrice,
+                RealDiscount = disCount,
+                Datetime = Time
+            };
+            salemonbll.Insert(newSalemon);
+        }
+
+        public string getbook()
+        {
+            strbook.Append("<thead>");
+            strbook.Append("<tr>");
+            strbook.Append("<th>" + "<div class='pretty inline'><input type = 'radio' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
+            strbook.Append("<th>" + "书号" + "</th>");
+            strbook.Append("<th>" + "ISBN" + "</th>");
+            strbook.Append("<th>" + "书名" + "</th>");
+            strbook.Append("<th>" + "单价" + "</th>");
+            strbook.Append("<th>" + "出版社" + "</th>");
+            strbook.Append("</tr>");
+            strbook.Append("</thead>");
+            strbook.Append("<tbody>");
+            for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
+            {
+                strbook.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
+                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
+                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
+                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
+                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["price"].ToString() + "</td>");
+                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["supplier"].ToString() + "</td></tr>");
+            }
+            strbook.Append("</tbody>");
+            Response.Write(strbook.ToString());
+            Response.End();
+            return strbook.ToString();
         }
         public string getData()
         {

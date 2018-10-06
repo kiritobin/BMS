@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/demo.css">
     <link rel="stylesheet" href="../css/pagination.css" />
+    <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css">
 </head>
 
 <body>
@@ -140,18 +142,19 @@
                             <td>ISBN号</td>
                             <td>
                                 <input type="text" id="ISBN" class="sales_search"></td>
-                            <td>实际折扣</td>
-                            <td>
-                                <input type="text" id="disCount" class="sales_search"></td>
                             <td>数量</td>
                             <td>
                                 <input type="text" id="number" class="sales_search"></td>
+                            <td>实际折扣</td>
+                            <td>
+                                <input type="text" id="disCount" value="<%=defaultdiscount %>" class="sales_search"></td>
+
                         </tr>
                     </table>
-                    <table id="tablebook">
+                    <table id="tablebook" class="table mostTable table-bordered text-center">
                         <%if (bookds != null)
                             {%>
-                        <%= strbook.ToString() %>
+                        <%=getbook()%>
                         <% } %>
                     </table>
                 </div>
