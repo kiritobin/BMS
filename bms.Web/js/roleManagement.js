@@ -74,7 +74,12 @@
             }
         });
     });
-
+    $("#close").click(function () {
+        if (sessionStorage.getItem("add") == "添加成功") {
+            window.location.reload();
+            sessionStorage.removeItem("add");
+        }
+    })
     //添加职位
     $("#btnAdd").click(function () {
         var roleName = $("#addRoleName").val().trim();
@@ -130,7 +135,8 @@
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
-                            window.location.reload();
+                            sessionStorage.setItem("add", "添加成功");
+                            //window.location.reload();
                         })
                     } else {
                         swal({

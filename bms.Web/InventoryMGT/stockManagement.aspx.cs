@@ -39,9 +39,7 @@ namespace bms.Web.InventoryMGT
             else if (op=="add")
             {
                 User user = (User)Session["user"];
-                int count = Convert.ToInt32(Request["count"]);
-                double totalPrice = Convert.ToDouble(Request["totalPrice"]);
-                double realPrice = Convert.ToDouble(Request["realPrice"]);
+                int count = wareBll.countHead(1) + 1;
                 string source = Request["source"];
                 SingleHead single = new SingleHead();
                 Region region = new Region();
