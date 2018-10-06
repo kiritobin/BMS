@@ -168,6 +168,7 @@ $("#btn-search").click(function () {
 
 //删除
 $("#table").delegate(".btn-delete", "click", function () {
+    var ID = $(this).prev().val();
     swal({
         title: "是否删除？",
         text: "删除后将无法恢复！！！",
@@ -182,7 +183,6 @@ $("#table").delegate(".btn-delete", "click", function () {
         buttonsStyling: false,
         allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
     }).then(function () {
-        var ID = $(".btn-delete").prev().val();
         $.ajax({
             type: 'Post',
             url: 'warehouseManagement.aspx',
