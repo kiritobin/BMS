@@ -35,9 +35,7 @@
     background: linear-gradient(60deg,#f44336,#f03528);
 }
 
-.card-footer .btn {
-    padding-top: 10px;
-    padding-bottom: 10px;
+.card-footer .btnLogin {
     border: 1px solid #f44336;
 }
 

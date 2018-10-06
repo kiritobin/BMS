@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -14,13 +15,25 @@ namespace bms.Web.InventoryMGT
     public partial class checkStock : System.Web.UI.Page
     {
         public DataTable putDt;
-        public DataSet ds;
+        public DataSet ds,dsPer;
         public string putId, putOperator, putCount, putRegionName, putTotalPrice, putRealPrice, putTime;
         public int totalCount, intPageCount, pageSize = 20;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
         WarehousingBll warehousingBll = new WarehousingBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            permission();
             getData();
+            string op = Request["op"];
+            if (op == "logout")
+            {
+                //删除身份凭证
+                FormsAuthentication.SignOut();
+                //设置Cookie的值为空
+                Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                //设置Cookie的过期时间为上个月今天
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
+            }
             string singleHeadId = Request.QueryString["returnId"];
             //string singleHeadId = "20180927000001";
             putDt = warehousingBll.SelectSingleHead(singleHeadId);
@@ -35,11 +48,6 @@ namespace bms.Web.InventoryMGT
                 putRealPrice = putDt.Rows[i]["allRealPrice"].ToString();
                 putTime = Convert.ToDateTime(putDt.Rows[i]["time"]).ToString("yyyy年MM月dd日 HH:mm:ss");
             }
-            string op = Request["op"];
-            if(op== "export")
-            {
-                export();
-            }
         }
 
         protected string getData()
@@ -51,11 +59,11 @@ namespace bms.Web.InventoryMGT
                 currentPage = 1;
             }
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "V_Monomer";
+            tbd.StrTable = "V_Monomers";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,realPrice,totalPrice,shelvesName";
+            tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "singleHeadId="+ putId+" and type=1";
+            tbd.StrWhere = "";
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
@@ -87,41 +95,69 @@ namespace bms.Web.InventoryMGT
             }
             return sb.ToString();
         }
-
-        /// <summary>
-        /// //导出列表方法
-        /// </summary>
-        /// <param name="s_path">文件路径</param>
-        public void downloadfile(string s_path)
+        protected void permission()
         {
-            System.IO.FileInfo file = new System.IO.FileInfo(s_path);
-            HttpContext.Current.Response.ContentType = "application/ms-download";
-            HttpContext.Current.Response.Clear();
-            HttpContext.Current.Response.AddHeader("Content-Type", "application/octet-stream");
-            HttpContext.Current.Response.Charset = "utf-8";
-            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(file.Name, System.Text.Encoding.UTF8));
-            HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
-            HttpContext.Current.Response.WriteFile(file.FullName);
-            HttpContext.Current.Response.Flush();
-            HttpContext.Current.Response.Clear();
-            HttpContext.Current.Response.End();
-        }
-
-        public void export()
-        {        
-            var name = putId+"明细"+DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-                DataTable dt = warehousingBll.ExportExcel(putId);
-                if (dt != null && dt.Rows.Count > 0)
+            FunctionBll functionBll = new FunctionBll();
+            User user = (User)Session["user"];
+            Role role = new Role();
+            role = user.RoleId;
+            int roleId = role.RoleId;
+            dsPer = functionBll.SelectByRoleId(roleId);
+            for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)
+            {
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 1)
                 {
-                    var path = Server.MapPath("~/download/入库明细导出/" + name + ".xls");
-                    ExcelHelper.x2003.TableToExcelForXLS(dt, path);
-                    downloadfile(path);
+                    funcOrg = true;
                 }
-                else
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 2)
                 {
-                    Response.Write("没有数据，不能执行导出操作!");
-                    Response.End();
+                    funcRole = true;
                 }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 3)
+                {
+                    funcUser = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 4)
+                {
+                    funcGoods = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 5)
+                {
+                    funcCustom = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 6)
+                {
+                    funcLibrary = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 7)
+                {
+                    funcBook = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 8)
+                {
+                    funcPut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 9)
+                {
+                    funcOut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 10)
+                {
+                    funcSale = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 11)
+                {
+                    funcSaleOff = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 12)
+                {
+                    funcReturn = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
+                {
+                    funcSupply = true;
+                }
+            }
         }
     }
 }
