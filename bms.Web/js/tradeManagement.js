@@ -188,6 +188,37 @@
         })
     });
 
+    //查看
+    $("#table").delegate(".btn_search", "click", function () {
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
+        $.ajax({
+            type: 'Post',
+            url: 'tradeManagement.aspx',
+            data: {
+                ID: ID,
+                op: 'look'
+            },
+            dataType: 'text',
+            success: function (succ) {
+                if (succ == "成功") {
+                    window.location.href = "../SalesMGT/salesManagement.aspx";
+                } else {
+                    swal({
+                        title: "提示",
+                        text: "单头添加失败，请重试",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                    })
+                }
+            }
+        })
+    })
+
     //售
     $("#table").delegate(".btn_sale", "click", function () {
         var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();

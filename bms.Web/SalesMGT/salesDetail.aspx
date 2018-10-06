@@ -141,13 +141,13 @@
                         <tr>
                             <td>ISBN号</td>
                             <td>
-                                <input type="text" id="ISBN" class="sales_search"></td>
+                                <input type="text" id="ISBN" class="addsale"></td>
                             <td>数量</td>
                             <td>
-                                <input type="text" id="number" class="sales_search"></td>
+                                <input type="text" id="number" class="addsale"></td>
                             <td>实际折扣</td>
                             <td>
-                                <input type="text" id="disCount" value="<%=defaultdiscount %>" class="sales_search"></td>
+                                <input type="text" id="disCount" value="<%=defaultdiscount %>" class="addsale"></td>
 
                         </tr>
                     </table>

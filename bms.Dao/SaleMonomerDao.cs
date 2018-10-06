@@ -23,7 +23,7 @@ namespace bms.Dao
             string cmdText = "select count(saleIdMonomerId) from T_SaleMonomer where saleHeadId=@saleHeadId";
             string[] param = { "@saleHeadId" };
             object[] values = { saleHeadId };
-            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
             if (row > 0)
             {
                 return row;
@@ -58,9 +58,9 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Insert(SaleMonomer salemonomer)
         {
-            string cmdText = "insert into T_SaleMonomer(bookNum,ISBN,saleHeadId,number,unitPrice,totalPrice,realDiscount,realPrice,dateTime) values(@bookNum,@ISBN,@saleHeadId,@number,@unitPrice,@totalPrice,@realDiscount,@realPrice,@dateTime)";
-            string[] param = { "@bookNum", "@ISBN", "@saleHeadId", "@number", "@unitPrice", "@totalPrice", "@realDiscount", "@realPrice", "@dateTime" };
-            object[] values = { salemonomer.BookNum, salemonomer.ISBN1, salemonomer.SaleHeadId, salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealPrice, salemonomer.Datetime };
+            string cmdText = "insert into T_SaleMonomer(saleIdMonomerId,bookNum,ISBN,saleHeadId,number,unitPrice,totalPrice,realDiscount,realPrice,dateTime) values(@saleIdMonomerId,@bookNum,@ISBN,@saleHeadId,@number,@unitPrice,@totalPrice,@realDiscount,@realPrice,@dateTime)";
+            string[] param = { "@saleIdMonomerId", "@bookNum", "@ISBN", "@saleHeadId", "@number", "@unitPrice", "@totalPrice", "@realDiscount", "@realPrice", "@dateTime" };
+            object[] values = { salemonomer.SaleIdMonomerId,salemonomer.BookNum, salemonomer.ISBN1, salemonomer.SaleHeadId, salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealPrice, salemonomer.Datetime };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -98,8 +98,8 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int realDelete(string saleHeadId)
         {
-            string cmdText = "delete from T_SaleHead where saleHeadId=@saleHeadId"; 
-             String[] param = { "@saleHeadId" };
+            string cmdText = "delete from T_SaleHead where saleHeadId=@saleHeadId";
+            String[] param = { "@saleHeadId" };
             String[] values = { saleHeadId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
