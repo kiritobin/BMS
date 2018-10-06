@@ -38,8 +38,12 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
+                        <% for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++) {
+                    int functionId = Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]);
+               %>
              <div class="sidebar-wrapper">
                 <ul class="nav">
+                    <%if (functionId == 1 || functionId == 2 || functionId == 3 || functionId == 4) { %>
                     <li class="nav-item active">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
@@ -50,35 +54,39 @@
                         </a>
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
+                                <%if (functionId == 3) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (functionId == 2) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (functionId == 1) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (functionId == 4) { %>
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
-                                <%--<li class="nav-item">
-                                    <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
-                                        <span class="sidebar-normal">功能管理</span>
-                                    </a>
-                                </li>--%>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
-
+                    <%} %>
+                    <%if (functionId == 5) {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                            <i class="fa fa-user fa-lg"></i>
@@ -94,14 +102,11 @@
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../CustomerMGT/customerPurchase.aspx">
-                                        <span class="sidebar-normal">客户采购查询</span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </li>
+                    <%} %>
+                    <%if (functionId == 8 || functionId == 9 || functionId == 12) {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                              <i class="fa fa-book"></i>
@@ -112,24 +117,32 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
+                                <%if (functionId == 9) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (functionId == 8) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (functionId == 12) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
+                    <%} %>
+                    <%if (functionId == 10 || functionId == 11) { %>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
@@ -140,19 +153,24 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
+                                <%if (functionId == 10) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销管理</span>
+                                        <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (functionId == 11) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/backQuery.aspx">
                                         <span class="sidebar-normal">销退管理</span>
                                     </a>
                                 </li>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
+                    <%} %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                              <i class="fa fa-file-archive-o"></i>
@@ -168,16 +186,19 @@
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
                                 </li>
+                                <%if (functionId==6) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
                 </ul>
             </div>
+            <%} %>
         </div>
         <div class="main-panel">
             <!-- 主界面头部面板 -->

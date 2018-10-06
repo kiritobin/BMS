@@ -17,7 +17,7 @@ namespace bms.Web.AccessMGT
     {
         public int currentPage = 1, pageSize = 3, totalCount, intPageCount;
         public string search, roleId;
-        public DataSet dsFun,ds;
+        public DataSet dsFun,ds,dsPer;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
         RoleBll roleBll = new RoleBll();
@@ -25,6 +25,7 @@ namespace bms.Web.AccessMGT
         FunctionBll funBll = new FunctionBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            permission();
             getData();
             dsFun = funBll.Select();
             string op = Request["op"];
@@ -337,6 +338,15 @@ namespace bms.Web.AccessMGT
                     Response.End();
                 }
             }
+        }
+        protected void permission()
+        {
+            FunctionBll functionBll = new FunctionBll();
+            User user = (User)Session["user"];
+            Role role = new Role();
+            role = user.RoleId;
+            int roleId = role.RoleId;
+            dsPer = functionBll.SelectByRoleId(roleId);
         }
     }
 }

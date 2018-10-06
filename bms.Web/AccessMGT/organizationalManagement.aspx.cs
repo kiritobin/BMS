@@ -17,12 +17,13 @@ namespace bms.Web.AccessMGT
     {
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search, regionId;
-        public DataSet ds;
+        public DataSet ds,dsPer;
         public int count;
         RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            permission();
             string op = Request["op"];
             if (!IsPostBack)
             {
@@ -248,6 +249,14 @@ namespace bms.Web.AccessMGT
                 return Result.关联引用;
             }
         }
-
+        protected void permission()
+        {
+            FunctionBll functionBll = new FunctionBll();
+            User user = (User)Session["user"];
+            Role role = new Role();
+            role = user.RoleId;
+            int roleId = role.RoleId;
+            dsPer = functionBll.SelectByRoleId(roleId);
+        }
     }
 }
