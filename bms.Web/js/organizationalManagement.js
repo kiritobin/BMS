@@ -103,7 +103,8 @@
                             type: "success",
                             allowOutsideClick: false
                         }).then(function () {
-                            window.location.reload();
+                            sessionStorage.setItem("add", "添加成功");
+                            //window.location.reload();
                         })
                     } else {
                         swal({
@@ -120,7 +121,12 @@
             })
         }
     })
-
+    $("#close").click(function () {
+        if (sessionStorage.getItem("add") == "添加成功") {
+            window.location.reload();
+            sessionStorage.removeItem("add");
+        }
+    })
     //编辑组织名称
     $("#table").delegate(".btn_Editor", "click", function () {
         var name = $(this).parent().prev().text().trim();
