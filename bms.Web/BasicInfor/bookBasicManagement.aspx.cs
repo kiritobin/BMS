@@ -19,13 +19,14 @@ namespace bms.Web.BasicInfor
     {
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row,funCount;
         public string search = "", last, num;
-        public DataSet ds, dsFun;
+        public DataSet ds, dsPer;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
         DataTable except = new DataTable();//接受差集
         BookBasicBll bookbll = new BookBasicBll();
         UserBll userBll = new UserBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            authority();
+            permission();
             //获取书号
             BookBasicData bookId = bookbll.getBookNum();
             if (!IsPostBack)
@@ -326,13 +327,9 @@ namespace bms.Web.BasicInfor
                 sb.Append("<td>" + dr["catalog"].ToString() + "</td>");
                 sb.Append("<td>" + dr["remarks"].ToString() + "</td>");
                 sb.Append("<td>" + dr["dentification"].ToString() + "</td>");
-                for (int k = 0; k < funCount; k++)
+                if (funcBook)
                 {
-                    int functionId = Convert.ToInt32(dsFun.Tables[0].Rows[k]["functionId"]);
-                    if (functionId == 7)
-                    {
-                        sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></tr>");
-                    }
+                    sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></tr>");
                 }
             }
             sb.Append("</tbody>");
@@ -428,15 +425,69 @@ namespace bms.Web.BasicInfor
                 return new String(c);
                 }
 
-        // <summary>
-        /// 权限管理，获取功能
-        /// </summary>
-        protected void authority()
+        protected void permission()
         {
-            FunctionBll funBll = new FunctionBll();
+            FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
-            dsFun = funBll.SelectByRoleId(user.RoleId.RoleId);
-            funCount = dsFun.Tables[0].Rows.Count;
+            Role role = new Role();
+            role = user.RoleId;
+            int roleId = role.RoleId;
+            dsPer = functionBll.SelectByRoleId(roleId);
+            for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)
+            {
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 1)
+                {
+                    funcOrg = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 2)
+                {
+                    funcRole = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 3)
+                {
+                    funcUser = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 4)
+                {
+                    funcGoods = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 5)
+                {
+                    funcCustom = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 6)
+                {
+                    funcLibrary = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 7)
+                {
+                    funcBook = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 8)
+                {
+                    funcPut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 9)
+                {
+                    funcOut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 10)
+                {
+                    funcSale = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 11)
+                {
+                    funcSaleOff = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 12)
+                {
+                    funcReturn = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
+                {
+                    funcSupply = true;
+                }
+            }
         }
     }
 }

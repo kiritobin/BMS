@@ -80,7 +80,7 @@
     });
 
     //输入完敲回车键
-    $("#ISBN").keypress(function (e) {
+    $(".addsale").keypress(function (e) {
         if (e.keyCode == 13) {
             var ISBN = $("#ISBN").val().trim();
             var disCount = $("#disCount").val().trim();
@@ -100,13 +100,28 @@
                     data: {
                         ISBN: ISBN,
                         disCount: disCount,
-                        number:number,
+                        number: number,
                         op: "search"
                     },
                     dataType: 'text',
                     success: function (data) {
-                        $("#tablebook th:not(:first)").empty(); //清空table处首行
-                        $("#tablebook").append(data); //加载table
+                        if (data == "添加成功") {
+                            swal({
+                                title: "温馨提示",
+                                text: "添加成功",
+                                type: "success",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                                window, location.reload();
+                            })
+                        } else {
+                            $("#tablebook th:not(:first)").empty(); //清空table处首行
+                            $("#tablebook").append(data); //加载table
+                        }
                     }
                 });
             }
@@ -114,6 +129,7 @@
     })
     //添加
     $("#btnAdd").click(function () {
+        var bookNum = $("input[type='radio']:checked").val();
         var ISBN = $("#ISBN").val().trim();
         var disCount = $("#disCount").val().trim();
         var number = $("#number").val().trim();
@@ -131,6 +147,7 @@
                 type: 'Post',
                 url: 'salesDetail.aspx',
                 data: {
+                    bookNum: bookNum,
                     ISBN: ISBN,
                     disCount: disCount,
                     number: number,
@@ -180,11 +197,11 @@
             dataType: 'text',
             success: function (succ) {
                 if (succ == "删除成功") {
-                    alert("成功")
+                    window.location.href = "../SalesMGT/tradeManagement.aspx";
                 } else if (succ == "删除失败") {
-                    alert("失败")
+                    window.location.href = "../SalesMGT/tradeManagement.aspx";
                 } else {
-
+                    window.location.href = "../SalesMGT/tradeManagement.aspx";
                 }
             }
         })

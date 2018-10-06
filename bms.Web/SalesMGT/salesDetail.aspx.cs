@@ -31,21 +31,25 @@ namespace bms.Web.SalesMGT
             if (op == "back")
             {
                 string SaleHeadId = Session["saleheadId"].ToString();
-                Result result = salemonbll.SelectBySaleHeadId(SaleHeadId);
-                if (result == Result.删除成功)
+                int count = salemonbll.SelectBySaleHeadId(SaleHeadId);
+                if (count > 0)
                 {
-                    Response.Write("删除成功");
-                    Response.End();
-                }
-                else if (result == Result.删除失败)
-                {
-                    Response.Write("删除失败");
+                    Response.Write("已有数据");
                     Response.End();
                 }
                 else
                 {
-                    Response.Write("已有数据");
-                    Response.End();
+                    Result result = salemonbll.realDelete(SaleHeadId);
+                    if (result == Result.删除成功)
+                    {
+                        Response.Write("删除成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("删除失败");
+                        Response.End();
+                    }
                 }
             }
             if (op == "search")
@@ -73,22 +77,81 @@ namespace bms.Web.SalesMGT
             }
             if (op == "add")
             {
-
+                string bookISBN = Request["ISBN"];
+                double disCount = double.Parse(Request["disCount"]) / 100;
+                int number = Convert.ToInt32(Request["number"]);
+                long bookNum = long.Parse(Request["bookNum"]);
+                BookBasicBll Bookbll = new BookBasicBll();
+                BookBasicData book = new BookBasicData();
+                book = Bookbll.SelectById(bookNum);
+                string saleHeadId = Session["saleheadId"].ToString();
+                int saleIdmonomerId;
+                int count = salemonbll.SelectBySaleHeadId(saleHeadId);
+                if (count == 0)
+                {
+                    saleIdmonomerId = 1;
+                }
+                else
+                {
+                    saleIdmonomerId = count + 1;
+                }
+                int price = Convert.ToInt32(book.Price);
+                int totalPrice = price * number;
+                double realPrice = totalPrice * disCount;
+                DateTime Time = DateTime.Now.ToLocalTime();
+                SaleMonomer newSalemon = new SaleMonomer()
+                {
+                    SaleIdMonomerId = saleIdmonomerId,
+                    BookNum = bookNum,
+                    ISBN1 = bookISBN,
+                    SaleHeadId = saleHeadId,
+                    Number = number,
+                    UnitPrice = price,
+                    TotalPrice = totalPrice,
+                    RealPrice = realPrice,
+                    RealDiscount = disCount,
+                    Datetime = Time
+                };
+                Result result = salemonbll.Insert(newSalemon);
+                if (result == Result.添加成功)
+                {
+                    Response.Write("添加成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
             }
         }
+        /// <summary>
+        /// 只有一条数据时直接添加
+        /// </summary>
         public void addSalemon()
         {
             string bookISBN = Request["ISBN"];
-            int disCount = int.Parse(Request["disCount"])/100;
+            double disCount = double.Parse(Request["disCount"]) / 100;
             int number = Convert.ToInt32(Request["number"]);
             long bookNum = long.Parse(bookds.Tables[0].Rows[0]["bookNum"].ToString());
             string saleHeadId = Session["saleheadId"].ToString();
+            int saleIdmonomerId;
+            int count = salemonbll.SelectBySaleHeadId(saleHeadId);
+            if (count == 0)
+            {
+                saleIdmonomerId = 0;
+            }
+            else
+            {
+                saleIdmonomerId = count + 1;
+            }
             int price = Convert.ToInt32(bookds.Tables[0].Rows[0]["price"].ToString());
             int totalPrice = price * number;
-            int realPrice = totalPrice * disCount;
+            double realPrice = totalPrice * disCount;
             DateTime Time = DateTime.Now.ToLocalTime();
             SaleMonomer newSalemon = new SaleMonomer()
             {
+                SaleIdMonomerId = saleIdmonomerId,
                 BookNum = bookNum,
                 ISBN1 = bookISBN,
                 SaleHeadId = saleHeadId,
@@ -99,9 +162,22 @@ namespace bms.Web.SalesMGT
                 RealDiscount = disCount,
                 Datetime = Time
             };
-            salemonbll.Insert(newSalemon);
+            Result result = salemonbll.Insert(newSalemon);
+            if (result == Result.添加成功)
+            {
+                Response.Write("添加成功");
+                Response.End();
+            }
+            else
+            {
+                Response.Write("添加失败");
+                Response.End();
+            }
         }
-
+        /// <summary>
+        /// 查询到多条数据时展示数据
+        /// </summary>
+        /// <returns></returns>
         public string getbook()
         {
             strbook.Append("<thead>");

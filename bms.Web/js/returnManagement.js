@@ -166,6 +166,22 @@ $("#table").delegate(".btn-add", "click", function () {
         }
     });
 })
+$("#table").delegate(".btn-search", "click", function () {
+    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+    $.ajax({
+        type: 'Post',
+        url: 'returnManagement.aspx',
+        data: {
+            ID: ID,
+            op: "session"
+        },
+        dataType: 'text',
+        success: function (succ) {
+            window.location.href = "../InventoryMGT/checkReturn.aspx";
+        }
+    });
+})
+
 //删除
 $("#table").delegate(".btn-delete", "click", function () {
     swal({
