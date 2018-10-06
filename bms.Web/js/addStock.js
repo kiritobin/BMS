@@ -26,6 +26,53 @@ function logout() {
     })
 }
 
+$("#btn-search").click(function () {
+    var id = $("#ID").val();
+    $.ajax({
+        type: 'Post',
+        url: 'addStock.aspx',
+        data: {
+            id: id,
+            op:'paging'
+        },
+        dataType: 'text',
+        success: function (data) {
+            $("#intPageCount").remove();
+            $("#table tr:not(:first)").empty(); //清空table处首行
+            $("#table").append(data); //加载table
+            $(".paging").empty();
+            $('.paging').pagination({
+                //totalData: $("#totalCount").val(),
+                //showData: $("#pageSize").val(),
+                pageCount: $("#intPageCount").val(), //总页数
+                jump: true,
+                mode: 'fixed',//固定页码数量
+                coping: true,
+                homePage: '首页',
+                endPage: '尾页',
+                prevContent: '上页',
+                nextContent: '下页',
+                callback: function (api) {
+                    $.ajax({
+                        type: 'Post',
+                        url: 'addStock.aspx',
+                        data: {
+                            page: api.getCurrent(), //页码
+                            id: id,
+                            op: "paging"
+                        },
+                        dataType: 'text',
+                        success: function (data) {
+                            $("#table tr:not(:first)").empty(); //清空table处首行
+                            $("#table").append(data); //加载table
+                        }
+                    });
+                }
+            });
+        }
+    })
+})
+
 $(document).ready(function () {
     $("#btnAdd").attr("disabled", true);
     $('.paging').pagination({

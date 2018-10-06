@@ -124,7 +124,7 @@ namespace bms.Web.InventoryMGT
                             {//添加库存信息
                                 Stock stock = new Stock();
                                 stock.BookNum = bookBasicData;
-                                stock.StockNum = allCount;
+                                stock.StockNum = billCount;
                                 stock.ISBN = bookBasicData;
                                 stock.RegionId = user.ReginId;
                                 GoodsShelves goodsShelves = new GoodsShelves();
@@ -253,6 +253,13 @@ namespace bms.Web.InventoryMGT
 
         protected string getData()
         {
+            string op = Request["op"];
+            string where = "deleteState=0 and singleHeadId='" + singleHeadId + "'";
+            string id = Request["id"];
+            if (id != null && id != "")
+            {
+                where = where + " and monId=" + id;
+            }
             UserBll userBll = new UserBll();
             GoodsShelvesBll goodsShelvesBll = new GoodsShelvesBll();
             User user = (User)Session["user"];
@@ -265,9 +272,9 @@ namespace bms.Web.InventoryMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_Monomer";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,ISBN,bookName,supplier,number,uPrice,discount,totalPrice,realPrice";
+            tbd.StrColumnlist = "singleHeadId,monId,ISBN,bookName,supplier,number,uPrice,discount,totalPrice,realPrice";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "deleteState=0 and singleHeadId='" + singleHeadId + "'";
+            tbd.StrWhere = where;
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
@@ -280,8 +287,7 @@ namespace bms.Web.InventoryMGT
             DataRowCollection drc = ds.Tables[0].Rows;
             for (int i = 0; i < count; i++)
             {
-                sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                sb.Append("<td>" + drc[i]["singleHeadId"].ToString() + "</td >");
+                sb.Append("<tr><td>" + drc[i]["monId"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["ISBN"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["bookName"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["supplier"].ToString() + "</td >");
@@ -293,7 +299,6 @@ namespace bms.Web.InventoryMGT
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
-            string op = Request["op"];
             if (op == "paging")
             {
                 Response.Write(sb.ToString());
