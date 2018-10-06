@@ -98,13 +98,13 @@ namespace bms.Web.SalesMGT
                 }
             }
             //销退
-            if (op== "saleback")
-            {
-                string saleId = Request["ID"];
-                Session["saleId"] = saleId;
-                Response.Write("成功");
-                Response.End();
-            }
+            //if (op== "saleback")
+            //{
+            //    string saleId = Request["ID"];
+            //    Session["saleId"] = saleId;
+            //    Response.Write("成功");
+            //    Response.End();
+            //}
             //销售
             if (op == "sale")
             {
@@ -150,11 +150,49 @@ namespace bms.Web.SalesMGT
                 }
 
             }
-            if (op == "back")
+            //添加销退
+            if (op == "saleback")
             {
                 sellOffHeadBll sellBll = new sellOffHeadBll();
+                string saleTaskId = Request["ID"];
+                SaleTask sale = new SaleTask();
+                sale = saleBll.selectById(saleTaskId);
+                int userId = sale.UserId;
+                User user = new User()
+                {
+                    UserId = userId
+                };
+                DateTime time = DateTime.Now;
+                string sellOffHeadID;
+                int count = sellBll.getCount(saleTaskId);
+                if (count > 0)
+                {
+                    count += 1;
+                    sellOffHeadID = "XT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                    Session["sellOffHeadID"] = sellOffHeadID;
+                }
+                else
+                {
+                    count = 1;
+                    sellOffHeadID = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                    Session["sellOffHeadID"] = sellOffHeadID;
+                }
                 SellOffHead sell = new SellOffHead();
-
+                sell.SellOffHeadId = sellOffHeadID;
+                sell.SaleTaskId = sale;
+                sell.MakingTime = time;
+                sell.User = user;
+                Result row = sellBll.Insert(sell);
+                if(row == Result.添加成功)
+                {
+                    Response.Write("添加成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
             }
         }
         /// <summary>
