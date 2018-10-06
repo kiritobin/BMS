@@ -17,7 +17,7 @@ namespace bms.Web.AccessMGT
     {
         public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
         public string search = "";
-        public DataSet dsRegion,dsRole,ds;
+        public DataSet dsRegion,dsRole,ds,dsPer;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
         RegionBll regionBll = new RegionBll();
@@ -26,6 +26,7 @@ namespace bms.Web.AccessMGT
         Role role = new Role();
         protected void Page_Load(object sender, EventArgs e)
         {
+            permission();
             getData();
             //增、删、改操作
             Region region = new Region();
@@ -245,6 +246,15 @@ namespace bms.Web.AccessMGT
                 row = Result.关联引用;
             }
             return row;
+        }
+        protected void permission()
+        {
+            FunctionBll functionBll = new FunctionBll();
+            User user = (User)Session["user"];
+            Role role = new Role();
+            role = user.RoleId;
+            int roleId = role.RoleId;
+            dsPer = functionBll.SelectByRoleId(roleId);
         }
     }
 }

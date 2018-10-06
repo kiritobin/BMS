@@ -16,14 +16,15 @@ namespace bms.Web.CustomerMGT
     public partial class customerManagement : System.Web.UI.Page
     {
 
-        public int totalCount, intPageCount, pageSize = 20;
-        public DataSet regionDs, ds;
+        public int totalCount, intPageCount, pageSize = 20, funCount;
+        public DataSet regionDs, ds,dsFun;
         CustomerBll cbll = new CustomerBll();
         RegionBll rbll = new RegionBll();
         UserBll userbll = new UserBll();
         RSACryptoService rasc = new RSACryptoService();
         protected void Page_Load(object sender, EventArgs e)
         {
+            authority();
             string op = Context.Request["op"];
             if (!IsPostBack)
             {
@@ -194,6 +195,17 @@ namespace bms.Web.CustomerMGT
                     Response.End();
                 }
             }
+        }
+
+        // <summary>
+        /// 权限管理，获取功能
+        /// </summary>
+        protected void authority()
+        {
+            FunctionBll funBll = new FunctionBll();
+            User user = (User)Session["user"];
+            dsFun = funBll.SelectByRoleId(user.RoleId.RoleId);
+            funCount = dsFun.Tables[0].Rows.Count;
         }
     }
 }
