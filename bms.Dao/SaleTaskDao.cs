@@ -79,7 +79,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet SelectById(string saleTaskId)
         {
-            string sql = "select defaultDiscount,numberLimit from T_SaleTask where saleTaskId=@saleTaskId";
+            string sql = "select defaultDiscount,numberLimit,userId from T_SaleTask where saleTaskId=@saleTaskId";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             DataSet ds = db.FillDataSet(sql, param, values);

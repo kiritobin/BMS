@@ -116,10 +116,12 @@ namespace bms.Bll
             DataSet ds = saleDao.SelectById(saleTaskId);
             double discount = double.Parse(ds.Tables[0].Rows[0]["defaultDiscount"].ToString());
             int numberlimit = Convert.ToInt32(ds.Tables[0].Rows[0]["numberLimit"].ToString());
+            string userId = ds.Tables[0].Rows[0]["userId"].ToString();
             SaleTask st = new SaleTask()
             {
                 DefaultDiscount = discount,
                 NumberLimit = numberlimit,
+                UserId = Convert.ToInt32(userId)
             };
             return st;
         }

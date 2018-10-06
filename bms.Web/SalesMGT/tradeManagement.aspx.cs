@@ -153,35 +153,37 @@ namespace bms.Web.SalesMGT
             //添加销退
             if (op == "saleback")
             {
-                sellOffHeadBll sellBll = new sellOffHeadBll();
                 string saleTaskId = Request["ID"];
-                SaleTask sale = new SaleTask();
-                sale = saleBll.selectById(saleTaskId);
-                int userId = sale.UserId;
-                User user = new User()
-                {
-                    UserId = userId
-                };
-                DateTime time = DateTime.Now;
-                string sellOffHeadID;
+                SaleTask sale = saleBll.selectById(saleTaskId);
+                User user = new User();
+                user.UserId = sale.UserId;//用户Id
+                sellOffHeadBll sellBll = new sellOffHeadBll();
                 int count = sellBll.getCount(saleTaskId);
+                string sellId;
                 if (count > 0)
                 {
                     count += 1;
-                    sellOffHeadID = "XT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                    Session["sellOffHeadID"] = sellOffHeadID;
+                    sellId = "XT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                    Session["sell"] = sellId;
                 }
                 else
                 {
                     count = 1;
-                    sellOffHeadID = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                    Session["sellOffHeadID"] = sellOffHeadID;
+                    sellId = "XT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                    Session["sell"] = sellId;
                 }
-                SellOffHead sell = new SellOffHead();
-                sell.SellOffHeadId = sellOffHeadID;
-                sell.SaleTaskId = sale;
-                sell.MakingTime = time;
-                sell.User = user;
+                DateTime time = DateTime.Now;
+                SaleTask st = new SaleTask()
+                {
+                    SaleTaskId = saleTaskId
+                };
+                SellOffHead sell = new SellOffHead()
+                {
+                    SellOffHeadId = sellId,
+                    SaleTaskId = st,
+                    MakingTime = time,
+                    User = user
+                };
                 Result row = sellBll.Insert(sell);
                 if(row == Result.添加成功)
                 {
