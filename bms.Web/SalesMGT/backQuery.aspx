@@ -61,12 +61,12 @@
                                                 <th>单据号</th>
                                                 <th>ISBN号</th>
                                                 <th>书号</th>
-                                                <th>实际折扣</th>
                                                 <th>单价</th>
                                                 <th>数量</th>
+                                                <th>实际折扣</th>
                                                 <th>码洋</th>
                                                 <th>实洋</th>
-                                                <th>时间</th>
+                                                <th>制单时间</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
@@ -104,37 +104,21 @@
                         <tr>
                             <td>ISBN号</td>
                             <td>
-                                <input id="search_sim" type="text" class="sales_search">
+                                <input id="isbn" type="text" class="sales_search addsell">
                             </td>
                             <td>实际折扣</td>
                             <td>
-                                <input type="text" value="" class="sales_search"></td>
+                                <input type="text" value="" class="sales_search addsell" id="realDiscount"></td>
                             <td>数量</td>
                             <td>
-                                <input type="text" value="" class="sales_search"></td>
+                                <input type="text" value="" class="sales_search addsell" id="count"></td>
                         </tr>
-                        <%if (searchDs != null)
-                            { %>
-                        <tr id="Book">
-                            <td colspan="6" style="border:1px solid black">
-                                <table class="table">
-                                    <tr>
-                                        <th>书号</th>
-                                        <th>书名</th>
-                                        <th>出版社</th>
-                                    </tr>
-                                    <%for (int i = 0; i < searchDs.Tables[0].Rows.Count; i++)
-                                        { %>
-                                    <tr>
-                                        <td><%=searchDs.Tables[0].Rows[i]["bookNum"] %></td>
-                                        <td><%=searchDs.Tables[0].Rows[i]["bookName"] %></td>
-                                        <td><%=searchDs.Tables[0].Rows[i]["supplier"] %></td>
-                                    </tr>
-                                    <%} %>
-                                </table>
-                            </td>
-                        </tr>
-                        <%} %>
+                    </table>
+                    <table id="tablebook" class="table mostTable table-bordered text-center">
+                        <%if (bookds != null)
+                            {%>
+                        <%=getbook()%>
+                        <% } %>
                     </table>
                 </div>
                 <div class="modal-footer">

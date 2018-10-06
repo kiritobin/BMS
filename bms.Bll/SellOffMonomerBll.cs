@@ -59,5 +59,44 @@ namespace bms.Bll
                 return null;
             }
         }
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="sm"></param>
+        /// <returns></returns>
+        public Result Insert(SellOffMonomer sm)
+        {
+            int row = dao.Insert(sm);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
+        }
+        /// <summary>
+        /// 通过单头Id获取单体数量
+        /// </summary>
+        /// <param name="sellOffHeaId"></param>
+        /// <returns></returns>
+        public int GetCount(string sellOffHeaId)
+        {
+            int row = dao.GetCount(sellOffHeaId);
+            return row;
+        }
+        public SellOffHead getSaleTask(string sellOffHeadId)
+        {
+            SellOffHead sh = new SellOffHead();
+            sh = dao.getSaleTask(sellOffHeadId);
+            return sh;
+        }
+        public SaleTask getDisCount(string saleTaskId)
+        {
+            SaleTask st = new SaleTask();
+            st = dao.getDisCount(saleTaskId);
+            return st;
+        }
     }
 }
