@@ -281,11 +281,12 @@
                             <table class="table model-table">
                                 <tr>
                                     <td>销售任务单据编号</td>
-                                    <td>
-                                        <input type="text" value="" class="sales_search"></td>
+                                    <td id="saleId">
+                                        <%=Session["saleId"] %>
+                                    </td>
                                     <td>客户</td>
                                     <td>
-                                        <select id="selectCustomer" class="selectpicker" style="width:50%">
+                                        <select id="selectCustomer" class="selectpicker" style="width:50%" title="请选择客户">
                                             <%for (int i = 0; i < cutds.Tables[0].Rows.Count; i++)
                                                 { %>
                                             <option value="<%=cutds.Tables[0].Rows[i]["customerId"] %>"><%=cutds.Tables[0].Rows[i]["customerName"] %></option>
@@ -295,19 +296,19 @@
                                 </tr>
                                 <tr>
                                     <td>操作员</td>
-                                    <td>
-                                        <input type="text" value="" class="sales_search"></td>
+                                    <td id="userId">
+                                        <%=Session["user"] %></td>
                                     <td>品种数</td>
                                     <td>
-                                        <input type="text" value="" class="sales_search"></td>
+                                        <input type="text" value="" class="sales_search" id="kinds"></td>
                                 </tr>
                                 <tr>
                                     <td>总数量</td>
                                     <td>
-                                        <input type="text" value="" class="sales_search"></td>
-                                    <td>默认折扣</td>
+                                        <input type="text" value="" class="sales_search" id="count"></td>
+                                    <td>实际折扣</td>
                                     <td>
-                                        <input type="text" value="" class="sales_search"></td>
+                                        <input type="text" value="<%=discount %>" class="sales_search" id="discount"></td>
                                 </tr>
                             </table>
                         </div>

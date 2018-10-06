@@ -142,6 +142,12 @@ namespace bms.Web.SalesMGT
                 }
 
             }
+            if (op == "back")
+            {
+                sellOffHeadBll sellBll = new sellOffHeadBll();
+                SellOffHead sell = new SellOffHead();
+
+            }
         }
         /// <summary>
         /// 获取基础数据及查询方法

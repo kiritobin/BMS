@@ -106,5 +106,22 @@ namespace bms.Bll
                 return null;
             }
         }
+        /// <summary>
+        /// 根据销售任务ID获取销售任务信息 
+        /// </summary>
+        /// <param name="saleTaskId">销售任务ID</param>
+        /// <returns></returns>
+        public SaleTask selectById(string saleTaskId)
+        {
+            DataSet ds = saleDao.SelectById(saleTaskId);
+            double discount = double.Parse(ds.Tables[0].Rows[0]["defaultDiscount"].ToString());
+            int numberlimit = Convert.ToInt32(ds.Tables[0].Rows[0]["numberLimit"].ToString());
+            SaleTask st = new SaleTask()
+            {
+                DefaultDiscount = discount,
+                NumberLimit = numberlimit,
+            };
+            return st;
+        }
     }
 }

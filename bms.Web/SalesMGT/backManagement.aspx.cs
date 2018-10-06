@@ -15,6 +15,7 @@ namespace bms.Web.SalesMGT
         protected int totalCount;
         protected int intPageCount;
         public DataSet cutds;
+        protected double discount;
         protected void Page_Load(object sender, EventArgs e)
         {
             string op = Request["op"];
@@ -29,7 +30,13 @@ namespace bms.Web.SalesMGT
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
             CustomerBll cutBll = new CustomerBll();
+            //获取默认折扣
+            SaleTaskBll saleBll = new SaleTaskBll();
             cutds = cutBll.select();
+            string saleId = Session["saleId"].ToString();
+            SaleTask sale = new SaleTask();
+            sale = saleBll.selectById(saleId);
+            discount = sale.DefaultDiscount;
         }
         /// <summary>
         /// 获取基础数据
@@ -37,6 +44,8 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public String getData()
         {
+            Session["saleId"] = "XSRW20181005000005";
+            Session["user"] = "1001";
             int pagesize = 20;
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -47,21 +56,22 @@ namespace bms.Web.SalesMGT
             //string stockId = Request["stockId"];
             string sellId = Request["sellId"];
             string cutomerName = Request["customer"];
+            string saleId = Session["saleId"].ToString();
             if ((sellId == "" || sellId == null) && (cutomerName == "" || cutomerName == null))
             {
-                search = "saleTaskId='XSRW20181005000005' and deleteState=0";
+                search = "saleTaskId='" + saleId + "' and deleteState=0";
             }
             else if (sellId != "" && sellId != null && (cutomerName == "" || cutomerName == null))
             {
-                search = "saleTaskId='XSRW20181005000005' and deleteState=0 and sellOffHeadID=" + "'" + sellId + "'";
+                search = "saleTaskId='" + saleId + "' and deleteState=0 and sellOffHeadID=" + "'" + sellId + "'";
             }
             else if ((sellId == "" || sellId == null) && cutomerName != "" && cutomerName != null)
             {
-                search = "saleTaskId='XSRW20181005000005' and deleteState=0 and customerName=" + "'" + cutomerName + "'";
+                search = "saleTaskId='" + saleId + "' and deleteState=0 and customerName=" + "'" + cutomerName + "'";
             }
             else
             {
-                search = "saleTaskId='XSRW20181005000005' and deleteState=0 and customerName=" + "'" + cutomerName + "'" + " and sellOffHeadID=" + "'" + sellId + "'";
+                search = "saleTaskId='" + saleId + "' and deleteState=0 and customerName=" + "'" + cutomerName + "'" + " and sellOffHeadID=" + "'" + sellId + "'";
             }
             //if ((stockId == "" || stockId == null) && (sellId == "" || sellId == null) && (cutomerName == "" || cutomerName == null))
             //{
@@ -121,6 +131,7 @@ namespace bms.Web.SalesMGT
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
+            strb.Append("<input type='hidden' value='" + saleId + "' id='saleTaskId' />");
             string op = Request["op"];
             if (op == "paging")
             {
@@ -128,6 +139,16 @@ namespace bms.Web.SalesMGT
                 Response.End();
             }
             return strb.ToString();
+        }
+        public void Insert()
+        {
+            string saleId = Session["saleId"].ToString();
+            string user = Session["user"].ToString();
+            int kinds = Convert.ToInt32(Request["kinds"]);
+            int count = Convert.ToInt32(Request["count"]);
+            int state = 0;
+            DateTime makeTime = DateTime.Now;
+            //double totalPrice = 
         }
     }
 }
