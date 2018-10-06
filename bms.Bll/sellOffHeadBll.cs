@@ -38,5 +38,15 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
+        /// <summary>
+        /// 根据销售任务Id返回销退单头数量
+        /// </summary>
+        /// <param name="saleTaskId"></param>
+        /// <returns></returns>
+        public int getCount(string saleTaskId)
+        {
+            int row = dao.getCount(saleTaskId);
+            return row;
+        }
     }
 }

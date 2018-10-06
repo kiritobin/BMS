@@ -11,7 +11,7 @@
         callback: function (api) {
             $.ajax({
                 type: 'Post',
-                url: '../InventoryMGT/addReturn.aspx',
+                url: 'addReturn.aspx',
                 data: {
                     page: api.getCurrent(), //页码
                     op: "paging"

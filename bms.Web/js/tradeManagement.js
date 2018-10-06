@@ -230,8 +230,21 @@
             },
             dataType: 'text',
             success: function (succ) {
-                if (succ == "成功") {
-                    window.location.href = "../SalesMGT/backManagement.aspx";
+                if (succ == "添加成功") {
+                    window.location.href = "../SalesMGT/backQuery.aspx";
+                }
+                else {
+                    swal({
+                        title: "提示",
+                        text: "单头添加失败，请重试",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                    })
                 }
             }
         })
