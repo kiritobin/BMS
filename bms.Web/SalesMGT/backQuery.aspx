@@ -32,7 +32,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card" style="height:500px">
                         <h3 class="text-center">销&nbsp;退</h3>
                         <hr />
                         <div class="card-body">
@@ -46,7 +46,10 @@
                                         <button class="btn btn-info">查询</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print" aria-hidden="true"></i></button>
+                                        <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="btn-group text-right" role="group">
+                                        <button class="btn btn-danger" id="toBack">返回</button>
                                     </div>
                                 </div>
                             </div>
@@ -55,36 +58,29 @@
                                     <table class="table mostTable table-bordered text-center">
                                         <thead>
                                             <tr>
-                                                <th>书号</th>
+                                                <th>单据号</th>
                                                 <th>ISBN号</th>
+                                                <th>书号</th>
                                                 <th>实际折扣</th>
                                                 <th>单价</th>
                                                 <th>数量</th>
+                                                <th>码洋</th>
                                                 <th>实洋</th>
                                                 <th>时间</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>5</td>
-                                                <td>6</td>
-                                                <td>7</td>
-                                                <td>
-                                                    <button class="btn btn-danger">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        <%=GetData() %>
                                     </table>
                                 </div>
                                 <div class="statistics col-md-2">
                                     统计
+                                </div>
+                                <!--分页-->
+                                <div class="copyright float-right page-box">
+                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                        <div class="m-style paging"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -108,22 +104,37 @@
                         <tr>
                             <td>ISBN号</td>
                             <td>
-                                <input type="text" value="" class="sales_search"></td>
+                                <input id="search_sim" type="text" class="sales_search">
+                            </td>
                             <td>实际折扣</td>
                             <td>
                                 <input type="text" value="" class="sales_search"></td>
-                            <td>单价</td>
-                            <td>
-                                <input type="text" value="" class="sales_search"></td>
-                        </tr>
-                        <tr>
                             <td>数量</td>
                             <td>
                                 <input type="text" value="" class="sales_search"></td>
-                             <td>实洋</td>
-                            <td>
-                                <input type="text" value="" class="sales_search"></td>
                         </tr>
+                        <%if (searchDs != null)
+                            { %>
+                        <tr id="Book">
+                            <td colspan="6" style="border:1px solid black">
+                                <table class="table">
+                                    <tr>
+                                        <th>书号</th>
+                                        <th>书名</th>
+                                        <th>出版社</th>
+                                    </tr>
+                                    <%for (int i = 0; i < searchDs.Tables[0].Rows.Count; i++)
+                                        { %>
+                                    <tr>
+                                        <td><%=searchDs.Tables[0].Rows[i]["bookNum"] %></td>
+                                        <td><%=searchDs.Tables[0].Rows[i]["bookName"] %></td>
+                                        <td><%=searchDs.Tables[0].Rows[i]["supplier"] %></td>
+                                    </tr>
+                                    <%} %>
+                                </table>
+                            </td>
+                        </tr>
+                        <%} %>
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -145,6 +156,7 @@
     <script src="../js/material-dashboard.min.js"></script>
     <!-- selectpicker.js -->
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/backQuery.js"></script>
 </body>
 
 </html>

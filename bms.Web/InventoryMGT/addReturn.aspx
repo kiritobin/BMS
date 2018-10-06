@@ -15,6 +15,7 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
     <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
@@ -258,7 +259,13 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" class="searchOne" placeholder="请输入查询条件" id="input-search">
+                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据编号">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" id="bookNum" class="searchOne" placeholder="请输入书号">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" class="searchOne" placeholder="请输入ISBN" id="search_isbn">
                                                 <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
@@ -322,13 +329,12 @@
                                     <span>
                                         <nobr>折扣:</nobr>
                                     </span>
-                                    <input type="text" class="modal_search_add" value="" id="disCount">
+                                    <input type="text" class="modal_search_add" value="<%=discount %>" id="disCount">
                                 </div>
                                 <br />
                                 <table class="table table-bordered mostTable text-center" id="table2">
                                     <thead>
                                         <tr>
-                                            <%--<th><input type="checkbox" name="checkbox" class="check" value="" disabled="disabled" /></th>--%>
                                             <th>
                                                 <div class="pretty inline">
                                                     <input type="radio" name="radio" disabled="disabled">
@@ -342,7 +348,7 @@
                                             <th>出版社</th>
                                         </tr>
                                     </thead>
-                                   
+                                   <%=getIsbn() %>
                                 </table>
                             </div>
                             <div class="modal-footer">

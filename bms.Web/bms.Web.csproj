@@ -41,6 +41,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NPOI">
+      <HintPath>..\bms.DBHelper\bin\Debug\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\bms.DBHelper\bin\Debug\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\bms.DBHelper\bin\Debug\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\bms.DBHelper\bin\Debug\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -96,6 +108,8 @@
     <Content Include="InventoryMGT\checkStock.aspx" />
     <Content Include="InventoryMGT\inventoryManagement.aspx" />
     <Content Include="InventoryMGT\replenishMent.aspx" />
+    <Content Include="SalesMGT\customerRetail.aspx" />
+    <Content Include="SalesMGT\retail.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
     <Content Include="InventoryMGT\checkWarehouse.aspx" />
     <Content Include="InventoryMGT\warehouseManagement.aspx" />
@@ -131,6 +145,7 @@
     <Content Include="js\addWarehouse.js" />
     <Content Include="js\ajaxfileupload.js" />
     <Content Include="js\backManagement.js" />
+    <Content Include="js\backQuery.js" />
     <Content Include="js\bookBasicManagement.js" />
     <Content Include="js\bookshelfManagement.js" />
     <Content Include="js\bootstrap-material-design.min.js" />
@@ -332,6 +347,20 @@
     <Compile Include="InventoryMGT\replenishMent.aspx.designer.cs">
       <DependentUpon>replenishMent.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SalesMGT\customerRetail.aspx.cs">
+      <DependentUpon>customerRetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\customerRetail.aspx.designer.cs">
+      <DependentUpon>customerRetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\retail.aspx.cs">
+      <DependentUpon>retail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retail.aspx.designer.cs">
+      <DependentUpon>retail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InventoryMGT\stockManagement.aspx.cs">
       <DependentUpon>stockManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -473,12 +502,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Customer\" />
+    <Folder Include="download\入库明细导出\" />
+    <Folder Include="download\出库明细导出\" />
+    <Folder Include="download\退货明细导出\" />
+    <Folder Include="download\销售明细导出\" />
+    <Folder Include="download\销退明细导出\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bms.Bll\bms.Bll.csproj">
       <Project>{F131BEE1-4554-4A96-A998-8B031FA59979}</Project>
       <Name>bms.Bll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bms.DBHelper\bms.DBHelper.csproj">
+      <Project>{36160076-f9b7-4d74-aeea-5483b41abd75}</Project>
+      <Name>bms.DBHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\bms.Model\bms.Model.csproj">
       <Project>{71E48A40-E95D-47B8-A703-B98C07376615}</Project>

@@ -15,7 +15,7 @@ namespace bms.Web.InventoryMGT
     public partial class checkStock : System.Web.UI.Page
     {
         public DataTable putDt;
-        public DataSet ds,dsPer;
+        public DataSet ds, dsPer;
         public string putId, putOperator, putCount, putRegionName, putTotalPrice, putRealPrice, putTime;
         public int totalCount, intPageCount, pageSize = 20;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
@@ -25,6 +25,10 @@ namespace bms.Web.InventoryMGT
             permission();
             getData();
             string op = Request["op"];
+            if (op == "export")
+            {
+                export();
+            }
             if (op == "logout")
             {
                 //删除身份凭证
@@ -63,7 +67,7 @@ namespace bms.Web.InventoryMGT
             tbd.OrderBy = "singleHeadId";
             tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "";
+            tbd.StrWhere = "singleHeadId=" + putId + " and type=1";
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
@@ -157,6 +161,42 @@ namespace bms.Web.InventoryMGT
                 {
                     funcSupply = true;
                 }
+            }
+        }
+
+        /// <summary>
+        /// //导出列表方法
+        /// </summary>
+        /// <param name="s_path">文件路径</param>
+        public void downloadfile(string s_path)
+        {
+            System.IO.FileInfo file = new System.IO.FileInfo(s_path);
+            HttpContext.Current.Response.ContentType = "application/ms-download";
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.AddHeader("Content-Type", "application/octet-stream");
+            HttpContext.Current.Response.Charset = "utf-8";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(file.Name, System.Text.Encoding.UTF8));
+            HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
+            HttpContext.Current.Response.WriteFile(file.FullName);
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.End();
+        }
+
+        public void export()
+        {
+            var name = putId + "明细" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            DataTable dt = warehousingBll.ExportExcel(putId);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                var path = Server.MapPath("~/download/入库明细导出/" + name + ".xls");
+                ExcelHelper.x2003.TableToExcelForXLS(dt, path);
+                downloadfile(path);
+            }
+            else
+            {
+                Response.Write("没有数据，不能执行导出操作!");
+                Response.End();
             }
         }
     }

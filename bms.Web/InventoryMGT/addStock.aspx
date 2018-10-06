@@ -260,8 +260,6 @@
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" class="searchOne" placeholder="请输入单据编号" id="ID">
-                                        <input type="text" class="searchOne" placeholder="请输入ISBN" id="ISBN">
-                                        <input type="text" class="searchOne" placeholder="请输入书名" id="bookName">
                                         <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
                                     </div>
                                     <div class="btn-group" role="group">
@@ -278,7 +276,6 @@
                                                     <td colspan="10">商品</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>序号</td>
                                                     <td>单据编号</td>
                                                     <td>ISBN号</td>
                                                     <td>书名</td>

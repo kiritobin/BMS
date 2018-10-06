@@ -53,7 +53,6 @@ namespace bms.Dao
             }
         }
 
-
         /// <summary>
         /// 获取出库单体的所有信息
         /// </summary>
@@ -256,6 +255,23 @@ namespace bms.Dao
             object[] values = { disCount };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
+        }
+
+        /// <summary>
+        /// 导出成Excel表
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <returns>返回一个DataTable的选题记录集合</returns>
+        public DataTable ExportExcel(string strWhere)
+        {
+            String cmdText = string.Format("select singleHeadId as 单据编号,ISBN as ISBN号,number as 商品数量,uPrice as 单价,discount as 折扣,realPrice as 实洋,totalPrice as 码洋,shelvesName as 货架 from V_Monomer where singleHeadId='{0}' and type=1", strWhere);
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            DataTable dt = null;
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                dt = ds.Tables[0];
+            }
+            return dt;
         }
     }
 }
