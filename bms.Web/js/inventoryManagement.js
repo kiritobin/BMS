@@ -16,7 +16,7 @@ function logout() {
     }).then(function () {
         $.ajax({
             type: 'get',
-            url: 'addReturn.aspx?op=logout',
+            url: 'inventoryManagement.aspx?op=logout',
             datatype: 'text',
             data: {},
             success: function (data) {
@@ -44,7 +44,7 @@ $(document).ready(function () {
             var btnISBN = $("#bookISBN").val().trim();
             $.ajax({
                 type: 'Post',
-                url: 'bookBasicManagement.aspx',
+                url: 'inventoryManagement.aspx',
                 data: {
                     page: api.getCurrent(), //页码
                     bookName: bookName,
@@ -67,7 +67,7 @@ $(document).ready(function () {
         var bookISBN = $("#isbn").val().trim();
         $.ajax({
             type: 'Post',
-            url: 'bookBasicManagement.aspx',
+            url: 'inventoryManagement.aspx',
             data: {
                 bookName: bookName,
                 bookArea: bookArea,

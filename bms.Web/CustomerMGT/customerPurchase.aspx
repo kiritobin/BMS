@@ -29,7 +29,15 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     <div class="wrapper ">
-        <div class="main-panel" style="margin:0px auto; float:none;">
+        <div class="main-panel" style="margin: 0px auto; float: none;">
+            <!-- 主界面头部面板 -->
+            <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+                <div class="container">
+                    <div class="navbar-wrapper">
+                    </div>
+                    <a class="btn btn-white btn-sm" href="javascript:logout();">退出系统</a>
+                </div>
+            </nav>
             <!-- 主界面内容 -->
             <div class="content">
                 <div class="container-fluid">
@@ -46,7 +54,7 @@
                                                 <input type="text" value="" class="searchOne" id="bookSearch" placeholder="书名查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="goodsSearch" placeholder="供应商查询"> 
+                                                <input type="text" value="" class="searchOne" id="goodsSearch" placeholder="供应商查询">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                         </div>
@@ -55,16 +63,36 @@
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th><nobr>单据编号</nobr></th>
-                                                    <th><nobr>ISBN</nobr></th>
-                                                    <th><nobr>书名</nobr></th>
-                                                    <th><nobr>单价</nobr></th>
-                                                    <th><nobr>数量</nobr></th>
-                                                    <th><nobr>码洋（册）</nobr></th>
-                                                    <th><nobr>实洋</nobr></th>
-                                                    <th><nobr>折扣</nobr></th>
-                                                    <th><nobr>供应商</nobr></th>
-                                                    <th><nobr>采购日期</nobr></th>
+                                                    <th>
+                                                        <nobr>单据编号</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>ISBN</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>书名</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>单价</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>数量</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>码洋（册）</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>实洋</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>折扣</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>供应商</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>采购日期</nobr>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
@@ -103,6 +131,7 @@
     <script src="../js/bootstrap-material-design.min.js"></script>
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <script src="../js/sweetalert2.js"></script>
     <script src="../js/customerPurchase.js"></script>
     <script src="../js/jquery.pagination.js"></script>
 </body>
