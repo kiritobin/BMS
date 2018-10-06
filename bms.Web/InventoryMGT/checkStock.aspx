@@ -256,6 +256,7 @@
                                         <h4 class="card-title">入库查询</h4>
                                     </div>
                                     <div class="btn-group" role="group">
+                                        <button class="btn btn-success" id="export"><i class="fa fa-print" aria-hidden="true">导出</i></button>
                                         <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true">打印</i></button>
                                     </div>
                                     <div class="card-header from-group">
@@ -331,7 +332,7 @@
                                                     <td>折扣</td>
                                                     <td>实洋</td>
                                                     <td>码洋</td>
-                                                    <td>货架号</td>
+                                                    <td>货架</td>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>

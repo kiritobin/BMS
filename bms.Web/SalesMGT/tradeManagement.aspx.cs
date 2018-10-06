@@ -97,14 +97,14 @@ namespace bms.Web.SalesMGT
                     }
                 }
             }
-            //销退
-            //if (op== "saleback")
-            //{
-            //    string saleId = Request["ID"];
-            //    Session["saleId"] = saleId;
-            //    Response.Write("成功");
-            //    Response.End();
-            //}
+            //查看
+            if (op == "look")
+            {
+                string saleId = Request["ID"];
+                Session["saleId"] = saleId;
+                Response.Write("成功");
+                Response.End();
+            }
             //销售
             if (op == "sale")
             {
@@ -244,6 +244,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["finishTime"].ToString() + "</td>");
                 strb.Append("<td>" + "<button class='btn btn-success btn-sm btn_sale'>&nbsp 售 &nbsp</button>");
                 strb.Append("<button class='btn btn-success btn-sm btn_back'>&nbsp 退 &nbsp</button>");
+                strb.Append("<button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + " </td></tr>");
             }
             strb.Append("</tbody>");

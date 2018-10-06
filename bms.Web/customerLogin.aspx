@@ -21,26 +21,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white" id="navigation-example">
         <div class="container">
             <div class="navbar-wrapper">
-                <a class="navbar-brand" href="#pablo">图书综合平台客户登录</a>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
-                aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="navbar-toggler-icon icon-bar"></span>
-                <span class="navbar-toggler-icon icon-bar"></span>
-                <span class="navbar-toggler-icon icon-bar"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-end">
-                <!-- 导航栏 -->
-                <ul class="navbar-nav">
-                    <!-- <li class="nav-item  active ">
-                        <a href="../pages/login.html" class="nav-link">
-                            <i class="material-icons">fingerprint</i>
-                            Login
-                        </a>
-                    </li> -->
-                </ul>
+                <a class="navbar-brand" href="#pablo">图书综合管理平台</a>
             </div>
         </div>
     </nav>
@@ -53,7 +34,7 @@
                     <form class="form" method="" action="">
                         <div class="card card-login card-hidden">
                             <div class="card-header card-header-rose text-center">
-                                <h4 class="card-title">登&nbsp;&nbsp;录</h4>
+                                <h4 class="card-title">客户登录</h4>
                             </div>
                             <div class="card-body ">
                                 <div class="bmd-form-group">
@@ -68,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="card-footer justify-content-center">
-                                <a href="#" id="submit" class="btn btn-rose btn-link btn-lg">登录</a>
+                                <a href="#" id="submit" class="btn btn-danger btn-link btn-sm btnLogin">登录</a>
                             </div>
                         </div>
                     </form>
