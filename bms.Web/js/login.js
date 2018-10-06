@@ -98,11 +98,11 @@
                     dataType: 'text',
                     success: function (succ) {
                         if (succ === "登录成功") {
-                            window.location.href = "/AccessMGT/userManagement.aspx";
+                            window.location.href = "/BasicInfor/bookBasicManagement.aspx";
                         }
                         else {
                             swal({
-                                title: "温馨提示:)",
+                                title: "温馨提示",
                                 text: succ,
                                 buttonsStyling: false,
                                 confirmButtonClass: "btn btn-success",

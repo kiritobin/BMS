@@ -17,13 +17,15 @@ namespace bms.Web.BasicInfor
     using Result = Enums.OpResult;
     public partial class bookBasicManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row;
+        public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row,funCount;
         public string search = "", last, num;
-        public DataSet ds;
+        public DataSet ds, dsFun;
         DataTable except = new DataTable();//接受差集
         BookBasicBll bookbll = new BookBasicBll();
+        UserBll userBll = new UserBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            authority();
             //获取书号
             BookBasicData bookId = bookbll.getBookNum();
             if (!IsPostBack)
@@ -68,7 +70,6 @@ namespace bms.Web.BasicInfor
             string action = Request["action"];
             if (action == "import")
             {
-                UserBll userBll = new UserBll();
                 DataTable dtInsert = new DataTable();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
@@ -325,7 +326,14 @@ namespace bms.Web.BasicInfor
                 sb.Append("<td>" + dr["catalog"].ToString() + "</td>");
                 sb.Append("<td>" + dr["remarks"].ToString() + "</td>");
                 sb.Append("<td>" + dr["dentification"].ToString() + "</td>");
-                sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></tr>");
+                for (int k = 0; k < funCount; k++)
+                {
+                    int functionId = Convert.ToInt32(dsFun.Tables[0].Rows[k]["functionId"]);
+                    if (functionId == 7)
+                    {
+                        sb.Append("<td>" + "<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></tr>");
+                    }
+                }
             }
             sb.Append("</tbody>");
             sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
@@ -419,5 +427,16 @@ namespace bms.Web.BasicInfor
                 }
                 return new String(c);
                 }
+
+        // <summary>
+        /// 权限管理，获取功能
+        /// </summary>
+        protected void authority()
+        {
+            FunctionBll funBll = new FunctionBll();
+            User user = (User)Session["user"];
+            dsFun = funBll.SelectByRoleId(user.RoleId.RoleId);
+            funCount = dsFun.Tables[0].Rows.Count;
+        }
     }
 }
