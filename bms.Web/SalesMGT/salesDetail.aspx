@@ -92,7 +92,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <%--<%=getData() %>--%>
+                                        <%=getData() %>
                                     </table>
                                 </div>
                                 <div class="container col-md-2">
@@ -147,6 +147,12 @@
                             <td>
                                 <input type="text" id="number" class="sales_search"></td>
                         </tr>
+                    </table>
+                    <table id="tablebook">
+                        <%if (bookds != null)
+                            {%>
+                        <%= strbook.ToString() %>
+                        <% } %>
                     </table>
                 </div>
                 <div class="modal-footer">

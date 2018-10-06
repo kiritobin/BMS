@@ -16,11 +16,12 @@ namespace bms.Web.BasicInfor
     public partial class bookshelfManagement : System.Web.UI.Page
     {
         public int totalCount, intPageCount, PageSize=10;
-        public DataSet regionDs, ds;
+        public DataSet regionDs, ds,dsPer;
         GoodsShelvesBll shelvesbll = new GoodsShelvesBll();
         RegionBll rbll = new RegionBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            permission();
             getData();
             string op = Request["op"];
             if (op == "add")
@@ -183,6 +184,16 @@ namespace bms.Web.BasicInfor
                 Response.End();
             }
             return strb.ToString();
+        }
+
+        protected void permission()
+        {
+            FunctionBll functionBll = new FunctionBll();
+            User user = (User)Session["user"];
+            Role role = new Role();
+            role = user.RoleId;
+            int roleId = role.RoleId;
+            dsPer = functionBll.SelectByRoleId(roleId);
         }
     }
 }

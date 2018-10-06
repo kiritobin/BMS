@@ -226,7 +226,7 @@
             url: 'tradeManagement.aspx',
             data: {
                 ID: ID,
-                op: 'sale'
+                op: 'saleback'
             },
             dataType: 'text',
             success: function (succ) {

@@ -22,7 +22,7 @@ namespace bms.Dao
             return ds;
         }
         /// <summary>
-        /// 添加
+        /// 添加销退单头
         /// </summary>
         /// <param name="sellOffHead"></param>
         /// <returns></returns>
