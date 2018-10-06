@@ -378,7 +378,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabe2">编辑用户</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <button type="button" class="close" id="closeEdit" data-dismiss="modal" aria-hidden="true">
                                 <i class="fa fa-close"></i>
                             </button>
                         </div>

@@ -231,7 +231,7 @@ $("#table").delegate(".btn-edit", "click", function () {
     $("#edit-Account").val(account);
     $("#edit-Name").val(name);
     $("#editRegion").find("option:contains(" + region + ")").attr("selected", true);
-    $("#editRole").find("option:contains(" + region + ")").attr("selected", true);
+    $("#editRole").find("option:contains(" + role + ")").attr("selected", true);
 })
 $("#btnEdit").click(function () {
     var account = $("#edit-Account").val();
@@ -280,6 +280,12 @@ $("#btnEdit").click(function () {
             }
         }
     })
+})
+$("#closeEdit").click(function () {
+    $("#edit-Account").val("");
+    $("#edit-Name").val("");
+    $("#editRegion").val("");
+    $("#editRole").val("");
 })
 //删除用户
 $("#table").delegate(".btn-delete", "click", function () {
