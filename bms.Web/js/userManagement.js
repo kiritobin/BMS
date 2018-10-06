@@ -189,7 +189,8 @@ $("#btnAdd").click(function () {
                         type: "success",
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.reload();
+                        sessionStorage.setItem("add","添加成功");
+                        //window.location.reload();
                     })
                 } else if (succ == "该用户已存在不能重复添加") {
                     swal({
@@ -211,7 +212,7 @@ $("#btnAdd").click(function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.reload();
+                        //window.location.reload();
                     })
                 }
             }
@@ -221,6 +222,12 @@ $("#btnAdd").click(function () {
 $("#btn-add").click(function () {
     $("#model-select-region").val("");
     $("#model-select-role").val("");
+})
+$("#close").click(function () {
+    if (sessionStorage.getItem("add")=="添加成功") {
+        window.location.reload();
+        sessionStorage.removeItem("add");
+    }
 })
 //编辑用户
 $("#table").delegate(".btn-edit", "click", function () {

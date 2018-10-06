@@ -55,7 +55,12 @@ $(document).ready(function () {
         }
     })
 })
-
+$("#close").click(function () {
+    if (sessionStorage.getItem("add") == "添加成功") {
+        window.location.reload();
+        sessionStorage.removeItem("add");
+    }
+})
 //添加退货单头
 $("#btnAdd").click(function () {
     var regionId = $("#regionId").val();
@@ -88,7 +93,8 @@ $("#btnAdd").click(function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                        window.location.reload();
+                        sessionStorage.setItem("add", "添加成功");
+                        //window.location.reload();
                     })
                 } else {
                     swal({
