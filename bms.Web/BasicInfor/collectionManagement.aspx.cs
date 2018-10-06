@@ -16,21 +16,21 @@ namespace bms.Web.CustomerMGT
     using Result = Enums.OpResult;
     public partial class collectionManagement : System.Web.UI.Page
     {
-        public int totalCount, intPageCount,pageSize=20,row;
-        public DataSet ds,dsCustom;
+        public int totalCount, intPageCount,pageSize=20,row, funCount;
+        public DataSet ds,dsCustom, dsFun;
         RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
         string  custom;
         LibraryCollectionBll libraryCollectionBll = new LibraryCollectionBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            authority();
             getData();
             custom = Request["custom"];
             string action = Request["action"];
             string op = Request["op"];
             if (action=="import")
             {
-                UserBll userBll = new UserBll();
                 DataTable dtInsert = new DataTable();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
@@ -261,6 +261,17 @@ namespace bms.Web.CustomerMGT
                 Response.End();
             }
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// 权限管理，获取功能
+        /// </summary>
+        protected void authority()
+        {
+            FunctionBll funBll = new FunctionBll();
+            User user = (User)Session["user"];
+            dsFun = funBll.SelectByRoleId(user.RoleId.RoleId);
+            funCount = dsFun.Tables[0].Rows.Count;
         }
     }
 }

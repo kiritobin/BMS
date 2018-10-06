@@ -83,81 +83,91 @@
     $("#ISBN").keypress(function (e) {
         if (e.keyCode == 13) {
             var ISBN = $("#ISBN").val().trim();
+            var disCount = $("#disCount").val().trim();
+            var number = $("#number").val().trim();
+            if (disCount == "" || number == "" || ISBN == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "不能含有未填项!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            } else {
+                $.ajax({
+                    type: 'Post',
+                    url: 'salesDetail.aspx',
+                    data: {
+                        ISBN: ISBN,
+                        disCount: disCount,
+                        number:number,
+                        op: "search"
+                    },
+                    dataType: 'text',
+                    success: function (data) {
+                        $("#tablebook th:not(:first)").empty(); //清空table处首行
+                        $("#tablebook").append(data); //加载table
+                    }
+                });
+            }
+        }
+    })
+    //添加
+    $("#btnAdd").click(function () {
+        var ISBN = $("#ISBN").val().trim();
+        var disCount = $("#disCount").val().trim();
+        var number = $("#number").val().trim();
+        if (disCount == "" || number == "" || ISBN == "") {
+            swal({
+                title: "温馨提示:)",
+                text: "不能含有未填项!",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else {
             $.ajax({
                 type: 'Post',
                 url: 'salesDetail.aspx',
                 data: {
                     ISBN: ISBN,
-                    op: "search"
+                    disCount: disCount,
+                    number: number,
+                    op: "add"
                 },
                 dataType: 'text',
-                success: function (data) {
-                    $("#tablebook th:not(:first)").empty(); //清空table处首行
-                    $("#tablebook").append(data); //加载table
+                success: function (succ) {
+                    if (succ == "添加成功") {
+                        swal({
+                            title: "温馨提示",
+                            text: "添加成功",
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    } else {
+                        swal({
+                            title: "温馨提示",
+                            text: "添加失败",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                        })
+                    }
                 }
-            });
+            })
         }
     })
-    //添加
-    //$("#btnAdd").click(function () {
-    //    var billCount = $("#billCount").val().trim();
-    //    var totalPrice = $("#totalPrice").val().trim();
-    //    var realPrice = $("#realPrice").val().trim();
-    //    var Price = $("#Price").val().trim();
-    //    var saleCustmer = $("#saleCustmer").val().trim();
-    //    if (billCount == "" || totalPrice == "" || realPrice == "" || Price == "" || saleCustmer == "") {
-    //        swal({
-    //            title: "温馨提示:)",
-    //            text: "不能含有未填项!",
-    //            buttonsStyling: false,
-    //            confirmButtonClass: "btn btn-warning",
-    //            type: "warning"
-    //        }).catch(swal.noop);
-    //    }
-    //    else {
-    //        $.ajax({
-    //            type: 'Post',
-    //            url: 'salesDetail.aspx',
-    //            data: {
-    //                Custmer: saleCustmer,
-    //                numberLimit: billCount,
-    //                priceLimit: totalPrice,
-    //                totalPriceLimit: realPrice,
-    //                defaultDiscount: Price,
-    //                op: "add"
-    //            },
-    //            dataType: 'text',
-    //            success: function (succ) {
-    //                if (succ == "添加成功") {
-    //                    swal({
-    //                        title: "温馨提示",
-    //                        text: "添加成功",
-    //                        type: "success",
-    //                        confirmButtonColor: '#3085d6',
-    //                        confirmButtonText: '确定',
-    //                        confirmButtonClass: 'btn btn-success',
-    //                        buttonsStyling: false,
-    //                        allowOutsideClick: false
-    //                    }).then(function () {
-    //                        window, location.reload();
-    //                    })
-    //                } else {
-    //                    swal({
-    //                        title: "温馨提示",
-    //                        text: succ,
-    //                        type: "warning",
-    //                        confirmButtonColor: '#3085d6',
-    //                        confirmButtonText: '确定',
-    //                        confirmButtonClass: 'btn btn-success',
-    //                        buttonsStyling: false,
-    //                        allowOutsideClick: false
-    //                    }).then(function () {
-    //                    })
-    //                }
-    //            }
-    //        })
-    //    }
-    //})
 
     //返回按钮
     $("#back").click(function () {

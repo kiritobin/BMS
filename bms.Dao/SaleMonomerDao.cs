@@ -58,8 +58,8 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Insert(SaleMonomer salemonomer)
         {
-            string cmdText = "insert into T_SaleMonomer(bookNo,ISBN,saleHeadId,number,unitPrice,number,totalPrice,realDiscount,realPrice,dateTime) values(@bookNo,@ISBN,@saleHeadId,@number,@unitPrice,@number,@totalPrice,@realDiscount,@realPrice,@dateTime)";
-            string[] param = { "@bookNo", "@ISBN", "@saleHeadId", "@number", "@unitPrice", "@number", "@totalPrice", "@realDiscount", "@realPrice", "@dateTime" };
+            string cmdText = "insert into T_SaleMonomer(bookNum,ISBN,saleHeadId,number,unitPrice,totalPrice,realDiscount,realPrice,dateTime) values(@bookNum,@ISBN,@saleHeadId,@number,@unitPrice,@totalPrice,@realDiscount,@realPrice,@dateTime)";
+            string[] param = { "@bookNum", "@ISBN", "@saleHeadId", "@number", "@unitPrice", "@totalPrice", "@realDiscount", "@realPrice", "@dateTime" };
             object[] values = { salemonomer.BookNum, salemonomer.ISBN1, salemonomer.SaleHeadId, salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealPrice, salemonomer.Datetime };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
