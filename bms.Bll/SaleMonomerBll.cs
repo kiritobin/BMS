@@ -26,7 +26,7 @@ namespace bms.Bll
             }
             else
             {
-                return count; 
+                return count;
             }
         }
         /// <summary>
@@ -140,6 +140,32 @@ namespace bms.Bll
             {
                 return Result.更新失败;
             }
+        }
+        /// <summary>
+        /// 更新单头
+        /// </summary>
+        /// <param name="salehead">单头实体</param>
+        /// <returns></returns>
+        public Result updateHead(SaleHead salehead)
+        {
+            int row = SaleMonomerdao.updateHead(salehead);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+        /// <summary>
+        /// 根据单头获取单体
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns></returns>
+        public DataSet SelectMonomers(string saleHeadId)
+        {
+            return SaleMonomerdao.SelectMonomers(saleHeadId);
         }
     }
 }

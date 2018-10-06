@@ -109,8 +109,8 @@
     margin-bottom: 0px;
 }
 
-.sales_search, .statistics {
-    border: 1px solid rgb(206, 204, 204);
+.sales_search, .statistics, .retailList {
+    border: 1px solid #ddd;
 }
 
 .content_tab div {
@@ -135,4 +135,13 @@
 /* 模态框复选按钮样式 */
 .modal .table .form-check .form-check-sign {
     top: 0px;
+}
+
+/* 零售页面样式 */
+.retail-content .container-fluid .card .card-body .row {
+    margin-right: 0px;
+}
+
+.list-unstyled li{
+    margin-top:16px;
 }

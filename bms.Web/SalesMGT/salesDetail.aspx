@@ -102,15 +102,19 @@
                                     <table class="table">
                                         <tr>
                                             <td>书籍种数</td>
-                                            <td>66</td>
+                                            <td><%=allkinds.ToString() %></td>
                                         </tr>
                                         <tr>
                                             <td>书本总数</td>
-                                            <td>666</td>
+                                            <td><%=allnumber.ToString() %></td>
                                         </tr>
                                         <tr>
                                             <td>总码洋</td>
-                                            <td>6666</td>
+                                            <td><%=alltotalprice.ToString() %></td>
+                                        </tr>
+                                        <tr>
+                                            <td>总实洋</td>
+                                            <td><%=allreadprice.ToString() %></td>
                                         </tr>
                                     </table>
                                 </div>
