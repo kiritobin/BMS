@@ -312,7 +312,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">添加客户</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close">
                                 <i class="fa fa-close"></i>
                             </button>
                         </div>

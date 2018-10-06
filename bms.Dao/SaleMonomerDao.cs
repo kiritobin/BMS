@@ -33,6 +33,26 @@ namespace bms.Dao
                 return row = 0;
             }
         }
+        /// <summary>
+        /// 根据销售单头获取单体
+        /// </summary>
+        /// <param name="saleHeadId">单头ID</param>
+        /// <returns>单体数据集</returns>
+        public DataSet SelectMonomers(string saleHeadId)
+        {
+            string cmdText = "select number,totalPrice,realPrice from T_SaleMonomer where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// 查询所有销售单体
@@ -60,7 +80,7 @@ namespace bms.Dao
         {
             string cmdText = "insert into T_SaleMonomer(saleIdMonomerId,bookNum,ISBN,saleHeadId,number,unitPrice,totalPrice,realDiscount,realPrice,dateTime) values(@saleIdMonomerId,@bookNum,@ISBN,@saleHeadId,@number,@unitPrice,@totalPrice,@realDiscount,@realPrice,@dateTime)";
             string[] param = { "@saleIdMonomerId", "@bookNum", "@ISBN", "@saleHeadId", "@number", "@unitPrice", "@totalPrice", "@realDiscount", "@realPrice", "@dateTime" };
-            object[] values = { salemonomer.SaleIdMonomerId,salemonomer.BookNum, salemonomer.ISBN1, salemonomer.SaleHeadId, salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealPrice, salemonomer.Datetime };
+            object[] values = { salemonomer.SaleIdMonomerId, salemonomer.BookNum, salemonomer.ISBN1, salemonomer.SaleHeadId, salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealPrice, salemonomer.Datetime };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -102,6 +122,19 @@ namespace bms.Dao
             String[] param = { "@saleHeadId" };
             String[] values = { saleHeadId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+        /// <summary>
+        /// 更新单头 总数量 品种数，码洋，实洋
+        /// </summary>
+        /// <param name="salehead">单头实体</param>
+        /// <returns></returns>
+        public int updateHead(SaleHead salehead)
+        {
+            string cmdTexts = "update T_SaleHead set kindsNum=@kindsNum,number=@number,allTotalPrice=@allTotalPrice,allRealPrice=@allRealPrice where saleHeadId=@saleHeadId";
+            string[] parames = { "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@saleHeadId" };
+            object[] value = { salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.SaleHeadId };
+            int row = db.ExecuteNoneQuery(cmdTexts, parames, value);
             return row;
         }
     }

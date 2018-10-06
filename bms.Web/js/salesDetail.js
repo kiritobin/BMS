@@ -118,7 +118,47 @@
                             }).then(function () {
                                 window, location.reload();
                             })
-                        } else {
+                        }
+                        else if (data == "库存数量不足") {
+                            swal({
+                                title: "温馨提示",
+                                text: "库存数量不足",
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
+                        }
+                        else if (data == "无库存") {
+                            swal({
+                                title: "温馨提示",
+                                text: "无库存",
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
+                        }
+                        else if (data == "无数据") {
+                            swal({
+                                title: "温馨提示",
+                                text: "无数据",
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
+                        }
+                        else {
                             $("#tablebook th:not(:first)").empty(); //清空table处首行
                             $("#tablebook").append(data); //加载table
                         }
@@ -168,10 +208,49 @@
                         }).then(function () {
                             window, location.reload();
                         })
-                    } else {
+                    } else if (succ == "库存数量不足") {
                         swal({
                             title: "温馨提示",
-                            text: "添加失败",
+                            text: "库存数量不足",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                        })
+                    }
+                    else if (succ == "无库存") {
+                        swal({
+                            title: "温馨提示",
+                            text: "无库存",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                        })
+                    }
+                    else if (succ == "无数据") {
+                        swal({
+                            title: "温馨提示",
+                            text: "无数据",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                        })
+                    }
+                    else {
+                        swal({
+                            title: "温馨提示",
+                            text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',

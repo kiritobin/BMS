@@ -277,19 +277,16 @@
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
-                                                <tr style="border: 2px solid #DDD">
-                                                    <td colspan="9">商品</td>
-                                                </tr>
                                                 <tr>
-                                                    <td>单据编号</td>
-                                                    <td>书号</td>
-                                                    <td>ISBN号</td>
-                                                    <td>商品数量</td>
-                                                    <td>单价</td>
-                                                    <td>折扣</td>
-                                                    <td>码洋</td>
-                                                    <td>实洋</td>
-                                                    <td>操作</td>
+                                                    <td><nobr>单据编号</nobr></td>
+                                                    <td><nobr>书号</nobr></td>
+                                                    <td><nobr>ISBN号</nobr></td>
+                                                    <td><nobr>商品数量</nobr></td>
+                                                    <td><nobr>单价</nobr></td>
+                                                    <td><nobr>折扣</nobr></td>
+                                                    <td><nobr>码洋</nobr></td>
+                                                    <td><nobr>实洋</nobr></td>
+                                                    <td><nobr>操作</nobr></td>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
