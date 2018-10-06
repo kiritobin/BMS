@@ -254,6 +254,7 @@
                                 <div class="card-body">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title">出库查询</h4>
+                                     <button class="btn btn-sm pull-right" style="background-color:white;color:black;" onclick="javascript:history.back(-1);">返回</button>
                                 </div>
                                  <div class="btn-group" role="group">  
                                 <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i></button>
