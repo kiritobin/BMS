@@ -72,5 +72,18 @@ namespace bms.Dao
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
+        /// <summary>
+        /// 根据销售任务ID获取销售任务信息 
+        /// </summary>
+        /// <param name="saleTaskId">销售任务ID</param>
+        /// <returns></returns>
+        public DataSet SelectById(string saleTaskId)
+        {
+            string sql = "select defaultDiscount,numberLimit from T_SaleTask where saleTaskId=@saleTaskId";
+            string[] param = { "@saleTaskId" };
+            object[] values = { saleTaskId };
+            DataSet ds = db.FillDataSet(sql, param, values);
+            return ds;
+        }
     }
 }

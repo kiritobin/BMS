@@ -97,6 +97,14 @@ namespace bms.Web.SalesMGT
                     }
                 }
             }
+            //销退
+            if (op== "saleback")
+            {
+                string saleId = Request["ID"];
+                Session["saleId"] = saleId;
+                Response.Write("成功");
+                Response.End();
+            }
             //销售
             if (op == "sale")
             {
@@ -140,6 +148,12 @@ namespace bms.Web.SalesMGT
                     Response.Write("添加失败");
                     Response.End();
                 }
+
+            }
+            if (op == "back")
+            {
+                sellOffHeadBll sellBll = new sellOffHeadBll();
+                SellOffHead sell = new SellOffHead();
 
             }
         }

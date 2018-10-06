@@ -11,15 +11,74 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.SalesMGT
 {
+    using Result = Enums.OpResult;
     public partial class salesDetail : System.Web.UI.Page
     {
         public int totalCount, intPageCount, pageSize = 20;
         public string type;
-        DataSet ds;
+        public DataSet ds, bookds;
         SaleMonomerBll salemonbll = new SaleMonomerBll();
+        public StringBuilder strbook = new StringBuilder();
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
+            string op = Request["op"];
+            if (op == "back")
+            {
+                string SaleHeadId = Session["saleheadId"].ToString();
+                Result result = salemonbll.SelectBySaleHeadId(SaleHeadId);
+                if (result == Result.删除成功)
+                {
+                    Response.Write("删除成功");
+                    Response.End();
+                }
+                else if (result == Result.删除失败)
+                {
+                    Response.Write("删除失败");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("已有数据");
+                    Response.End();
+                }
+            }
+            if (op == "search")
+            {
+                string ISBN = Request["ISBN"];
+                BookBasicBll bookbll = new BookBasicBll();
+                bookds = bookbll.SelectByIsbn(ISBN);
+                if (bookds != null)
+                {
+                    strbook.Append("<thead>");
+                    strbook.Append("<tr>");
+                    strbook.Append("<th>" + "<div class='pretty inline'><input type = 'radio' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
+                    strbook.Append("<th>" + "书号" + "</th>");
+                    strbook.Append("<th>" + "ISBN" + "</th>");
+                    strbook.Append("<th>" + "书名" + "</th>");
+                    strbook.Append("<th>" + "单价" + "</th>");
+                    strbook.Append("<th>" + "出版社" + "</th>");
+                    strbook.Append("</tr>");
+                    strbook.Append("</thead>");
+                    strbook.Append("<tbody>");
+                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    {
+                        strbook.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["unitPrice"].ToString() + "</td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["number"].ToString() + "</td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
+                        strbook.Append("<td>" + bookds.Tables[0].Rows[i]["realPrice"].ToString() + "</td></tr>");
+                    }
+                    strbook.Append("</tbody>");
+                }
+                else
+                {
+                    Response.Write("无数据");
+                    Response.End();
+                }
+            }
         }
         public string getData()
         {
@@ -59,7 +118,7 @@ namespace bms.Web.SalesMGT
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             //tb.StrWhere = search;
-            tb.StrWhere = search == "" ? "deleteState3=0 and saleHeadId=" + "'" + saleheadId + "'" : search + " and deleteState3=0 and saleHeadId=" + "'" + saleheadId + "'";
+            tb.StrWhere = search == "" ? "deleteState=0 and saleHeadId=" + "'" + saleheadId + "'" : search + " and deleteState=0 and saleHeadId=" + "'" + saleheadId + "'";
             //获取展示的客户数据
             ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
             //获取客户下拉数据
