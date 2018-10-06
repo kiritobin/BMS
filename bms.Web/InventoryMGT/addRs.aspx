@@ -308,21 +308,17 @@
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center">
                                             <thead>
-                                                <tr style="border: 2px solid #DDD">
-                                                    <td colspan="11">商品</td>
-                                                </tr>
                                                 <tr>
-                                                    <td>序号</td>
-                                                    <td>补货单编号</td>
-                                                    <td>补货日期</td>
-                                                    <td>书号</td>
-                                                    <td>ISBN号</td>
-                                                    <td>总价</td>
-                                                    <td>单价</td>
-                                                    <td>数量</td>
-                                                    <td>实际折扣</td>
-                                                    <td>实洋</td>
-                                                    <td>码洋</td>                                                    
+                                                    <td><nobr>单据编号</nobr></td>
+                                                    <td><nobr>补货日期</nobr></td>
+                                                    <td><nobr>书号</nobr></td>
+                                                    <td><nobr>ISBN号</nobr></td>
+                                                    <td><nobr>总价</nobr></td>
+                                                    <td><nobr>单价</nobr></td>
+                                                    <td><nobr>数量</nobr></td>
+                                                    <td><nobr>实际折扣</nobr></td>
+                                                    <td><nobr>实洋</nobr></td>
+                                                    <td><nobr>码洋</nobr></td>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
