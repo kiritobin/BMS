@@ -65,7 +65,6 @@ namespace bms.Web.InventoryMGT
                 {
                     monId = 1;
                 }
-                int allCount = Convert.ToInt32(Request["allCount"]);
                 discount = Convert.ToDouble(Request["discount"]);
                 if (discount > 1 && discount <= 10)
                 {
@@ -83,7 +82,7 @@ namespace bms.Web.InventoryMGT
                 singleHead.SingleHeadId = singleHeadId; 
                 monomers.SingleHeadId= singleHead;
                 monomers.Discount = discount*100;
-                monomers.Number = allCount;
+                monomers.Number = billCount;
                 monomers.Type = 1;
                 BookBasicData bookBasic = new BookBasicData();
                 bookBasic.Isbn = isbn;
@@ -92,8 +91,8 @@ namespace bms.Web.InventoryMGT
                 monomers.Isbn = bookBasic;
                 monomers.UPrice = bookBasic;
                 monomers.BookNum = bookBasic;
-                monomers.TotalPrice = Convert.ToDouble((price * allCount).ToString("0.00"));
-                monomers.RealPrice = Convert.ToDouble((price * allCount * discount).ToString("0.00"));
+                monomers.TotalPrice = Convert.ToDouble((price * billCount).ToString("0.00"));
+                monomers.RealPrice = Convert.ToDouble((price * billCount * discount).ToString("0.00"));
                 Result res = warehousingBll.updateDiscount(discount);
                 Result re = warehousingBll.SelectBybookNum(singleHeadId,bookNum.ToString(),1);
                 if (re == Result.记录不存在)
