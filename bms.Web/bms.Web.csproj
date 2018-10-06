@@ -108,6 +108,8 @@
     <Content Include="InventoryMGT\checkStock.aspx" />
     <Content Include="InventoryMGT\inventoryManagement.aspx" />
     <Content Include="InventoryMGT\replenishMent.aspx" />
+    <Content Include="SalesMGT\customerRetail.aspx" />
+    <Content Include="SalesMGT\retail.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
     <Content Include="InventoryMGT\checkWarehouse.aspx" />
     <Content Include="InventoryMGT\warehouseManagement.aspx" />
@@ -344,6 +346,20 @@
     </Compile>
     <Compile Include="InventoryMGT\replenishMent.aspx.designer.cs">
       <DependentUpon>replenishMent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\customerRetail.aspx.cs">
+      <DependentUpon>customerRetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\customerRetail.aspx.designer.cs">
+      <DependentUpon>customerRetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\retail.aspx.cs">
+      <DependentUpon>retail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retail.aspx.designer.cs">
+      <DependentUpon>retail.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\stockManagement.aspx.cs">
       <DependentUpon>stockManagement.aspx</DependentUpon>
