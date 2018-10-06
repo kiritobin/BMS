@@ -17,14 +17,15 @@ namespace bms.Web.CustomerMGT
     public partial class collectionManagement : System.Web.UI.Page
     {
         public int totalCount, intPageCount,pageSize=20,row, funCount;
-        public DataSet ds,dsCustom, dsFun;
+        public DataSet ds,dsCustom, dsPer;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
         RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
         string  custom;
         LibraryCollectionBll libraryCollectionBll = new LibraryCollectionBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            authority();
+            permission();
             getData();
             custom = Request["custom"];
             string action = Request["action"];
@@ -263,15 +264,69 @@ namespace bms.Web.CustomerMGT
             return sb.ToString();
         }
 
-        /// <summary>
-        /// 权限管理，获取功能
-        /// </summary>
-        protected void authority()
+        protected void permission()
         {
-            FunctionBll funBll = new FunctionBll();
+            FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
-            dsFun = funBll.SelectByRoleId(user.RoleId.RoleId);
-            funCount = dsFun.Tables[0].Rows.Count;
+            Role role = new Role();
+            role = user.RoleId;
+            int roleId = role.RoleId;
+            dsPer = functionBll.SelectByRoleId(roleId);
+            for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)
+            {
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 1)
+                {
+                    funcOrg = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 2)
+                {
+                    funcRole = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 3)
+                {
+                    funcUser = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 4)
+                {
+                    funcGoods = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 5)
+                {
+                    funcCustom = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 6)
+                {
+                    funcLibrary = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 7)
+                {
+                    funcBook = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 8)
+                {
+                    funcPut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 9)
+                {
+                    funcOut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 10)
+                {
+                    funcSale = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 11)
+                {
+                    funcSaleOff = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 12)
+                {
+                    funcReturn = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
+                {
+                    funcSupply = true;
+                }
+            }
         }
     }
 }
