@@ -231,7 +231,7 @@
             dataType: 'text',
             success: function (succ) {
                 if (succ == "添加成功") {
-                    window.location.href = "../SalesMGT/backManagement.aspx";
+                    window.location.href = "../SalesMGT/backQuery.aspx";
                 }
                 else {
                     swal({
