@@ -39,6 +39,8 @@
                                         <th>书名</th>
                                         <th>单价</th>
                                         <th>数量</th>
+                                        <th>折扣</th>
+                                        <th>实洋</th>
                                         <th>码洋</th>
                                     </tr>
                                 </thead>
@@ -56,6 +58,10 @@
                                 <li>总码洋：</li>
                                 <li>总实洋：</li>
                             </ul>
+                            <hr />
+                            <div class="input-group text-white" id="insert">
+                                <a class="btn btn-success btn-sm"><i class="fa fa-print">打印</i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -101,6 +107,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
     <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/retail.js"></script>
 </body>
 
 </html>

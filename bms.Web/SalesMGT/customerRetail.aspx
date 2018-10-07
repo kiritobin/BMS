@@ -106,6 +106,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
     <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/customerRetail.js"></script>
 </body>
 
 </html>

@@ -18,12 +18,14 @@ namespace bms.Web.BasicInfor
     public partial class bookBasicManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row,funCount;
-        public string search = "", last, num;
+        public string search = "", last, num,url="#";
         public DataSet ds, dsPer;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
         DataTable except = new DataTable();//接受差集
         BookBasicBll bookbll = new BookBasicBll();
         UserBll userBll = new UserBll();
+        SaleHeadBll saleBll = new SaleHeadBll();
+        SaleHead single = new SaleHead();
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
@@ -104,6 +106,27 @@ namespace bms.Web.BasicInfor
                 Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
+            }
+            if(op== "retail")
+            {
+                User user = (User)Session["user"];
+                int count = saleBll.countRetail() + 1;
+                string retailHeadId = "LS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                single.DateTime = DateTime.Now;
+                single.RegionId = user.ReginId.RegionId;
+                single.SaleHeadId = retailHeadId;
+                single.UserId = user.UserId;
+                Result result = saleBll.InsertRetail(single);
+                if (result == Result.添加成功)
+                {
+                    url = "../SalesMGT/retail.aspx?retailHeadId=" + retailHeadId;
+                    Response.Redirect("../SalesMGT/retail.aspx?retailHeadId=" + retailHeadId);
+                }
+                else
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
             }
         }
 

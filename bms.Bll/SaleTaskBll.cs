@@ -30,6 +30,10 @@ namespace bms.Bll
             }
 
         }
+        public string getCustomerId(string saleTaskId)
+        {
+            return saleDao.getCustomerId(saleTaskId);
+        }
 
         /// <summary>
         /// 添加销售任务方法

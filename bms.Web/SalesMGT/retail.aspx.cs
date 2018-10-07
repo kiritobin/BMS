@@ -17,29 +17,35 @@ namespace bms.Web.SalesMGT
         protected DataSet ds;
         protected int pageSize = 20, totalCount, intPageCount;
         public double discount;
-        string singleHeadId;
+        string retailHeadId;
         SaleHead single = new SaleHead();
         UserBll userBll = new UserBll();
         SaleMonomerBll retailBll = new SaleMonomerBll();
         StockBll stockBll = new StockBll();
         BookBasicBll basicBll = new BookBasicBll();
         GoodsShelvesBll goods = new GoodsShelvesBll();
+        DataTable monTable = new DataTable();
+        SaleHeadBll saleBll = new SaleHeadBll();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                singleHeadId = Request.QueryString["sId"];
-                if (singleHeadId != "" && singleHeadId != null)
+                retailHeadId = Request.QueryString["retailHeadId"];
+                if (retailHeadId != "" && retailHeadId != null)
                 {
-                    Session["singleHeadId"] = singleHeadId;
+                    Session["retailHeadId"] = retailHeadId;
                 }
                 else
                 {
-                    singleHeadId = Session["singleHeadId"].ToString();
+                    retailHeadId = Session["retailHeadId"].ToString();
                 }
             }
             string op = Request["op"];
             if (op == "add")
+            {
+                add();
+            }
+            if(op == "insert")
             {
                 insert();
             }
@@ -47,31 +53,15 @@ namespace bms.Web.SalesMGT
 
         public string getData()
         {
-            //获取分页数据
-            int currentPage = Convert.ToInt32(Request["page"]);
-            if (currentPage == 0)
-            {
-                currentPage = 1;
-            }
             string op = Request["op"];
-            TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "V_Monomer";
-            tbd.OrderBy = "monId";
-            tbd.StrColumnlist = "bookName,supplier,bookNum,singleHeadId,monId,ISBN,number,uPrice,totalPrice,realPrice,discount,type";
-            tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "deleteState=0 and singleHeadId='" + singleHeadId + "'";
-            tbd.IntPageNum = currentPage;
-            //获取展示的用户数据
-            ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
-
             //生成table
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.Append("<tbody>");
-            int count = ds.Tables[0].Rows.Count;
+            int count = monTable.Rows.Count;
             for (int i = 0; i < count; i++)
             {
-                DataRow dr = ds.Tables[0].Rows[i];
-                sb.Append("<tr><td>" + dr["monId"].ToString() + "</td>");
+                DataRow dr = monTable.Rows[i];
+                sb.Append("<tr><td>" + dr["ISBN"].ToString() + "</td>");
                 sb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
                 sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
                 sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
@@ -106,7 +96,7 @@ namespace bms.Web.SalesMGT
                 DataSet bookDs = bookBasicBll.SelectByIsbn(isbn);
                 if (bookDs != null && bookDs.Tables[0].Rows.Count > 0)
                 {
-                    insert();
+                    add();
                 }
                 else
                 {
@@ -116,13 +106,22 @@ namespace bms.Web.SalesMGT
             }
             return null;
         }
-
-        public void insert()
+        public void add()
         {
             long bookNum = Convert.ToInt64(Request["bookNum"]);
             BookBasicData bookBasicData = basicBll.SelectById(Convert.ToInt64(bookNum));
             string isbn = bookBasicData.Isbn;
+            string bookName = bookBasicData.BookName;
             int billCount = Convert.ToInt32(Request["billCount"]);
+            double discount = Convert.ToDouble(bookBasicData.Remarks);
+            if (discount > 1 && discount <= 10)
+            {
+                discount = discount * 0.1;
+            }
+            else if (discount > 10)
+            {
+                discount = discount * 0.01;
+            }
             DataSet dsGoods = stockBll.SelectByBookNum(bookNum);
             if (dsGoods != null && dsGoods.Tables[0].Rows.Count > 0)
             {
@@ -140,17 +139,9 @@ namespace bms.Web.SalesMGT
                 }
                 else
                 {
-                    double discount = Convert.ToInt32(Request["disCount"]);
-                    if (discount > 1 && discount <= 10)
-                    {
-                        discount = discount * 0.1;
-                    }
-                    else if (discount > 10)
-                    {
-                        discount = discount * 0.01;
-                    }
+                    
                     double uPrice = bookBasicData.Price;
-                    long monCount = retailBll.SelectBySaleHeadId(singleHeadId);
+                    long monCount = retailBll.SelectBySaleHeadId(retailHeadId);
                     long monId;
                     if (monCount > 0)
                     {
@@ -163,108 +154,88 @@ namespace bms.Web.SalesMGT
                     SaleMonomer monomers = new SaleMonomer();
                     double totalPrice = Convert.ToDouble((billCount * uPrice).ToString("0.00"));
                     double realPrice = Convert.ToDouble((totalPrice * discount).ToString("0.00"));
-                    monomers.ISBN1 = isbn;
-                    monomers.UnitPrice = uPrice;
-                    monomers.BookNum = bookNum;
-                    monomers.RealDiscount = discount * 100;
-                    monomers.SaleIdMonomerId = Convert.ToInt32(monId);
-                    monomers.Number = billCount;
-                    monomers.TotalPrice = totalPrice;
-                    monomers.RealPrice = realPrice;
-                    monomers.SaleHeadId = singleHeadId;
-                    DataRow monRow;
-
-                    DataTable monTable = new DataTable();
-                    monTable.NewRow();
-                    //Result res = retailBll.updateDiscount(discount);
-                    Result re = retailBll.SelectBybookNum(singleHeadId, bookNum.ToString());
+                    Result re = retailBll.SelectBybookNum(retailHeadId, bookNum.ToString());
                     if (re == Result.记录不存在)
                     {
-                        //if (res == Result.更新成功)
-                        //{
-                            Result row = retailBll.Insert(monomers);
-                            if (row == Result.添加成功)
-                            {
-                                int number, allBillCount = 0;
-                                double totalPrices, allTotalPrice = 0, realPrices, allRealPrice = 0;
-                                DataSet dsMon = retailBll.SelectMonomers(singleHeadId);
-                                int j = dsMon.Tables[0].Rows.Count;
-                                for (int i = 0; i < j; i++)
-                                {
-                                    DataRow dr = dsMon.Tables[0].Rows[i];
-                                    number = Convert.ToInt32(dr["number"]);
-                                    totalPrice = Convert.ToDouble(dr["totalPrice"]);
-                                    realPrice = Convert.ToDouble(dr["realPrice"]);
-                                    allBillCount = allBillCount + number;
-                                    allTotalPrice = allTotalPrice + totalPrice;
-                                    allRealPrice = allRealPrice + realPrice;
-                                }
-                                single.Number = allBillCount;
-                                single.AllTotalPrice = allTotalPrice;
-                                single.AllRealPrice = allRealPrice;
-                                Result update = retailBll.updateHead(single);
-                                if (update == Result.更新成功)
-                                {
-                                    for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
-                                    {
-                                        billCount = count;
-                                        int stockNum = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["stockNum"]);
-                                        int goodsId = Convert.ToInt32(dsGoods.Tables[0].Rows[i]["goodsShelvesId"]);
-                                        if (billCount <= stockNum)
-                                        {
-                                            int a = stockNum - billCount;
-                                            Result result = stockBll.update(a, goodsId, bookNum);
-                                            if (result == Result.更新成功)
-                                            {
-                                                Response.Write("添加成功");
-                                                Response.End();
-                                            }
-                                            else
-                                            {
-                                                Response.Write("添加失败");
-                                                Response.End();
-                                            }
-                                        }
-                                        else
-                                        {
-                                            count = billCount - stockNum;
-                                            Result result = stockBll.update(0, goodsId, bookNum);
-                                            if (count == 0)
-                                            {
-                                                Response.Write("添加成功");
-                                                Response.End();
-                                            }
-                                            if (result == Result.更新失败)
-                                            {
-                                                Response.Write("添加失败");
-                                                Response.End();
-                                            }
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Response.Write("添加失败");
-                                    Response.End();
-                                }
-                            }
-                            else
-                            {
-                                Response.Write("添加失败");
-                                Response.End();
-                            }
-                        }
-                    //}
-                    //else
-                    //{
-                    //    Response.Write("添加失败");
-                    //    Response.End();
-                    //}
+                        monTable.Columns.Add("ISBN", typeof(string));
+                        monTable.Columns.Add("unitPrice", typeof(double));
+                        monTable.Columns.Add("bookNum", typeof(long));
+                        monTable.Columns.Add("realDiscount", typeof(double));
+                        monTable.Columns.Add("retailMonomerId", typeof(int));
+                        monTable.Columns.Add("number", typeof(int));
+                        monTable.Columns.Add("totalPrice", typeof(double));
+                        monTable.Columns.Add("realPrice", typeof(double));
+                        monTable.Columns.Add("retailHeadId", typeof(string));
+                        DataRow monRow = monTable.NewRow();
+                        monRow["ISBN"] = isbn;
+                        monRow["unitPrice"] = uPrice;
+                        monRow["bookNum"] = bookNum;
+                        monRow["bookName"] = bookName;
+                        monRow["realDiscount"] = discount * 100;
+                        monRow["retailMonomerId"] = Convert.ToInt32(monId);
+                        monRow["number"] = billCount;
+                        monRow["totalPrice"] = totalPrice;
+                        monRow["realPrice"] = realPrice;
+                        monRow["retailHeadId"] = retailHeadId;
+                        monTable.Rows.Add(monRow);
+                    }
+                    else
+                    {
+                        Response.Write("已添加过此书籍，如需继续添加，可修改数量");
+                        Response.End();
+                    }
                 }
             }
             else
             {
                 Response.Write("库存不足");
+                Response.End();
+            }
+        }
+
+        public void insert()
+        {
+            SaleMonomer monomers = new SaleMonomer();
+            int Count = monTable.Rows.Count;
+            for (int i = 0; i < Count; i++)
+            {
+                DataRow dr = monTable.Rows[i];
+                monomers.ISBN1 = dr["ISBN"].ToString();
+                monomers.UnitPrice = Convert.ToDouble(dr["unitPrice"]);
+                monomers.BookNum = Convert.ToInt64(dr["bookNum"]);
+                monomers.RealDiscount = Convert.ToDouble(dr["realDiscount"]);
+                monomers.SaleIdMonomerId = Convert.ToInt32(dr["retailMonomerId"]);
+                monomers.Number = Convert.ToInt32(dr["number"]);
+                monomers.TotalPrice = Convert.ToDouble(dr["totalPrice"]);
+                monomers.RealPrice = Convert.ToDouble(dr["realPrice"]);
+                monomers.SaleHeadId = dr["retailHeadId"].ToString();
+                Result row = retailBll.Insert(monomers);
+                if (row == Result.添加失败)
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
+            }
+            User user = (User)Session["user"];
+            int count = saleBll.countRetail() + 1;
+            string retailHeadId = "LS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+            single.AllRealPrice = 0;
+            single.AllTotalPrice = 0;
+            single.DateTime = DateTime.Now;
+            single.KindsNum = 0;
+            single.Number = 0;
+            single.RegionId = user.ReginId.RegionId;
+            single.SaleHeadId = retailHeadId;
+            single.UserId = user.UserId;
+            single.SaleTaskId = "0";
+            Result result = saleBll.Insert(single);
+            if (result == Result.添加成功)
+            {
+                Response.Redirect("retail.aspx?retailHeadId=" + retailHeadId);
+            }
+            else
+            {
+                Response.Write("添加失败");
                 Response.End();
             }
         }
