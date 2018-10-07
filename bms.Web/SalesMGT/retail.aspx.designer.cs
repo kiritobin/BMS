@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace bms.Web.demo {
+namespace bms.Web.SalesMGT {
     
     
-    public partial class sales_demo {
+    public partial class retail {
     }
 }
