@@ -88,5 +88,23 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+        /// <summary>
+        /// 查询图书数据是否存在
+        /// </summary>
+        /// <param name="customerId">客户id</param>
+        /// <param name="ISBN">ISBN</param>
+        /// <returns></returns>
+        public Result Selectbook(string customerId, string ISBN)
+        {
+            int row = libraryDao.Selectbook(customerId, ISBN);
+            if (row>0)
+            {
+                return Result.记录存在;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
+        }
     }
 }
