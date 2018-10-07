@@ -18,9 +18,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int insert(Stock stock)
         {
-            string cmdText = "insert into T_Stock(stockNum,ISBN,regionId,goodsShelvesId) values(@stockNum,@ISBN,@regionId,@goodsShelvesId)";
-            string[] param = { "@stockNum", "@ISBN", "@regionId", "@goodsShelvesId" };
-            object[] values = { stock.StockNum, stock.ISBN.Isbn, stock.RegionId.RegionId, stock.GoodsShelvesId.GoodsShelvesId };
+            string cmdText = "insert into T_Stock(stockNum,bookNum,ISBN,regionId,goodsShelvesId) values(@stockNum,@bookNum,@ISBN,@regionId,@goodsShelvesId)";
+            string[] param = { "@stockNum", "@bookNum", "@ISBN", "@regionId", "@goodsShelvesId" };
+            object[] values = { stock.StockNum,stock.BookNum.BookNum, stock.ISBN.Isbn, stock.RegionId.RegionId, stock.GoodsShelvesId.GoodsShelvesId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
