@@ -1,12 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="sales_demo.aspx.cs" Inherits="bms.Web.demo.sales_demo" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="customerRetail.aspx.cs" Inherits="bms.Web.SalesMGT.customerRetail" %>
+<%="" %>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
-<!--<![endif]-->
 
 <head>
     <meta charset="utf-8">
@@ -19,12 +14,10 @@
     <!-- css file -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css" />
+    <link rel="stylesheet" href="../css/pagination.css" />
 </head>
 
 <body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
     <div class="retail-content">
         <div class="container-fluid">
             <div class="card">
@@ -32,32 +25,24 @@
                     <div class="row">
                         <div class="input-group col-md-12">
                             <div class="btn-group" role="group">
-                                <input type="text" value="" class="searchOne">
-                                <button class="btn btn-info btn-sm">查询</button>
+                                <input type="text" placeholder="请输入ISBN" id="search" class="searchOne">
+                                <button class="btn btn-info btn-sm" id="btnSearch">添加</button>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="table-responsive col-md-10">
-                            <table class="table mostTable table-bordered text-center">
+                            <table class="table mostTable table-bordered text-center" id="table">
                                 <thead>
                                     <tr>
                                         <th>ISBN号</th>
                                         <th>书名</th>
                                         <th>单价</th>
                                         <th>数量</th>
-                                        <th>实洋</th>
+                                        <th>码洋</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>3</td>
-                                        <td>4</td>
-                                        <td>5</td>
-                                    </tr>
-                                </tbody>
+                                <%=getData() %>
                             </table>
                         </div>
                         <div class="retailList col-md-2">
@@ -82,8 +67,45 @@
             </div>
         </div>
     </div>
-    <!-- js file -->
+    
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" style="width: 380px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table model-table" id="table2">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="pretty inline">
+                                        <input type="radio" name="radio" disabled="disabled">
+                                        <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
+                                    </div>
+                                </th>
+                                <th>ISBN</th>
+                                <th>书名</th>
+                                <th>单价价</th>
+                                <th>出版社</th>
+                            </tr>
+                        </thead>
+                        <%=getIsbn() %>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/demo.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
 </body>
 
 </html>
