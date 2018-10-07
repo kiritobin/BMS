@@ -36,9 +36,9 @@ namespace bms.Bll
         /// 获取销退单体信息
         /// </summary>
         /// <returns></returns>
-        public DataSet Select()
+        public DataSet Select(string sellOffHeadId)
         {
-            DataSet ds = dao.Select();
+            DataSet ds = dao.Select(sellOffHeadId);
             return ds;
         }
         /// <summary>
@@ -86,17 +86,27 @@ namespace bms.Bll
             int row = dao.GetCount(sellOffHeaId);
             return row;
         }
-        public SellOffHead getSaleTask(string sellOffHeadId)
+        /// <summary>
+        /// 通过销退单头Id获取销售任务Id
+        /// </summary>
+        /// <param name="sellOffHeadId"></param>
+        /// <returns></returns>
+        public DataSet getSaleTask(string sellOffHeadId)
         {
             SellOffHead sh = new SellOffHead();
-            sh = dao.getSaleTask(sellOffHeadId);
-            return sh;
+            DataSet ds = dao.getSaleTask(sellOffHeadId);
+            return ds;
         }
-        public SaleTask getDisCount(string saleTaskId)
+        /// <summary>
+        /// 通过销售任务Id获取默认折扣
+        /// </summary>
+        /// <param name="saleTaskId"></param>
+        /// <returns></returns>
+        public DataSet getDisCount(string saleTaskId)
         {
             SaleTask st = new SaleTask();
-            st = dao.getDisCount(saleTaskId);
-            return st;
+            DataSet ds = dao.getDisCount(saleTaskId);
+            return ds;
         }
     }
 }

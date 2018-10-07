@@ -15,10 +15,12 @@ namespace bms.Dao
         /// 获取销退单头信息
         /// </summary>
         /// <returns></returns>
-        public DataSet Select()
+        public DataSet Select(string sellOffHeadId)
         {
-            string cmdText = "select sellOffHead,sellOffMonomerId,bookNum,isbn,price,count,totalPrice,realDiscount,realPrice,dateTime from T_SellOffMonomer";
-            DataSet ds = db.FillDataSet(cmdText, null, null);
+            string cmdText = "select sellOffHead,sellOffMonomerId,bookNum,isbn,price,count,totalPrice,realDiscount,realPrice,dateTime from T_SellOffMonomer where sellOffHead=@sellOffHeadId";
+            string[] param = { "@sellOffHeadId" };
+            object[] values = { sellOffHeadId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
             return ds;
         }
         /// <summary>
@@ -65,28 +67,26 @@ namespace bms.Dao
         /// </summary>
         /// <param name="sellOffHeadId"></param>
         /// <returns></returns>
-        public SellOffHead getSaleTask(string sellOffHeadId)
+        public DataSet getSaleTask(string sellOffHeadId)
         {
             string sql = "select saleTaskId from T_SellOffHead where sellOffHeadID=@sellHeadId";
             string[] param = { "@sellHeadId" };
             object[] values = { sellOffHeadId };
-            SellOffHead sh = new SellOffHead();
-            sh.SaleTaskId.SaleTaskId = db.ExecuteScalar(sql, param, values).ToString();
-            return sh;
+            DataSet ds = db.FillDataSet(sql, param, values);
+            return ds;
         }
         /// <summary>
         /// 根据任务Id获取默认折扣
         /// </summary>
         /// <param name="saleTaskId"></param>
         /// <returns></returns>
-        public SaleTask getDisCount(string saleTaskId)
+        public DataSet getDisCount(string saleTaskId)
         {
             string sql = "select defaultDiscount from T_SaleTask where saleTaskId=@saleTaskId";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
-            SaleTask st = new SaleTask();
-            st.DefaultDiscount = double.Parse(db.ExecuteScalar(sql, param, values).ToString());
-            return st;
+            DataSet ds = db.FillDataSet(sql, param, values);
+            return ds;
         }
     }
 }
