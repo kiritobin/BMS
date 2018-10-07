@@ -30,6 +30,20 @@ namespace bms.Dao
                 return null;
             }
         }
+        /// <summary>
+        /// 查询馆藏数据是否存在
+        /// </summary>
+        /// <param name="customerId">客户id</param>
+        /// <param name="bookNum">ISBN</param>
+        /// <returns>受影响行数</returns>
+        public int Selectbook(string customerId, string ISBN)
+        {
+            string comText = "select ISBN,bookName,price,collectionNum,customerId from T_LibraryCollection where customerId=@customerId and ISBN=@ISBN ";
+            string[] param = { "@customerId", "@ISBN" };
+            string[] values = { customerId, ISBN };
+            int rows = db.ExecuteNoneQuery(comText, param, values);
+            return rows;
+        }
 
         /// <summary>
         /// replace批量导入数据库

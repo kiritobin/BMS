@@ -69,6 +69,9 @@
                                                     <nobr>序号</nobr>
                                                 </th>
                                                 <th>
+                                                    <nobr>书号</nobr>
+                                                </th>
+                                                <th>
                                                     <nobr>书名</nobr>
                                                 </th>
                                                 <th>
@@ -87,10 +90,7 @@
                                                     <nobr>实洋</nobr>
                                                 </th>
                                                 <th>
-                                                    <nobr>时间</nobr>
-                                                </th>
-                                                <th>
-                                                    <nobr>操作</nobr>
+                                                    <nobr>已采购数</nobr>
                                                 </th>
                                             </tr>
                                         </thead>

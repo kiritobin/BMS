@@ -29,6 +29,28 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 获取销售任务id
+        /// </summary>
+        /// <param name="saleHeadId"></param>
+        /// <returns></returns>
+        public string SelectTaskByheadId(string saleHeadId)
+        {
+            string comText = "select saleTaskId from T_SaleHead where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            DataSet ds = db.FillDataSet(comText, param, values);
+            string saleTaskId = ds.Tables[0].Rows[0]["saleTaskId"].ToString();
+
+            if (saleTaskId != null || saleTaskId.Length > 0)
+            {
+                return saleTaskId;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
         /// 判断单头编号
         /// </summary>
         /// <param name="saleHeadId">销售任务ID</param>

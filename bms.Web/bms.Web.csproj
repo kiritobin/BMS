@@ -108,9 +108,9 @@
     <Content Include="InventoryMGT\checkStock.aspx" />
     <Content Include="InventoryMGT\inventoryManagement.aspx" />
     <Content Include="InventoryMGT\replenishMent.aspx" />
-    <Content Include="SalesMGT\booksOut.aspx" />
+    <Content Include="js\customerRetail.js" />
+    <Content Include="js\retail.js" />
     <Content Include="SalesMGT\customerRetail.aspx" />
-    <Content Include="SalesMGT\retail.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
     <Content Include="InventoryMGT\checkWarehouse.aspx" />
     <Content Include="InventoryMGT\warehouseManagement.aspx" />
@@ -188,9 +188,9 @@
     <Content Include="demo\paging.html" />
     <Content Include="SalesMGT\backManagement.aspx" />
     <Content Include="SalesMGT\backQuery.aspx" />
+    <Content Include="SalesMGT\retail.aspx" />
     <Content Include="SalesMGT\salesDetail.aspx" />
     <Content Include="SalesMGT\salesManagement.aspx" />
-    <Content Include="SalesMGT\salesRanking.aspx" />
     <Content Include="SalesMGT\tradeManagement.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -349,26 +349,12 @@
     <Compile Include="InventoryMGT\replenishMent.aspx.designer.cs">
       <DependentUpon>replenishMent.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SalesMGT\booksOut.aspx.cs">
-      <DependentUpon>booksOut.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SalesMGT\booksOut.aspx.designer.cs">
-      <DependentUpon>booksOut.aspx</DependentUpon>
-    </Compile>
     <Compile Include="SalesMGT\customerRetail.aspx.cs">
       <DependentUpon>customerRetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SalesMGT\customerRetail.aspx.designer.cs">
       <DependentUpon>customerRetail.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="SalesMGT\retail.aspx.cs">
-      <DependentUpon>retail.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SalesMGT\retail.aspx.designer.cs">
-      <DependentUpon>retail.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\stockManagement.aspx.cs">
       <DependentUpon>stockManagement.aspx</DependentUpon>
@@ -451,6 +437,13 @@
     <Compile Include="SalesMGT\backQuery.aspx.designer.cs">
       <DependentUpon>backQuery.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SalesMGT\retail.aspx.cs">
+      <DependentUpon>retail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retail.aspx.designer.cs">
+      <DependentUpon>retail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SalesMGT\salesDetail.aspx.cs">
       <DependentUpon>salesDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -464,13 +457,6 @@
     </Compile>
     <Compile Include="SalesMGT\salesManagement.aspx.designer.cs">
       <DependentUpon>salesManagement.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="SalesMGT\salesRanking.aspx.cs">
-      <DependentUpon>salesRanking.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SalesMGT\salesRanking.aspx.designer.cs">
-      <DependentUpon>salesRanking.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesMGT\tradeManagement.aspx.cs">
       <DependentUpon>tradeManagement.aspx</DependentUpon>

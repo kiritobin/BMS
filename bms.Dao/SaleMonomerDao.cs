@@ -137,5 +137,20 @@ namespace bms.Dao
             int row = db.ExecuteNoneQuery(cmdTexts, parames, value);
             return row;
         }
+
+        /// <summary>
+        /// 通过书号查询在单体中是否存在记录
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <param name="type">单体类型（0：出库，1：入库，2：退货）</param>
+        /// <returns></returns>
+        public int SelectBybookNum(string retailHeadId, string bookNum)
+        {
+            string comText = "select COUNT(monId) from T_RetailMonomer where bookNum=@bookNum and retailHeadId=@retailHeadId";
+            string[] param = { "@bookNum", "@retailHeadId" };
+            object[] values = { bookNum, retailHeadId };
+            int row = Convert.ToInt32(db.ExecuteScalar(comText, param, values));
+            return row;
+        }
     }
 }

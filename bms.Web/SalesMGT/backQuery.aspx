@@ -32,19 +32,19 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card" style="height:500px">
+                    <div class="card">
                         <h3 class="text-center">销&nbsp;退</h3>
                         <hr />
                         <div class="card-body">
                             <div class="card-header card_btn">
                                 <div class="input-group">
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2">添加销退</button>
+                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2" id="add_back">添加销退</button>
                                     </div>
-                                    <div class="btn-group" role="group">
+                                    <!---<div class="btn-group" role="group">
                                         <input type="text" value="" class="sales_search">
                                         <button class="btn btn-info">查询</button>
-                                    </div>
+                                    </div>-->
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i></button>
                                     </div>

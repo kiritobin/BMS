@@ -31,6 +31,10 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
+        public string SelectTaskByheadId(string saleHeadId)
+        {
+            return saleHeaddao.SelectTaskByheadId(saleHeadId);
+        }
         /// <summary>
         /// 获取单头编号数量
         /// </summary>

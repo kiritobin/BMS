@@ -167,5 +167,23 @@ namespace bms.Bll
         {
             return SaleMonomerdao.SelectMonomers(saleHeadId);
         }
+        /// <summary>
+        /// 通过书号查询在单体中是否存在记录
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <param name="type">单体类型（0：出库，1：入库，2：退货）</param>
+        /// <returns></returns>
+        public Result SelectBybookNum(string retailHeadId, string bookNum)
+        {
+            int row = SaleMonomerdao.SelectBybookNum(retailHeadId, bookNum);
+            if (row > 0)
+            {
+                return Result.记录存在;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
+        }
     }
 }

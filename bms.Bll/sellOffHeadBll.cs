@@ -16,9 +16,9 @@ namespace bms.Bll
         /// 获取销退单头信息
         /// </summary>
         /// <returns></returns>
-        public DataSet Select()
+        public DataSet Select(string sellOffHeadID)
         {
-            DataSet ds = dao.Select();
+            DataSet ds = dao.Select(sellOffHeadID);
             return ds;
         }
         /// <summary>
