@@ -22,6 +22,23 @@ namespace bms.Dao
             return row;
         }
 
+        public string getCustomerId(string saleTaskId)
+        {
+            string comText = "select customerId from T_SaleTask where saleTaskId=@saleTaskId";
+            string[] param = { "@saleTaskId" };
+            object[] values = { saleTaskId };
+            DataSet ds = db.FillDataSet(comText, param, values);
+            string customerId = ds.Tables[0].Rows[0]["customerId"].ToString();
+            if (customerId != null || customerId.Length > 0)
+            {
+                return customerId;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// 查询所有销售任务
         /// </summary>
@@ -47,8 +64,8 @@ namespace bms.Dao
         public int Insert(SaleTask sale)
         {
             string cmdText = "insert into T_SaleTask(saleTaskId,userId,customreId,defaultDiscount,defaultCopy,numberLimit,priceLimit,totalPriceLimit,startTime,finishTime) values(@saleTaskId,@userId,@customreId,@defaultDiscount,@defaultCopy,@numberLimit,@priceLimit,@totalPriceLimit,@startTime,@finishTime)";
-            string[] param = { "@saleTaskId","@userId", "@customreId", "@defaultDiscount", "@defaultCopy", "@numberLimit", "@priceLimit", "@totalPriceLimit", "@startTime", "@finishTime" };
-            object[] values = {sale.SaleTaskId, sale.UserId,sale.Customer.CustomerId, sale.DefaultDiscount,sale.DefaultCopy, sale.NumberLimit, sale.PriceLimit, sale.TotalPiceLimit, sale.StartTime, sale.FinishTime };
+            string[] param = { "@saleTaskId", "@userId", "@customreId", "@defaultDiscount", "@defaultCopy", "@numberLimit", "@priceLimit", "@totalPriceLimit", "@startTime", "@finishTime" };
+            object[] values = { sale.SaleTaskId, sale.UserId, sale.Customer.CustomerId, sale.DefaultDiscount, sale.DefaultCopy, sale.NumberLimit, sale.PriceLimit, sale.TotalPiceLimit, sale.StartTime, sale.FinishTime };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             if (row > 0)
             {

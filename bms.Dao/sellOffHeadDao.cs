@@ -15,10 +15,12 @@ namespace bms.Dao
         /// 获取销退单头信息
         /// </summary>
         /// <returns></returns>
-        public DataSet Select()
+        public DataSet Select(string sellOffHeadId)
         {
-            string sql = "select sellOffHeadID,saleTaskId,userName,customerName,kinds,count,totalPrice,realPrice,makingTime from V_SellOffHead";
-            DataSet ds = db.FillDataSet(sql, null, null);
+            string sql = "select sellOffHeadID,saleTaskId,userName,customerName,kinds,count,totalPrice,realPrice,makingTime from V_SellOffHead where sellOffHeadID=@sellOffHeadID";
+            string[] param = { "@sellOffHeadID" };
+            object[] values = { sellOffHeadId };
+            DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
         /// <summary>
