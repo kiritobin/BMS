@@ -109,6 +109,7 @@
     <Content Include="InventoryMGT\inventoryManagement.aspx" />
     <Content Include="InventoryMGT\replenishMent.aspx" />
     <Content Include="js\customerRetail.js" />
+    <Content Include="js\retail.js" />
     <Content Include="SalesMGT\customerRetail.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
     <Content Include="InventoryMGT\checkWarehouse.aspx" />
