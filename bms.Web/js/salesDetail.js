@@ -158,6 +158,20 @@
                             }).then(function () {
                             })
                         }
+                        else if(data!=null ||data=="")
+                        {
+                            swal({
+                                title: "温馨提示",
+                                text: data,
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
+                        }
                         else {
                             $("#tablebook th:not(:first)").empty(); //清空table处首行
                             $("#tablebook").append(data); //加载table

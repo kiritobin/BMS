@@ -18,6 +18,7 @@ namespace bms.Model
         private double realPrice;
         private DateTime datetime;
         private int type;
+        private int alreadyBought;
 
         /// <summary>
         /// 参数构造函数
@@ -32,7 +33,7 @@ namespace bms.Model
         /// <param name="realDiscount">实际折扣</param>
         /// <param name="realPrice">实洋</param>
         /// <param name="datetime">采集时间</param>
-        public SaleMonomer(int saleIdMonomerId, long bookNum, string iSBN, string saleHeadId, double unitPrice, int number, double totalPrice, double realDiscount, double realPrice, DateTime datetime,int type)
+        public SaleMonomer(int saleIdMonomerId, long bookNum, string iSBN, string saleHeadId, double unitPrice, int number, double totalPrice, double realDiscount, double realPrice, DateTime datetime,int type, int alreadyBought)
         {
             this.saleIdMonomerId = saleIdMonomerId;
             this.bookNum = bookNum;
@@ -45,6 +46,7 @@ namespace bms.Model
             this.realPrice = realPrice;
             this.datetime = datetime;
             this.type = type;
+            this.alreadyBought = alreadyBought;
         }
 
         /// <summary>
@@ -210,6 +212,21 @@ namespace bms.Model
             set
             {
                 type = value;
+            }
+        }
+        /// <summary>
+        /// 已购数量
+        /// </summary>
+        public int AlreadyBought
+        {
+            get
+            {
+                return alreadyBought;
+            }
+
+            set
+            {
+                alreadyBought = value;
             }
         }
 
