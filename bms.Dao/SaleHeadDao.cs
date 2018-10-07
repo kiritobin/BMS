@@ -91,6 +91,31 @@ namespace bms.Dao
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
+        /// <summary>
+        /// 判断零售单头编号
+        /// </summary>
+        /// <param name="retailId">零售ID</param>
+        /// <returns></returns>
+        public int countRetail()
+        {
+            string cmdText = "select count(retailHeadId) from T_RetailHead";
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, null, null));
+            return row;
+        }
+
+        /// <summary>
+        /// 添加零售单头信息
+        /// </summary>
+        /// <param name="salehead"></param>
+        /// <returns></returns>
+        public int InsertRetail(SaleHead salehead)
+        {
+            string cmdText = "insert into T_RetailHead(retailHeadId,userId,regionId,dateTime) values(@retailHeadId,@userId,@regionId,@dateTime)";
+            string[] param = { "@retailHeadId", "@userId", "@regionId", "@dateTime" };
+            object[] values = { salehead.SaleHeadId, salehead.UserId, salehead.RegionId, salehead.DateTime };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
     }
 
 }

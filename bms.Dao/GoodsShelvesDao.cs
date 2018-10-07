@@ -60,20 +60,13 @@ namespace bms.Dao
         /// </summary>
         /// <param name="shelves">货架实体对象</param>
         /// <returns></returns>
-        public DataSet selectByName(GoodsShelves shelves)
+        public int selectByName(GoodsShelves shelves)
         {
-            string cmdText = "select shelvesName=@shelvesName from T_GoodsShelves where regionId = @regionId";
+            string cmdText = "select count(goodsShelvesId) from T_GoodsShelves where regionId = @regionId and shelvesName=@shelvesName";
             String[] param = { "@shelvesName", "@regionId" };
             String[] values = { shelves.ShelvesName, shelves.RegionId.RegionId.ToString() };
-            DataSet ds = db.FillDataSet(cmdText, param, values);
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
-            {
-                return ds;
-            }
-            else
-            {
-                return null;
-            }
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            return row;
         }
     }
 }

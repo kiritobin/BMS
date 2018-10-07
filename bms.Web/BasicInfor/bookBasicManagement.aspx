@@ -165,6 +165,17 @@
                                     </a>
                                 </li>
                                 <%} %>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<%=url %>" id="retail">
+                                        <span class="sidebar-normal">自助售书</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="customerRetail">
+                                    <a class="nav-link" href="../SalesMGT/customerRetail.aspx">
+                                        <span class="sidebar-normal">POS收款</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
