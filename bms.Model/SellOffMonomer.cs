@@ -11,16 +11,17 @@ namespace bms.Model
     public class SellOffMonomer
     {
         private string sellOffMonomerId;
-        private string sellOffHead;
+        private string sellOffHeadId;
         private long bookNum;
         private string ISBN;
         private double price;
         private int count;
         private double totalPrice;
         private double realPrice;
-        private DateTime dateTime;
+        private DateTime time;
         private int deleteSate;
         private int savaSate;
+        private double discount;
         /// <summary>
         /// 销退单体Id
         /// </summary>
@@ -39,16 +40,16 @@ namespace bms.Model
         /// <summary>
         /// 销退单头Id
         /// </summary>
-        public string SellOffHead
+        public string SellOffHeadId
         {
             get
             {
-                return sellOffHead;
+                return sellOffHeadId;
             }
 
             set
             {
-                sellOffHead = value;
+                sellOffHeadId = value;
             }
         }
         /// <summary>
@@ -144,16 +145,16 @@ namespace bms.Model
         /// <summary>
         /// 制单时间
         /// </summary>
-        public DateTime DateTime
+        public DateTime Time
         {
             get
             {
-                return dateTime;
+                return time;
             }
 
             set
             {
-                dateTime = value;
+                time = value;
             }
         }
         /// <summary>
@@ -186,6 +187,24 @@ namespace bms.Model
                 savaSate = value;
             }
         }
+        //实际折扣
+        public double Discount
+        {
+            get
+            {
+                return discount;
+            }
+
+            set
+            {
+                discount = value;
+            }
+        }
+
+        /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public SellOffMonomer() { }
         /// <summary>
         /// 参数构造函数
         /// </summary>
@@ -200,23 +219,20 @@ namespace bms.Model
         /// <param name="dateTime">制单时间</param>
         /// <param name="deleteSate">删除状态</param>
         /// <param name="savaSate">保存状态</param>
-        public SellOffMonomer(string sellOffMonomerId, string sellOffHead, long bookNum, string iSBN, double price, int count, double totalPrice, double realPrice, DateTime dateTime, int deleteSate, int savaSate)
+        public SellOffMonomer(string sellOffMonomerId, string sellOffHeadId, long bookNum, string iSBN, double price, int count, double totalPrice, double realPrice, DateTime time, int deleteSate, int savaSate, double discount)
         {
-            this.SellOffMonomerId = sellOffMonomerId;
-            this.SellOffHead = sellOffHead;
-            this.BookNum = bookNum;
-            ISBN1 = iSBN;
-            this.Price = price;
-            this.Count = count;
-            this.TotalPrice = totalPrice;
-            this.RealPrice = realPrice;
-            this.DateTime = dateTime;
-            this.DeleteSate = deleteSate;
-            this.SavaSate = savaSate;
+            this.sellOffMonomerId = sellOffMonomerId;
+            this.sellOffHeadId = sellOffHeadId;
+            this.bookNum = bookNum;
+            ISBN = iSBN;
+            this.price = price;
+            this.count = count;
+            this.totalPrice = totalPrice;
+            this.realPrice = realPrice;
+            this.time = time;
+            this.deleteSate = deleteSate;
+            this.savaSate = savaSate;
+            this.discount = discount;
         }
-        /// <summary>
-        /// 无参构造函数
-        /// </summary>
-        public SellOffMonomer() { }
     }
 }

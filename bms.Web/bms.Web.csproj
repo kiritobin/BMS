@@ -108,8 +108,8 @@
     <Content Include="InventoryMGT\checkStock.aspx" />
     <Content Include="InventoryMGT\inventoryManagement.aspx" />
     <Content Include="InventoryMGT\replenishMent.aspx" />
+    <Content Include="js\customerRetail.js" />
     <Content Include="SalesMGT\customerRetail.aspx" />
-    <Content Include="SalesMGT\retail.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
     <Content Include="InventoryMGT\checkWarehouse.aspx" />
     <Content Include="InventoryMGT\warehouseManagement.aspx" />
@@ -187,6 +187,7 @@
     <Content Include="demo\paging.html" />
     <Content Include="SalesMGT\backManagement.aspx" />
     <Content Include="SalesMGT\backQuery.aspx" />
+    <Content Include="SalesMGT\retail.aspx" />
     <Content Include="SalesMGT\salesDetail.aspx" />
     <Content Include="SalesMGT\salesManagement.aspx" />
     <Content Include="SalesMGT\tradeManagement.aspx" />
@@ -354,13 +355,6 @@
     <Compile Include="SalesMGT\customerRetail.aspx.designer.cs">
       <DependentUpon>customerRetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SalesMGT\retail.aspx.cs">
-      <DependentUpon>retail.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SalesMGT\retail.aspx.designer.cs">
-      <DependentUpon>retail.aspx</DependentUpon>
-    </Compile>
     <Compile Include="InventoryMGT\stockManagement.aspx.cs">
       <DependentUpon>stockManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -441,6 +435,13 @@
     </Compile>
     <Compile Include="SalesMGT\backQuery.aspx.designer.cs">
       <DependentUpon>backQuery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\retail.aspx.cs">
+      <DependentUpon>retail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retail.aspx.designer.cs">
+      <DependentUpon>retail.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesMGT\salesDetail.aspx.cs">
       <DependentUpon>salesDetail.aspx</DependentUpon>
