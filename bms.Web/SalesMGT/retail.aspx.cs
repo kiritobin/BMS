@@ -172,6 +172,10 @@ namespace bms.Web.SalesMGT
                     monomers.TotalPrice = totalPrice;
                     monomers.RealPrice = realPrice;
                     monomers.SaleHeadId = singleHeadId;
+                    DataRow monRow;
+
+                    DataTable monTable = new DataTable();
+                    monTable.NewRow();
                     //Result res = retailBll.updateDiscount(discount);
                     Result re = retailBll.SelectBybookNum(singleHeadId, bookNum.ToString());
                     if (re == Result.记录不存在)
