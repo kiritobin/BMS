@@ -231,7 +231,7 @@
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModa2" id="btn-add">添加</button>
+                                                <button class="btn btn-success btn-sm" id="btn-add">添加</button>
                                             </div>
                                         </div>
                                     </div>
@@ -240,10 +240,11 @@
                                         <table class="table text-center table-bordered mostTable" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>任务单据编号</th>
+                                                    <!--<th>任务单据编号</th>-->
                                                     <th>销退单据编号</th>
                                                     <th>操作员</th>
                                                     <th>客户</th>
+                                                    <th>状态</th>
                                                     <th>品种数</th>
                                                     <th>总数量</th>
                                                     <th>实际折扣</th>
@@ -268,7 +269,7 @@
                 </div>
             </div>
             <!--添加模态框-->
-            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+<%--            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="max-width: 900px;">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -317,7 +318,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--%>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">

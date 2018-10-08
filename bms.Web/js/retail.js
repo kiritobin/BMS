@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
-    $("#table tr:not(:first)").empty(); //清空table处首行
-    $("#table").append(data); //加载table
+    $("#search").focus();
 })
 
 $("#btnSearch").click(function () {
@@ -63,9 +62,7 @@ $("#search").keypress(function (e) {
                 },
                 dataType: 'text',
                 success: function (data) {
-                    if (data == "添加成功") {
-                        window.location.reload();
-                    } else if (data == "添加失败") {
+                    if (data == "添加失败") {
                         swal({
                             title: data,
                             text: data,
@@ -73,18 +70,55 @@ $("#search").keypress(function (e) {
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
                         }).catch(swal.noop);
+                    } else if (data == "ISBN不存在") {
+                        swal({
+                            title: "ISBN:" + isbn,
+                            text: "不存在",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning",
+                            type: "warning"
+                        }).catch(swal.noop);
+                    } else if (data == "一号多书") {
+                        $.ajax({
+                            type: 'Post',
+                            url: 'retail.aspx',
+                            data: {
+                                isbn: isbn,
+                                op: 'choose'
+                            },
+                            dataType: 'text',
+                            success: function (succ) {
+                                $("#myModal").modal("show");
+                                $("#table2 tr:not(:first)").empty(); //清空table处首行
+                                $("#table2").append(succ); //加载table
+                            }
+                        })
                     } else {
-                        $("#myModal").modal("show");
-                        $("#table2 tr:not(:first)").empty(); //清空table处首行
-                        $("#table2").append(data); //加载table
+                        $("#table").append(data);
                     }
+                    $("#search").val("");
+                    $("#search").focus();
                 }
             })
         }
     }
 })
-$("#close").click(function () {
-
+$("#btnAdd").click(function () {
+    var bookNum = $("input[type='radio']:checked").val();
+    $.ajax({
+        type: 'Post',
+        url: 'retail.aspx',
+        data: {
+            bookNum: bookNum,
+            op: 'add'
+        },
+        dataType: 'text',
+        success: function (data) {
+            $("#table").append(data);
+            $("#search").val("");
+            $("#search").focus();
+        }
+    })
 })
 $("#insert").click(function () {
     $.ajax({
@@ -96,6 +130,11 @@ $("#insert").click(function () {
         },
         dataType: 'text',
         success: function (data) {
+            window.location.reload();
+            $("#search").focus();
         }
     })
 })
+$("#table").delegate(".btn-delete", "click", function () {
+    $(this).parent().parent().remove();
+});

@@ -44,7 +44,8 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <%if (funcUser||funcRole||funcOrg||funcGoods) { %>
+                    <%if (funcUser || funcRole || funcOrg || funcGoods)
+                        { %>
                     <li class="nav-item active">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
@@ -55,28 +56,32 @@
                         </a>
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
-                                <%if (funcUser) { %>
+                                <%if (funcUser)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcRole) { %>
+                                <%if (funcRole)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcOrg) { %>
+                                <%if (funcOrg)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcGoods) { %>
+                                <%if (funcGoods)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
@@ -87,10 +92,11 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcCustom) {%>
+                    <%if (funcCustom)
+                    {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
-                           <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-user fa-lg"></i>
                             <p>
                                 客户管理
                                 <b class="caret"></b>
@@ -107,10 +113,11 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcPut||funcOut||funcReturn||funcSupply) {%>
+                    <%if (funcPut || funcOut || funcReturn || funcSupply)
+                        {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
-                             <i class="fa fa-book"></i>
+                            <i class="fa fa-book"></i>
                             <p>
                                 库存管理
                                 <b class="caret"></b>
@@ -118,28 +125,32 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <%if (funcOut) { %>
+                                <%if (funcOut)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcPut) { %>
+                                <%if (funcPut)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcReturn) { %>
+                                <%if (funcReturn)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcSupply) { %>
+                                <%if (funcSupply)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
@@ -150,7 +161,8 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcSale||funcSaleOff) { %>
+                    <%if (funcSale || funcSaleOff)
+                        { %>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
@@ -161,14 +173,16 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <%if (funcSale) { %>
+                                <%if (funcSale)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcSaleOff) { %>
+                                <%if (funcSaleOff)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/backQuery.aspx">
                                         <span class="sidebar-normal">销退管理</span>
@@ -181,7 +195,7 @@
                     <%} %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
-                             <i class="fa fa-file-archive-o"></i>
+                            <i class="fa fa-file-archive-o"></i>
                             <p>
                                 基础信息
                                 <b class="caret"></b>
@@ -199,7 +213,8 @@
                                         <span class="sidebar-normal">书籍库存查看</span>
                                     </a>
                                 </li>
-                                <%if (funcLibrary) { %>
+                                <%if (funcLibrary)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
@@ -273,18 +288,65 @@
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
-                                                    <td><nobr>单据编号</nobr></td>
-                                                    <td><nobr>ISBN号</nobr></td>
-                                                    <td><nobr>书名</nobr></td>
-                                                    <td><nobr>出版社</nobr></td>
-                                                    <td><nobr>商品数量</nobr></td>
-                                                    <td><nobr>单价</nobr></td>
-                                                    <td><nobr>折扣</nobr></td>
-                                                    <td><nobr>实洋</nobr></td>
-                                                    <td><nobr>码洋</nobr></td>
+                                                    <td>
+                                                        <nobr>单据编号</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>ISBN号</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>书名</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>出版社</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>货架</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>商品数量</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>单价</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>折扣</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>实洋</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>码洋</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>操作</nobr>
+                                                    </td>
                                                 </tr>
                                             </thead>
-                                            <%=getData() %>
+                                            <tr class="first">
+                                                <td></td>
+                                                <td>
+                                                    <input type="text" class="isbn search" value="" autofocus="autofocus" /></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <select>
+                                                        <%for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
+                                                            { %>
+                                                        <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="count search" value="0" /></td>
+                                                <td></td>
+                                                <td>
+                                                    <input type="text" class="discount search" value="<%=discount %>" /></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -301,16 +363,16 @@
 
             <!--添加单体模态框-->
             <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width: 1100px">
+                <div class="modal-dialog" style="max-width: 800px">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel3">添加入库明细</h4>
+                            <h4 class="modal-title float-left" id="myModalLabel3">请选择相应的图书</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                 <i class="material-icons">clear</i>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="text-right">
+                            <%-- <div class="text-right">
                                 <span>
                                     <nobr>ISBN:</nobr>
                                 </span>
@@ -332,7 +394,7 @@
                                     <nobr>折扣:</nobr>
                                 </span>
                                 <input type="text" class="modal_search_add" value="<%=discount %>" id="disCount">
-                            </div><br />
+                            </div><br />--%>
                             <table class="table table-bordered mostTable text-center" id="table3">
                                 <thead>
                                     <tr>
@@ -349,7 +411,7 @@
                                         <th>出版社</th>
                                     </tr>
                                 </thead>
-                                <%=getIsbn() %>
+
                             </table>
                         </div>
                         <div class="modal-footer">
@@ -416,12 +478,12 @@
                                         <td>商品数量</td>
                                         <td>单价</td>
                                         <td>码洋</td>
-                                         <td>实洋</td>
+                                        <td>实洋</td>
                                         <td>折扣</td>
                                         <td>流水号</td>
                                     </tr>
                                 </thead>
-                                
+
                             </table>
                         </div>
                         <div class="m-style paging2"></div>

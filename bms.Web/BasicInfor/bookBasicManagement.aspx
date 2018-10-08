@@ -167,7 +167,7 @@
                                 <%} %>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="<%=url %>" id="retail">
+                                    <a class="nav-link" href="../SalesMGT/retail.aspx" id="retail">
                                         <span class="sidebar-normal">自助售书</span>
                                     </a>
                                 </li>
