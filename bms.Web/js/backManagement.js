@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $(".paging").pagination({
-        pageCount:$("#intPageCount").val(),
+        pageCount: $("#intPageCount").val(),
         jump: true,
         mode: 'fixed',//固定页码数量
         coping: true,
@@ -77,96 +77,108 @@
         });
     })
     //页面链接
+    //查询按钮
     $("#table").delegate(".search_back", "click", function () {
-        window.location.href='backQuery.aspx'
-    })
-    $("#table").delegate(".btn_add", "click", function () {
         window.location.href = 'backQuery.aspx'
     })
-    //添加
-    $("#btnAdd").click(function () {
-        var customerId = $("#selectCustomer").find("option:selected").val();
-        var kinds = $("#kinds").val();
-        var count = $("#count").val();
-        var discount = $("#discount").val();
-        if (customerId == "") {
-            swal({
-                title: "温馨提示:)",
-                text: "客户不能为空，请您确认后再次添加!",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (kinds == "") {
-            swal({
-                title: "温馨提示:)",
-                text: "品种数量不能为空，请您确认后再次添加!",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (count == "") {
-            swal({
-                title: "温馨提示:)",
-                text: "总数量不能为空，请您确认后再次添加!",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (discount == "") {
-            swal({
-                title: "温馨提示:)",
-                text: "折扣不能为空，请您确认后再次添加!",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else {
-            $.ajax({
-                type: 'Post',
-                url: 'backManagement.aspx',
-                data: {
-                    customerId: customerId,
-                    kinds: kinds,
-                    count: count,
-                    discount: discount,
-                    op: "add"
-                },
-                dataType: 'text',
-                success: function (succ) {
-                    if (succ == "添加成功") {
-                        swal({
-                            title: "温馨提示",
-                            text: "添加成功",
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window, location.reload();
-                        })
-                    } else {
-                        swal({
-                            title: "温馨提示",
-                            text: succ,
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                        })
-                    }
+    //添加单体
+    $("#table").delegate(".btn_add", "click", function () {
+        var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        $.ajax({
+            type: 'Post',
+            url: 'backManagement.aspx',
+            data: {
+                sohId: id,
+                op: "addMonomer"
+            },
+            dataType: 'text',
+            success: function (succ) {
+                window.location.href = 'backQuery.aspx';
+            }
+        })
+    })
+    //添加单头
+    $("#btn-add").click(function () {
+        $.ajax({
+            type: 'Post',
+            url: 'backManagement.aspx',
+            data: {
+                op: "add"
+            },
+            dataType: 'text',
+            success: function (succ) {
+                if (succ == "添加成功") {
+                    swal({
+                        title: "温馨提示",
+                        text: "添加成功",
+                        type: "success",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window, location.reload();
+                    })
+                } else {
+                    swal({
+                        title: "温馨提示",
+                        text: succ,
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        //window, location.reload();
+                    })
                 }
-            })
-        }
+            }
+        })
+    })
+    //删除
+    $("#table").delegate(".btndelete", "click", function () {
+        var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        $.ajax({
+            type: 'Post',
+            url: 'backManagement.aspx',
+            data: {
+                sohId:id,
+                op: "delete"
+            },
+            dataType: 'text',
+            success: function (succ) {
+                if (succ == "删除成功") {
+                    swal({
+                        title: "温馨提示",
+                        text: succ,
+                        type: "success",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window, location.reload();
+                    })
+                } else {
+                    swal({
+                        title: "温馨提示",
+                        text: succ,
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        //window, location.reload();
+                    })
+                }
+            }
+        })
+
     })
 })
 //退出系统

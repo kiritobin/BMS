@@ -47,7 +47,7 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
-        public float getkinds(string saleHeadId)
+        public int getkinds(string saleHeadId)
         {
             return SaleMonomerdao.getkinds(saleHeadId);
 

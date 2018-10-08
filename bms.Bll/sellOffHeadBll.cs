@@ -39,14 +39,21 @@ namespace bms.Bll
             }
         }
         /// <summary>
-        /// 根据销售任务Id返回销退单头数量
+        /// 根据销售任务Id返回时间数据集
         /// </summary>
         /// <param name="saleTaskId"></param>
         /// <returns></returns>
-        public int getCount(string saleTaskId)
+        public DataSet getMakeTime(string saleTaskId)
         {
-            int row = dao.getCount(saleTaskId);
-            return row;
+            DataSet ds = dao.getMakeTime(saleTaskId);
+            if (ds != null)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
         }
         /// <summary>
         /// 删除销退单头
@@ -64,6 +71,16 @@ namespace bms.Bll
             {
                 return Result.删除失败;
             }
+        }
+        /// <summary>
+        /// 获取相应的时间数量
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public int getTimeCount(DateTime time)
+        {
+            int row = dao.getTimeCount(time);
+            return row;
         }
     }
 }
