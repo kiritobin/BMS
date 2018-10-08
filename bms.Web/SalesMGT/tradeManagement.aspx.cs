@@ -50,7 +50,7 @@ namespace bms.Web.SalesMGT
                 DateTime finishTime = DateTime.Now.ToLocalTime();
                 SaleTask saleTask = new SaleTask()
                 {
-                    SaleTaskId=saleTaskId,
+                    SaleTaskId = saleTaskId,
                     UserId = userId,
                     Customer = customer,
                     DefaultDiscount = defaultDiscount,
@@ -108,47 +108,10 @@ namespace bms.Web.SalesMGT
             //销售
             if (op == "sale")
             {
-                SaleHeadBll saleheadbll = new SaleHeadBll();
-                SaleHead salehead = new SaleHead();
                 string saleId = Request["ID"];
                 Session["saleId"] = saleId;
-                Session["saleType"] = "look";
-                int count = saleheadbll.getCount(saleId);
-
-                if (count > 0)
-                {
-                    count += 1;
-                    SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                    Session["saleheadId"] = SaleHeadId;
-                }
-                else
-                {
-                    count = 1;
-                    SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                    Session["saleheadId"] = SaleHeadId;
-                }
-                salehead.SaleHeadId = SaleHeadId;
-                salehead.SaleTaskId = saleId;
-                salehead.KindsNum = 0;
-                salehead.Number = 0;
-                salehead.AllTotalPrice = 0;
-                salehead.AllRealPrice = 0;
-                User user = (User)Session["user"];
-                salehead.UserId = user.UserId;
-                salehead.RegionId = user.ReginId.RegionId;
-                salehead.DateTime = DateTime.Now.ToLocalTime();
-                Result result = saleheadbll.Insert(salehead);
-                if (result == Result.添加成功)
-                {
-                    Response.Write("添加成功");
-                    Response.End();
-                }
-                else
-                {
-                    Response.Write("添加失败");
-                    Response.End();
-                }
-
+                Response.Write("添加成功");
+                Response.End();
             }
             //添加销退
             if (op == "saleback")
@@ -185,7 +148,7 @@ namespace bms.Web.SalesMGT
                     User = user
                 };
                 Result row = sellBll.Insert(sell);
-                if(row == Result.添加成功)
+                if (row == Result.添加成功)
                 {
                     Response.Write("添加成功");
                     Response.End();
@@ -236,7 +199,7 @@ namespace bms.Web.SalesMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
-                strb.Append("<td>" + Double.Parse(ds.Tables[0].Rows[i]["defaultDiscount"].ToString())*100 + "</td>");
+                strb.Append("<td>" + Double.Parse(ds.Tables[0].Rows[i]["defaultDiscount"].ToString()) * 100 + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["numberLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["priceLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPriceLimit"].ToString() + "</td>");

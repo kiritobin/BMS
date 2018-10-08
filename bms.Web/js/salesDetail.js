@@ -158,8 +158,7 @@
                             }).then(function () {
                             })
                         }
-                        else if(data!=null ||data=="")
-                        {
+                        else if (data == "库存不足") {
                             swal({
                                 title: "温馨提示",
                                 text: data,

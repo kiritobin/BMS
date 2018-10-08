@@ -33,6 +33,35 @@ namespace bms.Dao
                 return row = 0;
             }
         }
+        public int getkinds(string saleHeadId)
+        {
+            string cmdText = "select count(saleIdMonomerId) from T_SaleMonomer where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            
+        }
+        /// <summary>
+        /// 根据销售单头ID查询该销售单的状态
+        /// </summary>
+        /// <param name="saleHeadId">销售单头ID</param>
+        /// <returns>数据集</returns>
+        public DataSet saleheadstate(string saleHeadId)
+        {
+            string cmdText = "select state) from T_SaleMonomer where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// 根据销售单头获取单体
         /// </summary>
