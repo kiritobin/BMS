@@ -38,7 +38,7 @@
 
 //点击查询按钮时
 $("#btn-search").click(function () {
-    var singHeadId = $("#btn-id").val().trim();
+    var singHeadId = $("#ID").val().trim();
     var regionName = $("#btn-region").val().trim();
     var userName = $("#btn-user").val().trim();
     $.ajax({
