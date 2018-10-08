@@ -55,8 +55,6 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public String getData()
         {
-            Session["saleId"] = "XSRW20181007000001";
-            Session["user"] = "1001";
             int pagesize = 20;
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -113,7 +111,8 @@ namespace bms.Web.SalesMGT
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
-            strb.Append("<input type='hidden' value='" + saleId + "' id='saleTaskId' />");
+            strb.Append("<input type='text' value='" + Session["saleId"].ToString() + "' id='saleTaskId' />");
+            strb.Append("<input type='text' value='" + Session["user"] + "' id='saleTaskId' />");
             string op = Request["op"];
             if (op == "paging")
             {
@@ -127,13 +126,13 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public void Insert()
         {
-            Session["saleId"] = "XSRW20181007000001";
+            //Session["saleId"] = "XSRW20181007000001";
             string saleTaskId = Session["saleId"].ToString();
             SaleTaskBll saleBll = new SaleTaskBll();
             SaleTask sale = saleBll.selectById(saleTaskId);
             User user = new User();
             user.UserId = sale.UserId;//用户Id
-            string sellId = "001";//单头Id
+            string sellId;//单头Id
             sellOffHeadBll sellBll = new sellOffHeadBll();
             DateTime nowTime = DateTime.Now;
             string nowDt = nowTime.ToString("yyyy-MM-dd");
