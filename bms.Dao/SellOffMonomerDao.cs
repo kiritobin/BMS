@@ -30,7 +30,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet SelectByISBN(string ISBN)
         {
-            string cmdText = "select bookNum,bookName,supplier from T_BookBasicData where ISBN=@ISBN";
+            string cmdText = "select ISBN,bookNum,bookName,number,unitPrice,defaultDiscount from V_SaleMonomer where ISBN=@ISBN";
             string[] param = { "@ISBN" };
             object[] values = { ISBN };
             DataSet ds = db.FillDataSet(cmdText, param, values);
@@ -85,6 +85,33 @@ namespace bms.Dao
             string sql = "select defaultDiscount from T_SaleTask where saleTaskId=@saleTaskId";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
+            DataSet ds = db.FillDataSet(sql, param, values);
+            return ds;
+        }
+        /// <summary>
+        /// 根据书号到销售单体视图获取信息
+        /// </summary>
+        /// <param name="bookNum"></param>
+        /// <returns></returns>
+        public DataSet selctByBookNum(string bookNum,string saleTaskId)
+        {
+            string sql = "select number from V_SaleMonomer where bookNum=@bookNum and saleTaskId=@saleTaskId";
+            string[] param = { "@bookNum", "@saleTaskId" };
+            object[] values = { bookNum,saleTaskId };
+            DataSet ds = db.FillDataSet(sql, param, values);
+            return ds;
+        }
+        /// <summary>
+        /// 通过书号和单头Id查询单体表中相应的书籍数量
+        /// </summary>
+        /// <param name="bookNum"></param>
+        /// <param name="sellOffHeadId"></param>
+        /// <returns></returns>
+        public DataSet selecctSm(string bookNum,string sellOffHeadId)
+        {
+            string sql = "select count from T_SellOffMonomer where bookNum=@bookNum and sellOffHead=@sellOffHeadId";
+            string[] param = { "@bookNum", "@sellOffHeadId" };
+            object[] values = { bookNum, sellOffHeadId };
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }

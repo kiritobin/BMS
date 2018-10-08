@@ -47,7 +47,29 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+        public float getkinds(string saleHeadId)
+        {
+            return SaleMonomerdao.getkinds(saleHeadId);
 
+        }
+        /// <summary>
+        /// 根据销售单头ID查询该销售单的状态
+        /// </summary>
+        /// <param name="saleHeadId">销售单头ID</param>
+        /// <returns>数据集</returns>
+        public int saleheadstate(string saleHeadId)
+        {
+            DataSet ds = SaleMonomerdao.saleheadstate(saleHeadId);
+            int state;
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return state = Convert.ToInt32(ds.Tables[0].Rows[0]["state"].ToString());
+            }
+            else
+            {
+                return state = 4;
+            }
+        }
         /// <summary>
         /// 单体添加
         /// </summary>
@@ -168,6 +190,17 @@ namespace bms.Bll
             return SaleMonomerdao.SelectMonomers(saleHeadId);
         }
         /// <summary>
+        /// 判断该书号是否是第一次添加
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public int SelectnumberBysaletask(string saleTaskId, string bookNum)
+        {
+            return SaleMonomerdao.SelectnumberBysaletask(saleTaskId, bookNum);
+        }
+
+        /// <summary>
         /// 通过书号查询在单体中是否存在记录
         /// </summary>
         /// <param name="bookNum">书号</param>
@@ -184,6 +217,16 @@ namespace bms.Bll
             {
                 return Result.记录不存在;
             }
+        }
+        /// <summary>
+        /// 获取该书号在该销售任务下的已购数量
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="bookNum">书号</param>
+        /// <returns>返回数据集</returns>
+        public DataSet SelectCountBybookNum(string saleTaskId, string bookNum)
+        {
+            return SaleMonomerdao.SelectCountBybookNum(saleTaskId, bookNum);
         }
     }
 }

@@ -29,16 +29,36 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 获取销售任务id
+        /// </summary>
+        /// <param name="saleHeadId"></param>
+        /// <returns></returns>
+        public string SelectTaskByheadId(string saleHeadId)
+        {
+            string comText = "select saleTaskId from T_SaleHead where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            DataSet ds = db.FillDataSet(comText, param, values);
+            string saleTaskId = ds.Tables[0].Rows[0]["saleTaskId"].ToString();
+
+            if (saleTaskId != null || saleTaskId.Length > 0)
+            {
+                return saleTaskId;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
         /// 判断单头编号
         /// </summary>
         /// <param name="saleHeadId">销售任务ID</param>
         /// <returns></returns>
         public int countHead(string saleTaskId)
         {
-            string cmdText = "select count(saleHeadId) from T_SaleHead where saleTaskId=@saleTaskId";
-            string[] param = { "@saleTaskId" };
-            object[] values = { saleTaskId };
-            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            string cmdText = "select count(saleHeadId) from T_SaleHead";
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, null, null));
             return row;
         }
 
@@ -66,6 +86,31 @@ namespace bms.Dao
             string cmdText = "update T_SaleHead set deleteState = 1 where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
             String[] param = { "@saleTaskId", "@saleHeadId" };
             String[] values = { saleTaskId, saleHeadId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+        /// <summary>
+        /// 判断零售单头编号
+        /// </summary>
+        /// <param name="retailId">零售ID</param>
+        /// <returns></returns>
+        public int countRetail()
+        {
+            string cmdText = "select count(retailHeadId) from T_RetailHead";
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, null, null));
+            return row;
+        }
+
+        /// <summary>
+        /// 添加零售单头信息
+        /// </summary>
+        /// <param name="salehead"></param>
+        /// <returns></returns>
+        public int InsertRetail(SaleHead salehead)
+        {
+            string cmdText = "insert into T_RetailHead(retailHeadId,userId,regionId,dateTime) values(@retailHeadId,@userId,@regionId,@dateTime)";
+            string[] param = { "@retailHeadId", "@userId", "@regionId", "@dateTime" };
+            object[] values = { salehead.SaleHeadId, salehead.UserId, salehead.RegionId, salehead.DateTime };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }

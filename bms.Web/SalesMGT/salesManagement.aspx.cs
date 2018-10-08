@@ -1,17 +1,17 @@
-﻿using System;
+﻿using bms.Bll;
+using bms.Model;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace bms.Web.SalesMGT
 {
-    // using Result = Enums.OpResult;
-    using Bll;
-    using Model;
-    using System.Data;
-    using System.Text;
+    using Result = Enums.OpResult;
 
     public partial class salesManagement : System.Web.UI.Page
     {
@@ -37,6 +37,78 @@ namespace bms.Web.SalesMGT
                 Session["saleType"] = "addsale";
                 Response.Write("成功");
                 Response.End();
+            }
+            if (op == "add")
+            {
+                SaleHeadBll saleheadbll = new SaleHeadBll();
+                SaleHead salehead = new SaleHead();
+                string saleId = Session["saleId"].ToString();
+                string SaleHeadId;
+                int count = saleheadbll.getCount(saleId);
+
+                if (count > 0)
+                {
+                    count += 1;
+                    SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                    Session["saleheadId"] = SaleHeadId;
+                }
+                else
+                {
+                    count = 1;
+                    SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                    Session["saleheadId"] = SaleHeadId;
+                }
+                salehead.SaleHeadId = SaleHeadId;
+                salehead.SaleTaskId = saleId;
+                salehead.KindsNum = 0;
+                salehead.Number = 0;
+                salehead.AllTotalPrice = 0;
+                salehead.AllRealPrice = 0;
+                User user = (User)Session["user"];
+                salehead.UserId = user.UserId;
+                salehead.RegionId = user.ReginId.RegionId;
+                salehead.DateTime = DateTime.Now.ToLocalTime();
+                Result result = saleheadbll.Insert(salehead);
+                if (result == Result.添加成功)
+                {
+                    Response.Write("添加成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
+            }
+            if (op == "del")
+            {
+                string salehead = Request["ID"];
+                SaleMonomerBll salemonbll = new SaleMonomerBll();
+                int state = salemonbll.saleheadstate(salehead);
+                if (state == 0)
+                {
+                    Result result = salemonbll.realDelete(salehead);
+                    if (result == Result.删除成功)
+                    {
+                        Response.Write("删除成功");
+                        Response.End();
+                    }
+                }
+                else if (state == 1)
+                {
+                    Response.Write("单据采集中");
+                    Response.End();
+                }
+                else if (state == 2)
+                {
+                    Response.Write("单据完成");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("删除失败");
+                    Response.End();
+                }
             }
         }
         public string getData()
@@ -87,7 +159,7 @@ namespace bms.Web.SalesMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleHead";
             tb.OrderBy = "saleHeadId";
-            tb.StrColumnlist = "saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,userName,regionName,dateTime";
+            tb.StrColumnlist = "saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,userName,regionName,dateTime,state";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
@@ -100,8 +172,22 @@ namespace bms.Web.SalesMGT
             strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
+                string state = ds.Tables[0].Rows[i]["state"].ToString();
+                if (state == "0")
+                {
+                    state = "新建单据";
+                }
+                else if (state == "1")
+                {
+                    state = "采集中";
+                }
+                else if (state == "2")
+                {
+                    state = "单据已完成";
+                }
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["saleHeadId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
+                strb.Append("<td>" + state + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["kindsNum"].ToString() + "</td>");
@@ -110,7 +196,8 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
                 strb.Append("<td>" + "<button class='btn btn-success btn-sm add'><i class='fa fa-plus fa-lg'></i></button>");
                 strb.Append("<button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button>");
-                strb.Append("<button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button>" + " </td></tr>");
+                strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + "</td></tr>");
+
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");

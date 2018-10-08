@@ -56,10 +56,15 @@ namespace bms.Bll
             return shelvesdao.Select(regionId);
         }
 
+        /// <summary>
+        /// 查询货架名是否重复
+        /// </summary>
+        /// <param name="shelves">货架实体对象</param>
+        /// <returns></returns>
         public Result selectByName(GoodsShelves shelves)
         {
-            DataSet ds = shelvesdao.selectByName(shelves);
-            if (ds != null)
+            int row = shelvesdao.selectByName(shelves);
+            if (row>0)
             {
                 return Result.记录存在;
             }

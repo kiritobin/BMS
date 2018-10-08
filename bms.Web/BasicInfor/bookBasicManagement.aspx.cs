@@ -24,6 +24,8 @@ namespace bms.Web.BasicInfor
         DataTable except = new DataTable();//接受差集
         BookBasicBll bookbll = new BookBasicBll();
         UserBll userBll = new UserBll();
+        SaleHeadBll saleBll = new SaleHeadBll();
+        SaleHead single = new SaleHead();
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();

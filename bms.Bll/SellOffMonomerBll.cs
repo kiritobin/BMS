@@ -95,7 +95,14 @@ namespace bms.Bll
         {
             SellOffHead sh = new SellOffHead();
             DataSet ds = dao.getSaleTask(sellOffHeadId);
-            return ds;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
         }
         /// <summary>
         /// 通过销售任务Id获取默认折扣
@@ -107,6 +114,38 @@ namespace bms.Bll
             SaleTask st = new SaleTask();
             DataSet ds = dao.getDisCount(saleTaskId);
             return ds;
+        }
+        /// <summary>
+        /// 根据书号到销售单体视图获取信息
+        /// </summary>
+        /// <param name="bookNum"></param>
+        /// <returns></returns>
+        public DataSet selctByBookNum(string bookNum,string saleTaskId)
+        {
+            DataSet ds = dao.selctByBookNum(bookNum, saleTaskId);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            return null;
+        }
+        /// <summary>
+        /// 通过书号和单头Id查询单体表中相应的书籍数量
+        /// </summary>
+        /// <param name="bookNum"></param>
+        /// <param name="sellOffHeadId"></param>
+        /// <returns></returns>
+        public DataSet selecctSm(string bookNum, string sellOffHeadId)
+        {
+            DataSet ds = dao.selecctSm(bookNum, sellOffHeadId);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

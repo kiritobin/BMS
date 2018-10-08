@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
     <!-- 时间input样式 -->
-    <link rel="stylesheet" href="../css/jedate.css"/>
+    <link rel="stylesheet" href="../css/jedate.css" />
 </head>
 
 <body>
@@ -41,11 +41,11 @@
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
-           <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
-                           <i class="fa fa-cogs"></i>
+                            <i class="fa fa-cogs"></i>
                             <p>
                                 权限管理
                                 <b class="caret"></b>
@@ -79,7 +79,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
-                           <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-user fa-lg"></i>
                             <p>
                                 客户管理
                                 <b class="caret"></b>
@@ -130,7 +130,7 @@
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
-                             <i class="fa fa-area-chart"></i>
+                            <i class="fa fa-area-chart"></i>
                             <p>
                                 销售管理
                                 <b class="caret"></b>
@@ -193,7 +193,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                   <i class="fa fa-gear"></i>
+                                    <i class="fa fa-gear"></i>
                                     <p class="d-lg-none d-md-block">
                                         更多设置
                                     </p>
@@ -218,7 +218,7 @@
                                     <h4 class="card-title">销售管理</h4>
                                 </div>
                                 <div class="card-body">
-                                     <div class="card-header from-group">
+                                    <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="ID" class="searchOne" placeholder="请输入任务编号">
@@ -230,8 +230,8 @@
                                                 <input type="text" id="userName" class="searchOne" placeholder="请输入操作员名称">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
-                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm"  id="btn_add">添加</button>
                                             </div>
                                         </div>
                                     </div>
@@ -242,6 +242,7 @@
                                                 <tr>
                                                     <th>销售ID</th>
                                                     <th>任务ID</th>
+                                                    <th>状态</th>
                                                     <th>组织名称</th>
                                                     <th>操作员名称</th>
                                                     <th>品种数</th>
@@ -250,7 +251,7 @@
                                                     <th>制单时间</th>
                                                     <th>操作</th>
                                                 </tr>
-                                               <%=getData()%>
+                                                <%=getData()%>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -264,7 +265,6 @@
                     </div>
                 </div>
             </div>
-         
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -281,19 +281,19 @@
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
-        <!-- 左侧导航栏所需js -->
-        <script src="../js/popper.min.js"></script>
-        <script src="../js/bootstrap-material-design.min.js"></script>
-        <!-- 移动端手机菜单所需js -->
-        <script src="../js/perfect-scrollbar.jquery.min.js"></script>
-        <script src="../js/material-dashboard.min.js"></script>
-        <!-- selectpicker.js -->
-        <script src="../js/bootstrap-selectpicker.js"></script>
-        <!-- alert.js -->
-        <script src="../js/sweetalert2.js"></script>
-        <!-- paging -->
-        <script src="../js/jquery.pagination.js"></script>
-        <script src="../js/salesManagement.js"></script>
+    <!-- 左侧导航栏所需js -->
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap-material-design.min.js"></script>
+    <!-- 移动端手机菜单所需js -->
+    <script src="../js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../js/material-dashboard.min.js"></script>
+    <!-- selectpicker.js -->
+    <script src="../js/bootstrap-selectpicker.js"></script>
+    <!-- alert.js -->
+    <script src="../js/sweetalert2.js"></script>
+    <!-- paging -->
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/salesManagement.js"></script>
 </body>
 
 </html>

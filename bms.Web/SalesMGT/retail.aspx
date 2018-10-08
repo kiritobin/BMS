@@ -11,10 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <!-- css file -->
+    <!--分页样式-->
+    <link rel="stylesheet" href="../css/pagination.css">
+    <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
-    <link rel="stylesheet" href="../css/zgz.css" />
-    <link rel="stylesheet" href="../css/pagination.css" />
+    <link rel="stylesheet" href="../css/zgz.css">
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 
 <body>
@@ -26,7 +29,8 @@
                         <div class="input-group col-md-12">
                             <div class="btn-group" role="group">
                                 <input type="text" placeholder="请输入ISBN" id="search" class="searchOne">
-                                <button class="btn btn-info btn-sm" id="btnSearch">添加</button>
+                                <button class="btn btn-info btn-sm" id="btnSearch">扫描</button>
+                                <button class="btn btn-info btn-sm" data-toggle="modal"></button>
                             </div>
                         </div>
                     </div>
@@ -39,10 +43,13 @@
                                         <th>书名</th>
                                         <th>单价</th>
                                         <th>数量</th>
+                                        <th>折扣</th>
                                         <th>码洋</th>
+                                        <th>实洋</th>
+                                        <th>操作</th>
                                     </tr>
                                 </thead>
-                                <%=getData() %>
+                                <%getIsbn(); %>
                             </table>
                         </div>
                         <div class="retailList col-md-2">
@@ -56,21 +63,26 @@
                                 <li>总码洋：</li>
                                 <li>总实洋：</li>
                             </ul>
+                            <hr />
+                            <div class="input-group text-white" id="insert">
+                                <a class="btn btn-success btn-sm"><i class="fa fa-print">打印</i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+    <!--添加模态框-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog" style="width: 380px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close">
-                        <i class="fa fa-close"></i>
-                    </button>
-                </div>
+                <div class="modal-dialog" style="max-width: 1100px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title float-left" id="myModalLabel">请选中需要的图书信息</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
                 <div class="modal-body">
                     <table class="table model-table" id="table2">
                         <thead>
@@ -83,7 +95,7 @@
                                 </th>
                                 <th>ISBN</th>
                                 <th>书名</th>
-                                <th>单价价</th>
+                                <th>单价</th>
                                 <th>出版社</th>
                             </tr>
                         </thead>
@@ -91,16 +103,18 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
+                    <button class="btn btn-success btn-sm" id="btnAdd">确定</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
     <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/retail.js"></script>
 </body>
 
 </html>
