@@ -22,7 +22,7 @@ namespace bms.Web.SalesMGT
         public StringBuilder strbook = new StringBuilder();
         public int allkinds, allnumber;
         public double alltotalprice, allreadprice;
-        string bookISBN;
+        string bookISBN, SaleHeadId;
         double disCount;
         int number;
         long bookNum;
@@ -33,10 +33,22 @@ namespace bms.Web.SalesMGT
             string saleId = Session["saleId"].ToString();
             SaleTask task = saletaskbll.selectById(saleId);
             defaultdiscount = ((task.DefaultDiscount) * 100).ToString();
+            SaleHeadId = Session["saleheadId"].ToString();
+
+            //更新单头
+            allkinds = int.Parse(salemonbll.getkinds(SaleHeadId).ToString());
+            DataSet allds = salemonbll.SelectMonomers(SaleHeadId);
+            int j = allds.Tables[0].Rows.Count;
+            for (int h = 0; h < j; h++)
+            {
+                //string hh = allds.Tables[0].Rows[h]["number"].ToString();
+                allnumber += Convert.ToInt32(allds.Tables[0].Rows[h]["number"]);
+                alltotalprice += Convert.ToInt32(allds.Tables[0].Rows[h]["totalPrice"]);
+                allreadprice += Convert.ToInt32(allds.Tables[0].Rows[h]["realPrice"]);
+            }
             string op = Request["op"];
             if (op == "back")
             {
-                string SaleHeadId = Session["saleheadId"].ToString();
                 int count = salemonbll.SelectBySaleHeadId(SaleHeadId);
                 if (count > 0)
                 {
@@ -93,6 +105,10 @@ namespace bms.Web.SalesMGT
                 bookNum = long.Parse(Request["bookNum"]);
                 addsalemon();
             }
+            if (op == "success")
+            {
+                //修改单头状态为2
+            }
         }
         public void addsalemon()
         {
@@ -116,20 +132,8 @@ namespace bms.Web.SalesMGT
                     string saletaskId = saleheadbll.SelectTaskByheadId(saleHead);
                     string customerId = saletaskbll.getCustomerId(saletaskId);
                     int AlreadyBought = 0;
-                    DataSet bookcount = salemonbll.SelectCountBybookNum(saletaskId, bookNum.ToString());
-                    //获取已购数
-                    int frequency = salemonbll.SelectnumberBysaletask(saletaskId, bookNum.ToString());
-                    if (frequency > 0)
-                    {
-                        for (int i = 0; i < bookcount.Tables[0].Rows.Count; i++)
-                        {
-                            AlreadyBought += Convert.ToInt32(bookcount.Tables[0].Rows[i]["alreadyBought"]);
-                        }
-                    }
-                    else
-                    {
-                        AlreadyBought = number;
-                    }
+
+                    //判断馆藏
                     LibraryCollectionBll library = new LibraryCollectionBll();
                     Result libresult = library.Selectbook(customerId, bookISBN);
                     if (libresult == Result.记录不存在)
@@ -139,7 +143,8 @@ namespace bms.Web.SalesMGT
                         {
                             int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[i]["stockNum"]);
                             int goodsId = Convert.ToInt32(stockbook.Tables[0].Rows[i]["goodsShelvesId"]);
-                            if (number <= stockNum)
+                            int countnumber = number;
+                            if (countnumber <= stockNum)
                             {
                                 BookBasicBll Bookbll = new BookBasicBll();
                                 BookBasicData book = new BookBasicData();
@@ -154,6 +159,19 @@ namespace bms.Web.SalesMGT
                                 else
                                 {
                                     saleIdmonomerId = count + 1;
+                                }
+
+                                //获取已购数
+                                int frequency = salemonbll.SelectnumberBysaletask(saletaskId, bookNum.ToString());
+                                if (frequency > 0)
+                                {
+                                    DataSet bookcount = salemonbll.SelectCountBybookNum(saletaskId, bookNum.ToString());
+                                    AlreadyBought = Convert.ToInt32(bookcount.Tables[0].Rows[0]["alreadyBought"]);
+                                    AlreadyBought += number;
+                                }
+                                else
+                                {
+                                    AlreadyBought = number;
                                 }
                                 int price = Convert.ToInt32(book.Price);
                                 int totalPrice = price * number;
@@ -174,7 +192,16 @@ namespace bms.Web.SalesMGT
                                     Datetime = Time
                                 };
                                 //更新库存
-                                int stockcount = stockNum - number;
+                                int stockcount = 0;
+                                if (number < 0)
+                                {
+                                    number = Math.Abs(number);
+                                    stockcount = stockNum + number;
+                                }
+                                else
+                                {
+                                    stockcount = stockNum - number;
+                                }
                                 Result upresult = stockbll.update(stockcount, goodsId, bookNum);
                                 if (upresult == Result.更新成功)
                                 {
@@ -182,16 +209,6 @@ namespace bms.Web.SalesMGT
                                     Result result = salemonbll.Insert(newSalemon);
                                     if (result == Result.添加成功)
                                     {
-                                        allkinds = salemonbll.SelectBySaleHeadId(saleHeadId);
-                                        DataSet allds = salemonbll.SelectMonomers(saleHeadId);
-                                        int j = allds.Tables[0].Rows.Count;
-                                        for (int h = 0; h < j; h++)
-                                        {
-                                            string hh = allds.Tables[0].Rows[h]["number"].ToString();
-                                            allnumber += Convert.ToInt32(allds.Tables[0].Rows[h]["number"]);
-                                            alltotalprice += Convert.ToInt32(allds.Tables[0].Rows[h]["totalPrice"]);
-                                            allreadprice += Convert.ToInt32(allds.Tables[0].Rows[h]["realPrice"]);
-                                        }
                                         SaleHead salehead = new SaleHead();
                                         salehead.SaleHeadId = saleHeadId;
                                         salehead.KindsNum = allkinds;
@@ -216,7 +233,7 @@ namespace bms.Web.SalesMGT
                             }
                             else
                             {
-                                number = number - stockNum;
+                                countnumber = countnumber - stockNum;
                                 Result upre = stockbll.update(0, goodsId, bookNum);
                                 if (number == 0)
                                 {

@@ -33,30 +33,32 @@ namespace bms.Dao
                 return row = 0;
             }
         }
-        public float getkinds(string saleHeadId)
+        public int getkinds(string saleHeadId)
         {
             string cmdText = "select bookNum,number from T_SaleMonomer where saleHeadId=@saleHeadId";
             string[] param = { "@saleHeadId" };
             object[] values = { saleHeadId };
             float sltemp = 0;
+            int zl = 0;
             DataSet ds = db.FillDataSet(cmdText, param, values);
-            DataTable dt = ds.Tables[0];
-            DataView dv = new DataView(dt);
-            DataTable dttemp = dv.ToTable(true, "number");
+            DataTable dtcount = db.getkinds(cmdText, param, values);
+            DataView dv = new DataView(dtcount);
+            int count = dv.Count;
+            DataTable dttemp = dv.ToTable(true, "bookNum");
             for (int i = 0; i < dttemp.Rows.Count; i++)
             {
-                string bn = dttemp.Rows[i]["number"].ToString();
-                DataRow[] dr = dt.Select("number='" + bn + "'");
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
                 for (int j = 0; j < dr.Length; j++)
                 {
                     sltemp += float.Parse(dr[j]["number"].ToString().Trim());
                 }
                 if (sltemp > 0)
                 {
-                    sltemp++;
+                    zl++;
                 }
             }
-            return sltemp;
+            return zl;
         }
         /// <summary>
         /// 根据销售单头ID查询该销售单的状态
@@ -222,7 +224,7 @@ namespace bms.Dao
         /// <returns>返回数据集</returns>
         public DataSet SelectCountBybookNum(string saleTaskId, string bookNum)
         {
-            string comText = "select alreadyBought from V_SaleMonomer where saleTaskId=@saleTaskId and bookNum=@bookNum";
+            string comText = "select alreadyBought from V_SaleMonomer where saleTaskId=@saleTaskId and bookNum=@bookNum order by alreadyBought desc;";
             string[] param = { "@saleTaskId", "@bookNum" };
             object[] values = { saleTaskId, bookNum };
             DataSet ds = db.FillDataSet(comText, param, values);

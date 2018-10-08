@@ -37,17 +37,17 @@ namespace bms.Dao
             return row;
         }
         /// <summary>
-        /// 根据销售任务ID获取单头数量
+        /// 根据销售任务Id返回时间数据集
         /// </summary>
         /// <param name="saleTaskId"></param>
         /// <returns></returns>
-        public int getCount(string saleTaskId)
+        public DataSet getMakeTime(string saleTaskId)
         {
-            string cmdText = "select COUNT(sellOffHeadID) from T_SellOffHead where saleTaskId=@saleTaskId";
+            string cmdText = "select makingTime from T_SellOffHead where saleTaskId=@saleTaskId ORDER BY makingTime desc";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
-            int row = int.Parse(db.ExecuteScalar(cmdText, param, values).ToString());
-            return row;
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
         }
 
         /// <summary>
@@ -75,6 +75,19 @@ namespace bms.Dao
             object[] values = { saleTaskId };
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
+        }
+        /// <summary>
+        /// 获取相应的时间数量
+        /// </summary>
+        /// <param name="time">时间</param>
+        /// <returns></returns>
+        public int getTimeCount(DateTime time)
+        {
+            string sql = "select count(makingTime) from T_SellOffHead where makingTime=@makingTime";
+            string[] param = { "@makingTime" };
+            object[] values = { time };
+            int row = int.Parse(db.ExecuteScalar(sql, param, values).ToString());
+            return row;
         }
     }
 }

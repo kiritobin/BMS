@@ -232,6 +232,36 @@ namespace bms.DBHelper
             }
         }
 
+        public DataTable getkinds(string cmdText, string[] param, object[] values)
+        {
+            OpenConn();
+            MySqlCommand myCmd;
+            if (param != null)
+            {
+                myCmd = this.CreateCommand(cmdText, param, values);
+            }
+            else
+            {
+                myCmd = new MySqlCommand(cmdText, sqlConn);
+            }
+            DataTable dtcount = new DataTable();
+            MySqlDataAdapter myAdp = new MySqlDataAdapter(myCmd);
+
+            try
+            {
+                myAdp.Fill(dtcount);
+                myAdp.Dispose();
+                return dtcount;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConn();
+            }
+        }
         /// <summary>
         /// 执行特定存储过程并返回查询后的数据结果，该方法用于执行查询类的存储过程
         /// </summary>
