@@ -14,10 +14,6 @@
     <link rel="stylesheet" href="css/zgz.css" />
 </head>
 <body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white" id="navigation-example">
         <div class="container">
             <div class="navbar-wrapper">
