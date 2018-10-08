@@ -58,7 +58,7 @@
                                     <table class="table mostTable table-bordered text-center">
                                         <thead>
                                             <tr>
-                                                <th>单据号</th>
+                                                <th>序号</th>
                                                 <th>ISBN号</th>
                                                 <th>书号</th>
                                                 <th>单价</th>
