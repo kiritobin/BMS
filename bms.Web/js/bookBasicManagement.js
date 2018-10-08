@@ -444,3 +444,17 @@ function logout() {
         });
     })
 }
+
+$("#retail").click(function () {
+    $.ajax({
+        type: 'Post',
+        url: 'bookBasicManagement.aspx',
+        data: {
+            op: "retail"
+        },
+        dataType: 'text',
+        success: function (succ) {
+            
+        }
+    })
+})

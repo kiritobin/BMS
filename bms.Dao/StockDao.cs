@@ -48,7 +48,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet SelectByBookNum(long bookNum)
         {
-            string cmdText = "select goodsShelvesId,stockNum from T_Stock where bookNum = @bookNum order by stockNum desc";
+            string cmdText = "select goodsShelvesId,stockNum from T_Stock where bookNum = @bookNum order by stockNum asc";
             String[] param = { "@bookNum" };
             String[] values = { bookNum.ToString() };
             DataSet ds = db.FillDataSet(cmdText, param, values);

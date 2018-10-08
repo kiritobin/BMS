@@ -86,3 +86,16 @@ $("#search").keypress(function (e) {
 $("#close").click(function () {
 
 })
+$("#insert").click(function () {
+    $.ajax({
+        type: 'Post',
+        url: 'retail.aspx',
+        data: {
+            isbn: isbn,
+            op: 'insert'
+        },
+        dataType: 'text',
+        success: function (data) {
+        }
+    })
+})
