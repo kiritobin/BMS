@@ -47,6 +47,11 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+        public float getkinds(string saleHeadId)
+        {
+            return SaleMonomerdao.getkinds(saleHeadId);
+
+        }
         /// <summary>
         /// 根据销售单头ID查询该销售单的状态
         /// </summary>
