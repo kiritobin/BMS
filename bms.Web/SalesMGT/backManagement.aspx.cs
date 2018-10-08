@@ -21,6 +21,7 @@ namespace bms.Web.SalesMGT
         protected double discount;
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["saleId"] = "XSRW20181007000001";
             string op = Request["op"];
             getData();
             if (op == "logout")
@@ -47,6 +48,11 @@ namespace bms.Web.SalesMGT
             if(op == "delete")
             {
                 Delete();
+            }
+            if(op == "addMonomer")
+            {
+                string sellId = Request["sohId"];
+                Session["sellId"] = sellId;
             }
         }
         /// <summary>
@@ -111,8 +117,7 @@ namespace bms.Web.SalesMGT
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
-            strb.Append("<input type='text' value='" + Session["saleId"].ToString() + "' id='saleTaskId' />");
-            strb.Append("<input type='text' value='" + Session["user"] + "' id='saleTaskId' />");
+            strb.Append("<input type='hidden' value='" + Session["saleId"].ToString() + "' id='saleTaskId' />");
             string op = Request["op"];
             if (op == "paging")
             {
