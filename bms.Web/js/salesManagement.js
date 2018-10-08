@@ -81,64 +81,69 @@
     });
 
     //添加
-    $("#btnAdd").click(function () {
-        var billCount = $("#billCount").val().trim();
-        var totalPrice = $("#totalPrice").val().trim();
-        var realPrice = $("#realPrice").val().trim();
-        var Price = $("#Price").val().trim();
-        var saleCustmer = $("#saleCustmer").val().trim();
-        if (billCount == "" || totalPrice == "" || realPrice == "" || Price == "" || saleCustmer == "") {
-            swal({
-                title: "温馨提示:)",
-                text: "不能含有未填项!",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else {
-            $.ajax({
-                type: 'Post',
-                url: 'salesManagement.aspx',
-                data: {
-                    Custmer: saleCustmer,
-                    numberLimit: billCount,
-                    priceLimit: totalPrice,
-                    totalPriceLimit: realPrice,
-                    defaultDiscount: Price,
-                    op: "add"
-                },
-                dataType: 'text',
-                success: function (succ) {
-                    if (succ == "添加成功") {
-                        swal({
-                            title: "温馨提示",
-                            text: "添加成功",
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window, location.reload();
-                        })
-                    } else {
-                        swal({
-                            title: "温馨提示",
-                            text: succ,
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                        })
-                    }
+    $("#btn_add").click(function () {
+        $.ajax({
+            type: 'Post',
+            url: 'salesManagement.aspx',
+            data: {
+                op: "add"
+            },
+            dataType: 'text',
+            success: function (succ) {
+                if (succ == "添加成功") {
+                    swal({
+                        title: "温馨提示",
+                        text: "添加成功",
+                        type: "success",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window, location.reload();
+                    })
+                } else if (succ == "单据采集中") {
+                    swal({
+                        title: "温馨提示",
+                        text: "单据采集中,不能删除",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                    })
                 }
-            })
-        }
+                else if (succ == "单据完成") {
+                    swal({
+                        title: "温馨提示",
+                        text: "单据已完成,不能删除",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                    })
+                }
+                else {
+                    swal({
+                        title: "温馨提示",
+                        text: "单据已完成,不能删除",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                    })
+                }
+            }
+        })
     })
     //删除
     $("#table").delegate(".btn_del", "click", function () {

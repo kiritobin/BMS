@@ -22,16 +22,19 @@ namespace bms.Web.SalesMGT
         protected int totalCount;
         protected int intPageCount;
         public StringBuilder strbook = new StringBuilder();
+        public string saleBookNum;
+        BookBasicBll bookBll = new BookBasicBll();
+        GoodsShelvesBll gbll = new GoodsShelvesBll();
+        StockBll stbll = new StockBll();
         protected void Page_Load(object sender, EventArgs e)
         {
             string op = Request["op"];
             GetData();
-            if(op == "search")
+            if (op == "search")
             {
                 string bookNum = Request["bookNum"];
                 string ISBN = Request["ISBN"];
-                BookBasicBll bookbll = new BookBasicBll();
-                bookds = bookbll.SelectByIsbn(ISBN);
+                bookds = bookBll.SelectByIsbn(ISBN);
                 if (bookds != null)
                 {
                     if (bookNum == "" || bookNum == null)
@@ -57,7 +60,7 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
-            if(op == "back")
+            if (op == "back")
             {
                 CheckBack();
             }
@@ -68,14 +71,14 @@ namespace bms.Web.SalesMGT
         public void addSalemon()
         {
             string isbn = Request["ISBN"];//ISBN
-            BookBasicBll bookbll = new BookBasicBll();
-            bookds = bookbll.SelectByIsbn(isbn);
             string bookNo = Request["bookNum"];
             if (bookNo == null || bookNo == "")
             {
                 bookNo = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
             }
-            double unitPrice = double.Parse(bookds.Tables[0].Rows[0]["price"].ToString());//定价
+            BookBasicData book = new BookBasicData();
+            book = bookBll.SelectById(long.Parse(bookNo));
+            double unitPrice = book.Price;//定价
             double discount = double.Parse(Request["discount"]);//实际折扣
             int count = int.Parse(Request["count"]);//数量
             double totalPrice = unitPrice * count;//码洋
@@ -86,6 +89,20 @@ namespace bms.Web.SalesMGT
             int smId;
             smId = moNum + 1;//单体Id
             DateTime time = DateTime.Now;
+
+            string sellId = Session["sell"].ToString();
+            //获取默认折扣
+            DataSet stds = smBll.getSaleTask(sellId);
+            string stId = stds.Tables[0].Rows[0]["saleTaskId"].ToString();//销售任务Id
+            DataSet countds = smBll.selctByBookNum(bookNo, stId);
+            int num = 0;
+            if (countds != null)//获取销售中的相应的数量
+            {
+                for (int i = 0; i < countds.Tables[0].Rows.Count; i++)
+                {
+                    num = num + int.Parse(countds.Tables[0].Rows[i]["number"].ToString());
+                }
+            }
             SellOffMonomer sm = new SellOffMonomer()
             {
                 SellOffMonomerId = smId.ToString(),
@@ -99,28 +116,72 @@ namespace bms.Web.SalesMGT
                 Time = time,
                 Discount = discount
             };
-            Result row = smBll.Insert(sm);
-            if(row == Result.添加成功)
+            DataSet smcountds = smBll.selecctSm(bookNo, sellId);
+            int allcount=0;
+            if (smcountds != null)//获取销退单体中已有的数量
             {
-                Response.Write("添加成功");
+                for(int i = 0; i < smcountds.Tables[0].Rows.Count; i++)
+                {
+                    allcount = allcount + int.Parse(smcountds.Tables[0].Rows[i]["count"].ToString());
+                }
+            }
+            if (count > num || (count+ allcount) > num)//判断销退数量是否大于销售数量
+            {
+                Response.Write("数据过大");
                 Response.End();
             }
             else
             {
-                Response.Write("添加失败");
+                Result row = smBll.Insert(sm);
+                if (row == Result.添加成功)
+                {
+                    insertStock();
+                    Response.Write("添加成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
+            }
+        }
+        /// <summary>
+        /// 写入库存
+        /// </summary>
+        public void insertStock()
+        {
+            string sellId = Session["sell"].ToString();//销退单头Id
+            DataSet sellds = shBll.Select(sellId);
+            string regionId = sellds.Tables[0].Rows[0]["regionId"].ToString();//地区Id
+            DataSet gds = gbll.Select(int.Parse(regionId));
+            string gid = gds.Tables[0].Rows[0]["goodsShelvesId"].ToString();
+            int stockNum = int.Parse(Request["count"]);
+            string bookNo = Request["bookNum"];//获取书号
+            if (bookNo == null || bookNo == "")
+            {
+                bookNo = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
+            }
+            Result row = stbll.update(stockNum, int.Parse(gid), long.Parse(bookNo));
+            if(row == Result.更新成功)
+            {
+                Response.Write("更新成功");
+                Response.End();
+            }
+            else
+            {
+                Response.Write("更新失败");
                 Response.End();
             }
         }
-
         /// <summary>
         /// 获取基础数据
         /// </summary>
         /// <returns></returns>
         public String GetData()
         {
-            Session["sell"] = "XT20181006000001";
+            Session["sell"] = "XT20181007000005";
             string sellId = Session["sell"].ToString();
-
             //获取默认折扣
             DataSet stds = smBll.getSaleTask(sellId);
             string stId = stds.Tables[0].Rows[0]["saleTaskId"].ToString();
@@ -131,7 +192,8 @@ namespace bms.Web.SalesMGT
             ds = smBll.Select(sellId);
             StringBuilder sb = new StringBuilder();
             sb.Append("<tbody>");
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++) {
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
                 string sohId = ds.Tables[0].Rows[i]["sellOffHead"].ToString();
                 if (sohId == sellId)
                 {
@@ -144,7 +206,7 @@ namespace bms.Web.SalesMGT
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
-                    sb.Append("<td>" + "<button class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true'></i></button>" + "</td>");
+                    //sb.Append("<td>" + "<button class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true'></i></button>" + "</td>");
                     sb.Append("</tr>");
                 }
             }
@@ -165,7 +227,7 @@ namespace bms.Web.SalesMGT
             strbook.Append("<th>" + "书号" + "</th>");
             strbook.Append("<th>" + "书名" + "</th>");
             strbook.Append("<th>" + "单价" + "</th>");
-            strbook.Append("<th>" + "出版社" + "</th>");
+            //strbook.Append("<th>" + "出版社" + "</th>");
             strbook.Append("</tr>");
             strbook.Append("</thead>");
             strbook.Append("<tbody>");
@@ -175,7 +237,7 @@ namespace bms.Web.SalesMGT
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["price"].ToString() + "</td>");
-                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["supplier"].ToString() + "</td></tr>");
+                //strbook.Append("<td>" + bookds.Tables[0].Rows[i]["supplier"].ToString() + "</td></tr>");
             }
             strbook.Append("</tbody>");
             Response.Write(strbook.ToString());
@@ -198,7 +260,7 @@ namespace bms.Web.SalesMGT
             else
             {
                 Result row = shBll.Delete(sellId);
-                if(row == Result.删除成功)
+                if (row == Result.删除成功)
                 {
                     Response.Write("删除成功");
                     Response.End();
@@ -209,25 +271,6 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
-        }
-
-        public String GetSellHead()
-        {
-            strbook.Append("<thead>");
-            strbook.Append("<tr>");
-            strbook.Append("<th collspan='2'>" + "单头单据信息" + "</th>");
-            strbook.Append("</tr>");
-            strbook.Append("</thead>");
-            strbook.Append("<tbody>");
-            for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
-            {
-                strbook.Append("<tr><td>单据编号：</td>");
-                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["supplier"].ToString() + "</td></tr>");
-            }
-            strbook.Append("</tbody>");
-            Response.Write(strbook.ToString());
-            Response.End();
-            return strbook.ToString();
         }
     }
 }

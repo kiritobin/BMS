@@ -17,7 +17,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet Select(string sellOffHeadId)
         {
-            string sql = "select sellOffHeadID,saleTaskId,userName,customerName,kinds,count,totalPrice,realPrice,makingTime from V_SellOffHead where sellOffHeadID=@sellOffHeadID";
+            string sql = "select sellOffHeadID,saleTaskId,userName,customerName,kinds,count,totalPrice,realPrice,makingTime,regionId,regionName from V_SellOffHead where sellOffHeadID=@sellOffHeadID";
             string[] param = { "@sellOffHeadID" };
             object[] values = { sellOffHeadId };
             DataSet ds = db.FillDataSet(sql, param, values);
@@ -62,6 +62,19 @@ namespace bms.Dao
             object[] values = { sellOffHeadId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
+        }
+        /// <summary>
+        /// 根据销售任务Id获取销售单头信息
+        /// </summary>
+        /// <param name="saleTaskId"></param>
+        /// <returns></returns>
+        public DataSet selectBySaleTask(string saleTaskId)
+        {
+            string sql = "select saleHeadId from T_SaleHead where saleTaskId=@saleTaskId";
+            string[] param = { "@saleTaskId" };
+            object[] values = { saleTaskId };
+            DataSet ds = db.FillDataSet(sql, param, values);
+            return ds;
         }
     }
 }

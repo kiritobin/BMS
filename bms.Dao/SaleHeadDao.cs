@@ -57,10 +57,8 @@ namespace bms.Dao
         /// <returns></returns>
         public int countHead(string saleTaskId)
         {
-            string cmdText = "select count(saleHeadId) from T_SaleHead where saleTaskId=@saleTaskId";
-            string[] param = { "@saleTaskId" };
-            object[] values = { saleTaskId };
-            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            string cmdText = "select count(saleHeadId) from T_SaleHead";
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, null, null));
             return row;
         }
 

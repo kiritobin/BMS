@@ -33,6 +33,53 @@ namespace bms.Dao
                 return row = 0;
             }
         }
+        public float getkinds(string saleHeadId)
+        {
+            string cmdText = "select bookNum,number from T_SaleMonomer where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            float sltemp = 0;
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            DataTable dt = ds.Tables[0];
+            DataView dv = new DataView(dt);
+            DataTable dttemp = dv.ToTable(true, "number");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["number"].ToString();
+                DataRow[] dr = dt.Select("number='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    sltemp += float.Parse(dr[j]["number"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    sltemp++;
+                }
+            }
+            return sltemp;
+        }
+        /// <summary>
+        /// 根据销售单头ID查询该销售单的状态
+        /// </summary>
+        /// <param name="saleHeadId">销售单头ID</param>
+        /// <returns>数据集</returns>
+        public DataSet saleheadstate(string saleHeadId)
+        {
+            string cmdText = "select state) from T_SaleMonomer where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// 根据销售单头获取单体
         /// </summary>

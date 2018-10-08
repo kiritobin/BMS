@@ -67,7 +67,6 @@
                                                 <th>码洋</th>
                                                 <th>实洋</th>
                                                 <th>制单时间</th>
-                                                <th>操作</th>
                                             </tr>
                                         </thead>
                                         <%=GetData() %>
@@ -77,11 +76,11 @@
                                     统计
                                 </div>
                                 <!--分页-->
-                                <div class="copyright float-right page-box">
+                                <%--<div class="copyright float-right page-box">
                                     <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                         <div class="m-style paging"></div>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                     </div>
@@ -106,19 +105,15 @@
                             <td>
                                 <input id="isbn" type="text" class="sales_search addsell">
                             </td>
-                            <td>实际折扣</td>
-                            <td>
-                                <input type="text" value="" class="sales_search addsell" id="realDiscount"></td>
                             <td>数量</td>
                             <td>
                                 <input type="text" value="" class="sales_search addsell" id="count"></td>
+                            <td>实际折扣</td>
+                            <td>
+                                <input type="text" value="" class="sales_search addsell" id="realDiscount"></td>
                         </tr>
                     </table>
                     <table id="tablebook" class="table mostTable table-bordered text-center">
-                        <%if (bookds != null)
-                            {%>
-                        <%=getbook()%>
-                        <% } %>
                     </table>
                 </div>
                 <div class="modal-footer">

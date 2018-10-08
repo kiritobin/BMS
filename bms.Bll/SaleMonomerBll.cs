@@ -47,7 +47,29 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+        public float getkinds(string saleHeadId)
+        {
+            return SaleMonomerdao.getkinds(saleHeadId);
 
+        }
+        /// <summary>
+        /// 根据销售单头ID查询该销售单的状态
+        /// </summary>
+        /// <param name="saleHeadId">销售单头ID</param>
+        /// <returns>数据集</returns>
+        public int saleheadstate(string saleHeadId)
+        {
+            DataSet ds = SaleMonomerdao.saleheadstate(saleHeadId);
+            int state;
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return state = Convert.ToInt32(ds.Tables[0].Rows[0]["state"].ToString());
+            }
+            else
+            {
+                return state = 4;
+            }
+        }
         /// <summary>
         /// 单体添加
         /// </summary>

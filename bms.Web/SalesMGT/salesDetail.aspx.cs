@@ -106,7 +106,7 @@ namespace bms.Web.SalesMGT
                 }
                 if (number > allstockNum)
                 {
-                    Response.Write("库存不足，当前最大库存为：" + allstockNum);
+                    Response.Write("库存不足");
                     Response.End();
                 }
                 else
@@ -117,6 +117,7 @@ namespace bms.Web.SalesMGT
                     string customerId = saletaskbll.getCustomerId(saletaskId);
                     int AlreadyBought = 0;
                     DataSet bookcount = salemonbll.SelectCountBybookNum(saletaskId, bookNum.ToString());
+                    //获取已购数
                     int frequency = salemonbll.SelectnumberBysaletask(saletaskId, bookNum.ToString());
                     if (frequency > 0)
                     {
@@ -172,10 +173,12 @@ namespace bms.Web.SalesMGT
                                     RealDiscount = disCount,
                                     Datetime = Time
                                 };
+                                //更新库存
                                 int stockcount = stockNum - number;
                                 Result upresult = stockbll.update(stockcount, goodsId, bookNum);
                                 if (upresult == Result.更新成功)
                                 {
+                                    //添加
                                     Result result = salemonbll.Insert(newSalemon);
                                     if (result == Result.添加成功)
                                     {
@@ -275,6 +278,7 @@ namespace bms.Web.SalesMGT
         public string getData()
         {
             string saleheadId = Session["saleheadId"].ToString();
+            string saletaskId = Session["saleId"].ToString();
             type = Session["saleType"].ToString();
             //string saleId = Session["saleId"].ToString();
             //获取分页数据
@@ -310,7 +314,7 @@ namespace bms.Web.SalesMGT
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             //tb.StrWhere = search;
-            tb.StrWhere = search == "" ? "deleteState=0 and saleHeadId=" + "'" + saleheadId + "'" : search + " and deleteState=0 and saleHeadId=" + "'" + saleheadId + "'";
+            tb.StrWhere = search == "" ? "deleteState=0 and saleHeadId=" + "'" + saleheadId + "'" + " and saleTaskId=" + "'" + saletaskId + "'" : search + " and deleteState=0 and saleHeadId=" + "'" + saleheadId + "'" + " and saleTaskId=" + "'" + saletaskId + "'";
             //获取展示的客户数据
             ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table

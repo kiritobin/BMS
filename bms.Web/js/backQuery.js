@@ -25,7 +25,7 @@
                     },
                     dataType: 'text',
                     success: function (data) {
-                        if (data == "添加成功") {
+                        if (data == "添加成功"||data=="更新成功") {
                             swal({
                                 title: "温馨提示",
                                 text: "添加成功",
@@ -79,7 +79,7 @@
                 },
                 dataType: 'text',
                 success: function (data) {
-                    if (data == "添加成功") {
+                    if (data == "添加成功" || data == "更新成功") {
                         swal({
                             title: "温馨提示",
                             text: "添加成功",
@@ -93,8 +93,20 @@
                             window, location.reload();
                         })
                     } else {
-                        $("#tablebook th:not(:first)").empty(); //清空table处首行
-                        $("#tablebook").append(data); //加载table
+                       // $("#tablebook th:not(:first)").empty(); //清空table处首行
+                        //$("#tablebook").append(data); //加载table
+                        swal({
+                            title: "温馨提示",
+                            text: data,
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-warning',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            $("#isbn").focus();
+                        })
                     }
                 }
             });
