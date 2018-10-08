@@ -110,6 +110,7 @@
     <Content Include="InventoryMGT\replenishMent.aspx" />
     <Content Include="js\customerRetail.js" />
     <Content Include="js\retail.js" />
+    <Content Include="SalesMGT\booksOut.aspx" />
     <Content Include="SalesMGT\customerRetail.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
     <Content Include="InventoryMGT\checkWarehouse.aspx" />
@@ -348,6 +349,13 @@
     </Compile>
     <Compile Include="InventoryMGT\replenishMent.aspx.designer.cs">
       <DependentUpon>replenishMent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\booksOut.aspx.cs">
+      <DependentUpon>booksOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\booksOut.aspx.designer.cs">
+      <DependentUpon>booksOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesMGT\customerRetail.aspx.cs">
       <DependentUpon>customerRetail.aspx</DependentUpon>

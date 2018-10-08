@@ -204,7 +204,7 @@
 
     //加
     $("#table").delegate(".add", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
         $.ajax({
             type: 'Post',
             url: 'salesManagement.aspx',

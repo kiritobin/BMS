@@ -28,6 +28,7 @@
             });
         }
     });
+
     //查询
     $("#btn_search").click(function () {
         var bookName = $("#sales_bookName").val().trim();
@@ -174,6 +175,7 @@
                         else {
                             $("#tablebook th:not(:first)").empty(); //清空table处首行
                             $("#tablebook").append(data); //加载table
+                            $("#btnAdd").show();
                         }
                     }
                 });
@@ -186,10 +188,10 @@
         var ISBN = $("#ISBN").val().trim();
         var disCount = $("#disCount").val().trim();
         var number = $("#number").val().trim();
-        if (disCount == "" || number == "" || ISBN == "") {
+        if (bookNum == "") {
             swal({
                 title: "温馨提示:)",
-                text: "不能含有未填项!",
+                text: "请勾选书籍！",
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"
@@ -278,6 +280,28 @@
         }
     })
 
+    //单据完成
+    $("#success").click(function () {
+
+        $.ajax({
+            type: 'Post',
+            url: 'salesDetail.aspx',
+            data: {
+                op: 'success'
+            },
+            dataType: 'text',
+            success: function (succ) {
+                //if (succ == "删除成功") {
+                //    window.location.href = "../SalesMGT/tradeManagement.aspx";
+                //} else if (succ == "删除失败") {
+                //    window.location.href = "../SalesMGT/tradeManagement.aspx";
+                //} else {
+                //    window.location.href = "../SalesMGT/tradeManagement.aspx";
+                //}
+            }
+        })
+    })
+
     //返回按钮
     $("#back").click(function () {
         $.ajax({
@@ -354,4 +378,5 @@
             })
         })
     });
+    $("#btnAdd").hide();
 })
