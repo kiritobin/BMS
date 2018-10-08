@@ -74,7 +74,7 @@ $("#btn-search").click(function () {
 })
 
 $(document).ready(function () {
-    $("#btnAdd").attr("disabled", true);
+    sessionStorage.setItem("id", 1);
     $('.paging').pagination({
         //totalData: $("#countPage").val(), //数据总数
         //showData: $("#totalCount").val(), //每页显示的条数
@@ -316,6 +316,87 @@ $(document).ready(function () {
         }
     });
 });
+//isbn回车
+$("#table").delegate(".isbn", "keypress", function (e) {
+    if (e.keyCode == 13) {
+        var isbn = $(this).val();
+        var count = $(this).parent().next().next().next().next().children().val();
+        var discount = $(this).parent().next().next().next().next().next().next().children().val();
+        if (isbn == "" || isbn == null) {
+            alert("isbn不能为空");
+        }
+        //else if (count == "" || count == null) {
+        //    $(this).parent().next().next().next().children().focus();
+        //    alert("商品数量不能为空");
+        //}
+        //else if (discount == "" || discount == null) {
+        //    alert("折扣不能为空");
+        //}
+        else {
+            $.ajax({
+                type: 'Post',
+                url: 'addStock.aspx',
+                data: {
+                    isbn: isbn,
+                    billCount: count,
+                    discount: discount,
+                    action:"isbn"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    if (data.indexOf("much") >= 0) {
+                        $("#myModal3").modal("show");
+                        $("#table3 tr:not(:first)").empty(); //清空table处首行
+                        $("#table3").append(data);
+                    }
+                    else if (data == "ISBN不存在") {
+                        alert("ISBN不存在");
+                    }
+                    else if (data == "记录已存在") {
+                        alert("记录已存在");
+                    }
+                    else {
+                        $(".first").remove();
+                        $("#table").append(data);
+                        $(this).parent().next().next().next().next().children().focus();
+                    }
+                }
+            })
+           
+        }
+    }
+})
+//数量回车
+$("#table").delegate(".count","keypress" ,function (e) {
+    if (e.keyCode == 13) {
+        var count = $(this).val();
+        var price = $(this).parent().next().text();
+        //var isbn = $(this).parent().prev().prev().prev().prev().children().val();
+        //var count = $(this).val();
+        var discount = $(this).parent().next().next().children().val();
+        var total = $(this).parent().next().next().next();
+        var real = $(this).parent().next().next().next().next();
+        total.text(count * price);
+        real.text(count * price * discount);
+        if (count <= 0) {
+            alert("数量不能为空");
+        }
+        else {
+            var table = "<tr class='first'><td></td><td><input type='text' class='isbn search' value='' /></td><td></td><td></td><td></td><td><input type='text' class='count search' value='0' /></td><td></td><td><input type='text' class='discount search' value='0'</td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
+            $("#table").append(table);
+        }
+    }
+})
+
+//下拉列表改变
+$("#table").delegate(".goods", "change",function () {
+    $(this).parent().next().children().focus();
+});
+//删除当前行
+$("#table").delegate(".btn-danger", "click", function () {
+    $(this).parent().parent().remove();
+});
+
 
 //回车事件
 $("#isbn").keypress(function (e) {
@@ -609,9 +690,6 @@ $("#btnImport").click(function () {
 
 $("#btnAdd").click(function () {
     var bookNum = $("input[type='radio']:checked").val();
-    var billCount = $("#billCount").val();
-    var disCount = $("#disCount").val();
-    var goodsShelf = $("#goodsShelf").val();
     if (bookNum == "" || bookNum == null) {
         swal({
             title: "温馨提示:)",
@@ -620,32 +698,13 @@ $("#btnAdd").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-    } else if (billCount == "" || billCount == null) {
-        swal({
-            title: "温馨提示:)",
-            text: "商品数量不能为空，请您重新输入",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else if (disCount == "" || disCount == null) {
-        swal({
-            title: "温馨提示:)",
-            text: "折扣不能为空，请您重新输入",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else {
+    }  {
         $.ajax({
             type: 'Post',
             url: 'addStock.aspx',
             data: {
                 bookNum: bookNum,
-                billCount: billCount,
-                disCount: disCount,
-                goodsShelf: goodsShelf,
-                op: "add"
+                action: "add"
             },
             datatype: 'text',
             success: function (succ) {
