@@ -117,7 +117,7 @@
                     } else {
                         swal({
                             title: "温馨提示",
-                            text: succ,
+                            text: "添加失败",
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -159,8 +159,8 @@
                 success: function (succ) {
                     if (succ == "删除成功") {
                         swal({
-                            title: succ,
-                            text: succ,
+                            title: "提示",
+                            text: "删除成功",
                             type: "success",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -172,8 +172,8 @@
                         })
                     } else {
                         swal({
-                            title: succ,
-                            text: succ,
+                            title: "提示",
+                            text: "删除失败，其它地方有引用记录!",
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -251,21 +251,8 @@
             },
             dataType: 'text',
             success: function (succ) {
-                if (succ == "添加成功") {
-                    window.location.href = "../SalesMGT/backQuery.aspx";
-                }
-                else {
-                    swal({
-                        title: "提示",
-                        text: "单头添加失败，请重试",
-                        type: "warning",
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: '确定',
-                        confirmButtonClass: 'btn btn-success',
-                        buttonsStyling: false,
-                        allowOutsideClick: false
-                    }).then(function () {
-                    })
+                if (succ == "yes") {
+                    window.location.href = "../SalesMGT/backManagement.aspx";
                 }
             }
         })

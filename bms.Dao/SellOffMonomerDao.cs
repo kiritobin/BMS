@@ -24,17 +24,17 @@ namespace bms.Dao
             return ds;
         }
         /// <summary>
-        /// 根据ISBN号查询书籍基础数据
+        /// 通过书号查询销售单中是否有此数据
         /// </summary>
-        /// <param name="ISBN"></param>
+        /// <param name="bookNum"></param>
         /// <returns></returns>
-        public DataSet SelectByISBN(string ISBN)
+        public int getBookCount(string bookNum)
         {
-            string cmdText = "select ISBN,bookNum,bookName,number,unitPrice,defaultDiscount from V_SaleMonomer where ISBN=@ISBN";
-            string[] param = { "@ISBN" };
-            object[] values = { ISBN };
-            DataSet ds = db.FillDataSet(cmdText, param, values);
-            return ds;
+            string cmdText = "select count(bookNum) from V_SaleMonomer where bookNum=@bookNum";
+            string[] param = { "@bookNum" };
+            object[] values = { bookNum };
+            int row = int.Parse(db.ExecuteScalar(cmdText, param, values).ToString());
+            return row;
         }
         /// <summary>
         /// 添加销退单头

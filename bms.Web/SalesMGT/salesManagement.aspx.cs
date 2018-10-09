@@ -22,7 +22,28 @@ namespace bms.Web.SalesMGT
         {
             getData();
             string op = Request["op"];
+            //添加
             if (op == "addDetail")
+            {
+                string saleheadId = Request["ID"];
+                string saleTaskid = Request["taskId"];
+                SaleMonomerBll salemonbll = new SaleMonomerBll();
+                int state = salemonbll.saleheadstate(saleTaskid, saleheadId);
+                if (state == 2)
+                {
+                    Response.Write("失败");
+                    Response.End();
+                }
+                else
+                {
+                    Session["saleheadId"] = saleheadId;
+                    Session["saleType"] = "addsale";
+                    Response.Write("成功");
+                    Response.End();
+                }
+            }
+            //查看
+            if (op == "look")
             {
                 string saleheadId = Request["ID"];
                 Session["saleheadId"] = saleheadId;
@@ -30,14 +51,7 @@ namespace bms.Web.SalesMGT
                 Response.Write("成功");
                 Response.End();
             }
-            if (op == "look")
-            {
-                string saleheadId = Request["ID"];
-                Session["saleheadId"] = saleheadId;
-                Session["saleType"] = "addsale";
-                Response.Write("成功");
-                Response.End();
-            }
+            //添加
             if (op == "add")
             {
                 SaleHeadBll saleheadbll = new SaleHeadBll();
@@ -45,7 +59,6 @@ namespace bms.Web.SalesMGT
                 string saleId = Session["saleId"].ToString();
                 string SaleHeadId;
                 int count = saleheadbll.getCount(saleId);
-
                 if (count > 0)
                 {
                     count += 1;
@@ -80,14 +93,16 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
+            //删除
             if (op == "del")
             {
                 string salehead = Request["ID"];
+                string saleTaskid = Request["taskId"];
                 SaleMonomerBll salemonbll = new SaleMonomerBll();
-                int state = salemonbll.saleheadstate(salehead);
+                int state = salemonbll.saleheadstate(saleTaskid, salehead);
                 if (state == 0)
                 {
-                    Result result = salemonbll.realDelete(salehead);
+                    Result result = salemonbll.realDelete(saleTaskid, salehead);
                     if (result == Result.删除成功)
                     {
                         Response.Write("删除成功");

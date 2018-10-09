@@ -33,41 +33,46 @@ namespace bms.Dao
                 return row = 0;
             }
         }
-        public float getkinds(string saleHeadId)
+        /// <summary>
+        /// 统计种数
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns></returns>
+        public int getkinds(string saleTaskId, string saleHeadId)
         {
-            string cmdText = "select bookNum,number from T_SaleMonomer where saleHeadId=@saleHeadId";
-            string[] param = { "@saleHeadId" };
-            object[] values = { saleHeadId };
+            string cmdText = "select bookNum,number from V_SaleMonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            string[] param = { "saleTaskId", "@saleHeadId" };
+            object[] values = { saleTaskId, saleHeadId };
             float sltemp = 0;
-            DataSet ds = db.FillDataSet(cmdText, param, values);
-            DataTable dt = ds.Tables[0];
-            DataView dv = new DataView(dt);
-            DataTable dttemp = dv.ToTable(true, "number");
+            int zl = 0;
+            DataTable dtcount = db.getkinds(cmdText, param, values);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
             for (int i = 0; i < dttemp.Rows.Count; i++)
             {
-                string bn = dttemp.Rows[i]["number"].ToString();
-                DataRow[] dr = dt.Select("number='" + bn + "'");
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
                 for (int j = 0; j < dr.Length; j++)
                 {
                     sltemp += float.Parse(dr[j]["number"].ToString().Trim());
                 }
                 if (sltemp > 0)
                 {
-                    sltemp++;
+                    zl++;
                 }
             }
-            return sltemp;
+            return zl;
         }
         /// <summary>
         /// 根据销售单头ID查询该销售单的状态
         /// </summary>
         /// <param name="saleHeadId">销售单头ID</param>
         /// <returns>数据集</returns>
-        public DataSet saleheadstate(string saleHeadId)
+        public DataSet saleheadstate(string saleTaskId,string saleHeadId)
         {
-            string cmdText = "select state) from T_SaleMonomer where saleHeadId=@saleHeadId";
-            string[] param = { "@saleHeadId" };
-            object[] values = { saleHeadId };
+            string cmdText = "select state from T_SaleHead where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            string[] param = { "saleTaskId", "@saleHeadId" };
+            object[] values = { saleTaskId, saleHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
 
             if (ds != null || ds.Tables[0].Rows.Count > 0)
@@ -163,11 +168,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleHeadId">销售单头ID</param>
         /// <returns>受影响行数</returns>
-        public int realDelete(string saleHeadId)
+        public int realDelete(string saleTaskId, string saleHeadId)
         {
-            string cmdText = "delete from T_SaleHead where saleHeadId=@saleHeadId";
-            String[] param = { "@saleHeadId" };
-            String[] values = { saleHeadId };
+            string cmdText = "delete from T_SaleHead where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            String[] param = { "@saleTaskId", "@saleHeadId" };
+            String[] values = { saleTaskId, saleHeadId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -178,12 +183,28 @@ namespace bms.Dao
         /// <returns></returns>
         public int updateHead(SaleHead salehead)
         {
-            string cmdTexts = "update T_SaleHead set kindsNum=@kindsNum,number=@number,allTotalPrice=@allTotalPrice,allRealPrice=@allRealPrice where saleHeadId=@saleHeadId";
-            string[] parames = { "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@saleHeadId" };
-            object[] value = { salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.SaleHeadId };
+            string cmdTexts = "update T_SaleHead set kindsNum=@kindsNum,number=@number,allTotalPrice=@allTotalPrice,allRealPrice=@allRealPrice where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            string[] parames = { "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@saleTaskId", "@saleHeadId" };
+            object[] value = { salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.SaleTaskId, salehead.SaleHeadId };
             int row = db.ExecuteNoneQuery(cmdTexts, parames, value);
             return row;
         }
+        /// <summary>
+        /// 更新销售单头状态
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头</param>
+        /// <param name="state">状态 0新创单据 1采集中 2已完成</param>
+        /// <returns>受影响行数</returns>
+        public int updateHeadstate(string saleTaskId, string saleHeadId, int state)
+        {
+            string cmdTexts = "update T_SaleHead set state=@state where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            string[] parames = { "@state", "@saleTaskId", "@saleHeadId" };
+            object[] value = { state, saleTaskId, saleHeadId };
+            int row = db.ExecuteNoneQuery(cmdTexts, parames, value);
+            return row;
+        }
+
 
         /// <summary>
         /// 通过书号查询在单体中是否存在记录
@@ -222,7 +243,7 @@ namespace bms.Dao
         /// <returns>返回数据集</returns>
         public DataSet SelectCountBybookNum(string saleTaskId, string bookNum)
         {
-            string comText = "select alreadyBought from V_SaleMonomer where saleTaskId=@saleTaskId and bookNum=@bookNum";
+            string comText = "select alreadyBought from V_SaleMonomer where saleTaskId=@saleTaskId and bookNum=@bookNum order by alreadyBought desc;";
             string[] param = { "@saleTaskId", "@bookNum" };
             object[] values = { saleTaskId, bookNum };
             DataSet ds = db.FillDataSet(comText, param, values);
