@@ -56,6 +56,27 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 通过地区id和货架名查货架id
+        /// </summary>
+        /// <param name="regionId"></param>
+        /// <param name="shelvesName"></param>
+        /// <returns></returns>
+        public DataSet SelectByIdName(int regionId,string shelvesName)
+        {
+            string cmdText = "select goodsShelvesId from T_GoodsShelves where regionId = @regionId and shelvesName=@shelvesName";
+            String[] param = { "@regionId", "@shelvesName" };
+            String[] values = { regionId.ToString(),shelvesName };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
         /// 查询货架名是否重复
         /// </summary>
         /// <param name="shelves">货架实体对象</param>

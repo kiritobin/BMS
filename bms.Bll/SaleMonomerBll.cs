@@ -34,10 +34,10 @@ namespace bms.Bll
         /// </summary>
         /// <param name="saleHeadId">销售单头ID</param>
         /// <returns></returns>
-        public Result realDelete(string saleHeadId)
+        public Result realDelete(string saleTaskId, string saleHeadId)
         {
 
-            int row = SaleMonomerdao.realDelete(saleHeadId);
+            int row = SaleMonomerdao.realDelete(saleTaskId,saleHeadId);
             if (row > 0)
             {
                 return Result.删除成功;
@@ -47,19 +47,25 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
-        public int getkinds(string saleHeadId)
+       /// <summary>
+       /// 统计品种数
+       /// </summary>
+       /// <param name="saleTaskId">销售任务id</param>
+       /// <param name="saleHeadId">销售单头id</param>
+       /// <returns></returns>
+        public int getkinds(string saleTaskId, string saleHeadId)
         {
-            return SaleMonomerdao.getkinds(saleHeadId);
+            return SaleMonomerdao.getkinds(saleTaskId, saleHeadId);
 
         }
         /// <summary>
         /// 根据销售单头ID查询该销售单的状态
         /// </summary>
         /// <param name="saleHeadId">销售单头ID</param>
-        /// <returns>数据集</returns>
-        public int saleheadstate(string saleHeadId)
+        /// <returns>状态</returns>
+        public int saleheadstate(string saleTaskId, string saleHeadId)
         {
-            DataSet ds = SaleMonomerdao.saleheadstate(saleHeadId);
+            DataSet ds = SaleMonomerdao.saleheadstate(saleTaskId, saleHeadId);
             int state;
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -181,6 +187,26 @@ namespace bms.Bll
             }
         }
         /// <summary>
+        /// 更新销售单头状态
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头</param>
+        /// <param name="state">状态 0新创单据 1采集中 2已完成</param>
+        /// <returns>受影响行数</returns>
+        public Result updateHeadstate(string saleTaskId, string saleHeadId, int state)
+        {
+            int row = SaleMonomerdao.updateHeadstate(saleTaskId, saleHeadId, state);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+
+        /// <summary>
         /// 根据单头获取单体
         /// </summary>
         /// <param name="saleHeadId">单头id</param>
@@ -227,6 +253,15 @@ namespace bms.Bll
         public DataSet SelectCountBybookNum(string saleTaskId, string bookNum)
         {
             return SaleMonomerdao.SelectCountBybookNum(saleTaskId, bookNum);
+        }
+        /// <summary>
+        /// 查询销售单体中的数据统计
+        /// </summary>
+        /// <returns></returns>
+        public DataSet SelectBookRanking()
+        {
+            DataSet ds = SaleMonomerdao.SelectBookRanking();
+            return ds;
         }
     }
 }

@@ -27,7 +27,7 @@
 </head>
 
 <body>
-    <textarea class="textarea" rows="1"></textarea>
+    <textarea name="textarea" class="textarea" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"></textarea>
     <!--   Core JS Files   -->
     <script src="../js/jquery-3.3.1.min.js"></script>
 </body>

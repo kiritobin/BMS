@@ -79,3 +79,8 @@
     margin-left: -15px;
     text-align: center;
 }
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}

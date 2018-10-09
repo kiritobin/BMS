@@ -37,8 +37,11 @@
                     <div class="card">
                         <div class="container-fluid">
                             <h3 class="text-center">销&nbsp;售</h3>
-                            <button class="btn btn-success pull-right" id="success">单据完成</button>
                             <button class="btn btn-success pull-right" id="back">返回</button>
+                            <%if (type == "addsale")
+                                {%>
+                            <button class="btn btn-success pull-right" id="success">单据完成</button>
+                            <%} %>
                         </div>
                         <div class="card-body">
                             <div class="card-header card_btn">
@@ -50,10 +53,13 @@
                                         <input type="text" value="" class="" id="sales_ISBN" placeholder="请输入ISBN">
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>--%>
+                                    <%if (type == "addsale")
+                                        {%>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-success" data-toggle="modal" data-target="#myModa2">添加销售</button>
                                     </div>
-                                    <%if (type == "addsale")
+                                    <%}%>
+                                    <%if (type == "look")
                                         {%>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print"></i></button>

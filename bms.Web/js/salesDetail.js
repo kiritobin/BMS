@@ -282,52 +282,9 @@
 
     //单据完成
     $("#success").click(function () {
-
-        $.ajax({
-            type: 'Post',
-            url: 'salesDetail.aspx',
-            data: {
-                op: 'success'
-            },
-            dataType: 'text',
-            success: function (succ) {
-                //if (succ == "删除成功") {
-                //    window.location.href = "../SalesMGT/tradeManagement.aspx";
-                //} else if (succ == "删除失败") {
-                //    window.location.href = "../SalesMGT/tradeManagement.aspx";
-                //} else {
-                //    window.location.href = "../SalesMGT/tradeManagement.aspx";
-                //}
-            }
-        })
-    })
-
-    //返回按钮
-    $("#back").click(function () {
-        $.ajax({
-            type: 'Post',
-            url: 'salesDetail.aspx',
-            data: {
-                op: 'back'
-            },
-            dataType: 'text',
-            success: function (succ) {
-                if (succ == "删除成功") {
-                    window.location.href = "../SalesMGT/tradeManagement.aspx";
-                } else if (succ == "删除失败") {
-                    window.location.href = "../SalesMGT/tradeManagement.aspx";
-                } else {
-                    window.location.href = "../SalesMGT/tradeManagement.aspx";
-                }
-            }
-        })
-    })
-    //删除
-    $("#table").delegate(".btn_del", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
         swal({
-            title: "是否删除？",
-            text: "删除后将无法恢复！！！",
+            title: "提示",
+            text: "是否新建销售？？？",
             type: "question",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -343,40 +300,109 @@
                 type: 'Post',
                 url: 'salesDetail.aspx',
                 data: {
-                    ID: ID,
-                    op: 'del'
+                    op: 'success'
                 },
                 dataType: 'text',
                 success: function (succ) {
-                    if (succ == "删除成功") {
-                        swal({
-                            title: succ,
-                            text: succ,
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
+                    if (succ == "状态修改成功") {
+                        window.location.href = "../SalesMGT/salesManagement.aspx";
                     } else {
                         swal({
-                            title: succ,
-                            text: succ,
-                            type: "warning",
+                            title: "提示",
+                            text: "单据状态修改失败，请联系技术人员！",
+                            type: "question",
+                            showCancelButton: true,
                             confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
                             confirmButtonText: '确定',
+                            cancelButtonText: '取消',
                             confirmButtonClass: 'btn btn-success',
+                            cancelButtonClass: 'btn btn-danger',
                             buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
+                            allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
                         })
                     }
                 }
             })
         })
-    });
+    })
+
+    //返回按钮
+    $("#back").click(function () {
+        window.location.href = "../SalesMGT/salesManagement.aspx";
+        //$.ajax({
+        //    type: 'Post',
+        //    url: 'salesDetail.aspx',
+        //    data: {
+        //        op: 'back'
+        //    },
+        //    dataType: 'text',
+        //    success: function (succ) {
+        //        if (succ == "删除成功") {
+        //            window.location.href = "../SalesMGT/tradeManagement.aspx";
+        //        } else if (succ == "删除失败") {
+        //            window.location.href = "../SalesMGT/tradeManagement.aspx";
+        //        } else {
+        //            window.location.href = "../SalesMGT/tradeManagement.aspx";
+        //        }
+        //    }
+        //})
+    })
+    ////删除
+    //$("#table").delegate(".btn_del", "click", function () {
+    //    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
+    //    swal({
+    //        title: "是否删除？",
+    //        text: "删除后将无法恢复！！！",
+    //        type: "question",
+    //        showCancelButton: true,
+    //        confirmButtonColor: '#3085d6',
+    //        cancelButtonColor: '#d33',
+    //        confirmButtonText: '确定',
+    //        cancelButtonText: '取消',
+    //        confirmButtonClass: 'btn btn-success',
+    //        cancelButtonClass: 'btn btn-danger',
+    //        buttonsStyling: false,
+    //        allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+    //    }).then(function () {
+    //        $.ajax({
+    //            type: 'Post',
+    //            url: 'salesDetail.aspx',
+    //            data: {
+    //                ID: ID,
+    //                op: 'del'
+    //            },
+    //            dataType: 'text',
+    //            success: function (succ) {
+    //                if (succ == "删除成功") {
+    //                    swal({
+    //                        title: succ,
+    //                        text: succ,
+    //                        type: "success",
+    //                        confirmButtonColor: '#3085d6',
+    //                        confirmButtonText: '确定',
+    //                        confirmButtonClass: 'btn btn-success',
+    //                        buttonsStyling: false,
+    //                        allowOutsideClick: false
+    //                    }).then(function () {
+    //                        window.location.reload();
+    //                    })
+    //                } else {
+    //                    swal({
+    //                        title: succ,
+    //                        text: succ,
+    //                        type: "warning",
+    //                        confirmButtonColor: '#3085d6',
+    //                        confirmButtonText: '确定',
+    //                        confirmButtonClass: 'btn btn-success',
+    //                        buttonsStyling: false,
+    //                        allowOutsideClick: false
+    //                    }).then(function () {
+    //                    })
+    //                }
+    //            }
+    //        })
+    //    })
+    //});
     $("#btnAdd").hide();
 })
