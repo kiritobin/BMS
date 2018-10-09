@@ -36,12 +36,13 @@ namespace bms.Dao
         /// <summary>
         /// 统计种数
         /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
         /// <param name="saleHeadId">单头id</param>
         /// <returns></returns>
         public int getkinds(string saleTaskId, string saleHeadId)
         {
             string cmdText = "select bookNum,number from V_SaleMonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
-            string[] param = { "saleTaskId", "@saleHeadId" };
+            string[] param = { "@saleTaskId", "@saleHeadId" };
             object[] values = { saleTaskId, saleHeadId };
             float sltemp = 0;
             int zl = 0;

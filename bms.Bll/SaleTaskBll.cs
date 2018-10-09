@@ -30,6 +30,21 @@ namespace bms.Bll
             }
 
         }
+        /// <summary>
+        /// 统计销售任务总种数
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns>返回总种数</returns>
+        public int getkinds(string customerID)
+        {
+            return saleDao.getkinds(customerID);
+        }
+
+        /// <summary>
+        /// 根据销售任务id 获取客户id
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns></returns>
         public string getCustomerId(string saleTaskId)
         {
             return saleDao.getCustomerId(saleTaskId);
