@@ -193,6 +193,7 @@
     <Content Include="SalesMGT\backManagement.aspx" />
     <Content Include="SalesMGT\backQuery.aspx" />
     <Content Include="SalesMGT\retail.aspx" />
+    <Content Include="SalesMGT\retailRank.aspx" />
     <Content Include="SalesMGT\salesDetail.aspx" />
     <Content Include="SalesMGT\salesManagement.aspx" />
     <Content Include="SalesMGT\salesRanking.aspx" />
@@ -462,6 +463,13 @@
     </Compile>
     <Compile Include="SalesMGT\retail.aspx.designer.cs">
       <DependentUpon>retail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\retailRank.aspx.cs">
+      <DependentUpon>retailRank.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retailRank.aspx.designer.cs">
+      <DependentUpon>retailRank.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesMGT\salesDetail.aspx.cs">
       <DependentUpon>salesDetail.aspx</DependentUpon>
