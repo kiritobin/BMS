@@ -257,5 +257,15 @@ namespace bms.Dao
                 return null;
             }
         }
+        /// <summary>
+        /// 获取销售单体中的数据统计
+        /// </summary>
+        /// <returns>返回数据集</returns>
+        public DataSet SelectBookRanking()
+        {
+            string sql = "select bookNum1,bookName,unitPrice,allNum,allTotalPrice from V_BookRanking limit 0,10";
+            DataSet ds = db.FillDataSet(sql, null, null);
+            return ds;
+        }
     }
 }
