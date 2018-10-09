@@ -30,6 +30,82 @@ namespace bms.Bll
             }
 
         }
+
+        /// <summary>
+        /// 添加客户的销售任务总计
+        /// </summary>
+        /// <param name="customerId">客户id</param>
+        /// <param name="allNumber">总数量</param>
+        /// <param name="allPrice">总码洋</param>
+        /// <param name="allKinds">品种数</param>
+        /// <returns>返回结果</returns>
+        public Result insertSaleStatistics(string customerId, int allNumber, double allPrice, int allKinds)
+        {
+            int row = saleDao.insertSaleStatistics(customerId, allNumber, allPrice, allKinds);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
+        }
+
+        /// <summary>
+        ///根据客户id 查询是否统计过该客户的销售任务总计
+        /// </summary>
+        /// <param name="customerId">客户id</param>
+        /// <returns>影响行数</returns>
+        public Result SaleStatisticsIsExistence(string customerId)
+        {
+            int row = saleDao.SaleStatisticsIsExistence(customerId);
+            if (row > 0)
+            {
+
+                return Result.记录存在;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
+        }
+
+        /// <summary>
+        ///根据用户id获取他的所有销售记录
+        /// </summary>
+        /// <param name="customerId">客户id</param>
+        /// <returns>返回结果</returns>
+        public DataSet SelectMonomers(string customerId)
+        {
+            return saleDao.SelectMonomers(customerId);
+
+        }
+
+        /// <summary>
+        /// 查询有销售任务的客户
+        /// </summary>
+        /// <returns>客户id数据集</returns>
+        public DataSet getcustomerID()
+        {
+            return saleDao.getcustomerID();
+        }
+
+        /// <summary>
+        /// 统计销售任务总种数
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns>返回总种数</returns>
+        public int getkinds(string customerID)
+        {
+            return saleDao.getkinds(customerID);
+        }
+
+        /// <summary>
+        /// 根据销售任务id 获取客户id
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns></returns>
         public string getCustomerId(string saleTaskId)
         {
             return saleDao.getCustomerId(saleTaskId);

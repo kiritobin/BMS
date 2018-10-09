@@ -28,6 +28,8 @@ namespace bms.Web.SalesMGT
         StockBll stbll = new StockBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["sellId"] = "XT20181009000001";
+            Session["saleId"] = "XSRW20181007000001";
             string op = Request["op"];
             GetData();
             if (op == "search")

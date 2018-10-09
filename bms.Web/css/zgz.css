@@ -147,7 +147,7 @@
 }
 
 /* 多行文本框样式 */
-.textarea {
+.textareaISBN {
     height: 35px !important;
     overflow: hidden;
     width: 100%;
@@ -155,3 +155,17 @@
     line-height: 30px !important;
     border: 1px solid #ddd;
 }
+
+.textareaCount, .textareaDiscount{
+    height: 35px !important;
+    overflow: hidden;
+    width: 20%;
+    margin-top: 5px;
+    line-height: 30px !important;
+    border: 1px solid #ddd;
+}
+
+.goods {
+    border: 1px solid #ddd;
+}
+

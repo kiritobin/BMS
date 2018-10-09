@@ -47,6 +47,12 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+       /// <summary>
+       /// 统计品种数
+       /// </summary>
+       /// <param name="saleTaskId">销售任务id</param>
+       /// <param name="saleHeadId">销售单头id</param>
+       /// <returns></returns>
         public int getkinds(string saleTaskId, string saleHeadId)
         {
             return SaleMonomerdao.getkinds(saleTaskId, saleHeadId);
@@ -247,6 +253,15 @@ namespace bms.Bll
         public DataSet SelectCountBybookNum(string saleTaskId, string bookNum)
         {
             return SaleMonomerdao.SelectCountBybookNum(saleTaskId, bookNum);
+        }
+        /// <summary>
+        /// 查询销售单体中的数据统计
+        /// </summary>
+        /// <returns></returns>
+        public DataSet SelectBookRanking()
+        {
+            DataSet ds = SaleMonomerdao.SelectBookRanking();
+            return ds;
         }
     }
 }

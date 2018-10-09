@@ -36,12 +36,13 @@ namespace bms.Dao
         /// <summary>
         /// 统计种数
         /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
         /// <param name="saleHeadId">单头id</param>
         /// <returns></returns>
         public int getkinds(string saleTaskId, string saleHeadId)
         {
             string cmdText = "select bookNum,number from V_SaleMonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
-            string[] param = { "saleTaskId", "@saleHeadId" };
+            string[] param = { "@saleTaskId", "@saleHeadId" };
             object[] values = { saleTaskId, saleHeadId };
             float sltemp = 0;
             int zl = 0;
@@ -255,6 +256,16 @@ namespace bms.Dao
             {
                 return null;
             }
+        }
+        /// <summary>
+        /// 获取销售单体中的数据统计
+        /// </summary>
+        /// <returns>返回数据集</returns>
+        public DataSet SelectBookRanking()
+        {
+            string sql = "select bookNum1,bookName,unitPrice,allNum,allTotalPrice from V_BookRanking limit 0,10";
+            DataSet ds = db.FillDataSet(sql, null, null);
+            return ds;
         }
     }
 }
