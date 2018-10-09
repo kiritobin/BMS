@@ -39,7 +39,8 @@
                                 window, location.reload();
                             })
                         } else {
-                            $("#tablebook th:not(:first)").empty(); //清空table处首行
+                            //$("#tablebook th:not(:first)").empty(); //清空table处首行
+                            $("#tablebook").empty();
                             $("#tablebook").append(data); //加载table
                         }
                     }
@@ -114,20 +115,24 @@
     })
     //返回事件
     $("#toBack").click(function () {
-        $.ajax({
-            type: 'Post',
-            url: 'backQuery.aspx',
-            data: {
-                op: "back"
-            },
-            dataType: 'text',
-            success: function (data) {
-                if (data == "返回") {
-                    window.location.href = "tradeManagement.aspx";
-                } else {
-                    window.location.href = "tradeManagement.aspx";
-                }
-            }
-        });
+        window.location.href = "backManagement.aspx";
     })
+
+    //$("#toBack").click(function () {
+    //    $.ajax({
+    //        type: 'Post',
+    //        url: 'backQuery.aspx',
+    //        data: {
+    //            op: "back"
+    //        },
+    //        dataType: 'text',
+    //        success: function (data) {
+    //            if (data == "返回") {
+    //                window.location.href = "backManagement.aspx";
+    //            } else {
+    //                window.location.href = "backManagement.aspx";
+    //            }
+    //        }
+    //    });
+    //})
 })
