@@ -22,54 +22,54 @@ namespace bms.Web.SalesMGT
         public StringBuilder strbook = new StringBuilder();
         public int allkinds, allnumber;
         public double alltotalprice, allreadprice;
-        string bookISBN, SaleHeadId;
+        string bookISBN, SaleHeadId, saleId;
         double disCount;
         int number;
         long bookNum;
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
-
-            string saleId = Session["saleId"].ToString();
+            type = Session["saleType"].ToString();
+            saleId = Session["saleId"].ToString();
             SaleTask task = saletaskbll.selectById(saleId);
             defaultdiscount = ((task.DefaultDiscount) * 100).ToString();
             SaleHeadId = Session["saleheadId"].ToString();
 
             //更新单头
-            allkinds = int.Parse(salemonbll.getkinds(SaleHeadId).ToString());
+            allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
             DataSet allds = salemonbll.SelectMonomers(SaleHeadId);
             int j = allds.Tables[0].Rows.Count;
             for (int h = 0; h < j; h++)
             {
-                //string hh = allds.Tables[0].Rows[h]["number"].ToString();
                 allnumber += Convert.ToInt32(allds.Tables[0].Rows[h]["number"]);
                 alltotalprice += Convert.ToInt32(allds.Tables[0].Rows[h]["totalPrice"]);
                 allreadprice += Convert.ToInt32(allds.Tables[0].Rows[h]["realPrice"]);
             }
+            updateSalehead();
             string op = Request["op"];
-            if (op == "back")
-            {
-                int count = salemonbll.SelectBySaleHeadId(SaleHeadId);
-                if (count > 0)
-                {
-                    Response.Write("已有数据");
-                    Response.End();
-                }
-                else
-                {
-                    Result result = salemonbll.realDelete(SaleHeadId);
-                    if (result == Result.删除成功)
-                    {
-                        Response.Write("删除成功");
-                        Response.End();
-                    }
-                    else
-                    {
-                        Response.Write("删除失败");
-                        Response.End();
-                    }
-                }
-            }
+            //if (op == "back")
+            //{
+            //    int count = salemonbll.SelectBySaleHeadId(SaleHeadId);
+            //    if (count > 0)
+            //    {
+            //        Response.Write("已有数据");
+            //        Response.End();
+            //    }
+            //    else
+            //    {
+            //        Result result = salemonbll.realDelete(SaleHeadId);
+            //        if (result == Result.删除成功)
+            //        {
+            //            Response.Write("删除成功");
+            //            Response.End();
+            //        }
+            //        else
+            //        {
+            //            Response.Write("删除失败");
+            //            Response.End();
+            //        }
+            //    }
+            //}
             if (op == "search")
             {
                 string ISBN = Request["ISBN"];
@@ -108,6 +108,17 @@ namespace bms.Web.SalesMGT
             if (op == "success")
             {
                 //修改单头状态为2
+                Result result = salemonbll.updateHeadstate(saleId, SaleHeadId, 2);
+                if (result == Result.更新成功)
+                {
+                    Response.Write("状态修改成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("状态修改失败");
+                    Response.End();
+                }
             }
         }
         public void addsalemon()
@@ -127,9 +138,8 @@ namespace bms.Web.SalesMGT
                 }
                 else
                 {
-                    string saleHead = Session["saleheadId"].ToString();
                     SaleHeadBll saleheadbll = new SaleHeadBll();
-                    string saletaskId = saleheadbll.SelectTaskByheadId(saleHead);
+                    string saletaskId = saleheadbll.SelectTaskByheadId(SaleHeadId);
                     string customerId = saletaskbll.getCustomerId(saletaskId);
                     int AlreadyBought = 0;
 
@@ -155,6 +165,7 @@ namespace bms.Web.SalesMGT
                                 if (count == 0)
                                 {
                                     saleIdmonomerId = 1;
+                                    salemonbll.updateHeadstate(saleId, SaleHeadId, 1);
                                 }
                                 else
                                 {
@@ -209,13 +220,7 @@ namespace bms.Web.SalesMGT
                                     Result result = salemonbll.Insert(newSalemon);
                                     if (result == Result.添加成功)
                                     {
-                                        SaleHead salehead = new SaleHead();
-                                        salehead.SaleHeadId = saleHeadId;
-                                        salehead.KindsNum = allkinds;
-                                        salehead.Number = allnumber;
-                                        salehead.AllTotalPrice = alltotalprice;
-                                        salehead.AllRealPrice = allreadprice;
-                                        Result res = salemonbll.updateHead(salehead);
+                                        Result res = updateSalehead();
                                         if (res == Result.更新成功)
                                         {
                                             Response.Write("添加成功");
@@ -262,6 +267,24 @@ namespace bms.Web.SalesMGT
             }
         }
         /// <summary>
+        /// 更新单头
+        /// </summary>
+        /// <returns>返回结果</returns>
+        public Result updateSalehead()
+        {
+            //添加成功 更新单头
+            SaleHead salehead = new SaleHead();
+            salehead.SaleTaskId = saleId;
+            salehead.SaleHeadId = SaleHeadId;
+            salehead.KindsNum = allkinds;
+            salehead.Number = allnumber;
+            salehead.AllTotalPrice = alltotalprice;
+            salehead.AllRealPrice = allreadprice;
+            Result res = salemonbll.updateHead(salehead);
+            return res;
+        }
+
+        /// <summary>
         /// 查询到多条数据时展示数据
         /// </summary>
         /// <returns></returns>
@@ -297,8 +320,6 @@ namespace bms.Web.SalesMGT
             string saleheadId = Session["saleheadId"].ToString();
             string saletaskId = Session["saleId"].ToString();
             type = Session["saleType"].ToString();
-            //string saleId = Session["saleId"].ToString();
-            //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
