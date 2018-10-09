@@ -325,7 +325,7 @@
                                             <tr class="first">
                                                 <td>1</td>
                                                 <td>
-                                                    <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"></textarea>
+                                                    <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="13"></textarea>
                                                    </td>
                                                 <td></td>
                                                 <td></td>
@@ -337,9 +337,9 @@
                                                         <%}%>
                                                     </select>
                                                 </td>
-                                                <td><textarea class="count textareaCount" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"></textarea></td>
+                                                <td><textarea class="count textareaCount" rows="1">0</textarea></td>
                                                 <td></td>
-                                                <td><textarea class="discount textareaDiscount" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"><%=discount %></textarea></td>
+                                                <td><textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
