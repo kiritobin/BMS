@@ -21,14 +21,6 @@
     <link rel="stylesheet" href="../css/qc.css">
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
-    <style>
-        textarea {
-            border: 0;
-            width: 100px;
-            height: 10px;
-            resize: none;
-        }
-    </style>
 </head>
 
 <body>
@@ -333,7 +325,7 @@
                                             <tr class="first">
                                                 <td>1</td>
                                                 <td>
-                                                    <textarea class="isbn search" autofocus="autofocus"></textarea>
+                                                    <textarea class="isbn textarea" autofocus="autofocus" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"></textarea>
                                                    </td>
                                                 <td></td>
                                                 <td></td>
@@ -346,10 +338,10 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <textarea class="count search"></textarea></td>
+                                                    <textarea class="count textarea" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"></textarea></td>
                                                 <td></td>
                                                 <td>
-                                                    <textarea class="discount search"><%=discount %></textarea></td>
+                                                    <textarea class="discount textarea" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"><%=discount %></textarea></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
