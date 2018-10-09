@@ -21,7 +21,7 @@ namespace bms.Web.SalesMGT
         protected double discount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["saleId"] = "XSRW20181007000001";
+            //Session["saleId"] = "XSRW20181009000003";
             string op = Request["op"];
             getData();
             if (op == "logout")
@@ -45,11 +45,11 @@ namespace bms.Web.SalesMGT
             {
                 Insert();
             }
-            if(op == "delete")
+            if (op == "delete")
             {
                 Delete();
             }
-            if(op == "addMonomer")
+            if (op == "addMonomer")
             {
                 string sellId = Request["sohId"];
                 Session["sellId"] = sellId;
@@ -106,7 +106,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td class='sellId'>" + ds.Tables[0].Rows[i]["sellOffHeadID"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
-                strb.Append("<td>" + (state>0? "已完成" : "采集中") + "</td>");
+                strb.Append("<td>" + (state > 0 ? "已完成" : "采集中") + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["kinds"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["defaultDiscount"].ToString() + "</td>");
@@ -131,66 +131,99 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public void Insert()
         {
-            //Session["saleId"] = "XSRW20181007000001";
             string saleTaskId = Session["saleId"].ToString();
             SaleTaskBll saleBll = new SaleTaskBll();
             SaleTask sale = saleBll.selectById(saleTaskId);
             User user = new User();
             user.UserId = sale.UserId;//用户Id
+            string headId;
             string sellId;//单头Id
             sellOffHeadBll sellBll = new sellOffHeadBll();
             DateTime nowTime = DateTime.Now;
             string nowDt = nowTime.ToString("yyyy-MM-dd");
-            int count=0;
+            long count = 0;
             //判断数据库中是否已经有记录
-            DataSet backds = sellBll.getMakeTime(saleTaskId);
-            if (backds != null)
+            DataSet backds = soBll.getAllTime();
+            if (backds != null && backds.Tables[0].Rows.Count > 0)
             {
                 for (int i = 0; i < backds.Tables[0].Rows.Count; i++)
                 {
                     string time = backds.Tables[0].Rows[i]["makingTime"].ToString();
                     DateTime dt = Convert.ToDateTime(time);
                     string sqlTime = dt.ToString("yyyy-MM-dd");
-                    if(sqlTime == nowDt)
+                    if (sqlTime == nowDt)
                     {
-                        count += 1; 
+                        //count += 1;
+                        string id = backds.Tables[0].Rows[i]["sellOffHeadID"].ToString();
+                        string st1 = id.Substring(2);
+                        count = long.Parse(st1);
+                        headId = (count + 1).ToString();
+                        //生成流水号
+                        if (count > 0)
+                        {
+                            sellId = "XT" + headId;
+                            //count += 1;
+                            //sellId = "XT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                            //Session["sell"] = sellId;
+                        }
+                        else
+                        {
+                            count = 1;
+                            sellId = "XT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                            //Session["sell"] = sellId;
+                        }
+                        SaleTask st = new SaleTask()
+                        {
+                            SaleTaskId = saleTaskId
+                        };
+                        SellOffHead sell = new SellOffHead()
+                        {
+                            SellOffHeadId = sellId,
+                            SaleTaskId = st,
+                            MakingTime = nowTime,
+                            User = user
+                        };
+                        Result row = sellBll.Insert(sell);
+                        if (row == Result.添加成功)
+                        {
+                            Response.Write("添加成功");
+                            Response.End();
+                        }
+                        else
+                        {
+                            Response.Write("添加失败");
+                            Response.End();
+                        }
+                        break;
                     }
                 }
-            }
-            //生成流水号
-            if (count > 0)
-            {
-                count += 1;
-                sellId = "XT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                //Session["sell"] = sellId;
             }
             else
             {
                 count = 1;
                 sellId = "XT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                //Session["sell"] = sellId;
-            }
-            SaleTask st = new SaleTask()
-            {
-                SaleTaskId = saleTaskId
-            };
-            SellOffHead sell = new SellOffHead()
-            {
-                SellOffHeadId = sellId,
-                SaleTaskId = st,
-                MakingTime = nowTime,
-                User = user
-            };
-            Result row = sellBll.Insert(sell);
-            if (row == Result.添加成功)
-            {
-                Response.Write("添加成功");
-                Response.End();
-            }
-            else
-            {
-                Response.Write("添加失败");
-                Response.End();
+                SaleTask st = new SaleTask()
+                {
+                    SaleTaskId = saleTaskId
+                };
+                SellOffHead sell = new SellOffHead()
+                {
+                    SellOffHeadId = sellId,
+                    SaleTaskId = st,
+                    MakingTime = nowTime,
+                    User = user
+                };
+                Result row = sellBll.Insert(sell);
+                if (row == Result.添加成功)
+                {
+                    Response.Write("添加成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("添加失败");
+                    Response.End();
+                }
             }
         }
         /// <summary>
@@ -203,6 +236,7 @@ namespace bms.Web.SalesMGT
             if (row > 0)
             {
                 Response.Write("该单据中存在数据，不能删除");
+                Response.End();
             }
             else
             {

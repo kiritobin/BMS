@@ -72,7 +72,7 @@
                                         <%=GetData() %>
                                     </table>
                                 </div>
-                                <div class="statistics col-md-2">
+                                <!--<div class="statistics col-md-2">
                                     统计
                                 </div>
                                 <!--分页-->

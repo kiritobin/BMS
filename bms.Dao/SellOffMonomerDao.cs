@@ -115,5 +115,18 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
+        /// <summary>
+        /// 获取该单头的相应统计
+        /// </summary>
+        /// <param name="sellOffHeadId"></param>
+        /// <returns></returns>
+        public DataSet getAllNum(string sellOffHeadId)
+        {
+            string sql = "select sum(count),sum(totalPrice),sum(realPrice) from T_SellOffMonomer where sellOffHead=@sellOffHeadId";
+            string[] param = { "@sellOffHeadId" };
+            object[] values = { sellOffHeadId };
+            DataSet ds = db.FillDataSet(sql, param, values);
+            return ds;
+        }
     }
 }

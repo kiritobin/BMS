@@ -43,13 +43,23 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet getMakeTime(string saleTaskId)
         {
-            string cmdText = "select makingTime from T_SellOffHead where saleTaskId=@saleTaskId ORDER BY makingTime desc";
+            string cmdText = "select sellOffHeadID,makingTime from T_SellOffHead where saleTaskId=@saleTaskId ORDER BY makingTime desc";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
             return ds;
         }
 
+        /// <summary>
+        /// 获取该销退单头下所有的单据号和制单时间
+        /// </summary>
+        /// <returns></returns>
+        public DataSet getAllTime()
+        {
+            string cmdText = "select sellOffHeadID,makingTime from T_SellOffHead ORDER BY makingTime desc";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            return ds;
+        }
         /// <summary>
         /// 删除销退单头
         /// </summary>
@@ -87,6 +97,49 @@ namespace bms.Dao
             string[] param = { "@makingTime" };
             object[] values = { time };
             int row = int.Parse(db.ExecuteScalar(sql, param, values).ToString());
+            return row;
+        }
+        /// <summary>
+        /// 获取种类数量
+        /// </summary>
+        /// <param name="sellOffHeadId"></param>
+        /// <returns></returns>
+        public int getKinds(string sellOffHeadId)
+        {
+            string sql = "select bookNum,count from T_SellOffMonomer where sellOffHead=@sellOffHeadId";
+            string[] param = { "@sellOffHeadId" };
+            object[] values = { sellOffHeadId };
+            float sltemp = 0;
+            int zl = 0;
+            DataTable dt = db.getkinds(sql, param, values);
+            DataView dv = new DataView(dt);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for(int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bnum = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dt.Select("bookNum='" + bnum + "'");
+                for(int j = 0; j < dr.Length; j++)
+                {
+                    sltemp += float.Parse(dr[j]["count"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                }
+            }
+            return zl;
+        }
+        /// <summary>
+        /// 通过单体计算后更新单头信息
+        /// </summary>
+        /// <param name="sell"></param>
+        /// <returns></returns>
+        public int Update(SellOffHead sell)
+        {
+            string sql = "update T_SellOffHead set kinds=@kinds,count=@count,totalPrice=@totalPrice,realPrice=@realPrice,state=@state where  sellOffHeadID=@sellOffHeadId";
+            string[] param = { "@kinds", "@count", "@totalPrice", "@realPrice", "@sellOffHeadId","@state" };
+            object[] values = { sell.Kinds, sell.Count, sell.TotalPrice, sell.RealPrice, sell.SellOffHeadId,sell.State };
+            int row = db.ExecuteNoneQuery(sql, param, values);
             return row;
         }
     }

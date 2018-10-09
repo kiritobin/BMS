@@ -60,10 +60,10 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
-            if (op == "back")
-            {
-                CheckBack();
-            }
+            //if (op == "back")
+            //{
+            //    CheckBack();
+            //}
         }
         /// <summary>
         /// 添加销退单体
@@ -87,13 +87,13 @@ namespace bms.Web.SalesMGT
                 double totalPrice = unitPrice * count;//码洋
                 double d = totalPrice * discount;
                 double realPrice = Math.Round(d, 2);//实洋
-                string headId = Session["sell"].ToString();//单头Id
+                string headId = Session["sellId"].ToString();//单头Id
                 int moNum = smBll.GetCount(headId);
                 int smId;
                 smId = moNum + 1;//单体Id
                 DateTime time = DateTime.Now;
 
-                string sellId = Session["sell"].ToString();
+                string sellId = Session["sellId"].ToString();
                 //获取默认折扣
                 DataSet stds = smBll.getSaleTask(sellId);
                 string stId = stds.Tables[0].Rows[0]["saleTaskId"].ToString();//销售任务Id
@@ -135,12 +135,30 @@ namespace bms.Web.SalesMGT
                 }
                 else
                 {
+                    
                     Result row = smBll.Insert(sm);
-                    if (row == Result.添加成功)
+                    if (row == Result.添加成功)//先添加销退体
                     {
-                        insertStock();
-                        Response.Write("添加成功");
-                        Response.End();
+                        string update = updateSellHead();
+                        if (update == "更新成功")//后更新销退单头信息
+                        {
+                            string stock = insertStock();
+                            if (stock == "更新成功")//最后写入库存
+                            {
+                                Response.Write("添加成功");
+                                Response.End();
+                            }
+                            else
+                            {
+                                Response.Write("写入库存失败");
+                                Response.End();
+                            }
+                        }
+                        else
+                        {
+                            Response.Write("更新单头信息失败");
+                            Response.End();
+                        }
                     }
                     else
                     {
@@ -158,29 +176,35 @@ namespace bms.Web.SalesMGT
         /// <summary>
         /// 写入库存
         /// </summary>
-        public void insertStock()
+        public string insertStock()
         {
-            string sellId = Session["sell"].ToString();//销退单头Id
-            DataSet sellds = shBll.Select(sellId);
-            string regionId = sellds.Tables[0].Rows[0]["regionId"].ToString();//地区Id
-            DataSet gds = gbll.Select(int.Parse(regionId));
-            string gid = gds.Tables[0].Rows[0]["goodsShelvesId"].ToString();
-            int stockNum = int.Parse(Request["count"]);
+            string sellId = Session["sellId"].ToString();//销退单头Id
+            //DataSet sellds = shBll.Select(sellId);
+            //string regionId = sellds.Tables[0].Rows[0]["regionId"].ToString();//地区Id
+            //DataSet gds = gbll.Select(int.Parse(regionId));
+            //string gid = gds.Tables[0].Rows[0]["goodsShelvesId"].ToString();
+            int newstockNum = int.Parse(Request["count"]);//写入的库存量
             string bookNo = Request["bookNum"];//获取书号
             if (bookNo == null || bookNo == "")
             {
                 bookNo = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
             }
-            Result row = stbll.update(stockNum, int.Parse(gid), long.Parse(bookNo));
+            DataSet stockDs = stbll.SelectByBookNum(long.Parse(bookNo));
+            string shelvesId = stockDs.Tables[0].Rows[0]["goodsShelvesId"].ToString();//获取货架Id
+            string oldStockNum = stockDs.Tables[0].Rows[0]["stockNum"].ToString();//原来的库存量
+            int stockNum = newstockNum + int.Parse(oldStockNum);
+            Result row = stbll.update(stockNum, int.Parse(shelvesId), long.Parse(bookNo));
             if(row == Result.更新成功)
             {
-                Response.Write("更新成功");
-                Response.End();
+                return "更新成功";
+                //Response.Write("更新成功");
+                //Response.End();
             }
             else
             {
-                Response.Write("更新失败");
-                Response.End();
+                return "写入库存失败";
+                //Response.Write("写入库存失败");
+                //Response.End();
             }
         }
         /// <summary>
@@ -189,11 +213,11 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public String GetData()
         {
-            Session["sell"] = "XT20181007000005";
-            string sellId = Session["sell"].ToString();
+            string sellId = Session["sellId"].ToString();
             //获取默认折扣
             DataSet stds = smBll.getSaleTask(sellId);
-            string stId = stds.Tables[0].Rows[0]["saleTaskId"].ToString();
+            //string stId = stds.Tables[0].Rows[0]["saleTaskId"].ToString();
+            string stId = Session["saleId"].ToString();
             DataSet seds = smBll.getDisCount(stId);
             string dc = seds.Tables[0].Rows[0]["defaultDiscount"].ToString();
             double discount = double.Parse(dc);
@@ -256,29 +280,71 @@ namespace bms.Web.SalesMGT
         /// <summary>
         /// 返回查询
         /// </summary>
-        public void CheckBack()
+        //public void CheckBack()
+        //{
+        //    string sellId = Session["sellId"].ToString();
+        //    DataSet backds = smBll.Select(sellId);
+        //    int count = backds.Tables[0].Rows.Count;
+        //    if (count > 0)
+        //    {
+        //        Response.Write("返回");
+        //        Response.End();
+        //    }
+        //    else
+        //    {
+        //        Result row = shBll.Delete(sellId);
+        //        if (row == Result.删除成功)
+        //        {
+        //            Response.Write("删除成功");
+        //            Response.End();
+        //        }
+        //        else
+        //        {
+        //            Response.Write("删除失败");
+        //            Response.End();
+        //        }
+        //    }
+        //}
+        /// <summary>
+        /// 获取单体中相应的品种数量
+        /// </summary>
+        /// <returns></returns>
+        public int getKinds()
         {
-            string sellId = Session["sell"].ToString();
-            DataSet backds = smBll.Select(sellId);
-            int count = backds.Tables[0].Rows.Count;
-            if (count > 0)
+            string sellId = Session["sellId"].ToString();//销退单头Id
+            int kinds = shBll.getKinds(sellId);
+            return kinds;
+        }
+        /// <summary>
+        /// 通过统计单体信息后更新单头
+        /// </summary>
+        public String updateSellHead()
+        {
+            string sellId = Session["sellId"].ToString();
+            DataSet countds = smBll.getAllNum(sellId);
+            int allCount = int.Parse(countds.Tables[0].Rows[0]["sum(count)"].ToString());
+            double AllPrice = double.Parse(countds.Tables[0].Rows[0]["sum(totalPrice)"].ToString());
+            double realPrice = double.Parse(countds.Tables[0].Rows[0]["sum(realPrice)"].ToString());
+            int kinds = getKinds();
+            SellOffHead sell = new SellOffHead();
+            sell.Kinds = kinds;
+            sell.SellOffHeadId = sellId;
+            sell.Count = allCount;
+            sell.TotalPrice = AllPrice;
+            sell.RealPrice = realPrice;
+            sell.State = 0;
+            Result result = shBll.Update(sell);
+            if (result == Result.更新成功)
             {
-                Response.Write("返回");
-                Response.End();
+                return "更新成功";
+                //Response.Write("更新成功");
+                //Response.End();
             }
             else
             {
-                Result row = shBll.Delete(sellId);
-                if (row == Result.删除成功)
-                {
-                    Response.Write("删除成功");
-                    Response.End();
-                }
-                else
-                {
-                    Response.Write("删除失败");
-                    Response.End();
-                }
+                return "更新单头信息失败";
+                //Response.Write("更新单头信息失败");
+                //Response.End();
             }
         }
     }

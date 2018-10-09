@@ -22,6 +22,42 @@ namespace bms.Dao
             return row;
         }
 
+        /// <summary>
+        /// 统计销售任务总种数
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns>返回总种数</returns>
+        public int getkinds(string customerID)
+        {
+            string cmdText = "select bookNum,number from V_SaleMonomer where customerID=@customerID;";
+            string[] param = { "@customerID"};
+            object[] values = { customerID};
+            float sltemp = 0;
+            int zl = 0;
+            DataTable dtcount = db.getkinds(cmdText, param, values);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    sltemp += float.Parse(dr[j]["number"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                }
+            }
+            return zl;
+        }
+
+        /// <summary>
+        /// 根据销售任务id 获取客户id
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns></returns>
         public string getCustomerId(string saleTaskId)
         {
             string comText = "select customerId from T_SaleTask where saleTaskId=@saleTaskId";

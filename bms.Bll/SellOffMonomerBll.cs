@@ -139,5 +139,15 @@ namespace bms.Bll
                 return null;
             }
         }
+        /// <summary>
+        /// 获取该单头的相应统计
+        /// </summary>
+        /// <param name="sellOffHeadId"></param>
+        /// <returns></returns>
+        public DataSet getAllNum(string sellOffHeadId)
+        {
+            DataSet ds = dao.getAllNum(sellOffHeadId);
+            return ds;
+        }
     }
 }
