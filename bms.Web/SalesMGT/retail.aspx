@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retail.aspx.cs" Inherits="bms.Web.SalesMGT.retail" %>
+﻿
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retail.aspx.cs" Inherits="bms.Web.SalesMGT.retail" %>
 <%="" %>
 <!DOCTYPE html>
 <html class="no-js">
@@ -15,6 +16,7 @@
     <link rel="stylesheet" href="../css/pagination.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
+    <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
@@ -29,8 +31,8 @@
                         <div class="input-group col-md-12">
                             <div class="btn-group" role="group">
                                 <input type="text" placeholder="请输入ISBN" id="search" class="searchOne">
-                                <button class="btn btn-info btn-sm" id="btnSearch">扫描</button>
-                                <button class="btn btn-info btn-sm" data-toggle="modal"></button>
+                                <button class="btn btn-info btn-sm" id="btnSearch" data-toggle="modal">扫描</button>
+                                <%--<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">添加</button>--%>
                             </div>
                         </div>
                     </div>
@@ -56,12 +58,11 @@
                             <h3 class="text-center">零售单</h3>
                             <hr />
                             <ul class="list-unstyled">
-                                <li>时间：</li>
-                                <li>单号：</li>
-                                <li>种类：</li>
-                                <li>数量：</li>
-                                <li>总码洋：</li>
-                                <li>总实洋：</li>
+                                <li>时间：<span id="time"></span></li>
+                                <li>种类：<span id="kind"></span></li>
+                                <li>数量：<span id="number"></span></li>
+                                <li>总码洋：<span id="total"></span></li>
+                                <li>总实洋：<span id="real"></span></li>
                             </ul>
                             <hr />
                             <div class="input-group text-white" id="insert">
@@ -75,16 +76,16 @@
     </div>
     <!--添加模态框-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width: 1100px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title float-left" id="myModalLabel">请选中需要的图书信息</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close">
-                                <i class="material-icons">clear</i>
-                            </button>
-                        </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title float-left" id="myModalLabel">添加入库明细</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="material-icons">clear</i>
+                    </button>
+                </div>
                 <div class="modal-body">
-                    <table class="table model-table" id="table2">
+                    <table class="table table-bordered mostTable text-center" id="table2">
                         <thead>
                             <tr>
                                 <th>
@@ -103,17 +104,25 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success btn-sm" id="btnAdd">确定</button>
+                    <button class="btn btn-success btn-sm" id="btnAdd">提交</button>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <!-- 左侧导航栏所需js -->
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap-material-design.min.js"></script>
+    <!-- 移动端手机菜单所需js -->
+    <script src="../js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../js/material-dashboard.min.js"></script>
+    <!-- selectpicker.js -->
+    <script src="../js/bootstrap-selectpicker.js"></script>
+    <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
-    <script src="../js/demo.js"></script>
+    <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/jedate.min.js"></script>
     <script src="../js/retail.js"></script>
 </body>
 

@@ -95,6 +95,7 @@
     <Content Include="CustomerMGT\WebForm1.aspx" />
     <Content Include="CustomerMGT\WebForm2.aspx" />
     <Content Include="demo\sales_demo.aspx" />
+    <Content Include="demo\textarea.aspx" />
     <Content Include="fonts\materialdesignicons-webfont.svg" />
     <Content Include="imgs\loading.gif" />
     <Content Include="imgs\lose.png" />
@@ -287,6 +288,13 @@
     </Compile>
     <Compile Include="demo\sales_demo.aspx.designer.cs">
       <DependentUpon>sales_demo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="demo\textarea.aspx.cs">
+      <DependentUpon>textarea.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="demo\textarea.aspx.designer.cs">
+      <DependentUpon>textarea.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\addReturn.aspx.cs">
       <DependentUpon>addReturn.aspx</DependentUpon>
