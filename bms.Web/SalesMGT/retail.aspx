@@ -38,6 +38,7 @@
                     </div>
                     <div class="row">
                         <div class="table-responsive col-md-10">
+                            <div style="height:290px;width:80%;display:block;overflow-y:auto; border:none">
                             <table class="table mostTable table-bordered text-center" id="table">
                                 <thead>
                                     <tr>
@@ -53,6 +54,7 @@
                                 </thead>
                                 <%getIsbn(); %>
                             </table>
+                                </div>
                         </div>
                         <div class="retailList col-md-2">
                             <h3 class="text-center">零售单</h3>

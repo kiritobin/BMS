@@ -11,16 +11,45 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.SalesMGT
 {
+    using Result = Enums.OpResult;
     public partial class seniority : System.Web.UI.Page
     {
         public int totalCount, intPageCount, pageSize = 10;
         public DataSet ds;
-        SaleMonomerBll salemonbll = new SaleMonomerBll();
+        SaleTaskBll salebll = new SaleTaskBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            add();
             getData();
-
         }
+
+        public void add()
+        {
+            DataSet customerds = salebll.getcustomerID();
+            if (customerds != null)
+            {
+                for (int i = 0; i < customerds.Tables[0].Rows.Count; i++)
+                {
+                    string customerId = customerds.Tables[0].Rows[i]["customerId"].ToString();
+                    Result resultExis = salebll.SaleStatisticsIsExistence(customerId);
+                    if (resultExis == Result.记录不存在)
+                    {
+                        int allNumber = 0;
+                        double allPrice = 0;
+                        int allKinds = 0;
+                        DataSet monds = salebll.SelectMonomers(customerId);
+                        for (int j = 0; j < monds.Tables[0].Rows.Count; j++)
+                        {
+                            allNumber += int.Parse(monds.Tables[0].Rows[j]["number"].ToString());
+                            allPrice += int.Parse(monds.Tables[0].Rows[j]["totalPrice"].ToString());
+                            allKinds = salebll.getkinds(customerId);
+                        }
+                        salebll.insertSaleStatistics(customerId, allNumber, allPrice, allKinds);
+                    }
+                }
+            }
+        }
+
         public string getData()
         {
             TableBuilder tb = new TableBuilder();
@@ -32,7 +61,7 @@ namespace bms.Web.SalesMGT
             //tb.StrWhere = search;
             tb.StrWhere = "";
             //获取展示的客户数据
-            ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
+            ds = salebll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table
             StringBuilder strb = new StringBuilder();
             strb.Append("<tbody>");

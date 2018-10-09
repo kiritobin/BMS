@@ -254,5 +254,14 @@ namespace bms.Bll
         {
             return SaleMonomerdao.SelectCountBybookNum(saleTaskId, bookNum);
         }
+        /// <summary>
+        /// 查询销售单体中的数据统计
+        /// </summary>
+        /// <returns></returns>
+        public DataSet SelectBookRanking()
+        {
+            DataSet ds = SaleMonomerdao.SelectBookRanking();
+            return ds;
+        }
     }
 }

@@ -39,18 +39,20 @@
     <!-- 主界面内容 -->
     <div class="content">
         <div class="container-fluid">
+            <img src="../imgs/YNXH-LOGO.png" class="img-responsive" alt="Cinque Terre" width="450" height="80">
             <div class="row3">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-danger">
-                            <h3 class="card-title">客户采购排行</h3>
+                            <label id="time" class="pull-right" style="color:white"></label>
+                            <h3 class="card-title">客户采购排行TOP10</h3>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table" id="table">
                                     <thead>
                                         <tr>
-                                            <th>序号</th>
+                                            <th>排名</th>
                                             <th>客户名称</th>
                                             <th>品种数</th>
                                             <th>销售总数(本)</th>
@@ -71,7 +73,21 @@
             </div>
         </div>
     </div>
-
+    <script>
+        function reload()
+        {
+            window.location.reload();
+        }
+        function showTime(){
+            nowtime=new Date();
+            year=nowtime.getFullYear();
+            month=nowtime.getMonth()+1;
+            date=nowtime.getDate();
+            document.getElementById("time").innerText = year + "年" + month + "月" + date + " " + nowtime.toLocaleTimeString();
+        }
+        setInterval("showTime()",1000);
+        setTimeout("reload()",60000);
+    </script>
 </body>
 
 </html>

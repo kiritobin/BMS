@@ -72,8 +72,10 @@
                                         <%=GetData() %>
                                     </table>
                                 </div>
-                                <!--<div class="statistics col-md-2">
-                                    统计
+                                <div class="statistics col-md-2">
+                                    <div class="btn-group text-right" role="group">
+                                        <button class="btn btn-danger" id="sure">确定单据</button>
+                                    </div>
                                 </div>
                                 <!--分页-->
                                 <%--<div class="copyright float-right page-box">

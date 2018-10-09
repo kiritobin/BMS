@@ -45,11 +45,27 @@ namespace bms.Web.SalesMGT
             {
                 Insert();
             }
-            if (op == "delete")
+            if (op == "delete")//删除单头
             {
                 Delete();
             }
-            if (op == "addMonomer")
+            if (op == "addMonomer")//跳转到添加销售单体页面
+            {
+                string sellId = Request["sohId"];
+                string state = Request["state"];
+                Session["sellId"] = sellId;
+                if (state == "已完成")
+                {
+                    Response.Write("单据已完成，无法进行修改");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("处理中");
+                    Response.End();
+                }
+            }
+            if(op== "searchMonomer")
             {
                 string sellId = Request["sohId"];
                 Session["sellId"] = sellId;
@@ -61,6 +77,7 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public String getData()
         {
+            Session["saleId"] = "XSRW20181007000001";
             int pagesize = 20;
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -106,7 +123,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td class='sellId'>" + ds.Tables[0].Rows[i]["sellOffHeadID"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
-                strb.Append("<td>" + (state > 0 ? "已完成" : "采集中") + "</td>");
+                strb.Append("<td>" + (state > 0 ? "已完成" : "处理中") + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["kinds"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["defaultDiscount"].ToString() + "</td>");

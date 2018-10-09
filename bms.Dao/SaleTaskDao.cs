@@ -21,6 +21,66 @@ namespace bms.Dao
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, null, null));
             return row;
         }
+        /// <summary>
+        /// 查询有销售任务的客户
+        /// </summary>
+        /// <returns>客户id数据集</returns>
+        public DataSet getcustomerID()
+        {
+            string cmdText = "select customerId from T_SaleTask";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            return ds;
+        }
+        /// <summary>
+        /// 添加客户的销售任务总计
+        /// </summary>
+        /// <param name="customerId">客户id</param>
+        /// <param name="allNumber">总数量</param>
+        /// <param name="allPrice">总码洋</param>
+        /// <param name="allKinds">品种数</param>
+        /// <returns>受影响行数</returns>
+        public int insertSaleStatistics(string customerId, int allNumber, double allPrice, int allKinds)
+        {
+            string cmdText = "insert into T_SaleStatistics(customerId,allNumber,allPrice,allKinds) values(@customerId,@allNumber,@allPrice,@allKinds)";
+            string[] param = { "@customerId", "@allNumber", "@allPrice", "@allKinds" };
+            object[] values = { customerId, allNumber, allPrice, allKinds };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+        /// <summary>
+        ///根据用户id获取他的所有销售记录
+        /// </summary>
+        /// <param name="customerId">客户id</param>
+        /// <returns>返回数据集</returns>
+        public DataSet SelectMonomers(string customerId)
+        {
+            string cmdText = "select number,totalPrice from V_SaleMonomer where customerId=@customerId";
+            string[] param = { "@customerId" };
+            object[] values = { customerId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        ///根据客户id 查询是否统计过该客户的销售任务总计
+        /// </summary>
+        /// <param name="customerId">客户id</param>
+        /// <returns>影响行数</returns>
+        public int SaleStatisticsIsExistence(string customerId)
+        {
+            string cmdText = "select count(customerId) from T_SaleStatistics where customerId=@customerId";
+            string[] param = { "@customerId" };
+            object[] values = { customerId };
+            int row = int.Parse(db.ExecuteScalar(cmdText, param, values).ToString());
+            return row;
+        }
 
         /// <summary>
         /// 统计销售任务总种数
@@ -30,8 +90,8 @@ namespace bms.Dao
         public int getkinds(string customerID)
         {
             string cmdText = "select bookNum,number from V_SaleMonomer where customerID=@customerID;";
-            string[] param = { "@customerID"};
-            object[] values = { customerID};
+            string[] param = { "@customerID" };
+            object[] values = { customerID };
             float sltemp = 0;
             int zl = 0;
             DataTable dtcount = db.getkinds(cmdText, param, values);
