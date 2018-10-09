@@ -13,8 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <!--分页样式-->
-    <link rel="stylesheet" href="../css/pagination.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/jedate.css" />
@@ -57,7 +55,7 @@
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
                                 <%if (funcUser)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
@@ -65,7 +63,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcRole)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
@@ -73,7 +71,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcOrg)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -81,7 +79,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcGoods)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
@@ -93,7 +91,7 @@
                     </li>
                     <%} %>
                     <%if (funcCustom)
-                    {%>
+                        {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="fa fa-user fa-lg"></i>
@@ -126,7 +124,7 @@
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <%if (funcOut)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
@@ -134,7 +132,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcPut)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
@@ -142,7 +140,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcReturn)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
@@ -150,7 +148,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcSupply)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
@@ -174,7 +172,7 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <%if (funcSale)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
@@ -182,7 +180,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcSaleOff)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/backQuery.aspx">
                                         <span class="sidebar-normal">销退管理</span>
@@ -214,7 +212,7 @@
                                     </a>
                                 </li>
                                 <%if (funcLibrary)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
@@ -274,16 +272,11 @@
                                         <h4 class="card-title">入库添加</h4>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" class="searchOne" placeholder="请输入单据编号" id="ID">
-                                        <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal3" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
-                                    </div>
-                                    <div class="btn-group" role="group">
                                         <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
                                     </div>
-
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-success btn-sm" id="save">保存</button>
+                                    </div>
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
@@ -293,6 +286,9 @@
                                                     </td>
                                                     <td>
                                                         <nobr>ISBN号</nobr>
+                                                    </td>
+                                                    <td style="display: none">
+                                                        <nobr>书号</nobr>
                                                     </td>
                                                     <td>
                                                         <nobr>书名</nobr>
@@ -321,16 +317,20 @@
                                                     <td>
                                                         <nobr>操作</nobr>
                                                     </td>
+                                                    <td style="display:none">
+                                                        货架号
+                                                    </td>
                                                 </tr>
                                             </thead>
                                             <tr class="first">
+                                                <td>1</td>
+                                                <td>
+                                                    <textarea class="isbn textarea" autofocus="autofocus" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"></textarea>
+                                                   </td>
+                                                <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <input type="text" class="isbn search" value="" autofocus="autofocus" /></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <select>
+                                                    <select class="goods">
                                                         <%for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
                                                             { %>
                                                         <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
@@ -338,15 +338,16 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="count search" value="0" /></td>
+                                                    <textarea class="count textarea" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"></textarea></td>
                                                 <td></td>
                                                 <td>
-                                                    <input type="text" class="discount search" value="<%=discount %>" /></td>
+                                                    <textarea class="discount textarea" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"><%=discount %></textarea></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
+                                                <td style="display:none"></td>
                                             </tr>
-                                            
+
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -532,10 +533,9 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
-    <!-- paging.js -->
-    <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addStock.js"></script>
     <script src="../js/ajaxfileupload.js"></script>
+    <script src="../js/jquery.tabletojson.js"></script>
 </body>
 </html>

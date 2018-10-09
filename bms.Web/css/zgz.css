@@ -145,3 +145,13 @@
 .list-unstyled li{
     margin-top:16px;
 }
+
+/* 多行文本框样式 */
+.textarea {
+    height: 35px !important;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 5px;
+    line-height: 30px !important;
+    border: 1px solid #ddd;
+}
