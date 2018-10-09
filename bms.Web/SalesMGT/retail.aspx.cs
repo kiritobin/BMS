@@ -1,11 +1,13 @@
 ﻿using bms.Bll;
 using bms.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -208,23 +210,39 @@ namespace bms.Web.SalesMGT
 
         public void insert()
         {
+            string json = Request["json"];
+            DataTable dataTable = jsonToDt(json);
+            int row, rows=0;
+            double total, allTotal = 0, real, allReal = 0;
+            int Counts = dataTable.Rows.Count;
+            for (int i = 0; i < Counts; i++)
+            {
+                DataRow dr = monTable.Rows[i];
+                row = Convert.ToInt32(dr["number"]);
+                total = Convert.ToDouble(dr["totalPrice"]);
+                real = Convert.ToDouble(dr["realPrice"]);
+                rows = rows + row;
+                allTotal = allTotal + total;
+                allReal = allReal + real;
+            }
             User user = (User)Session["user"];
             int count = saleBll.countRetail() + 1;
             string retailHeadId = "LS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-            single.AllRealPrice = 0;
-            single.AllTotalPrice = 0;
+            single.AllRealPrice = allReal;
+            single.AllTotalPrice = allTotal;
             single.DateTime = DateTime.Now;
-            single.KindsNum = 0;
-            single.Number = 0;
+            single.KindsNum = Counts;
+            single.Number = rows;
             single.RegionId = user.ReginId.RegionId;
             single.SaleHeadId = retailHeadId;
             single.UserId = user.UserId;
             single.SaleTaskId = "0";
-            Result result = saleBll.Insert(single);
+            Result result = saleBll.InsertRetail(single);
             if (result == Result.添加成功)
             {
+                Session["List"] = new List<long>();
                 SaleMonomer monomers = new SaleMonomer();
-                int Count = monTable.Rows.Count;
+                int Count = dataTable.Rows.Count;
                 for (int i = 0; i < Count; i++)
                 {
                     DataRow dr = monTable.Rows[i];
@@ -237,14 +255,13 @@ namespace bms.Web.SalesMGT
                     monomers.TotalPrice = Convert.ToDouble(dr["totalPrice"]);
                     monomers.RealPrice = Convert.ToDouble(dr["realPrice"]);
                     monomers.SaleHeadId = retailHeadId;
-                    Result row = retailBll.Insert(monomers);
-                    if (row == Result.添加失败)
+                    Result mon = retailBll.Insert(monomers);
+                    if (mon == Result.添加失败)
                     {
                         Response.Write("添加失败");
                         Response.End();
                     }
                 }
-                Session["List"] = new List<long>();
                 Response.Write("添加成功");
                 Response.End();
             }
@@ -277,5 +294,52 @@ namespace bms.Web.SalesMGT
         //    }
         //    return sb.ToString();
         //}
+        /// <summary>
+        /// Json 字符串 转换为 DataTable数据集合
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public DataTable jsonToDt(string json)
+        {
+            DataTable dataTable = new DataTable();  //实例化
+            DataTable result;
+            try
+            {
+                JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+                javaScriptSerializer.MaxJsonLength = Int32.MaxValue; //取得最大数值
+                ArrayList arrayList = javaScriptSerializer.Deserialize<ArrayList>(json);
+                if (arrayList.Count > 0)
+                {
+                    foreach (Dictionary<string, object> dictionary in arrayList)
+                    {
+                        if (dictionary.Keys.Count<string>() == 0)
+                        {
+                            result = dataTable;
+                            return result;
+                        }
+                        //Columns
+                        if (dataTable.Columns.Count == 0)
+                        {
+                            foreach (string current in dictionary.Keys)
+                            {
+                                dataTable.Columns.Add(current, dictionary[current].GetType());
+                            }
+                        }
+                        //Rows
+                        DataRow dataRow = dataTable.NewRow();
+                        foreach (string current in dictionary.Keys)
+                        {
+                            dataRow[current] = dictionary[current];
+                        }
+                        dataTable.Rows.Add(dataRow); //循环添加行到DataTable中
+                    }
+                }
+            }
+            catch
+            {
+            }
+            result = dataTable;
+            return result;
+        }
     }
 }

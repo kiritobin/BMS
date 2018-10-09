@@ -32,6 +32,7 @@
                             <div class="btn-group" role="group">
                                 <input type="text" placeholder="请输入ISBN" id="search" class="searchOne">
                                 <button class="btn btn-info btn-sm" id="btnSearch" data-toggle="modal">扫描</button>
+                                <%--<button class="btn btn-info btn-sm" id="save" data-toggle="modal">save</button>--%>
                                 <%--<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">添加</button>--%>
                             </div>
                         </div>
@@ -39,20 +40,19 @@
                     <div class="row">
                         <div class="table-responsive col-md-10">
                             <div style="height:290px;width:80%;display:block;overflow-y:auto; border:none">
-                            <table class="table mostTable table-bordered text-center" id="table">
+                            <table class="table mostTable table-bordered text-center test" id="table">
                                 <thead>
                                     <tr>
-                                        <th>ISBN号</th>
-                                        <th>书名</th>
-                                        <th>单价</th>
-                                        <th>数量</th>
-                                        <th>折扣</th>
-                                        <th>码洋</th>
-                                        <th>实洋</th>
-                                        <th>操作</th>
+                                        <td><nobr>ISBN号</nobr></td>
+                                        <td><nobr>书名</nobr></td>
+                                        <td><nobr>单价</nobr></td>
+                                        <td><nobr>数量</nobr></td>
+                                        <td><nobr>折扣</nobr></td>
+                                        <td><nobr>码洋</nobr></td>
+                                        <td><nobr>实洋</nobr></td>
+                                        <td><nobr>操作</nobr></td>
                                     </tr>
                                 </thead>
-                                <%getIsbn(); %>
                             </table>
                                 </div>
                         </div>
@@ -126,6 +126,7 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/retail.js"></script>
+    <script src="../js/jquery.tabletojson.js"></script>
 </body>
 
 </html>
