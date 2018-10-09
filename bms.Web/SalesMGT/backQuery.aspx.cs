@@ -28,8 +28,8 @@ namespace bms.Web.SalesMGT
         StockBll stbll = new StockBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["sellId"] = "XT20181009000001";
-            Session["saleId"] = "XSRW20181007000001";
+            //Session["sellId"] = "XT20181009000001";
+            //Session["saleId"] = "XSRW20181007000001";
             string op = Request["op"];
             GetData();
             if (op == "search")
@@ -62,10 +62,23 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
-            //if (op == "back")
-            //{
-            //    CheckBack();
-            //}
+            if (op == "sure")
+            {
+                SellOffHead sell = new SellOffHead();
+                sell.SellOffHeadId = Session["sellId"].ToString();
+                sell.State = 1;
+                Result result = shBll.Update(sell);
+                if(result == Result.更新成功)
+                {
+                    Response.Write("更新成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("保存失败");
+                    Response.End();
+                }
+            }
         }
         /// <summary>
         /// 添加销退单体

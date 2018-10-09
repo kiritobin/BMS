@@ -116,23 +116,58 @@
     //返回事件
     $("#toBack").click(function () {
         window.location.href = "backManagement.aspx";
+    });
+    $("#sure").click(function () {
+        swal({
+            title: "温馨提示:)",
+            text: "保存单据后将无法再进行修改",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+        }).then(function () {
+            $.ajax({
+                type: 'Post',
+                url: 'backQuery.aspx',
+                data: {
+                    op: "sure"
+                },
+                dataType: 'text',
+                success: function (succ) {
+                    if (succ == "更新成功") {
+                        swal({
+                            title: "提示",
+                            text: "保存成功",
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
+                    } else {
+                        swal({
+                            title: "提示",
+                            text: succ,
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                        })
+                    }
+                }
+            })
+        })
     })
-
-    //$("#toBack").click(function () {
-    //    $.ajax({
-    //        type: 'Post',
-    //        url: 'backQuery.aspx',
-    //        data: {
-    //            op: "back"
-    //        },
-    //        dataType: 'text',
-    //        success: function (data) {
-    //            if (data == "返回") {
-    //                window.location.href = "backManagement.aspx";
-    //            } else {
-    //                window.location.href = "backManagement.aspx";
-    //            }
-    //        }
-    //    });
-    //})
 })

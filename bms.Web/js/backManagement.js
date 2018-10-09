@@ -84,16 +84,33 @@
     //添加单体
     $("#table").delegate(".btn_add", "click", function () {
         var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var state = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
         $.ajax({
             type: 'Post',
             url: 'backManagement.aspx',
             data: {
                 sohId: id,
+                state: state,
                 op: "addMonomer"
             },
             dataType: 'text',
             success: function (succ) {
-                window.location.href = 'backQuery.aspx';
+                if (succ == "处理中") {
+                    window.location.href = 'backQuery.aspx';
+                } else {
+                    swal({
+                        title: "温馨提示",
+                        text: succ,
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        //window, location.reload();
+                    })
+                }
             }
         })
     })
