@@ -79,7 +79,20 @@
     //页面链接
     //查询按钮
     $("#table").delegate(".search_back", "click", function () {
-        window.location.href = 'backQuery.aspx'
+        // window.location.href = 'backQuery.aspx'
+        var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        $.ajax({
+            type: 'Post',
+            url: 'backManagement.aspx',
+            data: {
+                sohId: id,
+                op: "searchMonomer"
+            },
+            dataType: 'text',
+            success: function (succ) {
+                window.location.href = 'backQuery.aspx';
+            }
+        })
     })
     //添加单体
     $("#table").delegate(".btn_add", "click", function () {

@@ -28,8 +28,14 @@ namespace bms.Web.InventoryMGT
         WarehousingBll warehousingBll = new WarehousingBll();
         GoodsShelvesBll goodsShelvesBll = new GoodsShelvesBll();
         BookBasicBll bookBasicBll = new BookBasicBll();
+        public List<long> bookNumList = new List<long>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            string kind = Request["kind"];
+            if (kind == "0")
+            {
+                Session["List"] = new List<long>();
+            }
             permission();
             Monomers monoDiscount = warehousingBll.getDiscount();
             discount = (monoDiscount.Discount) / 100;
@@ -60,6 +66,14 @@ namespace bms.Web.InventoryMGT
                 Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
+            }
+            if (op == "delete")
+            {
+                long bookNum = Convert.ToInt64(Request["bookNum"]);
+                bookNumList = (List<long>)Session["List"];
+                int index = bookNumList.IndexOf(bookNum);
+                bookNumList.RemoveAt(index);
+                Session["List"] = bookNumList;
             }
             string action = Request["action"];
             if (action == "import")
@@ -313,19 +327,10 @@ namespace bms.Web.InventoryMGT
             string isbn = Request["isbn"];
             DataTable monTable = new DataTable();
             DataRow dr = monTable.NewRow();
-            long monId;
-            long monCount = warehousingBll.getCount(singleHeadId);
-            if (monCount > 0)
-            {
-                monId = monCount + 1;
-            }
-            else
-            {
-                monId = 1;
-            }
-
+            
             if (action == "isbn")
             {
+                long monId = Convert.ToInt64(Request["sid"]);
                 DataSet dsBook = basicBll.SelectByIsbn(isbn);
                 if (dsBook == null || dsBook.Tables[0].Rows.Count <= 0)
                 {
@@ -381,15 +386,26 @@ namespace bms.Web.InventoryMGT
                         sbGoods.Append("</select>");
                         for (int i = 0; i < monTable.Rows.Count; i++)
                         {
+                            bookNumList = (List<long>)Session["List"];
+                            foreach (long bookNums in bookNumList)
+                            {
+                                if (bookNums == Convert.ToInt64(monTable.Rows[i]["bookNum"]))
+                                {
+                                    Response.Write("已添加过此图书");
+                                    Response.End();
+                                }
+                            }
+                            bookNumList.Add(Convert.ToInt64(monTable.Rows[i]["bookNum"]));
+                            Session["List"] = bookNumList;
                             sb.Append("<tr><td>" + monTable.Rows[i]["monId"] + "</td>");
-                            sb.Append("<td><textarea class='isbn search'>" + monTable.Rows[i]["ISBN"] + "</textarea></td>");
+                            sb.Append("<td><textarea class='isbn textareaISBN' row='1' maxlength='13'>" + monTable.Rows[i]["ISBN"] + "</textarea></td>");
                             sb.Append("<td style='display:none'>" + monTable.Rows[i]["bookNum"] + "</td>");
                             sb.Append("<td>" + monTable.Rows[i]["bookName"] + "</td>");
                             sb.Append("<td>" + monTable.Rows[i]["supplier"] + "</td>");
                             sb.Append("<td>" + sbGoods.ToString() + "</td>");
-                            sb.Append("<td><textarea class='count search'>" + 0 + "</textarea></td>");
+                            sb.Append("<td><textarea class='count textareaCount' row='1'>" + 0 + "</textarea></td>");
                             sb.Append("<td>" + monTable.Rows[i]["uPrice"] + "</td>");
-                            sb.Append("<td><textarea class='discount search'>" + monTable.Rows[i]["discount"] + "</textarea></td>");
+                            sb.Append("<td><textarea class='discount textareaDiscount' row='1'>" + monTable.Rows[i]["discount"] + "</textarea></td>");
                             sb.Append("<td>" + monTable.Rows[i]["totalPrice"] + "</td>");
                             sb.Append("<td>" + monTable.Rows[i]["realPrice"] + "</td>");
                             sb.Append("<td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td>");
@@ -428,6 +444,7 @@ namespace bms.Web.InventoryMGT
             }
             else if (action == "add")
             {
+                long monId = Convert.ToInt64(Request["sid"]);
                 monTable.Columns.Add("ISBN", typeof(string));
                 monTable.Columns.Add("uPrice", typeof(double));
                 monTable.Columns.Add("bookName", typeof(string));
@@ -446,6 +463,16 @@ namespace bms.Web.InventoryMGT
                 string publisher = bookBasicData.Publisher;
                 double price = bookBasicData.Price;
                 string _isbn = bookBasicData.Isbn;
+
+                bookNumList = (List<long>)Session["List"];
+                foreach (long bookNums in bookNumList)
+                {
+                    if (bookNums == bookNum)
+                    {
+                        Response.Write("已添加过此图书");
+                        Response.End();
+                    }
+                }
 
                 dr["ISBN"] = _isbn;
                 dr["uPrice"] = price;
@@ -472,19 +499,20 @@ namespace bms.Web.InventoryMGT
                     for (int i = 0; i < monTable.Rows.Count; i++)
                     {
                         sb.Append("<tr><td>" + monTable.Rows[i]["monId"] + "</td>");
-                        sb.Append("<td><textarea class='isbn search'>" + monTable.Rows[i]["ISBN"] + "</textarea></td>");
+                        sb.Append("<td><textarea class='isbn textareaISBN' row='1' maxlength='13'>" + monTable.Rows[i]["ISBN"] + "</textarea></td>");
                         sb.Append("<td style='display:none'>" + monTable.Rows[i]["bookNum"] + "</td>");
                         sb.Append("<td>" + monTable.Rows[i]["bookName"] + "</td>");
                         sb.Append("<td>" + monTable.Rows[i]["supplier"] + "</td>");
-                        
                         sb.Append("<td>" + sbGoods.ToString() + "</td>");
-                        sb.Append("<td><textarea class='count search'>" + monTable.Rows[i]["number"] + "</textarea></td>");
+                        sb.Append("<td><textarea class='count textareaCount' row='1'>" + monTable.Rows[i]["number"] + "</textarea></td>");
                         sb.Append("<td>" + monTable.Rows[i]["uPrice"] + "</td>");
-                        sb.Append("<td><textarea class='discount search'>" + monTable.Rows[i]["discount"] + "</textarea></td>");
+                        sb.Append("<td><textarea class='discount textareaDiscount' row='1'>" + monTable.Rows[i]["discount"] + "</textarea></td>");
                         sb.Append("<td>" + monTable.Rows[i]["totalPrice"] + "</td>");
                         sb.Append("<td>" + monTable.Rows[i]["realPrice"] + "</td>");
                         sb.Append("<td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td>");
                         sb.Append("<td style='display:none'></td></tr>");
+                        bookNumList.Add(bookNum);
+                        Session["List"] = bookNumList;
                     }
                     Response.Write(sb.ToString());
                     Response.End();
@@ -496,10 +524,12 @@ namespace bms.Web.InventoryMGT
                 DataTable dataTable = jsonToDt(json);
                 int Count = dataTable.Rows.Count;
                 Monomers monomers = new Monomers();
+                BookBasicData book = new BookBasicData();
+                int count, counts=0;
+                double total, allTotal=0, real, allReal=0;
                 for (int i = 0; i < Count; i++)
                 {
                     DataRow drow = dataTable.Rows[i];
-                    BookBasicData book = new BookBasicData();
                     book.Isbn = drow["ISBN号"].ToString();
                     book.Price = Convert.ToDouble(drow["单价"]);
                     book.BookNum = Convert.ToInt64(drow["书号"]);
@@ -514,6 +544,12 @@ namespace bms.Web.InventoryMGT
                     SingleHead single = new SingleHead();
                     single.SingleHeadId = Session["id"].ToString();
                     monomers.SingleHeadId = single;
+                    count = Convert.ToInt32(drow["商品数量"]);
+                    counts = counts + count;
+                    total = Convert.ToDouble(drow["码洋"]);
+                    allTotal = allTotal + total;
+                    real = Convert.ToDouble(drow["实洋"]);
+                    allReal = allReal + real;
                     Result row = warehousingBll.insertMono(monomers);
                     if (row == Result.添加失败)
                     {
@@ -522,8 +558,10 @@ namespace bms.Web.InventoryMGT
                     }
                     else if (row == Result.添加成功)
                     {
+
                         BookBasicData bookBasic = new BookBasicData();
                         bookBasic.Isbn = book.Isbn;
+                        bookBasic.BookNum = Convert.ToInt64(drow["书号"]);
                         Stock stock = new Stock();
                         stock.StockNum = Convert.ToInt32(drow["商品数量"]);
                         stock.ISBN = bookBasic;
@@ -538,12 +576,7 @@ namespace bms.Web.InventoryMGT
                         if (results == Result.记录不存在)
                         {
                             Result result = stockBll.insert(stock);
-                            if (result == Result.添加成功)
-                            {
-                                Response.Write("添加成功");
-                                Response.End();
-                            }
-                            else
+                            if (result == Result.添加失败)
                             {
                                 Response.Write("添加失败");
                                 Response.End();
@@ -553,19 +586,28 @@ namespace bms.Web.InventoryMGT
                         {
                             int rows = stockBll.getStockNum(Convert.ToInt64(drow["书号"]), goodsShelf);
                             Result result = stockBll.update(Convert.ToInt32(drow["商品数量"]) + rows, goodsShelf, Convert.ToInt64(drow["书号"]));
-                            if (result == Result.更新成功)
-                            {
-                                Response.Write("添加成功");
-                                Response.End();
-                            }
-                            else
+                            if (result == Result.更新失败)
                             {
                                 Response.Write("添加失败");
                                 Response.End();
                             }
                         }
                     }
+                }
+                SingleHead singleHead = new SingleHead();
+                singleHead.SingleHeadId = Session["id"].ToString();
+                singleHead.AllBillCount = counts;
+                singleHead.AllRealPrice = allReal;
+                singleHead.AllTotalPrice = allTotal;
+                Result head = warehousingBll.updateHead(singleHead);
+                if (head == Result.更新成功)
+                {
                     Response.Write("添加成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("添加失败");
                     Response.End();
                 }
             }

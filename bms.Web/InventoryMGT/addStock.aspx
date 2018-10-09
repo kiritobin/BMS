@@ -270,6 +270,7 @@
                                 <div class="card-body">
                                     <div class="card-header card-header-danger">
                                         <h4 class="card-title">入库添加</h4>
+                                        <button class="btn btn-sm pull-right" style="background-color:white;color:black;" onclick="javascript:history.back(-1);">返回</button>
                                     </div>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
@@ -325,7 +326,7 @@
                                             <tr class="first">
                                                 <td>1</td>
                                                 <td>
-                                                    <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"></textarea>
+                                                    <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="13"></textarea>
                                                    </td>
                                                 <td></td>
                                                 <td></td>
@@ -337,15 +338,14 @@
                                                         <%}%>
                                                     </select>
                                                 </td>
-                                                <td><textarea class="count textareaCount" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"></textarea></td>
+                                                <td><textarea class="count textareaCount" rows="1">0</textarea></td>
                                                 <td></td>
-                                                <td><textarea class="discount textareaDiscount" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"><%=discount %></textarea></td>
+                                                <td><textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td style="display:none"></td>
                                             </tr>
-
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">

@@ -93,9 +93,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int GetByBookNum(long bookNum, int goodsShelf)
         {
-            string cmdText = "select count(stockId) from T_Stock where bookNum = @bookNum order by stockNum desc";
-            String[] param = { "@bookNum" };
-            String[] values = { bookNum.ToString() };
+            string cmdText = "select count(stockId) from T_Stock where bookNum=@bookNum and goodsShelvesId=@goodsShelf";
+            String[] param = { "@bookNum" , "@goodsShelf" };
+            String[] values = { bookNum.ToString(), goodsShelf .ToString()};
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
             return row;
         }

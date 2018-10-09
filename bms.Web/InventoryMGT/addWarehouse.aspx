@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
-    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
@@ -268,6 +267,9 @@
                                                 <div class="btn-group" role="group">
                                                     <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
                                                 </div>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-success btn-sm" id="save"><i class="fa fa-plus fa-lg"></i>&nbsp 保存</button>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -380,8 +382,6 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
-    <!-- paging.js -->
-    <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addWarehouse.js"></script>
 </body>
