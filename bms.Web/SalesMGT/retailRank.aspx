@@ -1,11 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="booksOut.aspx.cs" Inherits="bms.Web.SalesMGT.booksOut" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailRank.aspx.cs" Inherits="bms.Web.SalesMGT.retailRank" %>
 
-<%="" %>
 <!DOCTYPE html>
 
-<html class="no-js">
-<!--<![endif]-->
-
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -45,7 +42,7 @@
                     <div class="card">
                         <div class="card-header card-header-danger">
                             <label id="time" class="pull-right" style="color:white"></label>
-                            <h3 class="card-title">图书团采排行榜TOP10</h3>
+                            <h3 class="card-title">图书零售排行榜TOP10</h3>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -60,7 +57,6 @@
                                             <th>总码洋</th>
                                         </tr>
                                     </thead>
-                                    <%=GetData() %>
                                 </table>
                             </div>
                             <%--<div>
