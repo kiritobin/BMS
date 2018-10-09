@@ -92,7 +92,7 @@
         function abc() {
             window.location.reload();
         }
-        setTimeout("abc()", 30000);
+        setTimeout("abc()", 60000);
     </script>
 </body>
 </html>
