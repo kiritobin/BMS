@@ -143,13 +143,15 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
-            bookNumList.Add(bookNum);
-            Session["List"] = bookNumList;
             BookBasicData bookBasicData = basicBll.SelectById(Convert.ToInt64(bookNum));
             string isbn = bookBasicData.Isbn;
             string bookName = bookBasicData.BookName;
             int billCount = Convert.ToInt32(Request["billCount"]);
-            double discount = Convert.ToDouble(bookBasicData.Remarks);
+            double discount=1;
+            if (bookBasicData.Remarks == "")
+            {
+                discount = 1;
+            }
             if (discount > 1 && discount <= 10)
             {
                 discount = discount * 0.1;
@@ -163,7 +165,6 @@ namespace bms.Web.SalesMGT
             SaleMonomer monomers = new SaleMonomer();
             double totalPrice = Convert.ToDouble((billCount * uPrice).ToString("0.00"));
             double realPrice = Convert.ToDouble((totalPrice * discount).ToString("0.00"));
-            Session["number"] = Convert.ToDouble(Session["kind"]) + billCount;
             monTable.Columns.Add("ISBN", typeof(string));
             monTable.Columns.Add("unitPrice", typeof(double));
             monTable.Columns.Add("bookNum", typeof(long));
@@ -186,11 +187,14 @@ namespace bms.Web.SalesMGT
             int counts = monTable.Rows.Count;
             for (int i = 0; i < counts; i++)
             {
+                bookNumList.Add(bookNum);
+                Session["List"] = bookNumList;
                 DataRow dr = monTable.Rows[i];
                 sb.Append("<tr><td>" + dr["ISBN"].ToString() + "</td>");
                 sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
-                sb.Append("<td><input class='number' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                sb.Append("<td><input class='number' type='hidden' value='" + dr["number"].ToString() + "'/>");
+                sb.Append("<input class='number' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
                 sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
                 sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");

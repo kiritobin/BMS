@@ -152,17 +152,17 @@ $("#search").keypress(function (e) {
                     //var realPrice = parseInt(sessionStorage.getItem("realPrice"));
                     var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
                     var numbers = parseInt(sessionStorage.getItem("number")) + parseInt($("#table tr:last").find("td:eq(3)").children().val());
-                    var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")).toPrecision(2) + parseFloat($("#table tr:last").find("td:eq(5)").text().trim()).toPrecision(2);
-                    var realPrices = parseFloat(sessionStorage.getItem("realPrice")).toPrecision(2) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim()).toPrecision(2);
+                    var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tr:last").find("td:eq(5)").text().trim());
+                    var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim());
                     sessionStorage.setItem("kind", kinds);
                     sessionStorage.setItem("number", numbers);
-                    sessionStorage.setItem("totalPrice", parseFloat(totalPrices));
-                    sessionStorage.setItem("realPrice", parseFloat(realPrices));
+                    sessionStorage.setItem("totalPrice", totalPrices);
+                    sessionStorage.setItem("realPrice", realPrices);
                     //展示合计内容
                     $("#time").text(CurentTime());
                     $("#number").text(numbers);
-                    $("#total").text(parseFloat(totalPrices));
-                    $("#real").text(parseFloat(realPrices));
+                    $("#total").text(totalPrices);
+                    $("#real").text(realPrices);
                     $("#kind").text(kinds);
                     //清空输入框并获取焦点
                     $("#search").val("");
@@ -199,7 +199,14 @@ $("#btnAdd").click(function () {
         }
     })
 })
-$("#table").delegate(".number", "keypress", function (e) {
+
+//$('.content-icon-item-2').click(function () {
+//    sessionStorage.setItem("number", counts + 1);
+//});
+//$(".content-icon-item-1").click(function () {
+//    sessionStorage.setItem("number", counts - 1);
+//})
+$("#table").delegate(".number", "change", function (e) {
     var number = parseInt($(this).val());
     var total = parseFloat($(this).parent().next().next().text().trim());
     var real = parseFloat($(this).parent().next().next().next().text().trim());
@@ -210,27 +217,29 @@ $("#table").delegate(".number", "keypress", function (e) {
     } else if (discount < 10 && discount > 1) {
         discount = discount * 0.1;
     }
-    //回车事件触发
-    if (e.keyCode == 13) {
-        var number = parseInt($(this).val());
-        var totalPrice = parseFloat(number * price);
-        var realPrice = parseFloat(totalPrice * discount);
-        //计算合计内容
-        var numbers = parseInt(sessionStorage.getItem("number")) - number + parseInt($("#table tr:last").find("td:eq(3)").children().val());
-        var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) - total + totalPrice;
-        var realPrices = parseFloat(sessionStorage.getItem("realPrice")) - real + realPrice;
-        sessionStorage.setItem("number", numbers);
-        sessionStorage.setItem("totalPrice", parseFloat(totalPrices));
-        sessionStorage.setItem("realPrice", parseFloat(realPrices));
-        $(this).parent().next().next().text(parseFloat(totalPrice));
-        $(this).parent().next().next().next().text(parseFloat(realPrice));
-        //展示合计内容
-        $("#time").text(CurentTime());
-        $("#number").text(numbers);
-        $("#total").text(parseFloat(totalPrices));
-        $("#real").text(parseFloat(realPrices));
-        $("#kind").text(parseInt(sessionStorage.getItem("kind")));
+    var totalPrice = parseFloat(number * price);
+    var realPrice = parseFloat(totalPrice * discount);
+    //计算合计内容
+    var count = parseInt($(this).prev().val());
+    var counts = parseInt($(this).val());
+    if (counts > count) {
+        sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) + 1);
+    } else if (counts < count) {
+        sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) - 1);
     }
+    $(this).prev().val(counts);
+    var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) - total + totalPrice;
+    var realPrices = parseFloat(sessionStorage.getItem("realPrice")) - real + realPrice;
+    sessionStorage.setItem("totalPrice", parseFloat(totalPrices));
+    sessionStorage.setItem("realPrice", parseFloat(realPrices));
+    $(this).parent().next().next().text(parseFloat(totalPrice));
+    $(this).parent().next().next().next().text(parseFloat(realPrice));
+    //展示合计内容
+    $("#time").text(CurentTime());
+    $("#number").text(sessionStorage.getItem("number"));
+    $("#total").text(parseFloat(totalPrices));
+    $("#real").text(parseFloat(realPrices));
+    $("#kind").text(parseInt(sessionStorage.getItem("kind")));
 })
 $("#insert").click(function () {
     $.ajax({
@@ -244,6 +253,10 @@ $("#insert").click(function () {
         success: function (data) {
             window.location.reload();
             $("#search").focus();
+            sessionStorage.setItem("kind", 0);
+            sessionStorage.setItem("number", 0);
+            sessionStorage.setItem("totalPrice", 0);
+            sessionStorage.setItem("realPrice", 0);
         }
     })
 })
@@ -265,6 +278,16 @@ $("#table").delegate(".btn-delete", "click", function () {
         },
         dataType: 'text',
         success: function (data) {
+            sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind") - 1));
+            sessionStorage.setItem("number", parseFloat(sessionStorage.getItem("number") - parseInt(totalPrice)));
+            sessionStorage.setItem("totalPrice", parseFloat(sessionStorage.getItem("totalPrice") - parseFloat(totalPrice)));
+            sessionStorage.setItem("realPrice", parseInt(sessionStorage.getItem("realPrice") - parseFloat(realPrice)));
+            //展示合计内容
+            $("#time").text(CurentTime());
+            $("#number").text(sessionStorage.getItem("number"));
+            $("#total").text(parseFloat(totalPrices));
+            $("#real").text(parseFloat(realPrices));
+            $("#kind").text(parseInt(sessionStorage.getItem("kind")));
             $("#search").val("");
             $("#search").focus();
         }

@@ -100,6 +100,7 @@
     <Content Include="imgs\loading.gif" />
     <Content Include="imgs\lose.png" />
     <Content Include="imgs\success.png" />
+    <Content Include="imgs\YNXH-LOGO.png" />
     <Content Include="InventoryMGT\addReturn.aspx" />
     <Content Include="InventoryMGT\addRs.aspx" />
     <Content Include="InventoryMGT\addStock.aspx" />
