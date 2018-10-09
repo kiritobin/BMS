@@ -45,11 +45,11 @@ namespace bms.Web.SalesMGT
             {
                 Insert();
             }
-            if (op == "delete")
+            if (op == "delete")//删除单头
             {
                 Delete();
             }
-            if (op == "addMonomer")
+            if (op == "addMonomer")//跳转到添加销售单体页面
             {
                 string sellId = Request["sohId"];
                 string state = Request["state"];
@@ -64,6 +64,11 @@ namespace bms.Web.SalesMGT
                     Response.Write("处理中");
                     Response.End();
                 }
+            }
+            if(op== "searchMonomer")
+            {
+                string sellId = Request["sohId"];
+                Session["sellId"] = sellId;
             }
         }
         /// <summary>
