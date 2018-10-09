@@ -71,10 +71,10 @@ namespace bms.Dao
         public int getStockNum(long bookNum, int goodsShelf)
         {
             string cmdText = "select stockNum from T_Stock where goodsShelvesId = @goodsShelf and bookNum=@bookNum";
-            String[] param = { "@goodsShelvesId" , "@bookNum" };
+            String[] param = { "@goodsShelf", "@bookNum" };
             String[] values = { goodsShelf.ToString(), bookNum.ToString() };
             DataSet ds = db.FillDataSet(cmdText, param, values);
-            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
                 int goodsId = Convert.ToInt32(ds.Tables[0].Rows[0]["stockNum"]);
                 return goodsId;

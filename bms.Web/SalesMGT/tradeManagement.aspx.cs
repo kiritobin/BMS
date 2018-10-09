@@ -73,11 +73,19 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
+            //删除
             if (op == "del")
             {
                 string saleID = Request["ID"];
                 Result isDelete = saleBll.IsDelete("T_SellOffHead", "saleTaskId", saleID);
-                isDelete = saleBll.IsDelete("T_ReplenishmentHead", "saleTaskId", saleID);
+                if (isDelete == Result.记录不存在)
+                {
+                    isDelete = saleBll.IsDelete("T_ReplenishmentHead", "saleTaskId", saleID);
+                    if (isDelete == Result.记录不存在)
+                    {
+                        isDelete = saleBll.IsDelete("T_SaleHead", "saleTaskId", saleID);
+                    }
+                }
                 if (isDelete == Result.关联引用)
                 {
                     Response.Write("该客户已被关联到其他表，不能删除！");

@@ -26,110 +26,8 @@ function logout() {
     })
 }
 
-$("#btn-search").click(function () {
-    var id = $("#ID").val();
-    $.ajax({
-        type: 'Post',
-        url: 'addStock.aspx',
-        data: {
-            id: id,
-            op:'paging'
-        },
-        dataType: 'text',
-        success: function (data) {
-            $("#intPageCount").remove();
-            $("#table tr:not(:first)").empty(); //清空table处首行
-            $("#table").append(data); //加载table
-            $(".paging").empty();
-            $('.paging').pagination({
-                //totalData: $("#totalCount").val(),
-                //showData: $("#pageSize").val(),
-                pageCount: $("#intPageCount").val(), //总页数
-                jump: true,
-                mode: 'fixed',//固定页码数量
-                coping: true,
-                homePage: '首页',
-                endPage: '尾页',
-                prevContent: '上页',
-                nextContent: '下页',
-                callback: function (api) {
-                    $.ajax({
-                        type: 'Post',
-                        url: 'addStock.aspx',
-                        data: {
-                            page: api.getCurrent(), //页码
-                            id: id,
-                            op: "paging"
-                        },
-                        dataType: 'text',
-                        success: function (data) {
-                            $("#table tr:not(:first)").empty(); //清空table处首行
-                            $("#table").append(data); //加载table
-                        }
-                    });
-                }
-            });
-        }
-    })
-})
-
 $(document).ready(function () {
-    sessionStorage.setItem("id", 1);
-    $('.paging').pagination({
-        //totalData: $("#countPage").val(), //数据总数
-        //showData: $("#totalCount").val(), //每页显示的条数
-        pageCount: $("#intPageCount").val(), //总页数
-        jump: true,
-        mode: 'fixed',//固定页码数量
-        coping: true,
-        homePage: '首页',
-        endPage: '尾页',
-        prevContent: '上页',
-        nextContent: '下页',
-        callback: function (api) {
-            $.ajax({
-                type: 'Post',
-                url: 'addStock.aspx',
-                data: {
-                    page: api.getCurrent(), //页码
-                    op: "paging"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    $("#table tr:not(:first)").empty(); //清空table处首行
-                    $("#table").append(data); //加载table
-                }
-            });
-        }
-    });
-    
-    $('.paging2').pagination({
-        //totalData: $("#countPage").val(), //数据总数
-        //showData: $("#totalCount").val(), //每页显示的条数
-        pageCount: $("#intPageCount2").val(), //总页数
-        jump: false,
-        mode: 'fixed',//固定页码数量
-        coping: true,
-        homePage: '首页',
-        endPage: '尾页',
-        prevContent: '上页',
-        nextContent: '下页',
-        callback: function (api) {
-            $.ajax({
-                type: 'Post',
-                url: 'addStock.aspx',
-                data: {
-                    page: api.getCurrent(),
-                    action:"showIntersect"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    $("#table2 tr:gt(1)").empty(); //清空table2行
-                    $("#table2").append(data); //加载table
-                }
-            });
-        }
-    });
+   sessionStorage.setItem("id", 1);
 
     $("#upload").click(function () {
         var location = $("input[name='file']").val();
@@ -277,40 +175,26 @@ $(document).ready(function () {
                 },
                 dataType: 'text',
                 success: function (data) {
-                    $("#intPageCount2").remove();
-                    $(".paging2").empty();
-                    $("#myModal2").modal("show");
-                    $("#myModal1").modal("hide");
-                    $("#table2 tr:gt(1)").empty(); //清空table2行
-                    $("#table2").append(data); //加载table
-
-                    $('.paging2').pagination({
-                        //totalData: $("#countPage").val(), //数据总数
-                        //showData: $("#totalCount").val(), //每页显示的条数
-                        pageCount: $("#intPageCount2").val(), //总页数
-                        jump: false,
-                        mode: 'fixed',//固定页码数量
-                        coping: true,
-                        homePage: '首页',
-                        endPage: '尾页',
-                        prevContent: '上页',
-                        nextContent: '下页',
-                        callback: function (api) {
-                            $.ajax({
-                                type: 'Post',
-                                url: 'addStock.aspx',
-                                data: {
-                                    page: api.getCurrent(),
-                                    action: "showIntersect"
-                                },
-                                dataType: 'text',
-                                success: function (data) {
-                                    $("#table2 tr:gt(1)").empty(); //清空table2行
-                                    $("#table2").append(data); //加载table
-                                }
-                            });
-                        }
-                    });
+                    if (data == "库存中找不到数据") {
+                        swal({
+                            title: "提示",
+                            text: data,
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        })
+                        $("#myModal2").modal("hide");
+                        $("#myModal1").modal("hide");
+                    }
+                    else {
+                        $("#myModal2").modal("show");
+                        $("#myModal1").modal("hide");
+                        $("#table2 tr:gt(1)").empty(); //清空table2行
+                        $("#table2").append(data); //加载table
+                    }
                 }
             });
         }
@@ -319,11 +203,19 @@ $(document).ready(function () {
 //isbn回车
 $("#table").delegate(".isbn", "keypress", function (e) {
     if (e.keyCode == 13) {
-        var isbn = $(this).val();
-        var count = $(this).parent().next().next().next().next().children().val();
+        $(".count").text('0');
+        var isbn = $(this).val().trim();
+        var count = $(this).parent().next().next().next().next().children().val().trim();
         var discount = $(this).parent().next().next().next().next().next().next().children().val();
+        var goodsId = $(this).parent().next().next().next().children().val();
         if (isbn == "" || isbn == null) {
-            alert("isbn不能为空");
+            swal({
+                title: "温馨提示:)",
+                text: "ISBN不能为空，请您重新输入",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
         }
         //else if (count == "" || count == null) {
         //    $(this).parent().next().next().next().children().focus();
@@ -350,301 +242,78 @@ $("#table").delegate(".isbn", "keypress", function (e) {
                         $("#table3").append(data);
                     }
                     else if (data == "ISBN不存在") {
-                        alert("ISBN不存在");
+                        swal({
+                            title: "温馨提示:)",
+                            text: data,
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning",
+                            type: "warning"
+                        }).catch(swal.noop);
                     }
                     else if (data == "记录已存在") {
-                        alert("记录已存在");
+                        swal({
+                            title: "温馨提示:)",
+                            text: data,
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning",
+                            type: "warning"
+                        }).catch(swal.noop);
                     }
                     else {
                         $(".first").remove();
                         $("#table").append(data);
-                        $(this).parent().next().next().next().next().children().focus();
+                        $("#table tr:last").find("td").eq(5).children().focus();
                     }
                 }
             })
-           
         }
     }
 })
 //数量回车
 $("#table").delegate(".count","keypress" ,function (e) {
     if (e.keyCode == 13) {
-        var count = $(this).val();
-        var price = $(this).parent().next().text();
-        //var isbn = $(this).parent().prev().prev().prev().prev().children().val();
-        //var count = $(this).val();
-        var discount = $(this).parent().next().next().children().val();
+        var count = $(this).val().trim();
+        $(this).text(count);
+        var price = $(this).parent().next().text().trim();
+        var goodsId = $(this).parent().prev().children().val().trim();
+        var gId = $(this).parent().next().next().next().next().next().next();
+        gId.text(goodsId);
+        var last = $("#table tr:last").eq(0).text().trim();
+        var discount = $(this).parent().next().next().children().val().trim();
         var total = $(this).parent().next().next().next();
         var real = $(this).parent().next().next().next().next();
-        total.text(count * price);
-        real.text(count * price * discount);
+        total.text((count * price).toFixed(2));
+        real.text((count * price * discount).toFixed(2));
         if (count <= 0) {
-            alert("数量不能为空");
+            swal({
+                title: "温馨提示:)",
+                text: "数量不能为空",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
         }
         else {
-            var table = "<tr class='first'><td></td><td><input type='text' class='isbn search' value='' /></td><td></td><td></td><td></td><td><input type='text' class='count search' value='0' /></td><td></td><td><input type='text' class='discount search' value='0'</td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
-            $("#table").append(table);
+            if (last!="") {
+                var table = "<tr class='first'><td></td><td><textarea class='isbn search'></textarea></td><td></td><td></td><td></td><td><textarea class='count search'></textarea></td><td></td><td><textarea class='discount search'>0</textarea></td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
+                $("#table").append(table);
+                $("#table tr:last").find("td").eq(1).children().focus();
+            }
         }
     }
 })
 
 //下拉列表改变
-$("#table").delegate(".goods", "change",function () {
+$("#table").delegate(".goods", "change", function () {
+    var goodsId = $(this).val().trim();
+    var gId = $(this).parent().next().next().next().next().next().next().next();
+    gId.text(goodsId);
     $(this).parent().next().children().focus();
 });
 //删除当前行
 $("#table").delegate(".btn-danger", "click", function () {
     $(this).parent().parent().remove();
 });
-
-
-//回车事件
-$("#isbn").keypress(function (e) {
-    if (e.keyCode == 13) {
-        $("#btnAdd").attr("disabled", false);
-        var isbn = $("#isbn").val();
-        var billCount = $("#billCount").val();
-        var disCount = $("#disCount").val();
-        var goodsShelf = $("#goodsShelf").val();
-        if (isbn == "" || isbn == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "ISBN不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else if (billCount == "" || billCount == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "商品数量不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else if (disCount == "" || disCount == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "折扣不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else {
-            $.ajax({
-                type: 'Post',
-                url: 'addStock.aspx',
-                data: {
-                    isbn: isbn,
-                    billCount: billCount,
-                    disCount: disCount,
-                    goodsShelf: goodsShelf,
-                    op: "isbn"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "ISBN不存在") {
-                        swal({
-                            title: "错误提示:)",
-                            text: "ISBN不存在",
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                    } else if (data == "添加成功") {
-                        swal({
-                            title: data,
-                            text: data,
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
-                    } else if (data == "添加失败") {
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                    } else {
-                        $("#table3 tr:not(:first)").empty(); //清空table处首行
-                        $("#table3").append(data); //加载table
-                    }
-                }
-            })
-        }
-    }
-})
-$("#billCount").keypress(function (e) {
-    if (e.keyCode == 13) {
-        $("#btnAdd").attr("disabled", false);
-        var isbn = $("#isbn").val();
-        var billCount = $("#billCount").val();
-        var disCount = $("#disCount").val();
-        var goodsShelf = $("#goodsShelf").val();
-        if (isbn == "" || isbn == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "ISBN不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else if (billCount == "" || billCount == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "商品数量不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else if (disCount == "" || disCount == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "折扣不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else {
-            $.ajax({
-                type: 'Post',
-                url: 'addStock.aspx',
-                data: {
-                    isbn: isbn,
-                    billCount: billCount,
-                    disCount: disCount,
-                    goodsShelf: goodsShelf,
-                    op: "isbn"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "ISBN不存在") {
-                        swal({
-                            title: "错误提示:)",
-                            text: "ISBN不存在",
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                    } else if (data == "添加成功") {
-                        swal({
-                            title: data,
-                            text: data,
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
-                    } else if (data == "添加失败") {
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                    } else {
-                        $("#table3 tr:not(:first)").empty(); //清空table处首行
-                        $("#table3").append(data); //加载table
-                    }
-                }
-            })
-        }
-    }
-})
-$("#disCount").keypress(function (e) {
-    if (e.keyCode == 13) {
-        $("#btnAdd").attr("disabled", false);
-        var isbn = $("#isbn").val();
-        var billCount = $("#billCount").val();
-        var disCount = $("#disCount").val();
-        var goodsShelf = $("#goodsShelf").val();
-        if (isbn == "" || isbn == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "ISBN不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else if (billCount == "" || billCount == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "商品数量不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else if (disCount == "" || disCount == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "折扣不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else {
-            $.ajax({
-                type: 'Post',
-                url: 'addStock.aspx',
-                data: {
-                    isbn: isbn,
-                    billCount: billCount,
-                    disCount: disCount,
-                    goodsShelf: goodsShelf,
-                    op: "isbn"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "ISBN不存在") {
-                        swal({
-                            title: "错误提示:)",
-                            text: "ISBN不存在",
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                    } else if (data == "添加成功") {
-                        swal({
-                            title: data,
-                            text: data,
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
-                    } else if (data == "添加失败") {
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                    } else {
-                        $("#table3 tr:not(:first)").empty(); //清空table处首行
-                        $("#table3").append(data); //加载table
-                    }
-                }
-            })
-        }
-    }
-})
 
 $("#btnImport").click(function () {
     $("#myModal2").modal("hide");
@@ -708,34 +377,66 @@ $("#btnAdd").click(function () {
             },
             datatype: 'text',
             success: function (succ) {
+                $(".first").remove();
+                $("#table").append(succ);
+                $("#myModal3").modal("hide");
+                $("#table tr:last").find("td").eq(5).children().focus();
+            }
+        })
+    }
+})
+
+$("#save").click(function () {
+    var last = $('#table tr:last').find('td').eq(0).text();
+    var table = $('#table').tableToJSON(); // Convert the table into a javascript object
+    swal({
+        title: "温馨提示",
+        text: "您确定要保存吗？",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+    }).then(function () {
+        if (last == "") {
+            $("#table tr:last").remove();
+        }
+        var json = JSON.stringify(table)
+        $.ajax({
+            type: 'Post',
+            url: 'addStock.aspx',
+            data: {
+                json: json,
+                action: "save"
+            },
+            datatype: 'text',
+            success: function (succ) {
                 if (succ == "添加成功") {
                     swal({
-                        title: succ,
+                        title: "温馨提示:)",
                         text: succ,
-                        type: "success",
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: '确定',
-                        confirmButtonClass: 'btn btn-success',
                         buttonsStyling: false,
-                        allowOutsideClick: false
-                    }).then(function () {
-                        window.location.reload();
-                    })
-                } else {
-                    swal({
-                        title: succ,
-                        text: succ,
+                        confirmButtonClass: "btn btn-success",
                         type: "warning",
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: '确定',
-                        confirmButtonClass: 'btn btn-success',
-                        buttonsStyling: false,
                         allowOutsideClick: false
-                    }).then(function () {
-                        window.location.reload();
+                    })
+                }
+                else {
+                    swal({
+                        title: "温馨提示:)",
+                        text: succ,
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "warning",
+                        allowOutsideClick: false
                     })
                 }
             }
         })
-    }
+    })
 })
