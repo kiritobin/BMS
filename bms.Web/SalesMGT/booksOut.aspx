@@ -39,11 +39,12 @@
     <!-- 主界面内容 -->
     <div class="content">
         <div class="container-fluid">
+            <img src="../imgs/YNXH-LOGO.png" class="img-responsive" alt="Cinque Terre" width="450" height="80">
             <div class="row3">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-danger">
-                            <h3 class="card-title">书籍排行</h3>
+                            <h3 class="card-title">图书销售排行榜TOP10</h3>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
