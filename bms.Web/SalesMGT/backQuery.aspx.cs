@@ -28,7 +28,7 @@ namespace bms.Web.SalesMGT
         StockBll stbll = new StockBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Session["sellId"] = "XT20181009000001";
+            //Session["sellId"] = "XT20181009000005";
             //Session["saleId"] = "XSRW20181007000001";
             string op = Request["op"];
             GetData();
@@ -253,7 +253,7 @@ namespace bms.Web.SalesMGT
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
+                    //sb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
                     //sb.Append("<td>" + "<button class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true'></i></button>" + "</td>");
                     sb.Append("</tr>");
                 }

@@ -2,6 +2,7 @@
 using bms.Model;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -75,7 +76,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="tabInsert">插入实体</param>
         /// <returns></returns>
-        public DataSet InsertManyTable(TableInsertion tabInsert,out int count)
+        public int InsertManyTable(TableInsertion tabInsert,out int count)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("sp_Insert");
@@ -88,9 +89,10 @@ namespace bms.Dao
             values[0].Value = tabInsert.InRegionName;
             values[1].Value = tabInsert.InShelvesName;
             values[2].Direction = ParameterDirection.Output;
-            DataSet ds = db.FillDataSetBySP(strSql.ToString(), values);
+            ArrayList array = db.ExecuteSp(strSql.ToString(), values);
             count = Convert.ToInt32(values[2].Value);
-            return ds;
+            //int outNum = int.Parse(array.ToString());
+            return count;
         }
 
         /// <summary>
