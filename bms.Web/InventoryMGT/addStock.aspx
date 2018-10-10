@@ -270,6 +270,7 @@
                                 <div class="card-body">
                                     <div class="card-header card-header-danger">
                                         <h4 class="card-title">入库添加</h4>
+                                        <button class="btn btn-sm pull-right" style="background-color:white;color:black;" onclick="javascript:history.back(-1);">返回</button>
                                     </div>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
@@ -309,10 +310,10 @@
                                                         <nobr>折扣</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>实洋</nobr>
+                                                        <nobr>码洋</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>码洋</nobr>
+                                                        <nobr>实洋</nobr>
                                                     </td>
                                                     <td>
                                                         <nobr>操作</nobr>
@@ -325,7 +326,7 @@
                                             <tr class="first">
                                                 <td>1</td>
                                                 <td>
-                                                    <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"></textarea>
+                                                    <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="13"></textarea>
                                                    </td>
                                                 <td></td>
                                                 <td></td>
@@ -337,15 +338,14 @@
                                                         <%}%>
                                                     </select>
                                                 </td>
-                                                <td><textarea class="count textareaCount" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"></textarea></td>
+                                                <td><textarea class="count textareaCount" rows="1">0</textarea></td>
                                                 <td></td>
-                                                <td><textarea class="discount textareaDiscount" rows="1" maxlength="14" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');"><%=discount %></textarea></td>
+                                                <td><textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td style="display:none"></td>
                                             </tr>
-
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -371,29 +371,6 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <%-- <div class="text-right">
-                                <span>
-                                    <nobr>ISBN:</nobr>
-                                </span>
-                                <input type="text" class="modal_search_add" id="isbn">
-                                <span>
-                                    <nobr>商品数量:</nobr>
-                                </span>
-                                <input type="text" class="modal_search_add" id="billCount">
-                                <span>
-                                    <nobr>货架号:</nobr>
-                                </span>
-                                <select class="selectpicker" data-style="btn-sm" id="goodsShelf" style="float: left;">
-                                    <%for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
-                                        { %>
-                                    <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
-                                    <%}%>
-                                </select>
-                                <span>
-                                    <nobr>折扣:</nobr>
-                                </span>
-                                <input type="text" class="modal_search_add" value="<%=discount %>" id="disCount">
-                            </div><br />--%>
                             <table class="table table-bordered mostTable text-center" id="table3">
                                 <thead>
                                     <tr>

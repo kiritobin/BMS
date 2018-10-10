@@ -31,23 +31,6 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
-        /// <summary>
-        /// 销售单头添加
-        /// </summary>
-        /// <param name="salehead">销售单头实体</param>
-        /// <returns>返回结果</returns>
-        public Result InsertRetail(SaleHead salehead)
-        {
-            int row = saleHeaddao.InsertRetail(salehead);
-            if (row > 0)
-            {
-                return Result.添加成功;
-            }
-            else
-            {
-                return Result.添加失败;
-            }
-        }
 
         public string SelectTaskByheadId(string saleHeadId)
         {
@@ -129,25 +112,6 @@ namespace bms.Bll
             {
                 return null;
             }
-        }
-
-        /// <summary>
-        /// 获取零售单头编号数量
-        /// </summary>
-        /// <param name="saleTaskId">销售任务ID</param>
-        /// <returns>行数</returns>
-        public int countRetail()
-        {
-            int count = saleHeaddao.countRetail();
-            if (count > 0)
-            {
-                return count;
-            }
-            else
-            {
-                return count = 0;
-            }
-
         }
     }
 }

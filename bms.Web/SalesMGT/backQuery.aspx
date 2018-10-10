@@ -66,10 +66,20 @@
                                                 <th>实际折扣</th>
                                                 <th>码洋</th>
                                                 <th>实洋</th>
-                                                <th>制单时间</th>
+                                                <%--<th>制单时间</th>--%>
                                             </tr>
                                         </thead>
                                         <%=GetData() %>
+                                        <%--<tr>
+                                            <td>1</td>
+                                            <td><input type="text" class="inputISBN" style="width:100%" /></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><input type="text" class="inputCount" style="width:100%" /></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>--%>
                                     </table>
                                 </div>
                                 <div class="statistics col-md-2">

@@ -39,11 +39,13 @@
     <!-- 主界面内容 -->
     <div class="content">
         <div class="container-fluid">
+            <img src="../imgs/YNXH-LOGO.png" class="img-responsive" alt="Cinque Terre" width="450" height="80">
             <div class="row3">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-danger">
-                            <h3 class="card-title">书籍排行</h3>
+                            <label id="time" class="pull-right" style="color:white"></label>
+                            <h3 class="card-title">图书团采排行榜TOP10</h3>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -59,22 +61,6 @@
                                         </tr>
                                     </thead>
                                     <%=GetData() %>
-                                    <%--<tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Dakota Rice</td>
-                                                    <td>Niger</td>
-                                                    <td>Oud-Turnhout</td>
-                                                    <td>$36,738</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Sage Rodriguez
-                                                    <td>Netherlands</td>
-                                                    <td>Baileux</td>
-                                                    <td >$56,142</td>
-                                                </tr>                                             
-                                            </tbody>--%>
                                 </table>
                             </div>
                             <%--<div>
@@ -89,10 +75,18 @@
         </div>
     </div>
     <script>
-        function abc() {
+        function reload() {
             window.location.reload();
         }
-        setTimeout("abc()", 60000);
+        function showTime() {
+            nowtime = new Date();
+            year = nowtime.getFullYear();
+            month = nowtime.getMonth() + 1;
+            date = nowtime.getDate();
+            document.getElementById("time").innerText = year + "年" + month + "月" + date + " " + nowtime.toLocaleTimeString();
+        }
+        setInterval("showTime()", 1000);
+        setTimeout("reload()", 600000);
     </script>
 </body>
 </html>

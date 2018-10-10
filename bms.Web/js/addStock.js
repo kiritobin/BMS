@@ -27,8 +27,7 @@ function logout() {
 }
 
 $(document).ready(function () {
-   sessionStorage.setItem("id", 1);
-
+    sessionStorage.setItem("kind", 0);
     $("#upload").click(function () {
         var location = $("input[name='file']").val();
         var point = location.lastIndexOf(".");
@@ -200,10 +199,28 @@ $(document).ready(function () {
         }
     });
 });
+
+//只允许数字
+$("#table").delegate(".isbn", "keyup", function (e){
+    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+}).bind("paste", function () {  //CTR+V事件处理    
+    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    }).css("ime-mode", "disabled"); 
+$("#table").delegate(".count", "keyup", function (e) {
+    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+}).bind("paste", function () {  //CTR+V事件处理    
+    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    }).css("ime-mode", "disabled"); 
+$("#table").delegate(".discount", "keyup", function (e) {
+    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+}).bind("paste", function () {  //CTR+V事件处理    
+    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+}).css("ime-mode", "disabled"); 
 //isbn回车
 $("#table").delegate(".isbn", "keypress", function (e) {
     if (e.keyCode == 13) {
-        $(".count").text('0');
+        //$(".count").text('0');
+        var sid = $(this).parent().prev().text().trim();
         var isbn = $(this).val().trim();
         var count = $(this).parent().next().next().next().next().children().val().trim();
         var discount = $(this).parent().next().next().next().next().next().next().children().val();
@@ -229,6 +246,8 @@ $("#table").delegate(".isbn", "keypress", function (e) {
                 type: 'Post',
                 url: 'addStock.aspx',
                 data: {
+                    kind: sessionStorage.getItem("kind"),
+                    sid: sid,
                     isbn: isbn,
                     billCount: count,
                     discount: discount,
@@ -250,7 +269,7 @@ $("#table").delegate(".isbn", "keypress", function (e) {
                             type: "warning"
                         }).catch(swal.noop);
                     }
-                    else if (data == "记录已存在") {
+                    else if (data == "已添加过此图书") {
                         swal({
                             title: "温馨提示:)",
                             text: data,
@@ -269,13 +288,15 @@ $("#table").delegate(".isbn", "keypress", function (e) {
         }
     }
 })
+
 //数量回车
 $("#table").delegate(".count","keypress" ,function (e) {
     if (e.keyCode == 13) {
+        var sid = $(this).parent().prev().prev().prev().prev().prev().prev().text().trim();
         var count = $(this).val().trim();
         $(this).text(count);
         var price = $(this).parent().next().text().trim();
-        var goodsId = $(this).parent().prev().children().val().trim();
+        var goodsId = $(this).parent().prev().children().val();
         var gId = $(this).parent().next().next().next().next().next().next();
         gId.text(goodsId);
         var last = $("#table tr:last").eq(0).text().trim();
@@ -294,15 +315,32 @@ $("#table").delegate(".count","keypress" ,function (e) {
             }).catch(swal.noop);
         }
         else {
-            if (last!="") {
-                var table = "<tr class='first'><td></td><td><textarea class='isbn search'></textarea></td><td></td><td></td><td></td><td><textarea class='count search'></textarea></td><td></td><td><textarea class='discount search'>0</textarea></td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
+            if (last != "" || last == "0") {
+                var table = "<tr class='first'><td>" + (parseInt(sid) + 1) + "</td><td><textarea class='isbn textareaISBN' row='1' maxlength='13'></textarea></td><td></td><td></td><td></td><td><textarea class='count textareaCount' row='1'>0</textarea></td><td></td><td><textarea class='discount textareaDiscount' row='1'>0</textarea></td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
                 $("#table").append(table);
                 $("#table tr:last").find("td").eq(1).children().focus();
+                sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind")) + 1);
             }
         }
+
+        //$.ajax({
+        //    type: 'Post',
+        //    url: 'addStock.aspx',
+        //    data: {
+        //        sid:sid,
+        //        action: "count"
+        //    },
+        //    dataType: 'text',
+        //    success: function (data) {
+                
+        //    }
+        //})
     }
 })
-
+$("#table").delegate(".count", "change", function (e) {
+    var count = $(this).val().trim();
+    $(this).text(count);
+});
 //下拉列表改变
 $("#table").delegate(".goods", "change", function () {
     var goodsId = $(this).val().trim();
@@ -310,9 +348,23 @@ $("#table").delegate(".goods", "change", function () {
     gId.text(goodsId);
     $(this).parent().next().children().focus();
 });
+//折扣改变事件
+$("#table").delegate(".discount", "change", function () {
+    var c = $(this).val().trim();
+    $(this).text(c);
+    var count = $(this).parent().prev().prev().children().text();
+    var price = $(this).parent().prev().text();
+    var discount = $(this).text();
+    var total = $(this).parent().next();
+    var real = $(this).parent().next().next();
+    alert((count * price * discount).toFixed(2));
+    total.text((count * price).toFixed(2));
+    real.text((count * price * discount).toFixed(2));
+});
 //删除当前行
 $("#table").delegate(".btn-danger", "click", function () {
     $(this).parent().parent().remove();
+    sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind")) - 1);
 });
 
 $("#btnImport").click(function () {
@@ -358,6 +410,7 @@ $("#btnImport").click(function () {
 });
 
 $("#btnAdd").click(function () {
+    var sid = $("#table tr:last").find("td").eq(0).text();
     var bookNum = $("input[type='radio']:checked").val();
     if (bookNum == "" || bookNum == null) {
         swal({
@@ -372,23 +425,34 @@ $("#btnAdd").click(function () {
             type: 'Post',
             url: 'addStock.aspx',
             data: {
+                sid:sid,
                 bookNum: bookNum,
                 action: "add"
             },
             datatype: 'text',
             success: function (succ) {
-                $(".first").remove();
-                $("#table").append(succ);
-                $("#myModal3").modal("hide");
-                $("#table tr:last").find("td").eq(5).children().focus();
+                if (succ == "已添加过此图书") {
+                    swal({
+                        title: "温馨提示:)",
+                        text: succ,
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                }
+                else {
+                    $(".first").remove();
+                    $("#table").append(succ);
+                    $("#myModal3").modal("hide");
+                    $("#table tr:last").find("td").eq(5).children().focus();
+                }
             }
         })
     }
 })
 
 $("#save").click(function () {
-    var last = $('#table tr:last').find('td').eq(0).text();
-    var table = $('#table').tableToJSON(); // Convert the table into a javascript object
+    var last = $('#table tr:last').find('td').eq(1).children().text();
     swal({
         title: "温馨提示",
         text: "您确定要保存吗？",
@@ -406,7 +470,8 @@ $("#save").click(function () {
         if (last == "") {
             $("#table tr:last").remove();
         }
-        var json = JSON.stringify(table)
+        var table = $('#table').tableToJSON(); // Convert the table into a javascript object
+        var json = JSON.stringify(table);
         $.ajax({
             type: 'Post',
             url: 'addStock.aspx',
