@@ -338,7 +338,7 @@
                                                         <%}%>
                                                     </select>
                                                 </td>
-                                                <td><textarea class="count textareaCount" rows="1">1</textarea></td>
+                                                <td><textarea class="count textareaCount" rows="1">0</textarea></td>
                                                 <td></td>
                                                 <td><textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
                                                 <td></td>
