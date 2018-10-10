@@ -77,7 +77,7 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public String getData()
         {
-            Session["saleId"] = "XSRW20181007000001";
+            //Session["saleId"] = "XSRW20181007000001";
             int pagesize = 20;
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -114,6 +114,7 @@ namespace bms.Web.SalesMGT
             tb.StrWhere = search;
             ds = uBll.selectByPage(tb, out totalCount, out intPageCount);
             StringBuilder strb = new StringBuilder();
+            int row = smBll.GetCount(sellId);//判断销退单头中是否有单体
             strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
@@ -130,7 +131,18 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["makingTime"].ToString() + "</td>");
-                strb.Append("<td>" + "<button class='btn btn-success btn-sm btn_add'><i class='fa fa-plus fa-lg'></i></button>" + "<button class='btn btn-info btn-sm search_back'><i class='fa fa-search'></i></button>" + "<button class='btn btn-danger btn-sm btndelete'><i class='fa fa-trash'></i></button>" + "</td></tr>");
+                //strb.Append("<td>" + "<button class='btn btn-success btn-sm btn_add'><i class='fa fa-plus fa-lg'></i></button>" + "<button class='btn btn-info btn-sm search_back'><i class='fa fa-search'></i></button>" + "<button class='btn btn-danger btn-sm btndelete'><i class='fa fa-trash'></i></button>" + "</td></tr>");
+                strb.Append("<td>");
+                if (state == 0)
+                {
+                    strb.Append("<button class='btn btn-success btn-sm btn_add'><i class='fa fa-plus fa-lg'></i></button>");
+                }
+                strb.Append("<button class='btn btn-info btn-sm search_back'><i class='fa fa-search'></i></button>");
+                if (row > 0)
+                {
+                    strb.Append("<button class='btn btn-danger btn-sm btndelete'><i class='fa fa-trash'></i></button>");
+                }
+                strb.Append("</td>");
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");

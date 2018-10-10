@@ -73,6 +73,11 @@
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
+                                        <span class="sidebar-normal">架位管理</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -90,11 +95,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
-                                        <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
                             </ul>
@@ -125,6 +125,11 @@
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
+                                        <span class="sidebar-normal">补货管理</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -140,7 +145,7 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../SalesMGT/tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销管理</span>
+                                        <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -157,8 +162,13 @@
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
-                                        <span class="sidebar-normal">架位管理</span>
+                                    <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
+                                        <span class="sidebar-normal">客户馆藏数据</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../InventoryMGT/inventoryManagement.aspx">
+                                        <span class="sidebar-normal">书籍库存查看</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">

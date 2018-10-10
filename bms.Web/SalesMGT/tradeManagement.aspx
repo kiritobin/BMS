@@ -34,7 +34,7 @@
             -->
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -69,6 +69,11 @@
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
+                                        <span class="sidebar-normal">架位管理</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -86,11 +91,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../CustomerMGT/collectionManagement.aspx">
-                                        <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
                             </ul>
@@ -121,6 +121,11 @@
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
+                                        <span class="sidebar-normal">补货管理</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -136,7 +141,7 @@
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../SalesMGT/tradeManagement.aspx">
-                                        <span class="sidebar-normal">营销管理</span>
+                                        <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
                             </ul>
@@ -153,13 +158,18 @@
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../BasicInfor/bookshelfManagement.aspx">
-                                        <span class="sidebar-normal">架位管理</span>
+                                    <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
+                                        <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
-                                        <span class="sidebar-normal">书籍基础数据管理</span>
+                                    <a class="nav-link" href="../InventoryMGT/inventoryManagement.aspx">
+                                        <span class="sidebar-normal">书籍库存查看</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
+                                        <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
                             </ul>
@@ -173,7 +183,6 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">出库管理</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -212,8 +221,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">销售任务</h4>
-                                    <p class="card-category">可对情况进行查询</p>
+                                    <h4 class="card-title">销售计划</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">

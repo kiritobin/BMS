@@ -86,7 +86,7 @@ namespace bms.Bll
         public Result InsertManyTable(TableInsertion tabInsert, out int count)
         {
             PublicProcedure pb = new PublicProcedure();
-            DataSet ds = pb.InsertManyTable(tabInsert, out count);
+            int ds = pb.InsertManyTable(tabInsert, out count);
             if (count > 0)
             {
                 return Result.添加成功;

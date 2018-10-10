@@ -29,11 +29,14 @@ namespace bms.Web.SalesMGT
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
-            type = Session["saleType"].ToString();
-            saleId = Session["saleId"].ToString();
+            type = "look";
+            //type = Session["saleType"].ToString();
+            saleId = "XSRW20181007000001";
+            //saleId = Session["saleId"].ToString();
             SaleTask task = saletaskbll.selectById(saleId);
             defaultdiscount = ((task.DefaultDiscount) * 100).ToString();
-            SaleHeadId = Session["saleheadId"].ToString();
+            SaleHeadId = "XS20181008000002";
+            // SaleHeadId = Session["saleheadId"].ToString();
 
             //更新单头
             allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
@@ -82,13 +85,15 @@ namespace bms.Web.SalesMGT
                     {
                         getbook();
                     }
+                    //只有一条数据
                     else
                     {
-                        bookISBN = Request["ISBN"];
-                        disCount = double.Parse(Request["disCount"]) / 100;
-                        number = Convert.ToInt32(Request["number"]);
-                        bookNum = long.Parse(bookds.Tables[0].Rows[0]["bookNum"].ToString());
-                        addsalemon();
+                        backbook();
+                        //bookISBN = Request["ISBN"];
+                        //disCount = double.Parse(Request["disCount"]) / 100;
+                        //number = Convert.ToInt32(Request["number"]);
+                        //bookNum = long.Parse(bookds.Tables[0].Rows[0]["bookNum"].ToString());
+                        //addsalemon();
                     }
                 }
                 else
@@ -121,6 +126,30 @@ namespace bms.Web.SalesMGT
                 }
             }
         }
+
+        public void backbook()
+        {
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<tbody>");
+            for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
+            {
+                sb.Append("<tr><td>1</td>");
+                sb.Append("<td>" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
+                sb.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
+                sb.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
+                sb.Append("<td>" + bookds.Tables[0].Rows[i]["price"].ToString() + "</td>");
+                sb.Append("<td><input class='count textareaCount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');'/></td>");
+                sb.Append("<td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');'/></td></tr>");
+                //sb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "</td>");
+                //sb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "</td></tr>");
+            }
+            sb.Append("</tbody>");
+            Response.Write(sb.ToString());
+            Response.End();
+
+        }
+
         public void addsalemon()
         {
             StockBll stockbll = new StockBll();
@@ -288,11 +317,11 @@ namespace bms.Web.SalesMGT
         /// 查询到多条数据时展示数据
         /// </summary>
         /// <returns></returns>
-        public string getbook()
+        public void getbook()
         {
             strbook.Append("<thead>");
             strbook.Append("<tr>");
-            strbook.Append("<th>" + "<div class='pretty inline'><input type = 'radio' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
+            strbook.Append("<th>" + "<div class='pretty inline much'><input type = 'radio' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
             strbook.Append("<th>" + "书号" + "</th>");
             strbook.Append("<th>" + "ISBN" + "</th>");
             strbook.Append("<th>" + "书名" + "</th>");
@@ -313,13 +342,15 @@ namespace bms.Web.SalesMGT
             strbook.Append("</tbody>");
             Response.Write(strbook.ToString());
             Response.End();
-            return strbook.ToString();
         }
         public string getData()
         {
-            string saleheadId = Session["saleheadId"].ToString();
-            string saletaskId = Session["saleId"].ToString();
-            type = Session["saleType"].ToString();
+            string saleheadId = "XS20181008000002";
+            //string saleheadId = Session["saleheadId"].ToString();
+            string saletaskId = "XSRW20181007000001";
+            //string saletaskId = Session["saleId"].ToString();
+            type = "look";
+            //type = Session["saleType"].ToString();
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {

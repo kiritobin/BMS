@@ -100,7 +100,6 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<td>" + dr["price"].ToString() + "</td >");
                 sb.Append("<td>" + dr["regionName"].ToString() + "</td >");
                 sb.Append("<td>" + dr["shelvesName"].ToString() + "</td >");
-                sb.Append("<td>" + dr["regionName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["stockNum"].ToString() + "</td></tr>");
             }
             sb.Append("</tbody>");
