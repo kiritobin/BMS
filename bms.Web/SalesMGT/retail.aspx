@@ -39,7 +39,7 @@
                     </div>
                     <div class="row">
                         <div class="table-responsive col-md-10">
-                            <div style="height: 290px; width: 80%; display: block; overflow-y: auto; border: none">
+                            <div style="height: 500px; width: 80%; display: block; overflow-y: auto; border: none">
                                 <table class="table mostTable table-bordered text-center test" id="table">
                                     <thead>
                                         <tr>
@@ -116,7 +116,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title float-left" id="myModalLabel">添加入库明细</h4>
+                    <h4 class="modal-title float-left" id="myModalLabel">请选择需要的图书</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="material-icons">clear</i>
                     </button>
@@ -163,7 +163,4 @@
     <script src="../js/retail.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
 </body>
-
 </html>
-
-

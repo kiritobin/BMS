@@ -43,7 +43,7 @@
                 <ul class="nav">
                     <%if (funcUser || funcRole || funcOrg || funcGoods)
                         { %>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
                             <p>
@@ -51,7 +51,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="securityManage">
+                        <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <%if (funcUser)
                                 { %>
@@ -80,7 +80,7 @@
                                 <%if (funcGoods)
                                 { %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
+                                    <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
@@ -91,7 +91,7 @@
                     <%} %>
                     <%if (funcCustom)
                     {%>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="fa fa-user fa-lg"></i>
                             <p>
@@ -99,10 +99,10 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="userManage">
+                        <div class="collapse show" id="userManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
+                                    <a class="nav-link activeNext" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
@@ -174,14 +174,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
-                                    </a>
-                                </li>
-                                <%} %>
-                                <%if (funcSaleOff)
-                                { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/backQuery.aspx">
-                                        <span class="sidebar-normal">销退管理</span>
                                     </a>
                                 </li>
                                 <%} %>

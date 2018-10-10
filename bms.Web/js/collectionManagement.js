@@ -272,10 +272,11 @@
         $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
         $("#img").attr("src", "../imgs/loading.gif");
         $(" #file").val("");
-        sessionStorage.removeItem("import");
-        sessionStorage.removeItem("succ");
+        
         if (sessionStorage.getItem("import")=="导入成功") {
             window.location.reload();
+            sessionStorage.removeItem("import");
+            sessionStorage.removeItem("succ");
         }
     });
 

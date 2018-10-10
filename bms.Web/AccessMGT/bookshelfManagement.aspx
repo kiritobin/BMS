@@ -164,13 +164,6 @@
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcSaleOff) { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/backQuery.aspx">
-                                        <span class="sidebar-normal">销退管理</span>
-                                    </a>
-                                </li>
-                                <%} %>
                             </ul>
                         </div>
                     </li>

@@ -42,7 +42,7 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <%if (funcUser||funcRole||funcOrg||funcGoods) { %>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
                             <p>
@@ -50,7 +50,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="securityManage">
+                        <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <%if (funcUser) { %>
                                 <li class="nav-item">
@@ -75,7 +75,7 @@
                                 <%} %>
                                 <%if (funcGoods) { %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
+                                    <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
@@ -166,13 +166,6 @@
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcSaleOff) { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/backQuery.aspx">
-                                        <span class="sidebar-normal">销退管理</span>
-                                    </a>
-                                </li>
-                                <%} %>
                                 
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/retail.aspx" id="retail">
@@ -188,7 +181,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                              <i class="fa fa-file-archive-o"></i>
                             <p>
@@ -196,11 +189,16 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="baseManage">
+                        <div class="collapse show" id="baseManage">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
+                                    <a class="nav-link activeNext" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../InventoryMGT/inventoryManagement.aspx">
+                                        <span class="sidebar-normal">书籍库存查看</span>
                                     </a>
                                 </li>
                                 <%if (funcLibrary) { %>

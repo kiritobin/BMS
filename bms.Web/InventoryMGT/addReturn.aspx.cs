@@ -16,7 +16,7 @@ namespace bms.Web.InventoryMGT
     public partial class addReturn : System.Web.UI.Page
     {
         public double discount;
-        public int totalCount, intPageCount, pageSize = 20, row, count = 0;
+        public int totalCount, intPageCount, pageSize = 20, row, count = 0,regId;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
         GoodsShelvesBll shelfbll = new GoodsShelvesBll();
         UserBll userBll = new UserBll();
@@ -31,10 +31,10 @@ namespace bms.Web.InventoryMGT
             Monomers monoDiscount = wareBll.getDiscount();
             discount = monoDiscount.Discount;
             singId = Session["singId"].ToString();
+            User user = (User)Session["user"];
+            regId = user.ReginId.RegionId;
             if (!IsPostBack)
             {
-                User user = (User)Session["user"];
-                int regId = user.ReginId.RegionId;
                 shelf = shelfbll.Select(regId);
             }
             getData();
@@ -55,7 +55,7 @@ namespace bms.Web.InventoryMGT
                 BookBasicData bookBasicData = basicBll.SelectById(Convert.ToInt64(bookNum));
                 string isbn = bookBasicData.Isbn;
                 int billCount = Convert.ToInt32(Request["billCount"]);
-                DataSet dsGoods = stockBll.SelectByBookNum(bookNum);
+                DataSet dsGoods = stockBll.SelectByBookNum(bookNum, regId);
                 if (dsGoods != null && dsGoods.Tables[0].Rows.Count > 0)
                 {
                     int count = billCount;
@@ -82,6 +82,7 @@ namespace bms.Web.InventoryMGT
                             discount = discount * 0.01;
                         }
                         double uPrice = bookBasicData.Price;
+                        singleHeadId = Request["singleHeadId"];
                         long monCount = wareBll.getCount(singleHeadId);
                         long monId;
                         if (monCount > 0)
@@ -342,7 +343,7 @@ namespace bms.Web.InventoryMGT
                     StringBuilder sb = new StringBuilder();
                     if (bookDs.Tables[0].Rows.Count == 1)
                     {
-                        DataSet dsBooks = stockBll.SelectByBookNum(bookNum);
+                        DataSet dsBooks = stockBll.SelectByBookNum(bookNum, regId);
                         if (dsBooks != null && dsBooks.Tables[0].Rows.Count > 0)
                         {
                             int count = billCount;

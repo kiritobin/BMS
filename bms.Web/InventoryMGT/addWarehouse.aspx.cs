@@ -18,7 +18,7 @@ namespace bms.Web.InventoryMGT
     public partial class addWarehouse : System.Web.UI.Page
     {
         protected DataSet ds, dsGoods,dsPer;
-        protected int pageSize=20, totalCount, intPageCount;
+        protected int pageSize=20, totalCount, intPageCount,regId;
         public double discount;
         string singleHeadId;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
@@ -38,7 +38,7 @@ namespace bms.Web.InventoryMGT
             }
             permission();
             Monomers monoDiscount = warehousingBll.getDiscount();
-            discount = (monoDiscount.Discount) / 100;
+            discount = (monoDiscount.Discount);
             selectIsbn();
 
             if (!IsPostBack)
@@ -54,6 +54,7 @@ namespace bms.Web.InventoryMGT
                 }
             }
             User user = (User)Session["user"];
+            regId = user.RoleId.RoleId;
             string op = Request["op"];
             if (op == "add")
             {
@@ -61,7 +62,7 @@ namespace bms.Web.InventoryMGT
                 BookBasicData bookBasicData = basicBll.SelectById(Convert.ToInt64(bookNum));
                 string isbn = bookBasicData.Isbn;
                 int billCount = Convert.ToInt32(Request["billCount"]);
-                DataSet dsGoods = stockBll.SelectByBookNum(bookNum);
+                DataSet dsGoods = stockBll.SelectByBookNum(bookNum,regId);
                 if (dsGoods != null && dsGoods.Tables[0].Rows.Count > 0)
                 {
                     int count = billCount;
@@ -556,13 +557,6 @@ namespace bms.Web.InventoryMGT
                     StringBuilder sb = new StringBuilder();
                     if (count == 1)
                     {
-                        StringBuilder sbGoods = new StringBuilder();
-                        sbGoods.Append("<select class='goods'>");
-                        for (int j = 0; j < dsGoods.Tables[0].Rows.Count; j++)
-                        {
-                            sbGoods.Append("<option value='" + dsGoods.Tables[0].Rows[j]["goodsShelvesId"] + "'>" + dsGoods.Tables[0].Rows[j]["shelvesName"] + "</option>");
-                        }
-                        sbGoods.Append("</select>");
                         for (int i = 0; i < monTable.Rows.Count; i++)
                         {
                             bookNumList = (List<long>)Session["List"];
@@ -581,28 +575,18 @@ namespace bms.Web.InventoryMGT
                             sb.Append("<td style='display:none'>" + monTable.Rows[i]["bookNum"] + "</td>");
                             sb.Append("<td>" + monTable.Rows[i]["bookName"] + "</td>");
                             sb.Append("<td>" + monTable.Rows[i]["supplier"] + "</td>");
-                            sb.Append("<td>" + sbGoods.ToString() + "</td>");
                             sb.Append("<td><textarea class='count textareaCount' row='1'>" + 0 + "</textarea></td>");
                             sb.Append("<td>" + monTable.Rows[i]["uPrice"] + "</td>");
                             sb.Append("<td><textarea class='discount textareaDiscount' row='1'>" + monTable.Rows[i]["discount"] + "</textarea></td>");
                             sb.Append("<td>" + monTable.Rows[i]["totalPrice"] + "</td>");
                             sb.Append("<td>" + monTable.Rows[i]["realPrice"] + "</td>");
-                            sb.Append("<td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td>");
-                            sb.Append("<td style='display:none'></td></tr>");
+                            sb.Append("<td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>");
                         }
                         Response.Write(sb.ToString());
                         Response.End();
                     }
                     else
                     {
-                        StringBuilder sbGoods = new StringBuilder();
-                        sbGoods.Append("<select class='goods'>");
-                        for (int j = 0; j < dsGoods.Tables[0].Rows.Count; j++)
-                        {
-                            sbGoods.Append("<option value='" + dsGoods.Tables[0].Rows[j]["goodsShelvesId"] + "'>" + dsGoods.Tables[0].Rows[j]["shelvesName"] + "</option>");
-                        }
-                        sbGoods.Append("</select>");
-
                         sb.Append("<tbody>");
                         for (int i = 0; i < dsBook.Tables[0].Rows.Count; i++)
                         {
@@ -668,14 +652,7 @@ namespace bms.Web.InventoryMGT
                 monTable.Rows.Add(dr);
                 for (int k = 0; k < monTable.Rows.Count; k++)
                 {
-                    StringBuilder sbGoods = new StringBuilder();
                     StringBuilder sb = new StringBuilder();
-                    sbGoods.Append("<select class='goods'>");
-                    for (int j = 0; j < dsGoods.Tables[0].Rows.Count; j++)
-                    {
-                        sbGoods.Append("<option value='" + dsGoods.Tables[0].Rows[j]["goodsShelvesId"] + "'>" + dsGoods.Tables[0].Rows[j]["shelvesName"] + "</option>");
-                    }
-                    sbGoods.Append("</select>");
                     for (int i = 0; i < monTable.Rows.Count; i++)
                     {
                         sb.Append("<tr><td>" + monTable.Rows[i]["monId"] + "</td>");
@@ -683,14 +660,12 @@ namespace bms.Web.InventoryMGT
                         sb.Append("<td style='display:none'>" + monTable.Rows[i]["bookNum"] + "</td>");
                         sb.Append("<td>" + monTable.Rows[i]["bookName"] + "</td>");
                         sb.Append("<td>" + monTable.Rows[i]["supplier"] + "</td>");
-                        sb.Append("<td>" + sbGoods.ToString() + "</td>");
                         sb.Append("<td><textarea class='count textareaCount' row='1'>" + monTable.Rows[i]["number"] + "</textarea></td>");
                         sb.Append("<td>" + monTable.Rows[i]["uPrice"] + "</td>");
                         sb.Append("<td><textarea class='discount textareaDiscount' row='1'>" + monTable.Rows[i]["discount"] + "</textarea></td>");
                         sb.Append("<td>" + monTable.Rows[i]["totalPrice"] + "</td>");
                         sb.Append("<td>" + monTable.Rows[i]["realPrice"] + "</td>");
-                        sb.Append("<td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td>");
-                        sb.Append("<td style='display:none'></td></tr>");
+                        sb.Append("<td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>");
                         bookNumList.Add(bookNum);
                         Session["List"] = bookNumList;
                     }
@@ -790,6 +765,28 @@ namespace bms.Web.InventoryMGT
                     Response.Write("添加失败");
                     Response.End();
                 }
+            }
+            else if (action == "changeDiscount")
+            {
+                double discount = Convert.ToDouble(Request["discount"]);
+                Result result = warehousingBll.updateDiscount(discount);
+                if (result == Result.更新成功)
+                {
+                    Response.Write("更新成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("更新失败");
+                    Response.End();
+                }
+            }
+            else if (action=="checkNum")
+            {
+                long bookNum = Convert.ToInt64(Request["bookNum"]) ;
+                int count = Convert.ToInt32(Request["count"]);
+                DataSet goods = stockBll.SelectByBookNum(bookNum, regId);
+
             }
         }
         /// <summary>
