@@ -195,7 +195,6 @@ namespace bms.Web.SalesMGT
                 allReal = allReal + real;
             }
             User user = (User)Session["user"];
-            sellOffHeadBll sellBll = new sellOffHeadBll();
             DateTime nowTime = DateTime.Now;
             string nowDt = nowTime.ToString("yyyy-MM-dd");
             long count = 0;

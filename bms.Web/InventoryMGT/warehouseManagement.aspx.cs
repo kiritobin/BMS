@@ -29,7 +29,32 @@ namespace bms.Web.BasicInfor
             string op = Request["op"];
             if (op == "add")
             {
-                count = wareBll.countHead(0) + 1;
+                DateTime nowTime = DateTime.Now;
+                string nowDt = nowTime.ToString("yyyy-MM-dd");
+                long count = 0;
+                //判断数据库中是否已经有记录
+                DataSet backds = wareBll.getAllTime(0);
+                if (backds != null && backds.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < backds.Tables[0].Rows.Count; i++)
+                    {
+                        string time = backds.Tables[0].Rows[i]["time"].ToString();
+                        DateTime dt = Convert.ToDateTime(time);
+                        string sqlTime = dt.ToString("yyyy-MM-dd");
+                        if (sqlTime == nowDt)
+                        {
+                            //count += 1;
+                            string id = backds.Tables[0].Rows[i]["singleHeadId"].ToString();
+                            string st1 = id.Substring(10);
+                            long rowes = long.Parse(st1) + 1;
+                            count = count + rowes;
+                        }
+                    }
+                }
+                else
+                {
+                    count = 1;
+                }
                 string regionId = Request["regionId"];
                 SingleHead single = new SingleHead();
                 single.SingleHeadId = "CK" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
