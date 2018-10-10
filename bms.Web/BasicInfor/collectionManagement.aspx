@@ -135,6 +135,14 @@
                                     </a>
                                 </li>
                                 <%} %>
+                                <%if (funcSupply)
+                                    { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
+                                        <span class="sidebar-normal">补货管理</span>
+                                    </a>
+                                </li>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
@@ -154,13 +162,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
-                                    </a>
-                                </li>
-                                <%} %>
-                                <%if (funcSaleOff) { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/backQuery.aspx">
-                                        <span class="sidebar-normal">销退管理</span>
                                     </a>
                                 </li>
                                 <%} %>

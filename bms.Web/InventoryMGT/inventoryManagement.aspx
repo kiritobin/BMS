@@ -260,7 +260,7 @@
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" value="" class="search" id="area" placeholder="地区查询">
-                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                                <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                         </div>
                                     </div>
