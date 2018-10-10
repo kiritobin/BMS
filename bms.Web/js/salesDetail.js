@@ -81,7 +81,6 @@
     //});
 
     //isbn敲回车键
-
     $("#table").delegate(".isbn", "keypress", function (e) {
         if (e.keyCode == 13) {
             var ISBN = $(this).val().trim();
@@ -107,69 +106,15 @@
                     },
                     dataType: 'text',
                     success: function (data) {
-                        if(data.indexOf("tr")<0)
-                        {
+                        if (data.indexOf("much") >= 0) {
                             $("#myModa2").modal("show");
                             $("#tablebook th:not(:first)").empty(); //清空table处首行
                             $("#tablebook").append(data); //加载table
                         }
-                        else if (data == "添加成功") {
-                            swal({
-                                title: "温馨提示",
-                                text: "添加成功",
-                                type: "success",
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: '确定',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false,
-                                allowOutsideClick: false
-                            }).then(function () {
-                               // window, location.reload();
-                            })
-                        }
-                        else if (data == "库存数量不足") {
-                            swal({
-                                title: "温馨提示",
-                                text: "库存数量不足",
-                                type: "warning",
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: '确定',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false,
-                                allowOutsideClick: false
-                            }).then(function () {
-                            })
-                        }
-                        else if (data == "无库存") {
-                            swal({
-                                title: "温馨提示",
-                                text: "无库存",
-                                type: "warning",
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: '确定',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false,
-                                allowOutsideClick: false
-                            }).then(function () {
-                            })
-                        }
                         else if (data == "无数据") {
                             swal({
                                 title: "温馨提示",
-                                text: "无数据",
-                                type: "warning",
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: '确定',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false,
-                                allowOutsideClick: false
-                            }).then(function () {
-                            })
-                        }
-                        else if (data == "库存不足") {
-                            swal({
-                                title: "温馨提示",
-                                text: data,
+                                text: "无该书基础数据",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: '确定',
@@ -182,21 +127,115 @@
                         else {
                             $(".first").remove();
                             $("#table").append(data);
-                            //$("#tablebook th:not(:first)").empty(); //清空table处首行
-                            //$("#tablebook").append(data); //加载table
-                            //$("#btnAdd").show();
+                            $("#table tr:last").find("td").eq(5).children().focus();
                         }
                     }
                 });
             }
         }
     })
+    //数量回车
+    $("#table").delegate(".count", "keypress", function (e) {
+        if (e.keyCode == 13) {
+            var num = $(this).parent().prev().prev().prev().prev().prev().text();
+            var bookISBN = $(this).parent().prev().prev().prev().text();
+            var bookNum = $(this).parent().prev().prev().prev().prev().text();
+            var number = $(this).val().trim();
+            var discount = $(this).parent().next().children().val().trim();
+            if (number == "") {
+                swal({
+                    title: "温馨提示",
+                    text: "数量不能为空",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                })
+            } else {
+                $.ajax({
+                    type: 'Post',
+                    url: 'salesDetail.aspx',
+                    data: {
+                        bookISBN: bookISBN,
+                        bookNum: bookNum,
+                        number: number,
+                        discount: discount,
+                        op: "addsale"
+                    },
+                    dataType: 'text',
+                    success: function (succ) {
+                        if (succ == "添加成功") {
+                            var table = "<tr class='first'> <td>" + (parseInt(num) + 1) + "</td><td><input type='text' class='isbn textareaISBN' autofocus='autofocus' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
+                            $("#table").append(table);
+                            $("#table tr:first").find("td").eq(1).children().focus();
+                            $("#table tr:last").remove();
+                            $("#kinds").val();
+                        } else if (succ == "库存数量不足") {
+                            swal({
+                                title: "温馨提示",
+                                text: "库存数量不足",
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
+                        }
+                        else if (succ == "无库存") {
+                            swal({
+                                title: "温馨提示",
+                                text: "无库存",
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
+                        }
+                        else if (succ == "无数据") {
+                            swal({
+                                title: "温馨提示",
+                                text: "无数据",
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
+                        }
+                        else {
+                            swal({
+                                title: "温馨提示",
+                                text: succ,
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
+                        }
+                    }
+                })
+            }
+        }
+    })
     //添加
     $("#btnAdd").click(function () {
         var bookNum = $("input[type='radio']:checked").val();
-        var ISBN = $("#ISBN").val().trim();
-        var disCount = $("#disCount").val().trim();
-        var number = $("#number").val().trim();
+        var tb = $("input[type='radio']:checked");
+        var isbn = $(tb).parent().parent().next().next().text();
+        var bookname = $(tb).parent().parent().next().next().next().text();
+        var price = $(tb).parent().parent().next().next().next().next().text();
         if (bookNum == "") {
             swal({
                 title: "温馨提示:)",
@@ -207,83 +246,22 @@
             }).catch(swal.noop);
         }
         else {
+            $("#myModa2").modal("hide");
             $.ajax({
                 type: 'Post',
                 url: 'salesDetail.aspx',
                 data: {
                     bookNum: bookNum,
-                    ISBN: ISBN,
-                    disCount: disCount,
-                    number: number,
+                    isbn: isbn,
+                    bookname: bookname,
+                    price: price,
                     op: "add"
                 },
                 dataType: 'text',
                 success: function (succ) {
-                    if (succ == "添加成功") {
-                        swal({
-                            title: "温馨提示",
-                            text: "添加成功",
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window, location.reload();
-                        })
-                    } else if (succ == "库存数量不足") {
-                        swal({
-                            title: "温馨提示",
-                            text: "库存数量不足",
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                        })
-                    }
-                    else if (succ == "无库存") {
-                        swal({
-                            title: "温馨提示",
-                            text: "无库存",
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                        })
-                    }
-                    else if (succ == "无数据") {
-                        swal({
-                            title: "温馨提示",
-                            text: "无数据",
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                        })
-                    }
-                    else {
-                        swal({
-                            title: "温馨提示",
-                            text: succ,
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                        })
-                    }
+                    $(".first").remove();
+                    $("#table").append(succ);
+                    $("#table tr:last").find("td").eq(5).children().focus();
                 }
             })
         }
@@ -413,5 +391,4 @@
     //        })
     //    })
     //});
-    $("#btnAdd").hide();
 })
