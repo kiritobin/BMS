@@ -49,5 +49,19 @@ namespace bms.Dao
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
+
+        /// <summary>
+        /// 查询零售单体
+        /// </summary>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>受影响行数</returns>
+        public DataSet InsertRetail(int retailHeadId)
+        {
+            string cmdText = "select retailMonomerId,bookNum,ISBN,number,unitPrice,totalPrice,realDiscount,realPrice,dateTime from T_RetailMonomer where retailHeadId=@retailHeadId";
+            string[] param = { "@retailHeadId" };
+            object[] values = { retailHeadId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
+        }
     }
 }

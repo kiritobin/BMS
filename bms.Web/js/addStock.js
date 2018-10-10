@@ -25,6 +25,9 @@ function logout() {
         });
     })
 }
+$("#back").click(function () {
+    window.location.href = "stockManagement.aspx";
+})
 
 $(document).ready(function () {
     sessionStorage.setItem("kind", 0);

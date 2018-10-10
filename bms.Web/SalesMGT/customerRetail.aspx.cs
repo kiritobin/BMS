@@ -49,6 +49,11 @@ namespace bms.Web.SalesMGT
                 bookNumList.RemoveAt(index);
                 Session["List"] = bookNumList;
             }
+            if (op == "scann")
+            {
+                string retailId = Request["retailId"];
+
+            }
         }
 
         public string getIsbn()

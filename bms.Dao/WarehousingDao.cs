@@ -280,7 +280,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet getAllTime(int type)
         {
-            string cmdText = "select singleHeadId,time from T_RetailHead where type=@type ORDER BY dateTime desc";
+            string cmdText = "select singleHeadId,time from T_SingleHead where type=@type ORDER BY time desc";
             string[] param = { "@type" };
             object[] values = { type };
             DataSet ds = db.FillDataSet(cmdText, param, values);

@@ -157,7 +157,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" placeholder="请输入ISBN" id="scannSea" class="searchOne">
+                    <input type="text" placeholder="请输入单头ID" id="scannSea" class="searchOne">
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-success btn-sm" id="btnScann">提交</button>

@@ -338,13 +338,13 @@ $("#table").delegate(".btn-delete", "click", function () {
 });
 //扫描单头id，显示单据明细
 $("#scannSea").keypress(function (e) {
-    var isbn = $("#scannSea").val();
+    var retailId = $("#scannSea").val();
     $.ajax({
         type: 'Post',
         url: 'customerRetail.aspx',
         data: {
             kind: sessionStorage.getItem("kind"),
-            isbn: isbn,
+            retailId: retailId,
             op: 'scann'
         },
         dataType: 'text',
