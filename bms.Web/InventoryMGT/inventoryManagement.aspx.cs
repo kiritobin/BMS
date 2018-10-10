@@ -86,11 +86,15 @@ namespace bms.Web.InventoryMGT
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
-
+            int j = ds.Tables[0].Rows.Count;
+            if (ds==null)
+            {
+                j = 0;
+            }
             //生成table
             StringBuilder sb = new StringBuilder();
             sb.Append("<tbody>");
-            int j = ds.Tables[0].Rows.Count;
+            j = ds.Tables[0].Rows.Count;
             for (int i = 0; i < j; i++)
             {
                 DataRow dr = ds.Tables[0].Rows[i];
