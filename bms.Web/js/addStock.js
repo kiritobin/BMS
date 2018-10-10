@@ -296,7 +296,7 @@ $("#table").delegate(".count","keypress" ,function (e) {
         var count = $(this).val().trim();
         $(this).text(count);
         var price = $(this).parent().next().text().trim();
-        var goodsId = $(this).parent().prev().children().val().trim();
+        var goodsId = $(this).parent().prev().children().val();
         var gId = $(this).parent().next().next().next().next().next().next();
         gId.text(goodsId);
         var last = $("#table tr:last").eq(0).text().trim();
@@ -347,6 +347,19 @@ $("#table").delegate(".goods", "change", function () {
     var gId = $(this).parent().next().next().next().next().next().next().next();
     gId.text(goodsId);
     $(this).parent().next().children().focus();
+});
+//折扣改变事件
+$("#table").delegate(".discount", "change", function () {
+    var c = $(this).val().trim();
+    $(this).text(c);
+    var count = $(this).parent().prev().prev().children().text();
+    var price = $(this).parent().prev().text();
+    var discount = $(this).text();
+    var total = $(this).parent().next();
+    var real = $(this).parent().next().next();
+    alert((count * price * discount).toFixed(2));
+    total.text((count * price).toFixed(2));
+    real.text((count * price * discount).toFixed(2));
 });
 //删除当前行
 $("#table").delegate(".btn-danger", "click", function () {

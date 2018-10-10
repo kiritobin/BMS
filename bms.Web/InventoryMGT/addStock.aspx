@@ -310,10 +310,10 @@
                                                         <nobr>折扣</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>实洋</nobr>
+                                                        <nobr>码洋</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>码洋</nobr>
+                                                        <nobr>实洋</nobr>
                                                     </td>
                                                     <td>
                                                         <nobr>操作</nobr>
@@ -371,29 +371,6 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <%-- <div class="text-right">
-                                <span>
-                                    <nobr>ISBN:</nobr>
-                                </span>
-                                <input type="text" class="modal_search_add" id="isbn">
-                                <span>
-                                    <nobr>商品数量:</nobr>
-                                </span>
-                                <input type="text" class="modal_search_add" id="billCount">
-                                <span>
-                                    <nobr>货架号:</nobr>
-                                </span>
-                                <select class="selectpicker" data-style="btn-sm" id="goodsShelf" style="float: left;">
-                                    <%for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
-                                        { %>
-                                    <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
-                                    <%}%>
-                                </select>
-                                <span>
-                                    <nobr>折扣:</nobr>
-                                </span>
-                                <input type="text" class="modal_search_add" value="<%=discount %>" id="disCount">
-                            </div><br />--%>
                             <table class="table table-bordered mostTable text-center" id="table3">
                                 <thead>
                                     <tr>
