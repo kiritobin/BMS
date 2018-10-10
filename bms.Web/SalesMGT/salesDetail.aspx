@@ -72,36 +72,51 @@
                                     <table class="table mostTable table-bordered text-center" id="table">
                                         <thead>
                                             <tr>
-                                                <th>
+                                                <td>
                                                     <nobr>序号</nobr>
-                                                </th>
-                                                <th>
-                                                    <nobr>书号</nobr>
-                                                </th>
-                                                <th>
-                                                    <nobr>书名</nobr>
-                                                </th>
-                                                <th>
+                                                </td>
+                                                <td>
                                                     <nobr>ISBN号</nobr>
-                                                </th>
-                                                <th>
+                                                </td>
+                                                <td>
+                                                    <nobr>书号</nobr>
+                                                </td>
+                                                <td>
+                                                    <nobr>书名</nobr>
+                                                </td>
+                                                <td>
                                                     <nobr>单价</nobr>
-                                                </th>
-                                                <th>
+                                                </td>
+                                                <td>
                                                     <nobr>数量</nobr>
-                                                </th>
-                                                <th>
+                                                </td>
+                                                <td>
                                                     <nobr>实际折扣</nobr>
-                                                </th>
-                                                <th>
+                                                </td>
+                                                <td>
                                                     <nobr>实洋</nobr>
-                                                </th>
-                                                <th>
+                                                </td>
+                                                <td>
                                                     <nobr>已采购数</nobr>
-                                                </th>
+                                                </td>
                                             </tr>
                                         </thead>
-                                        <%=getData() %>
+                                        <tr class="first">
+                                            <td>1</td>
+                                            <td>
+                                                <input type="text" class="isbn textareaISBN" autofocus="autofocus" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" />
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <input class="count textareaCount" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
+                                            <td>
+                                                <input class="discount textareaDiscount" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                       <%-- <%=getData() %>--%>
                                     </table>
                                 </div>
                                 <div class="container col-md-2">
@@ -148,7 +163,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table model-table">
+<%--                    <table class="table model-table">
                         <tr>
                             <td>ISBN号</td>
                             <td>
@@ -161,16 +176,16 @@
                                 <input type="text" id="disCount" value="<%=defaultdiscount %>" class="addsale"></td>
 
                         </tr>
-                    </table>
+                    </table>--%>
                     <table id="tablebook" class="table mostTable table-bordered text-center">
                         <%if (bookds != null)
                             {%>
-                        <%=getbook()%>
+                        <%getbook();%>
                         <% } %>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                    <button type="submit" class="btn btn-success btn-sm" id="btnAdd">选择此书</button>
                 </div>
             </div>
         </div>
