@@ -467,11 +467,29 @@ $("#table").delegate(".count", "keypress", function (e) {
                                 type: "warning"
                             }).catch(swal.noop);
                         }
-                        else {
+                        else if (data=="添加失败") {
+                            swal({
+                                title: "温馨提示:)",
+                                text: data,
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-warning",
+                                type: "warning"
+                            }).catch(swal.noop);
+                        }
+                        else if (data=="添加成功") {
                             var table = "<tr class='first'><td>" + (parseInt(sid) + 1) + "</td><td><textarea class='isbn textareaISBN' row='1' maxlength='13'></textarea></td><td></td><td></td><td><textarea class='count textareaCount' row='1'>1</textarea></td><td></td><td><textarea class='discount textareaDiscount' row='1'>0</textarea></td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
                             $("#table").append(table);
                             $("#table tr:last").find("td").eq(1).children().focus();
                             sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind")) + 1);
+                        }
+                        else {
+                            swal({
+                                title: "温馨提示:)",
+                                text: data,
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-warning",
+                                type: "warning"
+                            }).catch(swal.noop);
                         }
                     }
                 })
