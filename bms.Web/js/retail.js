@@ -174,6 +174,7 @@ $("#search").keypress(function (e) {
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
                         }).catch(swal.noop);
+                        $("#search").val("");
                     }else if (data == "一号多书") {
                         $.ajax({
                             type: 'Post',
@@ -239,6 +240,7 @@ $("#btnAdd").click(function () {
                     confirmButtonClass: "btn btn-warning",
                     type: "warning"
                 }).catch(swal.noop);
+                $("#search").val("");
             }
             $("#myModal").modal("hide")
             if (sessionStorage.getItem("kind") == "0") {

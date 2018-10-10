@@ -15,7 +15,7 @@ namespace bms.Web.AccessMGT
     using Result = Enums.OpResult;
     public partial class roleManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 3, totalCount, intPageCount;
+        public int currentPage = 1, pageSize = 10, totalCount, intPageCount;
         public string search, roleId;
         public DataSet dsFun,ds,dsPer;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;

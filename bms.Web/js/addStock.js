@@ -25,6 +25,9 @@ function logout() {
         });
     })
 }
+$("#back").click(function () {
+    window.location.href = "stockManagement.aspx";
+})
 
 $(document).ready(function () {
     sessionStorage.setItem("kind", 0);
@@ -299,12 +302,12 @@ $("#table").delegate(".count","keypress" ,function (e) {
         var goodsId = $(this).parent().prev().children().val();
         var gId = $(this).parent().next().next().next().next().next().next();
         gId.text(goodsId);
-        var last = $("#table tr:last").eq(0).text().trim();
+        var last = $("#table tr:last").find("td").eq(1).children().text();
         var discount = $(this).parent().next().next().children().val().trim();
         var total = $(this).parent().next().next().next();
         var real = $(this).parent().next().next().next().next();
         total.text((count * price).toFixed(2));
-        real.text((count * price * discount).toFixed(2));
+        real.text((count * price * discount*0.01).toFixed(2));
         if (count <= 0) {
             swal({
                 title: "温馨提示:)",
@@ -316,7 +319,7 @@ $("#table").delegate(".count","keypress" ,function (e) {
         }
         else {
             if (last != "" || last == "0") {
-                var table = "<tr class='first'><td>" + (parseInt(sid) + 1) + "</td><td><textarea class='isbn textareaISBN' row='1' maxlength='13'></textarea></td><td></td><td></td><td></td><td><textarea class='count textareaCount' row='1'>0</textarea></td><td></td><td><textarea class='discount textareaDiscount' row='1'>0</textarea></td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
+                var table = "<tr class='first'><td>" + (parseInt(sid) + 1) + "</td><td><textarea class='isbn textareaISBN' row='1' maxlength='13'></textarea></td><td></td><td></td><td></td><td><textarea class='count textareaCount' row='1'>1</textarea></td><td></td><td><textarea class='discount textareaDiscount' row='1'>0</textarea></td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
                 $("#table").append(table);
                 $("#table tr:last").find("td").eq(1).children().focus();
                 sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind")) + 1);
@@ -340,6 +343,12 @@ $("#table").delegate(".count","keypress" ,function (e) {
 $("#table").delegate(".count", "change", function (e) {
     var count = $(this).val().trim();
     $(this).text(count);
+    var price = $(this).parent().next().text();
+    var discount = $(this).parent().next().next().text();
+    var total = $(this).parent().next().next().next();
+    var real = $(this).parent().next().next().next().next();
+    total.text((count * price).toFixed(2));
+    real.text((count * price * discount * 0.01).toFixed(2));
 });
 //下拉列表改变
 $("#table").delegate(".goods", "change", function () {
@@ -357,9 +366,20 @@ $("#table").delegate(".discount", "change", function () {
     var discount = $(this).text();
     var total = $(this).parent().next();
     var real = $(this).parent().next().next();
-    alert((count * price * discount).toFixed(2));
     total.text((count * price).toFixed(2));
-    real.text((count * price * discount).toFixed(2));
+    real.text((count * price * discount * 0.01).toFixed(2));
+        $.ajax({
+            type: 'Post',
+            url: 'addStock.aspx',
+            data: {
+                discount: discount,
+                action: "changeDiscount"
+            },
+            dataType: 'text',
+            success: function (data) {
+
+            }
+        })
 });
 //删除当前行
 $("#table").delegate(".btn-danger", "click", function () {
