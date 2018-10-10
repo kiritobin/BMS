@@ -178,7 +178,9 @@ namespace bms.Web.SalesMGT
         public void addsalemon()
         {
             StockBll stockbll = new StockBll();
-            DataSet stockbook = stockbll.SelectByBookNum(bookNum);
+            User user = (User)Session["user"];
+            int RegionId = user.ReginId.RegionId;
+            DataSet stockbook = stockbll.SelectByBookNum(bookNum, RegionId);
             if (stockbook != null)
             {
                 for (int i = 0; i < stockbook.Tables[0].Rows.Count; i++)
@@ -212,7 +214,7 @@ namespace bms.Web.SalesMGT
                         {
                             int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[i]["stockNum"]);
                             int goodsId = Convert.ToInt32(stockbook.Tables[0].Rows[i]["goodsShelvesId"]);
-                            
+
                             if (countnumber <= stockNum)
                             {
                                 BookBasicBll Bookbll = new BookBasicBll();
