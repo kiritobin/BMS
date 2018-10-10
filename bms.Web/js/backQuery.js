@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     //回车事件
     $(".addsell").keypress(function (e) {
         if (e.keyCode == 13) {

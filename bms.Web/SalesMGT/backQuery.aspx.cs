@@ -109,7 +109,7 @@ namespace bms.Web.SalesMGT
             sb.Append("<td>" + "</td>");
             sb.Append("<td>" + "</td>");
             sb.Append("</tr>");
-            Response.Write(sb.ToString());
+            //Response.Write(sb.ToString());
             //Response.End();
             return sb.ToString();
         }
@@ -227,8 +227,8 @@ namespace bms.Web.SalesMGT
         public string insertStock()
         {
             string sellId = Session["sellId"].ToString();//销退单头Id
-            //DataSet sellds = shBll.Select(sellId);
-            //string regionId = sellds.Tables[0].Rows[0]["regionId"].ToString();//地区Id
+            DataSet sellds = shBll.Select(sellId);
+            string regionId = sellds.Tables[0].Rows[0]["regionId"].ToString();//地区Id
             //DataSet gds = gbll.Select(int.Parse(regionId));
             //string gid = gds.Tables[0].Rows[0]["goodsShelvesId"].ToString();
             int newstockNum = int.Parse(Request["count"]);//写入的库存量
@@ -237,7 +237,7 @@ namespace bms.Web.SalesMGT
             {
                 bookNo = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
             }
-            DataSet stockDs = stbll.SelectByBookNum(long.Parse(bookNo));
+            DataSet stockDs = stbll.SelectByBookNum(long.Parse(bookNo),int.Parse(regionId));
             string shelvesId = stockDs.Tables[0].Rows[0]["goodsShelvesId"].ToString();//获取货架Id
             string oldStockNum = stockDs.Tables[0].Rows[0]["stockNum"].ToString();//原来的库存量
             int stockNum = newstockNum + int.Parse(oldStockNum);
