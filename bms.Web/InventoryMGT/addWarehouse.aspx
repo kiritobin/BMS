@@ -422,6 +422,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addWarehouse.js"></script>
+    <script src="../js/jquery.tabletojson.js"></script>
 </body>
 
 </html>

@@ -325,19 +325,6 @@ $("#table").delegate(".count","keypress" ,function (e) {
                 sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind")) + 1);
             }
         }
-
-        //$.ajax({
-        //    type: 'Post',
-        //    url: 'addStock.aspx',
-        //    data: {
-        //        sid:sid,
-        //        action: "count"
-        //    },
-        //    dataType: 'text',
-        //    success: function (data) {
-                
-        //    }
-        //})
     }
 })
 $("#table").delegate(".count", "change", function (e) {
@@ -504,7 +491,7 @@ $("#save").click(function () {
                 if (succ == "添加成功") {
                     swal({
                         title: "温馨提示:)",
-                        text: succ,
+                        text: "保存成功",
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-success",
                         type: "warning",

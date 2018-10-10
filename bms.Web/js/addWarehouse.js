@@ -590,7 +590,59 @@ $("#table").delegate(".discount", "change", function () {
         }
     })
 });
+
 $("#save").click(function () {
-    
+    var last = $('#table tr:last').find('td').eq(1).children().text();
+    swal({
+        title: "温馨提示",
+        text: "您确定要保存吗？",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+    }).then(function () {
+        if (last == "") {
+            $("#table tr:last").remove();
+        }
+        var table = $('#table').tableToJSON(); // Convert the table into a javascript object
+        var json = JSON.stringify(table);
+        $.ajax({
+            type: 'Post',
+            url: 'addWarehourse.aspx',
+            data: {
+                json: json,
+                action: "save"
+            },
+            datatype: 'text',
+            success: function (succ) {
+                if (succ == "添加成功") {
+                    swal({
+                        title: "温馨提示:)",
+                        text: "保存成功",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "warning",
+                        allowOutsideClick: false
+                    })
+                }
+                else {
+                    swal({
+                        title: "温馨提示:)",
+                        text: succ,
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "warning",
+                        allowOutsideClick: false
+                    })
+                }
+            }
+        })
+    })
 })
 
