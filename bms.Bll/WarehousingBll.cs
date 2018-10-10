@@ -215,5 +215,15 @@ namespace bms.Bll
             }
             return null;
         }
+
+        /// <summary>
+        /// 获取该销退单头下所有的单据号和制单时间
+        /// </summary>
+        /// <returns></returns>
+        public DataSet getAllTime(int type)
+        {
+            DataSet ds = monoDao.getAllTime(type);
+            return ds;
+        }
     }
 }

@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicProcedure.cs" />
     <Compile Include="RegionDao.cs" />
+    <Compile Include="RetailDao.cs" />
     <Compile Include="RoleDao.cs" />
     <Compile Include="SaleHeadDao.cs" />
     <Compile Include="SaleMonomerDao.cs" />

@@ -22,7 +22,7 @@ namespace bms.Web.InventoryMGT
         public DataSet ds, dsGoods, dsPer;
         public DataTable dt;
         public double discount;
-        public string singleHeadId = "", bookName = "", supplier = "";
+        public string singleHeadId = "";
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
         BookBasicBll basicBll = new BookBasicBll();
         WarehousingBll warehousingBll = new WarehousingBll();
@@ -459,6 +459,7 @@ namespace bms.Web.InventoryMGT
 
                 long bookNum = Convert.ToInt64(Request["bookNum"]);
                 BookBasicData bookBasicData = bookBasicBll.SelectById(bookNum);
+                string supplier = bookBasicData.Publisher;
                 string bookName = bookBasicData.BookName;
                 string publisher = bookBasicData.Publisher;
                 double price = bookBasicData.Price;
