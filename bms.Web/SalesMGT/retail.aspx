@@ -1,5 +1,5 @@
-﻿
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retail.aspx.cs" Inherits="bms.Web.SalesMGT.retail" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retail.aspx.cs" Inherits="bms.Web.SalesMGT.retail" %>
+
 <%="" %>
 <!DOCTYPE html>
 <html class="no-js">
@@ -39,22 +39,54 @@
                     </div>
                     <div class="row">
                         <div class="table-responsive col-md-10">
-                            <div style="height:290px;width:80%;display:block;overflow-y:auto; border:none">
-                            <table class="table mostTable table-bordered text-center test" id="table">
-                                <thead>
-                                    <tr>
-                                        <td><nobr>ISBN号</nobr></td>
-                                        <td><nobr>书名</nobr></td>
-                                        <td><nobr>单价</nobr></td>
-                                        <td><nobr>数量</nobr></td>
-                                        <td><nobr>折扣</nobr></td>
-                                        <td><nobr>码洋</nobr></td>
-                                        <td><nobr>实洋</nobr></td>
-                                        <td><nobr>操作</nobr></td>
-                                    </tr>
-                                </thead>
-                            </table>
-                                </div>
+                            <div style="height: 290px; width: 80%; display: block; overflow-y: auto; border: none">
+                                <table class="table mostTable table-bordered text-center test" id="table">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                <nobr>ISBN</nobr>
+                                            </td>
+                                            <td>
+                                                <nobr>书名</nobr>
+                                            </td>
+                                            <td>
+                                                <nobr>单价</nobr>
+                                            </td>
+                                            <td style="display: none">
+                                                <nobr>数量</nobr>
+                                            </td>
+                                            <td>
+                                                <nobr>商品数量</nobr>
+                                            </td>
+                                            <td>
+                                                <nobr>折扣</nobr>
+                                            </td>
+                                            <td>
+                                                <nobr>码洋</nobr>
+                                            </td>
+                                            <td>
+                                                <nobr>实洋</nobr>
+                                            </td>
+                                            <td style="display: none">
+                                                <nobr>书号</nobr>
+                                            </td>
+                                            <td>
+                                                <nobr>操作</nobr>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                        <tr class="first">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                </table>
+                            </div>
                         </div>
                         <div class="retailList col-md-2">
                             <h3 class="text-center">零售单</h3>
@@ -69,6 +101,9 @@
                             <hr />
                             <div class="input-group text-white" id="insert">
                                 <a class="btn btn-success btn-sm"><i class="fa fa-print">打印</i></a>
+                            </div>
+                            <div class="input-group text-white" id="giveup">
+                                <a class="btn btn-danger btn-sm"><i class="fa fa-trash">放弃</i></a>
                             </div>
                         </div>
                     </div>

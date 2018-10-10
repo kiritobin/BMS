@@ -21,15 +21,15 @@ namespace bms.Web.SalesMGT
         public double discount;
         SaleHead single = new SaleHead();
         UserBll userBll = new UserBll();
-        SaleMonomerBll retailBll = new SaleMonomerBll();
         StockBll stockBll = new StockBll();
         BookBasicBll basicBll = new BookBasicBll();
         GoodsShelvesBll goods = new GoodsShelvesBll();
         DataTable monTable = new DataTable();
-        SaleHeadBll saleBll = new SaleHeadBll();
+        RetailBll retailBll = new RetailBll();
         public List<long> bookNumList = new List<long>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            getIsbn();
             string op = Request["op"];
             if (op == "add")
             {
@@ -48,37 +48,7 @@ namespace bms.Web.SalesMGT
                 bookNumList.RemoveAt(index);
                 Session["List"] = bookNumList;
             }
-            getIsbn();
         }
-
-        //public string getData()
-        //{
-        //    string op = Request["op"];
-        //    //生成table
-        //    sb.Append("<tbody>");
-        //    int count = monTable.Rows.Count;
-        //    for (int i = 0; i < count; i++)
-        //    {
-        //        DataRow dr = monTable.Rows[i];
-        //        sb.Append("<tr><td>" + dr["ISBN"].ToString() + "</td>");
-        //        sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-        //        sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
-        //        sb.Append("<td>" + dr["number"].ToString() + "</td>");
-        //        sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
-        //        sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
-        //        sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
-        //        //sb.Append("<td><input type='hidden' value='" + dr["monId"].ToString() + "'/>");
-        //        sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></td></tr>");
-        //    }
-        //    sb.Append("</tbody>");
-        //    //sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
-        //    //if (op == "paging")
-        //    //{
-        //    Response.Write(sb.ToString());
-        //    Response.End();
-        //    //}
-        //    return sb.ToString();
-        //}
 
         public string getIsbn()
         {
@@ -132,7 +102,6 @@ namespace bms.Web.SalesMGT
             }
             return null;
         }
-
 
         public void add(long bookNum)
         {
@@ -195,13 +164,13 @@ namespace bms.Web.SalesMGT
                 sb.Append("<tr><td>" + dr["ISBN"].ToString() + "</td>");
                 sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
-                sb.Append("<td><input class='number' type='hidden' value='" + dr["number"].ToString() + "'/>");
-                sb.Append("<input class='number' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
+                sb.Append("<td><input class='number' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
                 sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
                 sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
-                sb.Append("<td><input type='hidden' value='" + dr["bookNum"].ToString() + "'/>");
-                sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></td></tr>");
+                sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
+                sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></td></tr>");
             }
             Response.Write(sb.ToString());
             Response.End();
@@ -217,27 +186,52 @@ namespace bms.Web.SalesMGT
             int Counts = dataTable.Rows.Count;
             for (int i = 0; i < Counts; i++)
             {
-                DataRow dr = monTable.Rows[i];
-                row = Convert.ToInt32(dr["number"]);
-                total = Convert.ToDouble(dr["totalPrice"]);
-                real = Convert.ToDouble(dr["realPrice"]);
+                DataRow dr = dataTable.Rows[i];
+                row = Convert.ToInt32(dr["数量"]);
+                total = Convert.ToDouble(dr["码洋"]);
+                real = Convert.ToDouble(dr["实洋"]);
                 rows = rows + row;
                 allTotal = allTotal + total;
                 allReal = allReal + real;
             }
             User user = (User)Session["user"];
-            int count = saleBll.countRetail() + 1;
+            sellOffHeadBll sellBll = new sellOffHeadBll();
+            DateTime nowTime = DateTime.Now;
+            string nowDt = nowTime.ToString("yyyy-MM-dd");
+            long count = 0;
+            //判断数据库中是否已经有记录
+            DataSet backds = retailBll.getAllTime();
+            if (backds != null && backds.Tables[0].Rows.Count > 0)
+            {
+                for (int i = 0; i < backds.Tables[0].Rows.Count; i++)
+                {
+                    string time = backds.Tables[0].Rows[i]["dateTime"].ToString();
+                    DateTime dt = Convert.ToDateTime(time);
+                    string sqlTime = dt.ToString("yyyy-MM-dd");
+                    if (sqlTime == nowDt)
+                    {
+                        //count += 1;
+                        string id = backds.Tables[0].Rows[i]["retailHeadId"].ToString();
+                        string st1 = id.Substring(10);
+                        long rowes = long.Parse(st1) + 1;
+                        count = count + rowes;
+                    }
+                }
+            }
+            else
+            {
+                count = 1;
+            }
             string retailHeadId = "LS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
             single.AllRealPrice = allReal;
             single.AllTotalPrice = allTotal;
-            single.DateTime = DateTime.Now;
             single.KindsNum = Counts;
             single.Number = rows;
             single.RegionId = user.ReginId.RegionId;
             single.SaleHeadId = retailHeadId;
             single.UserId = user.UserId;
-            single.SaleTaskId = "0";
-            Result result = saleBll.InsertRetail(single);
+            single.DateTime = DateTime.Now;
+            Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)
             {
                 Session["List"] = new List<long>();
@@ -245,17 +239,18 @@ namespace bms.Web.SalesMGT
                 int Count = dataTable.Rows.Count;
                 for (int i = 0; i < Count; i++)
                 {
-                    DataRow dr = monTable.Rows[i];
+                    DataRow dr = dataTable.Rows[i];
                     monomers.ISBN1 = dr["ISBN"].ToString();
-                    monomers.UnitPrice = Convert.ToDouble(dr["unitPrice"]);
-                    monomers.BookNum = Convert.ToInt64(dr["bookNum"]);
-                    monomers.RealDiscount = Convert.ToDouble(dr["realDiscount"]);
+                    monomers.UnitPrice = Convert.ToDouble(dr["单价"]);
+                    monomers.BookNum = Convert.ToInt64(dr["书号"]);
+                    monomers.RealDiscount = Convert.ToDouble(dr["折扣"]);
                     monomers.SaleIdMonomerId = i+1;
-                    monomers.Number = Convert.ToInt32(dr["number"]);
-                    monomers.TotalPrice = Convert.ToDouble(dr["totalPrice"]);
-                    monomers.RealPrice = Convert.ToDouble(dr["realPrice"]);
+                    monomers.Number = Convert.ToInt32(dr["数量"]);
+                    monomers.TotalPrice = Convert.ToDouble(dr["码洋"]);
+                    monomers.RealPrice = Convert.ToDouble(dr["实洋"]);
                     monomers.SaleHeadId = retailHeadId;
-                    Result mon = retailBll.Insert(monomers);
+                    monomers.Datetime = DateTime.Now;
+                    Result mon = retailBll.InsertRetail(monomers);
                     if (mon == Result.添加失败)
                     {
                         Response.Write("添加失败");
@@ -273,27 +268,6 @@ namespace bms.Web.SalesMGT
 
         }
 
-        //public string getTotal()
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    string op = Request["op"];
-        //    if (op == "add")
-        //    {
-        //        int counts = monTable.Rows.Count;
-        //        for (int i = 0; i < counts; i++)
-        //        {
-        //            DataRow dr = monTable.Rows[i];
-        //            sb.Append("<li>时间：" + DateTime.Now + "</li>");
-        //            sb.Append("<li>种类：" + DateTime.Now + "</li>");
-        //            sb.Append("<li>数量：" + DateTime.Now + "</li>");
-        //            sb.Append("<li>总码洋：" + DateTime.Now + "</li>");
-        //            sb.Append("<li>总实洋：" + DateTime.Now + "</li>");
-        //        }
-        //        Response.Write(sb.ToString());
-        //        Response.End();
-        //    }
-        //    return sb.ToString();
-        //}
         /// <summary>
         /// Json 字符串 转换为 DataTable数据集合
         /// </summary>

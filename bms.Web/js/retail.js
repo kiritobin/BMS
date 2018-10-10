@@ -36,7 +36,7 @@ function CurentTime() {
     clock += mm;
     return (clock);
 }
-
+//点击扫描按钮
 $("#btnSearch").click(function () {
     sessionStorage.setItem("ISBN", $("#search").val())
     var kind = $("#kind").text().trim();
@@ -102,14 +102,10 @@ $("#btnSearch").click(function () {
                 } else {
                     $("#table").append(data);
                     //计算合计内容
-                    //var kind = parseInt(sessionStorage.getItem("kind"));
-                    //var number = parseInt(sessionStorage.getItem("number"));
-                    //var totalPrice = parseInt(sessionStorage.getItem("totalPrice"));
-                    //var realPrice = parseInt(sessionStorage.getItem("realPrice"));
                     var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
-                    var numbers = parseInt(sessionStorage.getItem("number")) + parseInt($("#table tr:last").find("td:eq(3)").children().val());
-                    var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tr:last").find("td:eq(5)").text().trim());
-                    var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim());
+                    var numbers = parseInt(sessionStorage.getItem("number")) + parseInt($("#table tr:last").find("td:eq(4)").children().val());
+                    var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim());
+                    var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tr:last").find("td:eq(7)").text().trim());
                     sessionStorage.setItem("kind", kinds);
                     sessionStorage.setItem("number", numbers);
                     sessionStorage.setItem("totalPrice", totalPrices);
@@ -128,8 +124,7 @@ $("#btnSearch").click(function () {
         })
     }
 })
-
-
+//输入isbn后回车
 $("#search").keypress(function (e) {
     sessionStorage.setItem("ISBN", $("#search").val())
     //回车事件触发
@@ -195,16 +190,16 @@ $("#search").keypress(function (e) {
                             }
                         })
                     } else {
+                        if (sessionStorage.getItem("kind") == "0") {
+                            //$("#table tr:eq(1)").empty();
+                            $(".first").remove();
+                        }
                         $("#table").append(data);
                     //计算合计内容
-                    //var kind = parseInt(sessionStorage.getItem("kind"));
-                    //var number = parseInt(sessionStorage.getItem("number"));
-                    //var totalPrice = parseInt(sessionStorage.getItem("totalPrice"));
-                    //var realPrice = parseInt(sessionStorage.getItem("realPrice"));
                         var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
-                        var numbers = parseInt(sessionStorage.getItem("number")) + parseInt($("#table tr:last").find("td:eq(3)").children().val());
-                        var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tr:last").find("td:eq(5)").text().trim());
-                        var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim());
+                        var numbers = parseInt(sessionStorage.getItem("number")) + parseInt($("#table tr:last").find("td:eq(4)").children().val());
+                        var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim());
+                        var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tr:last").find("td:eq(7)").text().trim());
                         sessionStorage.setItem("kind", kinds);
                         sessionStorage.setItem("number", numbers);
                         sessionStorage.setItem("totalPrice", totalPrices);
@@ -224,6 +219,7 @@ $("#search").keypress(function (e) {
         }
     }
 })
+//选择一号多书中需要的图书
 $("#btnAdd").click(function () {
     var bookNum = $("input[type='radio']:checked").val();
     $.ajax({
@@ -245,6 +241,10 @@ $("#btnAdd").click(function () {
                 }).catch(swal.noop);
             }
             $("#myModal").modal("hide")
+            if (sessionStorage.getItem("kind") == "0") {
+                //$("#table tr:eq(1)").empty();
+                $(".first").remove();
+            }
             $("#table").append(data);
             var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
             var numbers = parseInt(sessionStorage.getItem("number")) + parseInt($("#table tr:last").find("td:eq(3)").children().val());
@@ -266,11 +266,12 @@ $("#btnAdd").click(function () {
         }
     })
 })
+//修改数量
 $("#table").delegate(".number", "change", function (e) {
     var number = parseInt($(this).val());
     var total = parseFloat($(this).parent().next().next().text().trim());
     var real = parseFloat($(this).parent().next().next().next().text().trim());
-    var price = parseFloat($(this).parent().prev().text().trim());
+    var price = parseFloat($(this).parent().prev().prev().text().trim());
     var discount = parseFloat($(this).parent().next().text().trim());
     if (discount > 10) {
         discount = discount * 0.01;
@@ -280,14 +281,14 @@ $("#table").delegate(".number", "change", function (e) {
     var totalPrice = parseFloat(number * price);
     var realPrice = parseFloat(totalPrice * discount);
     //计算合计内容
-    var count = parseInt($(this).prev().val());
+    var count = parseInt($(this).parent().prev().text().trim());
     var counts = parseInt($(this).val());
     if (counts > count) {
         sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) + 1);
     } else if (counts < count) {
         sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) - 1);
     }
-    $(this).prev().val(counts);
+    $(this).parent().prev().text(counts);
     var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) - total + totalPrice;
     var realPrices = parseFloat(sessionStorage.getItem("realPrice")) - real + realPrice;
     sessionStorage.setItem("totalPrice", parseFloat(totalPrices));
@@ -301,35 +302,34 @@ $("#table").delegate(".number", "change", function (e) {
     $("#real").text(parseFloat(realPrices));
     $("#kind").text(parseInt(sessionStorage.getItem("kind")));
 })
-
+//打印
 $("#insert").click(function () {
     var table = $("#table").tableToJSON();
     var json = JSON.stringify(table);
-    alert(table);
-    //$.ajax({
-    //    type: 'Post',
-    //    url: 'retail.aspx',
-    //    data: {
-    //        json:json,
-    //        op: 'insert'
-    //    },
-    //    dataType: 'text',
-    //    success: function (data) {
-    //        window.location.reload();
-    //        $("#search").focus();
-    //        sessionStorage.removeItem("kind");
-    //        sessionStorage.removeItem("number");
-    //        sessionStorage.removeItem("totalPrice");
-    //        sessionStorage.removeItem("realPrice");
-    //    }
-    //})
+    $.ajax({
+        type: 'Post',
+        url: 'retail.aspx',
+        data: {
+            json:json,
+            op: 'insert'
+        },
+        dataType: 'text',
+        success: function (data) {
+            window.location.reload();
+            $("#search").focus();
+            sessionStorage.removeItem("kind");
+            sessionStorage.removeItem("number");
+            sessionStorage.removeItem("totalPrice");
+            sessionStorage.removeItem("realPrice");
+        }
+    })
 })
-
+//删除
 $("#table").delegate(".btn-delete", "click", function () {
-    var bookNum = $(this).prev().val().trim();
-    var totalPrice = $(this).parent().prev().prev().text().trim();
-    var realPrice = $(this).parent().prev().text().trim();
-    var number = $(this).parent().prev().prev().prev().prev().children().val().trim();
+    var bookNum = $(this).parent().prev().val().trim();
+    var totalPrice = $(this).parent().prev().prev().prev().text().trim();
+    var realPrice = $(this).parent().prev().prev().text().trim();
+    var number = $(this).parent().prev().prev().prev().prev().prev().children().val().trim();
     $(this).parent().parent().remove();
     $.ajax({
         type: 'Post',
@@ -358,3 +358,7 @@ $("#table").delegate(".btn-delete", "click", function () {
         }
     })
 });
+//删除此单
+$("#giveup").click(function () {
+    window.location.reload();
+})
