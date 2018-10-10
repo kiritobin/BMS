@@ -308,9 +308,6 @@
                                                             <nobr>出版社</nobr>
                                                         </td>
                                                         <td>
-                                                            <nobr>货架</nobr>
-                                                        </td>
-                                                        <td>
                                                             <nobr>商品数量</nobr>
                                                         </td>
                                                         <td>
@@ -328,8 +325,6 @@
                                                         <td>
                                                             <nobr>操作</nobr>
                                                         </td>
-                                                        <td style="display: none">货架号
-                                                        </td>
                                                     </tr>
                                                 </thead>
                                                 <tr class="first">
@@ -340,22 +335,13 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td>
-                                                        <select class="goods">
-                                                            <%for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
-                                                                { %>
-                                                            <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
-                                                            <%}%>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <textarea class="count textareaCount" rows="1">0</textarea></td>
+                                                        <textarea class="count textareaCount" rows="1">1</textarea></td>
                                                     <td></td>
                                                     <td>
                                                         <textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td style="display: none"></td>
                                                 </tr>
                                             </table>
                                         </div>

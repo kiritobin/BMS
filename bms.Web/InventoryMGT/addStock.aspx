@@ -270,7 +270,7 @@
                                 <div class="card-body">
                                     <div class="card-header card-header-danger">
                                         <h4 class="card-title">入库添加</h4>
-                                        <button class="btn btn-sm pull-right" style="background-color:white;color:black;" id="back"<!-- onclick="javascript:history.back(-1);"-->>返回</button>
+                                        <button class="btn btn-sm pull-right" style="background-color:white;color:black;" id="back"<!-- onclick="javascript:history.back(-1);"-->返回</button>
                                     </div>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
@@ -338,7 +338,7 @@
                                                         <%}%>
                                                     </select>
                                                 </td>
-                                                <td><textarea class="count textareaCount" rows="1">0</textarea></td>
+                                                <td><textarea class="count textareaCount" rows="1">1</textarea></td>
                                                 <td></td>
                                                 <td><textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
                                                 <td></td>
