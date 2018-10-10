@@ -40,8 +40,9 @@
                             })
                         } else {
                             //$("#tablebook th:not(:first)").empty(); //清空table处首行
-                            $("#tablebook").empty();
-                            $("#tablebook").append(data); //加载table
+                            $(".first").remove();
+                            //$("#tablebook").empty();
+                            $("#table").append(data); //加载table
                         }
                     }
                 });
@@ -117,6 +118,7 @@
     $("#toBack").click(function () {
         window.location.href = "backManagement.aspx";
     });
+    //保存单据
     $("#sure").click(function () {
         swal({
             title: "温馨提示:)",
@@ -169,5 +171,32 @@
                 }
             })
         })
+    })
+    $("#table").delegate("#inputISBN", "keypress", function (e) {
+        if (e.keyCode == 13) {
+            var isbn = $('table input:eq(0)').val();
+            if (isbn == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "不能含有未填项!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            } else {
+                $.ajax({
+                    type: 'Post',
+                    url: 'backQuery.aspx',
+                    data: {
+                        ISBN: isbn,
+                        op: "search"
+                    },
+                    dataType: 'text',
+                    success: function (data) {
+                        $("#table").append(data); //加载table
+                    }
+                });
+            }
+        }
     })
 })

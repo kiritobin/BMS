@@ -55,7 +55,7 @@
                             </div>
                             <div class="content_tab col-md-12">
                                 <div class="table-responsive col-md-10">
-                                    <table class="table mostTable table-bordered text-center">
+                                    <table class="table mostTable table-bordered text-center" id="table">
                                         <thead>
                                             <tr>
                                                 <th>序号</th>
@@ -70,19 +70,20 @@
                                             </tr>
                                         </thead>
                                         <%=GetData() %>
-                                        <%--<tr>
-                                            <td>1</td>
-                                            <td><input type="text" class="inputISBN" style="width:100%" /></td>
+                                        <%--                                        <tr>
+                                            <td></td>
+                                            <td><input type='text' id='addsell' style='width:100%' /></td>
                                             <td></td>
                                             <td></td>
-                                            <td><input type="text" class="inputCount" style="width:100%" /></td>
+                                            <td><input type='text' class='inputISBN' style='width:100%' /></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                         </tr>--%>
+
                                     </table>
                                 </div>
-                                <div class="statistics col-md-2">
+                                <div class="statistics col-md-2" style="border:none;">
                                     <div class="btn-group text-right" role="group">
                                         <button class="btn btn-danger" id="sure">确定单据</button>
                                     </div>
