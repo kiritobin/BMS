@@ -195,30 +195,30 @@ $("#table").delegate(".count", "change", function (e) {
     total.text((count * price).toFixed(2));
     real.text((count * price * discount * 0.01).toFixed(2));
     var _this = $(this);
-    if (sessionStorage.getItem("not") == "库存充足") {
-            $.ajax({
-        type: 'Post',
-        url: 'addWarehouse.aspx',
-        data: {
-            bookNum: bookNum,
-            count: count,
-            action: "checkNum"
-        },
-        dataType: 'text',
-        success: function (data) {
-            if (data == "库存不足") {
-                swal({
-                    title: "温馨提示:)",
-                    text: data,
-                    buttonsStyling: false,
-                    confirmButtonClass: "btn btn-warning",
-                    type: "warning"
-                }).catch(swal.noop);
-                _this.val(0);
-            }
-        }
-    })
-    }
+    //if (sessionStorage.getItem("not") == "库存充足") {
+    //        $.ajax({
+    //    type: 'Post',
+    //    url: 'addWarehouse.aspx',
+    //    data: {
+    //        bookNum: bookNum,
+    //        count: count,
+    //        action: "checkNum"
+    //    },
+    //    dataType: 'text',
+    //    success: function (data) {
+    //        if (data == "库存不足") {
+    //            swal({
+    //                title: "温馨提示:)",
+    //                text: data,
+    //                buttonsStyling: false,
+    //                confirmButtonClass: "btn btn-warning",
+    //                type: "warning"
+    //            }).catch(swal.noop);
+    //            _this.val(0);
+    //        }
+    //    }
+    //})
+    //}
 });
 
 //删除当前行
@@ -237,7 +237,7 @@ $("#btnAdd").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-    } {
+    } else {
         $.ajax({
             type: 'Post',
             url: 'addWarehouse.aspx',

@@ -32,14 +32,14 @@ namespace bms.Web.InventoryMGT
         string singleHeadId;
         protected void Page_Load(object sender, EventArgs e)
         {
-            permission();
-            Monomers monoDiscount = wareBll.getDiscount();
-            discount = monoDiscount.Discount;
             string kind = Request["kind"];
             if (kind == "0")
             {
                 Session["List"] = new List<long>();
             }
+            permission();
+            Monomers monoDiscount = wareBll.getDiscount();
+            discount = monoDiscount.Discount;
             selectIsbn();
             if (!IsPostBack)
             {
@@ -308,7 +308,7 @@ namespace bms.Web.InventoryMGT
                                 Result result = stockBll.update(0, goodsId, bookNum);
                                 if (count == 0)
                                 {
-                                    Session["List"]=null;
+                                    Session["List"] = null;
                                     Response.Write("添加成功");
                                     Response.End();
                                 }
@@ -329,7 +329,6 @@ namespace bms.Web.InventoryMGT
                 Result head = warehousingBll.updateHead(singleHead);
                 if (head == Result.更新成功)
                 {
-
                     Response.Write("添加成功");
                     Response.End();
                 }

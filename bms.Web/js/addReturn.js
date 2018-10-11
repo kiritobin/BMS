@@ -189,30 +189,30 @@ $("#table").delegate(".count", "change", function (e) {
     total.text((count * price).toFixed(2));
     real.text((count * price * discount * 0.01).toFixed(2));
     var _this = $(this);
-    if (sessionStorage.getItem("not") == "库存充足") {
-        $.ajax({
-            type: 'Post',
-            url: 'addReturn.aspx',
-            data: {
-                bookNum: bookNum,
-                count: count,
-                action: "checkNum"
-            },
-            dataType: 'text',
-            success: function (data) {
-                if (data == "库存不足") {
-                    swal({
-                        title: "温馨提示:)",
-                        text: data,
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                    _this.val(0);
-                }
-            }
-        })
-    }
+    //if (sessionStorage.getItem("not") == "库存充足") {
+    //    $.ajax({
+    //        type: 'Post',
+    //        url: 'addReturn.aspx',
+    //        data: {
+    //            bookNum: bookNum,
+    //            count: count,
+    //            action: "checkNum"
+    //        },
+    //        dataType: 'text',
+    //        success: function (data) {
+    //            if (data == "库存不足") {
+    //                swal({
+    //                    title: "温馨提示:)",
+    //                    text: data,
+    //                    buttonsStyling: false,
+    //                    confirmButtonClass: "btn btn-warning",
+    //                    type: "warning"
+    //                }).catch(swal.noop);
+    //                _this.val(0);
+    //            }
+    //        }
+    //    })
+    //}
 });
 
 //删除当前行
@@ -220,47 +220,7 @@ $("#table").delegate(".btn-danger", "click", function () {
     $(this).parent().parent().remove();
     sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind")) - 1);
 });
-$("#btnAdd").click(function () {
-    var sid = $("#table tr:last").find("td").eq(0).text();
-    var bookNum = $("input[type='radio']:checked").val();
-    if (bookNum == "" || bookNum == null) {
-        swal({
-            title: "温馨提示:)",
-            text: "请选择一条图书信息",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } {
-        $.ajax({
-            type: 'Post',
-            url: 'addReturn.aspx',
-            data: {
-                sid: sid,
-                bookNum: bookNum,
-                action: "add"
-            },
-            datatype: 'text',
-            success: function (succ) {
-                if (succ == "已添加过此图书") {
-                    swal({
-                        title: "温馨提示:)",
-                        text: succ,
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                }
-                else {
-                    $(".first").remove();
-                    $("#table").append(succ);
-                    $("#myModal3").modal("hide");
-                    $("#table tr:last").find("td").eq(5).children().focus();
-                }
-            }
-        })
-    }
-})
+
 //折扣改变事件
 $("#table").delegate(".discount", "change", function () {
     var c = $(this).val().trim();
@@ -341,6 +301,7 @@ $("#save").click(function () {
         })
     })
 })
+
 $("#btnAdd").click(function () {
     var sid = $("#table tr:last").find("td").eq(0).text();
     var bookNum = $("input[type='radio']:checked").val();
@@ -352,7 +313,7 @@ $("#btnAdd").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-    } {
+    } else {
         $.ajax({
             type: 'Post',
             url: 'addReturn.aspx',
