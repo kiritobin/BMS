@@ -16,9 +16,9 @@ namespace bms.Bll
         /// 获取该销退单头下所有的单据号和制单时间
         /// </summary>
         /// <returns></returns>
-        public DataSet getAllTime()
+        public DataSet getAllTime(int state)
         {
-            DataSet ds = dao.getAllTime();
+            DataSet ds = dao.getAllTime(state);
             return ds;
         }
 

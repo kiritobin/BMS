@@ -67,6 +67,47 @@ namespace bms.Web.SalesMGT
                 Result end = retailBll.updateType(headId);
                 if(end == Result.更新成功)
                 {
+                    DataSet dsEnd = retailBll.GetRetail(headId);
+                    int row = dsEnd.Tables[0].Rows.Count;
+                    for(int i = 0; i < row; i++)
+                    {
+                        DataRow dr = dsEnd.Tables[0].Rows[i];
+                        long bookNum = Convert.ToInt64(dr["bookNum"]);
+                        int number = Convert.ToInt32(dr["number"]);
+                        User user = (User)Session["user"];
+                        DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
+                        int rows = dsStock.Tables[0].Rows.Count;
+                        for (int j = 0; j < rows; j++)
+                        {
+                            int count = number;
+                            int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[i]["goodsShelvesId"]);
+                            int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[i]["stockNum"]);
+                            if (stockNum > number)
+                            {
+                                Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
+                                if (stock == Result.更新失败)
+                                {
+                                    Response.Write("更新失败");
+                                    Response.End();
+                                }
+                            }
+                            else
+                            {
+                                count = number - stockNum;
+                                Result stock = stockBll.update(0, goodsId, bookNum);
+                                if (stock == Result.更新失败)
+                                {
+                                    Response.Write("更新失败");
+                                    Response.End();
+                                }
+                            }
+                            if(count == 0)
+                            {
+                                Response.Write("更新成功");
+                                Response.End();
+                            }
+                        }
+                    }
                     Response.Write("更新成功");
                     Response.End();
                 }

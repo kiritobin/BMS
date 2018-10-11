@@ -172,6 +172,11 @@
                                         <span class="sidebar-normal">自助售书</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../SalesMGT/retailBack.aspx" id="retailBack">
+                                        <span class="sidebar-normal">零售退货</span>
+                                    </a>
+                                </li>
                                 <li class="nav-item" id="customerRetail">
                                     <a class="nav-link" href="../SalesMGT/customerRetail.aspx">
                                         <span class="sidebar-normal">POS收款</span>

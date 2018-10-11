@@ -15,9 +15,19 @@ namespace bms.Dao
         /// 获取该销退单头下所有的单据号和制单时间
         /// </summary>
         /// <returns></returns>
-        public DataSet getAllTime()
+        public DataSet getAllTime(int state)
         {
-            string cmdText = "select retailHeadId,dateTime from T_RetailHead ORDER BY dateTime desc";
+            string cmdText;
+            if (state == 2)
+            {
+                cmdText = "select retailHeadId,dateTime from T_RetailHead where state=2 ORDER BY dateTime desc";
+            }
+            else
+            {
+                cmdText = "select retailHeadId,dateTime from T_RetailHead where state=0 or state=1 ORDER BY dateTime desc";
+            }
+            string[] param = { "@state" };
+            object[] values = { state };
             DataSet ds = db.FillDataSet(cmdText, null, null);
             return ds;
         }
