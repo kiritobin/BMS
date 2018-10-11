@@ -603,6 +603,7 @@ namespace bms.Web.InventoryMGT
                 Result head = warehousingBll.updateHead(singleHead);
                 if (head == Result.更新成功)
                 {
+                    Session["List"] = null;
                     Response.Write("添加成功");
                     Response.End();
                 }

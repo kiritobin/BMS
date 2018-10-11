@@ -53,8 +53,6 @@ namespace bms.Web.InventoryMGT
                     singleHeadId = Session["singleHeadId"].ToString();
                 }
             }
-            User user = (User)Session["user"];
-            int regId = user.ReginId.RegionId;
             string op = Request["op"];
             if (op == "logout")
             {
@@ -65,8 +63,6 @@ namespace bms.Web.InventoryMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
-            int regionId = user.ReginId.RegionId;
-            dsGoods = goods.Select(regionId);
         }
 
         protected void selectIsbn()
@@ -311,6 +307,7 @@ namespace bms.Web.InventoryMGT
                                 Result result = stockBll.update(0, goodsId, bookNum);
                                 if (count == 0)
                                 {
+                                    Session["List"] = null;
                                     Response.Write("添加成功");
                                     Response.End();
                                 }
@@ -321,40 +318,6 @@ namespace bms.Web.InventoryMGT
                                 }
                             }
                         }
-                        //BookBasicData bookBasic = new BookBasicData();
-                        //bookBasic.Isbn = book.Isbn;
-                        //bookBasic.BookNum = Convert.ToInt64(drow["书号"]);
-                        //Stock stock = new Stock();
-                        //stock.StockNum = Convert.ToInt32(drow["商品数量"]);
-                        //stock.ISBN = bookBasic;
-                        //stock.BookNum = bookBasic;
-                        //stock.RegionId = user.ReginId;
-                        //GoodsShelves goodsShelves = new GoodsShelves();
-
-                        //int goodsShelf = Convert.ToInt32(drow["货架号"]);
-                        //goodsShelves.GoodsShelvesId = goodsShelf;
-                        //stock.GoodsShelvesId = goodsShelves;
-
-                        //Result results = stockBll.GetByBookNum(Convert.ToInt64(drow["书号"]), goodsShelf);
-                        //if (results == Result.记录不存在)
-                        //{
-                        //    Result result = stockBll.insert(stock);
-                        //    if (result == Result.添加失败)
-                        //    {
-                        //        Response.Write("添加失败");
-                        //        Response.End();
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    int rows = stockBll.getStockNum(Convert.ToInt64(drow["书号"]), goodsShelf);
-                        //    Result result = stockBll.update(Convert.ToInt32(drow["商品数量"]) + rows, goodsShelf, Convert.ToInt64(drow["书号"]));
-                        //    if (result == Result.更新失败)
-                        //    {
-                        //        Response.Write("添加失败");
-                        //        Response.End();
-                        //    }
-                        //}
                     }
                 }
                 SingleHead singleHead = new SingleHead();
@@ -389,7 +352,7 @@ namespace bms.Web.InventoryMGT
                     Response.End();
                 }
             }
-            else if (action=="checkNum")
+            else if (action == "checkNum")
             {
                 int regId = user.ReginId.RegionId;
                 long bookNum = Convert.ToInt64(Request["bookNum"]);
@@ -470,9 +433,7 @@ namespace bms.Web.InventoryMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
-            Role role = new Role();
-            role = user.RoleId;
-            int roleId = role.RoleId;
+            int roleId = user.RoleId.RoleId;
             dsPer = functionBll.SelectByRoleId(roleId);
             for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)
             {
