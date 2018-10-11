@@ -304,7 +304,7 @@ $("#table").delegate(".number", "change", function (e) {
     $("#real").text(parseFloat(realPrices));
     $("#kind").text(parseInt(sessionStorage.getItem("kind")));
 })
-//打印
+//保存提交
 $("#insert").click(function () {
     var table = $("#table").tableToJSON();
     var json = JSON.stringify(table);

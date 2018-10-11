@@ -199,7 +199,7 @@ namespace bms.Web.SalesMGT
             string nowDt = nowTime.ToString("yyyy-MM-dd");
             long count = 0;
             //判断数据库中是否已经有记录
-            DataSet backds = retailBll.getAllTime();
+            DataSet backds = retailBll.getAllTime(0);
             if (backds != null && backds.Tables[0].Rows.Count > 0)
             {
                 for (int i = 0; i < backds.Tables[0].Rows.Count; i++)
@@ -256,8 +256,7 @@ namespace bms.Web.SalesMGT
                         Response.End();
                     }
                 }
-                Response.Write("添加成功");
-                Response.End();
+                Response.Redirect("../QRCode.aspx?qrtext=" + retailHeadId);
             }
             else
             {

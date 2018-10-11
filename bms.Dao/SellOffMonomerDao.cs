@@ -128,5 +128,15 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
+        /// <summary>
+        /// 获取零售排行
+        /// </summary>
+        /// <returns></returns>
+        public DataSet getRetailRank()
+        {
+            string sql = "select bookName,unitPrice,allNum,allTotalPrice from V_RetailtRank LIMIT 0,10";
+            DataSet ds = db.FillDataSet(sql, null, null);
+            return ds;
+        }
     }
 }

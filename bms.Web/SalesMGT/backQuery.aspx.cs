@@ -290,6 +290,7 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public String GetData()
         {
+            string type = Session["type"].ToString();
             string sellId = Session["sellId"].ToString();
             //获取默认折扣
             DataSet stds = smBll.getSaleTask(sellId);
@@ -313,7 +314,10 @@ namespace bms.Web.SalesMGT
             sb.Append("</tr>");
             sb.Append("</thead>");
             sb.Append("<tbody>");//表体
-            sb.Append(WriteBook());
+            if (type != "search")
+            {
+                sb.Append(WriteBook());
+            }
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 string sohId = ds.Tables[0].Rows[i]["sellOffHead"].ToString();

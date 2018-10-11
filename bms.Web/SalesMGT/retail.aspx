@@ -130,13 +130,13 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>品种：</label></div>
+                                            <label>品种：<span id="kind"></span></label></div>
                                         <div class="col-md-6">
-                                            <label>数量：</label></div>
+                                            <label>数量：<span id="number"></span></label></div>
                                         <div class="col-md-6">
-                                            <label>码洋：</label></div>
+                                            <label>码洋：<span id="total"></span></label></div>
                                         <div class="col-md-6">
-                                            <label>应收：</label></div>
+                                            <label>应收：<span id="real"></span></label></div>
                                     </div>
                                 </div>
                             </fieldset>

@@ -40,10 +40,10 @@
                         <div class="card-body">
                             <div class="card-header card_btn">
                                 <div class="input-group">
-                                    <div class="btn-group" role="group">
+                                    <!--<div class="btn-group" role="group">
                                         <button class="btn btn-success" id="add_back">添加销退</button>
                                     </div>
-                                    <!--<div class="btn-group" role="group">
+                                    <div class="btn-group" role="group">
                                         <input type="text" value="" class="sales_search">
                                         <button class="btn btn-info">查询</button>
                                     </div>-->
@@ -73,11 +73,15 @@
                                         <%=GetData() %>
                                     </table>
                                 </div>
+                                <%string type = Session["type"].ToString();
+                                    if (type != "search")
+                                    { %>
                                 <div class="statistics col-md-2" style="border:none;">
                                     <div class="btn-group text-right" role="group">
-                                        <button class="btn btn-danger" id="sure">确定单据</button>
+                                        <button class="btn btn-danger" id="sure">保存单据</button>
                                     </div>
                                 </div>
+                                <%} %>
                             </div>
                         </div>
                     </div>
@@ -90,7 +94,7 @@
         <div class='modal-dialog' style='max-width: 900px;'>
             <div class='modal-content'>
                 <div class='modal-header'>
-                    <h4 class='modal-title float-left' id='myModalLabel'>添加销退</h4>
+                    <h4 class='modal-title float-left' id='myModalLabel'>请选择你要进行操作的书籍</h4>
                     <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>
                         <i class='material-icons'>clear</i>
                     </button>

@@ -57,6 +57,7 @@
                                             <th>总码洋</th>
                                         </tr>
                                     </thead>
+                                    <%=GetData() %>
                                 </table>
                             </div>
                             <%--<div>

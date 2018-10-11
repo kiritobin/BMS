@@ -16,10 +16,28 @@ namespace bms.Bll
         /// 获取该销退单头下所有的单据号和制单时间
         /// </summary>
         /// <returns></returns>
-        public DataSet getAllTime()
+        public DataSet getAllTime(int state)
         {
-            DataSet ds = dao.getAllTime();
+            DataSet ds = dao.getAllTime(state);
             return ds;
+        }
+
+        /// <summary>
+        /// 通过书号查看是否存在在单头中
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public Result selectByBookNum(long bookNum, string retailHeadId)
+        {
+            int row = dao.selectByBookNum(bookNum, retailHeadId);
+            if (row > 0)
+            {
+                return Result.记录存在;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
         }
 
         /// <summary>
@@ -117,6 +135,25 @@ namespace bms.Bll
         }
 
         /// <summary>
+        /// 更新零售单头实洋
+        /// </summary>
+        /// <param name="realPrice">实洋</param>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>受影响行数</returns>
+        public Result UpdateHeadReal(double allRealPrice, string retailHeadId)
+        {
+            int row = dao.UpdateHeadReal(allRealPrice, retailHeadId);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+
+        /// <summary>
         /// 更新零售数量
         /// </summary>
         /// <param name="sale">零售实体对象</param>
@@ -142,6 +179,24 @@ namespace bms.Bll
         public Result UpdateHeadNumber(SaleHead sale)
         {
             int row = dao.UpdateHeadNumber(sale);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+
+        /// <summary>
+        /// 更新零售数量
+        /// </summary>
+        /// <param name="sale">零售实体对象</param>
+        /// <returns>受影响行数</returns>
+        public Result updateType(string headId)
+        {
+            int row = dao.updateType(headId);
             if (row > 0)
             {
                 return Result.更新成功;

@@ -498,6 +498,7 @@ $("#save").click(function () {
                         type: "warning",
                         allowOutsideClick: false
                     })
+                    sessionStorage.removeItem("kind");
                 }
                 else {
                     swal({

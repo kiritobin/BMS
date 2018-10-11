@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
-    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
@@ -255,42 +254,72 @@
                                 <div class="card-body">
                                     <div class="card-header card-header-danger">
                                         <h4 class="card-title">退货添加</h4>
+                                        <button class="btn btn-sm pull-right" style="background-color:white;color:black;" id="back">返回</button>
                                     </div>
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据编号">
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <input type="text" id="bookNum" class="searchOne" placeholder="请输入书号">
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <input type="text" class="searchOne" placeholder="请输入ISBN" id="search_isbn">
-                                                <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                                <button class="btn btn-success btn-sm" id="save"><i class="fa fa-plus fa-lg"></i>&nbsp 保存</button>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
-                                            <thead>
-                                                <tr>
-                                                    <td><nobr>单据编号</nobr></td>
-                                                    <td><nobr>书号</nobr></td>
-                                                    <td><nobr>ISBN号</nobr></td>
-                                                    <td><nobr>商品数量</nobr></td>
-                                                    <td><nobr>单价</nobr></td>
-                                                    <td><nobr>折扣</nobr></td>
-                                                    <td><nobr>码洋</nobr></td>
-                                                    <td><nobr>实洋</nobr></td>
-                                                    <td><nobr>操作</nobr></td>
+                                                <thead>
+                                                    <tr>
+                                                        <td>
+                                                            <nobr>单据编号</nobr>
+                                                        </td>
+                                                        <td>
+                                                            <nobr>ISBN号</nobr>
+                                                        </td>
+                                                        <td style="display: none">
+                                                            <nobr>书号</nobr>
+                                                        </td>
+                                                        <td>
+                                                            <nobr>书名</nobr>
+                                                        </td>
+                                                        <td>
+                                                            <nobr>出版社</nobr>
+                                                        </td>
+                                                        <td>
+                                                            <nobr>商品数量</nobr>
+                                                        </td>
+                                                        <td>
+                                                            <nobr>单价</nobr>
+                                                        </td>
+                                                        <td>
+                                                            <nobr>折扣</nobr>
+                                                        </td>
+                                                        <td>
+                                                            <nobr>码洋</nobr>
+                                                        </td>
+                                                        <td>
+                                                            <nobr>实洋</nobr>
+                                                        </td>
+                                                        <td>
+                                                            <nobr>操作</nobr>
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tr class="first">
+                                                    <td>1</td>
+                                                    <td>
+                                                        <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="13"></textarea>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>
+                                                        <textarea class="count textareaCount" rows="1">0</textarea></td>
+                                                    <td></td>
+                                                    <td>
+                                                        <textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
                                                 </tr>
-                                            </thead>
-                                            <%=getData() %>
-                                        </table>
+                                            </table>
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
@@ -308,27 +337,12 @@
                     <div class="modal-dialog" style="max-width: 800px">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title float-left" id="myModalLabel">输入数据后按下Enter键查看书籍信息</h4>
+                                <h4 class="modal-title float-left" id="myModalLabel">请选择相应的图书</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                     <i class="material-icons">clear</i>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <div class="text-right">
-                                    <span>
-                                        <nobr>ISBN:</nobr>
-                                    </span>
-                                    <input type="text" class="modal_search_add" id="isbn">
-                                    <span>
-                                        <nobr>商品数量:</nobr>
-                                    </span>
-                                    <input type="text" class="modal_search_add" id="billCount">
-                                    <span>
-                                        <nobr>折扣:</nobr>
-                                    </span>
-                                    <input type="text" class="modal_search_add" value="<%=discount %>" id="disCount">
-                                </div>
-                                <br />
                                 <table class="table table-bordered mostTable text-center" id="table2">
                                     <thead>
                                         <tr>
@@ -345,7 +359,6 @@
                                             <th>出版社</th>
                                         </tr>
                                     </thead>
-                                   <%=getIsbn() %>
                                 </table>
                             </div>
                             <div class="modal-footer">
@@ -382,10 +395,9 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
-    <!-- paging.js -->
-    <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addReturn.js"></script>
+    <script src="../js/jquery.tabletojson.js"></script>
 </body>
 
 </html>
