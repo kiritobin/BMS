@@ -207,7 +207,7 @@ namespace bms.Web.AccessMGT
             }
             else
             {
-                Response.Write("该职位名已存在，请您输入新的职位名");
+                Response.Write("该职位名已存在，请您输入新的职位名。");
                 Response.End();
             }
         }
