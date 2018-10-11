@@ -335,7 +335,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td>
-                                                        <textarea class="count textareaCount" rows="1">1</textarea></td>
+                                                        <textarea class="count textareaCount" rows="1">0</textarea></td>
                                                     <td></td>
                                                     <td>
                                                         <textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
@@ -377,11 +377,11 @@
                                                 <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
                                             </div>
                                         </th>
-                                        <th>书号</th>
-                                        <th>ISBN</th>
-                                        <th>书名</th>
-                                        <th>单价</th>
-                                        <th>出版社</th>
+                                        <th><nobr>书号</nobr></th>
+                                        <th><nobr>ISBN</nobr></th>
+                                        <th><nobr>书名</nobr></th>
+                                        <th><nobr>单价</nobr></th>
+                                        <th><nobr>出版社</nobr></th>
                                     </tr>
                                 </thead>
 
@@ -422,6 +422,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addWarehouse.js"></script>
+    <script src="../js/jquery.tabletojson.js"></script>
 </body>
 
 </html>

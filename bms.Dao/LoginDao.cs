@@ -18,7 +18,7 @@ namespace bms.Dao
         /// <returns></returns>
         public User getPwdByUserId(string userID)
         {
-            string sql = "select userID,userPwd,roleId,regionId from T_User where userID=@userID";
+            string sql = "select userID,userPwd,roleId,regionId from T_User where userID=@userID and deleteState=0";
             string[] param = { "@userID" };
             object[] values = { userID };
             User user = new User();
@@ -44,7 +44,7 @@ namespace bms.Dao
         /// <returns></returns>
         public Customer getPwdByCustomId(string customerID)
         {
-            string sql = "select customerID from T_Customer where customerID=@customerID";
+            string sql = "select customerID from T_Customer where customerID=@customerID and deleteState=0";
             string[] param = { "@customerID" };
             object[] values = { customerID };
             Customer custom = new Customer();

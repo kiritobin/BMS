@@ -319,25 +319,12 @@ $("#table").delegate(".count","keypress" ,function (e) {
         }
         else {
             if (last != "" || last == "0") {
-                var table = "<tr class='first'><td>" + (parseInt(sid) + 1) + "</td><td><textarea class='isbn textareaISBN' row='1' maxlength='13'></textarea></td><td></td><td></td><td></td><td><textarea class='count textareaCount' row='1'>1</textarea></td><td></td><td><textarea class='discount textareaDiscount' row='1'>0</textarea></td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
+                var table = "<tr class='first'><td>" + (parseInt(sid) + 1) + "</td><td><textarea class='isbn textareaISBN' row='1' maxlength='13'></textarea></td><td></td><td></td><td></td><td><textarea class='count textareaCount' row='1'>0</textarea></td><td></td><td><textarea class='discount textareaDiscount' row='1'>0</textarea></td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
                 $("#table").append(table);
                 $("#table tr:last").find("td").eq(1).children().focus();
                 sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind")) + 1);
             }
         }
-
-        //$.ajax({
-        //    type: 'Post',
-        //    url: 'addStock.aspx',
-        //    data: {
-        //        sid:sid,
-        //        action: "count"
-        //    },
-        //    dataType: 'text',
-        //    success: function (data) {
-                
-        //    }
-        //})
     }
 })
 $("#table").delegate(".count", "change", function (e) {
@@ -504,7 +491,7 @@ $("#save").click(function () {
                 if (succ == "添加成功") {
                     swal({
                         title: "温馨提示:)",
-                        text: succ,
+                        text: "保存成功",
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-success",
                         type: "warning",
