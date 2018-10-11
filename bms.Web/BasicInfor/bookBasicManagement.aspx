@@ -262,13 +262,13 @@
                                         <%-- 表格头部按钮功能组 --%>
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" id="bookName" placeholder="书名查询">
+                                                <input type="text" value="" class="searchOne" id="bookName" placeholder="书名查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" id="bookNum" placeholder="书号查询">
+                                                <input type="text" value="" class="searchOne" id="bookNum" placeholder="书号查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" id="bookISBN" placeholder="ISBN查询">
+                                                <input type="text" value="" class="searchOne" id="bookISBN" placeholder="ISBN查询">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <%if (funcBook)
