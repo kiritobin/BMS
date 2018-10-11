@@ -101,6 +101,8 @@
                                                 </td>
                                             </tr>
                                         </thead>
+                                        <%if (type == "addsale")
+                                            {%>
                                         <tr class="first">
                                             <td></td>
                                             <td>
@@ -115,6 +117,8 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
+
+                                        <% } %>
                                         <%=getData() %>
                                     </table>
                                 </div>

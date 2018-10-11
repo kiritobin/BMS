@@ -43,11 +43,10 @@ namespace bms.Web.SalesMGT
                 int numberLimit = Convert.ToInt32(Request["numberLimit"]);
                 int priceLimit = Convert.ToInt32(Request["priceLimit"]);
                 int totalPriceLimit = Convert.ToInt32(Request["totalPriceLimit"]);
-                double defaultDiscount = double.Parse(Request["defaultDiscount"]);
+                double defaultDiscount = double.Parse(Request["defaultDiscount"])/100;
                 User user = (User)Session["user"];
                 int userId = user.UserId;
                 DateTime StartTime = DateTime.Now.ToLocalTime();
-                DateTime finishTime = DateTime.Now.ToLocalTime();
                 SaleTask saleTask = new SaleTask()
                 {
                     SaleTaskId = saleTaskId,
@@ -59,7 +58,6 @@ namespace bms.Web.SalesMGT
                     PriceLimit = priceLimit,
                     TotalPiceLimit = totalPriceLimit,
                     StartTime = StartTime,
-                    FinishTime = finishTime
                 };
                 Result result = saleBll.insert(saleTask);
                 if (result == Result.添加成功)
@@ -129,6 +127,26 @@ namespace bms.Web.SalesMGT
                 Response.Write("yes");
                 Response.End();
             }
+            //编辑
+            if (op == "edit")
+            {
+                string saleId = Request["saleId"];
+                double allprice = double.Parse(Request["allpricemlimited"]);
+                int number = int.Parse(Request["numberlimited"]);
+                double price = double.Parse(Request["pricelimited"]);
+                double defaultDiscount = double.Parse(Request["defaultDiscount"]) / 100;
+                int row = saleBll.update(number, price, allprice, defaultDiscount, saleId);
+                if (row > 0)
+                {
+                    Response.Write("保存成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("保存失败");
+                    Response.End();
+                }
+            }
         }
         /// <summary>
         /// 获取基础数据及查询方法
@@ -153,9 +171,9 @@ namespace bms.Web.SalesMGT
             }
 
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "T_SaleTask";
+            tb.StrTable = "V_SaleTask";
             tb.OrderBy = "saleTaskId";
-            tb.StrColumnlist = "saleTaskId,defaultDiscount,priceLimit,numberLimit,totalPriceLimit,startTime,finishTime,userId";
+            tb.StrColumnlist = "saleTaskId,defaultDiscount,priceLimit,numberLimit,totalPriceLimit,startTime,finishTime,userId,userName,customerName";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
@@ -168,17 +186,24 @@ namespace bms.Web.SalesMGT
             strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
+                string time = ds.Tables[0].Rows[i]["finishTime"].ToString();
+                if (time=="" || time==null)
+                {
+                    time = "销售任务采集中";
+                }
+                strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
+                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</nobr></td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</td>");
                 strb.Append("<td>" + Double.Parse(ds.Tables[0].Rows[i]["defaultDiscount"].ToString()) * 100 + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["numberLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["priceLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPriceLimit"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["startTime"].ToString() + "</td>");
-                //strb.Append("<td>" + ds.Tables[0].Rows[i]["finishTime"].ToString() + "</td>");
-                strb.Append("<td>" + "<button class='btn btn-success btn-sm btn_sale'>&nbsp 销售 &nbsp</button>");
-                strb.Append("<button class='btn btn-success btn-sm btn_back'>&nbsp 销退 &nbsp</button> </td>");
-                strb.Append("<td><button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button> <button class='btn btn-success' data-toggle='modal' data-target='#myModa2'>&nbsp 编辑 &nbsp</button>");
-                strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + " </td></tr>");
+                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["startTime"].ToString() + "</nobr></td>");
+                strb.Append("<td><nobr>" + time + "</nobr></td>");
+                strb.Append("<td style='width:100px;'>" + "<button class='btn btn-success btn-sm btn_sale'>销售</button>");
+                strb.Append("<button class='btn btn-success btn-sm btn_back'>销退</button></td>");
+                strb.Append("<td style='width:150px;'><button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button> <button class='btn btn-sm btn-success edited' data-toggle='modal' data-target='#myModa2'>&nbsp 编辑 &nbsp</button>");
+                strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + "</td></tr>");
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");

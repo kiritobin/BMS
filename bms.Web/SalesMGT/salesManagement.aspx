@@ -243,6 +243,9 @@
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm"  id="btn_add">添加</button>
                                             </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm"  id="finish">完成</button>
+                                            </div>
                                         </div>
                                     </div>
 

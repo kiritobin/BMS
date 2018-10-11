@@ -26,6 +26,82 @@
             });
         }
     });
+    //编辑按钮
+    $("#table").delegate(".edited", "click", function () {
+        var saleId = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        sessionStorage.setItem("saleid", saleId);
+        var defaultDiscount = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        var number = $(this).parent().prev().prev().prev().prev().prev().prev().text().trim();
+        var price = $(this).parent().prev().prev().prev().prev().prev().text().trim();
+        var allprice = $(this).parent().prev().prev().prev().prev().text().trim();
+        $("#defaultDiscount").val(defaultDiscount);
+        $("#allpricemlimited").val(allprice);
+        $("#numberlimited").val(number);
+        $("#pricelimited").val(price);
+    })
+    //编辑保存
+    $("#btn_change").click(function () {
+        var saleId = sessionStorage.getItem("saleid");
+        var allpricemlimited = $("#allpricemlimited").val();
+        var numberlimited = $("#numberlimited").val();
+        var pricelimited = $("#pricelimited").val();
+        var defaultDiscount = $("#defaultDiscount").val();
+        if (allpricemlimited == "" || numberlimited == "" || pricelimited == "" || defaultDiscount=="") {
+            swal({
+                title: "温馨提示:)",
+                text: "不能含有未填项",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else {
+            $.ajax({
+                type: 'Post',
+                url: 'tradeManagement.aspx',
+                data: {
+                    saleId: saleId,
+                    allpricemlimited: allpricemlimited,
+                    numberlimited: numberlimited,
+                    pricelimited: pricelimited,
+                    defaultDiscount,defaultDiscount,
+                    op: "edit"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "保存成功") {
+                        swal({
+                            title: "温馨提示",
+                            text: "保存成功",
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    }
+                    else {
+                        swal({
+                            title: "温馨提示",
+                            text: "保存失败",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    }
+                }
+            });
+        }
+    })
+
     //点击查询按钮时
     $("#btn-search").click(function () {
         var search = $("#search_All").val().trim();
@@ -169,7 +245,8 @@
     })
     //删除
     $("#table").delegate(".btn_del", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
+        // var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
         swal({
             title: "温馨提示:)",
             text: "删除后将无法恢复，您确定要删除吗？？？",
@@ -226,7 +303,7 @@
 
     //查看
     $("#table").delegate(".btn_search", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
         $.ajax({
             type: 'Post',
             url: 'tradeManagement.aspx',
@@ -257,7 +334,8 @@
 
     //售
     $("#table").delegate(".btn_sale", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+
         $.ajax({
             type: 'Post',
             url: 'tradeManagement.aspx',
@@ -277,7 +355,7 @@
     })
     //退
     $("#table").delegate(".btn_back", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
         $.ajax({
             type: 'Post',
             url: 'tradeManagement.aspx',
