@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="customerRetail.aspx.cs" Inherits="bms.Web.SalesMGT.customerRetail" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailBack.aspx.cs" Inherits="bms.Web.SalesMGT.retailBack" %>
 
 <%="" %>
 <!DOCTYPE html>
@@ -44,9 +44,6 @@
                                     <thead>
                                         <tr>
                                             <td>
-                                                <nobr>序号</nobr>
-                                            </td>
-                                            <td>
                                                 <nobr>ISBN</nobr>
                                             </td>
                                             <td>
@@ -78,16 +75,16 @@
                                             </td>
                                         </tr>
                                     </thead>
-                                    <tr class="first">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                        <tr class="first">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                 </table>
                             </div>
                         </div>
@@ -95,26 +92,26 @@
                             <h3 class="text-center">零售单</h3>
                             <hr />
                             <ul class="list-unstyled">
+                                <li>时间：<span id="time"></span></li>
                                 <li>种类：<span id="kind"></span></li>
                                 <li>数量：<span id="number"></span></li>
                                 <li>总码洋：<span id="total"></span></li>
                                 <li>总实洋：<span id="real"></span></li>
-                                <li>时间：<span id="time"></span></li>
                             </ul>
                             <hr />
-                            <div class="input-group text-white" id="scanning" data-toggle="modal" data-target="#myModal1">
-                                <a class="btn btn-warning btn-sm"><i class="fa fa-qrcode">扫描</i></a>
+                            <div class="input-group text-white" id="insert">
+                                <a class="btn btn-success btn-sm"><i class="fa fa-print">打印</i></a>
                             </div>
-                            <div class="input-group text-white" id="Settlement" data-toggle="modal" data-target="#myModal2">
-                                <a class="btn btn-success btn-sm"><i class="fa fa-jpy">收银</i></a>
+                            <div class="input-group text-white" id="giveup">
+                                <a class="btn btn-danger btn-sm"><i class="fa fa-trash">放弃</i></a>
                             </div>
-                    </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--选择一号多书模态框-->
+    <!--添加模态框-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -140,53 +137,11 @@
                                 <th>出版社</th>
                             </tr>
                         </thead>
-                        <%=getIsbn() %>
+                        <%=getIsbn(); %>
                     </table>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-success btn-sm" id="btnAdd">提交</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--扫描模态框-->
-    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title float-left" id="myModalLabel1">请扫描</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        <i class="material-icons">clear</i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="text" placeholder="请输入单头ID" id="scannSea" class="searchOne">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--结算模态框-->
-    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" id="settleClose" data-dismiss="modal" aria-hidden="true">
-                        <i class="material-icons">clear</i>
-                    </button>
-                </div>
-                <div class="modal-body" style="width:360px;margin:0 auto;padding-top:8px;">
-                    <h4 class="text-center">结算小票</h4>
-                        <hr />
-                        <ul class="list-unstyled">
-                            <li>码洋合计：<span id="totalEnd"></span></li>
-                            <li>码洋折扣：<input id="discountEnd" value="100"/></li>
-                            <li>实洋合计：<span id="realEnd"></span></li>
-                            <li>实付金额：<input id="copeEnd"/></li>
-                            <li>找补金额：<span id="change"></span></li>
-                        </ul>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success btn-sm" id="btnSettle">确定</button>
                 </div>
             </div>
         </div>
@@ -205,7 +160,7 @@
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
-    <script src="../js/customerRetail.js"></script>
+    <script src="../js/retailBack.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
 </body>
 </html>

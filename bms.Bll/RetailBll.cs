@@ -57,5 +57,117 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
+
+        /// <summary>
+        /// 查询零售单体
+        /// </summary>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>受影响行数</returns>
+        public SaleHead GetHead(string retailHeadId)
+        {
+            return dao.GetHead(retailHeadId);
+        }
+
+        /// <summary>
+        /// 查询单头下的所有单体零售单体
+        /// </summary>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>受影响行数</returns>
+        public DataSet GetRetail(string retailHeadId)
+        {
+            DataSet ds = dao.GetRetail(retailHeadId);
+            if(ds == null || ds.Tables[0].Rows.Count<=0)
+            { 
+                return null;
+            }
+            else
+            {
+                return ds;
+            }
+        }
+
+        /// <summary>
+        /// 查询零售单体
+        /// </summary>
+        /// <param name="retailMonomerId">零售单体ID</param>
+        /// <returns>受影响行数</returns>
+        public SaleMonomer GetMonomer(int retailMonomerId)
+        {
+            return dao.GetMonomer(retailMonomerId);
+        }
+
+        /// <summary>
+        /// 更新零售折扣
+        /// </summary>
+        /// <param name="realDiscount">折扣</param>
+        /// <param name="realPrice">实洋</param>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>受影响行数</returns>
+        public Result UpdateDiscount(double realDiscount, double realPrice, string retailHeadId)
+        {
+            int row = dao.UpdateDiscount(realDiscount, realPrice, retailHeadId);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+
+        /// <summary>
+        /// 更新零售数量
+        /// </summary>
+        /// <param name="sale">零售实体对象</param>
+        /// <returns>受影响行数</returns>
+        public Result UpdateNumber(SaleMonomer sale)
+        {
+            int row = dao.UpdateNumber(sale);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+
+        /// <summary>
+        /// 更新零售数量
+        /// </summary>
+        /// <param name="sale">零售实体对象</param>
+        /// <returns>受影响行数</returns>
+        public Result UpdateHeadNumber(SaleHead sale)
+        {
+            int row = dao.UpdateHeadNumber(sale);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+
+        /// <summary>
+        /// 删除单体信息
+        /// </summary>
+        /// <param name="retailMonomerId">零售单体ID</param>
+        /// <returns></returns>
+        public Result delete(int retailMonomerId)
+        {
+            int row = dao.delete(retailMonomerId);
+            if(row > 0)
+            {
+                return Result.删除成功;
+            }
+            else
+            {
+                return Result.删除失败;
+            }
+        }
     }
 }
