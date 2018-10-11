@@ -300,8 +300,8 @@ $("#table").delegate(".number", "change", function (e) {
     //展示合计内容
     $("#time").text(CurentTime());
     $("#number").text(sessionStorage.getItem("number"));
-    $("#total").text(parseFloat(totalPrices));
-    $("#real").text(parseFloat(realPrices));
+    $("#total").text(parseFloat(totalPrices).toFixed(2));
+    $("#real").text(parseFloat(realPrices).toFixed(2));
     $("#kind").text(parseInt(sessionStorage.getItem("kind")));
 })
 //打印
@@ -317,12 +317,22 @@ $("#insert").click(function () {
         },
         dataType: 'text',
         success: function (data) {
-            window.location.reload();
-            $("#search").focus();
-            sessionStorage.removeItem("kind");
-            sessionStorage.removeItem("number");
-            sessionStorage.removeItem("totalPrice");
-            sessionStorage.removeItem("realPrice");
+            if (data == "添加失败") {
+                swal({
+                    title: "打印失败",
+                    text: "请联系管理员",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            } else {
+                window.location.reload();
+                $("#search").focus();
+                sessionStorage.removeItem("kind");
+                sessionStorage.removeItem("number");
+                sessionStorage.removeItem("totalPrice");
+                sessionStorage.removeItem("realPrice");
+            }
         }
     })
 })

@@ -198,8 +198,8 @@ namespace bms.Web.SalesMGT
             DateTime nowTime = DateTime.Now;
             string nowDt = nowTime.ToString("yyyy-MM-dd");
             long count = 0;
-            //判断数据库中是否已经有记录
-            DataSet backds = retailBll.getAllTime();
+            //生成流水号方法
+            DataSet backds = retailBll.getAllTime(2);
             if (backds != null && backds.Tables[0].Rows.Count > 0)
             {
                 for (int i = 0; i < backds.Tables[0].Rows.Count; i++)
@@ -221,7 +221,8 @@ namespace bms.Web.SalesMGT
             {
                 count = 1;
             }
-            string retailHeadId = "LS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+            //添加单头
+            string retailHeadId = "LT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
             single.AllRealPrice = allReal;
             single.AllTotalPrice = allTotal;
             single.KindsNum = Counts;
@@ -232,7 +233,7 @@ namespace bms.Web.SalesMGT
             single.DateTime = DateTime.Now;
             Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)
-            {
+            {//添加单体
                 Session["List"] = new List<long>();
                 SaleMonomer monomers = new SaleMonomer();
                 int Count = dataTable.Rows.Count;
@@ -250,7 +251,25 @@ namespace bms.Web.SalesMGT
                     monomers.SaleHeadId = retailHeadId;
                     monomers.Datetime = DateTime.Now;
                     Result mon = retailBll.InsertRetail(monomers);
-                    if (mon == Result.添加失败)
+                    if (mon == Result.添加成功)
+                    {
+                        DataSet dsStock = stockBll.SelectByBookNum(monomers.Number, user.ReginId.RegionId);
+                        int rowes = dsStock.Tables[0].Rows.Count;
+                        for (int j = 0; j < rowes; j++)
+                        {
+                            int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[i]["goodsShelvesId"]);
+                            int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[i]["stockNum"]);
+                            Result stock = stockBll.update(stockNum + monomers.Number, goodsId, monomers.BookNum);
+                            if (stock == Result.更新失败)
+                            {
+                                Response.Write("更新失败");
+                                Response.End();
+                            }
+                        }
+                        Response.Write("添加成功");
+                        Response.End();
+                    }
+                    else
                     {
                         Response.Write("添加失败");
                         Response.End();
