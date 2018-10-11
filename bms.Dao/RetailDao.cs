@@ -23,6 +23,20 @@ namespace bms.Dao
         }
 
         /// <summary>
+        /// 通过书号查看是否存在在单头中
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public int selectByBookNum(long bookNum,string retailHeadId)
+        {
+            string cmdText = "select count(retailMonomerId) from T_RetailMonomer where bookNum=@bookNum and retailHeadId=@retailHeadId";
+            string[] param = { "@bookNum", "@retailHeadId" };
+            object[] values = { bookNum, retailHeadId };
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            return row;
+        }
+
+        /// <summary>
         /// 添加零售单头信息
         /// </summary>
         /// <param name="salehead"></param>
@@ -57,7 +71,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public SaleHead GetHead(string retailHeadId)
         {
-            string cmdText = "select allTotalPrice,number,allRealPrice from T_RetailHead where retailHeadId=@retailHeadId";
+            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum from T_RetailHead where retailHeadId=@retailHeadId";
             string[] param = { "@retailHeadId" };
             object[] values = { retailHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
@@ -69,6 +83,7 @@ namespace bms.Dao
                     sale.AllRealPrice = Convert.ToDouble(ds.Tables[0].Rows[0]["allRealPrice"]);
                     sale.AllTotalPrice = Convert.ToDouble(ds.Tables[0].Rows[0]["allTotalPrice"]);
                     sale.Number = Convert.ToInt32(ds.Tables[0].Rows[0]["number"]);
+                    sale.KindsNum = Convert.ToInt32(ds.Tables[0].Rows[0]["kindsNum"]);
                 }
                 return sale;
             }
@@ -140,6 +155,21 @@ namespace bms.Dao
         }
 
         /// <summary>
+        /// 更新零售单头实洋
+        /// </summary>
+        /// <param name="realPrice">实洋</param>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>受影响行数</returns>
+        public int UpdateHeadReal(double allRealPrice, string retailHeadId)
+        {
+            string cmdText = "update T_RetailHead set allRealPrice=@allRealPrice where retailHeadId=@retailHeadId";
+            string[] param = { "@allRealPrice", "@retailHeadId" };
+            object[] values = { allRealPrice, retailHeadId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
+        /// <summary>
         /// 更新零售数量
         /// </summary>
         /// <param name="sale">零售实体对象</param>
@@ -177,6 +207,20 @@ namespace bms.Dao
             string cmdText = "delete from T_RetailMonomer where retailMonomerId=@retailMonomerId";
             string[] param = { "@retailMonomerId" };
             object[] values = { retailMonomerId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 单据完成，修改type
+        /// </summary>
+        /// <param name="headId"></param>
+        /// <returns></returns>
+        public int updateType(string headId)
+        {
+            string cmdText = "update T_RetailHead set state=1,dateTime=@dateTime where retailHeadId=@retailHeadId";
+            string[] param = { "@retailHeadId", "@dateTime" };
+            object[] values = { headId, DateTime.Now };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }

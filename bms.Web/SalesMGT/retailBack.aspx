@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailBack.aspx.cs" Inherits="bms.Web.SalesMGT.retailBack" %>
+﻿7<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailBack.aspx.cs" Inherits="bms.Web.SalesMGT.retailBack" %>
 
 <%="" %>
 <!DOCTYPE html>
@@ -100,7 +100,7 @@
                             </ul>
                             <hr />
                             <div class="input-group text-white" id="insert">
-                                <a class="btn btn-success btn-sm"><i class="fa fa-print">打印</i></a>
+                                <a class="btn btn-success btn-sm"><i class="fa fa-print">确定</i></a>
                             </div>
                             <div class="input-group text-white" id="giveup">
                                 <a class="btn btn-danger btn-sm"><i class="fa fa-trash">放弃</i></a>
