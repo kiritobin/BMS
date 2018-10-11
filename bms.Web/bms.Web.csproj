@@ -70,6 +70,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="ThoughtWorks.QRCode, Version=1.0.4778.30637, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ThoughtWorks.QRCode.1.1.0\lib\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AccessMGT\jurisdictionManagement.aspx" />
@@ -117,6 +120,7 @@
     <Content Include="js\jquery.tabletojson.js" />
     <Content Include="js\retail.js" />
     <Content Include="js\retailBack.js" />
+    <Content Include="QRCode.aspx" />
     <Content Include="SalesMGT\booksOut.aspx" />
     <Content Include="SalesMGT\customerRetail.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
@@ -368,6 +372,13 @@
     <Compile Include="InventoryMGT\replenishMent.aspx.designer.cs">
       <DependentUpon>replenishMent.aspx</DependentUpon>
     </Compile>
+    <Compile Include="QRCode.aspx.cs">
+      <DependentUpon>QRCode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QRCode.aspx.designer.cs">
+      <DependentUpon>QRCode.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SalesMGT\booksOut.aspx.cs">
       <DependentUpon>booksOut.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -545,6 +556,7 @@
     <Content Include="fonts\materialdesignicons-webfont.ttf" />
     <Content Include="fonts\materialdesignicons-webfont.woff" />
     <Content Include="fonts\materialdesignicons-webfont.woff2" />
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\23333.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="uploads\muban\客户馆藏数据表.xls" />
