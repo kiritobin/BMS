@@ -253,13 +253,13 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" id="isbn" placeholder="ISBN查询">
+                                                <input type="text" value="" class="searchOne" id="isbn" placeholder="ISBN查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" id="bookName" placeholder="书名查询">
+                                                <input type="text" value="" class="searchOne" id="bookName" placeholder="书名查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" id="area" placeholder="地区查询">
+                                                <input type="text" value="" class="searchOne" id="area" placeholder="地区查询">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                         </div>
