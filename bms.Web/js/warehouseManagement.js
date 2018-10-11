@@ -170,9 +170,9 @@ $("#btn-search").click(function () {
 $("#table").delegate(".btn-delete", "click", function () {
     var ID = $(this).prev().val();
     swal({
-        title: "是否删除？",
-        text: "删除后将无法恢复！！！",
-        type: "question",
+        title: "温馨提示:)",
+        text: "删除后将无法恢复,您确定要删除吗？？？",
+        type: "warning",
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
