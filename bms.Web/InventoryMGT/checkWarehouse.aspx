@@ -257,7 +257,7 @@
                                      <button class="btn btn-sm pull-right" style="background-color:white;color:black;" onclick="javascript:history.back(-1);">返回</button>
                                 </div>
                                  <div class="btn-group" role="group">  
-                                <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i></button>
+                                 <button class="btn btn-success" id="print"><i class="fa fa-print" aria-hidden="true">打印</i></button>
                                         </div>
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
@@ -357,6 +357,8 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/checkWarehouse.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/jquery.jqprint.js"></script>
 </body>
 
 </html>
