@@ -30,6 +30,16 @@ namespace bms.Bll
             }
 
         }
+        /// <summary>
+        /// 根据销售任务id获取数量、价格、总实洋限制
+        /// </summary>
+        /// <param name="saleTaskId">销售任务ID</param>
+        /// <returns></returns>
+        public DataSet SelectBysaleTaskId(string saleTaskId)
+        {
+            return saleDao.SelectBysaleTaskId(saleTaskId);
+
+        }
 
         /// <summary>
         /// 添加客户的销售任务总计
