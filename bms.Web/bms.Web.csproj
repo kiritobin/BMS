@@ -202,6 +202,7 @@
     <Content Include="SalesMGT\salesDetail.aspx" />
     <Content Include="SalesMGT\salesManagement.aspx" />
     <Content Include="SalesMGT\salesRanking.aspx" />
+    <Content Include="SalesMGT\salesReturn.aspx" />
     <Content Include="SalesMGT\tradeManagement.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -503,6 +504,13 @@
     </Compile>
     <Compile Include="SalesMGT\salesRanking.aspx.designer.cs">
       <DependentUpon>salesRanking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\salesReturn.aspx.cs">
+      <DependentUpon>salesReturn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\salesReturn.aspx.designer.cs">
+      <DependentUpon>salesReturn.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesMGT\tradeManagement.aspx.cs">
       <DependentUpon>tradeManagement.aspx</DependentUpon>
