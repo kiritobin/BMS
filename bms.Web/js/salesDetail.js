@@ -144,7 +144,7 @@
             var discount = $(this).parent().next().children().val().trim();
             if (number == "") {
                 swal({
-                    title: "温馨提示",
+                    title: "温馨提示:)",
                     text: "数量不能为空",
                     type: "warning",
                     confirmButtonColor: '#3085d6',
@@ -181,7 +181,7 @@
                             if (alltotalprice > limtalltotalprice)
                             {
                                 swal({
-                                    title: "温馨提示",
+                                    title: "温馨提示:)",
                                     text: "已添加成功但已达到码洋上限",
                                     type: "warning",
                                     confirmButtonColor: '#3085d6',
@@ -194,7 +194,7 @@
                             $("#allreadprice").text(succ.AllrealPrice);
                         } else if (succ.Messege == "库存不足") {
                             swal({
-                                title: "温馨提示",
+                                title: "温馨提示:)",
                                 text: "库存数量不足",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
@@ -207,7 +207,7 @@
                         }
                         else if (succ.Messege == "添加失败") {
                             swal({
-                                title: "温馨提示",
+                                title: "温馨提示:)",
                                 text: "添加失败",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
@@ -220,7 +220,7 @@
                         }
                         else if (succ.Messege == "该书无库存") {
                             swal({
-                                title: "温馨提示",
+                                title: "温馨提示:)",
                                 text: "该书无库存",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
@@ -233,7 +233,7 @@
                         }
                         else if (succ.Messege == "无数据") {
                             swal({
-                                title: "温馨提示",
+                                title: "温馨提示:)",
                                 text: "无数据",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
@@ -246,7 +246,7 @@
                         }
                         else if (succ.Messege == "客户馆藏已存在") {
                             swal({
-                                title: "温馨提示",
+                                title: "温馨提示:)",
                                 text: "无数据",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
@@ -259,7 +259,7 @@
                         }
                         else {
                             swal({
-                                title: "温馨提示",
+                                title: "温馨提示:)",
                                 text: succ,
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
@@ -317,9 +317,9 @@
     //单据完成
     $("#success").click(function () {
         swal({
-            title: "提示",
+            title: "温馨提示:)",
             text: "是否新建销售？？？",
-            type: "question",
+            type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -342,9 +342,9 @@
                         window.location.href = "../SalesMGT/salesManagement.aspx";
                     } else {
                         swal({
-                            title: "提示",
+                            title: "温馨提示:)",
                             text: "单据状态修改失败，请联系技术人员！",
-                            type: "question",
+                            type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
