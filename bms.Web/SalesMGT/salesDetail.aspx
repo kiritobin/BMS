@@ -40,34 +40,30 @@
                         </div>
                         <div class="card-body">
                             <div class="card-header card_btn">
-                                <div class="input-group">
-                                    <%--<div class="btn-group" role="group">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <%--<div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="sales_bookName" placeholder="请输入书名">
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="sales_ISBN" placeholder="请输入ISBN">
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>--%>
-                                    <%if (type == "addsale")
-                                        {%>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2">添加销售</button>
-                                    </div>
-                                    <%}%>
-                                    <%if (type == "look")
-                                        {%>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print"></i></button>
-                                    </div>
-                                    <%} %>
-                                    <div class="btn-group" role="group">
-                                        <%if (type == "addsale")
+                                        <%if (type == "look")
                                             {%>
-                                        <button class="btn btn-success" id="success">单据完成</button>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print"></i></button>
+                                        </div>
                                         <%} %>
-                                    </div>
-                                    <div class="btn-group pull-right" role="group">
-                                        <button class="btn btn-success" id="back">返回</button>
+                                        <div class="btn-group pull-right" role="group">
+                                            <button class="btn btn-success" id="back">返回</button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <%if (type == "addsale")
+                                                {%>
+                                            <button class="btn btn-success" id="success">单据完成</button>
+                                            <%} %>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +103,8 @@
                                         </thead>
                                         <tr class="first">
                                             <td></td>
-                                            <td><input type="text" class="isbn textareaISBN" autofocus="autofocus" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
+                                            <td>
+                                                <input type="text" class="isbn textareaISBN" autofocus="autofocus" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -134,8 +131,8 @@
                                         </tr>
                                         <tr>
                                             <td>总码洋</td>
-                                            <td id="alltotalprice"><%=alltotalprice.ToString() %><input type="hidden" id="limtalltotalprice" value="<%=limtalltotalprice.ToString() %>"/></td>
-                                            
+                                            <td id="alltotalprice"><%=alltotalprice.ToString() %><input type="hidden" id="limtalltotalprice" value="<%=limtalltotalprice.ToString() %>" /></td>
+
                                         </tr>
                                         <tr>
                                             <td>总实洋</td>
@@ -162,7 +159,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title float-left" id="myModalLabel">请选择相应的图书</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        <i class="material-icons">clear</i>
+                        <i class="fa fa-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
