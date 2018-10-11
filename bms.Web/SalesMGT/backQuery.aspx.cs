@@ -28,8 +28,6 @@ namespace bms.Web.SalesMGT
         StockBll stbll = new StockBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Session["sellId"] = "XT20181010000001";
-            //Session["saleId"] = "XSRW20181010000001";
             string op = Request["op"];
             GetData();
             if (op == "search")
@@ -321,16 +319,17 @@ namespace bms.Web.SalesMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 string sohId = ds.Tables[0].Rows[i]["sellOffHead"].ToString();
+                string realCount = ds.Tables[0].Rows[i]["realDiscount"].ToString();
                 if (sohId == sellId)
                 {
                     sb.Append("<tr><td>" + (i + 1)/*ds.Tables[0].Rows[i]["sellOffMonomerId"].ToString()*/ + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["isbn"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "￥" + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
+                    sb.Append("<td>" + double.Parse(realCount)*100 + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "￥" + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "￥" + "</td>");
                     //sb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
                     //sb.Append("<td>" + "<button class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true'></i></button>" + "</td>");
                     sb.Append("</tr>");
@@ -372,34 +371,6 @@ namespace bms.Web.SalesMGT
             Response.End();
             return strbook.ToString();
         }
-        /// <summary>
-        /// 返回查询
-        /// </summary>
-        //public void CheckBack()
-        //{
-        //    string sellId = Session["sellId"].ToString();
-        //    DataSet backds = smBll.Select(sellId);
-        //    int count = backds.Tables[0].Rows.Count;
-        //    if (count > 0)
-        //    {
-        //        Response.Write("返回");
-        //        Response.End();
-        //    }
-        //    else
-        //    {
-        //        Result row = shBll.Delete(sellId);
-        //        if (row == Result.删除成功)
-        //        {
-        //            Response.Write("删除成功");
-        //            Response.End();
-        //        }
-        //        else
-        //        {
-        //            Response.Write("删除失败");
-        //            Response.End();
-        //        }
-        //    }
-        //}
         /// <summary>
         /// 获取单体中相应的品种数量
         /// </summary>
