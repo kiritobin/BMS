@@ -135,18 +135,18 @@ $("#btnAdd").click(function () {
     var account = $("#inputAccount").val().trim();
     var region = $("#model-select-region").val().trim();
     var role = $("#model-select-role").val().trim();
-    if (name == null || name == "") {
+    if (account == null || account == "") {
         swal({
             title: "温馨提示:)",
-            text: "姓名不能为空，请确认后再次提交!",
+            text: "账号不能为空，请确认后再次提交!",
             buttonsStyling: false,
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-    } else if (account == null || account == "") {
+    } else if (name == null || name == "") {
         swal({
             title: "温馨提示:)",
-            text: "账号不能为空，请确认后再次提交!",
+            text: "姓名不能为空，请确认后再次提交!",
             buttonsStyling: false,
             confirmButtonClass: "btn btn-warning",
             type: "warning"
