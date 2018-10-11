@@ -276,13 +276,6 @@
                                         <div class="card-header from-group">
                                             <div class="input-group">
                                                 <div class="btn-group" role="group">
-                                                    <input type="text" class="searchOne" placeholder="请输入查询条件" id="input-search">
-                                                    <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
-                                                </div>
-                                                <div class="btn-group" role="group">
-                                                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
-                                                </div>
-                                                <div class="btn-group" role="group">
                                                     <button class="btn btn-success btn-sm" id="save"><i class="fa fa-plus fa-lg"></i>&nbsp 保存</button>
                                                 </div>
                                             </div>

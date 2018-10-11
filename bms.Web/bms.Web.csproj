@@ -111,6 +111,7 @@
     <Content Include="InventoryMGT\inventoryManagement.aspx" />
     <Content Include="InventoryMGT\replenishMent.aspx" />
     <Content Include="js\customerRetail.js" />
+    <Content Include="js\jquery-migrate-1.2.1.min.js" />
     <Content Include="js\jquery.tabletojson.js" />
     <Content Include="js\retail.js" />
     <Content Include="js\retailBack.js" />

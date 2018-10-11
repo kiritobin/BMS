@@ -303,9 +303,6 @@
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
-                                                <tr style="border: 2px solid #DDD">
-                                                    <td colspan="9">商品</td>
-                                                </tr>
                                                 <tr>
                                                     <td>单据编号</td>
                                                     <td>ISBN号</td>
@@ -330,7 +327,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- 主界面页脚部分 -->
                 <footer class="footer">
                     <div class="container-fluid">
