@@ -18,15 +18,17 @@ namespace bms.Web.SalesMGT
         public int totalCount, intPageCount, pageSize = 20;
         DataSet ds;
         SaleHeadBll saleheadbll = new SaleHeadBll();
+        public string type;
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
             string op = Request["op"];
+            string saleTaskid = Request["taskId"];
+            string saleheadId = Request["ID"];
+            type = Session["type"].ToString();
             //添加
             if (op == "addDetail")
             {
-                string saleheadId = Request["ID"];
-                string saleTaskid = Request["taskId"];
                 SaleMonomerBll salemonbll = new SaleMonomerBll();
                 int state = salemonbll.saleheadstate(saleTaskid, saleheadId);
                 if (state == 2)
@@ -45,11 +47,26 @@ namespace bms.Web.SalesMGT
             //查看
             if (op == "look")
             {
-                string saleheadId = Request["ID"];
                 Session["saleheadId"] = saleheadId;
                 Session["saleType"] = "look";
                 Response.Write("成功");
                 Response.End();
+            }
+            if (op == "finish")
+            {
+                SaleTaskBll salebll = new SaleTaskBll();
+                DateTime finishTime = DateTime.Now.ToLocalTime();
+                int row = salebll.updatefinishTime(finishTime, saleTaskid);
+                if (row > 0)
+                {
+                    Response.Write("成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("失败");
+                    Response.End();
+                }
             }
             //添加
             if (op == "add")
@@ -97,7 +114,6 @@ namespace bms.Web.SalesMGT
             if (op == "del")
             {
                 string salehead = Request["ID"];
-                string saleTaskid = Request["taskId"];
                 SaleMonomerBll salemonbll = new SaleMonomerBll();
                 int state = salemonbll.saleheadstate(saleTaskid, salehead);
                 if (state == 0)

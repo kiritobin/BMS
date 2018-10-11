@@ -159,9 +159,9 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Insert(SaleTask sale)
         {
-            string cmdText = "insert into T_SaleTask(saleTaskId,userId,customerId,defaultDiscount,defaultCopy,numberLimit,priceLimit,totalPriceLimit,startTime,finishTime) values(@saleTaskId,@userId,@customreId,@defaultDiscount,@defaultCopy,@numberLimit,@priceLimit,@totalPriceLimit,@startTime,@finishTime)";
-            string[] param = { "@saleTaskId", "@userId", "@customreId", "@defaultDiscount", "@defaultCopy", "@numberLimit", "@priceLimit", "@totalPriceLimit", "@startTime", "@finishTime" };
-            object[] values = { sale.SaleTaskId, sale.UserId, sale.Customer.CustomerId, sale.DefaultDiscount, sale.DefaultCopy, sale.NumberLimit, sale.PriceLimit, sale.TotalPiceLimit, sale.StartTime, sale.FinishTime };
+            string cmdText = "insert into T_SaleTask(saleTaskId,userId,customerId,defaultDiscount,defaultCopy,numberLimit,priceLimit,totalPriceLimit,startTime) values(@saleTaskId,@userId,@customreId,@defaultDiscount,@defaultCopy,@numberLimit,@priceLimit,@totalPriceLimit,@startTime)";
+            string[] param = { "@saleTaskId", "@userId", "@customreId", "@defaultDiscount", "@defaultCopy", "@numberLimit", "@priceLimit", "@totalPriceLimit", "@startTime" };
+            object[] values = { sale.SaleTaskId, sale.UserId, sale.Customer.CustomerId, sale.DefaultDiscount, sale.DefaultCopy, sale.NumberLimit, sale.PriceLimit, sale.TotalPiceLimit, sale.StartTime };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             if (row > 0)
             {
@@ -218,11 +218,25 @@ namespace bms.Dao
         /// <param name="priceLimit">单价</param>
         /// <param name="totalPriceLimit">总码洋</param>
         /// <returns>受影响行数</returns>
-        public int update(int numberLimit, double priceLimit, double totalPriceLimit)
+        public int update(int numberLimit, double priceLimit, double totalPriceLimit, double defaultDiscount, string saleId)
         {
-            string cmdText = "update T_Stock set numberLimit=@numberLimit where priceLimit=@priceLimit and totalPriceLimit=@totalPriceLimit";
-            string[] param = { "@numberLimit", "@priceLimit", "@totalPriceLimit" };
-            object[] values = { numberLimit, priceLimit, totalPriceLimit };
+            string cmdText = "update T_SaleTask set numberLimit=@numberLimit, priceLimit=@priceLimit, totalPriceLimit=@totalPriceLimit,defaultDiscount=@defaultDiscount where saleTaskId=@saleId";
+            string[] param = { "@numberLimit", "@priceLimit", "@totalPriceLimit", "@defaultDiscount", "@saleId" };
+            object[] values = { numberLimit, priceLimit, totalPriceLimit, defaultDiscount, saleId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+        /// <summary>
+        /// 更新任务完成时间
+        /// </summary>
+        /// <param name="finishtime">时间</param>
+        /// <param name="saleId">销售任务id</param>
+        /// <returns>受影响行数</returns>
+        public int updatefinishTime(DateTime finishtime, string saleId)
+        {
+            string cmdText = "update T_SaleTask set finishTime=@finishtime where saleTaskId=@saleId";
+            string[] param = { "@finishtime", "@saleId" };
+            object[] values = { finishtime, saleId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }

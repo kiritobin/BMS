@@ -229,9 +229,19 @@ namespace bms.Bll
         /// <param name="priceLimit">单价</param>
         /// <param name="totalPriceLimit">总码洋</param>
         /// <returns>受影响行数</returns>
-        public int update(int numberLimit, double priceLimit, double totalPriceLimit)
+        public int update(int numberLimit, double priceLimit, double totalPriceLimit, double defaultDiscount, string saleId)
         {
-            return saleDao.update(numberLimit, priceLimit, totalPriceLimit);
+            return saleDao.update(numberLimit, priceLimit, totalPriceLimit, defaultDiscount, saleId);
+        }
+        /// <summary>
+        /// 更新任务完成时间
+        /// </summary>
+        /// <param name="finishtime">时间</param>
+        /// <param name="saleId">销售任务id</param>
+        /// <returns>受影响行数</returns>
+        public int updatefinishTime(DateTime finishtime, string saleId)
+        {
+            return saleDao.updatefinishTime(finishtime, saleId);
         }
     }
 }

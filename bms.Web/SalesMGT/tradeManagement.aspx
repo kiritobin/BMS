@@ -237,14 +237,17 @@
                                         <table class="table table-bordered mostTable text-center" id="table">
                                             <thead>
                                                 <tr>
-                                                    <td>任务ID</td>
-                                                    <td>默认折扣</td>
-                                                    <td>最大采购数</td>
-                                                    <td>单价上限</td>
-                                                    <td>码洋上限</td>
-                                                    <td>开始时间</td>
-                                                    <%--<td>结束时间</td>--%>
-                                                    <td class="table-thead-th" colspan="2">操作</td>
+                                                    <td><nobr>任务ID</nobr></td>
+                                                    <td><nobr>客户</nobr></td>
+                                                    <td><nobr>操作员</nobr></td>
+                                                    <td><nobr>默认折扣</nobr></td>
+                                                    <td><nobr>最大采购数</nobr></td>
+                                                    <td><nobr>单价上限</nobr></td>
+                                                    <td><nobr>码洋上限</nobr></td>
+                                                    <td><nobr>开始时间</nobr></td>
+                                                    <td><nobr>结束时间</nobr></td>
+                                                    <td><nobr>销售/销退</nobr></td>
+                                                    <td class="table-thead-th"><nobr>操作</nobr></td>
                                                 </tr>
                                             </thead>
                                             <%=getData()%>
@@ -263,16 +266,36 @@
             </div>
             <!--编辑销售任务模态框-->
             <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width: 900px;">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="ModalLabel">销售编辑</h4>
+                            <h4 class="modal-title float-left" id="ModalLabel">销售任务编辑</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="material-icons">clear</i>
+                                <i class="fa fa-close"></i>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <table id="edited" class="table mostTable table-bordered text-center">
+                            <table id="edited" class="table model-table">
+                                <tr>
+                                    <td class="text-right">码洋上限</td>
+                                    <td>
+                                        <input type="text" id="allpricemlimited" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">最大采购数</td>
+                                    <td>
+                                        <input type="text" id="numberlimited" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">默认折扣</td>
+                                    <td>
+                                        <input type="text" id="defaultDiscount" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">单价上限</td>
+                                    <td>
+                                        <input type="text" id="pricelimited" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
