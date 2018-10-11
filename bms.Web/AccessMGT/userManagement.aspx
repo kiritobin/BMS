@@ -261,13 +261,13 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" id="input-region" placeholder="请输入分公司">
+                                                <input type="text" value="" class="searchOne" id="input-region" placeholder="请输入分公司">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" id="input-role" placeholder="请输入职位">
+                                                <input type="text" value="" class="searchOne" id="input-role" placeholder="请输入职位">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="search" id="input-userName" placeholder="请输入用户名">
+                                                <input type="text" value="" class="searchOne" id="input-userName" placeholder="请输入用户名">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>

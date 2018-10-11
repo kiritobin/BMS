@@ -144,7 +144,13 @@ $("#table").delegate(".btn-danger", "click", function () {
 $("#btnAdd").click(function () {
     var source = $("#source").val().trim();
     if (source == "") {
-        alert("含有未填项");
+        swal({
+            title: "温馨提示:)",
+            text: "请选择入库来源",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
     }
     else {
         $.ajax({

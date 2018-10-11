@@ -84,8 +84,7 @@
     $("#table").delegate(".isbn", "keypress", function (e) {
         if (e.keyCode == 13) {
             var ISBN = $(this).val().trim();
-            //var disCount = $("#disCount").val().trim();
-            //var number = $("#number").val().trim();
+            $(".first").remove();
             if (ISBN == "") {
                 swal({
                     title: "温馨提示:)",
@@ -134,17 +133,18 @@
             }
         }
     })
+    var limited = $("#limtalltotalprice").val();
     //数量回车
     $("#table").delegate(".count", "keypress", function (e) {
         if (e.keyCode == 13) {
             var num = $(this).parent().prev().prev().prev().prev().prev().text();
-            var bookISBN = $(this).parent().prev().prev().prev().text();
-            var bookNum = $(this).parent().prev().prev().prev().prev().text();
+            var bookNum = $(this).parent().prev().prev().prev().text();
+            var bookISBN = $(this).parent().prev().prev().prev().prev().children().val();
             var number = $(this).val().trim();
             var discount = $(this).parent().next().children().val().trim();
             if (number == "") {
                 swal({
-                    title: "温馨提示",
+                    title: "温馨提示:)",
                     text: "数量不能为空",
                     type: "warning",
                     confirmButtonColor: '#3085d6',
@@ -164,17 +164,37 @@
                         discount: discount,
                         op: "addsale"
                     },
-                    dataType: 'text',
+                    dataType: 'json',
                     success: function (succ) {
-                        if (succ == "添加成功") {
-                            var table = "<tr class='first'> <td>" + (parseInt(num) + 1) + "</td><td><input type='text' class='isbn textareaISBN' autofocus='autofocus' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
-                            $("#table").append(table);
-                            $("#table tr:first").find("td").eq(1).children().focus();
-                            $("#table tr:last").remove();
-                            $("#kinds").val();
-                        } else if (succ == "库存数量不足") {
+                        if (succ.Messege == "添加成功") {
+                            var table = "";
+                            $("#table tbody").html("");
+                            $("#table").append(succ.DataTable);
+                            $("#table").append(succ.DataTable1);
+                            //$("#table").append(table);
+                            $("#ISBN").focus();
+                            $("#kinds").text(succ.AllKinds);
+                            $("#allnumber").text(succ.Number);
+                            $("#alltotalprice").text(succ.AlltotalPrice);
+                            var alltotalprice = parseFloat(succ.AlltotalPrice);
+                            var limtalltotalprice = parseFloat(limited);
+                            if (alltotalprice > limtalltotalprice)
+                            {
+                                swal({
+                                    title: "温馨提示:)",
+                                    text: "已添加成功但已达到码洋上限",
+                                    type: "warning",
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: '确定',
+                                    confirmButtonClass: 'btn btn-success',
+                                    buttonsStyling: false,
+                                    allowOutsideClick: false
+                                })
+                            }
+                            $("#allreadprice").text(succ.AllrealPrice);
+                        } else if (succ.Messege == "库存不足") {
                             swal({
-                                title: "温馨提示",
+                                title: "温馨提示:)",
                                 text: "库存数量不足",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
@@ -185,10 +205,10 @@
                             }).then(function () {
                             })
                         }
-                        else if (succ == "无库存") {
+                        else if (succ.Messege == "添加失败") {
                             swal({
-                                title: "温馨提示",
-                                text: "无库存",
+                                title: "温馨提示:)",
+                                text: "添加失败",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: '确定',
@@ -198,9 +218,35 @@
                             }).then(function () {
                             })
                         }
-                        else if (succ == "无数据") {
+                        else if (succ.Messege == "该书无库存") {
                             swal({
-                                title: "温馨提示",
+                                title: "温馨提示:)",
+                                text: "该书无库存",
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
+                        }
+                        else if (succ.Messege == "无数据") {
+                            swal({
+                                title: "温馨提示:)",
+                                text: "无数据",
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
+                        }
+                        else if (succ.Messege == "客户馆藏已存在") {
+                            swal({
+                                title: "温馨提示:)",
                                 text: "无数据",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
@@ -213,7 +259,7 @@
                         }
                         else {
                             swal({
-                                title: "温馨提示",
+                                title: "温馨提示:)",
                                 text: succ,
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
@@ -233,7 +279,7 @@
     $("#btnAdd").click(function () {
         var bookNum = $("input[type='radio']:checked").val();
         var tb = $("input[type='radio']:checked");
-        var isbn = $(tb).parent().parent().next().next().text();
+        var isbn = $(tb).parent().parent().next().text();
         var bookname = $(tb).parent().parent().next().next().next().text();
         var price = $(tb).parent().parent().next().next().next().next().text();
         if (bookNum == "") {
@@ -259,6 +305,7 @@
                 },
                 dataType: 'text',
                 success: function (succ) {
+                    $("#tablebook").html("");
                     $(".first").remove();
                     $("#table").append(succ);
                     $("#table tr:last").find("td").eq(5).children().focus();
@@ -270,9 +317,9 @@
     //单据完成
     $("#success").click(function () {
         swal({
-            title: "提示",
+            title: "温馨提示:)",
             text: "是否新建销售？？？",
-            type: "question",
+            type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -295,9 +342,9 @@
                         window.location.href = "../SalesMGT/salesManagement.aspx";
                     } else {
                         swal({
-                            title: "提示",
+                            title: "温馨提示:)",
                             text: "单据状态修改失败，请联系技术人员！",
-                            type: "question",
+                            type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',

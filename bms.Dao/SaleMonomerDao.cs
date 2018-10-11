@@ -267,5 +267,26 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(sql, null, null);
             return ds;
         }
+        /// <summary>
+        /// 获取销售单体最后一条数据
+        /// </summary>
+        /// <param name="saleTaskId">销售id</param>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <returns>数据集</returns>
+        public DataSet GetSaleby(string saleTaskId, string saleHeadId)
+        {
+            string cmdtext = "select bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought from V_SaleMonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId order by dateTime desc";
+            string[] param = { "@saleTaskId", "@saleHeadId" };
+            object[] values = { saleTaskId, saleHeadId };
+            DataSet ds = db.FillDataSet(cmdtext,param,values);
+            if (ds != null)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

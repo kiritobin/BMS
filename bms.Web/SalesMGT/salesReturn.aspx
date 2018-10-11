@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="salesDetail.aspx.cs" Inherits="bms.Web.SalesMGT.salesDetail" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="salesReturn.aspx.cs" Inherits="bms.Web.SalesMGT.salesReturn" %>
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -36,7 +36,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="container-fluid">
-                            <h3 class="text-center">销&nbsp;售</h3>
+                            <h3 class="text-center">销&nbsp;退</h3>
                         </div>
                         <div class="card-body">
                             <div class="card-header card_btn">
@@ -208,3 +208,4 @@
 </body>
 
 </html>
+

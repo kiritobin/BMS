@@ -77,3 +77,7 @@ $("#export").click(function () {
         }
     })
 })
+
+$("#print").click(function () {
+    $("#table").jqprint();
+})

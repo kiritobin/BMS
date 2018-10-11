@@ -198,5 +198,34 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
+        /// <summary>
+        /// 根据销售任务id获取数量、价格、总实洋限制
+        /// </summary>
+        /// <param name="saleTaskId">销售任务ID</param>
+        /// <returns></returns>
+        public DataSet SelectBysaleTaskId(string saleTaskId)
+        {
+            string sql = "select numberLimit,priceLimit,totalPriceLimit from T_SaleTask where saleTaskId=@saleTaskId";
+            string[] param = { "@saleTaskId" };
+            object[] values = { saleTaskId };
+            DataSet ds = db.FillDataSet(sql, param, values);
+            return ds;
+        }
+        /// <summary>
+        /// 更新销售任务数量 总码洋 单价上限
+        /// </summary>
+        /// <param name="numberLimit">数量</param>
+        /// <param name="priceLimit">单价</param>
+        /// <param name="totalPriceLimit">总码洋</param>
+        /// <returns>受影响行数</returns>
+        public int update(int numberLimit, double priceLimit, double totalPriceLimit)
+        {
+            string cmdText = "update T_Stock set numberLimit=@numberLimit where priceLimit=@priceLimit and totalPriceLimit=@totalPriceLimit";
+            string[] param = { "@numberLimit", "@priceLimit", "@totalPriceLimit" };
+            object[] values = { numberLimit, priceLimit, totalPriceLimit };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
     }
 }

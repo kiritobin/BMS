@@ -174,10 +174,10 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["priceLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPriceLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["startTime"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["finishTime"].ToString() + "</td>");
-                strb.Append("<td>" + "<button class='btn btn-success btn-sm btn_sale'>&nbsp 售 &nbsp</button>");
-                strb.Append("<button class='btn btn-success btn-sm btn_back'>&nbsp 退 &nbsp</button>");
-                strb.Append("<button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button>");
+                //strb.Append("<td>" + ds.Tables[0].Rows[i]["finishTime"].ToString() + "</td>");
+                strb.Append("<td>" + "<button class='btn btn-success btn-sm btn_sale'>&nbsp 销售 &nbsp</button>");
+                strb.Append("<button class='btn btn-success btn-sm btn_back'>&nbsp 销退 &nbsp</button> </td>");
+                strb.Append("<td><button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button> <button class='btn btn-success' data-toggle='modal' data-target='#myModa2'>&nbsp 编辑 &nbsp</button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + " </td></tr>");
             }
             strb.Append("</tbody>");

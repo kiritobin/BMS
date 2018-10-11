@@ -30,305 +30,6 @@ $(document).ready(function () {
     sessionStorage.setItem("kind", 0);
 })
 
-//回车事件
-$("#isbn").keypress(function (e) {
-    if (e.keyCode == 13) {
-        $("#btnAdd").attr("disabled", false);
-        var billCount = $("#billCount").val();
-        var disCount = $("#disCount").val();
-        var isbn = $("#isbn").val();
-        if (isbn == "" || isbn == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "ISBN不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (billCount == null || billCount=="") {
-            swal({
-                title: "温馨提示:)",
-                text: "商品数量不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (disCount == "" || disCount == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "折扣不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else {
-            $.ajax({
-                type: 'Post',
-                url: 'addWarehouse.aspx',
-                data: {
-                    billCount: billCount,
-                    disCount: disCount,
-                    isbn: isbn,
-                    op: "isbn"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data=="添加成功") {
-                        swal({
-                            title: data,
-                            text: data,
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
-                    }
-                    else if (data == "添加失败") {
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                        $("#btnAdd").attr("disabled", true);
-                    }
-                    else if (data == "库存数量不足"){
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                        $("#btnAdd").attr("disabled", true);
-                    }
-                    else if (data == "已添加过相同记录") {
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                        $("#btnAdd").attr("disabled", true);
-                    }
-                    else {
-                        $("#btnAdd").attr("disabled", false);
-                        $("#table2 tr:not(:first)").empty(); //清空table处首行
-                        $("#table2").append(data); //加载table
-                    }
-                }
-            })
-        }
-    }
-})
-$("#billCount").keypress(function (e) {
-    if (e.keyCode == 13) {
-        $("#btnAdd").attr("disabled", false);
-        var billCount = $("#billCount").val();
-        var disCount = $("#disCount").val();
-        var isbn = $("#isbn").val();
-        if (isbn == "" || isbn == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "ISBN不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (billCount == null || billCount == "") {
-            swal({
-                title: "温馨提示:)",
-                text: "商品数量不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (disCount == "" || disCount == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "折扣不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else {
-            $.ajax({
-                type: 'Post',
-                url: 'addWarehouse.aspx',
-                data: {
-                    billCount: billCount,
-                    disCount: disCount,
-                    isbn: isbn,
-                    op: "isbn"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "添加成功") {
-                        swal({
-                            title: data,
-                            text: data,
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
-                    }
-                    else if (data == "添加失败") {
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                        $("#btnAdd").attr("disabled", true);
-                    }
-                    else if (data == "库存数量不足") {
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                        $("#btnAdd").attr("disabled", true);
-                    }
-                    else if (data == "已添加过相同记录") {
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                        $("#btnAdd").attr("disabled", true);
-                    }
-                    else {
-                        $("#btnAdd").attr("disabled", false);
-                        $("#table2 tr:not(:first)").empty(); //清空table处首行
-                        $("#table2").append(data); //加载table
-                    }
-                }
-            })
-        }
-    }
-})
-$("#disCount").keypress(function (e) {
-    if (e.keyCode == 13) {
-        $("#btnAdd").attr("disabled", false);
-        var billCount = $("#billCount").val();
-        var disCount = $("#disCount").val();
-        var isbn = $("#isbn").val();
-        if (isbn == "" || isbn == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "ISBN不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (billCount == null || billCount == "") {
-            swal({
-                title: "温馨提示:)",
-                text: "商品数量不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (disCount == "" || disCount == null) {
-            swal({
-                title: "温馨提示:)",
-                text: "折扣不能为空，请您重新输入",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else {
-            $.ajax({
-                type: 'Post',
-                url: 'addWarehouse.aspx',
-                data: {
-                    billCount: billCount,
-                    disCount: disCount,
-                    isbn: isbn,
-                    op: "isbn"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "添加成功") {
-                        swal({
-                            title: data,
-                            text: data,
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window.location.reload();
-                        })
-                    }
-                    else if (data == "添加失败") {
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                        $("#btnAdd").attr("disabled", true);
-                    }
-                    else if (data == "库存数量不足") {
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                        $("#btnAdd").attr("disabled", true);
-                    }
-                    else if (data == "已添加过相同记录") {
-                        swal({
-                            title: data,
-                            text: data,
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                        $("#btnAdd").attr("disabled", true);
-                    }
-                    else {
-                        $("#btnAdd").attr("disabled", false);
-                        $("#table2 tr:not(:first)").empty(); //清空table处首行
-                        $("#table2").append(data); //加载table
-                    }
-                }
-            })
-        }
-    }
-})
-
 //返回按钮点击事件
 $("#back").click(function () {
     window.location.href = "warehouseManagement.aspx";
@@ -494,30 +195,30 @@ $("#table").delegate(".count", "change", function (e) {
     total.text((count * price).toFixed(2));
     real.text((count * price * discount * 0.01).toFixed(2));
     var _this = $(this);
-    if (sessionStorage.getItem("not") == "库存充足") {
-            $.ajax({
-        type: 'Post',
-        url: 'addWarehouse.aspx',
-        data: {
-            bookNum: bookNum,
-            count: count,
-            action: "checkNum"
-        },
-        dataType: 'text',
-        success: function (data) {
-            if (data == "库存不足") {
-                swal({
-                    title: "温馨提示:)",
-                    text: data,
-                    buttonsStyling: false,
-                    confirmButtonClass: "btn btn-warning",
-                    type: "warning"
-                }).catch(swal.noop);
-                _this.val(0);
-            }
-        }
-    })
-    }
+    //if (sessionStorage.getItem("not") == "库存充足") {
+    //        $.ajax({
+    //    type: 'Post',
+    //    url: 'addWarehouse.aspx',
+    //    data: {
+    //        bookNum: bookNum,
+    //        count: count,
+    //        action: "checkNum"
+    //    },
+    //    dataType: 'text',
+    //    success: function (data) {
+    //        if (data == "库存不足") {
+    //            swal({
+    //                title: "温馨提示:)",
+    //                text: data,
+    //                buttonsStyling: false,
+    //                confirmButtonClass: "btn btn-warning",
+    //                type: "warning"
+    //            }).catch(swal.noop);
+    //            _this.val(0);
+    //        }
+    //    }
+    //})
+    //}
 });
 
 //删除当前行
@@ -536,7 +237,7 @@ $("#btnAdd").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-    } {
+    } else {
         $.ajax({
             type: 'Post',
             url: 'addWarehouse.aspx',
@@ -630,6 +331,7 @@ $("#save").click(function () {
                         type: "warning",
                         allowOutsideClick: false
                     })
+                    sessionStorage.removeItem("kind");
                 }
                 else {
                     swal({

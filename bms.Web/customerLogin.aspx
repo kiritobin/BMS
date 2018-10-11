@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>图书综合平台</title>
+    <title>图书综合管理平台</title>
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="css/font-awesome.min.css" />
     <!-- css样式 -->

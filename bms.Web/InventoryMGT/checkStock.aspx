@@ -230,7 +230,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">settings</i>
+                                    <i class="fa fa-gear"></i>
                                     <p class="d-lg-none d-md-block">
                                         更多设置
                                     </p>
@@ -257,7 +257,7 @@
                                     </div>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-success" id="export"><i class="fa fa-print" aria-hidden="true">导出</i></button>
-                                        <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true">打印</i></button>
+                                        <button class="btn btn-success" id="print"><i class="fa fa-print" aria-hidden="true">打印</i></button>
                                     </div>
                                     <div class="card-header from-group">
                                         <table class="table text-center table_stock">
@@ -320,9 +320,6 @@
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
-                                                <tr style="border: 2px solid #DDD">
-                                                    <td colspan="9">商品</td>
-                                                </tr>
                                                 <tr>
                                                     <td>序号</td>
                                                     <td>单据编号</td>
@@ -380,5 +377,7 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/checkStock.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/jquery.jqprint.js"></script>
 </body>
 </html>

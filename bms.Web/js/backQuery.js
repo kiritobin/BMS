@@ -56,67 +56,6 @@
         //$("#realDiscount").val(discount);
         $("#myModa2").modal("show");
     })
-    //提交添加信息
-
-    //$("#btnAdd").click(function () {
-    //    bookNum = $("input[type='radio']:checked").val();
-    //    var ISBN = $("#isbn").val();
-    //    var realDiscount = $("#realDiscount").val();
-    //    var count = $("#count").val();
-    //    if (ISBN == "" || realDiscount == "" || count == "" || bookNum == "") {
-    //        swal({
-    //            title: "温馨提示:)",
-    //            text: "不能含有未填项!",
-    //            buttonsStyling: false,
-    //            confirmButtonClass: "btn btn-warning",
-    //            type: "warning"
-    //        }).catch(swal.noop);
-    //    } else {
-    //        $.ajax({
-    //            type: 'Post',
-    //            url: 'backQuery.aspx',
-    //            data: {
-    //                bookNum:bookNum,
-    //                ISBN: ISBN,
-    //                discount: realDiscount,
-    //                count: count,
-    //                op: "search"
-    //            },
-    //            dataType: 'text',
-    //            success: function (data) {
-    //                if (data == "添加成功" || data == "更新成功") {
-    //                    swal({
-    //                        title: "温馨提示",
-    //                        text: "添加成功",
-    //                        type: "success",
-    //                        confirmButtonColor: '#3085d6',
-    //                        confirmButtonText: '确定',
-    //                        confirmButtonClass: 'btn btn-success',
-    //                        buttonsStyling: false,
-    //                        allowOutsideClick: false
-    //                    }).then(function () {
-    //                        window, location.reload();
-    //                    })
-    //                } else {
-    //                   // $("#tablebook th:not(:first)").empty(); //清空table处首行
-    //                    //$("#tablebook").append(data); //加载table
-    //                    swal({
-    //                        title: "温馨提示",
-    //                        text: data,
-    //                        type: "warning",
-    //                        confirmButtonColor: '#3085d6',
-    //                        confirmButtonText: '确定',
-    //                        confirmButtonClass: 'btn btn-warning',
-    //                        buttonsStyling: false,
-    //                        allowOutsideClick: false
-    //                    }).then(function () {
-    //                        $("#isbn").focus();
-    //                    })
-    //                }
-    //            }
-    //        });
-    //    }
-    //})
     //返回事件
     $("#toBack").click(function () {
         window.location.href = "backManagement.aspx";
@@ -211,7 +150,7 @@
                                 $("#table").find('tr').eq(1).find('td').eq(1).find('input').focus();
                             })
                         }
-                        else if (data.indexOf("much")>0) {
+                        else if (data.indexOf("much") > 0) {
                             $("#tablebook").empty();
                             $("#myModa2").modal("show");
                             $("#tablebook").append(data); //加载table
@@ -227,6 +166,50 @@
             }
         }
     })
+    //一号多书时弹出模态框，确定书籍
+    $("#sureBook").click(function () {
+        var isbn = $("input[type='radio']:checked").parents('tr').find('td').eq(1).text();
+        alert(isbn);
+        var bookNum = $("input[type='radio']:checked").val();
+        var price = $("input[type='radio']:checked").parents('tr').find('td').eq(4).text();
+        var discount = $("input[type='radio']:checked").parents('tr').find('td').eq(4).text();
+        $.ajax({
+            type: 'Post',
+            url: 'backQuery.aspx',
+            data: {
+                ISBN: isbn,
+                bookNO: bookNum,
+                price: price,
+                op: "search"
+            },
+            dataType: 'text',
+            success: function (data) {
+                if (data == "销售单据中无此数据") {
+                    swal({
+                        title: "温馨提示",
+                        text: data,
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-warning',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        $("#myModa2").modal("show");
+                    })
+                }
+                else {
+                    $("#myModa2").modal("hide");
+                    $("#table").empty();
+                    $("#table").append(data); //加载table
+                    $("#table tr:first").find("td").eq(5).children().focus();
+                    $("#table").find('tr').eq(1).find('td').eq(4).find('input').focus();
+                }
+            }
+        })
+    })
+
+
     //添加数量输入框回车事件
     $("#table").delegate("#inputCount", "keypress", function (e) {
         if (e.keyCode == 13) {
@@ -253,7 +236,21 @@
                     },
                     dataType: 'text',
                     success: function (data) {
-                        if (data == "暂无此数据") {
+                        if (data == "添加成功") {
+                            swal({
+                                title: "温馨提示",
+                                text: data,
+                                type: "success",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                                window.location.reload();
+                            })
+                        }
+                        else {
                             swal({
                                 title: "温馨提示",
                                 text: data,
@@ -266,20 +263,6 @@
                             }).then(function () {
                                 $("#table").find('tr').eq(1).find('td').eq(1).find('input').focus();
                             })
-                        }
-                        else if (data.indexOf("much")) {
-                            $("#table").empty();
-                            $("#table").append(data); //加载table
-                            $("#myModa2").show();
-                            //$("#tablebook th:not(:first)").empty(); //清空table处首行
-                            //$("#tablebook").empty();
-                            $("#tablebook").append(data); //加载table
-                        }
-                        else {
-                            $("#table").empty();
-                            $("#table").append(data); //加载table
-                            $("#table tr:first").find("td").eq(5).children().focus();
-                            $("#table").find('tr').eq(1).find('td').eq(4).find('input').focus();
                         }
                     }
                 });
