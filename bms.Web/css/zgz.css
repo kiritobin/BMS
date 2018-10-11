@@ -112,7 +112,7 @@
 .sales_search, .statistics, .retailList {
     border: 1px solid #ddd;
 }
-
+   
 .content_tab div {
     float: left;
 }
@@ -126,6 +126,41 @@
 .card_btn {
     margin-left: 10px;
 }
+.retail-content .container-fluid .card .card-body .row {
+    margin-right: 0px;
+}
+
+.list-unstyled li {
+    margin-top: 16px;
+}
+
+#topImg {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.topSearch {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    border: 0px;
+    background-color: #eee;
+}
+
+fieldset {
+    padding: .35em .625em .75em;
+    margin: 0 2px;
+    border: 1px solid #ddd;
+}
+
+legend {
+    padding: .2em;
+    border: 1px solid #ccc;
+    width: auto;
+    margin-bottom: 0px;
+    font-size: 24px;
+}
+
 
 /* 设置按钮组对齐样式 */
 .card-header {
@@ -135,15 +170,6 @@
 /* 模态框复选按钮样式 */
 .modal .table .form-check .form-check-sign {
     top: 0px;
-}
-
-/* 零售页面样式 */
-.retail-content .container-fluid .card .card-body .row {
-    margin-right: 0px;
-}
-
-.list-unstyled li{
-    margin-top:16px;
 }
 
 /* 多行文本框样式 */
@@ -168,4 +194,6 @@
 .goods {
     border: 1px solid #ddd;
 }
+
+
 
