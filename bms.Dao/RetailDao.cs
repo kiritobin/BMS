@@ -51,17 +51,134 @@ namespace bms.Dao
         }
 
         /// <summary>
-        /// 查询零售单体
+        /// 查询零售单头
         /// </summary>
         /// <param name="retailHeadId">零售单头ID</param>
-        /// <returns>受影响行数</returns>
-        public DataSet InsertRetail(int retailHeadId)
+        /// <returns>数据集</returns>
+        public SaleHead GetHead(string retailHeadId)
         {
-            string cmdText = "select retailMonomerId,bookNum,ISBN,number,unitPrice,totalPrice,realDiscount,realPrice,dateTime from T_RetailMonomer where retailHeadId=@retailHeadId";
+            string cmdText = "select allTotalPrice,number,allRealPrice from T_RetailHead where retailHeadId=@retailHeadId";
+            string[] param = { "@retailHeadId" };
+            object[] values = { retailHeadId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            SaleHead sale = new SaleHead();
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    sale.AllRealPrice = Convert.ToDouble(ds.Tables[0].Rows[0]["allRealPrice"]);
+                    sale.AllTotalPrice = Convert.ToDouble(ds.Tables[0].Rows[0]["allTotalPrice"]);
+                    sale.Number = Convert.ToInt32(ds.Tables[0].Rows[0]["number"]);
+                }
+                return sale;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 查询单头下的所有单体零售单体
+        /// </summary>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>数据集</returns>
+        public DataSet GetRetail(string retailHeadId)
+        {
+            string cmdText = "select retailMonomerId,bookName,bookNum,ISBN,number,unitPrice,realDiscount,totalPrice,realPrice from V_RetailMonomer where retailHeadId=@retailHeadId";
             string[] param = { "@retailHeadId" };
             object[] values = { retailHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
             return ds;
+        }
+
+        /// <summary>
+        /// 查询零售单体
+        /// </summary>
+        /// <param name="retailMonomerId">零售单体ID</param>
+        /// <returns>数据集</returns>
+        public SaleMonomer GetMonomer(int retailMonomerId)
+        {
+            string cmdText = "select retailHeadId,unitPrice,realDiscount,totalPrice,realPrice,number from V_RetailMonomer where retailMonomerId=@retailMonomerId";
+            string[] param = { "@retailMonomerId" };
+            object[] values = { retailMonomerId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds == null || ds.Tables[0].Rows.Count <= 0)
+            {
+                return null;
+            }
+            else
+            {
+                SaleMonomer sale = new SaleMonomer();
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    sale.UnitPrice = Convert.ToDouble(ds.Tables[0].Rows[i]["unitPrice"]);
+                    sale.RealDiscount = Convert.ToDouble(ds.Tables[0].Rows[i]["realDiscount"]);
+                    sale.TotalPrice = Convert.ToDouble(ds.Tables[0].Rows[i]["totalPrice"]);
+                    sale.RealPrice = Convert.ToDouble(ds.Tables[0].Rows[i]["realPrice"]);
+                    sale.Number = Convert.ToInt32(ds.Tables[0].Rows[i]["number"]);
+                    sale.SaleHeadId = ds.Tables[0].Rows[i]["retailHeadId"].ToString();
+                }
+                return sale;
+            }
+        }
+
+        /// <summary>
+        /// 更新零售折扣
+        /// </summary>
+        /// <param name="realDiscount">折扣</param>
+        /// <param name="realPrice">实洋</param>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>受影响行数</returns>
+        public int UpdateDiscount(double realDiscount, double realPrice, string retailHeadId)
+        {
+            string cmdText = "update T_RetailMonomer set realDiscount=@realDiscount,realPrice=@realPrice where retailHeadId=@retailHeadId";
+            string[] param = { "@realDiscount", "@realPrice", "@retailHeadId" };
+            object[] values = { realDiscount, realPrice, retailHeadId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 更新零售数量
+        /// </summary>
+        /// <param name="sale">零售实体对象</param>
+        /// <returns>受影响行数</returns>
+        public int UpdateNumber(SaleMonomer sale)
+        {
+            string cmdText = "update T_RetailMonomer set number=@number,totalPrice=@totalPrice,realPrice=@realPrice where retailMonomerId=@retailMonomerId";
+            string[] param = { "@number", "totalPrice", "@realPrice", "@retailMonomerId" };
+            object[] values = { sale.Number,sale.TotalPrice, sale.RealPrice, sale.SaleIdMonomerId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 更新零售数量
+        /// </summary>
+        /// <param name="sale">零售实体对象</param>
+        /// <returns>受影响行数</returns>
+        public int UpdateHeadNumber(SaleHead sale)
+        {
+            string cmdText = "update T_RetailHead set number=@number,allTotalPrice=@totalPrice,allRealPrice=@realPrice,kindsNum=@kindsNum where retailHeadId=@retailHeadId";
+            string[] param = { "@number", "totalPrice", "@realPrice", "@retailHeadId", "@kindsNum" };
+            object[] values = { sale.Number, sale.AllTotalPrice, sale.AllRealPrice, sale.SaleHeadId,sale.KindsNum };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+
+        /// <summary>
+        /// 删除单体信息
+        /// </summary>
+        /// <param name="retailMonomerId">零售单体ID</param>
+        /// <returns></returns>
+        public int delete(int retailMonomerId)
+        {
+            string cmdText = "delete from T_RetailMonomer where retailMonomerId=@retailMonomerId";
+            string[] param = { "@retailMonomerId" };
+            object[] values = { retailMonomerId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
         }
     }
 }

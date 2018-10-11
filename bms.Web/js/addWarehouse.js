@@ -614,7 +614,7 @@ $("#save").click(function () {
         var json = JSON.stringify(table);
         $.ajax({
             type: 'Post',
-            url: 'addWarehourse.aspx',
+            url: 'addWarehouse.aspx',
             data: {
                 json: json,
                 action: "save"

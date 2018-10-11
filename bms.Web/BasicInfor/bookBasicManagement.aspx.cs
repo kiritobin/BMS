@@ -152,6 +152,7 @@ namespace bms.Web.BasicInfor
             catch (Exception ex)
             {
                 Response.Write(ex.Message);
+                Response.End() ;
             }
             finally
             {

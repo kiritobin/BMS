@@ -194,7 +194,8 @@ $(document).ready(function () {
                     else {
                         $("#myModal2").modal("show");
                         $("#myModal1").modal("hide");
-                        $("#table2 tr:gt(1)").empty(); //清空table2行
+                        $("#table2 tr:not(:first)").empty(); //清空table处首行
+                        //$("#table2 tr:gt(1)").empty(); //清空table2行
                         $("#table2").append(data); //加载table
                     }
                 }

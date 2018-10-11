@@ -198,5 +198,19 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
+        /// <summary>
+        /// 根据销售任务id获取数量、价格、总实洋限制
+        /// </summary>
+        /// <param name="saleTaskId">销售任务ID</param>
+        /// <returns></returns>
+        public DataSet SelectBysaleTaskId(string saleTaskId)
+        {
+            string sql = "select numberLimit,priceLimit,totalPriceLimit from T_SaleTask where saleTaskId=@saleTaskId";
+            string[] param = { "@saleTaskId" };
+            object[] values = { saleTaskId };
+            DataSet ds = db.FillDataSet(sql, param, values);
+            return ds;
+        }
+
     }
 }

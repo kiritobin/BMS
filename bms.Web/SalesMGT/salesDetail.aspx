@@ -37,11 +37,6 @@
                     <div class="card">
                         <div class="container-fluid">
                             <h3 class="text-center">销&nbsp;售</h3>
-                            <button class="btn btn-success pull-right" id="back">返回</button>
-                            <%if (type == "addsale")
-                                {%>
-                            <button class="btn btn-success pull-right" id="success">单据完成</button>
-                            <%} %>
                         </div>
                         <div class="card-body">
                             <div class="card-header card_btn">
@@ -65,10 +60,19 @@
                                         <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print"></i></button>
                                     </div>
                                     <%} %>
+                                    <div class="btn-group" role="group">
+                                        <%if (type == "addsale")
+                                            {%>
+                                        <button class="btn btn-success" id="success">单据完成</button>
+                                        <%} %>
+                                    </div>
+                                    <div class="btn-group pull-right" role="group">
+                                        <button class="btn btn-success" id="back">返回</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="content_tab col-md-12">
-                                <div class="table-responsive col-md-10">
+                                <div class="table-responsive col-md-10" style="height: 500px;">
                                     <table class="table mostTable table-bordered text-center" id="table">
                                         <thead>
                                             <tr>
@@ -76,10 +80,10 @@
                                                     <nobr>序号</nobr>
                                                 </td>
                                                 <td>
-                                                    <nobr>书号</nobr>
+                                                    <nobr>ISBN号</nobr>
                                                 </td>
                                                 <td>
-                                                    <nobr>ISBN号</nobr>
+                                                    <nobr>书号</nobr>
                                                 </td>
                                                 <td>
                                                     <nobr>书名</nobr>
@@ -103,8 +107,8 @@
                                         </thead>
                                         <tr class="first">
                                             <td></td>
-                                            <td></td>
                                             <td><input type="text" class="isbn textareaISBN" autofocus="autofocus" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td>
@@ -117,25 +121,25 @@
                                         <%=getData() %>
                                     </table>
                                 </div>
-                                <div class="container col-md-2">
+                                <div class="container col-md-2" style="border: 1px gray solid">
                                     统计
                                     <table class="table">
                                         <tr>
                                             <td>书籍种数</td>
-                                             <td><p id="kinds"></p></td>
-                                            <%--<td><%=allkinds.ToString() %></td>--%>
+                                            <td id="kinds"><%=allkinds.ToString() %></td>
                                         </tr>
                                         <tr>
                                             <td>书本总数</td>
-                                            <td><%=allnumber.ToString() %></td>
+                                            <td id="allnumber"><%=allnumber.ToString() %></td>
                                         </tr>
                                         <tr>
                                             <td>总码洋</td>
-                                            <td><%=alltotalprice.ToString() %></td>
+                                            <td id="alltotalprice"><%=alltotalprice.ToString() %><input type="hidden" id="limtalltotalprice" value="<%=limtalltotalprice.ToString() %>"/></td>
+                                            
                                         </tr>
                                         <tr>
                                             <td>总实洋</td>
-                                            <td><%=allreadprice.ToString() %></td>
+                                            <td id="allreadprice"><%=allreadprice.ToString() %></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -156,13 +160,13 @@
         <div class="modal-dialog" style="max-width: 900px;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title float-left" id="myModalLabel">添加销售</h4>
+                    <h4 class="modal-title float-left" id="myModalLabel">请选择相应的图书</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="material-icons">clear</i>
                     </button>
                 </div>
                 <div class="modal-body">
-<%--                    <table class="table model-table">
+                    <%--                    <table class="table model-table">
                         <tr>
                             <td>ISBN号</td>
                             <td>
