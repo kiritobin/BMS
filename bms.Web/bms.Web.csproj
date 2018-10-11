@@ -529,6 +529,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="uploads\muban\客户馆藏数据表.xls" />
     <Content Include="uploads\muban\基础数据.xls" />
+    <Content Include="uploads\muban\入库表.xls" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

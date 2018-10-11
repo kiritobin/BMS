@@ -28,40 +28,29 @@ namespace bms.Web.SalesMGT
         StockBll stbll = new StockBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["sellId"] = "XT20181010000001";
-            Session["saleId"] = "XSRW20181010000001";
+            //Session["sellId"] = "XT20181010000001";
+            //Session["saleId"] = "XSRW20181010000001";
             string op = Request["op"];
             GetData();
             if (op == "search")
             {
-                string bookNum = Request["bookNum"];
+                //string bookNum = Request["bookNum"];
                 string ISBN = Request["ISBN"];
                 bookds = bookBll.SelectByIsbn(ISBN);
-                if (bookds != null)
+                if (bookds != null && bookds.Tables[0].Rows.Count > 0)
                 {
-                    if (bookNum == "" || bookNum == null)
+                    //如果有两条及两条以上显示表格
+                    if (bookds.Tables[0].Rows.Count > 1)
                     {
-                        //如果有两条及两条以上显示表格
-                        if (bookds.Tables[0].Rows.Count > 1)
-                        {
-                            getbook();
-                        }
-                        WriteBook();
-                        //        else
-                        //        {
-                        //            addSalemon();
-                        //        }
-                        //    }
-                        //    else
-                        //    {
-                        //        addSalemon();
-                        //    }
+                        getbook();
                     }
-                    else
-                    {
-                        Response.Write("暂无此数据");
-                        Response.End();
-                    }
+                    Response.Write(GetData());
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("暂无此数据");
+                    Response.End();
                 }
             }
             if (op == "sure")
@@ -82,8 +71,13 @@ namespace bms.Web.SalesMGT
                 }
             }
         }
-        public String WriteBook() {
-            string bookNum="";
+        /// <summary>
+        /// 带输入框的tr列表
+        /// </summary>
+        /// <returns></returns>
+        public String WriteBook()
+        {
+            string bookNum = "";
             string ISBN = "";
             double unitPrice = 0;
             string isbn = Request["ISBN"];
@@ -99,12 +93,12 @@ namespace bms.Web.SalesMGT
                 unitPrice = book.Price;//定价
             }
             StringBuilder sb = new StringBuilder();
-            sb.Append("<tr>");
+            sb.Append("<tr calss='first'>");
             sb.Append("<td>" + "</td>");
             sb.Append("<td>" + "<input type='text' id='inputISBN' style='width:100%' autofocus='autofocus' value='" + ISBN + "' />" + "</td>");
             sb.Append("<td>" + bookNum + "</td>");
             sb.Append("<td>" + unitPrice + "</td>");
-            sb.Append("<td>" + "<input type='text' class='inputISBN' style='width:100%' />" + "</td>");
+            sb.Append("<td>" + "<input type='text' id='inputCount' style='width:100%' />" + "</td>");
             sb.Append("<td>" + "</td>");
             sb.Append("<td>" + "</td>");
             sb.Append("<td>" + "</td>");
@@ -237,7 +231,7 @@ namespace bms.Web.SalesMGT
             {
                 bookNo = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
             }
-            DataSet stockDs = stbll.SelectByBookNum(long.Parse(bookNo),int.Parse(regionId));
+            DataSet stockDs = stbll.SelectByBookNum(long.Parse(bookNo), int.Parse(regionId));
             string shelvesId = stockDs.Tables[0].Rows[0]["goodsShelvesId"].ToString();//获取货架Id
             string oldStockNum = stockDs.Tables[0].Rows[0]["stockNum"].ToString();//原来的库存量
             int stockNum = newstockNum + int.Parse(oldStockNum);
@@ -271,18 +265,20 @@ namespace bms.Web.SalesMGT
 
             ds = smBll.Select(sellId);
             StringBuilder sb = new StringBuilder();
-            sb.Append("<tbody>");
-            WriteBook();
-            //sb.Append("<tr class='first'>");
-            //sb.Append("<td>" + "</td>");
-            //sb.Append("<td>" + "<input type='text' id='inputISBN' style='width:100%' autofocus='autofocus' />" + "</td>");
-            //sb.Append("<td>" + "</td>");
-            //sb.Append("<td>" + "</td>");
-            //sb.Append("<td>" + "<input type='text' class='inputISBN' style='width:100%' />" + "</td>");
-            //sb.Append("<td>" + "</td>");
-            //sb.Append("<td>" + "</td>");
-            //sb.Append("<td>" + "</td>");
-            //sb.Append("</tr>");
+            sb.Append("<thead>");//表头
+            sb.Append("<tr>");
+            sb.Append("<th>" + "序号" + "</th>");
+            sb.Append("<th>" + "ISBN号" + "</th>");
+            sb.Append("<th>" + "书号" + "</th>");
+            sb.Append("<th>" + "单价" + "</th>");
+            sb.Append("<th>" + "数量" + "</th>");
+            sb.Append("<th>" + "实际折扣" + "</th>");
+            sb.Append("<th>" + "码洋" + "</th>");
+            sb.Append("<th>" + "实洋" + "</th>");
+            sb.Append("</tr>");
+            sb.Append("</thead>");
+            sb.Append("<tbody>");//表体
+            sb.Append(WriteBook());
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 string sohId = ds.Tables[0].Rows[i]["sellOffHead"].ToString();
@@ -312,25 +308,27 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public String getbook()
         {
-            strbook.Append("<thead>");
+            string ISBN = Request["ISBN"];
+            strbook.Append("<thead class='much'>");//thead
             strbook.Append("<tr>");
             strbook.Append("<th>" + "<div class='pretty inline'><input type = 'radio' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
+            strbook.Append("<th>" + "ISBN" + "</th>");
             strbook.Append("<th>" + "书号" + "</th>");
             strbook.Append("<th>" + "书名" + "</th>");
             strbook.Append("<th>" + "单价" + "</th>");
             //strbook.Append("<th>" + "出版社" + "</th>");
             strbook.Append("</tr>");
-            strbook.Append("</thead>");
-            strbook.Append("<tbody>");
+            strbook.Append("</thead>");//thead
+            strbook.Append("<tbody>");//tbody
             for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
             {
                 strbook.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
+                strbook.Append("<td>" + ISBN + "</td>");
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["price"].ToString() + "</td>");
-                //strbook.Append("<td>" + bookds.Tables[0].Rows[i]["supplier"].ToString() + "</td></tr>");
             }
-            strbook.Append("</tbody>");
+            strbook.Append("</tbody>");//tbody
             Response.Write(strbook.ToString());
             Response.End();
             return strbook.ToString();
