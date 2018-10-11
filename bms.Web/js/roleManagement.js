@@ -291,7 +291,7 @@
                         })
                     } else {
                         swal({
-                            title: succ,
+                            title: "温馨提示:)",
                             text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',

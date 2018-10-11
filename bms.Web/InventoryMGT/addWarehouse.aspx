@@ -276,13 +276,6 @@
                                         <div class="card-header from-group">
                                             <div class="input-group">
                                                 <div class="btn-group" role="group">
-                                                    <input type="text" class="searchOne" placeholder="请输入查询条件" id="input-search">
-                                                    <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
-                                                </div>
-                                                <div class="btn-group" role="group">
-                                                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
-                                                </div>
-                                                <div class="btn-group" role="group">
                                                     <button class="btn btn-success btn-sm" id="save"><i class="fa fa-plus fa-lg"></i>&nbsp 保存</button>
                                                 </div>
                                             </div>
@@ -335,7 +328,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td>
-                                                        <textarea class="count textareaCount" rows="1">1</textarea></td>
+                                                        <textarea class="count textareaCount" rows="1">0</textarea></td>
                                                     <td></td>
                                                     <td>
                                                         <textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
@@ -377,11 +370,11 @@
                                                 <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
                                             </div>
                                         </th>
-                                        <th>书号</th>
-                                        <th>ISBN</th>
-                                        <th>书名</th>
-                                        <th>单价</th>
-                                        <th>出版社</th>
+                                        <th><nobr>书号</nobr></th>
+                                        <th><nobr>ISBN</nobr></th>
+                                        <th><nobr>书名</nobr></th>
+                                        <th><nobr>单价</nobr></th>
+                                        <th><nobr>出版社</nobr></th>
                                     </tr>
                                 </thead>
 
@@ -422,6 +415,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addWarehouse.js"></script>
+    <script src="../js/jquery.tabletojson.js"></script>
 </body>
 
 </html>

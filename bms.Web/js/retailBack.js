@@ -4,7 +4,6 @@
     sessionStorage.setItem("number", 0);
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
-    $("#time").text(CurentTime());
 })
 //获取当前时间
 function CurentTime() {
@@ -53,7 +52,7 @@ $("#btnSearch").click(function () {
     } else {
         $.ajax({
             type: 'Post',
-            url: 'retcustomerRetailail.aspx',
+            url: 'retailBack.aspx',
             data: {
                 kind: sessionStorage.getItem("kind"),
                 isbn: isbn,
@@ -88,7 +87,7 @@ $("#btnSearch").click(function () {
                 } else if (data == "一号多书") {
                     $.ajax({
                         type: 'Post',
-                        url: 'customerRetail.aspx',
+                        url: 'retailBack.aspx',
                         data: {
                             isbn: isbn,
                             op: 'choose'
@@ -112,6 +111,7 @@ $("#btnSearch").click(function () {
                     sessionStorage.setItem("totalPrice", totalPrices);
                     sessionStorage.setItem("realPrice", realPrices);
                     //展示合计内容
+                    $("#time").text(CurentTime());
                     $("#number").text(numbers);
                     $("#total").text(totalPrices);
                     $("#real").text(realPrices);
@@ -142,7 +142,7 @@ $("#search").keypress(function (e) {
         } else {
             $.ajax({
                 type: 'Post',
-                url: 'customerRetail.aspx',
+                url: 'retailBack.aspx',
                 data: {
                     kind: sessionStorage.getItem("kind"),
                     isbn: isbn,
@@ -174,10 +174,11 @@ $("#search").keypress(function (e) {
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
                         }).catch(swal.noop);
+                        $("#search").val("");
                     } else if (data == "一号多书") {
                         $.ajax({
                             type: 'Post',
-                            url: 'customerRetail.aspx',
+                            url: 'retailBack.aspx',
                             data: {
                                 isbn: isbn,
                                 op: 'choose'
@@ -205,6 +206,7 @@ $("#search").keypress(function (e) {
                         sessionStorage.setItem("totalPrice", totalPrices);
                         sessionStorage.setItem("realPrice", realPrices);
                         //展示合计内容
+                        $("#time").text(CurentTime());
                         $("#number").text(numbers);
                         $("#total").text(totalPrices);
                         $("#real").text(realPrices);
@@ -223,7 +225,7 @@ $("#btnAdd").click(function () {
     var bookNum = $("input[type='radio']:checked").val();
     $.ajax({
         type: 'Post',
-        url: 'customerRetail.aspx',
+        url: 'retailBack.aspx',
         data: {
             bookNum: bookNum,
             op: 'add'
@@ -238,6 +240,7 @@ $("#btnAdd").click(function () {
                     confirmButtonClass: "btn btn-warning",
                     type: "warning"
                 }).catch(swal.noop);
+                $("#search").val("");
             }
             $("#myModal").modal("hide")
             if (sessionStorage.getItem("kind") == "0") {
@@ -254,6 +257,7 @@ $("#btnAdd").click(function () {
             sessionStorage.setItem("totalPrice", totalPrices);
             sessionStorage.setItem("realPrice", realPrices);
             //展示合计内容
+            $("#time").text(CurentTime());
             $("#number").text(numbers);
             $("#total").text(totalPrices);
             $("#real").text(realPrices);
@@ -294,10 +298,33 @@ $("#table").delegate(".number", "change", function (e) {
     $(this).parent().next().next().text(parseFloat(totalPrice));
     $(this).parent().next().next().next().text(parseFloat(realPrice));
     //展示合计内容
+    $("#time").text(CurentTime());
     $("#number").text(sessionStorage.getItem("number"));
     $("#total").text(parseFloat(totalPrices));
     $("#real").text(parseFloat(realPrices));
     $("#kind").text(parseInt(sessionStorage.getItem("kind")));
+})
+//打印
+$("#insert").click(function () {
+    var table = $("#table").tableToJSON();
+    var json = JSON.stringify(table);
+    $.ajax({
+        type: 'Post',
+        url: 'retailBack.aspx',
+        data: {
+            json: json,
+            op: 'insert'
+        },
+        dataType: 'text',
+        success: function (data) {
+            window.location.reload();
+            $("#search").focus();
+            sessionStorage.removeItem("kind");
+            sessionStorage.removeItem("number");
+            sessionStorage.removeItem("totalPrice");
+            sessionStorage.removeItem("realPrice");
+        }
+    })
 })
 //删除
 $("#table").delegate(".btn-delete", "click", function () {
@@ -308,7 +335,7 @@ $("#table").delegate(".btn-delete", "click", function () {
     $(this).parent().parent().remove();
     $.ajax({
         type: 'Post',
-        url: 'customerRetail.aspx',
+        url: 'retailBack.aspx',
         data: {
             bookNum: bookNum,
             totalPrice: totalPrice,
@@ -323,6 +350,7 @@ $("#table").delegate(".btn-delete", "click", function () {
             sessionStorage.setItem("totalPrice", parseFloat(sessionStorage.getItem("totalPrice") - parseFloat(totalPrice)));
             sessionStorage.setItem("realPrice", parseInt(sessionStorage.getItem("realPrice") - parseFloat(realPrice)));
             //展示合计内容
+            $("#time").text(CurentTime());
             $("#number").text(sessionStorage.getItem("number"));
             $("#total").text(parseFloat(totalPrices));
             $("#real").text(parseFloat(realPrices));
@@ -332,253 +360,7 @@ $("#table").delegate(".btn-delete", "click", function () {
         }
     })
 });
-//扫描单头id，显示单据明细
-$("#scannSea").keypress(function (e) {
-    if (e.keyCode == 13) {
-        var retailId = $("#scannSea").val();
-        sessionStorage.setItem("retailId", retailId);
-        $.ajax({
-            type: 'Post',
-            url: 'customerRetail.aspx',
-            data: {
-                retailId: retailId,
-                op: 'scann'
-            },
-            dataType: 'text',
-            success: function (data) {
-                if (data == "记录不存在") {
-                    swal({
-                        title: "记录不存在",
-                        text: "单据编号：" + retailId + "记录不存在",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                }
-                var datas = data.split("|:");
-                var math = datas[0].split(",");
-                var total = math[0].split(":");
-                $("#total").text(total[1]);
-                $("#real").text(math[1]);
-                $("#number").text(math[2]);
-                $("#kind").text(math[3]);
-                $("#table tr:not(:first)").empty();//清空除第一行以外的信息
-                $("#table").append(datas[1]);
-                $("#scannSea").val("");
-                $("#myModal1").modal("hide");
-            }
-        })
-    }
+//删除此单
+$("#giveup").click(function () {
+    window.location.reload();
 })
-//收银修改数量
-$("#table").delegate(".numberEnd", "keypress", function (e) {
-    if (e.keyCode == 13) {
-        var id = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        var number = parseInt($(this).val());
-        var total = $(this).parent().next().next();
-        var real = $(this).parent().next().next().next();
-        if (number == 0) {
-            swal({
-                title: "请输入商品数量",
-                text: "数量不能为0",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else {
-            $.ajax({
-                type: 'Post',
-                url: 'customerRetail.aspx',
-                data: {
-                    retailId: id,
-                    number: number,
-                    op: 'change'
-                },
-                dataType: 'text',
-                success: function (data) {
-                    var datas = data.split("|:");
-                    var succ = datas[0];
-                    if (succ == "更新成功") {
-                        var math = datas[1].split(",");
-                        $("#number").text(math[0]);
-                        $("#total").text(math[1]);
-                        $("#real").text(math[2]);
-                        total.text(datas[2]);
-                        real.text(datas[3]);
-                    } else if(succ == "更新失败"){
-                        swal({
-                            title: "修改数量失败",
-                            text: "修改数量失败",
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                    }
-                }
-            })
-        }
-    }
-})
-//收银结算
-$("#Settlement").click(function () {
-    $("#totalEnd").text($("#total").text().trim());
-    $("#realEnd").text($("#real").text().trim());
-    //var retailId = sessionStorage.getItem("retailId");
-    //if (retailId == null || retailId == "" || retailId == undefined) {
-    //    swal({
-    //        title: "请扫描小票",
-    //        text: "扫描小票失败",
-    //        buttonsStyling: false,
-    //        confirmButtonClass: "btn btn-warning",
-    //        type: "warning"
-    //    }).catch(swal.noop);
-    //} else {
-    //    $.ajax({
-    //        type: 'Post',
-    //        url: 'customerRetail.aspx',
-    //        data: {
-    //            retailId: retailId,
-    //            op: 'settle'
-    //        },
-    //        dataType: 'text',
-    //        success: function (data) {
-                
-    //        }
-    //    })
-    //}
-})
-//收银折扣
-$("#discountEnd").keypress(function (e) {
-    if (e.keyCode == 13) {
-        var discount = parseFloat($("#discountEnd").val());
-        var retailId = sessionStorage.getItem("retailId");
-        if (discount == 100) {
-            $("#copeEnd").focus();
-        }
-        else if (discount == 0) {
-            swal({
-                title: "请输入折扣",
-                text: "折扣不能为0",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else {
-            $.ajax({
-                type: 'Post',
-                url: 'customerRetail.aspx',
-                data: {
-                    discount: discount,
-                    retailId: retailId,
-                    op: 'discount'
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "更新成功") {
-                        var total = $("#totalEnd").text().trim();
-                        var real = total * discount * 0.01;
-                        $("#realEnd").text(real)
-                        $("#copeEnd").focus();
-                    }
-                }
-            })
-        }
-    }
-})
-//收银删除
-$("table").delegate(".delete", "click", function () {
-    var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
-    var tr = $(this).parent().parent();
-    swal({
-        title: "删除记录",
-        text: "您确定要删除吗？",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        confirmButtonClass: 'btn btn-success',
-        cancelButtonClass: 'btn btn-danger',
-        buttonsStyling: false,
-        allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
-    }).then(function () {
-        $.ajax({
-            type: 'Post',
-            url: 'customerRetail.aspx',
-            data: {
-                retailId: id,
-                headId: sessionStorage.getItem("retailId"),
-                op: 'del'
-            },
-            dataType: 'text',
-            success: function (data) {
-                var succ = data.split("|:");
-                if (succ[0] == "删除成功") {
-                    tr.remove();
-                    var kind = parseInt($("#kind").text());
-                    $("#kind").text(kind - 1);
-                    $("#number").text(succ[1]);
-                    $("#total").text(succ[2]);
-                    $("#real").text(succ[3]);
-                }
-                else if (succ[0] == "删除失败") {
-                    swal({
-                        title: "删除失败",
-                        text: "删除失败",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                }
-            }
-        })
-    })
-})
-//收银计算找零
-$("#copeEnd").keypress(function (e) {
-    if (e.keyCode == 13) {
-        var give = parseFloat($("#copeEnd").val());
-        var cope = parseFloat($("#realEnd").text().trim());
-        var real = give - cope;
-        $("#change").text(real);
-    }
-})
-$("#settleClose").click(function () {
-    $("#totalEnd").text("");
-    $("#discountEnd").val("100");
-    $("#realEnd").text("");
-    $("#copeEnd").val("");
-    $("#change").text("");
-})
-//收银完成
-$("#btnSettle").click(function () {
-    if ($("#discountEnd").val().trim() == "" || $("#discountEnd").val().trim() == 0 || $("#discountEnd").val().trim() == "0") {
-        swal({
-            title: "请输入折扣",
-            text: "折扣不能为空或0",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
-        swal({
-            title: "请输入实付金额",
-            text: "实付金额不能为空或0",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    }
-    $.ajax({
-
-    })
-})
-//弹出模态框获取焦点事件
-$('#myModal1').on('shown.bs.modal', function (e) {
-    $('#scannSea').focus();
-});
-$('#myModal2').on('shown.bs.modal', function (e) {
-    $('#discountEnd').focus();
-});

@@ -43,7 +43,6 @@ namespace bms.Web.InventoryMGT
             if (!IsPostBack)
             {
                 string id = Request.QueryString["singleHeadId"];
-                //string id = "20180926000002";
                 if (id != null && id != "")
                 {
                     Session["id"] = id;
@@ -168,6 +167,7 @@ namespace bms.Web.InventoryMGT
             catch (Exception ex)
             {
                 Response.Write(ex.Message);
+                Response.End();
             }
             finally
             {
