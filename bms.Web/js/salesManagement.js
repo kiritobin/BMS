@@ -79,7 +79,6 @@
             }
         });
     });
-
     //完成
     $("#finish").click(function () {
         swal({

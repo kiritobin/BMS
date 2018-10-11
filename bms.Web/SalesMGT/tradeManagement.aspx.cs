@@ -116,6 +116,7 @@ namespace bms.Web.SalesMGT
             {
                 string saleId = Request["ID"];
                 Session["saleId"] = saleId;
+                Session["type"] = "add";
                 Response.Write("添加成功");
                 Response.End();
             }

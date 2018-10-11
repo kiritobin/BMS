@@ -18,12 +18,14 @@ namespace bms.Web.SalesMGT
         public int totalCount, intPageCount, pageSize = 20;
         DataSet ds;
         SaleHeadBll saleheadbll = new SaleHeadBll();
+        public string type;
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
             string op = Request["op"];
             string saleTaskid = Request["taskId"];
             string saleheadId = Request["ID"];
+            type = Session["type"].ToString();
             //添加
             if (op == "addDetail")
             {
