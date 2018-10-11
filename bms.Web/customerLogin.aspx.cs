@@ -17,6 +17,7 @@ namespace bms.Web
         //单点登录判断
         LoginBll loginBll = new LoginBll();
         CustomerBll ctBll = new CustomerBll();
+        UserBll userBll = new UserBll();
         //private void isLogined(string id)
         //{
         //    Hashtable hOnline = (Hashtable)Application["Online"];
@@ -55,7 +56,7 @@ namespace bms.Web
             if (op=="login")
             {
                 string account = Request["userName"];
-                Result row = ctBll.DeleteState(int.Parse(account));
+                Result row = userBll.isCustomer(int.Parse(account));
                 if (row == Result.记录不存在)
                 {
                     Response.Write("该账号不存在");

@@ -63,7 +63,7 @@ namespace bms.Web.CustomerMGT
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SaleMonomer";
-            tbd.OrderBy = "ISBN";
+            tbd.OrderBy = "saleIdMonomerId";
             tbd.StrColumnlist = "bookName,ISBN,saleIdMonomerId,unitPrice,number,totalPrice,realPrice,realDiscount,dateTime,regionName";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;

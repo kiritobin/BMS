@@ -179,6 +179,40 @@ namespace bms.Bll
             }
         }
         /// <summary>
+        /// 判断用户是否存在
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Result isUser(int userId)
+        {
+            int row = userDao.isUser(userId);
+            if (row > 0)
+            {
+                return Result.记录存在;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
+        }
+        /// <summary>
+        /// 判断客户是否存在
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Result isCustomer(int userId)
+        {
+            int row = userDao.isCustomer(userId);
+            if (row > 0)
+            {
+                return Result.记录存在;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
+        }
+        /// <summary>
         /// 根据索引和pagesize返回记录
         /// </summary>
         /// <param name="dt">记录集 DataTable</param>

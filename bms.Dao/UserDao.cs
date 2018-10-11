@@ -132,5 +132,32 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(cmdText, param, values);
             return ds;
         }
+
+        /// <summary>
+        /// 判断用户存不存在
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public int isUser(int userId)
+        {
+            string cmdText = "select count(userID) from T_User where userID=@userId and deleteState=0";
+            string[] param = { "@userId" };
+            object[] values = { userId };
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            return row;
+        }
+        /// <summary>
+        /// 判断客户存不存在
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public int isCustomer(int userId)
+        {
+            string cmdText = "select count(customerID) from T_Customer where customerID=@userId and deleteState=0";
+            string[] param = { "@userId" };
+            object[] values = { userId };
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            return row;
+        }
     }
 }
