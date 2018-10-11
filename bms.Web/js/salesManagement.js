@@ -83,9 +83,9 @@
     //添加
     $("#btn_add").click(function () {
         swal({
-            title: "提示",
-            text: "是否新建销售？？？",
-            type: "question",
+            title: "温馨提示:)",
+            text: "是否新建销售？",
+            type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -198,8 +198,8 @@
         }
         else if (state == "采集中") {
             swal({
-                title: "温馨提示",
-                text: "单据采集中不能删除",
+                title: "温馨提示:)",
+                text: "单据采集中，现在不能删除。",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',

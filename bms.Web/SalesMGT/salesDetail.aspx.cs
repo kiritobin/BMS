@@ -11,26 +11,30 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.SalesMGT
 {
+    using System.IO;
+    using System.Runtime.Serialization.Json;
     using Result = Enums.OpResult;
     public partial class salesDetail : System.Web.UI.Page
     {
-        public int totalCount, intPageCount, pageSize = 20, allstockNum = 0;
+        public int totalCount, intPageCount, pageSize = 100, allstockNum = 0;
         public string type, defaultdiscount;
         public DataSet ds, bookds;
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         SaleTaskBll saletaskbll = new SaleTaskBll();
         public StringBuilder strbook = new StringBuilder();
         public int allkinds, allnumber;
-        public double alltotalprice, allreadprice;
+        public double alltotalprice, allreadprice, limtalltotalprice;
         string bookISBN, SaleHeadId, saleId;
         double disCount;
         int number;
         long bookNum;
+        msg msg = new msg();
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
             type = Session["saleType"].ToString();
             saleId = Session["saleId"].ToString();
+            getlimt();
             SaleTask task = saletaskbll.selectById(saleId);
             defaultdiscount = ((task.DefaultDiscount) * 100).ToString();
             SaleHeadId = Session["saleheadId"].ToString();
@@ -96,13 +100,13 @@ namespace bms.Web.SalesMGT
                 string price = Request["price"];
                 StringBuilder sb = new StringBuilder();
                 sb.Append("<tbody>");
-                sb.Append("<tr><td>" + (count + 1) + "</td>");
+                sb.Append("<tr class='first'><td>" + count + "</td>");
+                sb.Append("<td>" + "<input type='text' class='isbn textareaISBN' value='" + ISBN + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
                 sb.Append("<td>" + booknum + "</td>");
-                sb.Append("<td>" + ISBN + "</td>");
                 sb.Append("<td>" + bookname + "</td>");
                 sb.Append("<td>" + price + "</td>");
-                sb.Append("<td><input class='count textareaCount'/></td>");
-                sb.Append("<td><input class='discount textareaDiscount' value='" + remarks + "'/></td>");
+                sb.Append("<td><input class='count textareaCount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
+                sb.Append("<td><input class='discount textareaDiscount' value='" + remarks + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
                 sb.Append("<td>" + "" + "</td>");
                 sb.Append("<td>" + "" + "</td></tr>");
                 sb.Append("</tbody>");
@@ -133,7 +137,19 @@ namespace bms.Web.SalesMGT
                 }
             }
         }
+        /// <summary>
+        /// 获取销售任务码洋限制
+        /// </summary>
+        public void getlimt()
+        {
+            DataSet limtds = saletaskbll.SelectBysaleTaskId(saleId);
+            limtalltotalprice = double.Parse(limtds.Tables[0].Rows[0]["totalPriceLimit"].ToString());
+        }
 
+
+        /// <summary>
+        /// 只有一条数据时
+        /// </summary>
         public void backbook()
         {
             int count = salemonbll.SelectBySaleHeadId(SaleHeadId);
@@ -159,13 +175,13 @@ namespace bms.Web.SalesMGT
             sb.Append("<tbody>");
             for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
             {
-                sb.Append("<tr><td>" + (count + 1) + "</td>");
+                sb.Append("<tr class='first'><td>" + count + "</td>");
+                sb.Append("<td>" + "<input type='text' class='isbn textareaISBN' value='" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
                 sb.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
-                sb.Append("<td>" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
                 sb.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + bookds.Tables[0].Rows[i]["price"].ToString() + "</td>");
-                sb.Append("<td><input class='count textareaCount autofocus='autofocus''/></td>");
-                sb.Append("<td><input class='discount textareaDiscount' value='" + remarks + "'/></td>");
+                sb.Append("<td><input class='count textareaCount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
+                sb.Append("<td><input class='discount textareaDiscount' value='" + remarks + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
                 sb.Append("<td>" + "" + "</td>");
                 sb.Append("<td>" + "" + "</td></tr>");
             }
@@ -174,7 +190,9 @@ namespace bms.Web.SalesMGT
             Response.End();
 
         }
-
+        /// <summary>
+        /// 添加销售
+        /// </summary>
         public void addsalemon()
         {
             StockBll stockbll = new StockBll();
@@ -189,12 +207,15 @@ namespace bms.Web.SalesMGT
                 }
                 if (allstockNum == 0)
                 {
-                    Response.Write("该书无库存");
+
+                    msg.Messege = "该书无库存";
+                    Response.Write(ObjectToJson(msg));
                     Response.End();
                 }
                 if (number > allstockNum)
                 {
-                    Response.Write("库存不足");
+                    msg.Messege = "库存不足";
+                    Response.Write(ObjectToJson(msg));
                     Response.End();
                 }
                 else
@@ -285,14 +306,23 @@ namespace bms.Web.SalesMGT
                                         Result res = updateSalehead();
                                         if (res == Result.更新成功)
                                         {
-                                            Response.Write("添加成功");
+                                            msg.DataTable = getData();
+                                            msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
+                                            msg.AllKinds = allkinds.ToString();
+                                            msg.Number = allnumber.ToString();
+                                            msg.AlltotalPrice = alltotalprice.ToString();
+                                            msg.AllrealPrice = allreadprice.ToString();
+                                            msg.Messege = "添加成功";
+
+                                            Response.Write(ObjectToJson(msg));
                                             Response.End();
                                         }
 
                                     }
                                     else
                                     {
-                                        Response.Write("添加失败");
+                                        msg.Messege = "添加失败";
+                                        Response.Write(ObjectToJson(msg));
                                         Response.End();
                                     }
                                 }
@@ -304,12 +334,14 @@ namespace bms.Web.SalesMGT
                                 Result upre = stockbll.update(0, goodsId, bookNum);
                                 if (number == 0)
                                 {
-                                    Response.Write("添加成功");
+                                    msg.Messege = "添加成功";
+                                    Response.Write(ObjectToJson(msg));
                                     Response.End();
                                 }
                                 if (upre == Result.更新失败)
                                 {
-                                    Response.Write("添加失败");
+                                    msg.Messege = "添加失败";
+                                    Response.Write(ObjectToJson(msg));
                                     Response.End();
                                 }
                             }
@@ -317,17 +349,34 @@ namespace bms.Web.SalesMGT
                     }
                     else
                     {
-                        Response.Write("客户馆藏已存在");
+                        msg.Messege = "客户馆藏已存在";
+                        Response.Write(ObjectToJson(msg));
                         Response.End();
                     }
                 }
             }
             else
             {
-                Response.Write("无库存");
+                msg.Messege = "无库存";
+                Response.Write(ObjectToJson(msg));
                 Response.End();
             }
         }
+        /// <summary>
+        /// 对象转json
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string ObjectToJson(object obj)
+        {
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+            MemoryStream stream = new System.IO.MemoryStream();
+            serializer.WriteObject(stream, obj);
+            byte[] dataBytes = new byte[stream.Length];
+            stream.Position = 0; stream.Read(dataBytes, 0, (int)stream.Length);
+            return Encoding.UTF8.GetString(dataBytes);
+        }
+
         /// <summary>
         /// 更新单头
         /// </summary>
@@ -354,9 +403,9 @@ namespace bms.Web.SalesMGT
         {
             strbook.Append("<thead>");
             strbook.Append("<tr>");
-            strbook.Append("<th>" + "<div class='pretty inline much'><input type = 'radio' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
-            strbook.Append("<th>" + "书号" + "</th>");
+            strbook.Append("<th>" + "<div class='pretty inline much'><input type = 'radio' disabled='disabled' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
             strbook.Append("<th>" + "ISBN" + "</th>");
+            strbook.Append("<th>" + "书号" + "</th>");
             strbook.Append("<th>" + "书名" + "</th>");
             strbook.Append("<th>" + "单价" + "</th>");
             strbook.Append("<th>" + "出版社" + "</th>");
@@ -366,8 +415,8 @@ namespace bms.Web.SalesMGT
             for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
             {
                 strbook.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
-                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
+                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["price"].ToString() + "</td>");
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["supplier"].ToString() + "</td></tr>");
@@ -409,7 +458,7 @@ namespace bms.Web.SalesMGT
             }
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleMonomer";
-            tb.OrderBy = "dateTime desc";
+            tb.OrderBy = "dateTime";
             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
@@ -423,8 +472,8 @@ namespace bms.Web.SalesMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");
