@@ -357,7 +357,7 @@ $("#table").delegate(".isbn", "keypress", function (e) {
         //$(".count").text('0');
         var sid = $(this).parent().prev().text().trim();
         var isbn = $(this).val().trim();
-        var count = $(this).parent().next().next().next().next().children().val().trim();
+        var count = $(this).parent().next().next().next().next().children().val();
         var discount = $(this).parent().next().next().next().next().next().next().children().val();
         var goodsId = $(this).parent().next().next().next().children().val();
         if (isbn == "" || isbn == null) {
@@ -426,19 +426,19 @@ $("#table").delegate(".isbn", "keypress", function (e) {
 //数量回车
 $("#table").delegate(".count", "keypress", function (e) {
     if (e.keyCode == 13) {
-        var sid = $(this).parent().prev().prev().prev().prev().prev().prev().text().trim();
+        sessionStorage.removeItem("not");
+        var bookNum = $(this).parent().prev().prev().prev().text().trim();
+        var sid = $(this).parent().prev().prev().prev().prev().prev().text().trim();
         var count = $(this).val().trim();
         $(this).text(count);
         var price = $(this).parent().next().text().trim();
-        var goodsId = $(this).parent().prev().children().val().trim();
-        var gId = $(this).parent().next().next().next().next().next().next();
-        gId.text(goodsId);
-        var last = $("#table tr:last").eq(1).text().trim();
+        var last = $("#table tr:last").find("td").eq(1).children().text();
         var discount = $(this).parent().next().next().children().val().trim();
         var total = $(this).parent().next().next().next();
         var real = $(this).parent().next().next().next().next();
         total.text((count * price).toFixed(2));
-        real.text((count * price * discount).toFixed(2));
+        real.text((count * price * discount * 0.01).toFixed(2));
+        var _this = $(this);
         if (count <= 0) {
             swal({
                 title: "温馨提示:)",
@@ -449,39 +449,77 @@ $("#table").delegate(".count", "keypress", function (e) {
             }).catch(swal.noop);
         }
         else {
-            if (last != "" || last == "0") {
-                var table = "<tr class='first'><td>" + (parseInt(sid) + 1) + "</td><td><textarea class='isbn textareaISBN' row='1' maxlength='13'></textarea></td><td></td><td></td><td></td><td><textarea class='count textareaCount' row='1'>0</textarea></td><td></td><td><textarea class='discount textareaDiscount' row='1'>0</textarea></td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
-                $("#table").append(table);
-                $("#table tr:last").find("td").eq(1).children().focus();
-                sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind")) + 1);
-            }
+            $.ajax({
+                type: 'Post',
+                url: 'addWarehouse.aspx',
+                data: {
+                    bookNum: bookNum,
+                    count: count,
+                    action: "checkNum"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "库存不足") {
+                        swal({
+                            title: "温馨提示:)",
+                            text: data,
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning",
+                            type: "warning"
+                        }).catch(swal.noop);
+                        _this.val(0);
+                    }
+                    else {
+                        if (last != "" || last == "0") {
+                            var table = "<tr class='first'><td>" + (parseInt(sid) + 1) + "</td><td><textarea class='isbn textareaISBN' row='1' maxlength='13'></textarea></td><td></td><td></td><td><textarea class='count textareaCount' row='1'>0</textarea></td><td></td><td><textarea class='discount textareaDiscount' row='1'>0</textarea></td><td></td><td></td><td><button class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button></td></tr>";
+                            $("#table").append(table);
+                            $("#table tr:last").find("td").eq(1).children().focus();
+                            sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind")) + 1);
+                            sessionStorage.setItem("not", "库存充足");
+                        }
+                    }
+                }
+            })
         }
-
-        //$.ajax({
-        //    type: 'Post',
-        //    url: 'addStock.aspx',
-        //    data: {
-        //        sid:sid,
-        //        action: "count"
-        //    },
-        //    dataType: 'text',
-        //    success: function (data) {
-
-        //    }
-        //})
     }
 })
 $("#table").delegate(".count", "change", function (e) {
+    var bookNum = $(this).parent().prev().prev().prev().prev().text().trim();
     var count = $(this).val().trim();
     $(this).text(count);
+    var price = $(this).parent().next().text();
+    var discount = $(this).parent().next().next().text();
+    var total = $(this).parent().next().next().next();
+    var real = $(this).parent().next().next().next().next();
+    total.text((count * price).toFixed(2));
+    real.text((count * price * discount * 0.01).toFixed(2));
+    var _this = $(this);
+    if (sessionStorage.getItem("not") == "库存充足") {
+            $.ajax({
+        type: 'Post',
+        url: 'addWarehouse.aspx',
+        data: {
+            bookNum: bookNum,
+            count: count,
+            action: "checkNum"
+        },
+        dataType: 'text',
+        success: function (data) {
+            if (data == "库存不足") {
+                swal({
+                    title: "温馨提示:)",
+                    text: data,
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+                _this.val(0);
+            }
+        }
+    })
+    }
 });
-//下拉列表改变
-$("#table").delegate(".goods", "change", function () {
-    var goodsId = $(this).val().trim();
-    var gId = $(this).parent().next().next().next().next().next().next().next();
-    gId.text(goodsId);
-    $(this).parent().next().children().focus();
-});
+
 //删除当前行
 $("#table").delegate(".btn-danger", "click", function () {
     $(this).parent().parent().remove();
@@ -501,7 +539,7 @@ $("#btnAdd").click(function () {
     } {
         $.ajax({
             type: 'Post',
-            url: 'addStock.aspx',
+            url: 'addWarehouse.aspx',
             data: {
                 sid: sid,
                 bookNum: bookNum,
@@ -537,11 +575,74 @@ $("#table").delegate(".discount", "change", function () {
     var discount = $(this).text();
     var total = $(this).parent().next();
     var real = $(this).parent().next().next();
-    alert((count * price * discount).toFixed(2));
     total.text((count * price).toFixed(2));
-    real.text((count * price * discount).toFixed(2));
+    real.text((count * price * discount * 0.01).toFixed(2));
+    $.ajax({
+        type: 'Post',
+        url: 'addStock.aspx',
+        data: {
+            discount: discount,
+            action: "changeDiscount"
+        },
+        dataType: 'text',
+        success: function (data) {
+
+        }
+    })
 });
+
 $("#save").click(function () {
-    
+    var last = $('#table tr:last').find('td').eq(1).children().text();
+    swal({
+        title: "温馨提示",
+        text: "您确定要保存吗？",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+    }).then(function () {
+        if (last == "") {
+            $("#table tr:last").remove();
+        }
+        var table = $('#table').tableToJSON(); // Convert the table into a javascript object
+        var json = JSON.stringify(table);
+        $.ajax({
+            type: 'Post',
+            url: 'addWarehourse.aspx',
+            data: {
+                json: json,
+                action: "save"
+            },
+            datatype: 'text',
+            success: function (succ) {
+                if (succ == "添加成功") {
+                    swal({
+                        title: "温馨提示:)",
+                        text: "保存成功",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "warning",
+                        allowOutsideClick: false
+                    })
+                }
+                else {
+                    swal({
+                        title: "温馨提示:)",
+                        text: succ,
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "warning",
+                        allowOutsideClick: false
+                    })
+                }
+            }
+        })
+    })
 })
 

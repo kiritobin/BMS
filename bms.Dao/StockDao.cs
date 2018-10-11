@@ -46,11 +46,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="ISBN">ISBN</param>
         /// <returns></returns>
-        public DataSet SelectByBookNum(long bookNum)
+        public DataSet SelectByBookNum(long bookNum,int regionId)
         {
-            string cmdText = "select goodsShelvesId,stockNum from T_Stock where bookNum = @bookNum order by stockNum asc";
-            String[] param = { "@bookNum" };
-            String[] values = { bookNum.ToString() };
+            string cmdText = "select goodsShelvesId,stockNum from T_Stock where bookNum = @bookNum and regionId=@regionId order by stockNum asc";
+            String[] param = { "@bookNum", "@regionId" };
+            String[] values = { bookNum.ToString() , regionId.ToString()};
             DataSet ds = db.FillDataSet(cmdText, param, values);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -98,6 +98,32 @@ namespace bms.Dao
             String[] values = { bookNum.ToString(), goodsShelf .ToString()};
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
             return row;
+        }
+        /// <summary>
+        /// 通过书号获取库存
+        /// </summary>
+        /// <param name="bookNum"></param>
+        /// <returns></returns>
+        public int selectStockNum(long bookNum)
+        {
+            string cmdText = "select stockNum from T_Stock where bookNum=@bookNum";
+            String[] param = { "@bookNum" };
+            String[] values = { bookNum.ToString() };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            int count, counts=0;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    count = Convert.ToInt32(ds.Tables[0].Rows[i]["stockNum"]);
+                    counts = counts + count;
+                }
+                return counts;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

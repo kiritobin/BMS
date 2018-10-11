@@ -76,10 +76,10 @@
                                                     <nobr>序号</nobr>
                                                 </td>
                                                 <td>
-                                                    <nobr>ISBN号</nobr>
+                                                    <nobr>书号</nobr>
                                                 </td>
                                                 <td>
-                                                    <nobr>书号</nobr>
+                                                    <nobr>ISBN号</nobr>
                                                 </td>
                                                 <td>
                                                     <nobr>书名</nobr>
@@ -102,11 +102,9 @@
                                             </tr>
                                         </thead>
                                         <tr class="first">
-                                            <td>1</td>
-                                            <td>
-                                                <input type="text" class="isbn textareaISBN" autofocus="autofocus" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" />
-                                            </td>
                                             <td></td>
+                                            <td></td>
+                                            <td><input type="text" class="isbn textareaISBN" autofocus="autofocus" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
                                             <td></td>
                                             <td></td>
                                             <td>
@@ -116,7 +114,7 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
-                                       <%-- <%=getData() %>--%>
+                                        <%=getData() %>
                                     </table>
                                 </div>
                                 <div class="container col-md-2">
@@ -124,7 +122,8 @@
                                     <table class="table">
                                         <tr>
                                             <td>书籍种数</td>
-                                            <td><%=allkinds.ToString() %></td>
+                                             <td><p id="kinds"></p></td>
+                                            <%--<td><%=allkinds.ToString() %></td>--%>
                                         </tr>
                                         <tr>
                                             <td>书本总数</td>

@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/demo.css">
     <link rel="stylesheet" href="../css/pagination.css" />
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 
 <body>
@@ -39,9 +41,9 @@
                             <div class="card-header card_btn">
                                 <div class="input-group">
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-success" data-toggle="modal" data-target="#myModa2" id="add_back">添加销退</button>
+                                        <button class="btn btn-success" id="add_back">添加销退</button>
                                     </div>
-                                    <!---<div class="btn-group" role="group">
+                                    <!--<div class="btn-group" role="group">
                                         <input type="text" value="" class="sales_search">
                                         <button class="btn btn-info">查询</button>
                                     </div>-->
@@ -55,8 +57,8 @@
                             </div>
                             <div class="content_tab col-md-12">
                                 <div class="table-responsive col-md-10">
-                                    <table class="table mostTable table-bordered text-center">
-                                        <thead>
+                                    <table class="table mostTable table-bordered text-center" id="table">
+                                        <%--<thead>
                                             <tr>
                                                 <th>序号</th>
                                                 <th>ISBN号</th>
@@ -66,33 +68,16 @@
                                                 <th>实际折扣</th>
                                                 <th>码洋</th>
                                                 <th>实洋</th>
-                                                <%--<th>制单时间</th>--%>
                                             </tr>
-                                        </thead>
+                                        </thead>--%>
                                         <%=GetData() %>
-                                        <%--<tr>
-                                            <td>1</td>
-                                            <td><input type="text" class="inputISBN" style="width:100%" /></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><input type="text" class="inputCount" style="width:100%" /></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>--%>
                                     </table>
                                 </div>
-                                <div class="statistics col-md-2">
+                                <div class="statistics col-md-2" style="border:none;">
                                     <div class="btn-group text-right" role="group">
                                         <button class="btn btn-danger" id="sure">确定单据</button>
                                     </div>
                                 </div>
-                                <!--分页-->
-                                <%--<div class="copyright float-right page-box">
-                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                        <div class="m-style paging"></div>
-                                    </div>
-                                </div>--%>
                             </div>
                         </div>
                     </div>
@@ -101,35 +86,21 @@
         </div>
     </div>
     <!--模态框-->
-    <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog" style="max-width: 900px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title float-left" id="myModalLabel">添加销退</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        <i class="material-icons">clear</i>
+    <div class='modal fade' id='myModa2' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop='static'>
+        <div class='modal-dialog' style='max-width: 900px;'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h4 class='modal-title float-left' id='myModalLabel'>添加销退</h4>
+                    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>
+                        <i class='material-icons'>clear</i>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <table class="table model-table">
-                        <tr>
-                            <td>ISBN号</td>
-                            <td>
-                                <input id="isbn" type="text" class="sales_search addsell">
-                            </td>
-                            <td>数量</td>
-                            <td>
-                                <input type="text" value="" class="sales_search addsell" id="count"></td>
-                            <td>实际折扣</td>
-                            <td>
-                                <input type="text" value="" class="sales_search addsell" id="realDiscount"></td>
-                        </tr>
-                    </table>
-                    <table id="tablebook" class="table mostTable table-bordered text-center">
+                <div class='modal-body'>
+                    <table id='tablebook' class='table mostTable table-bordered text-center'>
                     </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-success btn-sm' id='sureBook'>确定</button>
                 </div>
             </div>
         </div>

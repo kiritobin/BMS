@@ -308,9 +308,6 @@
                                                             <nobr>出版社</nobr>
                                                         </td>
                                                         <td>
-                                                            <nobr>货架</nobr>
-                                                        </td>
-                                                        <td>
                                                             <nobr>商品数量</nobr>
                                                         </td>
                                                         <td>
@@ -328,8 +325,6 @@
                                                         <td>
                                                             <nobr>操作</nobr>
                                                         </td>
-                                                        <td style="display: none">货架号
-                                                        </td>
                                                     </tr>
                                                 </thead>
                                                 <tr class="first">
@@ -340,14 +335,6 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td>
-                                                        <select class="goods">
-                                                            <%for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
-                                                                { %>
-                                                            <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
-                                                            <%}%>
-                                                        </select>
-                                                    </td>
-                                                    <td>
                                                         <textarea class="count textareaCount" rows="1">0</textarea></td>
                                                     <td></td>
                                                     <td>
@@ -355,7 +342,6 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td style="display: none"></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -391,11 +377,11 @@
                                                 <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
                                             </div>
                                         </th>
-                                        <th>书号</th>
-                                        <th>ISBN</th>
-                                        <th>书名</th>
-                                        <th>单价</th>
-                                        <th>出版社</th>
+                                        <th><nobr>书号</nobr></th>
+                                        <th><nobr>ISBN</nobr></th>
+                                        <th><nobr>书名</nobr></th>
+                                        <th><nobr>单价</nobr></th>
+                                        <th><nobr>出版社</nobr></th>
                                     </tr>
                                 </thead>
 
@@ -436,6 +422,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addWarehouse.js"></script>
+    <script src="../js/jquery.tabletojson.js"></script>
 </body>
 
 </html>

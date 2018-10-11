@@ -21,7 +21,7 @@ namespace bms.Web.SalesMGT
         protected double discount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Session["saleId"] = "XSRW20181009000003";
+            //Session["saleId"] = "XSRW20181010000001";
             string op = Request["op"];
             getData();
             if (op == "logout")

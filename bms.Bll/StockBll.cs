@@ -54,9 +54,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="bookNum">书号</param>
         /// <returns></returns>
-        public DataSet SelectByBookNum(long bookNum)
+        public DataSet SelectByBookNum(long bookNum, int regionId)
         {
-            return stockDao.SelectByBookNum(bookNum);
+            return stockDao.SelectByBookNum(bookNum,regionId);
         }
 
         /// <summary>
@@ -87,6 +87,15 @@ namespace bms.Bll
         public int getStockNum(long bookNum, int goodsShelf)
         {
             return stockDao.getStockNum(bookNum, goodsShelf);
+        }
+        /// <summary>
+        /// 通过书号获取库存
+        /// </summary>
+        /// <param name="bookNum"></param>
+        /// <returns></returns>
+        public int selectStockNum(long bookNum)
+        {
+            return stockDao.selectStockNum(bookNum);
         }
     }
 }

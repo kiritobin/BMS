@@ -38,12 +38,11 @@ namespace bms.Web.InventoryMGT
             }
             permission();
             Monomers monoDiscount = warehousingBll.getDiscount();
-            discount = (monoDiscount.Discount) / 100;
+            discount = (monoDiscount.Discount);
             selectIsbn();
             if (!IsPostBack)
             {
                 string id = Request.QueryString["singleHeadId"];
-                //string id = "20180926000002";
                 if (id != null && id != "")
                 {
                     Session["id"] = id;
@@ -609,6 +608,21 @@ namespace bms.Web.InventoryMGT
                 else
                 {
                     Response.Write("添加失败");
+                    Response.End();
+                }
+            }
+            else if (action== "changeDiscount")
+            {
+                double discount = Convert.ToDouble(Request["discount"]);
+                Result result = warehousingBll.updateDiscount(discount);
+                if (result==Result.更新成功)
+                {
+                    Response.Write("更新成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("更新失败");
                     Response.End();
                 }
             }

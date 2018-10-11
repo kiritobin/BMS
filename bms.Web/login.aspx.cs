@@ -61,7 +61,7 @@ namespace bms.Web
                 string pwd = rsa.Decrypt(Request["pwd"]);
                 User user = loginBll.getPwdByUserId(account);
                 string userPwd = rsa.Decrypt(user.Pwd);
-                Result row = userBll.SelectDeleteState(int.Parse(account));
+                Result row = userBll.isUser(int.Parse(account));
                 if (row == Result.记录不存在)
                 {
                     Response.Write("该账号不存在");
