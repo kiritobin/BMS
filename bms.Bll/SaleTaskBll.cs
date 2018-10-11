@@ -222,5 +222,16 @@ namespace bms.Bll
                 return null;
             }
         }
+        /// <summary>
+        /// 更新销售任务数量 总码洋 单价上限
+        /// </summary>
+        /// <param name="numberLimit">数量</param>
+        /// <param name="priceLimit">单价</param>
+        /// <param name="totalPriceLimit">总码洋</param>
+        /// <returns>受影响行数</returns>
+        public int update(int numberLimit, double priceLimit, double totalPriceLimit)
+        {
+            return saleDao.update(numberLimit, priceLimit, totalPriceLimit);
+        }
     }
 }

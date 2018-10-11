@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="tradeManagement.aspx.cs" Inherits="bms.Web.SalesMGT.tradeManagement" %>
+
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -242,8 +243,8 @@
                                                     <td>单价上限</td>
                                                     <td>码洋上限</td>
                                                     <td>开始时间</td>
-                                                    <td>结束时间</td>
-                                                    <td class="table-thead-th">操作</td>
+                                                    <%--<td>结束时间</td>--%>
+                                                    <td class="table-thead-th" colspan="2">操作</td>
                                                 </tr>
                                             </thead>
                                             <%=getData()%>
@@ -260,6 +261,26 @@
                     </div>
                 </div>
             </div>
+            <!--编辑销售任务模态框-->
+            <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="max-width: 900px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="ModalLabel">销售编辑</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="edited" class="table mostTable table-bordered text-center">
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success btn-sm" id="btn_change">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!--添加模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="max-width: 350px;">
@@ -267,7 +288,7 @@
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">任务添加</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                               <i class="fa fa-close"></i>
+                                <i class="fa fa-close"></i>
                             </button>
                         </div>
                         <div class="modal-body">
@@ -293,13 +314,13 @@
                                 <tr>
                                     <td class="text-right"><span>单价上限:</span></td>
                                     <td>
-                                         <input type="text" class="modal_search_add" id="totalPrice" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
+                                        <input type="text" class="modal_search_add" id="totalPrice" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-right"><span>码洋上限:</span></td>
                                     <td>
-                                         <input type="text" class="modal_search_add" id="realPrice" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
+                                        <input type="text" class="modal_search_add" id="realPrice" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
                                     </td>
                                 </tr>
                                 <tr>

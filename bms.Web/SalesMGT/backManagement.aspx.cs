@@ -21,7 +21,7 @@ namespace bms.Web.SalesMGT
         protected double discount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Session["saleId"] = "XSRW20181010000001";
+            Session["saleId"] = "XSRW20181010000001";
             string op = Request["op"];
             getData();
             if (op == "logout")
@@ -224,6 +224,33 @@ namespace bms.Web.SalesMGT
                             Response.End();
                         }
                         break;
+                    }
+                    else
+                    {
+                        count = 1;
+                        sellId = "XT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        SaleTask st = new SaleTask()
+                        {
+                            SaleTaskId = saleTaskId
+                        };
+                        SellOffHead sell = new SellOffHead()
+                        {
+                            SellOffHeadId = sellId,
+                            SaleTaskId = st,
+                            MakingTime = nowTime,
+                            User = user
+                        };
+                        Result row = sellBll.Insert(sell);
+                        if (row == Result.添加成功)
+                        {
+                            Response.Write("添加成功");
+                            Response.End();
+                        }
+                        else
+                        {
+                            Response.Write("添加失败");
+                            Response.End();
+                        }
                     }
                 }
             }
