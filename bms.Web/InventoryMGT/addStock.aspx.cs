@@ -167,6 +167,7 @@ namespace bms.Web.InventoryMGT
             catch (Exception ex)
             {
                 Response.Write(ex.Message);
+                Response.End();
             }
             finally
             {
