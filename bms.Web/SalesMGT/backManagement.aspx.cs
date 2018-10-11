@@ -21,7 +21,7 @@ namespace bms.Web.SalesMGT
         protected double discount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["saleId"] = "XSRW20181010000001";
+            //Session["saleId"] = "XSRW20181010000001";
             string op = Request["op"];
             getData();
             if (op == "logout")
@@ -54,6 +54,7 @@ namespace bms.Web.SalesMGT
                 string sellId = Request["sohId"];
                 string state = Request["state"];
                 Session["sellId"] = sellId;
+                Session["type"] = "add";
                 if (state == "已完成")
                 {
                     Response.Write("单据已完成，无法进行修改");
@@ -69,6 +70,7 @@ namespace bms.Web.SalesMGT
             {
                 string sellId = Request["sohId"];
                 Session["sellId"] = sellId;
+                Session["type"] = "search";
             }
         }
         /// <summary>
@@ -114,14 +116,15 @@ namespace bms.Web.SalesMGT
             tb.StrWhere = search;
             ds = uBll.selectByPage(tb, out totalCount, out intPageCount);
             StringBuilder strb = new StringBuilder();
-            int row = smBll.GetCount(sellId);//判断销退单头中是否有单体
+            int row = 0;//判断销退单头中是否有单体
             strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 //strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
                 int state = int.Parse(ds.Tables[0].Rows[i]["state"].ToString());
+                string headId = ds.Tables[0].Rows[i]["sellOffHeadID"].ToString();
                 strb.Append("<tr>");
-                strb.Append("<td class='sellId'>" + ds.Tables[0].Rows[i]["sellOffHeadID"].ToString() + "</td>");
+                strb.Append("<td class='sellId'>" + headId + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
                 strb.Append("<td>" + (state > 0 ? "已完成" : "处理中") + "</td>");
@@ -137,8 +140,12 @@ namespace bms.Web.SalesMGT
                 {
                     strb.Append("<button class='btn btn-success btn-sm btn_add'><i class='fa fa-plus fa-lg'></i></button>");
                 }
-                strb.Append("<button class='btn btn-info btn-sm search_back'><i class='fa fa-search'></i></button>");
-                if (row > 0)
+                if (state == 1)
+                {
+                    strb.Append("<button class='btn btn-info btn-sm search_back'><i class='fa fa-search'></i></button>");
+                }
+                row = smBll.GetCount(headId);
+                if (row == 0)
                 {
                     strb.Append("<button class='btn btn-danger btn-sm btndelete'><i class='fa fa-trash'></i></button>");
                 }
