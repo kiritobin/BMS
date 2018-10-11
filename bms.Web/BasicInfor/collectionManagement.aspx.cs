@@ -149,8 +149,12 @@ namespace bms.Web.CustomerMGT
             catch (Exception ex)
             {
                 Response.Write(ex.Message);
+                Response.End();
             }
-            conn.Close();
+            finally
+            {
+                conn.Close();
+            }
             return dt1;
         }
 
