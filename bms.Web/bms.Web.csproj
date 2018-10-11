@@ -114,6 +114,7 @@
     <Content Include="js\jquery-migrate-1.2.1.min.js" />
     <Content Include="js\jquery.tabletojson.js" />
     <Content Include="js\retail.js" />
+    <Content Include="js\retailBack.js" />
     <Content Include="SalesMGT\booksOut.aspx" />
     <Content Include="SalesMGT\customerRetail.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
@@ -194,6 +195,7 @@
     <Content Include="SalesMGT\backManagement.aspx" />
     <Content Include="SalesMGT\backQuery.aspx" />
     <Content Include="SalesMGT\retail.aspx" />
+    <Content Include="SalesMGT\retailBack.aspx" />
     <Content Include="SalesMGT\retailRank.aspx" />
     <Content Include="SalesMGT\salesDetail.aspx" />
     <Content Include="SalesMGT\salesManagement.aspx" />
@@ -465,6 +467,13 @@
     <Compile Include="SalesMGT\retail.aspx.designer.cs">
       <DependentUpon>retail.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SalesMGT\retailBack.aspx.cs">
+      <DependentUpon>retailBack.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retailBack.aspx.designer.cs">
+      <DependentUpon>retailBack.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SalesMGT\retailRank.aspx.cs">
       <DependentUpon>retailRank.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -530,6 +539,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="uploads\muban\客户馆藏数据表.xls" />
     <Content Include="uploads\muban\基础数据.xls" />
+    <Content Include="uploads\muban\入库表.xls" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

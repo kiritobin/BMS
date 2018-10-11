@@ -271,7 +271,7 @@ namespace bms.Web.InventoryMGT
                     monomers.TotalPrice = Convert.ToDouble(drow["码洋"]);
                     monomers.RealPrice = Convert.ToDouble(drow["实洋"]);
                     SingleHead single = new SingleHead();
-                    single.SingleHeadId = Session["id"].ToString();
+                    single.SingleHeadId = Session["singleHeadId"].ToString();
                     monomers.SingleHeadId = single;
                     count = Convert.ToInt32(drow["商品数量"]);
                     counts = counts + count;
@@ -287,44 +287,78 @@ namespace bms.Web.InventoryMGT
                     }
                     else if (row == Result.添加成功)
                     {
+                        long bookNum = Convert.ToInt64(drow["书号"]);
+                        int billCount = Convert.ToInt32(drow["商品数量"]);
+                        DataSet dsGoods = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
+                        for (int j = 0; j < dsGoods.Tables[0].Rows.Count; j++)
+                        {
+                            billCount = count;
+                            int stockNum = Convert.ToInt32(dsGoods.Tables[0].Rows[j]["stockNum"]);
+                            int goodsId = Convert.ToInt32(dsGoods.Tables[0].Rows[j]["goodsShelvesId"]);
+                            if (billCount <= stockNum)
+                            {
+                                int a = stockNum - billCount;
+                                Result result = stockBll.update(a, goodsId, bookNum);
+                                if (result == Result.更新失败)
+                                {
+                                    Response.Write("添加失败");
+                                    Response.End();
+                                }
+                            }
+                            else
+                            {
+                                count = billCount - stockNum;
+                                Result result = stockBll.update(0, goodsId, bookNum);
+                                if (count == 0)
+                                {
+                                    Response.Write("添加成功");
+                                    Response.End();
+                                }
+                                if (result == Result.更新失败)
+                                {
+                                    Response.Write("添加失败");
+                                    Response.End();
+                                }
+                            }
+                        }
+                        //BookBasicData bookBasic = new BookBasicData();
+                        //bookBasic.Isbn = book.Isbn;
+                        //bookBasic.BookNum = Convert.ToInt64(drow["书号"]);
+                        //Stock stock = new Stock();
+                        //stock.StockNum = Convert.ToInt32(drow["商品数量"]);
+                        //stock.ISBN = bookBasic;
+                        //stock.BookNum = bookBasic;
+                        //stock.RegionId = user.ReginId;
+                        //GoodsShelves goodsShelves = new GoodsShelves();
 
-                        BookBasicData bookBasic = new BookBasicData();
-                        bookBasic.Isbn = book.Isbn;
-                        bookBasic.BookNum = Convert.ToInt64(drow["书号"]);
-                        Stock stock = new Stock();
-                        stock.StockNum = Convert.ToInt32(drow["商品数量"]);
-                        stock.ISBN = bookBasic;
-                        stock.BookNum = bookBasic;
-                        stock.RegionId = user.ReginId;
-                        GoodsShelves goodsShelves = new GoodsShelves();
-                        int goodsShelf = Convert.ToInt32(drow["货架号"]);
-                        goodsShelves.GoodsShelvesId = goodsShelf;
-                        stock.GoodsShelvesId = goodsShelves;
-                        StockBll stockBll = new StockBll();
-                        Result results = stockBll.GetByBookNum(Convert.ToInt64(drow["书号"]), goodsShelf);
-                        if (results == Result.记录不存在)
-                        {
-                            Result result = stockBll.insert(stock);
-                            if (result == Result.添加失败)
-                            {
-                                Response.Write("添加失败");
-                                Response.End();
-                            }
-                        }
-                        else
-                        {
-                            int rows = stockBll.getStockNum(Convert.ToInt64(drow["书号"]), goodsShelf);
-                            Result result = stockBll.update(Convert.ToInt32(drow["商品数量"]) + rows, goodsShelf, Convert.ToInt64(drow["书号"]));
-                            if (result == Result.更新失败)
-                            {
-                                Response.Write("添加失败");
-                                Response.End();
-                            }
-                        }
+                        //int goodsShelf = Convert.ToInt32(drow["货架号"]);
+                        //goodsShelves.GoodsShelvesId = goodsShelf;
+                        //stock.GoodsShelvesId = goodsShelves;
+
+                        //Result results = stockBll.GetByBookNum(Convert.ToInt64(drow["书号"]), goodsShelf);
+                        //if (results == Result.记录不存在)
+                        //{
+                        //    Result result = stockBll.insert(stock);
+                        //    if (result == Result.添加失败)
+                        //    {
+                        //        Response.Write("添加失败");
+                        //        Response.End();
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    int rows = stockBll.getStockNum(Convert.ToInt64(drow["书号"]), goodsShelf);
+                        //    Result result = stockBll.update(Convert.ToInt32(drow["商品数量"]) + rows, goodsShelf, Convert.ToInt64(drow["书号"]));
+                        //    if (result == Result.更新失败)
+                        //    {
+                        //        Response.Write("添加失败");
+                        //        Response.End();
+                        //    }
+                        //}
                     }
                 }
                 SingleHead singleHead = new SingleHead();
-                singleHead.SingleHeadId = Session["id"].ToString();
+                singleHead.SingleHeadId = Session["singleHeadId"].ToString();
                 singleHead.AllBillCount = counts;
                 singleHead.AllRealPrice = allReal;
                 singleHead.AllTotalPrice = allTotal;
