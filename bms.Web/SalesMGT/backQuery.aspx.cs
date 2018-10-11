@@ -36,22 +36,41 @@ namespace bms.Web.SalesMGT
             {
                 //string bookNum = Request["bookNum"];
                 string ISBN = Request["ISBN"];
-                bookds = bookBll.SelectByIsbn(ISBN);
-                if (bookds != null && bookds.Tables[0].Rows.Count > 0)
+                string bookNum = Request["bookNO"];
+                int bookCount = smBll.getBookCount(bookNum);
+                if (bookNum == "" || bookNum == null)
                 {
-                    //如果有两条及两条以上显示表格
-                    if (bookds.Tables[0].Rows.Count > 1)
+                    bookds = bookBll.SelectByIsbn(ISBN);
+                    if (bookds != null && bookds.Tables[0].Rows.Count > 0)
                     {
-                        getbook();
+                        //如果有两条及两条以上显示表格
+                        if (bookds.Tables[0].Rows.Count > 1)
+                        {
+                            getbook();
+                        }
+                        Response.Write(GetData());
+                        Response.End();
                     }
-                    Response.Write(GetData());
+                    else
+                    {
+                        Response.Write("暂无此数据");
+                        Response.End();
+                    }
+                }
+                else if (bookCount == 0)
+                {
+                    Response.Write("销售单据中无此数据");
                     Response.End();
                 }
                 else
                 {
-                    Response.Write("暂无此数据");
+                    Response.Write(GetData());
                     Response.End();
                 }
+            }
+            if (op == "add")
+            {
+                addSalemon();
             }
             if (op == "sure")
             {
@@ -81,16 +100,24 @@ namespace bms.Web.SalesMGT
             string ISBN = "";
             double unitPrice = 0;
             string isbn = Request["ISBN"];
+            bookNum = Request["bookNO"];
             if (isbn != "" || isbn != null)
             {
                 ISBN = isbn;
             }
-            if (bookds != null)
+            if (bookNum == "" || bookNum == null)
             {
-                bookNum = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
-                BookBasicData book = new BookBasicData();
-                book = bookBll.SelectById(long.Parse(bookNum));
-                unitPrice = book.Price;//定价
+                if (bookds != null)
+                {
+                    bookNum = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
+                    BookBasicData book = new BookBasicData();
+                    book = bookBll.SelectById(long.Parse(bookNum));
+                    unitPrice = book.Price;//定价
+                }
+            }
+            else
+            {
+                unitPrice = double.Parse(Request["price"]);
             }
             StringBuilder sb = new StringBuilder();
             sb.Append("<tr calss='first'>");
@@ -112,6 +139,7 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public void addSalemon()
         {
+            string sellId = Session["sellId"].ToString();
             string isbn = Request["ISBN"];//ISBN
             string bookNo = Request["bookNum"];
             if (bookNo == null || bookNo == "")
@@ -124,7 +152,15 @@ namespace bms.Web.SalesMGT
                 BookBasicData book = new BookBasicData();
                 book = bookBll.SelectById(long.Parse(bookNo));
                 double unitPrice = book.Price;//定价
-                double discount = double.Parse(Request["discount"]);//实际折扣
+                                              //double discount = double.Parse(Request["discount"]);//实际折扣
+
+                //获取默认折扣
+                DataSet stds = smBll.getSaleTask(sellId);
+                string stId = Session["saleId"].ToString();
+                DataSet seds = smBll.getDisCount(stId);
+                string dc = seds.Tables[0].Rows[0]["defaultDiscount"].ToString();
+                double discount = double.Parse(dc);//默认折扣
+
                 int count = int.Parse(Request["count"]);//数量
                 double totalPrice = unitPrice * count;//码洋
                 double d = totalPrice * discount;
@@ -135,10 +171,9 @@ namespace bms.Web.SalesMGT
                 smId = moNum + 1;//单体Id
                 DateTime time = DateTime.Now;
 
-                string sellId = Session["sellId"].ToString();
                 //获取默认折扣
-                DataSet stds = smBll.getSaleTask(sellId);
-                string stId = stds.Tables[0].Rows[0]["saleTaskId"].ToString();//销售任务Id
+                //DataSet stds = smBll.getSaleTask(sellId);
+                //string stId = stds.Tables[0].Rows[0]["saleTaskId"].ToString();//销售任务Id
                 DataSet countds = smBll.selctByBookNum(bookNo, stId);
                 int num = 0;
                 SellOffMonomer sm = new SellOffMonomer()
@@ -298,7 +333,7 @@ namespace bms.Web.SalesMGT
                 }
             }
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
-            sb.Append("<input type='hidden' value='" + discount + "' id='sellId' />");
+            //sb.Append("<input type='hidden' value='" + discount + "' id='sellId' />");
             sb.Append("</tbody>");
             return sb.ToString();
         }
