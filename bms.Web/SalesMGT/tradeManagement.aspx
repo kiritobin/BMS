@@ -205,9 +205,8 @@
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">个人中心</a>
-                                    <a class="dropdown-item" href="#">修改密码</a>
-                                    <a class="dropdown-item" href="#">退出系统</a>
+                                    <a class="dropdown-item" href="../changePwd.aspx">修改密码</a>
+                                    <a class="dropdown-item" href="javascript:logout();">退出系统</a>
                                 </div>
                             </li>
                         </ul>
@@ -227,10 +226,10 @@
                                     <div class="card-header from-group">
                                         <div class="btn-group" role="group">
                                             <input type="text" class="searchOne" id="search_All" placeholder="请输入任务ID">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>查询</button>
+                                            <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                         </div>
                                         <div class="btn-group" role="group">
-                                            <button class="btn btn-success" data-toggle="modal" data-target="#myModal" id="btn-addSale"><i class="fa fa-plus fa-lg"></i>&nbsp 添加</button>
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-addSale">添加</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">

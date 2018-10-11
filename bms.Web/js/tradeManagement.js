@@ -73,15 +73,51 @@
     });
     //添加销售任务
     $("#btnAdd").click(function () {
-        var billCount = $("#billCount").val().trim();
-        var totalPrice = $("#totalPrice").val().trim();
-        var realPrice = $("#realPrice").val().trim();
-        var Price = $("#Price").val().trim();
-        var saleCustmer = $("#saleCustmer").val().trim();
-        if (billCount == "" || totalPrice == "" || realPrice == "" || Price == "" || saleCustmer == "") {
+        var saleCustmer = $("#saleCustmer").val().trim();//客户
+        var billCount = $("#billCount").val().trim();//最大采购数量
+        var totalPrice = $("#totalPrice").val().trim();//单价上限
+        var realPrice = $("#realPrice").val().trim();//码洋上限
+        var Price = $("#Price").val().trim();//默认折扣
+        if (saleCustmer == "") {
             swal({
                 title: "温馨提示:)",
-                text: "不能含有未填项!",
+                text: "客户未选择，请您选择客户。",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else if (billCount == "") {
+            swal({
+                title: "温馨提示:)",
+                text: "最大采购数不能为空!请您确认后再次提交。",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else if (totalPrice == "") {
+            swal({
+                title: "温馨提示:)",
+                text: "单价上限不能为空!请您确认后再次提交。",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else if (realPrice == "") {
+            swal({
+                title: "温馨提示:)",
+                text: "码洋上限不能为空!请您确认后再次提交。",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else if (Price == "") {
+            swal({
+                title: "温馨提示:)",
+                text: "默认折扣不能为空!请您确认后再次提交。",
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"
@@ -135,9 +171,9 @@
     $("#table").delegate(".btn_del", "click", function () {
         var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
         swal({
-            title: "是否删除？",
-            text: "删除后将无法恢复！！！",
-            type: "question",
+            title: "温馨提示:)",
+            text: "删除后将无法恢复，您确定要删除吗？？？",
+            type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
