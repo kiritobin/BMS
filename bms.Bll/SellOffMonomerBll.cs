@@ -149,5 +149,14 @@ namespace bms.Bll
             DataSet ds = dao.getAllNum(sellOffHeadId);
             return ds;
         }
+        /// <summary>
+        /// 获取零售排行
+        /// </summary>
+        /// <returns></returns>
+        public DataSet getRetailRank()
+        {
+            DataSet ds = dao.getRetailRank();
+            return ds;
+        }
     }
 }

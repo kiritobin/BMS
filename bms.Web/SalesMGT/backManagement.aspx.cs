@@ -21,7 +21,6 @@ namespace bms.Web.SalesMGT
         protected double discount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Session["saleId"] = "XSRW20181010000001";
             string op = Request["op"];
             getData();
             if (op == "logout")
@@ -33,14 +32,6 @@ namespace bms.Web.SalesMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
-            CustomerBll cutBll = new CustomerBll();
-            //获取默认折扣
-            SaleTaskBll saleBll = new SaleTaskBll();
-            cutds = cutBll.select();
-            string saleId = Session["saleId"].ToString();
-            SaleTask sale = new SaleTask();
-            sale = saleBll.selectById(saleId);
-            discount = sale.DefaultDiscount;
             if (op == "add")
             {
                 Insert();
@@ -79,7 +70,7 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public String getData()
         {
-            //Session["saleId"] = "XSRW20181007000001";
+            string saleId = Session["saleId"].ToString();
             int pagesize = 20;
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -90,7 +81,6 @@ namespace bms.Web.SalesMGT
             //string stockId = Request["stockId"];
             string sellId = Request["sellId"];
             string cutomerName = Request["customer"];
-            string saleId = Session["saleId"].ToString();
             if ((sellId == "" || sellId == null) && (cutomerName == "" || cutomerName == null))
             {
                 search = "saleTaskId='" + saleId + "' and deleteState=0";
@@ -122,6 +112,8 @@ namespace bms.Web.SalesMGT
             {
                 //strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
                 int state = int.Parse(ds.Tables[0].Rows[i]["state"].ToString());
+                string dc = ds.Tables[0].Rows[i]["defaultDiscount"].ToString();
+                double defaultDiscount = double.Parse(dc) * 100;
                 string headId = ds.Tables[0].Rows[i]["sellOffHeadID"].ToString();
                 strb.Append("<tr>");
                 strb.Append("<td class='sellId'>" + headId + "</td>");
@@ -130,7 +122,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + (state > 0 ? "已完成" : "处理中") + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["kinds"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["defaultDiscount"].ToString() + "</td>");
+                strb.Append("<td>" + defaultDiscount + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["makingTime"].ToString() + "</td>");
@@ -198,15 +190,11 @@ namespace bms.Web.SalesMGT
                         if (count > 0)
                         {
                             sellId = "XT" + headId;
-                            //count += 1;
-                            //sellId = "XT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                            //Session["sell"] = sellId;
                         }
                         else
                         {
                             count = 1;
                             sellId = "XT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                            //Session["sell"] = sellId;
                         }
                         SaleTask st = new SaleTask()
                         {
