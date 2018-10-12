@@ -42,7 +42,7 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <%if (funcUser||funcRole||funcOrg||funcGoods) { %>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
                             <p>
@@ -50,7 +50,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="securityManage">
+                        <div class="collapse " id="securityManage">
                             <ul class="nav">
                                 <%if (funcUser) { %>
                                 <li class="nav-item">
@@ -75,7 +75,7 @@
                                 <%} %>
                                 <%if (funcGoods) { %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
+                                    <a class="nav-link " href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
@@ -105,7 +105,7 @@
                     </li>
                     <%} %>
                     <%if (funcPut||funcOut||funcReturn||funcSupply) {%>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                              <i class="fa fa-book"></i>
                             <p>
@@ -113,7 +113,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="inventoryManage">
+                        <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
                                 <%if (funcOut) { %>
                                 <li class="nav-item">
@@ -123,7 +123,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcPut) { %>
-                                <li class="nav-item">
+                                <li class="nav-item activeNext">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
@@ -165,13 +165,13 @@
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcSaleOff) { %>
+                                <%--<%if (funcSaleOff) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/backQuery.aspx">
                                         <span class="sidebar-normal">销退管理</span>
                                     </a>
                                 </li>
-                                <%} %>
+                                <%} %> --%>
                             </ul>
                         </div>
                     </li>
@@ -254,9 +254,10 @@
                                 <div class="card-body">
                                     <div class="card-header card-header-danger">
                                         <h4 class="card-title">入库查询</h4>
+                                        <button class="btn btn-warning pull-right"  onclick="javascript:history.back(-1);">返回</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-success" id="export"><i class="fa fa-print" aria-hidden="true">导出</i></button>
+                                        <button class="btn btn-info" id="export"><i class="fa fa-share" aria-hidden="true">导出</i></button>&nbsp;&nbsp;
                                         <button class="btn btn-success" id="print"><i class="fa fa-print" aria-hidden="true">打印</i></button>
                                     </div>
                                     <div class="card-header from-group">
