@@ -275,5 +275,42 @@ namespace bms.Bll
         {
             return SaleMonomerdao.updateAlreadyBought(alreadyBought, bookNum, saleId);
         }
+
+        /// <summary>
+        /// 获取销售单头的状态
+        /// </summary>
+        /// <param name="saleHeadId">销售单头</param>
+        /// <returns>返回销售单头状态</returns>
+        public string getsaleHeadState(string saleHeadId)
+        {
+            return SaleMonomerdao.getsaleHeadState(saleHeadId);
+        }
+        /// <summary>
+        /// 获取该单头id下的书本数量
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public int getsBookNumberSum(string saleHeadId)
+        {
+            return SaleMonomerdao.getsBookNumberSum(saleHeadId);
+        }
+        /// <summary>
+        /// 获取该单头id下的码洋
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public double getsBookTotalPrice(string saleHeadId)
+        {
+            return SaleMonomerdao.getsBookTotalPrice(saleHeadId);
+        }
+        /// <summary>
+        /// 获取该单头id下的实洋
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public double getsBookRealPrice(string saleHeadId)
+        {
+            return SaleMonomerdao.getsBookRealPrice(saleHeadId);
+        }
     }
 }

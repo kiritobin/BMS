@@ -136,6 +136,41 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
+            //返回按钮
+            if (op == "back")
+            {
+                updateSalehead();
+                int row = salemonbll.SelectBySaleHeadId(SaleHeadId);
+                if (row > 0)
+                {
+                    string state = salemonbll.getsaleHeadState(SaleHeadId);
+                    if (state == "0")
+                    {
+                        Result res = salemonbll.updateHeadstate(saleId, SaleHeadId, 1);
+                        if (res == Result.更新成功)
+                        {
+                            Response.Write("更新成功");
+                            Response.End();
+                        }
+                        else
+                        {
+                            Response.Write("更新失败");
+                            Response.End();
+                        }
+                    }
+                    else
+                    {
+                        Response.Write("无数据");
+                        Response.End();
+                    }
+                }
+                else
+                {
+                    Response.Write("无数据");
+                    Response.End();
+                }
+
+            }
         }
         /// <summary>
         /// 获取销售任务码洋限制
@@ -271,7 +306,7 @@ namespace bms.Web.SalesMGT
                                     RealPrice = realPrice,
                                     RealDiscount = disCount,
                                     Datetime = Time,
-                                    SaleTaskId= saleId
+                                    SaleTaskId = saleId
 
                                 };
                                 //更新库存
@@ -388,14 +423,17 @@ namespace bms.Web.SalesMGT
         {
             //更新单头
             allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
-            DataSet allds = salemonbll.SelectMonomers(SaleHeadId);
-            int j = allds.Tables[0].Rows.Count;
-            for (int h = 0; h < j; h++)
-            {
-                allnumber += Convert.ToInt32(allds.Tables[0].Rows[h]["number"]);
-                alltotalprice += Convert.ToInt32(allds.Tables[0].Rows[h]["totalPrice"]);
-                allreadprice += Convert.ToInt32(allds.Tables[0].Rows[h]["realPrice"]);
-            }
+            allnumber = salemonbll.getsBookNumberSum(SaleHeadId);
+            alltotalprice = salemonbll.getsBookTotalPrice(SaleHeadId);
+            allreadprice = salemonbll.getsBookRealPrice(SaleHeadId);
+            //DataSet allds = salemonbll.SelectMonomers(SaleHeadId);
+            //int j = allds.Tables[0].Rows.Count;
+            //for (int h = 0; h < j; h++)
+            //{
+            //    allnumber += Convert.ToInt32(allds.Tables[0].Rows[h]["number"]);
+            //    alltotalprice += Convert.ToInt32(allds.Tables[0].Rows[h]["totalPrice"]);
+            //    allreadprice += Convert.ToInt32(allds.Tables[0].Rows[h]["realPrice"]);
+            //}
             //添加成功 更新单头
             SaleHead salehead = new SaleHead();
             salehead.SaleTaskId = saleId;
