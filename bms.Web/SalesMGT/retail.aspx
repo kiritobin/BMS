@@ -49,11 +49,11 @@
                         </div>
                     </div>--%>
                     <div class="row">
-                        <div class="col-md-9 col-lg-8 text-right">
+                        <div class="col-md-8 text-right">
                             <div class="text-right">时间：<span id="time"></span></div>
                         </div>
                         <!-- 左侧数据表 -->
-                        <div class="table-responsive col-md-9 col-lg-8">
+                        <div class="table-responsive col-md-8">
                             <div style="height: 500px; display: block; overflow-y: auto;">
                                 <table class="table mostTable table-bordered text-center test" id="table">
                                     <thead>
@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <!-- 右侧功能区 -->
-                        <div class="col-md-3 col-lg-4">
+                        <div class="col-md-4">
                             <div class="retailList">
                                 <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
                             </div>
@@ -121,7 +121,7 @@
                         </div>
 
                         <!-- 合计模块 -->
-                        <div class="col-md-9 col-lg-8">
+                        <div class="col-md-9">
                             <fieldset>
                                 <legend>
                                     <b>合计</b>
@@ -145,24 +145,31 @@
                             </fieldset>
                         </div>
                         <!--startprint-->
-                        <div class="border content" style="width: 200px; height: 350px;" id="ticket">
-                            <div style="color:black;font-size:16px;line-height:2;" >
-                                <br />
-                                <div>
-                                    品种：<span id="kindEnd"></span>
-                                    数量：<span id="numberEnd"></span>
+                        <div class="col-md-3" id="ticket">
+                            <div class="retailList">
+                                <div class="row form-group">
+                                    <div class="col-md-5 text-right">
+                                        品种：<span id="kindEnd"></span>
+                                    </div>
+                                    <div class="col-md-5 text-center">
+                                        数量：<span id="numberEnd"></span>
+                                    </div>
                                 </div>
-                                <div>
-                                    码洋：<span id="totalEnd"></span>
-                                    应收：<span id="realEnd"></span>
+                                <div class="row form-group">
+                                    <div class="col-md-5 text-right">
+                                        码洋：<span id="totalEnd"></span>
+                                    </div>
+                                    <div class="col-md-5 text-center">
+                                        应收：<span id="realEnd"></span>
+                                    </div>
                                 </div>
-                                <div style="margin-top:10px;">
-                                    <img src="#" style="width: 150px; height: 150px;" id="img" />
+                                <div class="row form-group text-center">
+                                    <div class="col-md-12">
+                                        <img src="#" style="width: 150px; height: 150px;" id="img" />
+                                    </div>
                                 </div>
-                                <div>
                                 <hr />
-                                    <span id="timeEnd"></span>
-                                </div>
+                                <p class="text-center"><span id="timeEnd"></span></p>
                             </div>
                         </div>
                         <!--endprint-->
