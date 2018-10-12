@@ -132,8 +132,8 @@ namespace bms.Dao
         public int Insert(SaleMonomer salemonomer)
         {
             string cmdText = "insert into T_SaleMonomer(saleIdMonomerId,bookNum,ISBN,saleHeadId,number,unitPrice,totalPrice,realDiscount,realPrice,dateTime,alreadyBought,saleTaskId) values(@saleIdMonomerId,@bookNum,@ISBN,@saleHeadId,@number,@unitPrice,@totalPrice,@realDiscount,@realPrice,@dateTime,@alreadyBought,@saleTaskId)";
-            string[] param = { "@saleIdMonomerId", "@bookNum", "@ISBN", "@saleHeadId", "@number", "@unitPrice", "@totalPrice", "@realDiscount", "@realPrice", "@dateTime", "@alreadyBought" , "@saleTaskId" };
-            object[] values = { salemonomer.SaleIdMonomerId, salemonomer.BookNum, salemonomer.ISBN1, salemonomer.SaleHeadId, salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealPrice, salemonomer.Datetime, salemonomer.AlreadyBought ,salemonomer.SaleTaskId};
+            string[] param = { "@saleIdMonomerId", "@bookNum", "@ISBN", "@saleHeadId", "@number", "@unitPrice", "@totalPrice", "@realDiscount", "@realPrice", "@dateTime", "@alreadyBought", "@saleTaskId" };
+            object[] values = { salemonomer.SaleIdMonomerId, salemonomer.BookNum, salemonomer.ISBN1, salemonomer.SaleHeadId, salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealPrice, salemonomer.Datetime, salemonomer.AlreadyBought, salemonomer.SaleTaskId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -304,6 +304,112 @@ namespace bms.Dao
             object[] values = { alreadyBought, bookNum, saleId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
+        }
+        /// <summary>
+        /// 获取销售单头的状态
+        /// </summary>
+        /// <param name="saleHeadId">销售单头</param>
+        /// <returns>返回销售单头状态</returns>
+        public string getsaleHeadState(string saleHeadId)
+        {
+            string cmdtext = "select state from T_SaleHead where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            DataSet ds = db.FillDataSet(cmdtext, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                string state = ds.Tables[0].Rows[0]["state"].ToString();
+                return state;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        //SELECT SUM(number) FROM T_SaleMonomer WHERE saleHeadId='XS20181012000005'
+        /// <summary>
+        /// 获取该单头id下的书本数量
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public int getsBookNumber(string saleHeadId)
+        {
+            string cmdtext = "select sum(number) from T_SaleMonomer where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            int sum = Convert.ToInt32(db.ExecuteScalar(cmdtext, param, values));
+            if (sum > 0)
+            {
+                return sum;
+            }
+            else
+            {
+                return sum = 0;
+            }
+        }
+        //SELECT SUM(number) FROM T_SaleMonomer WHERE saleHeadId='XS20181012000005'
+        /// <summary>
+        /// 获取该单头id下的书本数量
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public int getsBookNumberSum(string saleHeadId)
+        {
+            string cmdtext = "select sum(number) from T_SaleMonomer where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
+            int sum;
+            if (sumstring == "" || sumstring == null)
+            {
+                return sum = 0;
+            }
+            else
+            {
+                return sum = Convert.ToInt32(sumstring);
+            }
+        }
+        /// <summary>
+        /// 获取该单头id下的码洋
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public double getsBookTotalPrice(string saleHeadId)
+        {
+            string cmdtext = "select sum(totalPrice) from T_SaleMonomer where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
+            double sum;
+            if (sumstring == "" || sumstring == null)
+            {
+                return sum = 0;
+            }
+            else
+            {
+                return sum = Convert.ToInt32(sumstring);
+            }
+        }
+        /// <summary>
+        /// 获取该单头id下的实洋
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public double getsBookRealPrice(string saleHeadId)
+        {
+            string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
+            double sum;
+            if (sumstring == "" || sumstring == null)
+            {
+                return sum = 0;
+            }
+            else
+            {
+                return sum = Convert.ToDouble(sumstring);
+            }
         }
     }
 }

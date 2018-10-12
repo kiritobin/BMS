@@ -177,8 +177,7 @@
                             $("#alltotalprice").text(succ.AlltotalPrice);
                             var alltotalprice = parseFloat(succ.AlltotalPrice);
                             var limtalltotalprice = parseFloat(limited);
-                            if (alltotalprice > limtalltotalprice)
-                            {
+                            if (alltotalprice > limtalltotalprice) {
                                 swal({
                                     title: "温馨提示:)",
                                     text: "已添加成功但已达到码洋上限",
@@ -327,7 +326,7 @@
             confirmButtonClass: 'btn btn-success',
             cancelButtonClass: 'btn btn-danger',
             buttonsStyling: false,
-            showLoaderOnConfirm:true,//是否显示load
+            showLoaderOnConfirm: true,//是否显示load
             allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
         }).then(function () {
             $.ajax({
@@ -378,24 +377,36 @@
 
     //返回按钮
     $("#back").click(function () {
-        window.location.href = "../SalesMGT/salesManagement.aspx";
-        //$.ajax({
-        //    type: 'Post',
-        //    url: 'salesDetail.aspx',
-        //    data: {
-        //        op: 'back'
-        //    },
-        //    dataType: 'text',
-        //    success: function (succ) {
-        //        if (succ == "删除成功") {
-        //            window.location.href = "../SalesMGT/tradeManagement.aspx";
-        //        } else if (succ == "删除失败") {
-        //            window.location.href = "../SalesMGT/tradeManagement.aspx";
-        //        } else {
-        //            window.location.href = "../SalesMGT/tradeManagement.aspx";
-        //        }
-        //    }
-        //})
+        $.ajax({
+            type: 'Post',
+            url: 'salesDetail.aspx',
+            data: {
+                op: 'back'
+            },
+            dataType: 'text',
+            success: function (succ) {
+                if (succ == "更新成功") {
+                    window.location.href = "../SalesMGT/salesManagement.aspx";
+                } else if (succ == "无数据") {
+                    window.location.href = "../SalesMGT/salesManagement.aspx";
+                } else {
+                    swal({
+                        title: "温馨提示:)",
+                        text: "单据状态修改失败",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        confirmButtonClass: 'btn btn-success',
+                        cancelButtonClass: 'btn btn-danger',
+                        buttonsStyling: false,
+                        allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+                    })
+                }
+            }
+        })
     })
     ////删除
     //$("#table").delegate(".btn_del", "click", function () {
