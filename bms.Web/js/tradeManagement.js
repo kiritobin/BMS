@@ -335,7 +335,7 @@
     //售
     $("#table").delegate(".btn_sale", "click", function () {
         var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
-        var time = $(this).parent().prev().prev().text();
+        var time = $(this).parent().prev().text();
         if (time == "销售任务采集中") {
             $.ajax({
                 type: 'Post',
@@ -357,7 +357,7 @@
         else {
             swal({
                 title: "提示",
-                text: "该销售任务也完成，如要查看请点击查看按钮!",
+                text: "该销售任务已完成，如要查看请点击查看按钮!",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',

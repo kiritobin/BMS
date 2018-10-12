@@ -318,7 +318,7 @@
     $("#success").click(function () {
         swal({
             title: "温馨提示:)",
-            text: "是否新建销售？？？",
+            text: "是否新建单据？",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -328,6 +328,7 @@
             confirmButtonClass: 'btn btn-success',
             cancelButtonClass: 'btn btn-danger',
             buttonsStyling: false,
+            showLoaderOnConfirm:true,//是否显示load
             allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
         }).then(function () {
             $.ajax({
@@ -339,7 +340,22 @@
                 dataType: 'text',
                 success: function (succ) {
                     if (succ == "状态修改成功") {
-                        window.location.href = "../SalesMGT/salesManagement.aspx";
+                        swal({
+                            title: "提示",
+                            text: "状态修改成功，是否返回销售页面？",
+                            type: "question",
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            confirmButtonClass: 'btn btn-success',
+                            cancelButtonClass: 'btn btn-danger',
+                            buttonsStyling: false,
+                            allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+                        }).then(function () {
+                            window.location.href = "../SalesMGT/salesManagement.aspx";
+                        })
                     } else {
                         swal({
                             title: "温馨提示:)",

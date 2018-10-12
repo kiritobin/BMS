@@ -103,8 +103,7 @@
                 },
                 dataType: 'text',
                 success: function (succ) {
-                    if(succ=="成功")
-                    {
+                    if (succ == "成功") {
                         swal({
                             title: "温馨提示",
                             text: "保存完成",
@@ -118,8 +117,20 @@
                             window, location.reload();
                         })
                     }
-                    else
-                    {
+                    else if (succ == "未完成失败") {
+                        swal({
+                            title: "温馨提示",
+                            text: "有未完成单据，请检查",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                        })
+                    }
+                    else  {
                         swal({
                             title: "温馨提示",
                             text: "保存失败",
@@ -135,12 +146,73 @@
                 }
             })
         })
-        //添加
-        $("#btn_add").click(function () {
+    })
+    //添加
+    $("#btn_add").click(function () {
+        swal({
+            title: "温馨提示:)",
+            text: "是否新建销售？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+        }).then(function () {
+            $.ajax({
+                type: 'Post',
+                url: 'salesManagement.aspx',
+                data: {
+                    op: "add"
+                },
+                dataType: 'text',
+                success: function (succ) {
+                    if (succ == "添加成功") {
+                        swal({
+                            title: "温馨提示",
+                            text: "添加成功",
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    }
+                    else {
+                        swal({
+                            title: "温馨提示",
+                            text: "添加失败请联系技术人员!",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+
+                        })
+                    }
+                }
+            })
+        })
+    })
+    //删除
+    $("#table").delegate(".btn_del", "click", function () {
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        var taskId = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        var state = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        if (state == "新建单据") {
             swal({
-                title: "温馨提示:)",
-                text: "是否新建销售？",
-                type: "warning",
+                title: "是否删除？",
+                text: "删除后将无法恢复！！！",
+                type: "question",
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -155,14 +227,16 @@
                     type: 'Post',
                     url: 'salesManagement.aspx',
                     data: {
-                        op: "add"
+                        ID: ID,
+                        taskId: taskId,
+                        op: 'del'
                     },
                     dataType: 'text',
                     success: function (succ) {
-                        if (succ == "添加成功") {
+                        if (succ == "删除成功") {
                             swal({
-                                title: "温馨提示",
-                                text: "添加成功",
+                                title: "提示",
+                                text: "删除成功",
                                 type: "success",
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: '确定',
@@ -170,13 +244,12 @@
                                 buttonsStyling: false,
                                 allowOutsideClick: false
                             }).then(function () {
-                                window, location.reload();
+                                window.location.reload();
                             })
-                        }
-                        else {
+                        } else {
                             swal({
-                                title: "温馨提示",
-                                text: "添加失败请联系技术人员!",
+                                title: "提示",
+                                text: "删除失败",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: '确定',
@@ -184,162 +257,101 @@
                                 buttonsStyling: false,
                                 allowOutsideClick: false
                             }).then(function () {
-
                             })
                         }
                     }
                 })
             })
-        })
-        //删除
-        $("#table").delegate(".btn_del", "click", function () {
-            var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
-            var taskId = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
-            var state = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
-            if (state == "新建单据") {
-                swal({
-                    title: "是否删除？",
-                    text: "删除后将无法恢复！！！",
-                    type: "question",
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    confirmButtonClass: 'btn btn-success',
-                    cancelButtonClass: 'btn btn-danger',
-                    buttonsStyling: false,
-                    allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
-                }).then(function () {
-                    $.ajax({
-                        type: 'Post',
-                        url: 'salesManagement.aspx',
-                        data: {
-                            ID: ID,
-                            taskId: taskId,
-                            op: 'del'
-                        },
-                        dataType: 'text',
-                        success: function (succ) {
-                            if (succ == "删除成功") {
-                                swal({
-                                    title: "提示",
-                                    text: "删除成功",
-                                    type: "success",
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: '确定',
-                                    confirmButtonClass: 'btn btn-success',
-                                    buttonsStyling: false,
-                                    allowOutsideClick: false
-                                }).then(function () {
-                                    window.location.reload();
-                                })
-                            } else {
-                                swal({
-                                    title: "提示",
-                                    text: "删除失败",
-                                    type: "warning",
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: '确定',
-                                    confirmButtonClass: 'btn btn-success',
-                                    buttonsStyling: false,
-                                    allowOutsideClick: false
-                                }).then(function () {
-                                })
-                            }
-                        }
-                    })
-                })
-            }
-            else if (state == "采集中") {
-                swal({
-                    title: "温馨提示:)",
-                    text: "单据采集中，现在不能删除。",
-                    type: "warning",
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '确定',
-                    confirmButtonClass: 'btn btn-success',
-                    buttonsStyling: false,
-                    allowOutsideClick: false
-                }).then(function () {
-                })
-            }
-            else if (state == "单据已完成") {
-                swal({
-                    title: "温馨提示",
-                    text: "单据已完成不能删除",
-                    type: "warning",
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '确定',
-                    confirmButtonClass: 'btn btn-success',
-                    buttonsStyling: false,
-                    allowOutsideClick: false
-                }).then(function () {
-                })
-            }
-        });
+        }
+        else if (state == "采集中") {
+            swal({
+                title: "温馨提示:)",
+                text: "单据采集中，现在不能删除。",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            }).then(function () {
+            })
+        }
+        else if (state == "单据已完成") {
+            swal({
+                title: "温馨提示",
+                text: "单据已完成不能删除",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            }).then(function () {
+            })
+        }
+    });
 
-        //加
-        $("#table").delegate(".add", "click", function () {
-            var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
-            var taskId = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
-            var state = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
-            if (state == "单据已完成") {
-                swal({
-                    title: "温馨提示",
-                    text: "单据已完成，不能添加",
-                    type: "warning",
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '确定',
-                    confirmButtonClass: 'btn btn-success',
-                    buttonsStyling: false,
-                    allowOutsideClick: false
-                }).then(function () { })
-            } else {
-                $.ajax({
-                    type: 'Post',
-                    url: 'salesManagement.aspx',
-                    data: {
-                        ID: ID,
-                        taskId: taskId,
-                        op: 'addDetail'
-                    },
-                    dataType: 'text',
-                    success: function (succ) {
-                        if (succ == "成功") {
-                            window.location.href = "../SalesMGT/salesDetail.aspx";
-                        } else {
-                            swal({
-                                title: "温馨提示",
-                                text: "单据已完成，不能添加",
-                                type: "warning",
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: '确定',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false,
-                                allowOutsideClick: false
-                            }).then(function () { })
-                        }
-                    }
-                })
-            }
-        })
-        //看
-        $("#table").delegate(".look", "click", function () {
-            var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+    //加
+    $("#table").delegate(".add", "click", function () {
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var taskId = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        var state = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        if (state == "单据已完成") {
+            swal({
+                title: "温馨提示",
+                text: "单据已完成，不能添加",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            }).then(function () { })
+        } else {
             $.ajax({
                 type: 'Post',
                 url: 'salesManagement.aspx',
                 data: {
                     ID: ID,
-                    op: 'look'
+                    taskId: taskId,
+                    op: 'addDetail'
                 },
                 dataType: 'text',
                 success: function (succ) {
                     if (succ == "成功") {
                         window.location.href = "../SalesMGT/salesDetail.aspx";
+                    } else {
+                        swal({
+                            title: "温馨提示",
+                            text: "单据已完成，不能添加",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () { })
                     }
                 }
             })
+        }
+    })
+    //看
+    $("#table").delegate(".look", "click", function () {
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        $.ajax({
+            type: 'Post',
+            url: 'salesManagement.aspx',
+            data: {
+                ID: ID,
+                op: 'look'
+            },
+            dataType: 'text',
+            success: function (succ) {
+                if (succ == "成功") {
+                    window.location.href = "../SalesMGT/salesDetail.aspx";
+                }
+            }
         })
     })
+})

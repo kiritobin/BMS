@@ -23,10 +23,10 @@ namespace bms.Web.SalesMGT
         {
             getData();
             string op = Request["op"];
-            string saleTaskid = Request["taskId"];
+            string saleTaskid = Session["saleId"].ToString(); ;
             string saleheadId = Request["ID"];
             type = Session["type"].ToString();
-            //添加
+            //添加销售单体
             if (op == "addDetail")
             {
                 SaleMonomerBll salemonbll = new SaleMonomerBll();
@@ -52,25 +52,47 @@ namespace bms.Web.SalesMGT
                 Response.Write("成功");
                 Response.End();
             }
+            //完成此销售任务
             if (op == "finish")
             {
+                //判断该销售任务下是否还有未完成单据 0 1未完成，2完成
                 SaleTaskBll salebll = new SaleTaskBll();
-                DateTime finishTime = DateTime.Now.ToLocalTime();
-                int row = salebll.updatefinishTime(finishTime, saleTaskid);
-                if (row > 0)
+                DataSet saleHeadStateds = salebll.SelectHeadStateBySaleId(saleTaskid);
+                int count = saleHeadStateds.Tables[0].Rows.Count;
+                int state = 3;
+                for (int i = 0; i < count; i++)
                 {
-                    Response.Write("成功");
+                    state = Convert.ToInt32(saleHeadStateds.Tables[0].Rows[i]["state"]);
+                    if (state < 2)
+                    {
+                        break;
+                    }
+                }
+                if (state < 2)
+                {
+                    Response.Write("未完成失败");
                     Response.End();
                 }
-                else
+                else if (state == 2)
                 {
-                    Response.Write("失败");
-                    Response.End();
+                    DateTime finishTime = DateTime.Now.ToLocalTime();
+                    int row = salebll.updatefinishTime(finishTime, saleTaskid);
+                    if (row > 0)
+                    {
+                        Response.Write("成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("失败");
+                        Response.End();
+                    }
                 }
             }
             //添加
             if (op == "add")
             {
+                //获取销售任务的状态
                 SaleHeadBll saleheadbll = new SaleHeadBll();
                 SaleHead salehead = new SaleHead();
                 string saleId = Session["saleId"].ToString();

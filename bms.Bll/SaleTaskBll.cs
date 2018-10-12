@@ -243,5 +243,23 @@ namespace bms.Bll
         {
             return saleDao.updatefinishTime(finishtime, saleId);
         }
+        /// <summary>
+        /// 获取该销售任务下的所有销售单状态
+        /// </summary>
+        /// <param name="saleid">销售任务id</param>
+        /// <returns></returns>
+        public DataSet SelectHeadStateBySaleId(string saleId)
+        {
+            return saleDao.SelectHeadStateBySaleId(saleId);
+        }
+
+        /// <summary>
+        /// 获取日期来判断是否是当天的第一单
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getSaleTaskTime()
+        {
+            return saleDao.getSaleTaskTime();
+        }
     }
 }

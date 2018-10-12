@@ -40,15 +40,15 @@ namespace bms.Web.SalesMGT
             SaleHeadId = Session["saleheadId"].ToString();
 
             //更新单头
-            allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
-            DataSet allds = salemonbll.SelectMonomers(SaleHeadId);
-            int j = allds.Tables[0].Rows.Count;
-            for (int h = 0; h < j; h++)
-            {
-                allnumber += Convert.ToInt32(allds.Tables[0].Rows[h]["number"]);
-                alltotalprice += Convert.ToInt32(allds.Tables[0].Rows[h]["totalPrice"]);
-                allreadprice += Convert.ToInt32(allds.Tables[0].Rows[h]["realPrice"]);
-            }
+            //allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
+            //DataSet allds = salemonbll.SelectMonomers(SaleHeadId);
+            //int j = allds.Tables[0].Rows.Count;
+            //for (int h = 0; h < j; h++)
+            //{
+            //    allnumber += Convert.ToInt32(allds.Tables[0].Rows[h]["number"]);
+            //    alltotalprice += Convert.ToInt32(allds.Tables[0].Rows[h]["totalPrice"]);
+            //    allreadprice += Convert.ToInt32(allds.Tables[0].Rows[h]["realPrice"]);
+            //}
             updateSalehead();
             string op = Request["op"];
             if (op == "search")
@@ -248,7 +248,7 @@ namespace bms.Web.SalesMGT
                                 if (count == 0)
                                 {
                                     saleIdmonomerId = 1;
-                                    salemonbll.updateHeadstate(saleId, SaleHeadId, 1);
+                                    salemonbll.updateHeadstate(saleId, SaleHeadId, saleIdmonomerId);
                                 }
                                 else
                                 {
@@ -267,6 +267,8 @@ namespace bms.Web.SalesMGT
                                 {
                                     AlreadyBought = number;
                                 }
+                                //更新已购数
+                                salemonbll.updateAlreadyBought(AlreadyBought, bookNum, saleId);
                                 int price = Convert.ToInt32(book.Price);
                                 int totalPrice = price * number;
                                 double realPrice = totalPrice * disCount;
@@ -317,7 +319,6 @@ namespace bms.Web.SalesMGT
                                             Response.Write(ObjectToJson(msg));
                                             Response.End();
                                         }
-
                                     }
                                     else
                                     {
@@ -383,6 +384,16 @@ namespace bms.Web.SalesMGT
         /// <returns>返回结果</returns>
         public Result updateSalehead()
         {
+            //更新单头
+            allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
+            DataSet allds = salemonbll.SelectMonomers(SaleHeadId);
+            int j = allds.Tables[0].Rows.Count;
+            for (int h = 0; h < j; h++)
+            {
+                allnumber += Convert.ToInt32(allds.Tables[0].Rows[h]["number"]);
+                alltotalprice += Convert.ToInt32(allds.Tables[0].Rows[h]["totalPrice"]);
+                allreadprice += Convert.ToInt32(allds.Tables[0].Rows[h]["realPrice"]);
+            }
             //添加成功 更新单头
             SaleHead salehead = new SaleHead();
             salehead.SaleTaskId = saleId;
