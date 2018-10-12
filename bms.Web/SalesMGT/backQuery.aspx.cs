@@ -70,13 +70,26 @@ namespace bms.Web.SalesMGT
             {
                 addSalemon();
             }
+            //保存单据
             if (op == "sure")
             {
-                SellOffHead sell = new SellOffHead();
-                sell.SellOffHeadId = Session["sellId"].ToString();
-                sell.State = 1;
-                Result result = shBll.Update(sell);
-                if (result == Result.更新成功)
+                //SellOffHead sell = new SellOffHead();
+                //sell.SellOffHeadId = Session["sellId"].ToString();
+                //sell.State = 1;
+                //Result result = shBll.Update(sell);
+                //if (result == Result.更新成功)
+                //{
+                //    Response.Write("更新成功");
+                //    Response.End();
+                //}
+                //else
+                //{
+                //    Response.Write("保存失败");
+                //    Response.End();
+                //}
+                string result = updateSellHead();
+                Session["type"] = "search";
+                if (result == "更新成功")
                 {
                     Response.Write("更新成功");
                     Response.End();
@@ -386,6 +399,8 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public String updateSellHead()
         {
+            string op = Request["op"];
+
             string sellId = Session["sellId"].ToString();
             DataSet countds = smBll.getAllNum(sellId);
             int allCount = int.Parse(countds.Tables[0].Rows[0]["sum(count)"].ToString());
@@ -398,7 +413,14 @@ namespace bms.Web.SalesMGT
             sell.Count = allCount;
             sell.TotalPrice = AllPrice;
             sell.RealPrice = realPrice;
-            sell.State = 0;
+            if (op == "sure")
+            {
+                sell.State = 1;
+            }
+            else
+            {
+                sell.State = 0;
+            }
             Result result = shBll.Update(sell);
             if (result == Result.更新成功)
             {
