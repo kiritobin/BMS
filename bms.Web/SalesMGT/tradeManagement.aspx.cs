@@ -42,7 +42,7 @@ namespace bms.Web.SalesMGT
                         count = 1;
                         saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                     }
-                   
+
                 }
                 else
                 {
@@ -130,16 +130,35 @@ namespace bms.Web.SalesMGT
                 string saleId = Request["ID"];
                 Session["saleId"] = saleId;
                 Session["type"] = "add";
-                Response.Write("添加成功");
-                Response.End();
+                string finishState = saleBll.getSaleTaskFinishTime(saleId);
+                if (finishState == null)
+                {
+                    Response.Write("可以");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("不可以");
+                    Response.End();
+                }
+
             }
             //添加销退
             if (op == "saleback")
             {
                 string saleTaskId = Request["ID"];
                 Session["saleId"] = saleTaskId;
-                Response.Write("yes");
-                Response.End();
+                string finishState = saleBll.getSaleTaskFinishTime(saleTaskId);
+                if (finishState == null)
+                {
+                    Response.Write("不可以");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("可以");
+                    Response.End();
+                }
             }
             //编辑
             if (op == "edit")

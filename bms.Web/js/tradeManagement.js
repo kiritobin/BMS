@@ -67,7 +67,7 @@
                     defaultDiscount, defaultDiscount,
                         op: "edit"
                     },
-                dataType: 'text',
+                    dataType: 'text',
                 success: function (data) {
                     if (data == "保存成功") {
                         swal({
@@ -346,10 +346,19 @@
                 },
                 dataType: 'text',
                 success: function (succ) {
-                    if (succ == "添加成功") {
+                    if (succ == "可以") {
                         window.location.href = "../SalesMGT/salesManagement.aspx";
                     } else {
-                        window.location.reload();
+                        swal({
+                            title: "提示",
+                            text: "该销售任务已完成，如要查看请点击查看按钮!",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        })
                     }
                 }
             })
@@ -371,19 +380,46 @@
     //退
     $("#table").delegate(".btn_back", "click", function () {
         var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
-        $.ajax({
-            type: 'Post',
-            url: 'tradeManagement.aspx',
-            data: {
-                ID: ID,
-                op: 'saleback'
-            },
-            dataType: 'text',
-            success: function (succ) {
-                if (succ == "yes") {
-                    window.location.href = "../SalesMGT/backManagement.aspx";
+        var time = $(this).parent().prev().text();
+        if (time == "销售任务采集中") {
+            swal({
+                title: "提示",
+                text: "该销售任务未完成，不能执行销退!",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            }).then(function () {
+            })
+        } else {
+            $.ajax({
+                type: 'Post',
+                url: 'tradeManagement.aspx',
+                data: {
+                    ID: ID,
+                    op: 'saleback'
+                },
+                dataType: 'text',
+                success: function (succ) {
+                    if (succ == "可以") {
+                        window.location.href = "../SalesMGT/backManagement.aspx";
+                    } else {
+                        swal({
+                            title: "提示",
+                            text: "该销售任务未完成，不能执行销退!",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                        })
+                    }
                 }
-            }
-        })
+            })
+        }
     })
 })

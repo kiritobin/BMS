@@ -269,5 +269,21 @@ namespace bms.Dao
             }
             return null;
         }
+        // <summary>
+        /// 完成日期
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getSaleFinishTime(string saleId)
+        {
+            string comText = "select finishTime from T_SaleTask where saleTaskId=@saleId";
+            string[] param = { "@saleId" };
+            object[] values = { saleId };
+            DataSet ds = db.FillDataSet(comText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                string time = ds.Tables[0].Rows[0]["finishTime"].ToString();
+            }
+            return null;
+        }
     }
 }
