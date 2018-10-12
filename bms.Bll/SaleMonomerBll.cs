@@ -37,7 +37,7 @@ namespace bms.Bll
         public Result realDelete(string saleTaskId, string saleHeadId)
         {
 
-            int row = SaleMonomerdao.realDelete(saleTaskId,saleHeadId);
+            int row = SaleMonomerdao.realDelete(saleTaskId, saleHeadId);
             if (row > 0)
             {
                 return Result.删除成功;
@@ -47,12 +47,12 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
-       /// <summary>
-       /// 统计品种数
-       /// </summary>
-       /// <param name="saleTaskId">销售任务id</param>
-       /// <param name="saleHeadId">销售单头id</param>
-       /// <returns></returns>
+        /// <summary>
+        /// 统计品种数
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <returns></returns>
         public int getkinds(string saleTaskId, string saleHeadId)
         {
             return SaleMonomerdao.getkinds(saleTaskId, saleHeadId);
@@ -262,6 +262,18 @@ namespace bms.Bll
         {
             DataSet ds = SaleMonomerdao.SelectBookRanking();
             return ds;
+        }
+
+        /// <summary>
+        /// 更新已购数量
+        /// </summary>
+        /// <param name="alreadyBought">数量</param>
+        /// <param name="bookNum">书号</param>
+        /// <param name="saleId">销售任务id</param>
+        /// <returns>受影响行数</returns>
+        public int updateAlreadyBought(int alreadyBought, long bookNum, string saleId)
+        {
+            return SaleMonomerdao.updateAlreadyBought(alreadyBought, bookNum, saleId);
         }
     }
 }

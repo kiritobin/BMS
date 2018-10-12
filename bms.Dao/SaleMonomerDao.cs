@@ -69,7 +69,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleHeadId">销售单头ID</param>
         /// <returns>数据集</returns>
-        public DataSet saleheadstate(string saleTaskId,string saleHeadId)
+        public DataSet saleheadstate(string saleTaskId, string saleHeadId)
         {
             string cmdText = "select state from T_SaleHead where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
             string[] param = { "saleTaskId", "@saleHeadId" };
@@ -278,7 +278,7 @@ namespace bms.Dao
             string cmdtext = "select bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought from V_SaleMonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId order by dateTime desc";
             string[] param = { "@saleTaskId", "@saleHeadId" };
             object[] values = { saleTaskId, saleHeadId };
-            DataSet ds = db.FillDataSet(cmdtext,param,values);
+            DataSet ds = db.FillDataSet(cmdtext, param, values);
             if (ds != null)
             {
                 return ds;
@@ -287,6 +287,22 @@ namespace bms.Dao
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// 更新已购数量
+        /// </summary>
+        /// <param name="alreadyBought">数量</param>
+        /// <param name="bookNum">书号</param>
+        /// <param name="saleId">销售任务id</param>
+        /// <returns>受影响行数</returns>
+        public int updateAlreadyBought(int alreadyBought, long bookNum, string saleId)
+        {
+            string cmdText = "update T_SaleTask set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";
+            string[] param = { "@alreadyBought", "@bookNum", "@saleId" };
+            object[] values = { alreadyBought, bookNum, saleId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
         }
     }
 }

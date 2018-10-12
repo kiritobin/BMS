@@ -241,5 +241,33 @@ namespace bms.Dao
             return row;
         }
 
+        /// <summary>
+        /// 获取该销售任务下的所有销售单状态
+        /// </summary>
+        /// <param name="saleid">销售任务id</param>
+        /// <returns></returns>
+        public DataSet SelectHeadStateBySaleId(string saleId)
+        {
+            string comText = "select state from T_SaleHead where saleTaskId=@saleId order by state asc";
+            string[] param = { "@saleId" };
+            object[] values = { saleId };
+            DataSet ds = db.FillDataSet(comText, param, values);
+            return ds;
+        }
+        /// <summary>
+        /// 获取日期
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getSaleTaskTime()
+        {
+            string comText = "select startTime from T_SaleTask order by startTime desc";
+            DataSet ds = db.FillDataSet(comText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                string time = ds.Tables[0].Rows[0]["startTime"].ToString();
+                return time.Substring(0, 10);
+            }
+            return null;
+        }
     }
 }

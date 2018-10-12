@@ -29,8 +29,20 @@ namespace bms.Web.SalesMGT
                 int count = saleBll.getCount();
                 if (count > 0)
                 {
-                    count += 1;
-                    saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                    string time = saleBll.getSaleTaskTime();
+                    string nowTime = DateTime.Now.ToLocalTime().ToString();
+                    string equalsTime = nowTime.Substring(0, 10);
+                    if (time.Equals(equalsTime))
+                    {
+                        count += 1;
+                        saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                    }
+                    else
+                    {
+                        count = 1;
+                        saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                    }
+                   
                 }
                 else
                 {
@@ -43,7 +55,7 @@ namespace bms.Web.SalesMGT
                 int numberLimit = Convert.ToInt32(Request["numberLimit"]);
                 int priceLimit = Convert.ToInt32(Request["priceLimit"]);
                 int totalPriceLimit = Convert.ToInt32(Request["totalPriceLimit"]);
-                double defaultDiscount = double.Parse(Request["defaultDiscount"])/100;
+                double defaultDiscount = double.Parse(Request["defaultDiscount"]) / 100;
                 User user = (User)Session["user"];
                 int userId = user.UserId;
                 DateTime StartTime = DateTime.Now.ToLocalTime();
@@ -108,6 +120,7 @@ namespace bms.Web.SalesMGT
             {
                 string saleId = Request["ID"];
                 Session["saleId"] = saleId;
+                Session["type"] = "look";
                 Response.Write("成功");
                 Response.End();
             }
@@ -152,7 +165,6 @@ namespace bms.Web.SalesMGT
         /// <summary>
         /// 获取基础数据及查询方法
         /// </summary>
-        /// <returns></returns>
         public string getData()
         {
             //获取分页数据
@@ -188,7 +200,7 @@ namespace bms.Web.SalesMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 string time = ds.Tables[0].Rows[i]["finishTime"].ToString();
-                if (time=="" || time==null)
+                if (time == "" || time == null)
                 {
                     time = "销售任务采集中";
                 }
