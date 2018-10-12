@@ -131,9 +131,9 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Insert(SaleMonomer salemonomer)
         {
-            string cmdText = "insert into T_SaleMonomer(saleIdMonomerId,bookNum,ISBN,saleHeadId,number,unitPrice,totalPrice,realDiscount,realPrice,dateTime,alreadyBought) values(@saleIdMonomerId,@bookNum,@ISBN,@saleHeadId,@number,@unitPrice,@totalPrice,@realDiscount,@realPrice,@dateTime,@alreadyBought)";
-            string[] param = { "@saleIdMonomerId", "@bookNum", "@ISBN", "@saleHeadId", "@number", "@unitPrice", "@totalPrice", "@realDiscount", "@realPrice", "@dateTime", "alreadyBought" };
-            object[] values = { salemonomer.SaleIdMonomerId, salemonomer.BookNum, salemonomer.ISBN1, salemonomer.SaleHeadId, salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealPrice, salemonomer.Datetime, salemonomer.AlreadyBought };
+            string cmdText = "insert into T_SaleMonomer(saleIdMonomerId,bookNum,ISBN,saleHeadId,number,unitPrice,totalPrice,realDiscount,realPrice,dateTime,alreadyBought,saleTaskId) values(@saleIdMonomerId,@bookNum,@ISBN,@saleHeadId,@number,@unitPrice,@totalPrice,@realDiscount,@realPrice,@dateTime,@alreadyBought,@saleTaskId)";
+            string[] param = { "@saleIdMonomerId", "@bookNum", "@ISBN", "@saleHeadId", "@number", "@unitPrice", "@totalPrice", "@realDiscount", "@realPrice", "@dateTime", "@alreadyBought" , "@saleTaskId" };
+            object[] values = { salemonomer.SaleIdMonomerId, salemonomer.BookNum, salemonomer.ISBN1, salemonomer.SaleHeadId, salemonomer.Number, salemonomer.UnitPrice, salemonomer.TotalPrice, salemonomer.RealDiscount, salemonomer.RealPrice, salemonomer.Datetime, salemonomer.AlreadyBought ,salemonomer.SaleTaskId};
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -298,8 +298,8 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int updateAlreadyBought(int alreadyBought, long bookNum, string saleId)
         {
-            //string cmdText = "update T_SaleMonomer set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";
-            string cmdText = "update V_SaleMonomer set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";
+            string cmdText = "update T_SaleMonomer set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";
+            //string cmdText = "update V_SaleMonomer set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";
             string[] param = { "@alreadyBought", "@bookNum", "@saleId" };
             object[] values = { alreadyBought, bookNum, saleId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
