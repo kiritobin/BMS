@@ -254,21 +254,6 @@ namespace bms.Web.SalesMGT
                                 {
                                     saleIdmonomerId = count + 1;
                                 }
-
-                                //获取已购数
-                                int frequency = salemonbll.SelectnumberBysaletask(saletaskId, bookNum.ToString());
-                                if (frequency > 0)
-                                {
-                                    DataSet bookcount = salemonbll.SelectCountBybookNum(saletaskId, bookNum.ToString());
-                                    AlreadyBought = Convert.ToInt32(bookcount.Tables[0].Rows[0]["alreadyBought"]);
-                                    AlreadyBought += number;
-                                }
-                                else
-                                {
-                                    AlreadyBought = number;
-                                }
-                                //更新已购数
-                                salemonbll.updateAlreadyBought(AlreadyBought, bookNum, saleId);
                                 int price = Convert.ToInt32(book.Price);
                                 int totalPrice = price * number;
                                 double realPrice = totalPrice * disCount;
@@ -305,6 +290,21 @@ namespace bms.Web.SalesMGT
                                     Result result = salemonbll.Insert(newSalemon);
                                     if (result == Result.添加成功)
                                     {
+                                        //获取已购数
+                                        int frequency = salemonbll.SelectnumberBysaletask(saletaskId, bookNum.ToString());
+                                        if (frequency > 0)
+                                        {
+                                            DataSet bookcount = salemonbll.SelectCountBybookNum(saletaskId, bookNum.ToString());
+                                            AlreadyBought = Convert.ToInt32(bookcount.Tables[0].Rows[0]["alreadyBought"]);
+                                            AlreadyBought += number;
+                                        }
+                                        else
+                                        {
+                                            AlreadyBought = number;
+                                        }
+                                        //更新已购数
+                                        salemonbll.updateAlreadyBought(AlreadyBought, bookNum, saleId);
+
                                         Result res = updateSalehead();
                                         if (res == Result.更新成功)
                                         {

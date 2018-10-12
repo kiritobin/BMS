@@ -282,8 +282,12 @@ namespace bms.Dao
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
                 string time = ds.Tables[0].Rows[0]["finishTime"].ToString();
+                return time;
             }
-            return null;
+            else
+            {
+                return null;
+            }
         }
     }
 }

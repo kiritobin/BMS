@@ -131,7 +131,7 @@ namespace bms.Web.SalesMGT
                 Session["saleId"] = saleId;
                 Session["type"] = "add";
                 string finishState = saleBll.getSaleTaskFinishTime(saleId);
-                if (finishState == null)
+                if (finishState == null ||finishState=="")
                 {
                     Response.Write("可以");
                     Response.End();
@@ -149,7 +149,7 @@ namespace bms.Web.SalesMGT
                 string saleTaskId = Request["ID"];
                 Session["saleId"] = saleTaskId;
                 string finishState = saleBll.getSaleTaskFinishTime(saleTaskId);
-                if (finishState == null)
+                if (finishState == null || finishState == "")
                 {
                     Response.Write("不可以");
                     Response.End();
