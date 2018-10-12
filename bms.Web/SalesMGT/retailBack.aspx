@@ -50,7 +50,7 @@
                     </div>--%>
                     <div class="row">
                         <div class="col-md-9 col-lg-8 text-right">
-                            <div class="text-right" id="time">时间：</div>
+                            <div class="text-right">时间：<span id="time"></span></div>
                         </div>
                         <!-- 左侧数据表 -->
                         <div class="table-responsive col-md-9 col-lg-8">

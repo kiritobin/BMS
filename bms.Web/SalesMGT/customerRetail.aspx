@@ -49,6 +49,9 @@
                         </div>
                     </div>--%>
                     <div class="row">
+                        <div class="col-md-9 col-lg-8 text-right">
+                            <div class="text-right">时间：<span id="time"></span></div>
+                        </div>
                         <div class="table-responsive col-md-9">
                             <div style="height: 500px; display: block; overflow-y: auto;">
                                 <table class="table mostTable table-bordered text-center test" id="table">
