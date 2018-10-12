@@ -50,7 +50,7 @@
                     </div>--%>
                     <div class="row">
                         <div class="col-md-9 col-lg-8 text-right">
-                            <div class="text-right" id="time">时间：</div>
+                            <div class="text-right">时间：<span id="time"></span></div>
                         </div>
                         <!-- 左侧数据表 -->
                         <div class="table-responsive col-md-9 col-lg-8">
@@ -129,18 +129,47 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>品种：<span id="kind"></span></label></div>
+                                            <label>品种：<span id="kind"></span></label>
+                                        </div>
                                         <div class="col-md-6">
-                                            <label>数量：<span id="number"></span></label></div>
+                                            <label>数量：<span id="number"></span></label>
+                                        </div>
                                         <div class="col-md-6">
-                                            <label>码洋：<span id="total"></span></label></div>
+                                            <label>码洋：<span id="total"></span></label>
+                                        </div>
                                         <div class="col-md-6">
-                                            <label>应收：<span id="real"></span></label></div>
+                                            <label>应收：<span id="real"></span></label>
+                                        </div>
                                     </div>
-                                    <img src="#" style="width:100px;height:100px;" id="img" />
                                 </div>
                             </fieldset>
                         </div>
+                        <!--startprint-->
+                        <div class="border content" style="width: 155px; height: 350px;" id="ticket">
+                            <div style="position:relative;left:27px; color:black;font-size:16px;line-height:2;" >
+                                <br />
+                                <div>
+                                    品种：<span id="kindEnd"></span>
+                                </div>
+                                <div>
+                                    数量：<span id="numberEnd"></span>
+                                </div>
+                                <div>
+                                    码洋：<span id="totalEnd"></span>
+                                </div>
+                                <div>
+                                    应收：<span id="realEnd"></span>
+                                </div>
+                                <div style="margin-top:10px;">
+                                    <img src="#" style="width: 100px; height: 100px;" id="img" />
+                                </div>
+                                <div style="position:relative;right:22px;width: 147px;">
+                                <hr />
+                                    <span id="timeEnd"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--endprint-->
                     </div>
                 </div>
             </div>

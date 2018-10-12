@@ -4,15 +4,17 @@
     sessionStorage.setItem("number", 0);
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
-    $("#time").text(setInterval("showTime()", 1000));
+    setInterval("showTime()", 1000);
 })
 //获取当前时间
 function showTime() {
-    nowtime = new Date();
-    year = nowtime.getFullYear();
-    month = nowtime.getMonth() + 1;
-    date = nowtime.getDate();
-    document.getElementById("time").innerText = year + "-" + month + "-" + date + " " + nowtime.toLocaleTimeString();
+    var time = new Date();
+    var m = time.getMonth() + 1;
+    var t = time.getFullYear() + "-" + pad(m, 2) + "-" + pad(time.getDate(), 2) + " " + pad(time.getHours(), 2) + ":" + pad(time.getMinutes(), 2) + ":" + pad(time.getSeconds(), 2);
+    $("#time").text(t);
+}
+function pad(num, n) {
+    return (Array(n).join(0) + num).slice(-n);
 }
 //获取当前时间
 //function CurentTime() {

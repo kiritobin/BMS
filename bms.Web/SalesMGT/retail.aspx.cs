@@ -218,6 +218,7 @@ namespace bms.Web.SalesMGT
                         }
                         int rowes = st1 + 1;
                         count = rowes;
+                        break;
                     }
                 }
                 if(count == 0)
