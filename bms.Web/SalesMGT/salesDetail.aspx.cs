@@ -270,7 +270,9 @@ namespace bms.Web.SalesMGT
                                     TotalPrice = totalPrice,
                                     RealPrice = realPrice,
                                     RealDiscount = disCount,
-                                    Datetime = Time
+                                    Datetime = Time,
+                                    SaleTaskId= saleId
+
                                 };
                                 //更新库存
                                 int stockcount = 0;
