@@ -25,21 +25,32 @@
 <body>
     <div class="retail-content">
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4 col-lg-3">
+                    <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" id="search" class="topSearch">
+                </div>
+            </div>
             <div class="card">
+                <div class="card-header card-header-danger">
+                    <h3 class="card-title text-center">自助扫码开单</h3>
+                </div>
                 <div class="card-body">
-                    <div class="row">
+                    <%--<div class="row">
                         <div class="input-group col-md-12">
                             <div class="btn-group" role="group">
                                 <input type="text" placeholder="请输入ISBN" id="search" class="searchOne">
                                 <button class="btn btn-info btn-sm" id="btnSearch" data-toggle="modal">扫描</button>
-                                <%--<button class="btn btn-info btn-sm" id="save" data-toggle="modal">save</button>--%>
-                                <%--<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">添加</button>--%>
+                                <button class="btn btn-info btn-sm" id="save" data-toggle="modal">save</button>
+                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">添加</button>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="row">
-                        <div class="table-responsive col-md-10">
-                            <div style="height: 500px; width: 80%; display: block; overflow-y: auto; border: none">
+                        <div class="table-responsive col-md-9">
+                            <div style="height: 500px; display: block; overflow-y: auto;">
                                 <table class="table mostTable table-bordered text-center test" id="table">
                                     <thead>
                                         <tr>
@@ -87,12 +98,13 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td></td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
-                        <div class="retailList col-md-2">
-                            <h3 class="text-center">零售单</h3>
+                        <div class="col-md-3">
+                            <%--<h3 class="text-center">零售单</h3>
                             <hr />
                             <ul class="list-unstyled">
                                 <li>种类：<span id="kind"></span></li>
@@ -107,8 +119,41 @@
                             </div>
                             <div class="input-group text-white" id="Settlement" data-toggle="modal" data-target="#myModal2">
                                 <a class="btn btn-success btn-sm"><i class="fa fa-jpy">收银</i></a>
+                            </div>--%>
+                            <div class="retailList">
+                                <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
                             </div>
-                    </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="text-white col-sm-6 text-right" id="scanning" data-toggle="modal" data-target="#myModal1">
+                                        <button class="btn btn-success btn-sm btnText">扫  描</button>
+                                    </div>
+                                    <div class="text-white col-sm-6 text-left" id="Settlement" data-toggle="modal" data-target="#myModal2">
+                                        <button class="btn btn-danger btn-sm btnText">收  银</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 合计模块 -->
+                        <div class="col-md-9">
+                            <fieldset>
+                                <legend>
+                                    <b>合计</b>
+                                </legend>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>品种：<span id="kind"></span></label></div>
+                                        <div class="col-md-6">
+                                            <label>数量：<span id="number"></span></label></div>
+                                        <div class="col-md-6">
+                                            <label>码洋：<span id="total"></span></label></div>
+                                        <div class="col-md-6">
+                                            <label>应收：<span id="real"></span></label></div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,7 +166,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title float-left" id="myModalLabel">请选择需要的图书</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        <i class="material-icons">clear</i>
+                        <i class="fa fa-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -156,7 +201,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title float-left" id="myModalLabel1">请扫描</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        <i class="material-icons">clear</i>
+                        <i class="fa fa-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -171,19 +216,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" id="settleClose" data-dismiss="modal" aria-hidden="true">
-                        <i class="material-icons">clear</i>
+                        <i class="fa fa-close"></i>
                     </button>
                 </div>
-                <div class="modal-body" style="width:360px;margin:0 auto;padding-top:8px;">
+                <div class="modal-body" style="width: 360px; margin: 0 auto; padding-top: 8px;">
                     <h4 class="text-center">结算小票</h4>
-                        <hr />
-                        <ul class="list-unstyled">
-                            <li>码洋合计：<span id="totalEnd"></span></li>
-                            <li>码洋折扣：<input id="discountEnd" value="100"/></li>
-                            <li>实洋合计：<span id="realEnd"></span></li>
-                            <li>实付金额：<input id="copeEnd"/></li>
-                            <li>找补金额：<span id="change"></span></li>
-                        </ul>
+                    <hr />
+                    <ul class="list-unstyled">
+                        <li>码洋合计：<span id="totalEnd"></span></li>
+                        <li>码洋折扣：<input id="discountEnd" value="100" /></li>
+                        <li>实洋合计：<span id="realEnd"></span></li>
+                        <li>实付金额：<input id="copeEnd" /></li>
+                        <li>找补金额：<span id="change"></span></li>
+                    </ul>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-success btn-sm" id="btnSettle">确定</button>

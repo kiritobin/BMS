@@ -1,4 +1,4 @@
-﻿7<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailBack.aspx.cs" Inherits="bms.Web.SalesMGT.retailBack" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailBack.aspx.cs" Inherits="bms.Web.SalesMGT.retailBack" %>
 
 <%="" %>
 <!DOCTYPE html>
