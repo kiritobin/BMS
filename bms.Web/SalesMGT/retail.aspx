@@ -145,25 +145,21 @@
                             </fieldset>
                         </div>
                         <!--startprint-->
-                        <div class="border content" style="width: 155px; height: 350px;" id="ticket">
-                            <div style="position:relative;left:27px; color:black;font-size:16px;line-height:2;" >
+                        <div class="border content" style="width: 200px; height: 350px;" id="ticket">
+                            <div style="color:black;font-size:16px;line-height:2;" >
                                 <br />
                                 <div>
                                     品种：<span id="kindEnd"></span>
-                                </div>
-                                <div>
                                     数量：<span id="numberEnd"></span>
                                 </div>
                                 <div>
                                     码洋：<span id="totalEnd"></span>
-                                </div>
-                                <div>
                                     应收：<span id="realEnd"></span>
                                 </div>
                                 <div style="margin-top:10px;">
-                                    <img src="#" style="width: 100px; height: 100px;" id="img" />
+                                    <img src="#" style="width: 150px; height: 150px;" id="img" />
                                 </div>
-                                <div style="position:relative;right:22px;width: 147px;">
+                                <div>
                                 <hr />
                                     <span id="timeEnd"></span>
                                 </div>

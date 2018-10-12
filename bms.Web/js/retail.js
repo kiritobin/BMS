@@ -5,7 +5,7 @@
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
     setInterval("showTime()", 1000);
-    $("#ticket").hide();
+    //$("#ticket").hide();
 })
 //获取当前时间
 function showTime() {
