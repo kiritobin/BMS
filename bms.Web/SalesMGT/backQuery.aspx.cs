@@ -338,11 +338,11 @@ namespace bms.Web.SalesMGT
                     sb.Append("<tr><td>" + (i + 1)/*ds.Tables[0].Rows[i]["sellOffMonomerId"].ToString()*/ + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["isbn"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "￥" + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
                     sb.Append("<td>" + double.Parse(realCount)*100 + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "￥" + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "￥" + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
                     //sb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
                     //sb.Append("<td>" + "<button class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true'></i></button>" + "</td>");
                     sb.Append("</tr>");
