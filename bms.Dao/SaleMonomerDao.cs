@@ -298,7 +298,8 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int updateAlreadyBought(int alreadyBought, long bookNum, string saleId)
         {
-            string cmdText = "update T_SaleTask set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";
+            //string cmdText = "update T_SaleMonomer set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";
+            string cmdText = "update V_SaleMonomer set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";
             string[] param = { "@alreadyBought", "@bookNum", "@saleId" };
             object[] values = { alreadyBought, bookNum, saleId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
