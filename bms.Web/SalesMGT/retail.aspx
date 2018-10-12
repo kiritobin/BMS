@@ -50,7 +50,7 @@
                     </div>--%>
                     <div class="row">
                         <div class="col-md-9 col-lg-8 text-right">
-                            <div class="text-right">时间：</div>
+                            <div class="text-right" id="time">时间：</div>
                         </div>
                         <!-- 左侧数据表 -->
                         <div class="table-responsive col-md-9 col-lg-8">
@@ -103,7 +103,6 @@
                                 </table>
                             </div>
                         </div>
-
                         <!-- 右侧功能区 -->
                         <div class="col-md-3 col-lg-4">
                             <div class="retailList">
@@ -138,6 +137,7 @@
                                         <div class="col-md-6">
                                             <label>应收：<span id="real"></span></label></div>
                                     </div>
+                                    <img src="#" style="width:100px;height:100px;" id="img" />
                                 </div>
                             </fieldset>
                         </div>

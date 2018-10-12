@@ -45,7 +45,6 @@ namespace bms.Web
             {
                 //显式释放资源 
                 bcodeBitmap.Dispose();
-                bcodeBitmap.Dispose();
             }
         }
     }

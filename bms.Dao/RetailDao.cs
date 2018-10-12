@@ -28,7 +28,7 @@ namespace bms.Dao
             }
             string[] param = { "@state" };
             object[] values = { state };
-            DataSet ds = db.FillDataSet(cmdText, null, null);
+            DataSet ds = db.FillDataSet(cmdText, param, values);
             return ds;
         }
 
@@ -53,9 +53,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int InsertRetail(SaleHead salehead)
         {
-            string cmdText = "insert into T_RetailHead(retailHeadId,userId,regionId,dateTime,kindsNum,number,allTotalPrice,allRealPrice) values(@retailHeadId,@userId,@regionId,@dateTime,@kindsNum,@number,@allTotalPrice,@allRealPrice)";
-            string[] param = { "@retailHeadId", "@userId", "@regionId", "@dateTime", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice" };
-            object[] values = { salehead.SaleHeadId, salehead.UserId, salehead.RegionId, salehead.DateTime, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice };
+            string cmdText = "insert into T_RetailHead(state,retailHeadId,userId,regionId,dateTime,kindsNum,number,allTotalPrice,allRealPrice) values(@state,@retailHeadId,@userId,@regionId,@dateTime,@kindsNum,@number,@allTotalPrice,@allRealPrice)";
+            string[] param = { "@state", "@retailHeadId", "@userId", "@regionId", "@dateTime", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice" };
+            object[] values = { salehead.State ,salehead.SaleHeadId, salehead.UserId, salehead.RegionId, salehead.DateTime, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }

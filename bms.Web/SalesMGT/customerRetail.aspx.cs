@@ -80,8 +80,8 @@ namespace bms.Web.SalesMGT
                         for (int j = 0; j < rows; j++)
                         {
                             int count = number;
-                            int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[i]["goodsShelvesId"]);
-                            int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[i]["stockNum"]);
+                            int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
+                            int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[j]["goodsShelvesId"]);
                             if (stockNum > number)
                             {
                                 Result stock = stockBll.update(stockNum - count, goodsId, bookNum);

@@ -36,7 +36,9 @@
     <!-- 主界面内容 -->
     <div class="content">
         <div class="container-fluid">
-            <img src="../imgs/YNXH-LOGO.png" class="img-responsive" alt="Cinque Terre" width="450" height="80">
+             <div class="col-sm-4 col-lg-3">
+                    <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
+                </div>
             <div class="row3">
                 <div class="col-md-12">
                     <div class="card">
