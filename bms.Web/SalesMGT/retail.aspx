@@ -145,31 +145,32 @@
                             </fieldset>
                         </div>
                         <!--startprint-->
-                        <div class="col-md-3" id="ticket">
-                            <div class="retailList">
-                                <div class="row form-group">
-                                    <div class="col-md-5 text-right">
+                        <div class="border content" style="width: 155px; height: 350px;" id="ticket">
+                            <div style="position:relative;left:27px; color:black;font-size:16px;line-height:2;" >
+                                <br />
+                                <div style="float:left">
+                                    <div>
                                         品种：<span id="kindEnd"></span>
                                     </div>
-                                    <div class="col-md-5 text-center">
+                                    <div>
                                         数量：<span id="numberEnd"></span>
                                     </div>
                                 </div>
-                                <div class="row form-group">
-                                    <div class="col-md-5 text-right">
+                                <div style="float:left">
+                                    <div>
                                         码洋：<span id="totalEnd"></span>
                                     </div>
-                                    <div class="col-md-5 text-center">
+                                    <div>
                                         应收：<span id="realEnd"></span>
                                     </div>
                                 </div>
-                                <div class="row form-group text-center">
-                                    <div class="col-md-12">
-                                        <img src="#" style="width: 150px; height: 150px;" id="img" />
-                                    </div>
+                                <div style="margin-top:10px;">
+                                    <img src="#" style="width: 100px; height: 100px;" id="img" />
                                 </div>
+                                <div style="position:relative;right:22px;width: 147px;">
                                 <hr />
-                                <p class="text-center"><span id="timeEnd"></span></p>
+                                    <span id="timeEnd"></span>
+                                </div>
                             </div>
                         </div>
                         <!--endprint-->
