@@ -129,45 +129,39 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>品种：<span id="kind"></span></label>
+                                            <label>品种：￥&nbsp&nbsp<span id="kind"></span></label>
                                         </div>
                                         <div class="col-md-6">
-                                            <label>数量：<span id="number"></span></label>
+                                            <label>数量：￥&nbsp&nbsp<span id="number"></span></label>
                                         </div>
                                         <div class="col-md-6">
-                                            <label>码洋：<span id="total"></span></label>
+                                            <label>码洋：￥&nbsp&nbsp<span id="total"></span></label>
                                         </div>
                                         <div class="col-md-6">
-                                            <label>应收：<span id="real"></span></label>
+                                            <label>应收：￥&nbsp&nbsp<span id="real"></span></label>
                                         </div>
                                     </div>
                                 </div>
                             </fieldset>
                         </div>
                         <!--startprint-->
-                        <div class="border content" style="width: 155px; height: 350px;" id="ticket">
-                            <div style="position:relative;left:27px; color:black;font-size:16px;line-height:2;" >
+                        <div class="border content" style="width: 470px; height: 520px;" id="ticket">
+                            <div style="width: 260px; margin:0 auto; color:black;font-weight:400" >
                                 <br />
-                                <div style="float:left">
-                                    <div>
-                                        品种：<span id="kindEnd"></span>
-                                    </div>
-                                    <div>
-                                        数量：<span id="numberEnd"></span>
-                                    </div>
-                                </div>
-                                <div style="float:left">
-                                    <div>
-                                        码洋：<span id="totalEnd"></span>
-                                    </div>
-                                    <div>
-                                        应收：<span id="realEnd"></span>
-                                    </div>
-                                </div>
+                                <table class="table"  style="width: 300px; position:relative; right:30px; text-align:left;border:0;font-size:24px;line-height:1.5;">
+                                    <tr>
+                                        <td>品种：￥&nbsp&nbsp<span id="kindEnd"></span></td>
+                                        <td>码洋：￥&nbsp&nbsp<span id="totalEnd"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>数量：￥&nbsp&nbsp<span id="numberEnd"></span></td>
+                                        <td>应收：￥&nbsp&nbsp<span id="realEnd"></span></td>
+                                    </tr>
+                                </table>
                                 <div style="margin-top:10px;">
-                                    <img src="#" style="width: 100px; height: 100px;" id="img" />
+                                    <img src="#" style="width: 250px; height: 250px;" id="img" />
                                 </div>
-                                <div style="position:relative;right:22px;width: 147px;">
+                                <div style="width: 260px;font-size:24px;">
                                 <hr />
                                     <span id="timeEnd"></span>
                                 </div>
@@ -230,5 +224,7 @@
     <script src="../js/jedate.min.js"></script>
     <script src="../js/retail.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/jquery.jqprint.js"></script>
 </body>
 </html>
