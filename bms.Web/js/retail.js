@@ -5,7 +5,7 @@
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
     setInterval("showTime()", 1000);
-    //$("#ticket").hide();
+    $("#ticket").hide();
 })
 //获取当前时间
 function showTime() {
@@ -320,6 +320,7 @@ $("#insert").click(function () {
                 $("#timeEnd").text(endTime())
                 $("#img").attr("src","../QRCode.aspx?qrtext=" + headId);
                 $("#ticket").show();
+                $("#ticket").jqprint();
                 sessionStorage.removeItem("kind");
                 sessionStorage.removeItem("number");
                 sessionStorage.removeItem("totalPrice");
