@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addRs.aspx.cs" Inherits="bms.Web.InventoryMGT.addRs" %>
+
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -40,8 +41,9 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <%if (funcUser||funcRole||funcOrg||funcGoods) { %>
-                    <li class="nav-item active">
+                    <%if (funcUser || funcRole || funcOrg || funcGoods)
+                        { %>
+                    <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
                             <p>
@@ -49,32 +51,36 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="securityManage">
+                        <div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <%if (funcUser) { %>
+                                <%if (funcUser)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcRole) { %>
+                                <%if (funcRole)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcOrg) { %>
+                                <%if (funcOrg)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcGoods) { %>
+                                <%if (funcGoods)
+                                    { %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
+                                    <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
@@ -83,10 +89,11 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcCustom) {%>
+                    <%if (funcCustom)
+                        {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
-                           <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-user fa-lg"></i>
                             <p>
                                 客户管理
                                 <b class="caret"></b>
@@ -103,41 +110,46 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcPut||funcOut||funcReturn||funcSupply) {%>
-                    <li class="nav-item">
+                    <%if (funcPut || funcOut || funcReturn || funcSupply)
+                        {%>
+                    <li class="nav-item active">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
-                             <i class="fa fa-book"></i>
+                            <i class="fa fa-book"></i>
                             <p>
                                 库存管理
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="inventoryManage">
+                        <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
-                                <%if (funcOut) { %>
+                                <%if (funcOut)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcPut) { %>
+                                <%if (funcPut)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcReturn) { %>
+                                <%if (funcReturn)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcSupply) { %>
+                                <%if (funcSupply)
+                                    { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
+                                    <a class="nav-link activeNext" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
                                     </a>
                                 </li>
@@ -146,7 +158,8 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcSale||funcSaleOff) { %>
+                    <%if (funcSale || funcSaleOff)
+                        { %>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
@@ -157,14 +170,16 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <%if (funcSale) { %>
+                                <%if (funcSale)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcSaleOff) { %>
+                                <%if (funcSaleOff)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/backQuery.aspx">
                                         <span class="sidebar-normal">销退管理</span>
@@ -177,7 +192,7 @@
                     <%} %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
-                             <i class="fa fa-file-archive-o"></i>
+                            <i class="fa fa-file-archive-o"></i>
                             <p>
                                 基础信息
                                 <b class="caret"></b>
@@ -195,7 +210,8 @@
                                         <span class="sidebar-normal">书籍库存查看</span>
                                     </a>
                                 </li>
-                                <%if (funcLibrary) { %>
+                                <%if (funcLibrary)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
@@ -229,7 +245,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                   <i class="fa fa-gear"></i>
+                                    <i class="fa fa-gear"></i>
                                     <p class="d-lg-none d-md-block">
                                         更多设置
                                     </p>
@@ -250,75 +266,118 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
+                                <div class="card-header card-header-danger">
+                                    <h4 class="card-title">补货添加</h4>
+                                </div>
                                 <div class="card-body">
-                                    <div class="card-header card-header-danger">
-                                        <h4 class="card-title">补货添加</h4>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="btn-search">确定添加</button>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
-                                            </div>
                                     <div class="card-header from-group">
-                                        <table class="table text-center table_stock">
-                                            <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>补货单编号:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="" class=""></td>
-                                                <td class="td_text"><span class="span-text"><nobr>书号:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="" class=""></td>
-                                                <td class="td_text"><span class="span-text"><nobr>ISBN号:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" value="" class=""></td>
-                                                <td class="td_text"><span class="span-text"><nobr>单价:</nobr></span></td>
-                                                <td class="td_width">
-                                                    <input type="text" class="float-left"></td>
-                                                
-                                                <tr>                                                   
-                                                    <td class="td_text"><span class="span-text"><nobr>实际折扣:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" value="" class=""></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>实洋:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" value="" class=""></td>
-                                                    <td class="td_text"><span class="span-text"><nobr>码洋:</nobr></span></td>
-                                                    <td class="td_width">
-                                                        <input type="text" value="" class=""></td>
-                                                     <td class="td_text"><span class="span-text"><nobr>总价:</nobr></span></td>
-                                                    <td class="td_width">
-                                                    <input type="text" class="float-left"></td>                                                     
-                                                </tr>
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-warning btn-sm" id="back">返回</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" id="btn-search">添加</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-info btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <table class="table text-center table_stock">
+                                        <tr>
+                                            <td class="td_text"><span class="span-text">
+                                                <nobr>补货单编号:</nobr>
+                                            </span></td>
+                                            <td class="td_width">
+                                                <input type="text" value="" class=""></td>
+                                            <td class="td_text"><span class="span-text">
+                                                <nobr>书号:</nobr>
+                                            </span></td>
+                                            <td class="td_width">
+                                                <input type="text" value="" class=""></td>
+                                            <td class="td_text"><span class="span-text">
+                                                <nobr>ISBN号:</nobr>
+                                            </span></td>
+                                            <td class="td_width">
+                                                <input type="text" value="" class=""></td>
+                                            <td class="td_text"><span class="span-text">
+                                                <nobr>单价:</nobr>
+                                            </span></td>
+                                            <td class="td_width">
+                                                <input type="text" class="float-left"></td>
 
                                             <tr>
-                                                <td class="td_text"><span class="span-text"><nobr>备注:</nobr></span></td>
-                                                <td class="td_width" colspan="2">
-                                                    <textarea class="float_left"></textarea></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>实际折扣:</nobr>
+                                                </span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class=""></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>实洋:</nobr>
+                                                </span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class=""></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>码洋:</nobr>
+                                                </span></td>
+                                                <td class="td_width">
+                                                    <input type="text" value="" class=""></td>
+                                                <td class="td_text"><span class="span-text">
+                                                    <nobr>总价:</nobr>
+                                                </span></td>
+                                                <td class="td_width">
+                                                    <input type="text" class="float-left"></td>
                                             </tr>
-                                        </table>
-                                        <%--<div class="input-group no-border">
+                                        <tr>
+                                            <td class="td_text"><span class="span-text">
+                                                <nobr>备注:</nobr>
+                                            </span></td>
+                                            <td class="td_width" colspan="2">
+                                                <textarea class="float_left"></textarea></td>
+                                        </tr>
+                                    </table>
+                                    <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
                                               &nbsp;
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
                                         </div>--%>
-                                    </div>
 
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center">
                                             <thead>
                                                 <tr>
-                                                    <td><nobr>单据编号</nobr></td>
-                                                    <td><nobr>补货日期</nobr></td>
-                                                    <td><nobr>书号</nobr></td>
-                                                    <td><nobr>ISBN号</nobr></td>
-                                                    <td><nobr>总价</nobr></td>
-                                                    <td><nobr>单价</nobr></td>
-                                                    <td><nobr>数量</nobr></td>
-                                                    <td><nobr>实际折扣</nobr></td>
-                                                    <td><nobr>实洋</nobr></td>
-                                                    <td><nobr>码洋</nobr></td>                                                    
+                                                    <td>
+                                                        <nobr>单据编号</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>补货日期</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>书号</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>ISBN号</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>总价</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>单价</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>数量</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>实际折扣</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>实洋</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>码洋</nobr>
+                                                    </td>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -333,8 +392,8 @@
                                                     <td>307</td>
                                                     <td>0.6</td>
                                                     <td>23</td>
-                                                    <td>34</td>
-                                                </tr>                                                
+                                                    <%--<td>34</td>--%>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -344,70 +403,69 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <!--导入模态框-->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">数据操作
-                            </h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="material-icons">clear</i>
-                            </button>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title float-left" id="myModalLabel">数据操作
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    <i class="fa fa-close"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table text-center model-table">
+                                    <tr>
+                                        <td colspan="2">
+                                            <a class="btn btn-success" id="downEx" href="/uploads/muban/客户馆藏数据表.xls">下载模板</a>
+                                            <span class="btn btn-success fileinput-button">
+                                                <span>选择文件</span>
+                                                <input type="file" class="" name="file" id="file" value="">
+                                            </span>
+                                            <button class="btn btn-success" id="upload">上传</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" id="btnImport" data-toggle="modal">导入</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <table class="table text-center model-table">
-                                <tr>
-                                    <td colspan="2">
-                                        <a class="btn btn-success" id="downEx" href="/uploads/muban/客户馆藏数据表.xls">下载模板</a>
-                                        <span class="btn btn-success fileinput-button">
-                                            <span>选择文件</span>
-                                            <input type="file" class="" name="file" id="file" value="">
-                                        </span>
-                                        <button class="btn btn-success" id="upload">上传</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-success" id="btnImport" data-toggle="modal">导入</button>
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
+                    <div class="modal-dialog" style="width: 500px; height: 500px">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
+                                <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
+                                    <i class="fa fa-close"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="width: 500px; height: 500px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
-                            <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
-                                <i class="material-icons">clear</i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                            &nbsp;版权所有
-                        </div>
+                        &nbsp;版权所有
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>

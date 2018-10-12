@@ -175,7 +175,7 @@ legend {
 .textareaISBN {
     height: 35px !important;
     overflow: hidden;
-    width: 105%;
+    width: 100%;
     margin-top: 5px;
     line-height: 30px !important;
     border: 1px solid #ddd;
