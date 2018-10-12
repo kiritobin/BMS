@@ -167,7 +167,6 @@
                     dataType: 'json',
                     success: function (succ) {
                         if (succ.Messege == "添加成功") {
-                            var table = "";
                             $("#table tbody").html("");
                             $("#table").append(succ.DataTable);
                             $("#table").append(succ.DataTable1);
