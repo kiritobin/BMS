@@ -4,37 +4,15 @@
     sessionStorage.setItem("number", 0);
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
+    $("#time").text(setInterval("showTime()", 1000));
 })
 //获取当前时间
-function CurentTime() {
-    var now = new Date();
-
-    var year = now.getFullYear();
-    var month = now.getMonth() + 1;
-    var day = now.getDate();
-
-    var hh = now.getHours();
-    var mm = now.getMinutes();
-
-    var clock = year + "-";
-
-    if (month < 10)
-        clock += "0";
-
-    clock += month + "-";
-
-    if (day < 10)
-        clock += "0";
-
-    clock += day + " ";
-
-    if (hh < 10)
-        clock += "0";
-
-    clock += hh + ":";
-    if (mm < 10) clock += '0';
-    clock += mm;
-    return (clock);
+function showTime() {
+    nowtime = new Date();
+    year = nowtime.getFullYear();
+    month = nowtime.getMonth() + 1;
+    date = nowtime.getDate();
+    document.getElementById("time").innerText = year + "-" + month + "-" + date + " " + nowtime.toLocaleTimeString();
 }
 //点击扫描按钮
 $("#btnSearch").click(function () {
@@ -111,7 +89,6 @@ $("#btnSearch").click(function () {
                     sessionStorage.setItem("totalPrice", totalPrices);
                     sessionStorage.setItem("realPrice", realPrices);
                     //展示合计内容
-                    $("#time").text(CurentTime());
                     $("#number").text(numbers);
                     $("#total").text(totalPrices);
                     $("#real").text(realPrices);
@@ -206,7 +183,6 @@ $("#search").keypress(function (e) {
                         sessionStorage.setItem("totalPrice", totalPrices);
                         sessionStorage.setItem("realPrice", realPrices);
                         //展示合计内容
-                        $("#time").text(CurentTime());
                         $("#number").text(numbers);
                         $("#total").text(totalPrices);
                         $("#real").text(realPrices);
@@ -249,15 +225,14 @@ $("#btnAdd").click(function () {
             }
             $("#table").append(data);
             var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
-            var numbers = parseInt(sessionStorage.getItem("number")) + parseInt($("#table tr:last").find("td:eq(3)").children().val());
-            var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tr:last").find("td:eq(5)").text().trim());
-            var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim());
+            var numbers = parseInt(sessionStorage.getItem("number")) + 1;
+            var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim());
+            var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tr:last").find("td:eq(7)").text().trim());
             sessionStorage.setItem("kind", kinds);
             sessionStorage.setItem("number", numbers);
             sessionStorage.setItem("totalPrice", totalPrices);
             sessionStorage.setItem("realPrice", realPrices);
             //展示合计内容
-            $("#time").text(CurentTime());
             $("#number").text(numbers);
             $("#total").text(totalPrices);
             $("#real").text(realPrices);
@@ -298,7 +273,6 @@ $("#table").delegate(".number", "change", function (e) {
     $(this).parent().next().next().text(parseFloat(totalPrice));
     $(this).parent().next().next().next().text(parseFloat(realPrice));
     //展示合计内容
-    $("#time").text(CurentTime());
     $("#number").text(sessionStorage.getItem("number"));
     $("#total").text(parseFloat(totalPrices));
     $("#real").text(parseFloat(realPrices));
@@ -317,12 +291,43 @@ $("#insert").click(function () {
         },
         dataType: 'text',
         success: function (data) {
-            window.location.reload();
-            $("#search").focus();
-            sessionStorage.removeItem("kind");
-            sessionStorage.removeItem("number");
-            sessionStorage.removeItem("totalPrice");
-            sessionStorage.removeItem("realPrice");
+            if (data == "库存不足") {
+                swal({
+                    title: "无库存",
+                    text: "无库存",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            } else if (data == "添加成功") {
+                swal({
+                    title: "退货成功:)",
+                    text: "退货成功",
+                    type: "success",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+                }).then(function () {
+                    window.location.reload();
+                    $("#search").focus();
+                    sessionStorage.removeItem("kind");
+                    sessionStorage.removeItem("number");
+                    sessionStorage.removeItem("totalPrice");
+                    sessionStorage.removeItem("realPrice");
+                })
+            } else {
+                swal({
+                    title: "退货失败",
+                    text: "退货失败",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            }
         }
     })
 })
@@ -346,11 +351,10 @@ $("#table").delegate(".btn-delete", "click", function () {
         dataType: 'text',
         success: function (data) {
             sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind") - 1));
-            sessionStorage.setItem("number", parseFloat(sessionStorage.getItem("number") - parseInt(totalPrice)));
+            sessionStorage.setItem("number", parseFloat(sessionStorage.getItem("number") - parseInt(number)));
             sessionStorage.setItem("totalPrice", parseFloat(sessionStorage.getItem("totalPrice") - parseFloat(totalPrice)));
             sessionStorage.setItem("realPrice", parseInt(sessionStorage.getItem("realPrice") - parseFloat(realPrice)));
             //展示合计内容
-            $("#time").text(CurentTime());
             $("#number").text(sessionStorage.getItem("number"));
             $("#total").text(parseFloat(totalPrices));
             $("#real").text(parseFloat(realPrices));
@@ -362,5 +366,20 @@ $("#table").delegate(".btn-delete", "click", function () {
 });
 //删除此单
 $("#giveup").click(function () {
-    window.location.reload();
+    swal({
+        title: "温馨提示:)",
+        text: "您确定要放弃此单吗",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+    }).then(function () {
+        window.location.reload();
+    })
 })

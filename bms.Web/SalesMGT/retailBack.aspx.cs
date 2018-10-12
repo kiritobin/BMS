@@ -213,8 +213,12 @@ namespace bms.Web.SalesMGT
                         string id = backds.Tables[0].Rows[i]["retailHeadId"].ToString();
                         string st1 = id.Substring(10);
                         long rowes = long.Parse(st1) + 1;
-                        count = count + rowes;
+                        count = rowes;
                     }
+                }
+                if(count == 0)
+                {
+                    count = 1;
                 }
             }
             else
@@ -231,6 +235,7 @@ namespace bms.Web.SalesMGT
             single.SaleHeadId = retailHeadId;
             single.UserId = user.UserId;
             single.DateTime = DateTime.Now;
+            single.State = 2;
             Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)
             {//添加单体
@@ -253,7 +258,7 @@ namespace bms.Web.SalesMGT
                     Result mon = retailBll.InsertRetail(monomers);
                     if (mon == Result.添加成功)
                     {
-                        DataSet dsStock = stockBll.SelectByBookNum(monomers.Number, user.ReginId.RegionId);
+                        DataSet dsStock = stockBll.SelectByBookNum(monomers.BookNum, user.ReginId.RegionId);
                         int rowes = dsStock.Tables[0].Rows.Count;
                         for (int j = 0; j < rowes; j++)
                         {
@@ -265,6 +270,11 @@ namespace bms.Web.SalesMGT
                                 Response.Write("更新失败");
                                 Response.End();
                             }
+                        }
+                        if(rowes == 0)
+                        {
+                            Response.Write("库存不足");
+                            Response.End();
                         }
                         Response.Write("添加成功");
                         Response.End();

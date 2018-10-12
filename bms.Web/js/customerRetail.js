@@ -4,39 +4,47 @@
     sessionStorage.setItem("number", 0);
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
-    $("#time").text(CurentTime());
+    $("#time").text(setInterval("showTime()", 1000));
 })
 //获取当前时间
-function CurentTime() {
-    var now = new Date();
-
-    var year = now.getFullYear();
-    var month = now.getMonth() + 1;
-    var day = now.getDate();
-
-    var hh = now.getHours();
-    var mm = now.getMinutes();
-
-    var clock = year + "-";
-
-    if (month < 10)
-        clock += "0";
-
-    clock += month + "-";
-
-    if (day < 10)
-        clock += "0";
-
-    clock += day + " ";
-
-    if (hh < 10)
-        clock += "0";
-
-    clock += hh + ":";
-    if (mm < 10) clock += '0';
-    clock += mm;
-    return (clock);
+function showTime() {
+    nowtime = new Date();
+    year = nowtime.getFullYear();
+    month = nowtime.getMonth() + 1;
+    date = nowtime.getDate();
+    document.getElementById("time").innerText = year + "-" + month + "-" + date + " " + nowtime.toLocaleTimeString();
 }
+//获取当前时间
+//function CurentTime() {
+//    var now = new Date();
+
+//    var year = now.getFullYear();
+//    var month = now.getMonth() + 1;
+//    var day = now.getDate();
+
+//    var hh = now.getHours();
+//    var mm = now.getMinutes();
+
+//    var clock = year + "-";
+
+//    if (month < 10)
+//        clock += "0";
+
+//    clock += month + "-";
+
+//    if (day < 10)
+//        clock += "0";
+
+//    clock += day + " ";
+
+//    if (hh < 10)
+//        clock += "0";
+
+//    clock += hh + ":";
+//    if (mm < 10) clock += '0';
+//    clock += mm;
+//    return (clock);
+//}
 //输入isbn后回车
 $("#search").keypress(function (e) {
     if (sessionStorage.getItem("retailId") == null || sessionStorage.getItem("retailId") == undefined) {
