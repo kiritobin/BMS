@@ -44,7 +44,7 @@
                 <ul class="nav">
                     <%if (funcUser || funcRole || funcOrg || funcGoods)
                         { %>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
                             <p>
@@ -52,7 +52,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="securityManage">
+                        <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <%if (funcUser)
                                     { %>
@@ -81,7 +81,7 @@
                                 <%if (funcGoods)
                                     { %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
+                                    <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
@@ -113,7 +113,7 @@
                     <%} %>
                     <%if (funcPut || funcOut || funcReturn || funcSupply)
                         {%>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="fa fa-book"></i>
                             <p>
@@ -121,7 +121,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="inventoryManage">
+                        <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
                                 <%if (funcOut)
                                     { %>
@@ -134,7 +134,7 @@
                                 <%if (funcPut)
                                     { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
+                                    <a class="nav-link activeNext" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
@@ -176,14 +176,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
-                                    </a>
-                                </li>
-                                <%} %>
-                                <%if (funcSaleOff)
-                                    { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/backQuery.aspx">
-                                        <span class="sidebar-normal">销退管理</span>
                                     </a>
                                 </li>
                                 <%} %>
@@ -267,16 +259,20 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-body">
-                                    <div class="card-header card-header-danger">
-                                        <h4 class="card-title">入库添加</h4>
-                                        <button class="btn btn-sm pull-right" style="background-color:white;color:black;" id="back">返回</button>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-success btn-sm" id="save">保存</button>
+                                <div class="card-header card-header-danger">
+                                    <h4 class="card-title">入库添加</h4>
+                                </div>
+                                <div class="card-body form-group">
+                                    <div class="input-group">
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-warning btn-sm" id="back">返回</button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-info btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-success btn-sm" id="save">保存</button>
+                                        </div>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
@@ -318,8 +314,7 @@
                                                     <td>
                                                         <nobr>操作</nobr>
                                                     </td>
-                                                    <td style="display:none">
-                                                        货架号
+                                                    <td style="display: none">货架号
                                                     </td>
                                                 </tr>
                                             </thead>
@@ -327,7 +322,7 @@
                                                 <td>1</td>
                                                 <td>
                                                     <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="13"></textarea>
-                                                   </td>
+                                                </td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>
@@ -338,13 +333,15 @@
                                                         <%}%>
                                                     </select>
                                                 </td>
-                                                <td><textarea class="count textareaCount" rows="1">0</textarea></td>
+                                                <td>
+                                                    <textarea class="count textareaCount" rows="1">0</textarea></td>
                                                 <td></td>
-                                                <td><textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
+                                                <td>
+                                                    <textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td style="display:none"></td>
+                                                <td style="display: none"></td>
                                             </tr>
                                         </table>
                                     </div>

@@ -44,7 +44,7 @@
                 <ul class="nav">
                     <%if (funcUser || funcRole || funcOrg || funcGoods)
                         { %>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
                             <p>
@@ -52,10 +52,10 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="securityManage">
+                        <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <%if (funcUser)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
@@ -63,7 +63,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcRole)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
@@ -71,7 +71,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcOrg)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -79,9 +79,9 @@
                                 </li>
                                 <%} %>
                                 <%if (funcGoods)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
+                                    <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
@@ -91,7 +91,7 @@
                     </li>
                     <%} %>
                     <%if (funcCustom)
-                    {%>
+                        {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="fa fa-user fa-lg"></i>
@@ -113,7 +113,7 @@
                     <%} %>
                     <%if (funcPut || funcOut || funcReturn || funcSupply)
                         {%>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="fa fa-book"></i>
                             <p>
@@ -121,18 +121,18 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="inventoryManage">
+                        <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
                                 <%if (funcOut)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
+                                    <a class="nav-link activeNext" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <%} %>
                                 <%if (funcPut)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
@@ -140,7 +140,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcReturn)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
@@ -148,7 +148,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcSupply)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
@@ -172,18 +172,10 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <%if (funcSale)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
-                                    </a>
-                                </li>
-                                <%} %>
-                                <%if (funcSaleOff)
-                                { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/backQuery.aspx">
-                                        <span class="sidebar-normal">销退管理</span>
                                     </a>
                                 </li>
                                 <%} %>
@@ -212,7 +204,7 @@
                                     </a>
                                 </li>
                                 <%if (funcLibrary)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
@@ -269,79 +261,79 @@
                             <div class="card">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title">出库添加</h4>
-                                    <button class="btn btn-sm pull-right" style="background-color: white; color: black;" id="back">返回</button>
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="card-header from-group">
-                                            <div class="input-group">
-                                                <div class="btn-group" role="group">
-                                                    <button class="btn btn-success btn-sm" id="save"><i class="fa fa-plus fa-lg"></i>&nbsp 保存</button>
-                                                </div>
+                                    <div class="card-header from-group">
+                                        <div class="input-group">
+                                            <div class="btn-group">
+                                                <button class="btn btn-warning btn-sm" id="back">返回</button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button class="btn btn-success btn-sm" id="save">保存</button>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="table-responsive">
-                                            <table class="table mostTable table-bordered text-center" id="table">
-                                                <thead>
-                                                    <tr>
-                                                        <td>
-                                                            <nobr>单据编号</nobr>
-                                                        </td>
-                                                        <td>
-                                                            <nobr>ISBN号</nobr>
-                                                        </td>
-                                                        <td style="display: none">
-                                                            <nobr>书号</nobr>
-                                                        </td>
-                                                        <td>
-                                                            <nobr>书名</nobr>
-                                                        </td>
-                                                        <td>
-                                                            <nobr>出版社</nobr>
-                                                        </td>
-                                                        <td>
-                                                            <nobr>商品数量</nobr>
-                                                        </td>
-                                                        <td>
-                                                            <nobr>单价</nobr>
-                                                        </td>
-                                                        <td>
-                                                            <nobr>折扣</nobr>
-                                                        </td>
-                                                        <td>
-                                                            <nobr>码洋</nobr>
-                                                        </td>
-                                                        <td>
-                                                            <nobr>实洋</nobr>
-                                                        </td>
-                                                        <td>
-                                                            <nobr>操作</nobr>
-                                                        </td>
-                                                    </tr>
-                                                </thead>
-                                                <tr class="first">
-                                                    <td>1</td>
+                                    <div class="table-responsive">
+                                        <table class="table mostTable table-bordered text-center" id="table">
+                                            <thead>
+                                                <tr>
                                                     <td>
-                                                        <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="13"></textarea>
+                                                        <nobr>单据编号</nobr>
                                                     </td>
-                                                    <td></td>
-                                                    <td></td>
                                                     <td>
-                                                        <textarea class="count textareaCount" rows="1">0</textarea></td>
-                                                    <td></td>
+                                                        <nobr>ISBN号</nobr>
+                                                    </td>
+                                                    <td style="display: none">
+                                                        <nobr>书号</nobr>
+                                                    </td>
                                                     <td>
-                                                        <textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                        <nobr>书名</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>出版社</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>商品数量</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>单价</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>折扣</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>码洋</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>实洋</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>操作</nobr>
+                                                    </td>
                                                 </tr>
-                                            </table>
-                                        </div>
-                                        <div class="copyright float-right page-box">
-                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                                <div class="m-style paging"></div>
-                                            </div>
+                                            </thead>
+                                            <tr class="first">
+                                                <td>1</td>
+                                                <td>
+                                                    <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="13"></textarea>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <textarea class="count textareaCount" rows="1">0</textarea></td>
+                                                <td></td>
+                                                <td>
+                                                    <textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="copyright float-right page-box">
+                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                            <div class="m-style paging"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -370,11 +362,21 @@
                                                 <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
                                             </div>
                                         </th>
-                                        <th><nobr>书号</nobr></th>
-                                        <th><nobr>ISBN</nobr></th>
-                                        <th><nobr>书名</nobr></th>
-                                        <th><nobr>单价</nobr></th>
-                                        <th><nobr>出版社</nobr></th>
+                                        <th>
+                                            <nobr>书号</nobr>
+                                        </th>
+                                        <th>
+                                            <nobr>ISBN</nobr>
+                                        </th>
+                                        <th>
+                                            <nobr>书名</nobr>
+                                        </th>
+                                        <th>
+                                            <nobr>单价</nobr>
+                                        </th>
+                                        <th>
+                                            <nobr>出版社</nobr>
+                                        </th>
                                     </tr>
                                 </thead>
 
@@ -386,21 +388,20 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- 主界面页脚部分 -->
-        <footer class="footer">
-            <div class="container-fluid">
-                <!-- 版权内容 -->
-                <div class="copyright text-center">
-                    &copy;
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                    &nbsp;版权所有
+                        &nbsp;版权所有
+                    </div>
                 </div>
-            </div>
-        </footer>
-    </div>
+            </footer>
+        </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
