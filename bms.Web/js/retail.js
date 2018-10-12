@@ -4,15 +4,24 @@
     sessionStorage.setItem("number", 0);
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
-    $("#time").text(setInterval("showTime()", 1000));
+    setInterval("showTime()", 1000);
+    $("#ticket").hide();
 })
 //获取当前时间
 function showTime() {
-    nowtime = new Date();
-    year = nowtime.getFullYear();
-    month = nowtime.getMonth() + 1;
-    date = nowtime.getDate();
-    document.getElementById("time").innerText = year + "-" + month + "-" + date + " " + nowtime.toLocaleTimeString();
+    var time = new Date();
+    var m = time.getMonth() + 1;
+    var t = time.getFullYear() + "-" + pad(m, 2) + "-" + pad(time.getDate(), 2) + " " + pad(time.getHours(), 2) + ":" + pad(time.getMinutes(), 2) + ":" + pad(time.getSeconds(), 2);
+    $("#time").text(t);
+}
+function endTime() {
+    var time = new Date();
+    var m = time.getMonth() + 1;
+    var t = time.getFullYear() + "-" + pad(m, 2) + "-" + pad(time.getDate(), 2) + " " + pad(time.getHours(), 2) + ":" + pad(time.getMinutes(), 2) + ":" + pad(time.getSeconds(),2);
+    $("#timeEnd").text(t);
+}
+function pad(num, n) {
+    return (Array(n).join(0) + num).slice(-n);
 }
 //点击扫描按钮
 $("#btnSearch").click(function () {
@@ -304,14 +313,17 @@ $("#insert").click(function () {
                 }).catch(swal.noop);
             } else {
                 var headId = datas[1];
+                $("#kindEnd").text(sessionStorage.getItem("kind"));
+                $("#numberEnd").text(sessionStorage.getItem("number"));
+                $("#totalEnd").text(sessionStorage.getItem("totalPrice"));
+                $("#realEnd").text(sessionStorage.getItem("realPrice"));
+                $("#timeEnd").text(endTime())
+                $("#img").attr("src","../QRCode.aspx?qrtext=" + headId);
+                $("#ticket").show();
                 sessionStorage.removeItem("kind");
                 sessionStorage.removeItem("number");
                 sessionStorage.removeItem("totalPrice");
                 sessionStorage.removeItem("realPrice");
-                $("#img").attr("src","../QRCode.aspx?qrtext=" + headId);
-                //window.location.href = "../QRCode.aspx?qrtext=" + headId;
-                //window.location.reload();
-                //$("#search").focus();
             }
         }
     })

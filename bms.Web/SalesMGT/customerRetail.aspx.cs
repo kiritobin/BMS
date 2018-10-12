@@ -363,12 +363,14 @@ namespace bms.Web.SalesMGT
             }
             else
             {
-                double real=0, reals=0;
+                double real = 0, reals = 0, allReal = 0, allReals = 0;
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     double total = Convert.ToDouble(ds.Tables[0].Rows[i]["totalPrice"]);
                     real = Convert.ToDouble(ds.Tables[0].Rows[i]["realPrice"]);
+                    allReal = allReal + real;
                     reals = total* discount * 0.01;
+                    allReals = allReals + reals;
                     Result change = retailBll.UpdateDiscount(discount, real, retailId);
                     if (change == Result.更新失败)
                     {
@@ -377,7 +379,7 @@ namespace bms.Web.SalesMGT
                     }
                 }
                 SaleHead head = retailBll.GetHead(retailId);
-                Result reales = retailBll.UpdateHeadReal(head.AllRealPrice - real + reals, retailId);
+                Result reales = retailBll.UpdateHeadReal(head.AllRealPrice - allReal + allReals, retailId);
                 if (reales == Result.更新成功)
                 {
                     Response.Write("更新成功");
