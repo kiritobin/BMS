@@ -36,7 +36,9 @@
     <!-- 主界面内容 -->
     <div class="content">
         <div class="container-fluid">
-            <img src="../imgs/YNXH-LOGO.png" class="img-responsive" alt="Cinque Terre" width="450" height="80">
+             <div class="col-sm-4 col-lg-3">
+                    <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
+                </div>
             <div class="row3">
                 <div class="col-md-12">
                     <div class="card">
@@ -75,15 +77,35 @@
         function reload() {
             window.location.reload();
         }
-        function showTime() {
-            nowtime = new Date();
-            year = nowtime.getFullYear();
-            month = nowtime.getMonth() + 1;
-            date = nowtime.getDate();
-            document.getElementById("time").innerText = year + "年" + month + "月" + date + " " + nowtime.toLocaleTimeString();
-        }
-        setInterval("showTime()", 1000);
         setTimeout("reload()", 600000);
+        window.onload = function () {
+            function nowTime(ev, type) {
+                /*
+                 * ev:显示时间的元素
+                 * type:时间显示模式.若传入12则为12小时制,不传入则为24小时制
+                 */
+                //年月日时分秒
+                var Y, M, D, W, H, I, S;
+                //月日时分秒为单位时前面补零
+                function fillZero(v) {
+                    if (v < 10) { v = '0' + v; }
+                    return v;
+                }
+                (function () {
+                    var d = new Date();
+                    Y = d.getFullYear();
+                    M = fillZero(d.getMonth() + 1);
+                    D = fillZero(d.getDate());
+                    H = fillZero(d.getHours());
+                    I = fillZero(d.getMinutes());
+                    S = fillZero(d.getSeconds());
+                    ev.innerHTML = Y + '年' + M + '月' + D + '日' + '&nbsp;' + H + ':' + I + ':' + S;
+                    //每秒更新时间
+                    setTimeout(arguments.callee, 1000);
+                })();
+            }
+            nowTime(document.getElementById('time'));
+        }
     </script>
 </body>
 </html>

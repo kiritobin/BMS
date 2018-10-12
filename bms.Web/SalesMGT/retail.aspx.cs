@@ -211,10 +211,18 @@ namespace bms.Web.SalesMGT
                     {
                         //count += 1;
                         string id = backds.Tables[0].Rows[i]["retailHeadId"].ToString();
-                        string st1 = id.Substring(10);
-                        long rowes = long.Parse(st1) + 1;
-                        count = count + rowes;
+                        int st1 = Convert.ToInt32(id.Substring(10));
+                        if (st1 <= 0)
+                        {
+                            st1 = 0;
+                        }
+                        int rowes = st1 + 1;
+                        count = rowes;
                     }
+                }
+                if(count == 0)
+                {
+                    count = 1;
                 }
             }
             else
@@ -230,6 +238,7 @@ namespace bms.Web.SalesMGT
             single.SaleHeadId = retailHeadId;
             single.UserId = user.UserId;
             single.DateTime = DateTime.Now;
+            single.State = 0;
             Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)
             {
@@ -252,15 +261,16 @@ namespace bms.Web.SalesMGT
                     Result mon = retailBll.InsertRetail(monomers);
                     if (mon == Result.添加失败)
                     {
-                        Response.Write("添加失败");
+                        Response.Write("添加失败|:");
                         Response.End();
                     }
                 }
-                Response.Redirect("../QRCode.aspx?qrtext=" + retailHeadId);
+                Response.Write("添加成功|:" + retailHeadId);
+                Response.End();
             }
             else
             {
-                Response.Write("添加失败");
+                Response.Write("添加失败|:");
                 Response.End();
             }
 

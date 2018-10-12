@@ -134,7 +134,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet getRetailRank()
         {
-            string sql = "select bookName,unitPrice,allNum,allTotalPrice from V_RetailtRank LIMIT 0,10";
+            string sql = "select bookName,unitPrice,allNum,allTotalPrice from V_RetailRank LIMIT 0,10";
             DataSet ds = db.FillDataSet(sql, null, null);
             return ds;
         }
