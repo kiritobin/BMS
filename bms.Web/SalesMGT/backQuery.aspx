@@ -38,7 +38,7 @@
                         <h3 class="text-center">销&nbsp;退</h3>
                         <hr />
                         <div class="card-body">
-                            <div class="card-header card_btn">
+                            <div class="card-header from-group">
                                 <div class="input-group">
                                     <!--<div class="btn-group" role="group">
                                         <button class="btn btn-success" id="add_back">添加销退</button>
@@ -48,15 +48,22 @@
                                         <button class="btn btn-info">查询</button>
                                     </div>-->
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i></button>
+                                        <button class="btn btn-warning" id="toBack">返回</button>
                                     </div>
-                                    <div class="btn-group text-right" role="group">
-                                        <button class="btn btn-danger" id="toBack">返回</button>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-info">打印</button>
                                     </div>
+                                    <%string type = Session["type"].ToString();
+                                        if (type != "search")
+                                        { %>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-success" id="sure">保存单据</button>
+                                        </div>
+                                    <%} %>
                                 </div>
                             </div>
-                            <div class="content_tab col-md-12">
-                                <div class="table-responsive col-md-10">
+                            <div class="content_tab">
+                                <div class="table-responsive">
                                     <table class="table mostTable table-bordered text-center" id="table">
                                         <%--<thead>
                                             <tr>
@@ -73,15 +80,6 @@
                                         <%=GetData() %>
                                     </table>
                                 </div>
-                                <%string type = Session["type"].ToString();
-                                    if (type != "search")
-                                    { %>
-                                <div class="statistics col-md-2" style="border:none;">
-                                    <div class="btn-group text-right" role="group">
-                                        <button class="btn btn-danger" id="sure">保存单据</button>
-                                    </div>
-                                </div>
-                                <%} %>
                             </div>
                         </div>
                     </div>
