@@ -282,15 +282,16 @@ $("#insert").click(function () {
                     var status = "";
                     var LODOP = getLodop();
                     LODOP.ADD_PRINT_HTM(0, 0, 520, 900, document.getElementById("ticket").innerHTML);
+                    LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
                     LODOP.SET_PRINT_PAGESIZE(1, 520, 900, "");
                     LODOP.PREVIEW();
-                    LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
                     LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
                     LODOP.On_Return = function (TaskID, Value) {
                         status = Value;
                     };
                     if (status != "" || status != null) {
                         LODOP.ADD_PRINT_HTM(0, 0, 520, 900, document.getElementById("ticket").innerHTML);
+                        LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
                         LODOP.SET_PRINT_PAGESIZE(1, 520, 900, "");
                         LODOP.PREVIEW();
 
