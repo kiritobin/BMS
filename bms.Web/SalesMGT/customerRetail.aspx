@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
+    <link rel="stylesheet" href="../css/qc.css">
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
@@ -157,8 +158,64 @@
                                 </div>
                             </fieldset>
                         </div>
+                        <div class="print_container">
+                            <h2>新华书店</h2>
+                         <hr />
+                            <div class="container">
+                                <span style="font-size:14px;">下单时间：2018-10-13</span><br />
+                                <span style="font-size:14px;">订单编号：1111333333</span>
+                            </div>
+                            <hr />
+                            <div class="section4">
+                            <table>
+                            <thead>
+                            <tr>
+                                <td style="width:60%">名称</td>
+                                <td style="width:30%">数量</td>
+                                <td style="width:20%">金额</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>安妮日记</td>
+                                <td>2</td>
+                                <td>28.00</td>
+                            </tr>                  
+                        </tbody>
+                    </table>
+                 <hr />
+               <div class="other_fee">
+                    <div>
+                        <span class="left">码洋</span>
+                        <span class="right">0</span>
+                        <div class="clearfix"></div>
                     </div>
+                    <div>
+                        <span class="left">折扣</span>
+                        <span class="right">0</span>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div>
+                        <span class="left">合计</span>
+                        <span class="right">0</span>
+                        <div class="clearfix"></div>
+                    </div>
+                  <hr />
+                <div class="total">
+                    <span class="left">实付</span>
+                    <span class="right">39</span>
+                    <div class="clearfix"></div>
                 </div>
+                <div class="total">
+                    <span class="left">找零</span>
+                    <span class="right">9</span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+                </div>
+                </div>
+                </div>
+                    </div>
             </div>
         </div>
     </div>
