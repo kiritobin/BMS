@@ -84,3 +84,39 @@
     max-width: 100%;
     height: auto;
 }
+
+/*小票打印*/
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.print_container {
+    padding: 10px;
+    width: 200px;
+}
+
+.section2{
+    display: block;
+}
+
+.section3{
+    display: block;
+}
+    .section4 {
+        display: block;
+        font-size: 16px;
+    }
+
+    .section4 .other_fee {
+        border-bottom: 1px solid #DADADA;
+        font-size:18px;
+    }
