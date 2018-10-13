@@ -1,4 +1,14 @@
 ﻿$(document).ready(function () {
+  
+    //判断是否含有特殊字符
+    function checkName(val) {
+        var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        var rs = "";
+        for (var i = 0, l = val.length; i < val.length; i++) {
+            rs = rs + val.substr(i, 1).replace(reg, '');
+        }
+        return rs;
+    }
     $("#upload").click(function () {
         var location = $("input[name='file']").val();
         var point = location.lastIndexOf(".");
@@ -41,7 +51,7 @@
                 allowOutsideClick: false
             })
         }
-        else if (sessionStorage.getItem("succ")!="上传成功") {
+        else if (sessionStorage.getItem("succ") != "上传成功") {
             swal({
                 title: "温馨提示:)",
                 text: "文件未上传成功",
@@ -97,7 +107,7 @@
         $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
         $("#img").attr("src", "../imgs/loading.gif");
         $(" #file").val("");
-        if (sessionStorage.getItem("import")=="导入成功") {
+        if (sessionStorage.getItem("import") == "导入成功") {
             window.location.reload();
             sessionStorage.removeItem("import");
             sessionStorage.removeItem("succ");
@@ -141,7 +151,7 @@
                 {
                     swal({
                         title: "温馨提示:)",
-                        text:e,
+                        text: e,
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-success",
                         type: "warning",
@@ -284,9 +294,9 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var bookName = $("#bookName").val().trim();
-            var bookNum = $("#bookNum").val().trim();
-            var btnISBN = $("#bookISBN").val().trim();
+            var bookName = checkName($("#bookName").val().trim());
+            var bookNum = checkName($("#bookNum").val().trim());
+            var btnISBN = checkName($("#bookISBN").val().trim());
             $.ajax({
                 type: 'Post',
                 url: 'bookBasicManagement.aspx',
@@ -309,9 +319,9 @@
 
 //点击查询按钮时
 $("#btn-search").click(function () {
-    var bookName = $("#bookName").val().trim();
-    var bookNum = $("#bookNum").val().trim();
-    var bookISBN = $("#bookISBN").val().trim();
+    var bookName = checkName($("#bookName").val().trim());
+    var bookNum = checkName($("#bookNum").val().trim());
+    var bookISBN = checkName($("#bookISBN").val().trim());
     $.ajax({
         type: 'Post',
         url: 'bookBasicManagement.aspx',
@@ -410,7 +420,7 @@ $("#table").delegate(".btn-delete", "click", function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                      
+
                     })
                 }
             }

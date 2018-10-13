@@ -1,4 +1,14 @@
 ﻿$(document).ready(function () {
+
+    //判断是否含有特殊字符
+    function checkName(val) {
+        var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        var rs = "";
+        for (var i = 0, l = val.length; i < val.length; i++) {
+            rs = rs + val.substr(i, 1).replace(reg, '');
+        }
+        return rs;
+    }
     $('.paging').pagination({
         //totalData: $("#totalCount").val(),
         //showData: $("#pageSize").val(),
@@ -11,9 +21,9 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var strWhere = $("#input-search").val();
-            var regionId = $("#select-region").val();
-            var roleId = $("#select-role").val();
+            var strWhere = checkName($("#input-search").val());
+            var regionId = checkName($("#select-region").val());
+            var roleId = checkName($("#select-role").val());
             $.ajax({
                 type: 'Post',
                 url: 'userManagement.aspx',
@@ -36,9 +46,9 @@
 
 //点击查询按钮时
 $("#btn-search").click(function () {
-    var region = $("#input-region").val().trim();
-    var role = $("#input-role").val().trim();
-    var userName = $("#input-userName").val().trim();
+    var region = checkName($("#input-region").val().trim());
+    var role = checkName($("#input-role").val().trim());
+    var userName = checkName($("#input-userName").val().trim());
     $.ajax({
         type: 'Post',
         url: 'userManagement.aspx',
@@ -96,7 +106,7 @@ $("#reset").click(function () {
         type: 'Post',
         url: 'userManagement.aspx',
         data: {
-           
+
             account: account,
             op: "reset"
         },
@@ -189,7 +199,7 @@ $("#btnAdd").click(function () {
                         type: "success",
                         allowOutsideClick: false
                     }).then(function () {
-                        sessionStorage.setItem("add","添加成功");
+                        sessionStorage.setItem("add", "添加成功");
                         //window.location.reload();
                     })
                 } else if (succ == "该用户已存在不能重复添加") {
@@ -201,7 +211,7 @@ $("#btnAdd").click(function () {
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {
-                       
+
                     })
                 } else {
                     swal({
@@ -224,7 +234,7 @@ $("#btn-add").click(function () {
     $("#model-select-role").val("");
 })
 $("#close").click(function () {
-    if (sessionStorage.getItem("add")=="添加成功") {
+    if (sessionStorage.getItem("add") == "添加成功") {
         window.location.reload();
         sessionStorage.removeItem("add");
     }

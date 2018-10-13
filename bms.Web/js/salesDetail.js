@@ -84,7 +84,6 @@
     $("#table").delegate(".isbn", "keypress", function (e) {
         if (e.keyCode == 13) {
             var ISBN = $(this).val().trim();
-            $(".first").remove();
             if (ISBN == "") {
                 swal({
                     title: "温馨提示:)",

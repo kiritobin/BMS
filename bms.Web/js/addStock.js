@@ -156,7 +156,7 @@ $(document).ready(function () {
             swal({
                 title: "提示",
                 text: "文件未上传成功",
-                type: "warning",
+                type: "success",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
                 confirmButtonClass: 'btn btn-success',
@@ -495,7 +495,7 @@ $("#save").click(function () {
                         text: "保存成功",
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-success",
-                        type: "warning",
+                        type: "success",
                         allowOutsideClick: false
                     })
                     sessionStorage.removeItem("kind");

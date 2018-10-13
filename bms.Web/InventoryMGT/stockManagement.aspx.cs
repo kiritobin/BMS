@@ -18,7 +18,7 @@ namespace bms.Web.InventoryMGT
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "";
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
-        public DataSet ds,dsRegion,dsPer;
+        public DataSet ds, dsRegion, dsPer;
         UserBll userBll = new UserBll();
         RegionBll regionBll = new RegionBll();
         WarehousingBll wareBll = new WarehousingBll();
@@ -36,7 +36,7 @@ namespace bms.Web.InventoryMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
-            else if (op=="add")
+            else if (op == "add")
             {
                 User user = (User)Session["user"];
                 DateTime nowTime = DateTime.Now;
@@ -57,8 +57,13 @@ namespace bms.Web.InventoryMGT
                             string id = backds.Tables[0].Rows[i]["singleHeadId"].ToString();
                             string st1 = id.Substring(10);
                             long rowes = long.Parse(st1) + 1;
-                            count = count + rowes;
+                            count = rowes;
+                            break;
                         }
+                    }
+                    if (count == 0)
+                    {
+                        count = 1;
                     }
                 }
                 else
@@ -86,7 +91,7 @@ namespace bms.Web.InventoryMGT
                     Response.End();
                 }
             }
-            else if (op=="del")
+            else if (op == "del")
             {
                 string Id = Request["account"];
                 Result row = wareBll.deleteHead(Id, 1);
