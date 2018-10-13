@@ -20,7 +20,7 @@ namespace bms.Web.BasicInfor
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row,funCount;
         public string search = "", last, num;
         public DataSet ds, dsPer;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply,funcRetail;
         DataTable except = new DataTable();//接受差集
         BookBasicBll bookbll = new BookBasicBll();
         UserBll userBll = new UserBll();
@@ -489,6 +489,10 @@ namespace bms.Web.BasicInfor
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
                 {
                     funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
                 }
             }
         }

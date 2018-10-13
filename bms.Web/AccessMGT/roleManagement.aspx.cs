@@ -18,7 +18,7 @@ namespace bms.Web.AccessMGT
         public int currentPage = 1, pageSize = 10, totalCount, intPageCount;
         public string search, roleId;
         public DataSet dsFun,ds,dsPer;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
         RoleBll roleBll = new RoleBll();
@@ -401,6 +401,10 @@ namespace bms.Web.AccessMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
                 {
                     funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
                 }
             }
         }
