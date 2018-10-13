@@ -262,7 +262,7 @@ namespace bms.Bll
             return saleDao.getSaleTaskTime();
         }
         /// <summary>
-        /// 完成日期
+        /// 获取完成日期
         /// </summary>
         /// <returns>时间字符串</returns>
         public string getSaleTaskFinishTime(string saleId)

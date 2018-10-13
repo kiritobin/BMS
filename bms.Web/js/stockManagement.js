@@ -1,4 +1,13 @@
 ﻿$(document).ready(function () {
+    //判断是否含有特殊字符
+    function checkName(val) {
+        var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        var rs = "";
+        for (var i = 0, l = val.length; i < val.length; i++) {
+            rs = rs + val.substr(i, 1).replace(reg, '');
+        }
+        return rs;
+    }
     $('.paging').pagination({
         //totalData: $("#totalCount").val(),
         //showData: $("#pageSize").val(),
@@ -11,9 +20,9 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var strWhere = $("#input-search").val();
-            var regionId = $("#select-region").val();
-            var roleId = $("#select-role").val();
+            var strWhere = checkName($("#input-search").val());
+            var regionId = checkName($("#select-region").val());
+            var roleId = checkName($("#select-role").val());
             $.ajax({
                 type: 'Post',
                 url: 'stockManagement.aspx',
@@ -38,9 +47,9 @@
 
 //点击查询按钮时
 $("#btn-search").click(function () {
-    var singHeadId = $("#ID").val().trim();
-    var regionName = $("#btn-region").val().trim();
-    var userName = $("#btn-user").val().trim();
+    var singHeadId = checkName($("#ID").val().trim());
+    var regionName = checkName($("#btn-region").val().trim());
+    var userName = checkName($("#btn-user").val().trim());
     $.ajax({
         type: 'Post',
         url: 'stockManagement.aspx',

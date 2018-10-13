@@ -35,8 +35,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <h3 class="text-center">销&nbsp;退</h3>
-                        <hr />
+                        <div class="container-fluid">
+                            <h3 class="text-center"><strong>销&nbsp;退</strong></h3>
+                            <hr />
+                        </div>
                         <div class="card-body">
                             <div class="card-header from-group">
                                 <div class="input-group">
@@ -48,17 +50,17 @@
                                         <button class="btn btn-info">查询</button>
                                     </div>-->
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-warning" id="toBack">返回</button>
+                                        <button class="btn btn-warning btn-sm" id="toBack">返回</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-info">打印</button>
+                                        <button class="btn btn-info btn-sm">打印</button>
                                     </div>
                                     <%string type = Session["type"].ToString();
                                         if (type != "search")
                                         { %>
-                                        <div class="btn-group" role="group">
-                                            <button class="btn btn-success" id="sure">保存单据</button>
-                                        </div>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-success btn-sm" id="sure">保存单据</button>
+                                    </div>
                                     <%} %>
                                 </div>
                             </div>
@@ -86,6 +88,19 @@
                 </div>
             </div>
         </div>
+        <!-- 主界面页脚部分 -->
+        <footer class="footer content-footer">
+            <div class="container-fluid">
+                <!-- 版权内容 -->
+                <div class="copyright text-center">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                    &nbsp;版权所有
+                </div>
+            </div>
+        </footer>
     </div>
     <!--模态框-->
     <div class='modal fade' id='myModa2' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop='static'>

@@ -64,13 +64,13 @@ $("#table").delegate(".isbn", "keypress", function (e) {
                 type: "warning"
             }).catch(swal.noop);
         }
-        //else if (count == "" || count == null) {
-        //    $(this).parent().next().next().next().children().focus();
-        //    alert("商品数量不能为空");
-        //}
-        //else if (discount == "" || discount == null) {
-        //    alert("折扣不能为空");
-        //}
+            //else if (count == "" || count == null) {
+            //    $(this).parent().next().next().next().children().focus();
+            //    alert("商品数量不能为空");
+            //}
+            //else if (discount == "" || discount == null) {
+            //    alert("折扣不能为空");
+            //}
         else {
             $.ajax({
                 type: 'Post',
@@ -157,7 +157,7 @@ $("#table").delegate(".count", "keypress", function (e) {
                     if (data == "库存不足") {
                         swal({
                             title: "温馨提示:)",
-                            text: data,
+                            text: "库存不足",
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
@@ -282,7 +282,7 @@ $("#save").click(function () {
                         text: "保存成功",
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-success",
-                        type: "warning",
+                        type: "success",
                         allowOutsideClick: false
                     })
                     sessionStorage.removeItem("kind");

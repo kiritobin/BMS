@@ -25,7 +25,15 @@ function logout() {
         });
     })
 }
-
+//判断是否含有特殊字符
+function checkName(val) {
+    var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+    var rs = "";
+    for (var i = 0, l = val.length; i < val.length; i++) {
+        rs = rs + val.substr(i, 1).replace(reg, '');
+    }
+    return rs;
+}
 $(document).ready(function () {
     $('.paging').pagination({
         //totalData: $("#totalCount").val(),
@@ -39,9 +47,9 @@ $(document).ready(function () {
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var bookName = $("#bookName").val().trim();
-            var bookNum = $("#bookNum").val().trim();
-            var btnISBN = $("#bookISBN").val().trim();
+            var bookName = checkName($("#bookName").val().trim());
+            var bookNum = checkName($("#bookNum").val().trim());
+            var btnISBN = checkName($("#bookISBN").val().trim());
             $.ajax({
                 type: 'Post',
                 url: 'inventoryManagement.aspx',
@@ -62,9 +70,9 @@ $(document).ready(function () {
     });
 
     $("#btn-search").click(function () {
-        var bookName = $("#bookName").val().trim();
-        var bookArea = $("#area").val().trim();
-        var bookISBN = $("#isbn").val().trim();
+        var bookName =checkName($("#bookName").val().trim());
+        var bookArea = checkName($("#area").val().trim());
+        var bookISBN = checkName($("#isbn").val().trim());
         $.ajax({
             type: 'Post',
             url: 'inventoryManagement.aspx',

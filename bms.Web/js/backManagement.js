@@ -1,4 +1,13 @@
 ﻿$(document).ready(function () {
+    //判断是否含有特殊字符
+    function checkName(val) {
+        var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        var rs = "";
+        for (var i = 0, l = val.length; i < val.length; i++) {
+            rs = rs + val.substr(i, 1).replace(reg, '');
+        }
+        return rs;
+    }
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(),
         jump: true,
@@ -27,8 +36,8 @@
     //查询
     $("#btn-search").click(function () {
         //var stockId = $("#bill").val();
-        var sellId = $("#region").val();
-        var customer = $("#customer").val();
+        var sellId = checkName($("#region").val());
+        var customer = checkName($("#customer").val());
         $.ajax({
             type: 'Post',
             url: 'backManagement.aspx',
@@ -174,7 +183,7 @@
             type: 'Post',
             url: 'backManagement.aspx',
             data: {
-                sohId:id,
+                sohId: id,
                 op: "delete"
             },
             dataType: 'text',
@@ -182,7 +191,7 @@
                 if (succ == "删除成功") {
                     swal({
                         title: "温馨提示",
-                        text: succ,
+                        text: "删除成功",
                         type: "success",
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: '确定',

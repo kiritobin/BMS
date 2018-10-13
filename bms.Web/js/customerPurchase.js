@@ -25,7 +25,15 @@ function logout() {
         });
     })
 }
-
+//判断是否含有特殊字符
+function checkName(val) {
+    var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+    var rs = "";
+    for (var i = 0, l = val.length; i < val.length; i++) {
+        rs = rs + val.substr(i, 1).replace(reg, '');
+    }
+    return rs;
+}
 $(document).ready(function () {
     $('.paging').pagination({
         //totalData: $("#countPage").val(), //数据总数
@@ -56,8 +64,8 @@ $(document).ready(function () {
     });
 
     $("#btn-search").click(function () {
-        var bookName = $("#bookSearch").val().trim();
-        var source = $("#goodsSearch").val().trim();
+        var bookName = checkName($("#bookSearch").val().trim());
+        var source = checkName($("#goodsSearch").val().trim());
         $.ajax({
             type: 'Post',
             url: 'customerPurchase.aspx',

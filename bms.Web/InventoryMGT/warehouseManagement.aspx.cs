@@ -47,8 +47,13 @@ namespace bms.Web.BasicInfor
                             string id = backds.Tables[0].Rows[i]["singleHeadId"].ToString();
                             string st1 = id.Substring(10);
                             long rowes = long.Parse(st1) + 1;
-                            count = count + rowes;
+                            count = rowes;
+                            break;
                         }
+                    }
+                    if (count == 0)
+                    {
+                        count = 1;
                     }
                 }
                 else

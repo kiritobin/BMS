@@ -1,4 +1,13 @@
 ﻿$(document).ready(function () {
+    //判断是否含有特殊字符
+    function checkName(val) {
+        var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        var rs = "";
+        for (var i = 0, l = val.length; i < val.length; i++) {
+            rs = rs + val.substr(i, 1).replace(reg, '');
+        }
+        return rs;
+    }
     $('.paging').pagination({
         //totalData: $("#countPage").val(), //数据总数
         //showData: $("#totalCount").val(), //每页显示的条数
@@ -11,8 +20,8 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var book = $("#bookSearch").val().trim();
-            var isbn = $("#isbnSearch").val().trim();
+            var book = checkName($("#bookSearch").val().trim());
+            var isbn = checkName($("#isbnSearch").val().trim());
             $.ajax({
                 type: 'Post',
                 url: 'collectionManagement.aspx',
@@ -34,15 +43,15 @@
 
     //点击查询按钮时
     $("#btn-search").click(function () {
-        var book = $("#bookSearch").val().trim();
-        var isbn = $("#isbnSearch").val().trim();
-        var custom = $("#cusSearch").val().trim();
+        var book = checkName($("#bookSearch").val().trim());
+        var isbn = checkName($("#isbnSearch").val().trim());
+        var custom = checkName($("#cusSearch").val().trim());
         $.ajax({
             type: 'Post',
             url: 'collectionManagement.aspx',
             data: {
                 book: book,
-                isbn: isbn,
+                isbn: isbn3,
                 custom: custom,
                 op: "paging"
             },
@@ -90,7 +99,7 @@
     $("#btnImport").click(function () {
         var custom = $("#model-select-custom").val();
         var file = $("#file").val();
- 
+
         if (custom == "" || custom == null) {
             swal({
                 title: "提示",
@@ -134,7 +143,7 @@
                 type: 'Post',
                 url: 'collectionManagement.aspx',
                 data: {
-                    custom:custom,
+                    custom: custom,
                     action: "import"
                 },
                 dataType: 'text',
@@ -143,7 +152,7 @@
                         $("#myModalLabe1").html(data);
                         $("#close").show();
                         $("#img").attr("src", "../imgs/success.png");
-                        sessionStorage.setItem("import","导入成功");
+                        sessionStorage.setItem("import", "导入成功");
                     } else if (data.indexOf("导入失败") >= 0) {
                         $("#myModalLabe1").html(data);
                         $("#close").show();
@@ -272,8 +281,8 @@
         $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
         $("#img").attr("src", "../imgs/loading.gif");
         $(" #file").val("");
-        
-        if (sessionStorage.getItem("import")=="导入成功") {
+
+        if (sessionStorage.getItem("import") == "导入成功") {
             window.location.reload();
             sessionStorage.removeItem("import");
             sessionStorage.removeItem("succ");
@@ -321,7 +330,7 @@
                 {
                     swal({
                         title: "提示",
-                        text:e,
+                        text: e,
                         type: "warning",
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: '确定',

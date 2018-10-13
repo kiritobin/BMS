@@ -1,4 +1,13 @@
 ﻿$(document).ready(function () {
+    //判断是否含有特殊字符
+    function checkName(val) {
+        var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        var rs = "";
+        for (var i = 0, l = val.length; i < val.length; i++) {
+            rs = rs + val.substr(i, 1).replace(reg, '');
+        }
+        return rs;
+    }
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -9,7 +18,7 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var search = $("#btn-search").val().trim();
+            var search = checkName($("#btn-search").val().trim());
             $.ajax({
                 type: 'Post',
                 url: 'tradeManagement.aspx',
@@ -38,6 +47,34 @@
         $("#allpricemlimited").val(allprice);
         $("#numberlimited").val(number);
         $("#pricelimited").val(price);
+        $.ajax({
+            type: 'Post',
+            url: 'tradeManagement.aspx',
+            data: {
+                saleId:saleId,
+                op: "isEdit"
+            },
+            dataType: 'text',
+            success: function (data) {
+                if (data == "可以编辑") {
+                    $("#myModa2").modal("show");
+                }
+                else {
+                    swal({
+                        title: "温馨提示",
+                        text: "销售任务已完成，不可编辑",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                        window, location.reload();
+                    })
+                }
+            }
+        });
     })
     //编辑保存
     $("#btn_change").click(function () {
@@ -67,44 +104,44 @@
                     defaultDiscount, defaultDiscount,
                         op: "edit"
                     },
-                    dataType: 'text',
-                success: function (data) {
-                    if (data == "保存成功") {
-                        swal({
-                            title: "温馨提示",
-                            text: "保存成功",
-                            type: "success",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window, location.reload();
-                        })
+                        dataType: 'text',
+                    success: function (data) {
+                        if (data == "保存成功") {
+                            swal({
+                                title: "温馨提示",
+                                text: "保存成功",
+                                type: "success",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                                window, location.reload();
+                            })
+                        }
+                        else {
+                            swal({
+                                title: "温馨提示",
+                                text: "保存失败",
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                                window, location.reload();
+                            })
+                        }
                     }
-                    else {
-                        swal({
-                            title: "温馨提示",
-                            text: "保存失败",
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        }).then(function () {
-                            window, location.reload();
-                        })
-                    }
-                }
             });
         }
     })
 
     //点击查询按钮时
     $("#btn-search").click(function () {
-        var search = $("#search_All").val().trim();
+        var search = checkName($("#search_All").val().trim());
         $.ajax({
             type: 'Post',
             url: 'tradeManagement.aspx',

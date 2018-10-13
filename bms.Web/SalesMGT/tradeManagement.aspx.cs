@@ -131,7 +131,7 @@ namespace bms.Web.SalesMGT
                 Session["saleId"] = saleId;
                 Session["type"] = "add";
                 string finishState = saleBll.getSaleTaskFinishTime(saleId);
-                if (finishState == null ||finishState=="")
+                if (finishState == null || finishState == "")
                 {
                     Response.Write("可以");
                     Response.End();
@@ -160,24 +160,41 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
-            //编辑
-            if (op == "edit")
+            if (op == "isEdit")
             {
-                string saleId = Request["saleId"];
-                double allprice = double.Parse(Request["allpricemlimited"]);
-                int number = int.Parse(Request["numberlimited"]);
-                double price = double.Parse(Request["pricelimited"]);
-                double defaultDiscount = double.Parse(Request["defaultDiscount"]) / 100;
-                int row = saleBll.update(number, price, allprice, defaultDiscount, saleId);
-                if (row > 0)
+                string saleID = Request["saleId"];
+                string state = saleBll.getSaleTaskFinishTime(saleID);
+                if (state == "" || state == null)
                 {
-                    Response.Write("保存成功");
+                    Response.Write("可以编辑");
                     Response.End();
                 }
                 else
                 {
-                    Response.Write("保存失败");
+
+                    Response.Write("不可以编辑");
                     Response.End();
+                }
+
+                //编辑
+                if (op == "edit")
+                {
+                    string saleId = Request["saleId"];
+                    double allprice = double.Parse(Request["allpricemlimited"]);
+                    int number = int.Parse(Request["numberlimited"]);
+                    double price = double.Parse(Request["pricelimited"]);
+                    double defaultDiscount = double.Parse(Request["defaultDiscount"]) / 100;
+                    int row = saleBll.update(number, price, allprice, defaultDiscount, saleId);
+                    if (row > 0)
+                    {
+                        Response.Write("保存成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("保存失败");
+                        Response.End();
+                    }
                 }
             }
         }
@@ -234,7 +251,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td><nobr>" + time + "</nobr></td>");
                 strb.Append("<td style='width:100px;'>" + "<button class='btn btn-success btn-sm btn_sale'>销售</button>");
                 strb.Append("<button class='btn btn-success btn-sm btn_back'>销退</button></td>");
-                strb.Append("<td style='width:150px;'><button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button> <button class='btn btn-sm btn-success edited' data-toggle='modal' data-target='#myModa2'>&nbsp 编辑 &nbsp</button>");
+                strb.Append("<td style='width:150px;'><button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button> <button class='btn btn-sm btn-success edited'>&nbsp 编辑 &nbsp</button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + "</td></tr>");
             }
             strb.Append("</tbody>");

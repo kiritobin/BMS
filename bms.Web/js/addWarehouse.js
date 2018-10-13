@@ -328,7 +328,7 @@ $("#save").click(function () {
                         text: "保存成功",
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-success",
-                        type: "warning",
+                        type: "success",
                         allowOutsideClick: false
                     })
                     sessionStorage.removeItem("kind");

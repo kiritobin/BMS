@@ -25,7 +25,15 @@ function logout() {
         });
     })
 }
-
+//判断是否含有特殊字符
+function checkName(val) {
+    var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+    var rs = "";
+    for (var i = 0, l = val.length; i < val.length; i++) {
+        rs = rs + val.substr(i, 1).replace(reg, '');
+    }
+    return rs;
+}
 $(document).ready(function () {
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
@@ -37,7 +45,7 @@ $(document).ready(function () {
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var search = $("#btn-search").val();
+            var search = checkName($("#btn-search").val());
             $.ajax({
                 type: 'Post',
                 url: 'warehouseManagement.aspx',
@@ -116,9 +124,9 @@ $("#btnAdd").click(function () {
 
 //查询
 $("#btn-search").click(function () {
-    var ID = $("#ID").val();
-    var region = $("#region").val();
-    var user = $("#user").val();
+    var ID = checkName($("#ID").val());
+    var region = checkName($("#region").val());
+    var user = checkName($("#user").val());
     $.ajax({
         type: 'Post',
         url: 'warehouseManagement.aspx',

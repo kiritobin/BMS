@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/demo.css">
-    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
     <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css">
 </head>
@@ -36,125 +35,142 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="container-fluid">
-                            <h3 class="text-center">销&nbsp;售</h3>
+                            <h3 class="text-center"><strong>销&nbsp;售</strong></h3>
+                            <hr />
                         </div>
                         <div class="card-body">
-                            <div class="card-header card_btn">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <%--<div class="btn-group" role="group">
+                            <div class="card-header from-group">
+                                <div class="input-group">
+                                    <%--<div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="sales_bookName" placeholder="请输入书名">
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="sales_ISBN" placeholder="请输入ISBN">
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>--%>
-                                        <%if (type == "look")
+                                    <%--<%if (type == "look")
                                             {%>
                                         <div class="btn-group" role="group">
                                             <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print"></i></button>
                                         </div>
+                                        <%} %>--%>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-warning btn-sm" id="back">返回</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <%if (type == "addsale")
+                                            {%>
+                                        <button class="btn btn-success btn-sm" id="success">单据完成</button>
                                         <%} %>
-                                        <div class="btn-group pull-right" role="group">
-                                            <button class="btn btn-success" id="back">返回</button>
-                                        </div>
-                                        <div class="btn-group" role="group">
-                                            <%if (type == "addsale")
-                                                {%>
-                                            <button class="btn btn-success" id="success">单据完成</button>
-                                            <%} %>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="content_tab col-md-12">
-                                <div class="table-responsive col-md-10" style="height: 500px;">
-                                    <table class="table mostTable table-bordered text-center" id="table">
-                                        <thead>
-                                            <tr>
+                            <div class="row">
+                                <div class="content_tab col-md-10">
+                                    <div class="table-responsive" style="height: 500px;">
+                                        <table class="table mostTable table-bordered text-center" id="table">
+                                            <thead>
+                                                <tr>
+                                                    <td>
+                                                        <nobr>序号</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>ISBN号</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>书号</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>书名</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>单价</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>数量</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>实际折扣</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>实洋</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>已采购数</nobr>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <%if (type == "addsale")
+                                                {%>
+                                            <tr class="first">
+                                                <td></td>
                                                 <td>
-                                                    <nobr>序号</nobr>
-                                                </td>
+                                                    <input type="text" class="isbn textareaISBN" autofocus="autofocus" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                                 <td>
-                                                    <nobr>ISBN号</nobr>
-                                                </td>
+                                                    <input class="count textareaCount" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
                                                 <td>
-                                                    <nobr>书号</nobr>
-                                                </td>
-                                                <td>
-                                                    <nobr>书名</nobr>
-                                                </td>
-                                                <td>
-                                                    <nobr>单价</nobr>
-                                                </td>
-                                                <td>
-                                                    <nobr>数量</nobr>
-                                                </td>
-                                                <td>
-                                                    <nobr>实际折扣</nobr>
-                                                </td>
-                                                <td>
-                                                    <nobr>实洋</nobr>
-                                                </td>
-                                                <td>
-                                                    <nobr>已采购数</nobr>
-                                                </td>
+                                                    <input class="discount textareaDiscount" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
-                                        </thead>
-                                        <%if (type == "addsale")
-                                            {%>
-                                        <tr class="first">
-                                            <td></td>
-                                            <td>
-                                                <input type="text" class="isbn textareaISBN" autofocus="autofocus" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <input class="count textareaCount" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
-                                            <td>
-                                                <input class="discount textareaDiscount" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
 
-                                        <% } %>
-                                        <%=getData() %>
-                                    </table>
-                                </div>
-                                <div class="container col-md-2" style="border: 1px gray solid">
-                                    统计
-                                    <table class="table">
-                                        <tr>
-                                            <td>书籍种数</td>
-                                            <td id="kinds"><%=allkinds.ToString() %></td>
-                                        </tr>
-                                        <tr>
-                                            <td>书本总数</td>
-                                            <td id="allnumber"><%=allnumber.ToString() %></td>
-                                        </tr>
-                                        <tr>
-                                            <td>总码洋</td>
-                                            <td id="alltotalprice"><%=alltotalprice.ToString() %><input type="hidden" id="limtalltotalprice" value="<%=limtalltotalprice.ToString() %>" /></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>总实洋</td>
-                                            <td id="allreadprice"><%=allreadprice.ToString() %></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <%--<div class="copyright float-right page-box">
-                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                        <div class="m-style paging"></div>
+                                            <% } %>
+                                            <%=getData() %>
+                                        </table>
                                     </div>
-                                </div>--%>
+                                    <%--<div class="copyright float-right page-box">
+                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                            <div class="m-style paging"></div>
+                                        </div>
+                                    </div>--%>
+                                </div>
+                                <div class="container col-md-2">
+                                    <div style="border: 1px solid #ddd">
+                                        <h4 class="text-center" style="margin-top: 16px;"><strong>统计</strong></h4>
+                                        <hr />
+                                        <table class="table">
+                                            <tr>
+                                                <td>书籍种数</td>
+                                                <td id="kinds"><%=allkinds.ToString() %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>书本总数</td>
+                                                <td id="allnumber"><%=allnumber.ToString() %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>总码洋</td>
+                                                <td id="alltotalprice"><%=alltotalprice.ToString() %><input type="hidden" id="limtalltotalprice" value="<%=limtalltotalprice.ToString() %>" /></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>总实洋</td>
+                                                <td id="allreadprice"><%=allreadprice.ToString() %></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- 主界面页脚部分 -->
+        <footer class="footer content-footer">
+            <div class="container-fluid">
+                <!-- 版权内容 -->
+                <div class="copyright text-center">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                    &nbsp;版权所有
+                </div>
+            </div>
+        </footer>
     </div>
     <!--模态框-->
     <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">

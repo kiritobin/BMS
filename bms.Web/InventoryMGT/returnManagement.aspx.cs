@@ -15,7 +15,7 @@ namespace bms.Web.BasicInfor
     public partial class replenishList : System.Web.UI.Page
     {
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
-        public DataSet ds,dsRegion,dsPer;
+        public DataSet ds, dsRegion, dsPer;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
         UserBll userBll = new UserBll();
         RegionBll regionBll = new RegionBll();
@@ -29,18 +29,48 @@ namespace bms.Web.BasicInfor
             string op = Request["op"];
             if (op == "add")
             {
-                count = wareBll.countHead(2)+1;
+                DateTime nowTime = DateTime.Now;
+                string nowDt = nowTime.ToString("yyyy-MM-dd");
+                long count = 0;
+                //判断数据库中是否已经有记录
+                DataSet backds = wareBll.getAllTime(1);
+                if (backds != null && backds.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < backds.Tables[0].Rows.Count; i++)
+                    {
+                        string time = backds.Tables[0].Rows[i]["time"].ToString();
+                        DateTime dt = Convert.ToDateTime(time);
+                        string sqlTime = dt.ToString("yyyy-MM-dd");
+                        if (sqlTime == nowDt)
+                        {
+                            //count += 1;
+                            string id = backds.Tables[0].Rows[i]["singleHeadId"].ToString();
+                            string st1 = id.Substring(10);
+                            long rowes = long.Parse(st1) + 1;
+                            count = rowes;
+                            break;
+                        }
+                    }
+                    if (count == 0)
+                    {
+                        count = 1;
+                    }
+                }
+                else
+                {
+                    count = 1;
+                }
                 string regionId = Request["regionId"];
                 SingleHead single = new SingleHead();
                 Region region = new Region();
                 region.RegionId = Convert.ToInt32(regionId);
                 single.Region = region;
-                single.SingleHeadId = "TH"+DateTime.Now.Date.ToString("yyyyMMdd")+ count.ToString().PadLeft(6, '0');
+                single.SingleHeadId = "TH" + DateTime.Now.Date.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                 single.Time = DateTime.Now;
                 single.Type = 2;
                 single.User = user;
                 Result row = wareBll.insertHead(single);
-                if(row == Result.添加成功)
+                if (row == Result.添加成功)
                 {
                     Response.Write("添加成功");
                     Response.End();
@@ -51,10 +81,10 @@ namespace bms.Web.BasicInfor
                     Response.End();
                 }
             }
-            if(op == "del")
+            if (op == "del")
             {
                 string Id = Request["ID"];
-                Result row = wareBll.deleteHead(Id,2);
+                Result row = wareBll.deleteHead(Id, 2);
                 if (row == Result.删除成功)
                 {
                     Response.Write("删除成功");
@@ -66,7 +96,7 @@ namespace bms.Web.BasicInfor
                     Response.End();
                 }
             }
-            if (op== "session")
+            if (op == "session")
             {
                 Session["singId"] = Request["ID"];
                 Response.Write("成功");
@@ -82,7 +112,7 @@ namespace bms.Web.BasicInfor
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
         }
-        
+
         /// <summary>
         /// 获取分页数据
         /// </summary>
@@ -100,11 +130,11 @@ namespace bms.Web.BasicInfor
             string singleHeadId = Request["ID"];
             string regionName = Request["region"];
             string userName = Request["user"];
-            if((singleHeadId ==""||singleHeadId == null)&& (regionName == "" || regionName == null)&& (userName == "" || userName == null))
+            if ((singleHeadId == "" || singleHeadId == null) && (regionName == "" || regionName == null) && (userName == "" || userName == null))
             {
                 search = "deleteState=0 and type=2";
             }
-            else if(singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null) && (userName == "" || userName == null))
+            else if (singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null) && (userName == "" || userName == null))
             {
                 search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "'";
             }
