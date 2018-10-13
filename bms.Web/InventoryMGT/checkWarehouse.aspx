@@ -116,8 +116,8 @@
                         <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
                                 <%if (funcOut) { %>
-                                <li class="nav-item activeNext">
-                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
@@ -254,13 +254,18 @@
                                 <div class="card-body">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title">出库查询</h4>
-                                     <button class="btn btn-warning pull-right"  onclick="javascript:history.back(-1);">返回</button>
                                 </div>
-                                 <div class="btn-group" role="group">
-                                     <button class="btn btn-info" id="export"><i class="fa fa-share" aria-hidden="true">导出</i></button>&nbsp;&nbsp;
-                                     <button class="btn btn-success" id="print"><i class="fa fa-print" aria-hidden="true">打印</i></button>
-                                        </div>
                                     <div class="card-header from-group">
+                                        <div class="input-group">
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-warning btn-sm" id="back" onclick="javascript:history.back(-1);">返回</button>
+                                        </div>
+                                            <div class="btn-group" role="group">
+                                            <button class="btn btn-success btn-sm" id="export">导出</button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-info btn-sm" id="print">打印</button>
+                                        </div>                                       
                                         <table class="table text-center table_stock">
                                             <tr>
                                                 <td class="td_text"><span class="span-text">单据编号:</span></td>
@@ -328,19 +333,19 @@
                         </div>
                     </div>
                 </div>
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+<!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
-                        </div>
+                        </script>
+                        &nbsp;版权所有
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
@@ -354,12 +359,9 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
-    <!-- paging.js -->
-    <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
-    <script src="../js/checkWarehouse.js"></script>
-    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="../js/jquery.jqprint.js"></script>
+    <script src="../js/addReturn.js"></script>
+    <script src="../js/jquery.tabletojson.js"></script>
 </body>
 
 </html>

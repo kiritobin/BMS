@@ -42,7 +42,7 @@
              <div class="sidebar-wrapper">
                 <ul class="nav">
                     <%if (funcUser||funcRole||funcOrg||funcGoods) { %>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
                             <p>
@@ -50,7 +50,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="securityManage">
+                        <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <%if (funcUser) { %>
                                 <li class="nav-item">
@@ -75,7 +75,7 @@
                                 <%} %>
                                 <%if (funcGoods) { %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
+                                    <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
@@ -105,7 +105,7 @@
                     </li>
                     <%} %>
                     <%if (funcPut||funcOut||funcReturn||funcSupply) {%>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                              <i class="fa fa-book"></i>
                             <p>
@@ -113,7 +113,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="inventoryManage">
+                        <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
                                 <%if (funcOut) { %>
                                 <li class="nav-item">
@@ -131,7 +131,7 @@
                                 <%} %>
                                 <%if (funcReturn) { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
+                                    <a class="nav-link  activeNext" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
@@ -255,10 +255,17 @@
                                     <div class="card-header card-header-danger">
                                         <h4 class="card-title">退货查询</h4>
                                     </div>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i></button>
-                                    </div>
                                     <div class="card-header from-group">
+                                        <div class="input-group">
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-warning btn-sm" id="back" onclick="javascript:history.back(-1);">返回</button>
+                                        </div>
+                                            <div class="btn-group" role="group">
+                                            <button class="btn btn-success btn-sm" id="export">导出</button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-info btn-sm" id="print">打印</button>
+                                        </div>
                                         <table class="table text-center table_stock">
                                             <tr>
                                                 <td class="td_text"><span class="span-text">单据编号:</span></td>
@@ -331,21 +338,19 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+<!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                            &nbsp;版权所有
-                        </div>
+                        &nbsp;版权所有
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>

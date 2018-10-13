@@ -265,7 +265,7 @@
                                 <div class="card-body form-group">
                                     <div class="input-group">
                                         <div class="btn-group" role="group">
-                                            <button class="btn btn-warning btn-sm" id="back">返回</button>
+                                            <button class="btn btn-warning btn-sm" id="back" onclick="javascript:history.back(-1);">返回</button>
                                         </div>
                                         <div class="btn-group" role="group">
                                             <button class="btn btn-info btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>

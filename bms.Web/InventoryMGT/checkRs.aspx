@@ -137,8 +137,8 @@
                                 </li>
                                 <%} %>
                                 <%if (funcSupply) { %>
-                                <li class="nav-item activeNext">
-                                    <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
                                     </a>
                                 </li>
@@ -254,13 +254,18 @@
                                 <div class="card-body">
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title">补货查询</h4>
-                                    <button class="btn btn-warning pull-right"  onclick="javascript:history.back(-1);">返回</button>
                                 </div>
-                                 <div class="btn-group" role="group">
-                                     <button class="btn btn-info" id="export"><i class="fa fa-share" aria-hidden="true">导出</i></button>&nbsp;&nbsp;
-                                     <button class="btn btn-success"><i class="fa fa-print" aria-hidden="true">打印</i></button>
-                                        </div>
                                     <div class="card-header from-group">
+                                        <div class="input-group">
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-warning btn-sm" id="back" onclick="javascript:history.back(-1);">返回</button>
+                                        </div>
+                                            <div class="btn-group" role="group">
+                                            <button class="btn btn-success btn-sm" id="export">导出</button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-info btn-sm" id="print">打印</button>
+                                        </div>
                                         <table class="table text-center table_stock">
                                             <tr>
                                                 <td class="td_text"><span class="span-text"><nobr>操作员:</nobr></span></td>
@@ -336,23 +341,22 @@
                     </div>
                 </div>
 
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+<!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
-                        </div>
+                        </script>
+                        &nbsp;版权所有
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
     </div>
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <!-- 左侧导航栏所需js -->
+    <script src="../js/jquery-3.3.1.min.js"></script>    <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>
     <!-- 移动端手机菜单所需js -->
