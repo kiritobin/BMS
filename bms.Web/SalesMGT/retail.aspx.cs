@@ -65,39 +65,47 @@ namespace bms.Web.SalesMGT
             {
                 BookBasicBll bookBasicBll = new BookBasicBll();
                 DataSet bookDs = bookBasicBll.SelectByIsbn(isbn);
-                int count = bookDs.Tables[0].Rows.Count;
-                if (bookDs != null && bookDs.Tables[0].Rows.Count > 0)
+                if (bookDs == null)
                 {
-                    if (count == 1)
-                    {
-                        long bookNum = Convert.ToInt64(bookDs.Tables[0].Rows[0]["bookNum"]);
-                        add(bookNum);
-                    }
-                    if (op == "choose")
-                    {
-                        int counts = bookDs.Tables[0].Rows.Count;
-                        StringBuilder sb = new StringBuilder();
-                        for (int i = 0; i < counts; i++)
-                        {
-                            DataRow dr = bookDs.Tables[0].Rows[i];
-                            //sb.Append("<tr><td><input type='checkbox' name='checkbox' class='check' value='" + dr["bookNum"].ToString() + "' /></td>");
-                            //sb.Append("<tr><td><input type='radio' name='radio' class='radio' value='" + dr["bookNum"].ToString() + "' /></td>");
-                            sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
-                            sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["price"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
-                        }
-                        Response.Write(sb.ToString());
-                        Response.End();
-                    }
-                    Response.Write("一号多书");
+                    Response.Write("ISBN不存在");
                     Response.End();
                 }
                 else
                 {
-                    Response.Write("ISBN不存在");
-                    Response.End();
+                    int count = bookDs.Tables[0].Rows.Count;
+                    if (bookDs != null && bookDs.Tables[0].Rows.Count > 0)
+                    {
+                        if (count == 1)
+                        {
+                            long bookNum = Convert.ToInt64(bookDs.Tables[0].Rows[0]["bookNum"]);
+                            add(bookNum);
+                        }
+                        if (op == "choose")
+                        {
+                            int counts = bookDs.Tables[0].Rows.Count;
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < counts; i++)
+                            {
+                                DataRow dr = bookDs.Tables[0].Rows[i];
+                                //sb.Append("<tr><td><input type='checkbox' name='checkbox' class='check' value='" + dr["bookNum"].ToString() + "' /></td>");
+                                //sb.Append("<tr><td><input type='radio' name='radio' class='radio' value='" + dr["bookNum"].ToString() + "' /></td>");
+                                sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
+                                sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["price"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
+                            }
+                            Response.Write(sb.ToString());
+                            Response.End();
+                        }
+                        Response.Write("一号多书");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("ISBN不存在");
+                        Response.End();
+                    }
                 }
             }
             return null;
@@ -165,7 +173,8 @@ namespace bms.Web.SalesMGT
                 sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
                 sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
-                sb.Append("<td><input class='number' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                sb.Append("<td><div class='gw_num'><em class='jian'>-</em><input type = 'text' min='1' value='" + dr["number"].ToString() + "' class='num'/><em class='add'>+</em></div></td>");
+                //sb.Append("<td><input class='number' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
                 sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
                 sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
