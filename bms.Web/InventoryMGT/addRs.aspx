@@ -273,7 +273,7 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-warning btn-sm" id="back">返回</button>
+                                                <button class="btn btn-warning btn-sm" id="back" onclick="javascript:history.back(-1);">返回</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" id="btn-search">添加</button>
