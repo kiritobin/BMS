@@ -82,9 +82,9 @@
     //完成
     $("#finish").click(function () {
         swal({
-            title: "提示",
-            text: "确认完成该销售任务？",
-            type: "question",
+            title: "温馨提示:)",
+            text: "您确认要完成该销售任务吗？",
+            type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -105,8 +105,8 @@
                 success: function (succ) {
                     if (succ == "成功") {
                         swal({
-                            title: "温馨提示",
-                            text: "保存完成",
+                            title: "温馨提示:)",
+                            text: "保存完成。",
                             type: "success",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -119,8 +119,8 @@
                     }
                     else if (succ == "未完成失败") {
                         swal({
-                            title: "温馨提示",
-                            text: "有未完成单据，请检查",
+                            title: "温馨提示:)",
+                            text: "有未完成单据，请检查后再次操作。",
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -132,8 +132,8 @@
                     }
                     else  {
                         swal({
-                            title: "温馨提示",
-                            text: "保存失败",
+                            title: "温馨提示:)",
+                            text: "保存失败。",
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -151,7 +151,7 @@
     $("#btn_add").click(function () {
         swal({
             title: "温馨提示:)",
-            text: "是否新建销售？",
+            text: "您是否新建销售？",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -173,8 +173,8 @@
                 success: function (succ) {
                     if (succ == "添加成功") {
                         swal({
-                            title: "温馨提示",
-                            text: "添加成功",
+                            title: "温馨提示:)",
+                            text: "添加成功。",
                             type: "success",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -187,7 +187,7 @@
                     }
                     else {
                         swal({
-                            title: "温馨提示",
+                            title: "温馨提示:)",
                             text: "添加失败请联系技术人员!",
                             type: "warning",
                             confirmButtonColor: '#3085d6',
@@ -210,9 +210,9 @@
         var state = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
         if (state == "新建单据") {
             swal({
-                title: "是否删除？",
-                text: "删除后将无法恢复！！！",
-                type: "question",
+                title: "温馨提示:)",
+                text: "删除后将无法恢复,您确定要删除该项吗？？？",
+                type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -235,8 +235,8 @@
                     success: function (succ) {
                         if (succ == "删除成功") {
                             swal({
-                                title: "提示",
-                                text: "删除成功",
+                                title: "温馨提示:)",
+                                text: "删除成功。",
                                 type: "success",
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: '确定',
@@ -248,8 +248,8 @@
                             })
                         } else {
                             swal({
-                                title: "提示",
-                                text: "删除失败",
+                                title: "温馨提示:)",
+                                text: "删除失败。",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: '确定',
@@ -278,8 +278,8 @@
         }
         else if (state == "单据已完成") {
             swal({
-                title: "温馨提示",
-                text: "单据已完成不能删除",
+                title: "温馨提示:)",
+                text: "单据已完成不能删除。",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
@@ -298,8 +298,8 @@
         var state = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
         if (state == "单据已完成") {
             swal({
-                title: "温馨提示",
-                text: "单据已完成，不能添加",
+                title: "温馨提示:)",
+                text: "单据已完成，不能添加。",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
@@ -322,8 +322,8 @@
                         window.location.href = "../SalesMGT/salesDetail.aspx";
                     } else {
                         swal({
-                            title: "温馨提示",
-                            text: "单据已完成，不能添加",
+                            title: "温馨提示:)",
+                            text: "单据已完成，不能添加。",
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',

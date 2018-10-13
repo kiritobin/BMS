@@ -133,10 +133,10 @@ namespace bms.Web.SalesMGT
             StringBuilder sb = new StringBuilder();
             sb.Append("<tr calss='first'>");
             sb.Append("<td>" + "</td>");
-            sb.Append("<td>" + "<input type='text' id='inputISBN' style='width:100%' autofocus='autofocus' value='" + ISBN + "' />" + "</td>");
+            sb.Append("<td>" + "<input type='text' id='inputISBN' class='textareaISBN' autofocus='autofocus' value='" + ISBN + "' />" + "</td>");
             sb.Append("<td>" + bookNum + "</td>");
             sb.Append("<td>" + unitPrice + "</td>");
-            sb.Append("<td>" + "<input type='text' id='inputCount' style='width:100%' />" + "</td>");
+            sb.Append("<td>" + "<input type='text' id='inputCount' class='textareaCount' />" + "</td>");
             sb.Append("<td>" + "</td>");
             sb.Append("<td>" + "</td>");
             sb.Append("<td>" + "</td>");

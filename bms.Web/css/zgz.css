@@ -173,25 +173,30 @@ legend {
 
 /* 多行文本框样式 */
 .textareaISBN {
-    height: 35px !important;
+    height: 30px !important;
     overflow: hidden;
     width: 100%;
-    margin-top: 5px;
+    margin:2px;
     line-height: 30px !important;
     border: 1px solid #ddd;
 }
 
-.textareaCount, .textareaDiscount{
-    height: 35px !important;
+.textareaCount, .textareaDiscount {
+    height: 30px !important;
     overflow: hidden;
     width: 60%;
-    margin-top: 5px;
+    margin: 2px;
     line-height: 30px !important;
     border: 1px solid #ddd;
 }
 
 .goods {
     border: 1px solid #ddd;
+}
+
+/* 单页面页脚样式 */
+.content-footer {
+    border-top: 1px solid #e7e7e7;
 }
 
 
