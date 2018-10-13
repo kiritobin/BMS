@@ -341,23 +341,22 @@
                     </div>
                 </div>
 
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+<!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
-                        </div>
+                        </script>
+                        &nbsp;版权所有
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
     </div>
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <!-- 左侧导航栏所需js -->
+    <script src="../js/jquery-3.3.1.min.js"></script>    <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap-material-design.min.js"></script>
     <!-- 移动端手机菜单所需js -->

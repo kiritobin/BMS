@@ -333,19 +333,19 @@
                         </div>
                     </div>
                 </div>
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+<!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>&nbsp;版权所有
-                        </div>
+                        </script>
+                        &nbsp;版权所有
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
@@ -359,12 +359,9 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
-    <!-- paging.js -->
-    <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
-    <script src="../js/checkWarehouse.js"></script>
-    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="../js/jquery.jqprint.js"></script>
+    <script src="../js/addReturn.js"></script>
+    <script src="../js/jquery.tabletojson.js"></script>
 </body>
 
 </html>
