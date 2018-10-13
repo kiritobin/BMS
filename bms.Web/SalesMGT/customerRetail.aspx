@@ -147,75 +147,68 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>品种：<span id="kind"></span></label></div>
+                                            <label>品种：<span id="kind"></span></label>
+                                        </div>
                                         <div class="col-md-6">
-                                            <label>数量：<span id="number"></span></label></div>
+                                            <label>数量：<span id="number"></span></label>
+                                        </div>
                                         <div class="col-md-6">
-                                            <label>码洋：<span id="total"></span></label></div>
+                                            <label>码洋：<span id="total"></span></label>
+                                        </div>
                                         <div class="col-md-6">
-                                            <label>应收：<span id="real"></span></label></div>
+                                            <label>应收：<span id="real"></span></label>
+                                        </div>
                                     </div>
                                 </div>
                             </fieldset>
                         </div>
-                        <div class="print_container">
-                            <h2>新华书店</h2>
-                         <hr />
+                        <!--销售小票-->
+                        <div class="print_container" style="width: 470px;" id="sale">
+                            <h2 style="margin-left: 35%">新华书店</h2>
+                            <%--<img src="../imgs/login.jpg" style="width:70%" />--%>
+                            <hr />
                             <div class="container">
-                                <span style="font-size:14px;">下单时间：2018-10-13</span><br />
-                                <span style="font-size:14px;">订单编号：1111333333</span>
+                                <span style="font-size: 16px;">购买时间：<%=DateTime.Now %></span><br />
+                                <span style="font-size: 16px;">订单编号：<span id="id"></span></span>
                             </div>
                             <hr />
                             <div class="section4">
-                            <table>
-                            <thead>
-                            <tr>
-                                <td style="width:60%">名称</td>
-                                <td style="width:30%">数量</td>
-                                <td style="width:20%">金额</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>安妮日记</td>
-                                <td>2</td>
-                                <td>28.00</td>
-                            </tr>                  
-                        </tbody>
-                    </table>
-                 <hr />
-               <div class="other_fee">
-                    <div>
-                        <span class="left">码洋</span>
-                        <span class="right">0</span>
-                        <div class="clearfix"></div>
+                                <table id="tablePay">
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 60%">名称</td>
+                                            <td style="width: 30%">数量</td>
+                                            <td style="width: 20%">金额</td>
+                                        </tr>
+                                    </thead>
+
+                                </table>
+                                <hr />
+                                <div class="other_fee">
+                                    <div>
+                                        <span>码洋：</span>
+                                        <span id="alltotal"></span>
+                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <span>折扣：</span>
+                                        <span id="alldiscount"></span>
+                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <span>合计：</span>
+                                        <span id="allreal"></span>
+                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    </div>
+                                    <hr />
+                                    <div class="total">
+                                        <span>实付：</span>
+                                        <span id="allcope"></span>
+                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <span>找零：</span>
+                                        <span id="allchange"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <span class="left">折扣</span>
-                        <span class="right">0</span>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div>
-                        <span class="left">合计</span>
-                        <span class="right">0</span>
-                        <div class="clearfix"></div>
-                    </div>
-                  <hr />
-                <div class="total">
-                    <span class="left">实付</span>
-                    <span class="right">39</span>
-                    <div class="clearfix"></div>
                 </div>
-                <div class="total">
-                    <span class="left">找零</span>
-                    <span class="right">9</span>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-                </div>
-                </div>
-                </div>
-                    </div>
             </div>
         </div>
     </div>

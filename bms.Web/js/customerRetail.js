@@ -5,6 +5,7 @@
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
     setInterval("showTime()", 1000);
+    $("#sale").hide();
 })
 //获取当前时间
 function showTime() {
@@ -16,37 +17,6 @@ function showTime() {
 function pad(num, n) {
     return (Array(n).join(0) + num).slice(-n);
 }
-//获取当前时间
-//function CurentTime() {
-//    var now = new Date();
-
-//    var year = now.getFullYear();
-//    var month = now.getMonth() + 1;
-//    var day = now.getDate();
-
-//    var hh = now.getHours();
-//    var mm = now.getMinutes();
-
-//    var clock = year + "-";
-
-//    if (month < 10)
-//        clock += "0";
-
-//    clock += month + "-";
-
-//    if (day < 10)
-//        clock += "0";
-
-//    clock += day + " ";
-
-//    if (hh < 10)
-//        clock += "0";
-
-//    clock += hh + ":";
-//    if (mm < 10) clock += '0';
-//    clock += mm;
-//    return (clock);
-//}
 //输入isbn后回车
 $("#search").keypress(function (e) {
     if (sessionStorage.getItem("retailId") == null || sessionStorage.getItem("retailId") == undefined) {
@@ -280,11 +250,14 @@ $("#table").delegate(".numberEnd", "keypress", function (e) {
 $("#Settlement").click(function () {
     $("#totalEnd").text($("#total").text().trim());
     $("#realEnd").text($("#real").text().trim());
+    sessionStorage.setItem("total", $("#total").text().trim());
+    sessionStorage.setItem("real", $("#real").text().trim());
 })
 //收银折扣
 $("#discountEnd").keypress(function (e) {
     if (e.keyCode == 13) {
         var discount = parseFloat($("#discountEnd").val());
+        sessionStorage.setItem("discount", discount);
         var retailId = sessionStorage.getItem("retailId");
         if (discount == 100) {
             $("#copeEnd").focus();
@@ -382,9 +355,11 @@ $("table").delegate(".delete", "click", function () {
 //收银计算找零
 $("#copeEnd").keypress(function (e) {
     if (e.keyCode == 13) {
+        sessionStorage.setItem("give", $("#copeEnd").val());
         var give = parseFloat($("#copeEnd").val());
         var cope = parseFloat($("#realEnd").text().trim());
         var real = give - cope;
+        sessionStorage.setItem("dibs", real);
         $("#change").text((real).toFixed(2));
     }
 })
@@ -423,19 +398,7 @@ $("#btnSettle").click(function () {
         },
         dataType: 'text',
         success: function (data) {
-            if (data == "更新成功") {
-                sessionStorage.removeItem("retailId");
-                swal({
-                    title: "结算完成",
-                    text: "结算完成",
-                    buttonsStyling: false,
-                    confirmButtonClass: "btn btn-warning",
-                    type: "success"
-                }).catch(swal.noop);
-                setTimeout(function () {
-                    window.location.reload();
-                }, 2000);
-            } else {
+            if (data == "更新失败") {
                 swal({
                     title: "结算失败",
                     text: "结算失败",
@@ -443,6 +406,28 @@ $("#btnSettle").click(function () {
                     confirmButtonClass: "btn btn-warning",
                     type: "warning"
                 }).catch(swal.noop);
+            } else {
+                swal({
+                    title: "结算完成",
+                    text: "结算完成",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "success"
+                }).catch(swal.noop);
+                $("#id").text(sessionStorage.getItem("retailId"));
+                $("#alltotal").text(sessionStorage.getItem("total"));
+                $("#alldiscount").text(sessionStorage.getItem("discount")+"%");
+                $("#allreal").text((parseFloat(sessionStorage.getItem("total")) * parseFloat(sessionStorage.getItem("discount")*0.01)).toFixed(2));
+                $("#allcope").text(sessionStorage.getItem("give"));
+                $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
+                $("#tablePay tr:not(:first)").empty()
+                $("#tablePay").append(data);
+                sessionStorage.removeItem("retailId");
+                $("#sale").show();
+                $("#sale").jqprint();
+                //setTimeout(function () {
+                //    window.location.reload();
+                //}, 2000);
             }
         }
     })

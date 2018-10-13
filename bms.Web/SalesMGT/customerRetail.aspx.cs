@@ -90,6 +90,7 @@ namespace bms.Web.SalesMGT
                                     Response.Write("更新失败");
                                     Response.End();
                                 }
+                                count = 0;
                             }
                             else
                             {
@@ -103,13 +104,10 @@ namespace bms.Web.SalesMGT
                             }
                             if(count == 0)
                             {
-                                Response.Write("更新成功");
-                                Response.End();
+                                Pay(headId);
                             }
                         }
                     }
-                    Response.Write("更新成功");
-                    Response.End();
                 }
                 else
                 {
@@ -474,6 +472,27 @@ namespace bms.Web.SalesMGT
             }
             result = dataTable;
             return result;
+        }
+
+        public string Pay(string headId)
+        {
+            DataSet dsPay = retailBll.GetRetail(headId);
+            StringBuilder sb = new StringBuilder();
+            DataSet dsNew = retailBll.GetRetail(headId);
+            int counts = dsNew.Tables[0].Rows.Count;
+            sb.Append("<tbody>");
+            for (int i = 0; i < counts; i++)
+            {
+                DataRow dr = dsNew.Tables[0].Rows[i];
+                sb.Append("<tr><td>" + dr["bookName"].ToString() + "</td>");
+                sb.Append("<td>" + dr["number"].ToString() + "</td>");
+                sb.Append("<td>" + dr["unitPrice"].ToString() + "</td></tr>");
+            }
+            sb.Append("</tbody>");
+
+            Response.Write(sb.ToString());
+            Response.End();
+            return sb.ToString();
         }
     }
 }

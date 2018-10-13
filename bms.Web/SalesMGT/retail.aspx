@@ -20,6 +20,12 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
+    <style>
+        .gw_num{border: 1px solid #dbdbdb;width: 110px;line-height: 26px;overflow: hidden;}
+        .gw_num em{display: block;height: 26px;width: 26px;float: left;color: #7A7979;border-right: 1px solid #dbdbdb;text-align: center;cursor: pointer;}
+        .gw_num .num{display: block;float: left;text-align: center;width: 52px;font-style: normal;font-size: 14px;line-height: 24px;border: 0;}
+        .gw_num em.add{float: right;border-right: 0;border-left: 1px solid #dbdbdb;}
+    </style>
 </head>
 
 <body>
@@ -148,7 +154,7 @@
                         <div class="border content" style="width: 470px; height: 520px;" id="ticket">
                             <div style="width: 260px; margin:0 auto; color:black;font-weight:400" >
                                 <br />
-                                <table class="table"  style="width: 300px; position:relative; right:30px; text-align:left;border:0;font-size:24px;line-height:1.5;">
+                                <table class="table" style="width: 300px; position:relative; right:30px; text-align:left;border:0;font-size:24px;line-height:1.5;">
                                     <tr>
                                         <td>品种：￥&nbsp&nbsp<span id="kindEnd"></span></td>
                                         <td>码洋：￥&nbsp&nbsp<span id="totalEnd"></span></td>
