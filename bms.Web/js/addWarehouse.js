@@ -32,7 +32,7 @@ $(document).ready(function () {
 
 //返回按钮点击事件
 $("#back").click(function () {
-    window.location.href = "warehouseManagement.aspx";
+    window.location.href = "replenishMent.aspx";
 })
 
 //只允许数字

@@ -51,24 +51,24 @@
                         </a>
                         <div class="collapse show" id="securityManage">
                             <ul class="nav">
-                                <%if (funcUser)
-                                { %>
-                                <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../AccessMGT/userManagement.aspx">
-                                        <span class="sidebar-normal">用户管理</span>
-                                    </a>
-                                </li>
-                                <%} %>
                                 <%if (funcRole)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
                                 <%} %>
+                                <%if (funcUser)
+                                    { %>
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="../AccessMGT/userManagement.aspx">
+                                        <span class="sidebar-normal">用户管理</span>
+                                    </a>
+                                </li>
+                                <%} %>
                                 <%if (funcOrg)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -76,7 +76,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcGoods)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
@@ -87,8 +87,8 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcCustom)
-                    {%>
+                    <%if (funcCustom || funcLibrary)
+                        {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="fa fa-user fa-lg"></i>
@@ -99,16 +99,27 @@
                         </a>
                         <div class="collapse" id="userManage">
                             <ul class="nav">
+                                <%if (funcCustom)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcLibrary)
+                                    { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
+                                        <span class="sidebar-normal">客户馆藏数据</span>
+                                    </a>
+                                </li>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcPut || funcOut || funcReturn||funcSupply)
+                    <%if (funcPut || funcOut || funcReturn || funcSupply)
                         {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
@@ -121,7 +132,7 @@
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <%if (funcOut)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
@@ -129,7 +140,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcPut)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
@@ -137,14 +148,15 @@
                                 </li>
                                 <%} %>
                                 <%if (funcReturn)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcSupply) { %>
+                                <%if (funcSupply)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
@@ -155,7 +167,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcSale || funcSaleOff)
+                    <%if (funcSale || funcSaleOff || funcRetail)
                         { %>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
@@ -168,10 +180,28 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <%if (funcSale)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
+                                    </a>
+                                </li>
+                                <%} %>
+                                <%if (funcRetail)
+                                { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../SalesMGT/retail.aspx" id="retail">
+                                        <span class="sidebar-normal">自助售书</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="customerRetail">
+                                    <a class="nav-link" href="../SalesMGT/customerRetail.aspx">
+                                        <span class="sidebar-normal">POS收款</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../SalesMGT/retailBack.aspx" id="retailBack">
+                                        <span class="sidebar-normal">零售退货</span>
                                     </a>
                                 </li>
                                 <%} %>
@@ -179,6 +209,8 @@
                         </div>
                     </li>
                     <%} %>
+                    <%if (funcBook)
+                        { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="fa fa-file-archive-o"></i>
@@ -199,17 +231,10 @@
                                         <span class="sidebar-normal">书籍库存查看</span>
                                     </a>
                                 </li>
-                                <%if (funcLibrary)
-                                { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
-                                        <span class="sidebar-normal">客户馆藏数据</span>
-                                    </a>
-                                </li>
-                                <%} %>
                             </ul>
                         </div>
                     </li>
+                    <%} %>
                 </ul>
             </div>
         </div>
@@ -448,7 +473,7 @@
     <script src="../js/demo.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script>
-</script>
+    </script>
 </body>
 
 </html>

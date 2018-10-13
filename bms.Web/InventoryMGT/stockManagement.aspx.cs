@@ -17,7 +17,7 @@ namespace bms.Web.InventoryMGT
     {
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "";
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply,funcRetail;
         public DataSet ds, dsRegion, dsPer;
         UserBll userBll = new UserBll();
         RegionBll regionBll = new RegionBll();
@@ -261,6 +261,10 @@ namespace bms.Web.InventoryMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
                 {
                     funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
                 }
             }
         }

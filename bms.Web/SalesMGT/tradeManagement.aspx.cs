@@ -14,13 +14,15 @@ namespace bms.Web.SalesMGT
     using Result = Enums.OpResult;
     public partial class tradeManagement : System.Web.UI.Page
     {
-        public DataSet ds, customerds;
+        public DataSet ds, customerds, dsPer;
         public int totalCount, intPageCount, pageSize = 20;
         SaleTaskBll saleBll = new SaleTaskBll();
         CustomerBll custBll = new CustomerBll();
         string SaleHeadId, saleTaskId;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {
+            permission();
             getData();
             string op = Request["op"];
             //添加销售任务
@@ -264,5 +266,74 @@ namespace bms.Web.SalesMGT
             }
             return strb.ToString();
         }
+        protected void permission()
+        {
+            FunctionBll functionBll = new FunctionBll();
+            User user = (User)Session["user"];
+            Role role = new Role();
+            role = user.RoleId;
+            int roleId = role.RoleId;
+            dsPer = functionBll.SelectByRoleId(roleId);
+            for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)
+            {
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 1)
+                {
+                    funcOrg = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 2)
+                {
+                    funcRole = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 3)
+                {
+                    funcUser = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 4)
+                {
+                    funcGoods = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 5)
+                {
+                    funcCustom = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 6)
+                {
+                    funcLibrary = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 7)
+                {
+                    funcBook = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 8)
+                {
+                    funcPut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 9)
+                {
+                    funcOut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 10)
+                {
+                    funcSale = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 11)
+                {
+                    funcSaleOff = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 12)
+                {
+                    funcReturn = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
+                {
+                    funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
+                }
+            }
+        }
+
     }
 }
