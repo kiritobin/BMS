@@ -12,8 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <!--分页样式-->
-    <link rel="stylesheet" href="../css/pagination.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/jedate.css" />
@@ -21,10 +19,40 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
     <style>
-        .gw_num{border: 1px solid #dbdbdb;width: 110px;line-height: 26px;overflow: hidden;}
-        .gw_num em{display: block;height: 26px;width: 26px;float: left;color: #7A7979;border-right: 1px solid #dbdbdb;text-align: center;cursor: pointer;}
-        .gw_num .num{display: block;float: left;text-align: center;width: 52px;font-style: normal;font-size: 14px;line-height: 24px;border: 0;}
-        .gw_num em.add{float: right;border-right: 0;border-left: 1px solid #dbdbdb;}
+        .gw_num {
+            border: 1px solid #dbdbdb;
+            width: 110px;
+            line-height: 26px;
+            overflow: hidden;
+        }
+
+            .gw_num em {
+                display: block;
+                height: 26px;
+                width: 26px;
+                float: left;
+                color: #7A7979;
+                border-right: 1px solid #dbdbdb;
+                text-align: center;
+                cursor: pointer;
+            }
+
+            .gw_num .num {
+                display: block;
+                float: left;
+                text-align: center;
+                width: 52px;
+                font-style: normal;
+                font-size: 14px;
+                line-height: 24px;
+                border: 0;
+            }
+
+            .gw_num em.add {
+                float: right;
+                border-right: 0;
+                border-left: 1px solid #dbdbdb;
+            }
     </style>
 </head>
 
@@ -151,10 +179,10 @@
                             </fieldset>
                         </div>
                         <!--startprint-->
-                        <div class="border content" style="width: 470px; height: 520px;" id="ticket">
-                            <div style="width: 260px; margin:0 auto; color:black;font-weight:400" >
+                        <div class="border content" style=" height: 500px;" id="ticket">
+                            <div style="margin: 0 auto; color: black; font-weight: 400">
                                 <br />
-                                <table class="table" style="width: 300px; position:relative; right:30px; text-align:left;border:0;font-size:24px;line-height:1.5;">
+                                <table class="table">
                                     <tr>
                                         <td>品种：￥&nbsp&nbsp<span id="kindEnd"></span></td>
                                         <td>码洋：￥&nbsp&nbsp<span id="totalEnd"></span></td>
@@ -164,11 +192,12 @@
                                         <td>应收：￥&nbsp&nbsp<span id="realEnd"></span></td>
                                     </tr>
                                 </table>
-                                <div style="margin-top:10px;">
-                                    <img src="#" style="width: 250px; height: 250px;" id="img" />
+                                <div style="margin-top: 10px;">
+                                    <div id="output" style="width: 190px; height: 200px;display:none"></div>
+                                    <img src="#" style="width: 190px; height: 200px" id="img" />
                                 </div>
-                                <div style="width: 260px;font-size:24px;">
-                                <hr />
+                                <div style="width: 260px;">
+                                    <hr / style="color:lightseagreen">
                                     <span id="timeEnd"></span>
                                 </div>
                             </div>
@@ -182,7 +211,7 @@
     <!--选择图书模态框-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="width:800px;">
                 <div class="modal-header">
                     <h4 class="modal-title float-left" id="myModalLabel">请选择需要的图书</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -199,10 +228,10 @@
                                         <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
                                     </div>
                                 </th>
-                                <th>ISBN</th>
-                                <th>书名</th>
-                                <th>单价</th>
-                                <th>出版社</th>
+                                <th><nobr>ISBN</nobr></th>
+                                <th><nobr>书名</nobr></th>
+                                <th><nobr>单价</nobr></th>
+                                <th><nobr>出版社</nobr></th>
                             </tr>
                         </thead>
                         <%=getIsbn() %>
@@ -225,12 +254,12 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
-    <!-- paging.js -->
-    <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/jedate.min.js"></script>
     <script src="../js/retail.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
-    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="../js/jquery.jqprint.js"></script>
+     <script src="../js/jquery.qrcode.min.js"></script>
+    <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
+        <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
+    </object>
+    <script src="../js/LodopFuncs.js"></script>
 </body>
 </html>
