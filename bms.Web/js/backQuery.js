@@ -1,5 +1,15 @@
 ﻿$(document).ready(function () {
-
+    //只允许输入数字
+    $("#table").delegate("#inputISBN", "keyup", function (e) {
+        $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
+    }).bind("paste", function () {  //CTR+V事件处理    
+        $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
+    }).css("ime-mode", "disabled");
+    $("#table").delegate("#inputCount", "keyup", function (e) {
+        $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
+    }).bind("paste", function () {  //CTR+V事件处理    
+        $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
+    }).css("ime-mode", "disabled");
     //回车事件
     $(".addsell").keypress(function (e) {
         if (e.keyCode == 13) {
@@ -208,8 +218,6 @@
             }
         })
     })
-
-
     //添加数量输入框回车事件
     $("#table").delegate("#inputCount", "keypress", function (e) {
         if (e.keyCode == 13) {
