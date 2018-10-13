@@ -349,7 +349,7 @@
                                 <tr>
                                     <td class="text-right"><span>默认折扣:</span></td>
                                     <td>
-                                        <input type="text" class="modal_search_add" id="Price" maxlength="4">
+                                        <input type="text" class="modal_search_add" id="Price" maxlength="4" oninput="value=value.replace(/[^\d]/g,'')">
                                     </td>
                                 </tr>
                             </table>
