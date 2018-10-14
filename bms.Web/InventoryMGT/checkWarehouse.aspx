@@ -16,7 +16,6 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/pagination.css" />
-    <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
@@ -407,13 +406,16 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <!-- paging.js -->
+    <script src="../js/jquery.pagination.js"></script>
     <!-- selectpicker.js -->
     <script src="../js/bootstrap-selectpicker.js"></script>
     <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
-    <script src="../js/jedate.min.js"></script>
-    <script src="../js/addReturn.js"></script>
+    <script src="../js/checkWarehouse.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/jquery.jqprint.js"></script>
 </body>
 
 </html>

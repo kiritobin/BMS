@@ -48,12 +48,12 @@
                                         <input type="text" value="" class="" id="sales_ISBN" placeholder="请输入ISBN">
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>--%>
-                                    <%--<%if (type == "look")
+                                    <%if (type == "look")
                                             {%>
-                                        <div class="btn-group" role="group">
-                                            <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print"></i></button>
-                                        </div>
-                                        <%} %>--%>
+                                       <div class="btn-group" role="group">
+                                        <button class="btn btn-info btn-sm" id="print">打印</button>
+                                    </div>
+                                        <%} %>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-warning btn-sm" id="back">返回</button>
                                     </div>
@@ -225,6 +225,8 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/salesDetail.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/jquery.jqprint.js"></script>
 </body>
 
 </html>

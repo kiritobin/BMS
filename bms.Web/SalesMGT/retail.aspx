@@ -162,10 +162,10 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>品种：￥&nbsp&nbsp<span id="kind"></span></label>
+                                            <label>品种：&nbsp&nbsp<span id="kind"></span></label>
                                         </div>
                                         <div class="col-md-6">
-                                            <label>数量：￥&nbsp&nbsp<span id="number"></span></label>
+                                            <label>数量：&nbsp&nbsp<span id="number"></span></label>
                                         </div>
                                         <div class="col-md-6">
                                             <label>码洋：￥&nbsp&nbsp<span id="total"></span></label>
@@ -183,11 +183,11 @@
                                 <br />
                                 <table class="table">
                                     <tr>
-                                        <td>品种：￥&nbsp&nbsp<span id="kindEnd"></span></td>
+                                        <td>品种：<span id="kindEnd"></span>&nbsp&nbsp</td>
                                         <td>码洋：￥&nbsp&nbsp<span id="totalEnd"></span></td>
                                     </tr>
                                     <tr>
-                                        <td>数量：￥&nbsp&nbsp<span id="numberEnd"></span></td>
+                                        <td>数量：<span id="numberEnd"></span>&nbsp&nbsp</td>
                                         <td>应收：￥&nbsp&nbsp<span id="realEnd"></span></td>
                                     </tr>
                                 </table>

@@ -53,7 +53,7 @@
                                         <button class="btn btn-warning btn-sm" id="toBack">返回</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm">打印</button>
+                                        <button class="btn btn-info btn-sm" id="print">打印</button>
                                     </div>
                                     <%string type = Session["type"].ToString();
                                         if (type != "search")
@@ -136,6 +136,8 @@
     <!-- selectpicker.js -->
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/backQuery.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/jquery.jqprint.js"></script>
 </body>
 
 </html>

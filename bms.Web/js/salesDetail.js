@@ -310,9 +310,13 @@
             })
         }
     })
-
+    //打印
+    $("#print").click(function () {
+        $("#table").jqprint();
+    })
     //单据完成
     $("#success").click(function () {
+        $(".first").remove();
         swal({
             title: "温馨提示:)",
             text: "是否新建单据？",
