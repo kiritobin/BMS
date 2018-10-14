@@ -257,7 +257,7 @@
                         else {
                             swal({
                                 title: "温馨提示:)",
-                                text: succ,
+                                text: succ.Messege,
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: '确定',
