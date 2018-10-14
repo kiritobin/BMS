@@ -93,7 +93,7 @@
                                                         <nobr>数量</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>实际折扣</nobr>
+                                                        <nobr>折扣</nobr>
                                                     </td>
                                                     <td>
                                                         <nobr>实洋</nobr>
