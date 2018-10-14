@@ -499,6 +499,7 @@ $("#save").click(function () {
                         allowOutsideClick: false
                     })
                     sessionStorage.removeItem("kind");
+                    window.location.href = "stockManagement.aspx";
                 }
                 else {
                     swal({

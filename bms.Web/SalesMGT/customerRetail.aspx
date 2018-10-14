@@ -54,7 +54,7 @@
                             <div class="text-right">时间：<span id="time"></span></div>
                         </div>
                         <div class="table-responsive col-md-9">
-                            <div style="height: 500px; display: block; overflow-y: auto;">
+                            <div style="height: 600px; display: block; overflow-y: auto;">
                                 <table class="table mostTable table-bordered text-center test" id="table">
                                     <thead>
                                         <tr>
@@ -108,22 +108,6 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <%--<h3 class="text-center">零售单</h3>
-                            <hr />
-                            <ul class="list-unstyled">
-                                <li>种类：<span id="kind"></span></li>
-                                <li>数量：<span id="number"></span></li>
-                                <li>总码洋：<span id="total"></span></li>
-                                <li>总实洋：<span id="real"></span></li>
-                                <li>时间：<span id="time"></span></li>
-                            </ul>
-                            <hr />
-                            <div class="input-group text-white" id="scanning" data-toggle="modal" data-target="#myModal1">
-                                <a class="btn btn-warning btn-sm"><i class="fa fa-qrcode">扫描</i></a>
-                            </div>
-                            <div class="input-group text-white" id="Settlement" data-toggle="modal" data-target="#myModal2">
-                                <a class="btn btn-success btn-sm"><i class="fa fa-jpy">收银</i></a>
-                            </div>--%>
                             <div class="retailList">
                                 <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
                             </div>
@@ -163,9 +147,8 @@
                             </fieldset>
                         </div>
                         <!--销售小票-->
-                        <div class="print_container" style="width: 470px;" id="sale">
+                        <div class="print_container border" style="width: 470px;position:relative;top:1000px;" id="sale">
                             <h2>新华书店</h2>
-                            <%--<img src="../imgs/login.jpg" style="width:70%" />--%>
                             <hr />
                             <div class="container">
                                 <span style="font-size: 16px;">购买时间：<%=DateTime.Now %></span><br />
@@ -176,14 +159,14 @@
                                 <table id="tablePay" style="width: 300px;">
                                     <thead>
                                         <tr>
-                                            <td style="width: 50%">名称</td>
+                                            <td style="width: 48%">名称</td>
                                             <td style="width: 20%">数量</td>
                                             <td style="width: 30%">金额</td>
                                         </tr>
                                     </thead>
                                 </table>
                                 <hr />
-                                <table class="other_fee" style="width: 250px;font-size:14px;">
+                                <table class="other_fee" style="width: 250px;height:100px; font-size:14px;">
                                     <thead>
                                         <tr>
                                             <td style="width: 50%">码洋:￥<span id="alltotal"></span></td>
@@ -201,27 +184,6 @@
                                         </tr>
                                     </thead>
                                 </table>
-                                <%--<div class="other_fee" style="width: 200px;">
-                                    <div>
-                                        <span>码洋：</span>
-                                        <span id="alltotal"></span>
-                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                        <span>折扣：</span>
-                                        <span id="alldiscount"></span>
-                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                        <span>合计：</span>
-                                        <span id="allreal"></span>
-                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                    </div>
-                                    <hr />
-                                    <div class="total">
-                                        <span>实付：</span>
-                                        <span id="allcope"></span>
-                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                        <span>找零：</span>
-                                        <span id="allchange"></span>
-                                    </div>
-                                </div>--%>
                             </div>
                         </div>
                     </div>
@@ -232,7 +194,7 @@
     <!--选择一号多书模态框-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="width:800px">
                 <div class="modal-header">
                     <h4 class="modal-title float-left" id="myModalLabel">请选择需要的图书</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -249,10 +211,10 @@
                                         <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
                                     </div>
                                 </th>
-                                <th>ISBN</th>
-                                <th>书名</th>
-                                <th>单价</th>
-                                <th>出版社</th>
+                                <th><nobr>ISBN</nobr></th>
+                                <th><nobr>书名</nobr></th>
+                                <th><nobr>单价</nobr></th>
+                                <th><nobr>出版社</nobr></th>
                             </tr>
                         </thead>
                         <%=getIsbn() %>
@@ -267,16 +229,17 @@
     <!--扫描模态框-->
     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="width:400px; margin-top:50px;">
                 <div class="modal-header">
                     <h4 class="modal-title float-left" id="myModalLabel1">请扫描</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="fa fa-close"></i>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <input type="text" placeholder="请输入单头ID" id="scannSea" class="searchOne">
+                <div class="modal-body" style="margin:0 auto;">
+                    单头ID:<input type="text" placeholder="请输入单头ID" id="scannSea" class="searchOne">
                 </div>
+                <div class="modal-footer"></div>
             </div>
         </div>
     </div>

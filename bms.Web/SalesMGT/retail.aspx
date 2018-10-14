@@ -87,7 +87,7 @@
                         </div>
                         <!-- 左侧数据表 -->
                         <div class="table-responsive col-md-8">
-                            <div style="height: 500px; display: block; overflow-y: auto;">
+                            <div style="height: 600px; display: block; overflow-y: auto;">
                                 <table class="table mostTable table-bordered text-center test" id="table">
                                     <thead>
                                         <tr>
@@ -210,7 +210,7 @@
     <!--选择图书模态框-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
-            <div class="modal-content" style="width:800px;">
+            <div class="modal-content" style="width:700px;">
                 <div class="modal-header">
                     <h4 class="modal-title float-left" id="myModalLabel">请选择需要的图书</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">

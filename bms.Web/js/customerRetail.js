@@ -219,6 +219,7 @@ $("#table").delegate(".numberEnd", "keypress", function (e) {
                 url: 'customerRetail.aspx',
                 data: {
                     retailId: id,
+                    headId: sessionStorage.getItem("retailId"),
                     number: number,
                     op: 'change'
                 },
@@ -432,13 +433,6 @@ $("#btnSettle").click(function () {
                         type: "warning"
                     }).catch(swal.noop);
                 } else if(data== "更新成功"){
-                    //swal({
-                    //    title: "结算完成",
-                    //    text: "结算完成",
-                    //    buttonsStyling: false,
-                    //    confirmButtonClass: "btn btn-warning",
-                    //    type: "success"
-                    //}).catch(swal.noop);
                     var discount = parseFloat($("#discountEnd").val());
                     $("#id").text(sessionStorage.getItem("retailId"));
                     $("#alltotal").text(sessionStorage.getItem("total"));
@@ -453,19 +447,20 @@ $("#btnSettle").click(function () {
 
                     var status = "";
                     var LODOP = getLodop();
-                    LODOP.ADD_PRINT_HTM(0, 10, 900, 850, document.getElementById("sale").innerHTML);
+                    LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
                     LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                    LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
-                    LODOP.PREVIEW();
+                    LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
+                    LODOP.PRINT();
                     LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
                     LODOP.On_Return = function (TaskID, Value) {
                         status = Value;
                     };
                     if (status != "" || status != null) {
-                        LODOP.ADD_PRINT_HTM(0, 10, 900, 850, document.getElementById("sale").innerHTML);
+                        LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
                         LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                        LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
-                        LODOP.PREVIEW();
+                        LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
+                        LODOP.PRINT();
+                        //window.location.reload();
                     }
                 }
             }

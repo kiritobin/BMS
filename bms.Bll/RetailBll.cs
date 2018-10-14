@@ -109,9 +109,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="retailMonomerId">零售单体ID</param>
         /// <returns>受影响行数</returns>
-        public SaleMonomer GetMonomer(int retailMonomerId)
+        public SaleMonomer GetMonomer(int retailMonomerId,string retailHeadId)
         {
-            return dao.GetMonomer(retailMonomerId);
+            return dao.GetMonomer(retailMonomerId, retailHeadId);
         }
 
         /// <summary>
@@ -212,9 +212,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="retailMonomerId">零售单体ID</param>
         /// <returns></returns>
-        public Result delete(int retailMonomerId)
+        public Result delete(int retailMonomerId, string retailHeadId)
         {
-            int row = dao.delete(retailMonomerId);
+            int row = dao.delete(retailMonomerId, retailHeadId);
             if(row > 0)
             {
                 return Result.删除成功;

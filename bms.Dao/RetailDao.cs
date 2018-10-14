@@ -122,11 +122,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="retailMonomerId">零售单体ID</param>
         /// <returns>数据集</returns>
-        public SaleMonomer GetMonomer(int retailMonomerId)
+        public SaleMonomer GetMonomer(int retailMonomerId,string retailHeadId)
         {
-            string cmdText = "select retailHeadId,unitPrice,realDiscount,totalPrice,realPrice,number from V_RetailMonomer where retailMonomerId=@retailMonomerId";
-            string[] param = { "@retailMonomerId" };
-            object[] values = { retailMonomerId };
+            string cmdText = "select retailHeadId,unitPrice,realDiscount,totalPrice,realPrice,number from V_RetailMonomer where retailMonomerId=@retailMonomerId and retailHeadId=@retailHeadId";
+            string[] param = { "@retailMonomerId", "@retailHeadId" };
+            object[] values = { retailMonomerId, retailHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
             if (ds == null || ds.Tables[0].Rows.Count <= 0)
             {
@@ -212,11 +212,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="retailMonomerId">零售单体ID</param>
         /// <returns></returns>
-        public int delete(int retailMonomerId)
+        public int delete(int retailMonomerId,string retailHeadId)
         {
-            string cmdText = "delete from T_RetailMonomer where retailMonomerId=@retailMonomerId";
-            string[] param = { "@retailMonomerId" };
-            object[] values = { retailMonomerId };
+            string cmdText = "delete from T_RetailMonomer where retailMonomerId=@retailMonomerId where retailHeadId=@retailHeadId";
+            string[] param = { "@retailMonomerId", "@retailHeadId" };
+            object[] values = { retailMonomerId, retailHeadId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }

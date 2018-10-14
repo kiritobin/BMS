@@ -309,8 +309,8 @@ namespace bms.Web.SalesMGT
         {
             int number = Convert.ToInt32(Request["number"]);
             int retailId = Convert.ToInt32(Request["retailId"]);
-            SaleMonomer monomer = retailBll.GetMonomer(retailId);
-            string headId = monomer.SaleHeadId;
+            string headId = Request["headId"];
+            SaleMonomer monomer = retailBll.GetMonomer(retailId, headId);
             int oldNumber = monomer.Number;
             double oldTotal = monomer.TotalPrice;
             double oldReal = monomer.RealPrice;
@@ -403,8 +403,9 @@ namespace bms.Web.SalesMGT
         public void delete()
         {
             int retailMonomerId = Convert.ToInt32(Request["retailId"]);
-            SaleMonomer monomer = retailBll.GetMonomer(retailMonomerId);
-            Result del = retailBll.delete(retailMonomerId);
+            string retailHeadId = Request["headId"];
+            SaleMonomer monomer = retailBll.GetMonomer(retailMonomerId, retailHeadId);
+            Result del = retailBll.delete(retailMonomerId, retailHeadId);
             if(del == Result.删除成功)
             {
                 string headId = Request["headId"];
