@@ -124,6 +124,7 @@
     <Content Include="js\retailBack.js" />
     <Content Include="QRCode.aspx" />
     <Content Include="SalesMGT\booksOut.aspx" />
+    <Content Include="SalesMGT\CLodop_Setup_for_Win32NT.exe" />
     <Content Include="SalesMGT\customerRetail.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
     <Content Include="InventoryMGT\checkWarehouse.aspx" />
