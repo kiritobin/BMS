@@ -53,6 +53,9 @@
                                        <div class="btn-group" role="group">
                                         <button class="btn btn-info btn-sm" id="print">打印</button>
                                     </div>
+                                    <%--<div class="btn-group" role="group">
+                                        <button class="btn btn-info btn-sm" id="test">打印</button>
+                                    </div>--%>
                                         <%} %>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-warning btn-sm" id="back">返回</button>
@@ -67,11 +70,11 @@
                             </div>
                             <div class="row">
                                 <div class="content_tab col-md-10">
-                                    <div class="table-responsive" style="height: 500px;">
+                                    <div class="table-responsive" style="height: 500px;" id="content">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
-                                                    <td>
+                                                    <td class="bbb">
                                                         <nobr>序号</nobr>
                                                     </td>
                                                     <td>
@@ -227,6 +230,10 @@
     <script src="../js/salesDetail.js"></script>
     <script src="../js/jquery-migrate-1.2.1.min.js"></script>
     <script src="../js/jquery.jqprint.js"></script>
+    <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
+        <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
+    </object>
+    <script src="../js/LodopFuncs.js"></script>
 </body>
 
 </html>

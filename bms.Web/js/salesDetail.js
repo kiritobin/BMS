@@ -314,6 +314,24 @@
     $("#print").click(function () {
         $("#table").jqprint();
     })
+    //$("#test").click(function () {
+    //    var status = "";
+    //    var LODOP = getLodop();
+    //    var strStyleCSS = "";
+    //    LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
+    //    LODOP.On_Return = function (TaskID, Value) {
+    //        status = Value;
+    //    };
+    //    if (status != "" || status != null) {
+    //        strStyleCSS += "<link rel='stylesheet' type='text/css' href='../css/zgz.css'><link rel='stylesheet' href='../css/material-dashboard.min.css'>";
+
+    //        LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", strStyleCSS + "<body>" + document.getElementById("content").innerHTML + "</body>");
+    //        LODOP.SET_PRINTER_INDEX("Send To OneNote 2016");
+    //        LODOP.SET_PRINT_PAGESIZE(3, "100%", 0, "A4");
+    //        LODOP.PREVIEW();
+    //    }
+    //})
+
     //单据完成
     $("#success").click(function () {
         $(".first").remove();
