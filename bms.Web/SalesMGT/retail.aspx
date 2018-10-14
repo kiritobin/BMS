@@ -17,42 +17,6 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
-    <style>
-        .gw_num {
-            border: 1px solid #dbdbdb;
-            width: 110px;
-            line-height: 26px;
-            overflow: hidden;
-        }
-
-            .gw_num em {
-                display: block;
-                height: 26px;
-                width: 26px;
-                float: left;
-                color: #7A7979;
-                border-right: 1px solid #dbdbdb;
-                text-align: center;
-                cursor: pointer;
-            }
-
-            .gw_num .num {
-                display: block;
-                float: left;
-                text-align: center;
-                width: 52px;
-                font-style: normal;
-                font-size: 14px;
-                line-height: 24px;
-                border: 0;
-            }
-
-            .gw_num em.add {
-                float: right;
-                border-right: 0;
-                border-left: 1px solid #dbdbdb;
-            }
-    </style>
 </head>
 
 <body style="overflow:hidden;">
@@ -68,7 +32,7 @@
             </div>
             <div class="card">
                 <div class="card-header card-header-danger">
-                    <h3 class="card-title text-center">自助扫码开单</h3>
+                    <h1 class="card-title text-center">自助扫码开单</h1>
                 </div>
                 <div class="card-body">
                     <%--<div class="row">
@@ -83,12 +47,12 @@
                     </div>--%>
                     <div class="row">
                         <div class="col-md-8 text-right">
-                            <div class="text-right">时间：<span id="time"></span></div>
+                            <div class="text-right retailTime">时间：<span id="time"></span></div>
                         </div>
                         <!-- 左侧数据表 -->
                         <div class="table-responsive col-md-8">
                             <div style="height: 600px; display: block; overflow-y: auto;">
-                                <table class="table mostTable table-bordered text-center test" id="table">
+                                <table class="table mostTable retailTable table-bordered text-center test" id="table">
                                     <thead>
                                         <tr>
                                             <td>
@@ -144,22 +108,22 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="text-white col-sm-6 text-right" id="insert">
-                                        <button class="btn btn-success btn-sm btnText">打  印</button>
+                                        <button class="btn btn-success btn-lg btnText">打  印</button>
                                     </div>
                                     <div class="text-white col-sm-6 text-left" id="giveup">
-                                        <button class="btn btn-danger btn-sm btnText">放  弃</button>
+                                        <button class="btn btn-danger btn-lg btnText">放  弃</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 合计模块 -->
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <fieldset>
                                 <legend>
                                     <b>合计</b>
                                 </legend>
-                                <div class="container">
+                                <div class="container retailLabel">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>品种：&nbsp&nbsp<span id="kind"></span></label>

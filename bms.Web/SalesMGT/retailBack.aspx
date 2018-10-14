@@ -35,7 +35,7 @@
             </div>
             <div class="card">
                 <div class="card-header card-header-danger">
-                    <h3 class="card-title text-center">自助扫码开单</h3>
+                    <h1 class="card-title text-center">零售退货</h1>
                 </div>
                 <div class="card-body">
                     <%--<div class="row">
@@ -49,13 +49,13 @@
                         </div>
                     </div>--%>
                     <div class="row">
-                        <div class="col-md-9 col-lg-8 text-right">
-                            <div class="text-right">时间：<span id="time"></span></div>
+                        <div class="col-md-8 text-right">
+                            <div class="text-right retailTime">时间：<span id="time"></span></div>
                         </div>
                         <!-- 左侧数据表 -->
-                        <div class="table-responsive col-md-9 col-lg-8">
+                        <div class="table-responsive col-md-8">
                             <div style="height: 500px; display: block; overflow-y: auto;">
-                                <table class="table mostTable table-bordered text-center test" id="table">
+                                <table class="table mostTable retailTable table-bordered text-center test" id="table">
                                     <thead>
                                         <tr>
                                             <td>
@@ -105,38 +105,42 @@
                         </div>
 
                         <!-- 右侧功能区 -->
-                        <div class="col-md-3 col-lg-4">
+                        <div class="col-md-4">
                             <div class="retailList">
                                 <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
                             </div>
                             <div class="container">
                                 <div class="row">
                                     <div class="text-white col-sm-6 text-right" id="insert">
-                                        <button class="btn btn-success btn-sm btnText">提  交</button>
+                                        <button class="btn btn-success btn-lg btnText">提  交</button>
                                     </div>
                                     <div class="text-white col-sm-6 text-left" id="giveup">
-                                        <button class="btn btn-danger btn-sm btnText">放  弃</button>
+                                        <button class="btn btn-danger btn-lg btnText">放  弃</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 合计模块 -->
-                        <div class="col-md-9 col-lg-8">
+                        <div class="col-md-8">
                             <fieldset>
                                 <legend>
                                     <b>合计</b>
                                 </legend>
-                                <div class="container">
+                                <div class="container retailLabel">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>品种：<span id="kind"></span></label></div>
+                                            <label>品种：<span id="kind"></span></label>
+                                        </div>
                                         <div class="col-md-6">
-                                            <label>数量：<span id="number"></span></label></div>
+                                            <label>数量：<span id="number"></span></label>
+                                        </div>
                                         <div class="col-md-6">
-                                            <label>码洋：<span id="total"></span></label></div>
+                                            <label>码洋：<span id="total"></span></label>
+                                        </div>
                                         <div class="col-md-6">
-                                            <label>应收：<span id="real"></span></label></div>
+                                            <label>应收：<span id="real"></span></label>
+                                        </div>
                                     </div>
                                 </div>
                             </fieldset>

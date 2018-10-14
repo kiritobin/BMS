@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 
-<body>
+<body style="overflow:hidden;">
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -36,7 +36,7 @@
             </div>
             <div class="card">
                 <div class="card-header card-header-danger">
-                    <h3 class="card-title text-center">自助扫码开单</h3>
+                    <h1 class="card-title text-center">收  银</h1>
                 </div>
                 <div class="card-body">
                     <%--<div class="row">
@@ -50,12 +50,12 @@
                         </div>
                     </div>--%>
                     <div class="row">
-                        <div class="col-md-9 col-lg-8 text-right">
-                            <div class="text-right">时间：<span id="time"></span></div>
+                        <div class="col-md-8 text-right">
+                            <div class="text-right retailTime">时间：<span id="time"></span></div>
                         </div>
-                        <div class="table-responsive col-md-9">
+                        <div class="table-responsive col-md-8">
                             <div style="height: 600px; display: block; overflow-y: auto;">
-                                <table class="table mostTable table-bordered text-center test" id="table">
+                                <table class="table mostTable table-bordered retailTable text-center test" id="table">
                                     <thead>
                                         <tr>
                                             <td>
@@ -107,28 +107,28 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="retailList">
                                 <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
                             </div>
                             <div class="container">
                                 <div class="row">
                                     <div class="text-white col-sm-6 text-right" id="scanning" data-toggle="modal" data-target="#myModal1">
-                                        <button class="btn btn-success btn-sm btnText">扫  描</button>
+                                        <button class="btn btn-success btn-lg btnText">扫  描</button>
                                     </div>
                                     <div class="text-white col-sm-6 text-left" id="Settlement" data-toggle="modal" data-target="#myModal2">
-                                        <button class="btn btn-danger btn-sm btnText">收  银</button>
+                                        <button class="btn btn-danger btn-lg btnText">收  银</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- 合计模块 -->
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <fieldset>
                                 <legend>
                                     <b>合计</b>
                                 </legend>
-                                <div class="container">
+                                <div class="container retailLabel">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>品种：<span id="kind"></span></label>
