@@ -5,7 +5,7 @@
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
     setInterval("showTime()", 1000);
-    //$("#ticket").hide();
+    $("#ticket").hide();
     //加的效果
     $("#table").delegate(".add", "click", function () {
         var n = $(this).prev().val();
@@ -260,6 +260,7 @@ $("#insert").click(function () {
                         type: "warning"
                     }).catch(swal.noop);
                 } else {
+                    $("#ticket").show();
                     var headId = datas[1];
                     $("#kindEnd").text(sessionStorage.getItem("kind"));
                     $("#numberEnd").text(sessionStorage.getItem("number"));
@@ -281,10 +282,10 @@ $("#insert").click(function () {
 
                     var status = "";
                     var LODOP = getLodop();
-                    LODOP.ADD_PRINT_HTM(0, 50, 900, 850, document.getElementById("ticket").innerHTML);
-                    LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                    LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
-                    LODOP.PREVIEW();
+                    //LODOP.ADD_PRINT_HTM(0, 50, 900, 850, document.getElementById("ticket").innerHTML);
+                    //LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                    //LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
+                    //LODOP.PREVIEW();
                     LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
                     LODOP.On_Return = function (TaskID, Value) {
                         status = Value;
@@ -293,9 +294,9 @@ $("#insert").click(function () {
                         LODOP.ADD_PRINT_HTM(0, 50, 900, 850, document.getElementById("ticket").innerHTML);
                         LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
                         LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
-                        LODOP.PREVIEW();
+                        LODOP.PRINT();
 
-                        //window.location.reload();
+                        window.location.reload();
                         sessionStorage.removeItem("kind");
                         sessionStorage.removeItem("number");
                         sessionStorage.removeItem("totalPrice");

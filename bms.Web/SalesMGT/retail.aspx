@@ -55,7 +55,7 @@
     </style>
 </head>
 
-<body>
+<body style="overflow:hidden;">
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -178,17 +178,17 @@
                             </fieldset>
                         </div>
                         <!--startprint-->
-                        <div class="border content" style=" height: 500px;" id="ticket">
+                        <div class="border content" style="position:relative;top:100px; height: 500px;" id="ticket">
                             <div style="margin: 0 auto; color: black; font-weight: 400">
                                 <br />
                                 <table class="table">
                                     <tr>
-                                        <td>品种：<span id="kindEnd"></span>&nbsp&nbsp</td>
-                                        <td>码洋：￥&nbsp&nbsp<span id="totalEnd"></span></td>
+                                        <td style="width:50%;text-align:left;">品种：<span id="kindEnd"></span>&nbsp&nbsp</td>
+                                        <td style="width:50%;text-align:left;">码洋：￥&nbsp&nbsp<span id="totalEnd"></span></td>
                                     </tr>
                                     <tr>
-                                        <td>数量：<span id="numberEnd"></span>&nbsp&nbsp</td>
-                                        <td>应收：￥&nbsp&nbsp<span id="realEnd"></span></td>
+                                        <td style="width:50%;text-align:left;">数量：<span id="numberEnd"></span>&nbsp&nbsp</td>
+                                        <td style="width:50%;text-align:left;">应收：￥&nbsp&nbsp<span id="realEnd"></span></td>
                                     </tr>
                                 </table>
                                 <div style="margin-top: 10px;">
@@ -197,7 +197,7 @@
                                 </div>
                                 <div style="width: 260px;">
                                     <hr / style="color:lightseagreen">
-                                    <span id="timeEnd"></span>
+                                    时间：<span id="timeEnd"></span>
                                 </div>
                             </div>
                         </div>

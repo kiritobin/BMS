@@ -164,7 +164,7 @@
                         </div>
                         <!--销售小票-->
                         <div class="print_container" style="width: 470px;" id="sale">
-                            <h2 style="margin-left: 35%">新华书店</h2>
+                            <h2>新华书店</h2>
                             <%--<img src="../imgs/login.jpg" style="width:70%" />--%>
                             <hr />
                             <div class="container">
@@ -173,26 +173,43 @@
                             </div>
                             <hr />
                             <div class="section4">
-                                <table id="tablePay">
+                                <table id="tablePay" style="width: 300px;">
                                     <thead>
                                         <tr>
-                                            <td style="width: 60%">名称</td>
-                                            <td style="width: 30%">数量</td>
-                                            <td style="width: 20%">金额</td>
+                                            <td style="width: 50%">名称</td>
+                                            <td style="width: 20%">数量</td>
+                                            <td style="width: 30%">金额</td>
                                         </tr>
                                     </thead>
-
                                 </table>
                                 <hr />
-                                <div class="other_fee">
+                                <table class="other_fee" style="width: 250px;font-size:14px;">
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 50%">码洋:￥<span id="alltotal"></span></td>
+                                            <td style="width: 50%">折扣:<span id="alldiscount"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 50%">合计:￥<span id="allreal"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"><hr /></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 50%">实付:￥<span id="allcope"></span></td>
+                                            <td style="width: 50%">找零:￥<span id="allchange"></span></td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <%--<div class="other_fee" style="width: 200px;">
                                     <div>
                                         <span>码洋：</span>
                                         <span id="alltotal"></span>
                                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                    <span>折扣：</span>
+                                        <span>折扣：</span>
                                         <span id="alldiscount"></span>
                                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                    <span>合计：</span>
+                                        <span>合计：</span>
                                         <span id="allreal"></span>
                                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     </div>
@@ -201,10 +218,10 @@
                                         <span>实付：</span>
                                         <span id="allcope"></span>
                                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                    <span>找零：</span>
+                                        <span>找零：</span>
                                         <span id="allchange"></span>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                     </div>
@@ -305,5 +322,9 @@
     <script src="../js/jedate.min.js"></script>
     <script src="../js/customerRetail.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
+        <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
+        <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
+    </object>
+    <script src="../js/LodopFuncs.js"></script>
 </body>
 </html>

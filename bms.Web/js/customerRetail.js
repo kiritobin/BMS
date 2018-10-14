@@ -6,6 +6,7 @@
     sessionStorage.setItem("realPrice", 0);
     setInterval("showTime()", 1000);
     $("#sale").hide();
+    $("#btnSettle").hide();
 })
 //获取当前时间
 function showTime() {
@@ -358,9 +359,21 @@ $("#copeEnd").keypress(function (e) {
         sessionStorage.setItem("give", $("#copeEnd").val());
         var give = parseFloat($("#copeEnd").val());
         var cope = parseFloat($("#realEnd").text().trim());
-        var real = give - cope;
-        sessionStorage.setItem("dibs", real);
-        $("#change").text((real).toFixed(2));
+        if (give < cope) {
+            swal({
+                title: "实付金额不能小于实洋金额",
+                text: "",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        } else {
+            var real = give - cope;
+            sessionStorage.setItem("dibs", real);
+            $("#change").text((real).toFixed(2));
+            $("#btnSettle").show();
+            $("#btnSettle").focus();
+        }
     }
 })
 $("#settleClose").click(function () {
@@ -389,48 +402,75 @@ $("#btnSettle").click(function () {
             type: "warning"
         }).catch(swal.noop);
     }
-    $.ajax({
-        type: 'Post',
-        url: 'customerRetail.aspx',
-        data: {
-            headId: sessionStorage.getItem("retailId"),
-            op: 'end'
-        },
-        dataType: 'text',
-        success: function (data) {
-            if (data == "更新失败") {
-                swal({
-                    title: "结算失败",
-                    text: "结算失败",
-                    buttonsStyling: false,
-                    confirmButtonClass: "btn btn-warning",
-                    type: "warning"
-                }).catch(swal.noop);
-            } else {
-                swal({
-                    title: "结算完成",
-                    text: "结算完成",
-                    buttonsStyling: false,
-                    confirmButtonClass: "btn btn-warning",
-                    type: "success"
-                }).catch(swal.noop);
-                $("#id").text(sessionStorage.getItem("retailId"));
-                $("#alltotal").text(sessionStorage.getItem("total"));
-                $("#alldiscount").text(sessionStorage.getItem("discount")+"%");
-                $("#allreal").text((parseFloat(sessionStorage.getItem("total")) * parseFloat(sessionStorage.getItem("discount")*0.01)).toFixed(2));
-                $("#allcope").text(sessionStorage.getItem("give"));
-                $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
-                $("#tablePay tr:not(:first)").empty()
-                $("#tablePay").append(data);
-                sessionStorage.removeItem("retailId");
-                $("#sale").show();
-                $("#sale").jqprint();
-                //setTimeout(function () {
-                //    window.location.reload();
-                //}, 2000);
+    else {
+        $.ajax({
+            type: 'Post',
+            url: 'customerRetail.aspx',
+            data: {
+                headId: sessionStorage.getItem("retailId"),
+                op: 'end'
+            },
+            dataType: 'text',
+            success: function (succ) {
+                var datas = succ.split(":|");
+                var data = datas[0];
+                if (data == "书籍不存在") {
+                    swal({
+                        title: "书籍不存在",
+                        text: "书名:" + datas[1]+"不存在",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                }
+                if (data == "更新失败") {
+                    swal({
+                        title: "结算失败",
+                        text: "结算失败",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                } else if(data== "更新成功"){
+                    //swal({
+                    //    title: "结算完成",
+                    //    text: "结算完成",
+                    //    buttonsStyling: false,
+                    //    confirmButtonClass: "btn btn-warning",
+                    //    type: "success"
+                    //}).catch(swal.noop);
+                    var discount = parseFloat($("#discountEnd").val());
+                    $("#id").text(sessionStorage.getItem("retailId"));
+                    $("#alltotal").text(sessionStorage.getItem("total"));
+                    $("#alldiscount").text(discount + "%");
+                    $("#allreal").text((parseFloat(sessionStorage.getItem("total")) * parseFloat(discount * 0.01)).toFixed(2));
+                    $("#allcope").text(sessionStorage.getItem("give"));
+                    $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
+                    $("#tablePay tr:not(:first)").empty()
+                    $("#tablePay").append(datas[1]);
+                    sessionStorage.removeItem("retailId");
+                    $("#sale").show();
+
+                    var status = "";
+                    var LODOP = getLodop();
+                    LODOP.ADD_PRINT_HTM(0, 10, 900, 850, document.getElementById("sale").innerHTML);
+                    LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                    LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
+                    LODOP.PREVIEW();
+                    LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
+                    LODOP.On_Return = function (TaskID, Value) {
+                        status = Value;
+                    };
+                    if (status != "" || status != null) {
+                        LODOP.ADD_PRINT_HTM(0, 10, 900, 850, document.getElementById("sale").innerHTML);
+                        LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                        LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
+                        LODOP.PREVIEW();
+                    }
+                }
             }
-        }
-    })
+        })
+    }
 })
 //弹出模态框获取焦点事件
 $('#myModal1').on('shown.bs.modal', function (e) {
