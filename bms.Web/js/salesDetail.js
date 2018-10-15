@@ -309,7 +309,7 @@
                     if (succ == "状态修改成功") {
                         swal({
                             title: "提示",
-                            text: "状态修改成功，是否返回销售页面？",
+                            text: "状态修改成功",
                             type: "question",
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
@@ -320,8 +320,6 @@
                             cancelButtonClass: 'btn btn-danger',
                             buttonsStyling: false,
                             allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
-                        }).then(function () {
-                            window.location.href = "../SalesMGT/salesManagement.aspx";
                         })
                     } else if (succ == "没有数据") {
                         swal({
