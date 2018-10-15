@@ -18,7 +18,7 @@ namespace bms.Dao
         /// <returns></returns>
         public User getPwdByUserId(string userID)
         {
-            string sql = "select userID,userPwd,roleId,regionId,userName,regionName from V_User where userID=@userID and deleteState=0";
+            string sql = "select userID,userName,roleId,roleName,regionName,regionId,userPwd from V_User where userID=@userID and deleteState=0";
             string[] param = { "@userID" };
             object[] values = { userID };
             User user = new User();
@@ -28,11 +28,14 @@ namespace bms.Dao
             while (reader.Read())
             {
                 user.UserId = reader.GetInt32(0);
-                user.Pwd = reader.GetString(1);
+                user.UserName = reader.GetString(1);
                 role.RoleId = reader.GetInt32(2);
-                region.RegionId = reader.GetInt32(3);
+                role.RoleName = reader.GetString(3);
+                region.RegionName = reader.GetString(4);
+                region.RegionId = reader.GetInt32(5);
                 user.RoleId = role;
                 user.ReginId = region;
+                user.Pwd = reader.GetString(6);
             }
             reader.Close();
             return user; ;
@@ -44,7 +47,7 @@ namespace bms.Dao
         /// <returns></returns>
         public Customer getPwdByCustomId(string customerID)
         {
-            string sql = "select customerID from T_Customer where customerID=@customerID and deleteState=0";
+            string sql = "select customerID,customerName from T_Customer where customerID=@customerID and deleteState=0";
             string[] param = { "@customerID" };
             object[] values = { customerID };
             Customer custom = new Customer();
@@ -52,6 +55,7 @@ namespace bms.Dao
             while (reader.Read())
             {
                 custom.CustomerId = reader.GetInt32(0);
+                custom.CustomerName = reader.GetString(1);
             }
             reader.Close();
             return custom; ;

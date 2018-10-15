@@ -14,7 +14,7 @@ namespace bms.Web.CustomerMGT
 {
     public partial class customerPurchase : System.Web.UI.Page
     {
-        public string userName, regionName;
+        public string userName;
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         BookBasicBll bookbll = new BookBasicBll();
         protected void Page_Load(object sender, EventArgs e)
@@ -36,7 +36,6 @@ namespace bms.Web.CustomerMGT
         {
             Customer custom=(Customer)Session["custom"];
             userName = custom.CustomerName;
-            regionName = custom.RegionId.RegionName;
             int cusId = custom.CustomerId;
             string search = "";
             string bookName = Request["bookName"];
