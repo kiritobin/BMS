@@ -28,58 +28,6 @@
             });
         }
     });
-
-    //查询
-    //$("#btn_search").click(function () {
-    //    var bookName = $("#sales_bookName").val().trim();
-    //    var ISBN = $("#sales_ISBN").val().trim();
-    //    $.ajax({
-    //        type: 'Post',
-    //        url: 'salesDetail.aspx',
-    //        data: {
-    //            bookName: bookName,
-    //            ISBN: ISBN,
-    //            op: "paging"
-    //        },
-    //        dataType: 'text',
-    //        success: function (data) {
-    //            $("#intPageCount").remove();
-    //            $("#table tr:not(:first)").empty(); //清空table处首行
-    //            $("#table").append(data); //加载table
-    //            $(".paging").empty();
-    //            $('.paging').pagination({
-    //                //totalData: $("#countPage").val(), //数据总数
-    //                //showData: $("#totalCount").val(), //每页显示的条数
-    //                pageCount: $("#intPageCount").val(), //总页数
-    //                jump: true,
-    //                mode: 'fixed',//固定页码数量
-    //                coping: true,
-    //                homePage: '首页',
-    //                endPage: '尾页',
-    //                prevContent: '上页',
-    //                nextContent: '下页',
-    //                callback: function (api) {
-    //                    $.ajax({
-    //                        type: 'Post',
-    //                        url: 'salesDetail.aspx',
-    //                        data: {
-    //                            page: api.getCurrent(), //页码
-    //                            bookName: bookName,
-    //                            ISBN: ISBN,
-    //                            op: "paging"
-    //                        },
-    //                        dataType: 'text',
-    //                        success: function (data) {
-    //                            $("#table tr:not(:first)").empty(); //清空table处首行
-    //                            $("#table").append(data); //加载table
-    //                        }
-    //                    });
-    //                }
-    //            });
-    //        }
-    //    });
-    //});
-
     //isbn敲回车键
     $("#table").delegate(".isbn", "keypress", function (e) {
         if (e.keyCode == 13) {
@@ -361,7 +309,7 @@
                     if (succ == "状态修改成功") {
                         swal({
                             title: "提示",
-                            text: "状态修改成功，是否返回销售页面？",
+                            text: "状态修改成功",
                             type: "question",
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
@@ -372,10 +320,26 @@
                             cancelButtonClass: 'btn btn-danger',
                             buttonsStyling: false,
                             allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
-                        }).then(function () {
-                            window.location.href = "../SalesMGT/salesManagement.aspx";
                         })
-                    } else {
+                    } else if (succ == "没有数据") {
+                        swal({
+                            title: "温馨提示:)",
+                            text: "空单不能完成！",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            confirmButtonClass: 'btn btn-success',
+                            cancelButtonClass: 'btn btn-danger',
+                            buttonsStyling: false,
+                            allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+                        })
+                    }
+                    
+                    else
+                    {
                         swal({
                             title: "温馨提示:)",
                             text: "单据状态修改失败，请联系技术人员！",

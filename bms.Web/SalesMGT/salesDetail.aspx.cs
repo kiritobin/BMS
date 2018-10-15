@@ -40,17 +40,9 @@ namespace bms.Web.SalesMGT
             SaleHeadId = Session["saleheadId"].ToString();
 
             //更新单头
-            //allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
-            //DataSet allds = salemonbll.SelectMonomers(SaleHeadId);
-            //int j = allds.Tables[0].Rows.Count;
-            //for (int h = 0; h < j; h++)
-            //{
-            //    allnumber += Convert.ToInt32(allds.Tables[0].Rows[h]["number"]);
-            //    alltotalprice += Convert.ToInt32(allds.Tables[0].Rows[h]["totalPrice"]);
-            //    allreadprice += Convert.ToInt32(allds.Tables[0].Rows[h]["realPrice"]);
-            //}
             updateSalehead();
             string op = Request["op"];
+            //isbn回车
             if (op == "search")
             {
                 string ISBN = Request["ISBN"];
@@ -75,6 +67,7 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
+            //一号多书
             if (op == "add")
             {
                 int count = salemonbll.SelectBySaleHeadId(SaleHeadId);
@@ -123,16 +116,25 @@ namespace bms.Web.SalesMGT
             }
             if (op == "success")
             {
-                //修改单头状态为2
-                Result result = salemonbll.updateHeadstate(saleId, SaleHeadId, 2);
-                if (result == Result.更新成功)
+                //判断是否有单体
+                int row = salemonbll.SelectBySaleHeadId(SaleHeadId);
+                if (row>0)
                 {
-                    Response.Write("状态修改成功");
-                    Response.End();
-                }
-                else
+                    //修改单头状态为2
+                    Result result = salemonbll.updateHeadstate(saleId, SaleHeadId, 2);
+                    if (result == Result.更新成功)
+                    {
+                        Response.Write("状态修改成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("状态修改失败");
+                        Response.End();
+                    }
+                } else
                 {
-                    Response.Write("状态修改失败");
+                    Response.Write("没有数据");
                     Response.End();
                 }
             }
