@@ -398,7 +398,7 @@
                         <div class="modal-header">
                             <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
                             <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
-                                <i class="material-icons">clear</i>
+                                <i class="fa fa-close"></i>
                             </button>
                         </div>
                         <div class="modal-body">
@@ -434,5 +434,6 @@
     <script src="../js/collectionManagement.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/ajaxfileupload.js"></script>
+    <script src="../js/public.js"></script>
 </body>
 </html>

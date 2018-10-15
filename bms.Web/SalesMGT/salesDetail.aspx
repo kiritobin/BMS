@@ -234,6 +234,7 @@
         <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
     </object>
     <script src="../js/LodopFuncs.js"></script>
+    <script src="../js/public.js"></script>
 </body>
 
 </html>

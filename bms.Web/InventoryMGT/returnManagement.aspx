@@ -383,6 +383,7 @@
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/returnManagement.js"></script>
+    <script src="../js/public.js"></script>
 </body>
 
 </html>

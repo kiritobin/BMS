@@ -108,5 +108,6 @@
         }
         setTimeout("reload()", 600000);
     </script>
+    <script src="../js/public.js"></script>
 </body>
 </html>

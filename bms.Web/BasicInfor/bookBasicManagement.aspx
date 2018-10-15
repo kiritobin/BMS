@@ -321,9 +321,6 @@
                                                         <nobr>书名</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>作者</nobr>
-                                                    </th>
-                                                    <th>
                                                         <nobr>定价</nobr>
                                                     </th>
                                                     <th>
@@ -336,13 +333,16 @@
                                                         <nobr>ISBN</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>编目</nobr>
+                                                        <nobr>预收数量</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>进货折扣</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>销售折扣</nobr>
                                                     </th>
                                                     <th>
                                                         <nobr>备注</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>标识</nobr>
                                                     </th>
                                                     <%if (funcBook)
                                                         { %>
@@ -441,6 +441,7 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/bookBasicManagement.js"></script>
     <script src="../js/ajaxfileupload.js"></script>
+    <script src="../js/public.js"></script>
 </body>
 
 </html>

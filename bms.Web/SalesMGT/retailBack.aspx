@@ -201,5 +201,6 @@
     <script src="../js/jedate.min.js"></script>
     <script src="../js/retailBack.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
+    <script src="../js/public.js"></script>
 </body>
 </html>

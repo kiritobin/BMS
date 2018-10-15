@@ -100,6 +100,7 @@
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/sweetalert2.js"></script>
     <script src="js/changePwd.js"></script>
+    <script src="js/public.js"></script>
 </body>
 
 </html>

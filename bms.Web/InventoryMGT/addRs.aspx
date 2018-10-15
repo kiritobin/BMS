@@ -487,6 +487,7 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
     <script src="../js/addWarehouse.js"></script>
+        <script src="../js/public.js"></script>
     <%-- <script>
         var enLang = {
             name: "en",

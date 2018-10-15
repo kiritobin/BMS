@@ -386,6 +386,7 @@
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/inventoryManagement.js"></script>
+    <script src="../js/public.js"></script>
 </body>
 </html>
 

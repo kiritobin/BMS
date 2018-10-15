@@ -382,6 +382,7 @@
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/stockManagement.js"></script>
+    <script src="../js/public.js"></script>
 </body>
 
 </html>

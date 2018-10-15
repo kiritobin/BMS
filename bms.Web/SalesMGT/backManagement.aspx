@@ -368,6 +368,7 @@
     <!-- paging -->
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/backManagement.js"></script>
+    <script src="../js/public.js"></script>
 </body>
 
 </html>

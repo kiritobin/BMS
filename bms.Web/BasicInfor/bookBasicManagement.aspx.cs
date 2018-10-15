@@ -322,12 +322,12 @@ namespace bms.Web.BasicInfor
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
                 sb.Append("<td>" + dr["bookName"].ToString() + "</td >");
-                sb.Append("<td>" + dr["author"].ToString() + "</td >");
                 sb.Append("<td>" + dr["price"].ToString() + "</td >");
                 sb.Append("<td>" + dr["publishTime"].ToString() + "</td >");
                 sb.Append("<td>" + dr["supplier"].ToString() + "</td >");
                 sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
                 sb.Append("<td>" + dr["catalog"].ToString() + "</td>");
+                sb.Append("<td>" + dr["author"].ToString() + "</td >");
                 sb.Append("<td>" + dr["remarks"].ToString() + "</td>");
                 sb.Append("<td>" + dr["dentification"].ToString() + "</td>");
                 if (funcBook)
@@ -387,10 +387,10 @@ namespace bms.Web.BasicInfor
                 except.Columns.Add("供应商", typeof(string));
                 except.Columns.Add("出版日期", typeof(string));
                 except.Columns.Add("单价", typeof(double));
-                except.Columns.Add("编目", typeof(string));
-                except.Columns.Add("作者", typeof(string));
+                except.Columns.Add("预收数量", typeof(string));
+                except.Columns.Add("进货折扣", typeof(string));
+                except.Columns.Add("销售折扣", typeof(string));
                 except.Columns.Add("备注", typeof(string));
-                except.Columns.Add("标识", typeof(string));
 
                 DataRowCollection count = addBookId().Rows;
                 foreach (DataRow row in count)//遍历excel数据集

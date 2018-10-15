@@ -75,6 +75,7 @@
             </div>
         </div>
     </div>
+    <script src="../js/public.js"></script>
     <script>
         function reload()
         {

@@ -406,5 +406,6 @@
     <script src="../js/checkStock.js"></script>
     <script src="../js/jquery-migrate-1.2.1.min.js"></script>
     <script src="../js/jquery.jqprint.js"></script>
+    <script src="../js/public.js"></script>
 </body>
 </html>

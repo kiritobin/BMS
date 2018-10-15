@@ -469,6 +469,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/tradeManagement.js"></script>
+    <script src="../js/public.js"></script>
 </body>
 
 </html>

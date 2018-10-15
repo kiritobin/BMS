@@ -316,7 +316,7 @@
                             swal({
                                 title: "提示",
                                 text: data.msg,
-                                type: "warning",
+                                type: "success",
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: '确定',
                                 confirmButtonClass: 'btn btn-success',
