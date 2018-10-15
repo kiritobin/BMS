@@ -14,6 +14,7 @@ namespace bms.Web.SalesMGT
     using Result = Enums.OpResult;
     public partial class tradeManagement : System.Web.UI.Page
     {
+        public string userName, regionName;
         public DataSet ds, customerds, dsPer;
         public int totalCount, intPageCount, pageSize = 20;
         SaleTaskBll saleBll = new SaleTaskBll();
@@ -269,6 +270,8 @@ namespace bms.Web.SalesMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;
