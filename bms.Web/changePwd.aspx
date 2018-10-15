@@ -84,6 +84,7 @@
                             document.write(new Date().getFullYear())
                         </script>
                         &nbsp;版权所有
+                        <p><a href="../chrome/ChromeDownload.html">Chrome浏览器下载</a></p>
                     </div>
                 </div>
             </footer>
