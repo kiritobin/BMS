@@ -1,0 +1,55 @@
+﻿//处理键盘事件 禁止后退键（Backspace）密码或单行、多行文本框除外
+function banBackSpace(e) {
+    var ev = e || window.event;//获取event对象
+    var obj = ev.target || ev.srcElement;//获取事件源
+    var t = obj.type || obj.getAttribute('type');//获取事件源类型
+    //获取作为判断条件的事件类型
+    var vReadOnly = obj.getAttribute('readonly');
+    //处理null值情况
+    vReadOnly = (vReadOnly == "") ? false : vReadOnly;
+    //当敲Backspace键时，事件源类型为密码或单行、多行文本的，
+    //并且readonly属性为true或enabled属性为false的，则退格键失效
+    var flag1 = (ev.keyCode == 8 && (t == "password" || t == "text" || t == "textarea" || t == "number")
+                && vReadOnly == "readonly") ? true : false;
+    //当敲Backspace键时，事件源类型非密码或单行、多行文本的，则退格键失效
+    var flag2 = (ev.keyCode == 8 && t != "password" && t != "text" && t != "textarea" && t != "number")
+                ? true : false;
+
+    //判断
+    if (flag2) {
+        return false;
+    }
+    if (flag1) {
+        return false;
+    }
+}
+
+window.onload = function () {
+    //禁止后退键 作用于Firefox、Opera
+    document.onkeypress = banBackSpace;
+    //禁止后退键  作用于IE、Chrome
+    document.onkeydown = banBackSpace;
+}
+
+
+//滑动释放
+function end(event) {
+    var duration = +new Date - startPos.time; //滑动的持续时间
+    if(isScrolling === 0){ //当为水平滚动时
+        this.icon[this.index].className = '';
+        if(Number(duration) > 10){ 
+            //判断是左移还是右移，当偏移量大于10时执行
+            if(endPos.x > 10){
+                if(this.index !== 0) this.index -= 1;
+            }else if(endPos.x < -10){
+                if(this.index !== this.icon.length-1) this.index += 1;
+            }
+        }
+        this.icon[this.index].className = 'curr';
+        this.slider.className = 'cnt f-anim';
+        this.slider.style.left = -this.index*600 + 'px';
+    }
+    //解绑事件
+    this.slider.removeEventListener('touchmove',this,false);
+    this.slider.removeEventListener('touchend',this,false);
+}
