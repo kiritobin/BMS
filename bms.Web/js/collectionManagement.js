@@ -51,7 +51,7 @@
             url: 'collectionManagement.aspx',
             data: {
                 book: book,
-                isbn: isbn3,
+                isbn: isbn,
                 custom: custom,
                 op: "paging"
             },
