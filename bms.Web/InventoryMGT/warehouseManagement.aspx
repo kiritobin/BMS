@@ -40,6 +40,7 @@
             <div class="logo">
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
+                <span style="margin-left:90px;color:red;"><%=userName %>&nbsp-&nbsp<%=regionName %></span>
             </div>
            <div class="sidebar-wrapper">
                 <ul class="nav">

@@ -34,8 +34,8 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container">
                     <div class="navbar-wrapper">
-                    </div>
-                    <a class="btn btn-white btn-sm" href="javascript:logout();">退出系统</a>
+                    </div> <a class="btn btn-default btn-md" href="#"><%=userName %></a>
+                    <a class="btn btn-white btn-md" href="javascript:logout();">退出系统</a>
                 </div>
             </nav>
             <!-- 主界面内容 -->
