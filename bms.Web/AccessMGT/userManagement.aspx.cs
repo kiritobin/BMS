@@ -16,8 +16,8 @@ namespace bms.Web.AccessMGT
     public partial class userManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
-        public string search = "",userName,regionName;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
+        public string search = "";
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         public DataSet dsRegion,dsRole,ds,dsPer;
         RSACryptoService rsa = new RSACryptoService();
         UserBll userBll = new UserBll();
@@ -252,8 +252,6 @@ namespace bms.Web.AccessMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
-            userName = user.UserName;
-            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;
@@ -311,6 +309,10 @@ namespace bms.Web.AccessMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
                 {
                     funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
                 }
             }
         }

@@ -345,7 +345,7 @@ $("#btnAdd").click(function () {
 })
 
 $("#back").click(function () {
-    window.location.href = "returnManagement.aspx";
+    window.location.href = "warehouseManagement.aspx";
 })
 
 

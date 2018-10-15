@@ -117,11 +117,14 @@
     <Content Include="js\customerRetail.js" />
     <Content Include="js\jquery-migrate-1.2.1.min.js" />
     <Content Include="js\jquery.jqprint.js" />
+    <Content Include="js\jquery.qrcode.min.js" />
     <Content Include="js\jquery.tabletojson.js" />
+    <Content Include="js\LodopFuncs.js" />
     <Content Include="js\retail.js" />
     <Content Include="js\retailBack.js" />
     <Content Include="QRCode.aspx" />
     <Content Include="SalesMGT\booksOut.aspx" />
+    <Content Include="SalesMGT\CLodop_Setup_for_Win32NT.exe" />
     <Content Include="SalesMGT\customerRetail.aspx" />
     <Content Include="InventoryMGT\stockManagement.aspx" />
     <Content Include="InventoryMGT\checkWarehouse.aspx" />

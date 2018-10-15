@@ -22,8 +22,8 @@ namespace bms.Web.InventoryMGT
         public DataSet ds, dsGoods, dsPer;
         public DataTable dt;
         public double discount;
-        public string singleHeadId = "",regionName,userName;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
+        public string singleHeadId = "";
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         BookBasicBll basicBll = new BookBasicBll();
         WarehousingBll warehousingBll = new WarehousingBll();
         GoodsShelvesBll goodsShelvesBll = new GoodsShelvesBll();
@@ -679,8 +679,6 @@ namespace bms.Web.InventoryMGT
             protected void permission()
             {
                 User user = (User)Session["user"];
-                userName = user.UserName;
-                regionName = user.ReginId.RegionName;
                 int regionId = user.ReginId.RegionId;
                 FunctionBll functionBll = new FunctionBll();
                 Role role = new Role();
@@ -740,6 +738,10 @@ namespace bms.Web.InventoryMGT
                     if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
                     {
                         funcSupply = true;
+                    }
+                    if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                    {
+                        funcRetail = true;
                     }
                 }
             }

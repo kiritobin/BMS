@@ -156,7 +156,7 @@ $("#search").keypress(function (e) {
                             //$("#table tr:eq(1)").empty();
                             $(".first").remove();
                         }
-                        $("#table").append(data);
+                        $("#table").prepend(data);
                     //计算合计内容
                         var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
                         var numbers = parseInt(sessionStorage.getItem("number")) + parseInt($("#table tr:last").find("td:eq(3)").text().trim());
@@ -237,45 +237,75 @@ $("#insert").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-    }
-    var table = $("#table").tableToJSON();
-    var json = JSON.stringify(table);
-    $.ajax({
-        type: 'Post',
-        url: 'retail.aspx',
-        data: {
-            json:json,
-            op: 'insert'
-        },
-        dataType: 'text',
-        success: function (succ) {
-            var datas = succ.split("|:");
-            var data = datas[0];
-            if (data == "添加失败") {
-                swal({
-                    title: "打印失败",
-                    text: "请联系管理员",
-                    buttonsStyling: false,
-                    confirmButtonClass: "btn btn-warning",
-                    type: "warning"
-                }).catch(swal.noop);
-            } else {
-                var headId = datas[1];
-                $("#kindEnd").text(sessionStorage.getItem("kind"));
-                $("#numberEnd").text(sessionStorage.getItem("number"));
-                $("#totalEnd").text(sessionStorage.getItem("totalPrice"));
-                $("#realEnd").text(sessionStorage.getItem("realPrice"));
-                $("#timeEnd").text(endTime())
-                $("#img").attr("src","../QRCode.aspx?qrtext=" + headId);
-                $("#ticket").show();
-                $("#ticket").jqprint();
-                sessionStorage.removeItem("kind");
-                sessionStorage.removeItem("number");
-                sessionStorage.removeItem("totalPrice");
-                sessionStorage.removeItem("realPrice");
+    } else {
+        var table = $("#table").tableToJSON();
+        var json = JSON.stringify(table);
+        $.ajax({
+            type: 'Post',
+            url: 'retail.aspx',
+            data: {
+                json: json,
+                op: 'insert'
+            },
+            dataType: 'text',
+            success: function (succ) {
+                var datas = succ.split("|:");
+                var data = datas[0];
+                if (data == "添加失败") {
+                    swal({
+                        title: "打印失败",
+                        text: "请联系管理员",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                } else {
+                    $("#ticket").show();
+                    var headId = datas[1];
+                    $("#kindEnd").text(sessionStorage.getItem("kind"));
+                    $("#numberEnd").text(sessionStorage.getItem("number"));
+                    $("#totalEnd").text(sessionStorage.getItem("totalPrice"));
+                    $("#realEnd").text(sessionStorage.getItem("realPrice"));
+                    $("#timeEnd").text(endTime())
+                    jQuery('#output').qrcode({
+                        render: "canvas",
+                        foreground: "black",
+                        background: "white",
+                        text: headId
+                    });
+                    $("canvas").attr("id", "qrcode");
+                    var canvas = document.getElementById('qrcode');
+                    var context = canvas.getContext('2d');
+                    var image = new Image();
+                    var strDataURI = canvas.toDataURL("image/png");
+                    document.getElementById('img').src = strDataURI;
+
+                    var status = "";
+                    var LODOP = getLodop();
+                    //LODOP.ADD_PRINT_HTM(0, 50, 900, 850, document.getElementById("ticket").innerHTML);
+                    //LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                    //LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
+                    //LODOP.PREVIEW();
+                    LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
+                    LODOP.On_Return = function (TaskID, Value) {
+                        status = Value;
+                    };
+                    if (status != "" || status != null) {
+                        LODOP.ADD_PRINT_HTM(0, 50, 900, 850, document.getElementById("ticket").innerHTML);
+                        LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                        LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
+                        LODOP.PRINT();
+
+                        window.location.reload();
+                        sessionStorage.removeItem("kind");
+                        sessionStorage.removeItem("number");
+                        sessionStorage.removeItem("totalPrice");
+                        sessionStorage.removeItem("realPrice");
+                    }
+                }
             }
-        }
-    })
+        })
+    }
 })
 //删除
 $("#table").delegate(".btn-delete", "click", function () {

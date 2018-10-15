@@ -19,7 +19,7 @@ namespace bms.Web.AccessMGT
         public string search, regionId,userName,regionName;
         public DataSet ds,dsPer;
         public int count;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
         protected void Page_Load(object sender, EventArgs e)
@@ -313,6 +313,10 @@ namespace bms.Web.AccessMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
                 {
                     funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
                 }
             }
         }

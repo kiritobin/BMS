@@ -19,7 +19,7 @@ namespace bms.Web.InventoryMGT
     {
         public string userName, regionName;
         public double discount;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         GoodsShelvesBll shelfbll = new GoodsShelvesBll();
         UserBll userBll = new UserBll();
         protected DataSet ds, shelf,dsPer, dsGoods;
@@ -492,6 +492,10 @@ namespace bms.Web.InventoryMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
                 {
                     funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
                 }
             }
         }

@@ -48,12 +48,15 @@
                                         <input type="text" value="" class="" id="sales_ISBN" placeholder="请输入ISBN">
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>--%>
-                                    <%--<%if (type == "look")
+                                    <%if (type == "look")
                                             {%>
-                                        <div class="btn-group" role="group">
-                                            <button class="btn btn-success" data-toggle="modal" data-target="#myModa2"><i class="fa fa-print"></i></button>
-                                        </div>
-                                        <%} %>--%>
+                                       <div class="btn-group" role="group">
+                                        <button class="btn btn-info btn-sm" id="print">打印</button>
+                                    </div>
+                                    <%--<div class="btn-group" role="group">
+                                        <button class="btn btn-info btn-sm" id="test">打印</button>
+                                    </div>--%>
+                                        <%} %>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-warning btn-sm" id="back">返回</button>
                                     </div>
@@ -67,11 +70,11 @@
                             </div>
                             <div class="row">
                                 <div class="content_tab col-md-10">
-                                    <div class="table-responsive" style="height: 500px;">
+                                    <div class="table-responsive" style="height: 500px;" id="content">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
-                                                    <td>
+                                                    <td class="bbb">
                                                         <nobr>序号</nobr>
                                                     </td>
                                                     <td>
@@ -90,13 +93,13 @@
                                                         <nobr>数量</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>实际折扣</nobr>
+                                                        <nobr>折扣</nobr>
                                                     </td>
                                                     <td>
                                                         <nobr>实洋</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>已采购数</nobr>
+                                                        <nobr>采购数</nobr>
                                                     </td>
                                                 </tr>
                                             </thead>
@@ -225,6 +228,12 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/salesDetail.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/jquery.jqprint.js"></script>
+    <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
+        <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
+    </object>
+    <script src="../js/LodopFuncs.js"></script>
 </body>
 
 </html>

@@ -64,19 +64,23 @@ namespace bms.Web.SalesMGT
             if(op == "end")
             {
                 string headId = Request["headId"];
-                Result end = retailBll.updateType(headId);
-                if(end == Result.更新成功)
+                DataSet dsEnd = retailBll.GetRetail(headId);
+                int row = dsEnd.Tables[0].Rows.Count;
+                for(int i = 0; i < row; i++)
                 {
-                    DataSet dsEnd = retailBll.GetRetail(headId);
-                    int row = dsEnd.Tables[0].Rows.Count;
-                    for(int i = 0; i < row; i++)
+                    DataRow dr = dsEnd.Tables[0].Rows[i];
+                    long bookNum = Convert.ToInt64(dr["bookNum"]);
+                    int number = Convert.ToInt32(dr["number"]);
+                    User user = (User)Session["user"];
+                    DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
+                    int rows = dsStock.Tables[0].Rows.Count;
+                    if (rows == 0)
                     {
-                        DataRow dr = dsEnd.Tables[0].Rows[i];
-                        long bookNum = Convert.ToInt64(dr["bookNum"]);
-                        int number = Convert.ToInt32(dr["number"]);
-                        User user = (User)Session["user"];
-                        DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
-                        int rows = dsStock.Tables[0].Rows.Count;
+                        Response.Write("书籍不存在:|"+ dr["bookName"]);
+                        Response.End();
+                    }
+                    else
+                    {
                         for (int j = 0; j < rows; j++)
                         {
                             int count = number;
@@ -87,7 +91,7 @@ namespace bms.Web.SalesMGT
                                 Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
                                 if (stock == Result.更新失败)
                                 {
-                                    Response.Write("更新失败");
+                                    Response.Write("更新失败:|");
                                     Response.End();
                                 }
                                 count = 0;
@@ -98,21 +102,25 @@ namespace bms.Web.SalesMGT
                                 Result stock = stockBll.update(0, goodsId, bookNum);
                                 if (stock == Result.更新失败)
                                 {
-                                    Response.Write("更新失败");
+                                    Response.Write("更新失败:|");
                                     Response.End();
                                 }
                             }
-                            if(count == 0)
+                            if (count == 0)
                             {
-                                Pay(headId);
+                                Result end = retailBll.updateType(headId);
+                                if (end == Result.更新成功)
+                                {
+                                    Pay(headId);
+                                }
+                                else
+                                {
+                                    Response.Write("更新失败:|");
+                                    Response.End();
+                                }
                             }
                         }
                     }
-                }
-                else
-                {
-                    Response.Write("更新失败");
-                    Response.End();
                 }
             }
         }
@@ -301,8 +309,8 @@ namespace bms.Web.SalesMGT
         {
             int number = Convert.ToInt32(Request["number"]);
             int retailId = Convert.ToInt32(Request["retailId"]);
-            SaleMonomer monomer = retailBll.GetMonomer(retailId);
-            string headId = monomer.SaleHeadId;
+            string headId = Request["headId"];
+            SaleMonomer monomer = retailBll.GetMonomer(retailId, headId);
             int oldNumber = monomer.Number;
             double oldTotal = monomer.TotalPrice;
             double oldReal = monomer.RealPrice;
@@ -395,8 +403,9 @@ namespace bms.Web.SalesMGT
         public void delete()
         {
             int retailMonomerId = Convert.ToInt32(Request["retailId"]);
-            SaleMonomer monomer = retailBll.GetMonomer(retailMonomerId);
-            Result del = retailBll.delete(retailMonomerId);
+            string retailHeadId = Request["headId"];
+            SaleMonomer monomer = retailBll.GetMonomer(retailMonomerId, retailHeadId);
+            Result del = retailBll.delete(retailMonomerId, retailHeadId);
             if(del == Result.删除成功)
             {
                 string headId = Request["headId"];
@@ -484,13 +493,13 @@ namespace bms.Web.SalesMGT
             for (int i = 0; i < counts; i++)
             {
                 DataRow dr = dsNew.Tables[0].Rows[i];
-                sb.Append("<tr><td>" + dr["bookName"].ToString() + "</td>");
+                sb.Append("<tr><td style='font-size:14px;'>" + dr["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["number"].ToString() + "</td>");
                 sb.Append("<td>" + dr["unitPrice"].ToString() + "</td></tr>");
             }
             sb.Append("</tbody>");
 
-            Response.Write(sb.ToString());
+            Response.Write("更新成功:|"+sb.ToString());
             Response.End();
             return sb.ToString();
         }

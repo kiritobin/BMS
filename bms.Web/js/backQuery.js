@@ -1,4 +1,25 @@
 ﻿$(document).ready(function () {
+    //sessionStorage.removeItem("save");
+    //打印
+    //$("#print").click(function () {
+    //    if (sessionStorage.getItem("save") == "succ") {
+    //        $("#table").jqprint();
+    //    }
+    //    else {
+    //        swal({
+    //            title: "提示",
+    //            text: "请先保存再打印",
+    //            type: "warning",
+    //            confirmButtonColor: '#3085d6',
+    //            confirmButtonText: '确定',
+    //            confirmButtonClass: 'btn btn-warning',
+    //            buttonsStyling: false,
+    //            allowOutsideClick: false
+    //        })
+    //    }
+    //})
+
+    $("#table").jqprint();
     //只允许输入数字
     $("#table").delegate("#inputISBN", "keyup", function (e) {
         $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
@@ -105,6 +126,7 @@
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {
+                            //sessionStorage.setItem("save","succ");
                             window.location.reload();
                         })
                     } else {
@@ -114,7 +136,7 @@
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
+                            confirmButtonClass: 'btn btn-danger',
                             buttonsStyling: false,
                             allowOutsideClick: false
                         }).then(function () {

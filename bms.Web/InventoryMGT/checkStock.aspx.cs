@@ -18,7 +18,7 @@ namespace bms.Web.InventoryMGT
         public DataSet ds, dsPer;
         public string putId, putOperator, putCount, putRegionName, putTotalPrice, putRealPrice, putTime, singleHeadId,userName,regionName;
         public int totalCount, intPageCount, pageSize = 20;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         WarehousingBll warehousingBll = new WarehousingBll();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -162,6 +162,10 @@ namespace bms.Web.InventoryMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
                 {
                     funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
                 }
             }
         }

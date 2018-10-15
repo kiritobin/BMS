@@ -22,7 +22,7 @@ namespace bms.Web.InventoryMGT
         protected int pageSize=20, totalCount, intPageCount;
         public double discount;
         string singleHeadId;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         SingleHead single = new SingleHead();
         UserBll userBll = new UserBll();
         WarehousingBll warehousingBll = new WarehousingBll();
@@ -491,6 +491,10 @@ namespace bms.Web.InventoryMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
                 {
                     funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
                 }
             }
         }

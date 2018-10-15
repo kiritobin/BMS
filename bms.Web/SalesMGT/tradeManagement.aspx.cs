@@ -14,13 +14,15 @@ namespace bms.Web.SalesMGT
     using Result = Enums.OpResult;
     public partial class tradeManagement : System.Web.UI.Page
     {
-        public DataSet ds, customerds;
+        public DataSet ds, customerds, dsPer;
         public int totalCount, intPageCount, pageSize = 20;
         SaleTaskBll saleBll = new SaleTaskBll();
         CustomerBll custBll = new CustomerBll();
         string SaleHeadId, saleTaskId;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {
+            permission();
             getData();
             string op = Request["op"];
             //添加销售任务
@@ -55,7 +57,7 @@ namespace bms.Web.SalesMGT
                 int numberLimit = Convert.ToInt32(Request["numberLimit"]);
                 int priceLimit = Convert.ToInt32(Request["priceLimit"]);
                 int totalPriceLimit = Convert.ToInt32(Request["totalPriceLimit"]);
-                double defaultDiscount = double.Parse(Request["defaultDiscount"]) / 100;
+                double defaultDiscount = double.Parse(Request["defaultDiscount"]);
                 User user = (User)Session["user"];
                 int userId = user.UserId;
                 DateTime StartTime = DateTime.Now.ToLocalTime();
@@ -175,26 +177,25 @@ namespace bms.Web.SalesMGT
                     Response.Write("不可以编辑");
                     Response.End();
                 }
-
-                //编辑
-                if (op == "edit")
+            }
+            //编辑
+            if (op == "edit")
+            {
+                string saleId = Request["saleId"];
+                double allprice = double.Parse(Request["allpricemlimited"]);
+                int number = int.Parse(Request["numberlimited"]);
+                double price = double.Parse(Request["pricelimited"]);
+                double defaultDiscount = double.Parse(Request["defaultDiscount"]);
+                int row = saleBll.update(number, price, allprice, defaultDiscount, saleId);
+                if (row > 0)
                 {
-                    string saleId = Request["saleId"];
-                    double allprice = double.Parse(Request["allpricemlimited"]);
-                    int number = int.Parse(Request["numberlimited"]);
-                    double price = double.Parse(Request["pricelimited"]);
-                    double defaultDiscount = double.Parse(Request["defaultDiscount"]) / 100;
-                    int row = saleBll.update(number, price, allprice, defaultDiscount, saleId);
-                    if (row > 0)
-                    {
-                        Response.Write("保存成功");
-                        Response.End();
-                    }
-                    else
-                    {
-                        Response.Write("保存失败");
-                        Response.End();
-                    }
+                    Response.Write("保存成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("保存失败");
+                    Response.End();
                 }
             }
         }
@@ -243,7 +244,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
                 strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</nobr></td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</td>");
-                strb.Append("<td>" + Double.Parse(ds.Tables[0].Rows[i]["defaultDiscount"].ToString()) * 100 + "</td>");
+                strb.Append("<td>" + Double.Parse(ds.Tables[0].Rows[i]["defaultDiscount"].ToString()) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["numberLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["priceLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPriceLimit"].ToString() + "</td>");
@@ -264,5 +265,74 @@ namespace bms.Web.SalesMGT
             }
             return strb.ToString();
         }
+        protected void permission()
+        {
+            FunctionBll functionBll = new FunctionBll();
+            User user = (User)Session["user"];
+            Role role = new Role();
+            role = user.RoleId;
+            int roleId = role.RoleId;
+            dsPer = functionBll.SelectByRoleId(roleId);
+            for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)
+            {
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 1)
+                {
+                    funcOrg = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 2)
+                {
+                    funcRole = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 3)
+                {
+                    funcUser = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 4)
+                {
+                    funcGoods = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 5)
+                {
+                    funcCustom = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 6)
+                {
+                    funcLibrary = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 7)
+                {
+                    funcBook = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 8)
+                {
+                    funcPut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 9)
+                {
+                    funcOut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 10)
+                {
+                    funcSale = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 11)
+                {
+                    funcSaleOff = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 12)
+                {
+                    funcReturn = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
+                {
+                    funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
+                }
+            }
+        }
+
     }
 }

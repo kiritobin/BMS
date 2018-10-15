@@ -16,8 +16,8 @@ namespace bms.Web.InventoryMGT
         protected DataTable shDt;
         protected DataSet dsGoods, ds,dsPer;
         protected int pageSize = 20, totalCount, intPageCount;
-        protected string shId, shOperator, shCount, shRegionName, shTotalPrice, shRealPrice, shTime,userName,regionName;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
+        protected string shId, shOperator, shCount, shRegionName, shTotalPrice, shRealPrice, shTime;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         UserBll userBll = new UserBll();
         WarehousingBll warehousingBll = new WarehousingBll();
         string singleHeadId;
@@ -112,8 +112,6 @@ namespace bms.Web.InventoryMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
-            userName = user.UserName;
-            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;
@@ -171,6 +169,10 @@ namespace bms.Web.InventoryMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
                 {
                     funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
                 }
             }
         }

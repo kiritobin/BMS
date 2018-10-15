@@ -32,7 +32,7 @@ $(document).ready(function () {
 
 //返回按钮点击事件
 $("#back").click(function () {
-    window.location.href = "warehouseManagement.aspx";
+    window.location.href = "replenishMent.aspx";
 })
 
 //只允许数字
@@ -331,6 +331,7 @@ $("#save").click(function () {
                         type: "success",
                         allowOutsideClick: false
                     })
+                    window.location.href = "warehouseManagement.aspx";
                     sessionStorage.removeItem("kind");
                 }
                 else {

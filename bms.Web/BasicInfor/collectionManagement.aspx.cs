@@ -19,7 +19,7 @@ namespace bms.Web.CustomerMGT
         public string userName, regionName;
         public int totalCount, intPageCount,pageSize=20,row, funCount;
         public DataSet ds,dsCustom, dsPer;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
         string  custom;
@@ -332,6 +332,10 @@ namespace bms.Web.CustomerMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
                 {
                     funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
                 }
             }
         }
