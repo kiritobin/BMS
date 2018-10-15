@@ -17,6 +17,7 @@ namespace bms.Web.InventoryMGT
     using Result = Enums.OpResult;
     public partial class addReturn : System.Web.UI.Page
     {
+        public string userName, regionName;
         public double discount;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         GoodsShelvesBll shelfbll = new GoodsShelvesBll();
@@ -24,7 +25,6 @@ namespace bms.Web.InventoryMGT
         protected DataSet ds, shelf,dsPer, dsGoods;
         WarehousingBll wareBll = new WarehousingBll();
         SingleHead single = new SingleHead();
-        WarehousingBll warehousingBll = new WarehousingBll();
         StockBll stockBll = new StockBll();
         BookBasicBll basicBll = new BookBasicBll();
         GoodsShelvesBll goods = new GoodsShelvesBll();
@@ -276,7 +276,7 @@ namespace bms.Web.InventoryMGT
                     allTotal = allTotal + total;
                     real = Convert.ToDouble(drow["实洋"]);
                     allReal = allReal + real;
-                    Result row = warehousingBll.insertMono(monomers);
+                    Result row = wareBll.insertMono(monomers);
                     if (row == Result.添加失败)
                     {
                         Response.Write("添加失败");
@@ -326,7 +326,7 @@ namespace bms.Web.InventoryMGT
                 singleHead.AllBillCount = counts;
                 singleHead.AllRealPrice = allReal;
                 singleHead.AllTotalPrice = allTotal;
-                Result head = warehousingBll.updateHead(singleHead);
+                Result head = wareBll.updateHead(singleHead);
                 if (head == Result.更新成功)
                 {
                     Response.Write("添加成功");
@@ -341,7 +341,7 @@ namespace bms.Web.InventoryMGT
             else if (action == "changeDiscount")
             {
                 double discount = Convert.ToDouble(Request["discount"]);
-                Result result = warehousingBll.updateDiscount(discount);
+                Result result = wareBll.updateDiscount(discount);
                 if (result == Result.更新成功)
                 {
                     Response.Write("更新成功");
@@ -435,6 +435,8 @@ namespace bms.Web.InventoryMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             int roleId = user.RoleId.RoleId;
             dsPer = functionBll.SelectByRoleId(roleId);
             for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)

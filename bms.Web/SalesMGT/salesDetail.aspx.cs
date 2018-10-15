@@ -36,7 +36,7 @@ namespace bms.Web.SalesMGT
             saleId = Session["saleId"].ToString();
             getlimt();
             SaleTask task = saletaskbll.selectById(saleId);
-            defaultdiscount = ((task.DefaultDiscount) * 100).ToString();
+            defaultdiscount = task.DefaultDiscount.ToString();
             SaleHeadId = Session["saleheadId"].ToString();
 
             //更新单头
@@ -109,7 +109,7 @@ namespace bms.Web.SalesMGT
             if (op == "addsale")
             {
                 bookISBN = Request["bookISBN"];
-                disCount = double.Parse(Request["discount"]) / 100;
+                disCount = double.Parse(Request["discount"]);
                 number = Convert.ToInt32(Request["number"]);
                 bookNum = long.Parse(Request["bookNum"]);
                 addsalemon();
@@ -118,7 +118,7 @@ namespace bms.Web.SalesMGT
             {
                 //判断是否有单体
                 int row = salemonbll.SelectBySaleHeadId(SaleHeadId);
-                if (row>0)
+                if (row > 0)
                 {
                     //修改单头状态为2
                     Result result = salemonbll.updateHeadstate(saleId, SaleHeadId, 2);
@@ -132,7 +132,8 @@ namespace bms.Web.SalesMGT
                         Response.Write("状态修改失败");
                         Response.End();
                     }
-                } else
+                }
+                else
                 {
                     Response.Write("没有数据");
                     Response.End();
@@ -302,7 +303,7 @@ namespace bms.Web.SalesMGT
                                     }
                                     int price = Convert.ToInt32(book.Price);
                                     int totalPrice = price * number;
-                                    double realPrice = totalPrice * disCount;
+                                    double realPrice = totalPrice * (disCount/ 100);
                                     DateTime Time = DateTime.Now.ToLocalTime();
                                     SaleMonomer newSalemon = new SaleMonomer()
                                     {
@@ -540,7 +541,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");
-                strb.Append("<td>" + Convert.ToInt32(double.Parse(ds.Tables[0].Rows[i]["realDiscount"].ToString()) * 100) + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["alreadyBought"].ToString() + "</td></tr>");
             }

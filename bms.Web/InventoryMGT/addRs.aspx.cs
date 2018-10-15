@@ -13,6 +13,7 @@ namespace bms.Web.InventoryMGT
 {
     public partial class addRs : System.Web.UI.Page
     {
+        public string userName, regionName;
         protected DataSet dsPer;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
@@ -34,6 +35,8 @@ namespace bms.Web.InventoryMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;

@@ -16,7 +16,7 @@ namespace bms.Web.InventoryMGT
     {
         public DataTable shDt;
         public DataSet ds,dsPer;
-        public string shId,shOperator,shCount,shRegionName, shTotalPrice, shRealPrice,shTime;
+        public string shId,shOperator,shCount,shRegionName, shTotalPrice, shRealPrice,shTime,userName,regionName;
         public int totalCount, intPageCount, pageSize = 20;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         WarehousingBll warehousingBll = new WarehousingBll();
@@ -99,6 +99,8 @@ namespace bms.Web.InventoryMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;

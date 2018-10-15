@@ -17,6 +17,7 @@ namespace bms.Web.InventoryMGT
     using Result = Enums.OpResult;
     public partial class addWarehouse : System.Web.UI.Page
     {
+        public string userName, regionName;
         protected DataSet ds, dsGoods,dsPer;
         protected int pageSize=20, totalCount, intPageCount;
         public double discount;
@@ -433,6 +434,8 @@ namespace bms.Web.InventoryMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             int roleId = user.RoleId.RoleId;
             dsPer = functionBll.SelectByRoleId(roleId);
             for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)

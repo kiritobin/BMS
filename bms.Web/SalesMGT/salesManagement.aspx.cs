@@ -18,7 +18,7 @@ namespace bms.Web.SalesMGT
         public int totalCount, intPageCount, pageSize = 20;
         DataSet ds, dsPer;
         SaleHeadBll saleheadbll = new SaleHeadBll();
-        public string type;
+        public string type,userName,regionName;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -268,6 +268,8 @@ namespace bms.Web.SalesMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;

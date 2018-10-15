@@ -14,6 +14,7 @@ namespace bms.Web.BasicInfor
     using Result = Enums.OpResult;
     public partial class outboundList : System.Web.UI.Page
     {
+        public string userName, regionName;
         public int totalCount, intPageCount, pageSize = 20, row, count;
         public DataSet ds, dsRegion,dsPer;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply,funcRetail;
@@ -205,6 +206,8 @@ namespace bms.Web.BasicInfor
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;

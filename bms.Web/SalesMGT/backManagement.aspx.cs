@@ -15,8 +15,8 @@ namespace bms.Web.SalesMGT
         sellOffHeadBll soBll = new sellOffHeadBll();
         UserBll uBll = new UserBll();
         SellOffMonomerBll smBll = new SellOffMonomerBll();
-        protected int totalCount;
-        protected int intPageCount;
+        protected int totalCount,intPageCount;
+        protected string userName,regionName;
         public DataSet cutds, dsPer;
         protected double discount;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
@@ -310,6 +310,8 @@ namespace bms.Web.SalesMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;

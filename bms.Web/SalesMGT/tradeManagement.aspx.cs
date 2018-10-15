@@ -14,6 +14,7 @@ namespace bms.Web.SalesMGT
     using Result = Enums.OpResult;
     public partial class tradeManagement : System.Web.UI.Page
     {
+        public string userName, regionName;
         public DataSet ds, customerds, dsPer;
         public int totalCount, intPageCount, pageSize = 20;
         SaleTaskBll saleBll = new SaleTaskBll();
@@ -57,7 +58,7 @@ namespace bms.Web.SalesMGT
                 int numberLimit = Convert.ToInt32(Request["numberLimit"]);
                 int priceLimit = Convert.ToInt32(Request["priceLimit"]);
                 int totalPriceLimit = Convert.ToInt32(Request["totalPriceLimit"]);
-                double defaultDiscount = double.Parse(Request["defaultDiscount"]) / 100;
+                double defaultDiscount = double.Parse(Request["defaultDiscount"]);
                 User user = (User)Session["user"];
                 int userId = user.UserId;
                 DateTime StartTime = DateTime.Now.ToLocalTime();
@@ -177,26 +178,25 @@ namespace bms.Web.SalesMGT
                     Response.Write("不可以编辑");
                     Response.End();
                 }
-
-                //编辑
-                if (op == "edit")
+            }
+            //编辑
+            if (op == "edit")
+            {
+                string saleId = Request["saleId"];
+                double allprice = double.Parse(Request["allpricemlimited"]);
+                int number = int.Parse(Request["numberlimited"]);
+                double price = double.Parse(Request["pricelimited"]);
+                double defaultDiscount = double.Parse(Request["defaultDiscount"]);
+                int row = saleBll.update(number, price, allprice, defaultDiscount, saleId);
+                if (row > 0)
                 {
-                    string saleId = Request["saleId"];
-                    double allprice = double.Parse(Request["allpricemlimited"]);
-                    int number = int.Parse(Request["numberlimited"]);
-                    double price = double.Parse(Request["pricelimited"]);
-                    double defaultDiscount = double.Parse(Request["defaultDiscount"]) / 100;
-                    int row = saleBll.update(number, price, allprice, defaultDiscount, saleId);
-                    if (row > 0)
-                    {
-                        Response.Write("保存成功");
-                        Response.End();
-                    }
-                    else
-                    {
-                        Response.Write("保存失败");
-                        Response.End();
-                    }
+                    Response.Write("保存成功");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("保存失败");
+                    Response.End();
                 }
             }
         }
@@ -245,7 +245,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
                 strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</nobr></td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</td>");
-                strb.Append("<td>" + Double.Parse(ds.Tables[0].Rows[i]["defaultDiscount"].ToString()) * 100 + "</td>");
+                strb.Append("<td>" + Double.Parse(ds.Tables[0].Rows[i]["defaultDiscount"].ToString()) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["numberLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["priceLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPriceLimit"].ToString() + "</td>");
@@ -270,6 +270,8 @@ namespace bms.Web.SalesMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;

@@ -108,7 +108,7 @@
             }
             nowTime(document.getElementById('time'));
         }
-        setTimeout("reload()",60000);
+        setTimeout("reload()", 600000);
     </script>
 </body>
 
