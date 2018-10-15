@@ -30,26 +30,3 @@ window.onload = function () {
     //禁止后退键  作用于IE、Chrome
     document.onkeydown = banBackSpace;
 }
-
-
-//滑动释放
-function end(event) {
-    var duration = +new Date - startPos.time; //滑动的持续时间
-    if(isScrolling === 0){ //当为水平滚动时
-        this.icon[this.index].className = '';
-        if(Number(duration) > 10){ 
-            //判断是左移还是右移，当偏移量大于10时执行
-            if(endPos.x > 10){
-                if(this.index !== 0) this.index -= 1;
-            }else if(endPos.x < -10){
-                if(this.index !== this.icon.length-1) this.index += 1;
-            }
-        }
-        this.icon[this.index].className = 'curr';
-        this.slider.className = 'cnt f-anim';
-        this.slider.style.left = -this.index*600 + 'px';
-    }
-    //解绑事件
-    this.slider.removeEventListener('touchmove',this,false);
-    this.slider.removeEventListener('touchend',this,false);
-}
