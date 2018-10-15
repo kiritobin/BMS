@@ -319,9 +319,9 @@
 
 //点击查询按钮时
 $("#btn-search").click(function () {
-    var bookName = checkName($("#bookName").val().trim());
-    var bookNum = checkName($("#bookNum").val().trim());
-    var bookISBN = checkName($("#bookISBN").val().trim());
+    var bookName = checkName($("#bookName").val());
+    var bookNum = checkName($("#bookNum").val());
+    var bookISBN = checkName($("#bookISBN").val());
     $.ajax({
         type: 'Post',
         url: 'bookBasicManagement.aspx',
