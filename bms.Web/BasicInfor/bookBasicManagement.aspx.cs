@@ -18,7 +18,7 @@ namespace bms.Web.BasicInfor
     public partial class bookBasicManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row,funCount;
-        public string search = "", last, num;
+        public string search = "", last, num,userName,regionName;
         public DataSet ds, dsPer;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
         DataTable except = new DataTable();//接受差集
@@ -432,6 +432,8 @@ namespace bms.Web.BasicInfor
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;

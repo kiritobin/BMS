@@ -36,7 +36,7 @@
             </div>
             <div class="card">
                 <div class="card-header card-header-danger">
-                    <h3 class="card-title text-center">自助扫码开单</h3>
+                    <h3 class="card-title text-center">收银页面</h3>
                 </div>
                 <div class="card-body">
                     <%--<div class="row">

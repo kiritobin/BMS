@@ -229,6 +229,15 @@ $("#btnAdd").click(function () {
 })
 //打印
 $("#insert").click(function () {
+    if (sessionStorage.getItem("kind") == "0") {
+        swal({
+            title: "无记录",
+            text: "未输入过记录",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+    }
     var table = $("#table").tableToJSON();
     var json = JSON.stringify(table);
     $.ajax({

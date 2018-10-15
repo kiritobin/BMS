@@ -16,7 +16,7 @@ namespace bms.Web.AccessMGT
     public partial class organizationalManagement : System.Web.UI.Page
     {
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
-        public string search, regionId;
+        public string search, regionId,userName,regionName;
         public DataSet ds,dsPer;
         public int count;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
@@ -254,6 +254,8 @@ namespace bms.Web.AccessMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;

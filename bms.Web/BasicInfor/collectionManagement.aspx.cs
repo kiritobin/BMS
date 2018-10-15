@@ -16,6 +16,7 @@ namespace bms.Web.CustomerMGT
     using Result = Enums.OpResult;
     public partial class collectionManagement : System.Web.UI.Page
     {
+        public string userName, regionName;
         public int totalCount, intPageCount,pageSize=20,row, funCount;
         public DataSet ds,dsCustom, dsPer;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply;
@@ -272,6 +273,8 @@ namespace bms.Web.CustomerMGT
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;

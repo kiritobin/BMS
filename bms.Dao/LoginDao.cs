@@ -18,7 +18,7 @@ namespace bms.Dao
         /// <returns></returns>
         public User getPwdByUserId(string userID)
         {
-            string sql = "select userID,userPwd,roleId,regionId from T_User where userID=@userID and deleteState=0";
+            string sql = "select userID,userPwd,roleId,regionId,userName,regionName from V_User where userID=@userID and deleteState=0";
             string[] param = { "@userID" };
             object[] values = { userID };
             User user = new User();

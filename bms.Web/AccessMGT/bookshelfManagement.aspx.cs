@@ -15,6 +15,7 @@ namespace bms.Web.BasicInfor
     using Result = Enums.OpResult;
     public partial class bookshelfManagement : System.Web.UI.Page
     {
+        public string userName,regionName;
         public int totalCount, intPageCount, PageSize=10;
         public DataSet regionDs, ds,dsPer;
         GoodsShelvesBll shelvesbll = new GoodsShelvesBll();
@@ -191,6 +192,8 @@ namespace bms.Web.BasicInfor
         {
             FunctionBll functionBll = new FunctionBll();
             User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             Role role = new Role();
             role = user.RoleId;
             int roleId = role.RoleId;
