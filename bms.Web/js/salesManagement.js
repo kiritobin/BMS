@@ -183,7 +183,7 @@
                     if (succ == "添加成功") {
                         swal({
                             title: "温馨提示:)",
-                            text: "添加成功。",
+                            text: "添加成功",
                             type: "success",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
