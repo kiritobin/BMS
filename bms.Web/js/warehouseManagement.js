@@ -102,7 +102,7 @@ $("#btnAdd").click(function () {
                         allowOutsideClick: false
                     }).then(function () {
                         sessionStorage.setItem("add", "添加成功");
-                        //window.location.reload();
+                        window.location.reload();
                     })
                 } else {
                     swal({
