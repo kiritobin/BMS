@@ -81,7 +81,7 @@ namespace bms.Web.InventoryMGT
                 UserBll userBll = new UserBll();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
-                //dtInsert = differentDt();
+                dtInsert = differentDt();
                 dtInsert.Columns.Remove("书名");
                 int j = dtInsert.Rows.Count;
                 TimeSpan ts = watch.Elapsed;
@@ -115,12 +115,12 @@ namespace bms.Web.InventoryMGT
                     sb.Append("<tbody>");
                     for (int i = 0; i < count; i++)
                     {
-                        sb.Append("<tr><td>" + i + "</td>");
+                        sb.Append("<tr><td>" + Convert.ToInt32(i + 1) + "</td>");
                         sb.Append("<td>" + drc[i]["单头ID"].ToString() + "</td >");
                         sb.Append("<td>" + drc[i]["书名"].ToString() + "</td >");
                         sb.Append("<td>" + drc[i]["书号"].ToString() + "</td>");
                         sb.Append("<td>" + drc[i]["ISBN"].ToString() + "</td >");
-                        sb.Append("<td>" + drc[i]["商品数量"].ToString() + "</td >");
+                        sb.Append("<td>" + drc[i]["数量"].ToString() + "</td >");
                         sb.Append("<td>" + drc[i]["单价"].ToString() + "</td >");
                         sb.Append("<td>" + drc[i]["码洋"].ToString() + "</td >");
                         sb.Append("<td>" + drc[i]["实洋"].ToString() + "</td >");
@@ -281,7 +281,7 @@ namespace bms.Web.InventoryMGT
                 intersect.Columns.Add("书名", typeof(string));
                 intersect.Columns.Add("书号", typeof(string));
                 intersect.Columns.Add("ISBN", typeof(string));
-                intersect.Columns.Add("商品数量", typeof(int));
+                intersect.Columns.Add("数量", typeof(int));
                 intersect.Columns.Add("单价", typeof(double));
                 intersect.Columns.Add("码洋", typeof(double));
                 intersect.Columns.Add("实洋", typeof(double));

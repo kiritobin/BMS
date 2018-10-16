@@ -444,28 +444,25 @@
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel2">导入</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close2">
-                                <i class="material-icons">clear</i>
+                               <i class="fa fa-close"></i>
                             </button>
                         </div>
                         <div class="modal-body" style="max-height: 500px; overflow: auto;">
                             <button type="button" class="btn btn-success" data-toggle="modal" id="btnImport">确认导入</button>
                             <table class="table mostTable table-bordered text-center" id="table2">
                                 <thead>
-                                    <tr style="border: 2px solid #DDD">
-                                        <td colspan="11">商品</td>
-                                    </tr>
                                     <tr>
-                                        <td>序号</td>
-                                        <td>单据编号</td>
-                                        <td>书名</td>
-                                        <td>书号</td>
-                                        <td>ISBN号</td>
-                                        <td>商品数量</td>
-                                        <td>单价</td>
-                                        <td>码洋</td>
-                                        <td>实洋</td>
-                                        <td>折扣</td>
-                                        <td>流水号</td>
+                                        <td><nobr>序号</nobr></td>
+                                        <td><nobr>单据编号</nobr></td>
+                                        <td><nobr>书名</nobr></td>
+                                        <td><nobr>书号</nobr></td>
+                                        <td><nobr>ISBN号</nobr></td>
+                                        <td><nobr>数量</nobr></td>
+                                        <td><nobr>单价</nobr></td>
+                                        <td><nobr>码洋</nobr></td>
+                                        <td><nobr>实洋</nobr></td>
+                                        <td><nobr>折扣</nobr></td>
+                                        <td><nobr>流水号</nobr></td>
                                     </tr>
                                 </thead>
 
