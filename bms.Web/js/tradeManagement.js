@@ -1,14 +1,5 @@
 ﻿$(document).ready(function () {
-    //判断是否含有特殊字符
-    function checkName(val) {
-        var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
-        var rs = "";
-        for (var i = 0, l = val.length; i < val.length; i++) {
-            rs = rs + val.substr(i, 1).replace(reg, '');
-        }
-        return rs;
-    }
-    $(".paging").pagination({
+ $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
         mode: 'fixed',//固定页码数量
@@ -18,7 +9,7 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var search = checkName($("#btn-search").val().trim());
+            var search = $("#btn-search").val().trim();
             $.ajax({
                 type: 'Post',
                 url: 'tradeManagement.aspx',
@@ -141,7 +132,7 @@
 
     //点击查询按钮时
     $("#btn-search").click(function () {
-        var search = checkName($("#search_All").val().trim());
+        var search = $("#search_All").val().trim();
         $.ajax({
             type: 'Post',
             url: 'tradeManagement.aspx',

@@ -1,13 +1,4 @@
 ﻿$(document).ready(function () {
-    //判断是否含有特殊字符
-    function checkName(val) {
-        var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
-        var rs = "";
-        for (var i = 0, l = val.length; i < val.length; i++) {
-            rs = rs + val.substr(i, 1).replace(reg, '');
-        }
-        return rs;
-    }
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(),
         jump: true,
@@ -36,8 +27,8 @@
     //查询
     $("#btn-search").click(function () {
         //var stockId = $("#bill").val();
-        var sellId = checkName($("#region").val());
-        var customer = checkName($("#customer").val());
+        var sellId = $("#region").val();
+        var customer = $("#customer").val();
         $.ajax({
             type: 'Post',
             url: 'backManagement.aspx',

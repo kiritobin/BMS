@@ -1,15 +1,5 @@
 ﻿$(document).ready(function () {
-    //判断是否含有特殊字符
-    function checkName(val) {
-        var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
-        var rs = "";
-        for (var i = 0, l = val.length; i < val.length; i++) {
-            rs = rs + val.substr(i, 1).replace(reg, '');
-        }
-        return rs;
-    }
-
-    $(".paging").pagination({
+$(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
         mode: 'fixed',//固定页码数量
@@ -19,7 +9,7 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var search = checkName($("#btn-search").val());
+            var search = $("#btn-search").val();
             $.ajax({
                 type: 'Post',
                 url: 'roleManagement.aspx',
@@ -39,7 +29,7 @@
 
     //点击查询按钮时
     $("#btn-search").click(function () {
-        var strWhere = checkName($("#input-search").val().trim());
+        var strWhere = $("#input-search").val().trim();
         $.ajax({
             type: 'Post',
             url: 'roleManagement.aspx',
