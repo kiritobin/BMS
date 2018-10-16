@@ -1,14 +1,4 @@
 ﻿$(document).ready(function () {
-  
-    //判断是否含有特殊字符
-    function checkName(val) {
-        var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
-        var rs = "";
-        for (var i = 0, l = val.length; i < val.length; i++) {
-            rs = rs + val.substr(i, 1).replace(reg, '');
-        }
-        return rs;
-    }
     $("#upload").click(function () {
         var location = $("input[name='file']").val();
         var point = location.lastIndexOf(".");
@@ -294,9 +284,9 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var bookName = checkName($("#bookName").val().trim());
-            var bookNum = checkName($("#bookNum").val().trim());
-            var btnISBN = checkName($("#bookISBN").val().trim());
+            var bookName = $("#bookName").val().trim();
+            var bookNum = $("#bookNum").val().trim();
+            var btnISBN = $("#bookISBN").val().trim();
             $.ajax({
                 type: 'Post',
                 url: 'bookBasicManagement.aspx',
@@ -319,9 +309,9 @@
 
 //点击查询按钮时
 $("#btn-search").click(function () {
-    var bookName = checkName($("#bookName").val());
-    var bookNum = checkName($("#bookNum").val());
-    var bookISBN = checkName($("#bookISBN").val());
+    var bookName = $("#bookName").val();
+    var bookNum = $("#bookNum").val();
+    var bookISBN = $("#bookISBN").val();
     $.ajax({
         type: 'Post',
         url: 'bookBasicManagement.aspx',

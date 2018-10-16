@@ -15,8 +15,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
-
-
+    <link rel="stylesheet" href="../css/pagination.css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -316,6 +315,7 @@
                                                     <td>采集时间</td>
                                                 </tr>
                                             </thead>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -353,6 +353,8 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/retailBackQuery.js"></script>
 </body>
 
 </html>

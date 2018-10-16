@@ -94,8 +94,8 @@ namespace bms.Bll
         public DataSet GetRetail(string retailHeadId)
         {
             DataSet ds = dao.GetRetail(retailHeadId);
-            if(ds == null || ds.Tables[0].Rows.Count<=0)
-            { 
+            if (ds == null || ds.Tables[0].Rows.Count <= 0)
+            {
                 return null;
             }
             else
@@ -109,7 +109,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="retailMonomerId">零售单体ID</param>
         /// <returns>受影响行数</returns>
-        public SaleMonomer GetMonomer(int retailMonomerId,string retailHeadId)
+        public SaleMonomer GetMonomer(int retailMonomerId, string retailHeadId)
         {
             return dao.GetMonomer(retailMonomerId, retailHeadId);
         }
@@ -215,7 +215,7 @@ namespace bms.Bll
         public Result delete(int retailMonomerId, string retailHeadId)
         {
             int row = dao.delete(retailMonomerId, retailHeadId);
-            if(row > 0)
+            if (row > 0)
             {
                 return Result.删除成功;
             }
@@ -233,6 +233,26 @@ namespace bms.Bll
         public DataSet SelectByIsbn(string ISBN, string retailHeadId)
         {
             return dao.SelectByIsbn(ISBN, retailHeadId);
+        }
+        /// <summary>
+        /// 获取分页数据
+        /// </summary>
+        /// <param name="tablebuilder"></param>
+        /// <param name="totalCount"></param>
+        /// <param name="intPageCount"></param>
+        /// <returns></returns>
+        public DataSet selectBypage(TableBuilder tablebuilder, out int totalCount, out int intPageCount)
+        {
+            PublicProcedure procedure = new PublicProcedure();
+            DataSet ds = procedure.SelectBypage(tablebuilder, out totalCount, out intPageCount);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

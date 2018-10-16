@@ -1,14 +1,5 @@
 ﻿$(document).ready(function () {
     $("#datatables_paginate").hide();
-    //判断是否含有特殊字符
-    function checkName(val) {
-        var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
-        var rs = "";
-        for (var i = 0, l = val.length; i < val.length; i++) {
-            rs = rs + val.substr(i, 1).replace(reg, '');
-        }
-        return rs;
-    }
     $('.paging').pagination({
         //totalData: $("#countPage").val(), //数据总数
         //showData: $("#totalCount").val(), //每页显示的条数
@@ -21,8 +12,8 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var book = checkName($("#bookSearch").val().trim());
-            var isbn = checkName($("#isbnSearch").val().trim());
+            var book = $("#bookSearch").val().trim();
+            var isbn = $("#isbnSearch").val().trim();
             $.ajax({
                 type: 'Post',
                 url: 'collectionManagement.aspx',
@@ -47,8 +38,8 @@
         if (custom == "请选择客户") {
             custom = "";
         }
-        var book = checkName($("#bookSearch").val().trim());
-        var isbn = checkName($("#isbnSearch").val().trim());
+        var book = $("#bookSearch").val().trim();
+        var isbn = $("#isbnSearch").val().trim();
         $("#datatables_paginate").show();
         $.ajax({
             type: 'Post',
@@ -102,8 +93,8 @@
 
     //点击查询按钮时
     $("#btn-search").click(function () {
-        var book = checkName($("#bookSearch").val().trim());
-        var isbn = checkName($("#isbnSearch").val().trim());
+        var book = $("#bookSearch").val().trim();
+        var isbn = $("#isbnSearch").val().trim();
         var custom = $("#cusSearch").find("option:selected").text();
         if (custom =="请选择客户") {
             custom = "";
