@@ -81,7 +81,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public SaleHead GetHead(string retailHeadId)
         {
-            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum from T_RetailHead where retailHeadId=@retailHeadId";
+            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,userName,retailHeadId,dateTime,regionName from V_RetailHead where retailHeadId=@retailHeadId";
             string[] param = { "@retailHeadId" };
             object[] values = { retailHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
@@ -94,6 +94,10 @@ namespace bms.Dao
                     sale.AllTotalPrice = Convert.ToDouble(ds.Tables[0].Rows[0]["allTotalPrice"]);
                     sale.Number = Convert.ToInt32(ds.Tables[0].Rows[0]["number"]);
                     sale.KindsNum = Convert.ToInt32(ds.Tables[0].Rows[0]["kindsNum"]);
+                    sale.UserName = ds.Tables[0].Rows[0]["userName"].ToString();
+                    sale.RegionName = ds.Tables[0].Rows[0]["regionName"].ToString();
+                    sale.SaleHeadId = ds.Tables[0].Rows[0]["retailHeadId"].ToString();
+                    sale.DateTime = Convert.ToDateTime(ds.Tables[0].Rows[0]["dateTime"]);
                 }
                 return sale;
             }

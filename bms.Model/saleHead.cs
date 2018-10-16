@@ -39,6 +39,10 @@ namespace bms.Model
         /// </summary>
         private int userId;
         /// <summary>
+        /// 操作员名称
+        /// </summary>
+        private string userName;
+        /// <summary>
         /// 状态（0为未处理，1为已处理）
         /// </summary>
         private int state;
@@ -46,6 +50,10 @@ namespace bms.Model
         /// 地区Id
         /// </summary>
         private int regionId;
+        /// <summary>
+        /// 地区名称
+        /// </summary>
+        private string regionName;
         /// <summary>
         /// 制单时间
         /// </summary>
@@ -142,7 +150,7 @@ namespace bms.Model
             }
         }
         /// <summary>
-        /// 操作员
+        /// 操作员ID
         /// </summary>
         public int UserId
         {
@@ -154,6 +162,21 @@ namespace bms.Model
             set
             {
                 userId = value;
+            }
+        }
+        /// <summary>
+        /// 操作员名称
+        /// </summary>
+        public string UserName
+        {
+            get
+            {
+                return userName;
+            }
+
+            set
+            {
+                userName = value;
             }
         }
         /// <summary>
@@ -187,6 +210,21 @@ namespace bms.Model
             }
         }
         /// <summary>
+        /// 地区名称
+        /// </summary>
+        public string RegionName
+        {
+            get
+            {
+                return regionName;
+            }
+
+            set
+            {
+                regionName = value;
+            }
+        }
+        /// <summary>
         /// 制单时间
         /// </summary>
         public DateTime DateTime
@@ -216,11 +254,13 @@ namespace bms.Model
         /// <param name="number">数量</param>
         /// <param name="allTotalPrice">总码洋</param>
         /// <param name="allRealPrice">总实洋</param>
-        /// <param name="userId">操作员</param>
+        /// <param name="userId">操作员ID</param>
+        /// <param name="userName">操作员名称</param>
         /// <param name="state">状态（0为未操作，1为已操作）</param>
         /// <param name="regionId">地区Id</param>
+        /// <param name="regionName">地区名称</param>
         /// <param name="dateTime">制单时间</param>
-        public SaleHead(string saleHeadId, string saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, int userId, int state, int regionId, DateTime dateTime)
+        public SaleHead(string saleHeadId, string saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, int userId,string userName, int state, int regionId, string regionName, DateTime dateTime)
         {
             SaleHeadId = saleHeadId;
             SaleTaskId = saleTaskId;
@@ -229,8 +269,10 @@ namespace bms.Model
             AllTotalPrice = allTotalPrice;
             AllRealPrice = allRealPrice;
             UserId = userId;
+            UserName = userName;
             State = state;
             RegionId = regionId;
+            RegionName = regionName;
             DateTime = dateTime;
         }
     }
