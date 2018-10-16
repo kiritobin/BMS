@@ -16,7 +16,7 @@ namespace bms.Web.InventoryMGT
     {
         public DataTable putDt;
         public DataSet ds, dsPer;
-        public string putId, putOperator, putCount, putRegionName, putTotalPrice, putRealPrice, putTime, singleHeadId,userName,regionName;
+        public string putId, putOperator, putCount, putRegionName, putTotalPrice, putRealPrice, putTime, HeadId,userName,regionName;
         public int totalCount, intPageCount, pageSize = 20;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         WarehousingBll warehousingBll = new WarehousingBll();
@@ -38,9 +38,9 @@ namespace bms.Web.InventoryMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
-            singleHeadId = Request.QueryString["returnId"];
+            HeadId = Request.QueryString["returnId"];
             //string singleHeadId = "20180927000001";
-            putDt = warehousingBll.SelectSingleHead(singleHeadId);
+            putDt = warehousingBll.SelectSingleHead(HeadId);
             int count = putDt.Rows.Count;
             for (int i = 0; i < count; i++)
             {
@@ -56,6 +56,7 @@ namespace bms.Web.InventoryMGT
 
         protected string getData()
         {
+            string HeadId = Request.QueryString["returnId"];
             UserBll userBll = new UserBll();
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -67,7 +68,7 @@ namespace bms.Web.InventoryMGT
             tbd.OrderBy = "singleHeadId";
             tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "";
+            tbd.StrWhere = "singleHeadId='"+HeadId + "'";
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);

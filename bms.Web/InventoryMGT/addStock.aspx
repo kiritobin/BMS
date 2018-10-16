@@ -376,7 +376,7 @@
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel3">请选择相应的图书</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="material-icons">clear</i>
+                                <i class="fa fa-close"></i>
                             </button>
                         </div>
                         <div class="modal-body">
