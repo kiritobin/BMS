@@ -113,5 +113,13 @@ namespace bms.Bll
                 return null;
             }
         }
+        /// <summary>
+        /// 获取制单日期
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getSaleHeadTime()
+        {
+            return saleHeaddao.getSaleHeadTime();
+        }
     }
 }

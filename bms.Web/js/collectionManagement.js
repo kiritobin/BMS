@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    $("#datatables_paginate").hide();
     //判断是否含有特殊字符
     function checkName(val) {
         var reg = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
@@ -40,12 +41,15 @@
         }
     });
 
-
-    //点击查询按钮时
-    $("#btn-search").click(function () {
+    //下拉列表改变
+    $("#cusSearch").change(function () {
+        var custom = $("#cusSearch").find("option:selected").text();
+        if (custom == "请选择客户") {
+            custom = "";
+        }
         var book = checkName($("#bookSearch").val().trim());
         var isbn = checkName($("#isbnSearch").val().trim());
-        var custom = checkName($("#cusSearch").val().trim());
+        $("#datatables_paginate").show();
         $.ajax({
             type: 'Post',
             url: 'collectionManagement.aspx',
@@ -57,6 +61,65 @@
             },
             dataType: 'text',
             success: function (data) {
+                $("#intPageCount").remove();
+                $("#table tr:not(:first)").empty(); //清空table处首行
+                $("#table").append(data); //加载table
+                $(".paging").empty();
+                $('.paging').pagination({
+                    //totalData: $("#countPage").val(), //数据总数
+                    //showData: $("#totalCount").val(), //每页显示的条数
+                    pageCount: $("#intPageCount").val(), //总页数
+                    jump: true,
+                    mode: 'fixed',//固定页码数量
+                    coping: true,
+                    homePage: '首页',
+                    endPage: '尾页',
+                    prevContent: '上页',
+                    nextContent: '下页',
+                    callback: function (api) {
+                        var book = $("#bookSearch").val().trim();
+                        var isbn = $("#isbnSearch").val().trim();
+                        $.ajax({
+                            type: 'Post',
+                            url: 'collectionManagement.aspx',
+                            data: {
+                                page: api.getCurrent(), //页码
+                                book: book,
+                                isbn: isbn,
+                                op: "paging"
+                            },
+                            dataType: 'text',
+                            success: function (data) {
+                                $("#table tr:not(:first)").empty(); //清空table处首行
+                                $("#table").append(data); //加载table
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+
+    //点击查询按钮时
+    $("#btn-search").click(function () {
+        var book = checkName($("#bookSearch").val().trim());
+        var isbn = checkName($("#isbnSearch").val().trim());
+        var custom = $("#cusSearch").find("option:selected").text();
+        if (custom =="请选择客户") {
+            custom = "";
+        }
+        $.ajax({
+            type: 'Post',
+            url: 'collectionManagement.aspx',
+            data: {
+                book: book,
+                isbn: isbn,
+                custom: custom,
+                op: "paging"
+            },
+            dataType: 'text',
+            success: function (data) {
+                $("#datatables_paginate").show();
                 $("#intPageCount").remove();
                 $("#table tr:not(:first)").empty(); //清空table处首行
                 $("#table").append(data); //加载table
