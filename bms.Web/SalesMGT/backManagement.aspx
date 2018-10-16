@@ -200,7 +200,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item" id="customerRetail">
-                                    <a class="nav-link" href="../SalesMGT/customerRetail.aspx">
+                                    <a class="nav-link" href="customerRetail.aspx">
                                         <span class="sidebar-normal">POS收款</span>
                                     </a>
                                 </li>

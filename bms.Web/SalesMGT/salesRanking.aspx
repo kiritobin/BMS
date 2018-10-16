@@ -45,7 +45,7 @@
             <div class="row3">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header card-header-danger">
+                        <div class="card-header card-header-primary">
                             <label id="time" class="pull-right" style="color:white"></label>
                             <h3 class="card-title">客户采购排行TOP10</h3>
                         </div>

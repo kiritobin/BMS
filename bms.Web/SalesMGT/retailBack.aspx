@@ -50,6 +50,7 @@
                     </div>--%>
                     <div class="row">
                         <div class="col-md-8 text-right">
+                            <div class="text-left retailTime"><span id="retailID"></span></div>
                             <div class="text-right retailTime">时间：<span id="time"></span></div>
                         </div>
                         <!-- 左侧数据表 -->
