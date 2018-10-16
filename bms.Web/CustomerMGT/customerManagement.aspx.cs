@@ -88,7 +88,6 @@ namespace bms.Web.CustomerMGT
             regionDs = rbll.select();
             //生成table
             StringBuilder strb = new StringBuilder();
-            strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
@@ -97,7 +96,6 @@ namespace bms.Web.CustomerMGT
                 strb.Append("<td>" + "<button class='btn btn-warning btn-sm btn_Editor' data-toggle='modal' data-target='#myModa2'>" + "<i class='fa fa-pencil fa-lg'></i>" + "</button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "</button>" + " </td></tr>");
             }
-            strb.Append("</tbody>");
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")

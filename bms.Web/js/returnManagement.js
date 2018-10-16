@@ -20,8 +20,9 @@
                 },
                 dataType: 'text',
                 success: function (data) {
-                    $("#table tr:not(:first)").empty(); //清空table处首行
+                    $("#table tr:not(:first)").remove(); //清空table处首行
                     $("#table").append(data); //加载table
+                    $("#intPageCount").remove();
                 }
             });
         }
@@ -115,7 +116,7 @@ $("#btn-search").click(function () {
         datatype: 'text',
         success: function (data) {
             $("#intPageCount").remove();
-            $("#table tr:not(:first)").empty(); //清空table处首行
+            $("#table tr:not(:first)").remove(); //清空table处首行
             $("#table").append(data); //加载table
             $(".paging").empty();
             $(".paging").pagination({
@@ -140,8 +141,9 @@ $("#btn-search").click(function () {
                         },
                         dataType: 'text',
                         success: function (data) {
-                            $("#table tr:not(:first)").empty(); //清空table处首行
+                            $("#table tr:not(:first)").remove(); //清空table处首行
                             $("#table").append(data); //加载table
+                            $("#intPageCount").remove();
                         }
                     });
                 }

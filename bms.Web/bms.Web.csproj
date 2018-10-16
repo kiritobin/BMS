@@ -127,6 +127,10 @@
     <Content Include="js\public.js" />
     <Content Include="js\retail.js" />
     <Content Include="js\retailBack.js" />
+    <Content Include="js\retailBackManagement.js" />
+    <Content Include="js\retailBackQuery.js" />
+    <Content Include="js\retailManagement.js" />
+    <Content Include="js\retailQuery.js" />
     <Content Include="QRCode.aspx" />
     <Content Include="SalesMGT\booksOut.aspx" />
     <Content Include="SalesMGT\CLodop_Setup_for_Win32NT.exe" />

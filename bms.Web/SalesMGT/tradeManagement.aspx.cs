@@ -263,7 +263,6 @@ namespace bms.Web.SalesMGT
             customerds = custBll.select();
             //生成table
             StringBuilder strb = new StringBuilder();
-            strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 string time = ds.Tables[0].Rows[i]["finishTime"].ToString();
@@ -285,7 +284,6 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td style='width:150px;'><button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button> <button class='btn btn-sm btn-success edited'>&nbsp 编辑 &nbsp</button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + "</td></tr>");
             }
-            strb.Append("</tbody>");
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")

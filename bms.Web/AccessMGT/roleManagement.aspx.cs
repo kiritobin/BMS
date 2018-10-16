@@ -88,7 +88,6 @@ namespace bms.Web.AccessMGT
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
             //生成table
             StringBuilder sb = new StringBuilder();
-            sb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 int roleId = Convert.ToInt32(ds.Tables[0].Rows[i]["roleId"].ToString());
@@ -118,7 +117,6 @@ namespace bms.Web.AccessMGT
                 sb.Append("<button class='btn btn-warning btn-sm btn-edit' data-toggle='modal' data-target='#myModa2'><i class='fa fa-pencil fa-lg'></i></button>");
                 sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td></ tr >");
             }
-            sb.Append("</tbody>");
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")

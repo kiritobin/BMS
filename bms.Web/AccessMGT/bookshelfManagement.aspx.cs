@@ -168,7 +168,6 @@ namespace bms.Web.BasicInfor
             regionDs = rbll.select();
             //生成table
             StringBuilder strb = new StringBuilder();
-            strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * PageSize)) + "</td>");
@@ -177,7 +176,6 @@ namespace bms.Web.BasicInfor
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
                 strb.Append("<td>" + "<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "</button>" + " </td></tr>");
             }
-            strb.Append("</tbody>");
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
