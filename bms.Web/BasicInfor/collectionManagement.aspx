@@ -295,7 +295,7 @@
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <%--<input type="text" value="" class="searchOne" id="cusSearch" placeholder="客户查询">--%>
-                                                <select id="cusSearch">
+                                                <select class="modal_select" id="cusSearch">
                                                     <option value="">请选择客户</option>
                                                     <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
                                                         {%>
@@ -356,7 +356,7 @@
                             <table class="table text-center model-table">
                                 <tr>
                                     <td colspan="2">
-                                        <a class="btn btn-success" id="downEx" href="/uploads/muban/客户馆藏数据表.xls">下载模板</a>
+                                        <a class="btn btn-success" id="downEx" href="/uploads/muban/客户馆藏数据表.zip">下载模板</a>
                                         <span class="btn btn-success fileinput-button">
                                             <span>选择文件</span>
                                             <input type="file" class="" name="file" id="file" value="">

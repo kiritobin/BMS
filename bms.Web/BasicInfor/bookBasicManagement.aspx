@@ -381,7 +381,7 @@
                             <table class="table text-center model-table">
                                 <tr>
                                     <td>
-                                        <button class="btn btn-success" id="downEx"><a style="color: white" href="/uploads/muban/基础数据表.xls">下载模板</a></button>
+                                        <button class="btn btn-success" id="downEx"><a style="color: white" href="/uploads/muban/基础数据表.zip">下载模板</a></button>
                                         <span class="btn btn-success fileinput-button">
                                             <span>选择文件</span>
                                             <input type="file" name="file" id="file" style="">
