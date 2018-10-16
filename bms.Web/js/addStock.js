@@ -48,13 +48,13 @@ $(document).ready(function () {
                 allowOutsideClick: false
             })
         }
-        else if (type == ".xls") {
+        else if (type == ".xls" || type == ".xlsx") {
             ajaxFileUpload();
         }
         else {
             swal({
                 title: "提示",
-                text: "只允许上传.xls格式的文件",
+                text: "只允许上传.xls或者.xlsx格式的文件",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',

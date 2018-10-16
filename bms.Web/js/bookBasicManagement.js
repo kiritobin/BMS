@@ -24,13 +24,13 @@
                 allowOutsideClick: false
             })
         }
-        else if (type == ".xls") {
+        else if (type == ".xls" || type == ".xlsx") {
             ajaxFileUpload();
         }
         else {
             swal({
                 title: "温馨提示:)",
-                text: "只允许上传.xls格式的文件",
+                text: "只允许上传.xls或者.xlsx格式的文件",
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-success",
                 type: "warning",

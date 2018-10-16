@@ -147,7 +147,18 @@ namespace bms.Web.InventoryMGT
         {
             string path = Session["path"].ToString();
             DataTable dt1 = new DataTable();
-            string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+            string strConn = "";
+            //文件类型判断
+            string[] sArray = path.Split('.');
+            int count = sArray.Length - 1;
+            if (sArray[count] == "xls")
+            {
+                strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+            }
+            else if (sArray[count] == "xlsx")
+            {
+                strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+            }
             OleDbConnection conn = new OleDbConnection(strConn);
             try
             {

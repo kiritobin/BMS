@@ -137,7 +137,18 @@ namespace bms.Web.BasicInfor
         {
             DataTable dt1 = new DataTable();
             string path = Session["path"].ToString();
-            string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+            string strConn = "";
+            //文件类型判断
+            string[] sArray = path.Split('.');
+            int count = sArray.Length - 1;
+            if (sArray[count] == "xls")
+            {
+                strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+            }
+            else if (sArray[count] == "xlsx")
+            {
+                strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+            }
             OleDbConnection conn = new OleDbConnection(strConn);
             try
             {
@@ -401,7 +412,7 @@ namespace bms.Web.BasicInfor
                     DataRow[] rows = bookBasicBll.Select().Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, price));
                     if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                     {
-                        except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]);
+                        except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9],row[10]);
                     }
                 }
             }

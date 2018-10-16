@@ -123,6 +123,7 @@
     <Content Include="js\jquery.qrcode.min.js" />
     <Content Include="js\jquery.tabletojson.js" />
     <Content Include="js\LodopFuncs.js" />
+    <Content Include="js\public.js" />
     <Content Include="js\retail.js" />
     <Content Include="js\retailBack.js" />
     <Content Include="QRCode.aspx" />
