@@ -1,26 +1,28 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addWarehouse.aspx.cs" Inherits="bms.Web.InventoryMGT.addWarehouse" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailBackQuery.aspx.cs" Inherits="bms.Web.SalesMGT.retailBackQuery" %>
 
 <!DOCTYPE html>
+<html lang="zh">
 
-<html class="no-js">
-<!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>图书综合管理系统</title>
-    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>图书综合管理平台</title>
 
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
-    <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
-    <link rel="stylesheet" href="../css/qc.css">
-    <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
 </head>
 
 <body>
@@ -39,11 +41,9 @@
             <div class="logo">
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
-                <span style="margin-left:90px;color:red;"><%=userName %>&nbsp-&nbsp<%=regionName %></span>
             </div>
-           <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <%if (funcUser||funcRole||funcOrg||funcGoods) { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
@@ -54,40 +54,35 @@
                         </a>
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <%if (funcRole) { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
-                                        <span class="sidebar-normal">角色管理</span>
-                                    </a>
-                                </li>
-                                <%} %>
-                                <%if (funcUser) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
-                                <%} %>
-                                <%if (funcOrg) { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
+                                        <span class="sidebar-normal">角色管理</span>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
-                                <%} %>
-                                <%if (funcGoods) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
-                                <%} %>
+                                <%-- <li class="nav-item">
+                                    <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
+                                        <span class="sidebar-normal">功能管理</span>
+                                    </a>
+                                </li>--%>
                             </ul>
                         </div>
                     </li>
-                    <%} %>
-                    <%if (funcCustom || funcLibrary)
-                        {%>
+
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="fa fa-user fa-lg"></i>
@@ -98,71 +93,53 @@
                         </a>
                         <div class="collapse" id="userManage">
                             <ul class="nav">
-                                <%if (funcCustom)
-                                { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
+                                    <a class="nav-link" href="CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
-                                <%} %>
-                                <%if (funcLibrary)
-                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
-                                <%} %>
                             </ul>
                         </div>
                     </li>
-                    <%} %>
-                    <%if (funcPut||funcOut||funcReturn||funcSupply) {%>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
-                             <i class="fa fa-book"></i>
+                            <i class="fa fa-book"></i>
                             <p>
                                 库存管理
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="inventoryManage">
+                        <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <%if (funcPut) { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
+                                        <span class="sidebar-normal">出库管理</span>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
-                                <%} %>
-                                <%if (funcOut) { %>
-                                <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../InventoryMGT/warehouseManagement.aspx">
-                                        <span class="sidebar-normal">出库管理</span>
-                                    </a>
-                                </li>
-                                <%} %>
-                                <%if (funcReturn) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
-                                <%} %>
-                                <%if (funcSupply) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
                                     </a>
                                 </li>
-                                <%} %>
                             </ul>
                         </div>
                     </li>
-                    <%} %>
-                    <%if (funcSale||funcSaleOff||funcRetail) { %>
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
@@ -170,19 +147,16 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="saleManage">
+                        <div class="collapse show" id="saleManage">
                             <ul class="nav">
-                                <%if (funcSale) { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
-                                <%} %>
-                                <%if (funcRetail){ %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/retail.aspx" id="retail">
-                                        <span class="sidebar-normal">自助售书</span>
+                                    <a class="nav-link" href="../SalesMGT/retailManagement.aspx" id="retail">
+                                        <span class="sidebar-normal">零售管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item" id="customerRetail">
@@ -191,17 +165,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/retailBack.aspx" id="retailBack">
-                                        <span class="sidebar-normal">零售退货</span>
+                                    <a class="nav-link activeNext" href="../SalesMGT/retailBackManagement.aspx" id="retailBack">
+                                        <span class="sidebar-normal">零退管理</span>
                                     </a>
                                 </li>
-                                <%} %>
                             </ul>
                         </div>
                     </li>
-                    <%} %>
-                    <%if (funcBook)
-                        { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="fa fa-file-archive-o"></i>
@@ -225,7 +195,6 @@
                             </ul>
                         </div>
                     </li>
-                    <%} %>
                 </ul>
             </div>
         </div>
@@ -264,7 +233,6 @@
                     </div>
                 </div>
             </nav>
-
             <!-- 主界面内容 -->
             <div class="content">
                 <div class="container-fluid">
@@ -272,75 +240,82 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title">出库添加</h4>
+                                    <h4 class="card-title">零退查询</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group">
-                                            <div class="btn-group">
-                                                <button class="btn btn-warning btn-sm" id="back">返回</button>
-                                            </div>
-                                            <div class="btn-group">
-                                                <button class="btn btn-success btn-sm" id="save">保存</button>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-warning btn-sm" id="back" onclick="javascript:history.back(-1);">返回</button>
                                             </div>
                                         </div>
                                     </div>
-
+                                    <table class="table table_stock text-right">
+                                        <tr class="text-nowrap">
+                                            <td>
+                                                <span>单据编号:</span>
+                                            </td>
+                                            <td>
+                                                <input value="" class="form-control" disabled>
+                                            </td>
+                                            <td>
+                                                <span>操作员:</span>
+                                            </td>
+                                            <td>
+                                                <input value="" class="form-control" disabled>
+                                            </td>
+                                            <td>
+                                                <span>单据总数:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="" class="form-control" disabled>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-nowrap">
+                                            <td>
+                                                <span>入库组织:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="" class="form-control" disabled></td>
+                                            <td>
+                                                <span>总码洋:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="" class="form-control" disabled>
+                                            </td>
+                                            <td>
+                                                <span>总实洋:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="" class="form-control" disabled>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-nowrap">
+                                            <td>
+                                                <span>制单日期:</span>
+                                            </td>
+                                            <td>
+                                                <div class="jeinpbox">
+                                                    <input type="text" value="" class="form-control" disabled id="test2">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
-                                                    <td>
-                                                        <nobr>单据编号</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>ISBN号</nobr>
-                                                    </td>
-                                                    <td style="display: none">
-                                                        <nobr>书号</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>书名</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>出版社</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>商品数量</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>单价</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>折扣</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>码洋</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>实洋</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>操作</nobr>
-                                                    </td>
+                                                    <td>序号</td>
+                                                    <td>书号</td>
+                                                    <td>ISBN号</td>
+                                                    <td>单价</td>
+                                                    <td>数量</td>
+                                                    <td>码洋</td>
+                                                    <td>实际折扣</td>
+                                                    <td>实洋</td>
+                                                    <td>采集时间</td>
                                                 </tr>
                                             </thead>
-                                            <tr class="first">
-                                                <td>1</td>
-                                                <td>
-                                                    <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="13"></textarea>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <textarea class="count textareaCount" rows="1">0</textarea></td>
-                                                <td></td>
-                                                <td>
-                                                    <textarea class="discount textareaDiscount" rows="1"><%=discount %></textarea></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -354,68 +329,23 @@
                     </div>
                 </div>
             </div>
-            <!--添加模态框-->
-            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width: 800px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel3">请选择相应的图书</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="material-icons">clear</i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table table-bordered mostTable text-center" id="table3">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <div class="pretty inline">
-                                                <input type="radio" name="radio" disabled="disabled">
-                                                <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <nobr>书号</nobr>
-                                        </th>
-                                        <th>
-                                            <nobr>ISBN</nobr>
-                                        </th>
-                                        <th>
-                                            <nobr>书名</nobr>
-                                        </th>
-                                        <th>
-                                            <nobr>单价</nobr>
-                                        </th>
-                                        <th>
-                                            <nobr>出版社</nobr>
-                                        </th>
-                                    </tr>
-                                </thead>
-
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-success btn-sm" id="btnAdd">提交</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
                     <!-- 版权内容 -->
                     <div class="copyright text-center">
                         &copy;
-                    <script>
-                        document.write(new Date().getFullYear())
-                    </script>
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
                         &nbsp;版权所有
-                        <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
+                    <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
+    <!-- jQuery -->
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
@@ -423,14 +353,6 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
-    <!-- selectpicker.js -->
-    <script src="../js/bootstrap-selectpicker.js"></script>
-    <!-- alert.js -->
-    <script src="../js/sweetalert2.js"></script>
-    <script src="../js/jedate.min.js"></script>
-    <script src="../js/addWarehouse.js"></script>
-    <script src="../js/jquery.tabletojson.js"></script>
-    <script src="../js/public.js"></script>
 </body>
 
 </html>

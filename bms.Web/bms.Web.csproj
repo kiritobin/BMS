@@ -122,6 +122,7 @@
     <Content Include="js\jquery.jqprint.js" />
     <Content Include="js\jquery.qrcode.min.js" />
     <Content Include="js\jquery.tabletojson.js" />
+    <Content Include="js\JsBarcode.all.min.js" />
     <Content Include="js\LodopFuncs.js" />
     <Content Include="js\public.js" />
     <Content Include="js\retail.js" />
@@ -209,6 +210,10 @@
     <Content Include="SalesMGT\backQuery.aspx" />
     <Content Include="SalesMGT\retail.aspx" />
     <Content Include="SalesMGT\retailBack.aspx" />
+    <Content Include="SalesMGT\retailBackManagement.aspx" />
+    <Content Include="SalesMGT\retailBackQuery.aspx" />
+    <Content Include="SalesMGT\retailManagement.aspx" />
+    <Content Include="SalesMGT\retailQuery.aspx" />
     <Content Include="SalesMGT\retailRank.aspx" />
     <Content Include="SalesMGT\salesDetail.aspx" />
     <Content Include="SalesMGT\salesManagement.aspx" />
@@ -494,6 +499,34 @@
     <Compile Include="SalesMGT\retailBack.aspx.designer.cs">
       <DependentUpon>retailBack.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SalesMGT\retailBackManagement.aspx.cs">
+      <DependentUpon>retailBackManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retailBackManagement.aspx.designer.cs">
+      <DependentUpon>retailBackManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\retailBackQuery.aspx.cs">
+      <DependentUpon>retailBackQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retailBackQuery.aspx.designer.cs">
+      <DependentUpon>retailBackQuery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\retailManagement.aspx.cs">
+      <DependentUpon>retailManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retailManagement.aspx.designer.cs">
+      <DependentUpon>retailManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\retailQuery.aspx.cs">
+      <DependentUpon>retailQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retailQuery.aspx.designer.cs">
+      <DependentUpon>retailQuery.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SalesMGT\retailRank.aspx.cs">
       <DependentUpon>retailRank.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -558,9 +591,13 @@
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\23333.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <Content Include="uploads\muban\客户馆藏数据表.xls" />
-    <Content Include="uploads\muban\基础数据.xls" />
-    <Content Include="uploads\muban\入库表.xls" />
+    <Content Include="uploads\muban\客户馆藏数据表\客户馆藏数据表.xls" />
+    <Content Include="uploads\muban\客户馆藏数据表\客户馆藏数据表.xlsx" />
+    <Content Include="uploads\muban\入库表\入库表.xls" />
+    <Content Include="uploads\muban\入库表\入库表.xlsx" />
+    <Content Include="uploads\muban\基础数据.zip" />
+    <Content Include="uploads\muban\客户馆藏数据表.zip" />
+    <Content Include="uploads\muban\入库表.zip" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -576,6 +613,7 @@
     <Folder Include="download\销售明细导出\" />
     <Folder Include="download\销退明细导出\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="uploads\muban\基础数据\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bms.Bll\bms.Bll.csproj">

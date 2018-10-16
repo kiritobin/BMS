@@ -157,7 +157,7 @@
                                 </table>
                                 <div style="margin-top: 10px;">
                                     <div id="output" style="width: 190px; height: 200px;display:none"></div>
-                                    <img src="#" style="width: 190px; height: 200px" id="img" />
+                                    <img src="#" style="width: 190px; height: 70px" id="img" />
                                 </div>
                                 <div style="width: 260px;">
                                     <hr / style="color:lightseagreen">
@@ -177,7 +177,7 @@
             <div class="modal-content" style="width:700px;">
                 <div class="modal-header">
                     <h4 class="modal-title float-left" id="myModalLabel">请选择需要的图书</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <button type="button" id="close" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="fa fa-close"></i>
                     </button>
                 </div>
@@ -219,7 +219,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/retail.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
-     <script src="../js/jquery.qrcode.min.js"></script>
+     <script src="../js/JsBarcode.all.min.js"></script>
     <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
         <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
     </object>
