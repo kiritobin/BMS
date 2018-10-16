@@ -35,7 +35,7 @@
             </div>
             <div class="card">
                 <div class="card-header card-header-danger">
-                    <h1 class="card-title text-center">零售退货</h1>
+                    <h2 class="card-title text-center">零售退货</h2>
                 </div>
                 <div class="card-body">
                     <%--<div class="row">
@@ -91,6 +91,8 @@
                                         </tr>
                                     </thead>
                                     <tr class="first">
+                                        <td></td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>

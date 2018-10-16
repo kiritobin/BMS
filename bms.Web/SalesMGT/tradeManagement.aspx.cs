@@ -20,7 +20,7 @@ namespace bms.Web.SalesMGT
         public int totalCount, intPageCount, pageSize = 20;
         SaleTaskBll saleBll = new SaleTaskBll();
         CustomerBll custBll = new CustomerBll();
-        string SaleHeadId, saleTaskId;
+        string saleTaskId;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {

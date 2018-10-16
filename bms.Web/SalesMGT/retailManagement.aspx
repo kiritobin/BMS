@@ -40,9 +40,12 @@
             <div class="logo">
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
+                <span style="margin-left:90px;color:red;"><%=userName %>&nbsp-&nbsp<%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
+                    <%if (funcUser || funcRole || funcOrg || funcGoods)
+                        { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
@@ -53,35 +56,44 @@
                         </a>
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../AccessMGT/userManagement.aspx">
-                                        <span class="sidebar-normal">用户管理</span>
-                                    </a>
-                                </li>
+                                <%if (funcRole)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcUser)
+                                { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../AccessMGT/userManagement.aspx">
+                                        <span class="sidebar-normal">用户管理</span>
+                                    </a>
+                                </li>
+                                <%} %>
+                                <%if (funcOrg)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcGoods)
+                                { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
+                                    <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
-                                <%-- <li class="nav-item">
-                                    <a class="nav-link" href="../AccessMGT/jurisdictionManagement.aspx">
-                                        <span class="sidebar-normal">功能管理</span>
-                                    </a>
-                                </li>--%>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
-
+                    <%} %>
+                    <%if (funcCustom || funcLibrary)
+                        {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="fa fa-user fa-lg"></i>
@@ -92,19 +104,28 @@
                         </a>
                         <div class="collapse" id="userManage">
                             <ul class="nav">
+                                <%if (funcCustom)
+                                { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="CustomerMGT/customerManagement.aspx">
+                                    <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcLibrary)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
+                    <%} %>
+                    <%if (funcPut || funcOut || funcReturn || funcSupply)
+                        {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="fa fa-book"></i>
@@ -115,29 +136,44 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
-                                        <span class="sidebar-normal">出库管理</span>
-                                    </a>
-                                </li>
+                                <%if (funcPut)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcOut)
+                                    { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
+                                        <span class="sidebar-normal">出库管理</span>
+                                    </a>
+                                </li>
+                                <%} %>
+                                <%if (funcReturn)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcSupply)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
                                     </a>
                                 </li>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
+                    <%} %>
+                    <%if (funcSale || funcSaleOff || funcRetail)
+                        { %>
                     <li class="nav-item active">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
@@ -148,13 +184,18 @@
                         </a>
                         <div class="collapse show" id="saleManage">
                             <ul class="nav">
+                                <%if (funcSale)
+                                    { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
+                                    <a class="nav-link activeNext" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcRetail)
+                                { %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../SalesMGT/retailManagement.aspx" id="retail">
+                                    <a class="nav-link" href="retailManagement.aspx" id="retail">
                                         <span class="sidebar-normal">零售管理</span>
                                     </a>
                                 </li>
@@ -164,13 +205,17 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/retailBackManagement.aspx" id="retailBack">
+                                    <a class="nav-link" href="retailBackManagement.aspx" id="retailBack">
                                         <span class="sidebar-normal">零退管理</span>
                                     </a>
                                 </li>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
+                    <%} %>
+                    <%if (funcBook)
+                        { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="fa fa-file-archive-o"></i>
@@ -194,6 +239,7 @@
                             </ul>
                         </div>
                     </li>
+                    <%} %>
                 </ul>
             </div>
         </div>

@@ -81,9 +81,9 @@ namespace bms.Web.SalesMGT
             {
                 string retailHeadId = Request["headId"];
                 DataSet bookDs = retailBll.SelectByIsbn(isbn, retailHeadId);
-                int count = bookDs.Tables[0].Rows.Count;
                 if (bookDs != null && bookDs.Tables[0].Rows.Count > 0)
                 {
+                    int count = bookDs.Tables[0].Rows.Count;
                     if (count == 1)
                     {
                         long bookNum = Convert.ToInt64(bookDs.Tables[0].Rows[0]["bookNum"]);

@@ -195,8 +195,8 @@
                                 <%if (funcRetail)
                                     { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/retail.aspx" id="retail">
-                                        <span class="sidebar-normal">自助售书</span>
+                                    <a class="nav-link" href="retailManagement.aspx" id="retail">
+                                        <span class="sidebar-normal">零售管理</span>
                                     </a>
                                 </li>
                                 <li class="nav-item" id="customerRetail">
@@ -205,8 +205,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../SalesMGT/retailBack.aspx" id="retailBack">
-                                        <span class="sidebar-normal">零售退货</span>
+                                    <a class="nav-link" href="retailBackManagement.aspx" id="retailBack">
+                                        <span class="sidebar-normal">零退管理</span>
                                     </a>
                                 </li>
                                 <%} %>
