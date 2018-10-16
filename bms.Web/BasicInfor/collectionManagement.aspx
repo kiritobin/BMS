@@ -37,11 +37,12 @@
             <div class="logo">
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
-                <span style="margin-left:90px;color:red;"><%=userName %>&nbsp-&nbsp<%=regionName %></span>
+                <span style="margin-left: 90px; color: red;"><%=userName %>&nbsp-&nbsp<%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <%if (funcUser||funcRole||funcOrg||funcGoods) { %>
+                    <%if (funcUser || funcRole || funcOrg || funcGoods)
+                        { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
@@ -52,28 +53,32 @@
                         </a>
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <%if (funcRole) { %>
+                                <%if (funcRole)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcUser) { %>
+                                <%if (funcUser)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcOrg) { %>
+                                <%if (funcOrg)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcGoods) { %>
+                                <%if (funcGoods)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
@@ -84,10 +89,11 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcCustom) {%>
+                    <%if (funcCustom)
+                    {%>
                     <li class="nav-item active">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
-                           <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-user fa-lg"></i>
                             <p>
                                 客户管理
                                 <b class="caret"></b>
@@ -96,7 +102,7 @@
                         <div class="collapse show" id="userManage">
                             <ul class="nav">
                                 <%if (funcCustom)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
@@ -115,10 +121,11 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcPut||funcOut||funcReturn) {%>
+                    <%if (funcPut || funcOut || funcReturn)
+                        {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
-                             <i class="fa fa-book"></i>
+                            <i class="fa fa-book"></i>
                             <p>
                                 库存管理
                                 <b class="caret"></b>
@@ -126,21 +133,24 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <%if (funcPut) { %>
+                                <%if (funcPut)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcOut) { %>
+                                <%if (funcOut)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcReturn) { %>
+                                <%if (funcReturn)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
@@ -159,7 +169,8 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcSale||funcSaleOff||funcRetail) { %>
+                    <%if (funcSale || funcSaleOff || funcRetail)
+                        { %>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
@@ -170,14 +181,16 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <%if (funcSale) { %>
+                                <%if (funcSale)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcRetail){ %>
+                                <%if (funcRetail)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/retail.aspx" id="retail">
                                         <span class="sidebar-normal">自助售书</span>
@@ -281,7 +294,14 @@
                                                 <input type="text" value="" class="searchOne" id="isbnSearch" placeholder="ISBN号查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="cusSearch" placeholder="客户查询">
+                                                <%--<input type="text" value="" class="searchOne" id="cusSearch" placeholder="客户查询">--%>
+                                                <select id="cusSearch">
+                                                    <option value="">请选择客户</option>
+                                                    <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsCustom.Tables[0].Rows[i]["customerID"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
+                                                    <%} %>
+                                                </select>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
@@ -306,7 +326,7 @@
                                                     <th>数量(册)</th>
                                                 </tr>
                                             </thead>
-                                            <%= getData() %>
+                                            <%--<%= getData() %>--%>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -349,7 +369,7 @@
                                 <span>请选择客户:</span>
                                 <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="model-select-custom" style="float: left;">
                                     <option value="">请选择客户</option>
-                                    <%for (int j = 0; j<dsCustom.Tables[0].Rows.Count; j++)
+                                    <%for (int j = 0; j < dsCustom.Tables[0].Rows.Count; j++)
                                         { %>
                                     <option value="<%=dsCustom.Tables[0].Rows[j]["customerId"] %>"><%=dsCustom.Tables[0].Rows[j]["customerName"] %></option>
                                     <%}%>
@@ -378,7 +398,7 @@
                                 <span>请选择客户:</span>
                                 <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="sel-del" style="float: left;">
                                     <option value="">请选择客户</option>
-                                    <%for (int j = 0; j<dsCustom.Tables[0].Rows.Count; j++)
+                                    <%for (int j = 0; j < dsCustom.Tables[0].Rows.Count; j++)
                                         { %>
                                     <option value="<%=dsCustom.Tables[0].Rows[j]["customerId"] %>"><%=dsCustom.Tables[0].Rows[j]["customerName"] %></option>
                                     <%}%>
