@@ -33,7 +33,7 @@ namespace bms.Dao
         }
 
         /// <summary>
-        /// 通过书号查看是否存在在单头中
+        /// 通过书号查看是否存在在单体中
         /// </summary>
         /// <param name="bookNum">书号</param>
         /// <returns></returns>
@@ -260,6 +260,50 @@ namespace bms.Dao
                 if (ds != null || ds.Tables[0].Rows.Count > 0)
                 {
                     return ds;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 根据书号查找isbn，单价，折扣
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public BookBasicData SelectByBookNum(long bookNum, string retailHeadId)
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comTexts = "select count(id) from T_RetailMonomer where bookNum=@bookNum and retailHeadId=@retailHeadId";
+            string[] parames = { "@bookNum", "@retailHeadId" };
+            object[] value = { bookNum, retailHeadId };
+            int row = Convert.ToInt32(db.ExecuteScalar(comTexts, parames, value));
+            if (row == 0)
+            {
+                return null;
+            }
+            else
+            {
+                string comText = "select ISBN,price,bookName,supplier,remarks from T_BookBasicData where bookNum=@bookNum";
+                string[] param = { "@bookNum" };
+                object[] values = { bookNum };
+                DataSet ds = db.FillDataSet(comText, param, values);
+                if (ds != null || ds.Tables[0].Rows.Count > 0)
+                {
+                    string isbn = ds.Tables[0].Rows[0]["isbn"].ToString();
+                    string price = ds.Tables[0].Rows[0]["price"].ToString();
+                    string remarks = ds.Tables[0].Rows[0]["remarks"].ToString();
+                    string bookName = ds.Tables[0].Rows[0]["bookName"].ToString();
+                    string supplier = ds.Tables[0].Rows[0]["supplier"].ToString();
+                    BookBasicData bookBasic = new BookBasicData();
+                    bookBasic.Isbn = isbn;
+                    bookBasic.Price = Convert.ToDouble(price);
+                    bookBasic.Remarks = remarks;
+                    bookBasic.BookName = bookName;
+                    bookBasic.Publisher = supplier;
+                    return bookBasic;
                 }
                 else
                 {
