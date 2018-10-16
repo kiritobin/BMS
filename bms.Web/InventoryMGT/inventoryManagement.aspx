@@ -195,7 +195,7 @@
                                 <%if (funcRetail)
                                     { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="retailManagement.aspx" id="retail">
+                                    <a class="nav-link" href="../SalesMGT/retailManagement.aspx" id="retail">
                                         <span class="sidebar-normal">零售管理</span>
                                     </a>
                                 </li>
@@ -205,7 +205,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="retailBackManagement.aspx" id="retailBack">
+                                    <a class="nav-link" href="../SalesMGT/retailBackManagement.aspx" id="retailBack">
                                         <span class="sidebar-normal">零退管理</span>
                                     </a>
                                 </li>

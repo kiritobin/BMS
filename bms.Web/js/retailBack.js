@@ -41,6 +41,7 @@ $("#scannSea").keypress(function (e) {
                     }).catch(swal.noop);
                 }
                 else {
+                    $("#retailID").text(sessionStorage.getItem("retailId"));
                     $("#scannSea").val("");
                     $("#myModal1").modal("hide");
                 }
@@ -48,6 +49,10 @@ $("#scannSea").keypress(function (e) {
         })
     }
 })
+//弹出模态框获取焦点事件
+$('#myModal1').on('shown.bs.modal', function (e) {
+    $('#scannSea').focus();
+});
 //输入isbn后回车
 $("#search").keypress(function (e) {
     if (sessionStorage.getItem("retailId") == null || sessionStorage.getItem("retailId") == undefined || sessionStorage.getItem("retailId") == "") {
