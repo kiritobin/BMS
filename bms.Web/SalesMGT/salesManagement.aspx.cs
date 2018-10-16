@@ -18,7 +18,7 @@ namespace bms.Web.SalesMGT
         public int totalCount, intPageCount, pageSize = 20;
         DataSet ds, dsPer;
         SaleHeadBll saleheadbll = new SaleHeadBll();
-        public string type,userName,regionName;
+        public string type, userName, regionName;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -102,9 +102,22 @@ namespace bms.Web.SalesMGT
                 int count = saleheadbll.getCount(saleId);
                 if (count > 0)
                 {
-                    count += 1;
-                    SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                    Session["saleheadId"] = SaleHeadId;
+                    string time = saleheadbll.getSaleHeadTime();
+                    string nowTime = DateTime.Now.ToLocalTime().ToString();
+                    string equalsTime = nowTime.Substring(0,10);
+                    if (time.Equals(equalsTime))
+                    {
+                        count += 1;
+                        SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        Session["saleheadId"] = SaleHeadId;
+                    }
+                    else
+                    {
+                        count = 1;
+                        SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        Session["saleheadId"] = SaleHeadId;
+                    }
+                    
                 }
                 else
                 {

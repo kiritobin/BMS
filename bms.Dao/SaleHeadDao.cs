@@ -89,5 +89,21 @@ namespace bms.Dao
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
+
+        /// <summary>
+        /// 获取制单日期
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getSaleHeadTime()
+        {
+            string comText = "select dateTime from T_SaleHead order by dateTime desc";
+            DataSet ds = db.FillDataSet(comText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                string time = ds.Tables[0].Rows[0]["dateTime"].ToString();
+                return time.Substring(0, 10);
+            }
+            return null;
+        }
     }
 }
