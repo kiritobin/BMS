@@ -94,7 +94,7 @@ namespace bms.Web.AccessMGT
                 sb.Append("<td style='display:none' clall='id'>" + ds.Tables[0].Rows[i]["regionId"].ToString() + "</ td ></ tr >");
             }
             sb.Append("</tbody>");
-            sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {

@@ -202,7 +202,7 @@ namespace bms.Web.BasicInfor
                 sb.Append("</td></tr>");
             }
             sb.Append("</tbody>");
-            sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             if (op == "paging")
             {
                 Response.Write(sb.ToString());

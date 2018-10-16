@@ -55,7 +55,7 @@
         nextContent: '>', //下一页内容
         activeCls: 'active', //当前页选中状态
         coping: false, //首页和尾页
-        isHide: false, //当前页数为0页或者1页时不显示分页
+        isHide: true, //当前页数为0页或者1页时不显示分页
         homePage: '', //首页节点内容
         endPage: '', //尾页节点内容
         keepShowPN: false, //是否一直显示上一页下一页
@@ -89,8 +89,15 @@
          * 如果配置了总条数和每页显示条数，将会自动计算总页数并略过总页数配置，反之
          * @return {int} 总页数
          */
+        //this.getPageCount = function () {
+        //    return opts.totalData && opts.showData ? Math.ceil(parseInt(opts.totalData) / opts.showData) : opts.pageCount;
+        //};
+
         this.getPageCount = function () {
-            return opts.totalData && opts.showData ? Math.ceil(parseInt(opts.totalData) / opts.showData) : opts.pageCount;
+            var _pageCount = opts.totalData && opts.showData ? Math.ceil(parseInt(opts.totalData) / opts.showData) : opts.pageCount;
+            if (_pageCount < opts.count)
+                opts.count = _pageCount;
+            return _pageCount;
         };
 
         /**
@@ -181,14 +188,14 @@
             var index = 1;
             $obj.off().on('click', 'a', function () {
                 if ($(this).hasClass(opts.nextCls)) {
-                    if ($obj.find('.' + opts.activeCls).text() >= pageCount) {
-                        index = parseInt($obj.find('.' + opts.activeCls).text()) + 1;
-                        //$(this).addClass('disabled');
-                        //return false;
+                    if ($obj.find('.' + opts.activeCls).text() >= parseInt(pageCount)) {
+                        $(this).addClass('disabled');
+                        return false;
                     } else {
                         index = parseInt($obj.find('.' + opts.activeCls).text()) + 1;
                     }
                 } else if ($(this).hasClass(opts.prevCls)) {
+                    alert($obj.find('.' + opts.activeCls).text());
                     if ($obj.find('.' + opts.activeCls).text() <= 1) {
                         $(this).addClass('disabled');
                         return false;

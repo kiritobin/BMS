@@ -86,7 +86,7 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<td>" + drc[i]["shelvesName"].ToString() + "</td ></tr >");
             }
             sb.Append("</tbody>");
-            sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {
