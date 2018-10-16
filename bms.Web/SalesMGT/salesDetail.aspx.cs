@@ -67,7 +67,7 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
-            //一号多书
+            //添加
             if (op == "add")
             {
                 int count = salemonbll.SelectBySaleHeadId(SaleHeadId);
@@ -98,7 +98,7 @@ namespace bms.Web.SalesMGT
                 sb.Append("<td>" + booknum + "</td>");
                 sb.Append("<td>" + bookname + "</td>");
                 sb.Append("<td>" + price + "</td>");
-                sb.Append("<td><input class='count textareaCount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g, '');' /></td>");
+                sb.Append("<td><input class='count textareaCount' type='number'/></td>");
                 sb.Append("<td><input class='discount textareaDiscount' value='" + remarks + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
                 sb.Append("<td>" + "" + "</td>");
                 sb.Append("<td>" + "" + "</td></tr>");
@@ -218,7 +218,7 @@ namespace bms.Web.SalesMGT
                 sb.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 sb.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + bookds.Tables[0].Rows[i]["price"].ToString() + "</td>");
-                sb.Append("<td><input class='count textareaCount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
+                sb.Append("<td><input class='count textareaCount' type='number'/></td>");
                 sb.Append("<td><input class='discount textareaDiscount' value='" + remarks + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
                 sb.Append("<td>" + "" + "</td>");
                 sb.Append("<td>" + "" + "</td></tr>");
@@ -358,7 +358,7 @@ namespace bms.Web.SalesMGT
                                             if (res == Result.更新成功)
                                             {
                                                 msg.DataTable = getData();
-                                                msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
+                                                msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' type='number'/></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
                                                 msg.AllKinds = allkinds.ToString();
                                                 msg.Number = allnumber.ToString();
                                                 msg.AlltotalPrice = alltotalprice.ToString();
