@@ -87,7 +87,6 @@ function pad(num, n) {
 }
 //输入isbn后回车
 $("#search").keypress(function (e) {
-    $("#table2 tr:not(:first)").remove(); //清空table处首行
     sessionStorage.setItem("ISBN", $("#search").val())
     //回车事件触发
     if (e.keyCode == 13) {
@@ -182,7 +181,7 @@ $("#search").keypress(function (e) {
     }
 })
 $("#close").click(function () {
-    $("#table2 tr:not(:first)").remove(); //清空table处首行
+    window.location.reload();
 })
 //选择一号多书中需要的图书
 $("#btnAdd").click(function () {
