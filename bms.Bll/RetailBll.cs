@@ -224,25 +224,15 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+
         /// <summary>
-        /// 获取分页数据
+        /// 根据ISBN查找书号，单价，折扣
         /// </summary>
-        /// <param name="tablebuilder"></param>
-        /// <param name="totalCount"></param>
-        /// <param name="intPageCount"></param>
+        /// <param name="ISBN">ISBN</param>
         /// <returns></returns>
-        public DataSet selectBypage(TableBuilder tablebuilder, out int totalCount, out int intPageCount)
+        public DataSet SelectByIsbn(string ISBN, string retailHeadId)
         {
-            PublicProcedure procedure = new PublicProcedure();
-            DataSet ds = procedure.SelectBypage(tablebuilder, out totalCount, out intPageCount);
-            if (ds != null || ds.Tables[0].Rows.Count > 0)
-            {
-                return ds;
-            }
-            else
-            {
-                return null;
-            }
+            return dao.SelectByIsbn(ISBN, retailHeadId);
         }
     }
 }

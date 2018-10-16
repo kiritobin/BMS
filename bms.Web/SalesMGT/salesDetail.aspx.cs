@@ -98,7 +98,7 @@ namespace bms.Web.SalesMGT
                 sb.Append("<td>" + booknum + "</td>");
                 sb.Append("<td>" + bookname + "</td>");
                 sb.Append("<td>" + price + "</td>");
-                sb.Append("<td><input class='count textareaCount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
+                sb.Append("<td><input class='count textareaCount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g, '');' /></td>");
                 sb.Append("<td><input class='discount textareaDiscount' value='" + remarks + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
                 sb.Append("<td>" + "" + "</td>");
                 sb.Append("<td>" + "" + "</td></tr>");

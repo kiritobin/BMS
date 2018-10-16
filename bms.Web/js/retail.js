@@ -180,6 +180,9 @@ $("#search").keypress(function (e) {
         }
     }
 })
+$("#close").click(function () {
+    window.location.reload();
+})
 //选择一号多书中需要的图书
 $("#btnAdd").click(function () {
     var bookNum = $("input[type='radio']:checked").val();
@@ -267,19 +270,28 @@ $("#insert").click(function () {
                     $("#totalEnd").text(sessionStorage.getItem("totalPrice"));
                     $("#realEnd").text(sessionStorage.getItem("realPrice"));
                     $("#timeEnd").text(endTime())
-                    jQuery('#output').qrcode({
-                        render: "canvas",
-                        foreground: "black",
-                        background: "white",
-                        text: headId
-                    });
-                    $("canvas").attr("id", "qrcode");
-                    var canvas = document.getElementById('qrcode');
-                    var context = canvas.getContext('2d');
-                    var image = new Image();
-                    var strDataURI = canvas.toDataURL("image/png");
-                    document.getElementById('img').src = strDataURI;
+                    //二维码
+                    //jQuery('#output').qrcode({
+                    //    render: "canvas",
+                    //    foreground: "black",
+                    //    background: "white",
+                    //    text: headId
+                    //});
+                    //$("canvas").attr("id", "qrcode");
+                    //var canvas = document.getElementById('qrcode');
+                    //var context = canvas.getContext('2d');
+                    //var image = new Image();
+                    //var strDataURI = canvas.toDataURL("image/png");
+                    //document.getElementById('img').src = strDataURI;
 
+                    //一维码
+                    JsBarcode("#img", headId, {
+                        displayValue: false, //是否在条形码下方显示文字
+                        //fontSize: 15,//设置文本的大小
+                        margin: 0,//设置条形码周围的空白边距
+                        width: 10,//设置条之间的宽度
+                        height: 50,//高度
+                    });
                     var status = "";
                     var LODOP = getLodop();
                     //LODOP.ADD_PRINT_HTM(0, 50, 900, 850, document.getElementById("ticket").innerHTML);
@@ -291,9 +303,10 @@ $("#insert").click(function () {
                         status = Value;
                     };
                     if (status != "" || status != null) {
-                        LODOP.ADD_PRINT_HTM(0, 50, 900, 850, document.getElementById("ticket").innerHTML);
+                        LODOP.ADD_PRINT_HTM(0, 50, 900, 500, document.getElementById("ticket").innerHTML);
                         LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                        LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
+                        LODOP.SET_PRINT_PAGESIZE(1, 700, 550, "");
+                        //LODOP.PREVIEW();
                         LODOP.PRINT();
 
                         window.location.reload();
