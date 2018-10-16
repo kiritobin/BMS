@@ -11,9 +11,9 @@
         $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
     }).css("ime-mode", "disabled");
     $("#table").delegate("#inputCount", "keyup", function (e) {
-        $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
+        $(this).val($(this).val().replace(/[^\r\n\-0-9]/g, ''));//允许输入“-”运算符号
     }).bind("paste", function () {  //CTR+V事件处理    
-        $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
+        $(this).val($(this).val().replace(/[^\r\n\-0-9]/g, ''));
     }).css("ime-mode", "disabled");
     //回车事件
     $(".addsell").keypress(function (e) {
@@ -275,7 +275,7 @@
                                 buttonsStyling: false,
                                 allowOutsideClick: false
                             }).then(function () {
-                                $("#table").find('tr').eq(1).find('td').eq(1).find('input').focus();
+                                $("#table").find('tr').eq(1).find('td').eq(4).find('input').focus();
                             })
                         }
                     }

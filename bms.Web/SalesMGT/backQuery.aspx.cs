@@ -87,16 +87,26 @@ namespace bms.Web.SalesMGT
                 //    Response.Write("保存失败");
                 //    Response.End();
                 //}
-                string result = updateSellHead();
-                Session["type"] = "search";
-                if (result == "更新成功")
+                string sellId = Session["sellId"].ToString();
+                int row = smBll.GetCount(sellId);
+                if (row > 0)
                 {
-                    Response.Write("更新成功");
-                    Response.End();
+                    string result = updateSellHead();
+                    Session["type"] = "search";
+                    if (result == "更新成功")
+                    {
+                        Response.Write("更新成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("保存失败");
+                        Response.End();
+                    }
                 }
                 else
                 {
-                    Response.Write("保存失败");
+                    Response.Write("该单据没有任何数据，无法保存");
                     Response.End();
                 }
             }
@@ -174,7 +184,7 @@ namespace bms.Web.SalesMGT
 
                 int count = int.Parse(Request["count"]);//数量
                 double totalPrice = unitPrice * count;//码洋
-                double d = totalPrice * discount;
+                double d = totalPrice * (discount/100);
                 double realPrice = Math.Round(d, 2);//实洋
                 string headId = Session["sellId"].ToString();//单头Id
                 int moNum = smBll.GetCount(headId);
@@ -329,7 +339,8 @@ namespace bms.Web.SalesMGT
             {
                 sb.Append(WriteBook());
             }
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            int dtCount = ds.Tables[0].Rows.Count;
+            for (int i = 0; i < dtCount; i++)
             {
                 string sohId = ds.Tables[0].Rows[i]["sellOffHead"].ToString();
                 string realCount = ds.Tables[0].Rows[i]["realDiscount"].ToString();
@@ -340,7 +351,7 @@ namespace bms.Web.SalesMGT
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
-                    sb.Append("<td>" + double.Parse(realCount)*100 + "</td>");
+                    sb.Append("<td>" + double.Parse(realCount) + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
                     //sb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");

@@ -115,7 +115,7 @@ namespace bms.Web.SalesMGT
                 //strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
                 int state = int.Parse(ds.Tables[0].Rows[i]["state"].ToString());
                 string dc = ds.Tables[0].Rows[i]["defaultDiscount"].ToString();
-                double defaultDiscount = double.Parse(dc) * 100;
+                double defaultDiscount = double.Parse(dc); //* 100;
                 string headId = ds.Tables[0].Rows[i]["sellOffHeadID"].ToString();
                 strb.Append("<tr>");
                 strb.Append("<td class='sellId'>" + headId + "</td>");
