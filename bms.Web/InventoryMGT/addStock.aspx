@@ -414,14 +414,14 @@
                             <h4 class="modal-title float-left" id="myModalLabel"><%=Session["id"] %>数据导入
                             </h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="material-icons">clear</i>
+                                <i class="fa fa-close"></i>
                             </button>
                         </div>
                         <div class="modal-body">
                             <table class="table text-center model-table">
                                 <tr>
                                     <td colspan="2">
-                                        <a class="btn btn-success" id="downEx" href="/uploads/muban/入库表.xls">下载模板</a>
+                                        <a class="btn btn-success" id="downEx" href="/uploads/muban/入库表.zip">下载模板</a>
                                         <span class="btn btn-success fileinput-button">
                                             <span>选择文件</span>
                                             <input type="file" class="" name="file" id="file" value="">
