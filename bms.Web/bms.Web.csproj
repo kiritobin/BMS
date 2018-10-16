@@ -219,7 +219,9 @@
     <Content Include="SalesMGT\salesManagement.aspx" />
     <Content Include="SalesMGT\salesRanking.aspx" />
     <Content Include="SalesMGT\tradeManagement.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessMGT\jurisdictionManagement.aspx.cs">
@@ -595,9 +597,11 @@
     <Content Include="uploads\muban\客户馆藏数据表\客户馆藏数据表.xlsx" />
     <Content Include="uploads\muban\入库表\入库表.xls" />
     <Content Include="uploads\muban\入库表\入库表.xlsx" />
-    <Content Include="uploads\muban\基础数据.zip" />
     <Content Include="uploads\muban\客户馆藏数据表.zip" />
     <Content Include="uploads\muban\入库表.zip" />
+    <Content Include="uploads\muban\基础数据表\基础数据.xls" />
+    <Content Include="uploads\muban\基础数据表\基础数据.xlsx" />
+    <Content Include="uploads\muban\基础数据表.zip" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
