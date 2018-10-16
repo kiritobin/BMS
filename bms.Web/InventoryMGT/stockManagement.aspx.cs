@@ -114,6 +114,9 @@ namespace bms.Web.InventoryMGT
         /// </summary>
         protected string getData()
         {
+            User user = (User)Session["user"];
+            int regionId = user.ReginId.RegionId;
+            string roleName = user.RoleId.RoleName;
             currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
@@ -160,7 +163,14 @@ namespace bms.Web.InventoryMGT
             tbd.OrderBy = "singleHeadId";
             tbd.StrColumnlist = "singleHeadId,regionId,time,regionName,userName,allBillCount,allTotalPrice,allRealPrice";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "type=1 and deleteState=0" + search;
+            if (roleName == "超级管理员")
+            {
+                tbd.StrWhere = "type=1 and deleteState=0" + search;
+            }
+            else
+            {
+                tbd.StrWhere = "type=1 and deleteState=0 and regionId=" + regionId + search;
+            }
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
@@ -175,8 +185,8 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<td>" + dr["regionName"].ToString() + "</td >");
                 sb.Append("<td>" + dr["userName"].ToString() + "</td >");
                 sb.Append("<td>" + dr["allBillCount"].ToString() + "</td >");
-                sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td >");
                 sb.Append("<td>" + dr["allRealPrice"].ToString() + "</td >");
+                sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td >");
                 sb.Append("<td>" + dr["time"].ToString() + "</td >");
                 sb.Append("<td>");
                 if (dr["allBillCount"].ToString() != "0" && dr["allBillCount"].ToString() != "")

@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.SalesMGT
 {
+    using System.Web.Security;
     using Result = Enums.OpResult;
     public partial class tradeManagement : System.Web.UI.Page
     {
@@ -26,6 +27,16 @@ namespace bms.Web.SalesMGT
             permission();
             getData();
             string op = Request["op"];
+            //退出系统
+            if (op == "logout")
+            {
+                //删除身份凭证
+                FormsAuthentication.SignOut();
+                //设置Cookie的值为空
+                Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                //设置Cookie的过期时间为上个月今天
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
+            }
             //添加销售任务
             if (op == "add")
             {
@@ -205,6 +216,9 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public string getData()
         {
+            User user = (User)Session["user"];
+            int regionId = user.ReginId.RegionId;
+            string roleName = user.RoleId.RoleName;
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -214,17 +228,32 @@ namespace bms.Web.SalesMGT
             string search = Request["search"];
             if (search == "" || search == null)
             {
-                search = "deleteState=0";
+                if (roleName == "超级管理员")
+                {
+                    search = "deleteState=0";
+                }
+                else
+                {
+                    search = "deleteState=0 and regionId=" + regionId;
+
+                }
             }
             else
             {
-                search = String.Format(" saleTaskId {0} and deleteState=0", "like '%" + search + "%'");
+                if (roleName == "超级管理员")
+                {
+                    search = String.Format(" saleTaskId {0} and deleteState=0 ", "like '%" + search + "%'");
+                }
+                else
+                {
+                    search = String.Format(" saleTaskId {0} and deleteState=0 and regionId=" + regionId, "like '%" + search + "%'");
+                }
             }
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleTask";
             tb.OrderBy = "saleTaskId";
-            tb.StrColumnlist = "saleTaskId,defaultDiscount,priceLimit,numberLimit,totalPriceLimit,startTime,finishTime,userId,userName,customerName";
+            tb.StrColumnlist = "saleTaskId,defaultDiscount,priceLimit,numberLimit,totalPriceLimit,startTime,finishTime,userId,userName,customerName,regionId";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
