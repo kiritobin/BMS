@@ -113,6 +113,9 @@ namespace bms.Web.BasicInfor
         /// <returns></returns>
         public string getData()
         {
+            User user = (User)Session["user"];
+            int regionId = user.ReginId.RegionId;
+            string roleName = user.RoleId.RoleName;
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -126,42 +129,49 @@ namespace bms.Web.BasicInfor
             string userName = Request["user"];
             if ((singleHeadId == "" || singleHeadId == null) && (regionName == "" || regionName == null) && (userName == "" || userName == null))
             {
-                search = "deleteState=0 and type=0";
+                search = "";
             }
             else if (singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null) && (userName == "" || userName == null))
             {
-                search = "deleteState=0 and type=0 and singleHeadId='" + singleHeadId + "'";
+                search = " and singleHeadId='" + singleHeadId + "'";
             }
             else if (regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
             {
-                search = "deleteState=0 and type=0 and regionName='" + regionName + "'";
+                search = " and regionName='" + regionName + "'";
             }
             else if (userName != "" && userName != null && (regionName == "" || regionName == null) && (singleHeadId == "" || singleHeadId == null))
             {
-                search = "deleteState=0 and type=0 and userName='" + userName + "'";
+                search = " and userName='" + userName + "'";
             }
             else if (userName != "" && userName != null && regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null))
             {
-                search = "deleteState=0 and type=0 and userName='" + userName + "' and regionName='" + regionName + "'";
+                search = " and userName='" + userName + "' and regionName='" + regionName + "'";
             }
             else if (userName != "" && userName != null && singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null))
             {
-                search = "deleteState=0 and type=0 and userName='" + userName + "' and singleHeadId='" + singleHeadId + "'";
+                search = " and userName='" + userName + "' and singleHeadId='" + singleHeadId + "'";
             }
             else if (singleHeadId != "" && singleHeadId != null && regionName != "" && regionName != null && (userName == "" || userName == null))
             {
-                search = "deleteState=0 and type=0 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "'";
+                search = " and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "'";
             }
             else
             {
-                search = "deleteState=0 and type=0 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "' and userName='" + userName + "'";
+                search = " and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "' and userName='" + userName + "'";
             }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
             tbd.OrderBy = "singleHeadId";
             tbd.StrColumnlist = "singleHeadId,regionName,userName,allBillCount,allTotalPrice,allRealPrice,time";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = search;
+            if (roleName == "超级管理员")
+            {
+                tbd.StrWhere = "deleteState=0 and type=0" + search;
+            }
+            else
+            {
+                tbd.StrWhere = "deleteState=0 and type=0 and regionId=" + regionId + search;
+            }
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);

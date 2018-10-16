@@ -132,19 +132,19 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
-                                <%if (funcOut)
-                                    { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
-                                        <span class="sidebar-normal">出库管理</span>
-                                    </a>
-                                </li>
-                                <%} %>
                                 <%if (funcPut)
                                     { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
+                                    </a>
+                                </li>
+                                <%} %>
+                                <%if (funcOut)
+                                    { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
+                                        <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <%} %>
