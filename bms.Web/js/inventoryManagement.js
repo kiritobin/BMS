@@ -38,9 +38,9 @@ $(document).ready(function () {
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var bookName = $("#bookName").val().trim();
-            var bookNum = $("#bookNum").val().trim();
-            var btnISBN = $("#bookISBN").val().trim();
+            var bookName = $("#bookName").val();
+            var bookNum = $("#bookNum").val();
+            var btnISBN = $("#bookISBN").val();
             $.ajax({
                 type: 'Post',
                 url: 'inventoryManagement.aspx',
@@ -61,9 +61,9 @@ $(document).ready(function () {
     });
 
     $("#btn-search").click(function () {
-        var bookName =$("#bookName").val().trim();
-        var bookArea = $("#area").val().trim();
-        var bookISBN = $("#isbn").val().trim();
+        var bookName =$("#bookName").val();
+        var bookArea = $("#area").val();
+        var bookISBN = $("#isbn").val();
         $.ajax({
             type: 'Post',
             url: 'inventoryManagement.aspx',

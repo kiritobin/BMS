@@ -406,13 +406,21 @@ namespace bms.Web.BasicInfor
                 DataRowCollection count = addBookId().Rows;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
-                    string isbn = row[2].ToString().Trim();
-                    string bookName = ToSBC(row[3].ToString().Trim());
-                    double price = Convert.ToDouble(row[6]);
-                    DataRow[] rows = bookBasicBll.Select().Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, price));
-                    if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
+                    try
                     {
-                        except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9],row[10]);
+                        string isbn = row[2].ToString().Trim();
+                        string bookName = ToSBC(row[3].ToString().Trim());
+                        double price = Convert.ToDouble(row[6]);
+                        DataRow[] rows = bookBasicBll.Select().Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, price));
+                        if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
+                        {
+                            except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        Response.Write(ex);
+                        Response.End();
                     }
                 }
             }

@@ -157,7 +157,7 @@
                                 </table>
                                 <div style="margin-top: 10px;">
                                     <div id="output" style="width: 190px; height: 200px;display:none"></div>
-                                    <img src="#" style="width: 190px; height: 70px" id="img" />
+                                    <img src="#" style="width: 190px; height: 50px" id="img" />
                                 </div>
                                 <div style="width: 260px;">
                                     <hr / style="color:lightseagreen">
