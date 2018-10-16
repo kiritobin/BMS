@@ -14,13 +14,7 @@
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" href="../css/pagination.css" />
 </head>
 
 <body>
@@ -253,6 +247,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>序号</th>
+                                                    <th>零售编号</th>
                                                     <th>品种数</th>
                                                     <th>数量</th>
                                                     <th>总码洋</th>
@@ -261,7 +256,13 @@
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
+                                            <%=getData() %>
                                         </table>
+                                    </div>
+                                    <div class="copyright float-right page-box">
+                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                            <div class="m-style paging"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -293,6 +294,8 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/retailBackManagement.js"></script>
 </body>
 
 </html>
