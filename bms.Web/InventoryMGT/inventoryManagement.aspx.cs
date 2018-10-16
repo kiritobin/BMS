@@ -36,7 +36,7 @@ namespace bms.Web.InventoryMGT
         }
         protected string getData()
         {
-            string bookISBN = Request["btnISBN"];
+            string bookISBN = Request["bookISBN"];
             string bookName = Request["bookName"];
             string area = Request["bookArea"];
             currentPage = Convert.ToInt32(Request["page"]);
@@ -54,7 +54,7 @@ namespace bms.Web.InventoryMGT
             }
             else if ((bookName == "" || bookName == null) && (area != "" && area != null) && (bookISBN == null || bookISBN == ""))
             {
-                search = "regionName=' " + area + "'";
+                search = "regionName='" + area + "'";
             }
             else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (area == null || area == ""))
             {

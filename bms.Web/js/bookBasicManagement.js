@@ -284,9 +284,9 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var bookName = $("#bookName").val().trim();
-            var bookNum = $("#bookNum").val().trim();
-            var btnISBN = $("#bookISBN").val().trim();
+            var bookName = $("#bookName").val();
+            var bookNum = $("#bookNum").val();
+            var btnISBN = $("#bookISBN").val();
             $.ajax({
                 type: 'Post',
                 url: 'bookBasicManagement.aspx',

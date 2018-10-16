@@ -139,11 +139,11 @@ namespace bms.Web.InventoryMGT
             }
             else if ((userName == "" || userName == null) && (singHeadId != "" && singHeadId != null) && (region == null || region == ""))
             {
-                search = " and singleHeadId=" + singHeadId;
+                search = " and singleHeadId='" + singHeadId + "'";
             }
             else if ((userName == "" || userName == null) && (singHeadId != "" && singHeadId != null) && (region != null && region != ""))
             {
-                search = " and regionName='" + region + "' and singleHeadId=" + singHeadId;
+                search = " and regionName='" + region + "' and singleHeadId='" + singHeadId + "'";
             }
             else if ((userName != "" && userName != null) && (region != null && region != "") && (singHeadId == null || singHeadId == ""))
             {
@@ -151,11 +151,11 @@ namespace bms.Web.InventoryMGT
             }
             else if ((userName != "" && userName != null) && (region == null || region == "") && (singHeadId != null && singHeadId != ""))
             {
-                search = String.Format(" and userName= '{0}' and singleHeadId={1}", userName, singHeadId);
+                search = String.Format(" and userName= '{0}' and singleHeadId='{1}'", userName, singHeadId);
             }
             else
             {
-                search = String.Format(" and userName= '{0}' and regionName = '{1}' and singleHeadId={2}  and deleteState=0", userName, region, singHeadId);
+                search = String.Format(" and userName= '{0}' and regionName = '{1}' and singleHeadId='{2}'  and deleteState=0", userName, region, singHeadId);
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();

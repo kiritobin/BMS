@@ -38,9 +38,9 @@ $('.paging').pagination({
 
 //点击查询按钮时
 $("#btn-search").click(function () {
-    var singHeadId = $("#ID").val().trim();
-    var regionName = $("#btn-region").val().trim();
-    var userName = $("#btn-user").val().trim();
+    var singHeadId = $("#ID").val();
+    var regionName = $("#region").val();
+    var userName = $("#user").val();
     $.ajax({
         type: 'Post',
         url: 'stockManagement.aspx',
@@ -142,7 +142,7 @@ $("#table").delegate(".btn-danger", "click", function () {
 })
 
 $("#btnAdd").click(function () {
-    var source = $("#source").val().trim();
+    var source = $("#source").val();
     if (source == "") {
         swal({
             title: "温馨提示:)",

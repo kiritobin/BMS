@@ -350,7 +350,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title float-left" id="myModalLabel">补货添加</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            <i class="material-icons">clear</i>
+                            <i class="fa fa-close"></i>
                         </button>
                     </div>
                     <div class="modal-body">
@@ -362,7 +362,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-right"><span>总码用:</span></td>
+                                <td class="text-right"><span>总码洋:</span></td>
                                 <td>
                                     <input type="text" value="" class="modal_search_add" id="totalPrice" placeholder="">
                                 </td>
