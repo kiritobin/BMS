@@ -69,7 +69,7 @@ namespace bms.Web.SalesMGT
                 // strb.Append("<td style='width:150px;'><button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button></td></tr>");
             }
             strb.Append("</tbody>");
-            strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {
