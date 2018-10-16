@@ -210,6 +210,10 @@
     <Content Include="SalesMGT\backQuery.aspx" />
     <Content Include="SalesMGT\retail.aspx" />
     <Content Include="SalesMGT\retailBack.aspx" />
+    <Content Include="SalesMGT\retailBackManagement.aspx" />
+    <Content Include="SalesMGT\retailBackQuery.aspx" />
+    <Content Include="SalesMGT\retailManagement.aspx" />
+    <Content Include="SalesMGT\retailQuery.aspx" />
     <Content Include="SalesMGT\retailRank.aspx" />
     <Content Include="SalesMGT\salesDetail.aspx" />
     <Content Include="SalesMGT\salesManagement.aspx" />
@@ -494,6 +498,34 @@
     </Compile>
     <Compile Include="SalesMGT\retailBack.aspx.designer.cs">
       <DependentUpon>retailBack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\retailBackManagement.aspx.cs">
+      <DependentUpon>retailBackManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retailBackManagement.aspx.designer.cs">
+      <DependentUpon>retailBackManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\retailBackQuery.aspx.cs">
+      <DependentUpon>retailBackQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retailBackQuery.aspx.designer.cs">
+      <DependentUpon>retailBackQuery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\retailManagement.aspx.cs">
+      <DependentUpon>retailManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retailManagement.aspx.designer.cs">
+      <DependentUpon>retailManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\retailQuery.aspx.cs">
+      <DependentUpon>retailQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\retailQuery.aspx.designer.cs">
+      <DependentUpon>retailQuery.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesMGT\retailRank.aspx.cs">
       <DependentUpon>retailRank.aspx</DependentUpon>

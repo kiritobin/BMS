@@ -111,10 +111,13 @@
                             </div>
                             <div class="container">
                                 <div class="row">
-                                    <div class="text-white col-sm-6 text-right" id="insert">
+                                    <div class="text-white col-sm-4 text-right" id="scanning" data-toggle="modal" data-target="#myModal1">
+                                        <button class="btn btn-info btn-lg btnText">扫  描</button>
+                                    </div>
+                                    <div class="text-white col-sm-4 text-right" id="insert">
                                         <button class="btn btn-success btn-lg btnText">提  交</button>
                                     </div>
-                                    <div class="text-white col-sm-6 text-left" id="giveup">
+                                    <div class="text-white col-sm-4 text-left" id="giveup">
                                         <button class="btn btn-danger btn-lg btnText">放  弃</button>
                                     </div>
                                 </div>
@@ -176,12 +179,28 @@
                                 <th>出版社</th>
                             </tr>
                         </thead>
-                        <%=getIsbn() %>
                     </table>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-success btn-sm" id="btnAdd">提交</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!--扫描模态框-->
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width:400px; margin-top:50px;">
+                <div class="modal-header">
+                    <h4 class="modal-title float-left" id="myModalLabel1">请扫描</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body" style="margin:0 auto;">
+                    单头ID:<input type="text" placeholder="请输入单头ID" id="scannSea" class="searchOne">
+                </div>
+                <div class="modal-footer"></div>
             </div>
         </div>
     </div>

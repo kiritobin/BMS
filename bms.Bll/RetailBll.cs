@@ -224,5 +224,15 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+
+        /// <summary>
+        /// 根据ISBN查找书号，单价，折扣
+        /// </summary>
+        /// <param name="ISBN">ISBN</param>
+        /// <returns></returns>
+        public DataSet SelectByIsbn(string ISBN, string retailHeadId)
+        {
+            return dao.SelectByIsbn(ISBN, retailHeadId);
+        }
     }
 }
