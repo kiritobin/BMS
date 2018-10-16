@@ -234,5 +234,38 @@ namespace bms.Dao
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
+
+        /// <summary>
+        /// 根据ISBN查找书号，单价，折扣
+        /// </summary>
+        /// <param name="ISBN">ISBN</param>
+        /// <returns></returns>
+        public DataSet SelectByIsbn(string ISBN,string retailHeadId)
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comTexts = "select count(id) from T_RetailMonomer where ISBN=@ISBN and retailHeadId=@retailHeadId";
+            string[] parames = { "@ISBN", "@retailHeadId" };
+            object[] value = { ISBN, retailHeadId };
+            int row = Convert.ToInt32(db.ExecuteScalar(comTexts, parames, value));
+            if (row == 0)
+            {
+                return null;
+            }
+            else
+            {
+                string comText = "select bookNum,ISBN,price,bookName,supplier from T_BookBasicData where ISBN=@ISBN";
+                string[] param = { "@ISBN" };
+                object[] values = { ISBN };
+                DataSet ds = db.FillDataSet(comText, param, values);
+                if (ds != null || ds.Tables[0].Rows.Count > 0)
+                {
+                    return ds;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

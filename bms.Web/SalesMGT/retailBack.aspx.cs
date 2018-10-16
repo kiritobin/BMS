@@ -48,6 +48,21 @@ namespace bms.Web.SalesMGT
                 bookNumList.RemoveAt(index);
                 Session["List"] = bookNumList;
             }
+            if (op == "scann")
+            {
+                string retailId = Request["retailId"];
+                DataSet ds = retailBll.GetRetail(retailId);
+                if (ds == null)
+                {
+                    Response.Write("记录不存在");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("记录存在");
+                    Response.End();
+                }
+            }
         }
 
         public string getIsbn()
@@ -61,10 +76,10 @@ namespace bms.Web.SalesMGT
             }
             double disCount = Convert.ToDouble(Request["disCount"]);
             int billCount = Convert.ToInt32(Request["billCount"]);
+            string retailHeadId = Request["headId"];
             if (isbn != null && isbn != "")
             {
-                BookBasicBll bookBasicBll = new BookBasicBll();
-                DataSet bookDs = bookBasicBll.SelectByIsbn(isbn);
+                DataSet bookDs = retailBll.SelectByIsbn(isbn, retailHeadId);
                 int count = bookDs.Tables[0].Rows.Count;
                 if (bookDs != null && bookDs.Tables[0].Rows.Count > 0)
                 {

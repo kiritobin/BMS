@@ -487,6 +487,16 @@
                                                 </label>
                                             </div>
                                         </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="14">零售管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                </label>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -657,6 +667,16 @@
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input class="form-check-input" type="checkbox" name="checkboxEdit" value="13">补货管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="14">零售管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
