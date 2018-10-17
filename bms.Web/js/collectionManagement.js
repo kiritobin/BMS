@@ -37,7 +37,7 @@
     $("#cusSearch").change(function () {
         var custom = $("#cusSearch").find("option:selected").text();
         if (custom == "请选择客户") {
-            custom = "";
+            custom = "kiritobin";
         }
         var book = $("#bookSearch").val().trim();
         var isbn = $("#isbnSearch").val().trim();
@@ -99,7 +99,7 @@
         var isbn = $("#isbnSearch").val().trim();
         var custom = $("#cusSearch").find("option:selected").text();
         if (custom =="请选择客户") {
-            custom = "";
+            custom = "kiritobin";
         }
         $.ajax({
             type: 'Post',
