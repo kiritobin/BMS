@@ -72,7 +72,7 @@ namespace bms.Web.SalesMGT
             string kind = Request["kind"];
             if(kind == "0")
             {
-                Session["List"] = new List<long>();
+                Session["List"] = new List<string>();
             }
             double disCount = Convert.ToDouble(Request["disCount"]);
             if (isbn != null && isbn != "")
