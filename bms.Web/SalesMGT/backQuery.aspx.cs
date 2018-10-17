@@ -26,8 +26,14 @@ namespace bms.Web.SalesMGT
         BookBasicBll bookBll = new BookBasicBll();
         GoodsShelvesBll gbll = new GoodsShelvesBll();
         StockBll stbll = new StockBll();
+
+        public int staticsKinds;//总品种
+        public int staticsNumber;//总数量
+        public double staticsTotalPrice;//总码洋
+        public double staticsRealPrice;//总实洋
         protected void Page_Load(object sender, EventArgs e)
         {
+            string sellId = Session["sellId"].ToString();
             string op = Request["op"];
             GetData();
             if (op == "search")
@@ -73,7 +79,6 @@ namespace bms.Web.SalesMGT
             //保存单据
             if (op == "sure")
             {
-                string sellId = Session["sellId"].ToString();
                 int row = smBll.GetCount(sellId);
                 if (row > 0)
                 {
@@ -97,7 +102,23 @@ namespace bms.Web.SalesMGT
                 }
             }
 
-
+            DataSet headDs = shBll.Select(sellId);
+            DataTable tRows = headDs.Tables[0];
+            if (tRows.Rows.Count > 0 && headDs != null)
+            {
+                for(int i = 0; i < tRows.Rows.Count; i++)
+                {
+                    staticsKinds = Convert.ToInt32(tRows.Rows[0]["kinds"].ToString());
+                    staticsNumber = Convert.ToInt32(tRows.Rows[0]["count"].ToString());
+                    staticsTotalPrice = Convert.ToDouble(tRows.Rows[0]["totalPrice"].ToString());
+                    staticsRealPrice = Convert.ToDouble(tRows.Rows[0]["realPrice"]);
+                }
+            }
+            else
+            {
+                Response.Write("没有这条数据");
+                Response.End();
+            }
         }
         /// <summary>
         /// 带输入框的tr列表
@@ -150,113 +171,121 @@ namespace bms.Web.SalesMGT
         {
             string sellId = Session["sellId"].ToString();
             string isbn = Request["ISBN"];//ISBN
-            string bookNo = Request["bookNum"];
-            if (bookNo == null || bookNo == "")
+            if (isbn == "" || isbn == null)
             {
-                bookNo = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
+                Response.Write("请先输入ISBN号");
+                Response.End();
             }
-            int bookCount = smBll.getBookCount(bookNo);
-            if (bookCount > 0)
+            else
             {
-                BookBasicData book = new BookBasicData();
-                book = bookBll.SelectById(bookNo);
-                double unitPrice = book.Price;//定价
-                                              //double discount = double.Parse(Request["discount"]);//实际折扣
-
-                //获取默认折扣
-                DataSet stds = smBll.getSaleTask(sellId);
-                string stId = Session["saleId"].ToString();
-                DataSet seds = smBll.getDisCount(stId);
-                string dc = seds.Tables[0].Rows[0]["defaultDiscount"].ToString();
-                double discount = double.Parse(dc);//默认折扣
-
-                int count = int.Parse(Request["count"]);//数量
-                double totalPrice = unitPrice * count;//码洋
-                double d = totalPrice * (discount/100);
-                double realPrice = Math.Round(d, 2);//实洋
-                string headId = Session["sellId"].ToString();//单头Id
-                int moNum = smBll.GetCount(headId);
-                int smId;
-                smId = moNum + 1;//单体Id
-                DateTime time = DateTime.Now;
-
-                //获取默认折扣
-                //DataSet stds = smBll.getSaleTask(sellId);
-                //string stId = stds.Tables[0].Rows[0]["saleTaskId"].ToString();//销售任务Id
-                DataSet countds = smBll.selctByBookNum(bookNo, stId);
-                int num = 0;
-                SellOffMonomer sm = new SellOffMonomer()
+                string bookNo = Request["bookNum"];
+                if (bookNo == null || bookNo == "")
                 {
-                    SellOffMonomerId = smId.ToString(),
-                    SellOffHeadId = headId,
-                    BookNum = long.Parse(bookNo),
-                    ISBN1 = isbn,
-                    Count = count,
-                    TotalPrice = totalPrice,
-                    RealPrice = realPrice,
-                    Price = unitPrice,
-                    Time = time,
-                    Discount = discount
-                };
-                DataSet smcountds = smBll.selecctSm(bookNo, sellId);
-                int allcount = 0;
-                if (countds != null)//获取销售中的相应的数量
-                {
-                    for (int i = 0; i < countds.Tables[0].Rows.Count; i++)
-                    {
-                        num = num + int.Parse(countds.Tables[0].Rows[i]["number"].ToString());
-                    }
+                    bookNo = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
                 }
-                if (smcountds != null)//获取销退单体中已有的数量
+                int bookCount = smBll.getBookCount(bookNo);
+                if (bookCount > 0)
                 {
-                    for (int i = 0; i < smcountds.Tables[0].Rows.Count; i++)
-                    {
-                        allcount = allcount + int.Parse(smcountds.Tables[0].Rows[i]["count"].ToString());
-                    }
-                }
-                if (count > num || (count + allcount) > num)//判断销退数量是否大于销售数量
-                {
-                    Response.Write("数据过大");
-                    Response.End();
-                }
-                else
-                {
+                    BookBasicData book = new BookBasicData();
+                    book = bookBll.SelectById(bookNo);
+                    double unitPrice = book.Price;//定价
+                                                  //double discount = double.Parse(Request["discount"]);//实际折扣
 
-                    Result row = smBll.Insert(sm);
-                    if (row == Result.添加成功)//先添加销退体
+                    //获取默认折扣
+                    DataSet stds = smBll.getSaleTask(sellId);
+                    string stId = Session["saleId"].ToString();
+                    DataSet seds = smBll.getDisCount(stId);
+                    string dc = seds.Tables[0].Rows[0]["defaultDiscount"].ToString();
+                    double discount = double.Parse(dc);//默认折扣
+
+                    int count = int.Parse(Request["count"]);//数量
+                    double totalPrice = unitPrice * count;//码洋
+                    double d = totalPrice * (discount / 100);
+                    double realPrice = Math.Round(d, 2);//实洋
+                    string headId = Session["sellId"].ToString();//单头Id
+                    int moNum = smBll.GetCount(headId);
+                    int smId;
+                    smId = moNum + 1;//单体Id
+                    DateTime time = DateTime.Now;
+
+                    //获取默认折扣
+                    //DataSet stds = smBll.getSaleTask(sellId);
+                    //string stId = stds.Tables[0].Rows[0]["saleTaskId"].ToString();//销售任务Id
+                    DataSet countds = smBll.selctByBookNum(bookNo, stId);
+                    int num = 0;
+                    SellOffMonomer sm = new SellOffMonomer()
                     {
-                        string update = updateSellHead();
-                        if (update == "更新成功")//后更新销退单头信息
+                        SellOffMonomerId = smId.ToString(),
+                        SellOffHeadId = headId,
+                        BookNum = long.Parse(bookNo),
+                        ISBN1 = isbn,
+                        Count = count,
+                        TotalPrice = totalPrice,
+                        RealPrice = realPrice,
+                        Price = unitPrice,
+                        Time = time,
+                        Discount = discount
+                    };
+                    DataSet smcountds = smBll.selecctSm(bookNo, sellId);
+                    int allcount = 0;
+                    if (countds != null)//获取销售中的相应的数量
+                    {
+                        for (int i = 0; i < countds.Tables[0].Rows.Count; i++)
                         {
-                            string stock = insertStock();
-                            if (stock == "更新成功")//最后写入库存
+                            num = num + int.Parse(countds.Tables[0].Rows[i]["number"].ToString());
+                        }
+                    }
+                    if (smcountds != null)//获取销退单体中已有的数量
+                    {
+                        for (int i = 0; i < smcountds.Tables[0].Rows.Count; i++)
+                        {
+                            allcount = allcount + int.Parse(smcountds.Tables[0].Rows[i]["count"].ToString());
+                        }
+                    }
+                    if (count > num || (count + allcount) > num)//判断销退数量是否大于销售数量
+                    {
+                        Response.Write("数据过大");
+                        Response.End();
+                    }
+                    else
+                    {
+
+                        Result row = smBll.Insert(sm);
+                        if (row == Result.添加成功)//先添加销退体
+                        {
+                            string update = updateSellHead();
+                            if (update == "更新成功")//后更新销退单头信息
                             {
-                                Response.Write("添加成功");
-                                Response.End();
+                                string stock = insertStock();
+                                if (stock == "更新成功")//最后写入库存
+                                {
+                                    Response.Write("添加成功");
+                                    Response.End();
+                                }
+                                else
+                                {
+                                    Response.Write("写入库存失败");
+                                    Response.End();
+                                }
                             }
                             else
                             {
-                                Response.Write("写入库存失败");
+                                Response.Write("更新单头信息失败");
                                 Response.End();
                             }
                         }
                         else
                         {
-                            Response.Write("更新单头信息失败");
+                            Response.Write("添加失败");
                             Response.End();
                         }
                     }
-                    else
-                    {
-                        Response.Write("添加失败");
-                        Response.End();
-                    }
                 }
-            }
-            else
-            {
-                Response.Write("销售单中暂无此数据");
-                Response.End();
+                else
+                {
+                    Response.Write("销售单中暂无此数据");
+                    Response.End();
+                }
             }
         }
         /// <summary>
