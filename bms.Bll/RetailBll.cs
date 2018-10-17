@@ -105,6 +105,16 @@ namespace bms.Bll
         }
 
         /// <summary>
+        /// 查询单头下的状态
+        /// </summary>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>数据集</returns>
+        public int GetRetailType(string retailHeadId)
+        {
+            return dao.GetRetailType(retailHeadId);
+        }
+
+        /// <summary>
         /// 查询零售单体
         /// </summary>
         /// <param name="retailMonomerId">零售单体ID</param>

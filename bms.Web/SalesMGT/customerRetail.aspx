@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 
-<body style="overflow:hidden;">
+<body>
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -185,6 +185,7 @@
                                     </thead>
                                 </table>
                             </div>
+                            <img src="#" class="border" id="img" style="width:250px;height:60px;" />
                         </div>
                     </div>
                 </div>
