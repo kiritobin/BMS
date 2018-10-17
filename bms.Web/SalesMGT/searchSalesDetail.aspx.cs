@@ -67,7 +67,7 @@ namespace bms.Web.SalesMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 string bookNum = ds.Tables[0].Rows[i]["bookNum"].ToString();
-                salemonbll.
+
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");

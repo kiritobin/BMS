@@ -417,10 +417,17 @@ namespace bms.Dao
         //    string[] param = { "@saleId", "@saleHeadId", "@bookNum" };
         //    object[] values = { saleId, saleHeadId, bookNum };
         //    DataSet ds = db.FillDataSet(cmdtext, param, values);
-        //    SaleMonomer salemon;
+        //    SaleMonomer salemon =new SaleMonomer();
         //    if (ds != null || ds.Tables[0].Rows.Count > 0)
         //    {
-        //        salemon.BookNum=ds.Tables[0].Rows[]
+        //        if (ds.Tables[0].Rows.Count > 1)
+        //        {
+
+        //        }
+        //        else
+        //        {
+        //            salemon.BookNum = ds.Tables[0].Rows[0]["bookNum"].ToString();
+        //        }
         //    }
         //}
     }
