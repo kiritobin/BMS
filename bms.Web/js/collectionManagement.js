@@ -400,56 +400,6 @@
         );
         return false;
     }
-
-    //$("#table").delegate(".btn_delete", "click", function () {
-    //    var libraryId = $(this).parent().prev().prev().prev().prev().prev().prev().text().trim();
-    //    swal({
-    //        title: '温馨提示:)',
-    //        text: '确定要删除吗？',
-    //        type: 'warning',
-    //        showCancelButton: true,
-    //        confirmButtonText: '是的，删掉它!',
-    //        cancelButtonText: '不，让我思考一下',
-    //        confirmButtonClass: "btn btn-success",
-    //        cancelButtonClass: "btn btn-danger",
-    //        buttonsStyling: false,
-    //        allowOutsideClick: false
-    //    }).then(function () {
-    //        $.ajax({
-    //            type: 'Post',
-    //            url: 'collectionManagement.aspx',
-    //            data: {
-    //                libraryId: libraryId,
-    //                action: "del"
-    //            },
-    //            dataType: 'text',
-    //            success: function (succ) {
-    //                if (succ == "删除成功") {
-    //                    swal({
-    //                        title: "温馨提示:)",
-    //                        text: "用户删除成功",
-    //                        buttonsStyling: false,
-    //                        confirmButtonClass: "btn btn-success",
-    //                        type: "success",
-    //                        allowOutsideClick: false
-    //                    }).then(function () {
-    //                        window.location.reload();
-    //                    })
-    //                } else {
-    //                    swal({
-    //                        title: "温馨提示:)",
-    //                        text: "删除失败",
-    //                        buttonsStyling: false,
-    //                        confirmButtonClass: "btn btn-success",
-    //                        type: "warning",
-    //                        allowOutsideClick: false
-    //                    }).then(function () {
-    //                    })
-    //                }
-    //            }
-    //        })
-    //    });
-    //})
 });
 //退出系统
 function logout() {
