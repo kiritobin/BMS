@@ -477,23 +477,23 @@ $("#btnSettle").click(function () {
                         height: 50,//高度
                     });
                     sessionStorage.removeItem("retailId");
-                    //var status = "";
-                    //var LODOP = getLodop();
-                    //LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
-                    //LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                    //LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
-                    //LODOP.PRINT();
-                    //LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
-                    //LODOP.On_Return = function (TaskID, Value) {
-                    //    status = Value;
-                    //};
-                    //if (status != "" || status != null) {
-                    //    LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
-                    //    LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                    //    LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
-                    //    LODOP.PRINT();
-                    //    window.location.reload();
-                    //}
+                    var status = "";
+                    var LODOP = getLodop();
+                    LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
+                    LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                    LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
+                    LODOP.PRINT();
+                    LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
+                    LODOP.On_Return = function (TaskID, Value) {
+                        status = Value;
+                    };
+                    if (status != "" || status != null) {
+                        LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
+                        LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                        LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
+                        LODOP.PRINT();
+                        window.location.reload();
+                    }
                 }
             }
         })
