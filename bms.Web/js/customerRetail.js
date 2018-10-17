@@ -5,7 +5,7 @@
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
     setInterval("showTime()", 1000);
-    $("#sale").hide();
+    //$("#sale").hide();
     $("#btnSettle").hide();
 })
 //获取当前时间
@@ -432,7 +432,15 @@ $("#btnSettle").click(function () {
             success: function (succ) {
                 var datas = succ.split(":|");
                 var data = datas[0];
-                if (data == "书籍不存在") {
+                if (data == "此书籍库存不足") {
+                    swal({
+                        title: "此书籍库存不足",
+                        text: "书名:" + datas[1] + "库存不足",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                }else if (data == "此书籍无库存") {
                     swal({
                         title: "书籍不存在",
                         text: "书名:" + datas[1]+"不存在",
@@ -440,8 +448,7 @@ $("#btnSettle").click(function () {
                         confirmButtonClass: "btn btn-warning",
                         type: "warning"
                     }).catch(swal.noop);
-                }
-                if (data == "更新失败") {
+                }else if (data == "更新失败") {
                     swal({
                         title: "结算失败",
                         text: "结算失败",
@@ -470,23 +477,23 @@ $("#btnSettle").click(function () {
                         height: 50,//高度
                     });
                     sessionStorage.removeItem("retailId");
-                    var status = "";
-                    var LODOP = getLodop();
-                    LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
-                    LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                    LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
-                    LODOP.PRINT();
-                    LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
-                    LODOP.On_Return = function (TaskID, Value) {
-                        status = Value;
-                    };
-                    if (status != "" || status != null) {
-                        LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
-                        LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                        LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
-                        LODOP.PRINT();
-                        window.location.reload();
-                    }
+                    //var status = "";
+                    //var LODOP = getLodop();
+                    //LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
+                    //LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                    //LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
+                    //LODOP.PRINT();
+                    //LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
+                    //LODOP.On_Return = function (TaskID, Value) {
+                    //    status = Value;
+                    //};
+                    //if (status != "" || status != null) {
+                    //    LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
+                    //    LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                    //    LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
+                    //    LODOP.PRINT();
+                    //    window.location.reload();
+                    //}
                 }
             }
         })

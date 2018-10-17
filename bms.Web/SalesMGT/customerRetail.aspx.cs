@@ -76,7 +76,7 @@ namespace bms.Web.SalesMGT
                     int rows = dsStock.Tables[0].Rows.Count;
                     if (rows == 0)
                     {
-                        Response.Write("书籍不存在:|"+ dr["bookName"]);
+                        Response.Write("此书籍无库存:|"+ dr["bookName"]);
                         Response.End();
                     }
                     else
@@ -85,38 +85,46 @@ namespace bms.Web.SalesMGT
                         {
                             int count = number;
                             int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
-                            int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[j]["goodsShelvesId"]);
-                            if (stockNum > number)
+                            if (stockNum == 0)
                             {
-                                Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
-                                if (stock == Result.更新失败)
-                                {
-                                    Response.Write("更新失败:|");
-                                    Response.End();
-                                }
-                                count = 0;
+                                Response.Write("此书籍库存不足:|");
+                                Response.End();
                             }
                             else
                             {
-                                count = number - stockNum;
-                                Result stock = stockBll.update(0, goodsId, bookNum);
-                                if (stock == Result.更新失败)
+                                int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[j]["goodsShelvesId"]);
+                                if (stockNum > number)
                                 {
-                                    Response.Write("更新失败:|");
-                                    Response.End();
-                                }
-                            }
-                            if (count == 0)
-                            {
-                                Result end = retailBll.updateType(headId);
-                                if (end == Result.更新成功)
-                                {
-                                    Pay(headId);
+                                    Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
+                                    if (stock == Result.更新失败)
+                                    {
+                                        Response.Write("更新失败:|");
+                                        Response.End();
+                                    }
+                                    count = 0;
                                 }
                                 else
                                 {
-                                    Response.Write("更新失败:|");
-                                    Response.End();
+                                    count = number - stockNum;
+                                    Result stock = stockBll.update(0, goodsId, bookNum);
+                                    if (stock == Result.更新失败)
+                                    {
+                                        Response.Write("更新失败:|");
+                                        Response.End();
+                                    }
+                                }
+                                if (count == 0)
+                                {
+                                    Result end = retailBll.updateType(headId);
+                                    if (end == Result.更新成功)
+                                    {
+                                        Pay(headId);
+                                    }
+                                    else
+                                    {
+                                        Response.Write("更新失败:|");
+                                        Response.End();
+                                    }
                                 }
                             }
                         }
