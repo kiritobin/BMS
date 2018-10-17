@@ -195,7 +195,6 @@
     //一号多书时弹出模态框，确定书籍
     $("#sureBook").click(function () {
         var isbn = $("input[type='radio']:checked").parents('tr').find('td').eq(1).text();
-        alert(isbn);
         var bookNum = $("input[type='radio']:checked").val();
         var price = $("input[type='radio']:checked").parents('tr').find('td').eq(4).text();
         var discount = $("input[type='radio']:checked").parents('tr').find('td').eq(4).text();
