@@ -48,6 +48,7 @@
     <Compile Include="LoginBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionBll.cs" />
+    <Compile Include="replenishMentBll.cs" />
     <Compile Include="RetailBll.cs" />
     <Compile Include="RoleBll.cs" />
     <Compile Include="RSACryptoService.cs" />

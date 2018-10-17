@@ -305,80 +305,87 @@
                                             &nbsp;
                                         <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>--%>
                                     </div>
-                                    <table class="table table_stock text-right">
-                                        <tr class="text-nowrap">
-                                            <td>
-                                                <span>单据编号:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" disabled value="<%=shId %>">
-                                            </td>
-                                            <td>
-                                                <span>操作员:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" disabled value="<%=shOperator %>">
-                                            </td>
-                                            <td>
-                                                <span>单据总数:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" disabled value="<%=shCount %>">
-                                            </td>
-                                        </tr>
-                                        <tr class="text-nowrap">
-                                            <td>
-                                                <span>入库组织:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" disabled value="<%=shRegionName %>">
-                                            </td>
-                                            <td>
-                                                <span>总码洋:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" disabled value="<%=shTotalPrice %>">
-                                            </td>
-                                            <td>
-                                                <span>总实洋:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" disabled value="<%=shRealPrice %>">
-                                            </td>
-                                        </tr>
-                                        <tr class="text-nowrap">
-                                            <td>
-                                                <span>制单日期:</span>
-                                            </td>
-                                            <td>
-                                                <div class="jeinpbox">
-                                                    <input type="text" class="jeinput form-control" disabled value="<%=shTime %>" />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center" id="table">
-                                            <thead>
-                                                <tr>
-                                                    <td>单据编号</td>
-                                                    <td>ISBN号</td>
-                                                    <td>商品数量</td>
-                                                    <td>单价</td>
-                                                    <td>折扣</td>
-                                                    <td>实洋</td>
-                                                    <td>码洋</td>
-                                                    <td>货架</td>
-                                                </tr>
-                                            </thead>
-                                            <%=getData() %>
+                                    <div id="content">
+                                        <table class="table table_stock text-right">
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>单据编号:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" disabled value="<%=shId %>">
+                                                </td>
+                                                <td></td><td></td>
+                                                <td>
+                                                    <span>操作员:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" disabled value="<%=shOperator %>">
+                                                </td>
+                                            </tr>
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>接收组织:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" disabled value="<%=shRegionName %>">
+                                                </td>
+                                                <td></td><td></td>
+                                                <td>
+                                                    <span>制单日期:</span>
+                                                </td>
+                                                <td>
+                                                    <div class="jeinpbox">
+                                                        <input type="text" class="jeinput form-control" disabled value="<%=shTime %>" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="table-responsive">
+                                            <table class="table mostTable table-bordered text-center" id="table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>单据编号</td>
+                                                        <td>ISBN号</td>
+                                                        <td>商品数量</td>
+                                                        <td>单价</td>
+                                                        <td>折扣</td>
+                                                        <td>实洋</td>
+                                                        <td>码洋</td>
+                                                        <td>货架</td>
+                                                    </tr>
+                                                </thead>
+                                                <%=getData() %>
+                                            </table>
+                                        </div>
+                                        <table class="table table_stock text-right">
+                                            <tr class="text-nowrap">
+                                                <td>总合计：</td>
+                                                <td>
+                                                    <span>单据总数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" disabled value="<%=shCount %>">
+                                                </td>
+                                                <td>
+                                                    <span>总码洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" disabled value="<%=shTotalPrice %>">
+                                                </td>
+                                                <td>
+                                                    <span>总实洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" disabled value="<%=shRealPrice %>">
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
-                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div>
+                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                                <div class="m-style paging"></div>
+                                            </div>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

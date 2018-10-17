@@ -248,7 +248,17 @@
                     confirmButtonClass: "btn btn-warning",
                     type: "warning"
                 }).catch(swal.noop);
-            } else {
+            }
+            else if (num == "0") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "数量不能未0!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            }
+            else {
                 $.ajax({
                     type: 'Post',
                     url: 'backQuery.aspx',
