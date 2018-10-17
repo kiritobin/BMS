@@ -60,7 +60,7 @@
         endPage: '', //尾页节点内容
         keepShowPN: false, //是否一直显示上一页下一页
         mode: 'unfixed', //分页模式，unfixed：不固定页码数量，fixed：固定页码数量
-        count: 4, //mode为unfixed时显示当前选中页前后页数，mode为fixed显示页码总数
+        count: 5, //mode为unfixed时显示当前选中页前后页数，mode为fixed显示页码总数
         jump: false, //跳转到指定页数
         jumpIptCls: 'jump-ipt', //文本框内容
         jumpBtnCls: 'jump-btn', //跳转按钮

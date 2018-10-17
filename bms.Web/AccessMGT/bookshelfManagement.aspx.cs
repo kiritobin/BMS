@@ -18,6 +18,7 @@ namespace bms.Web.BasicInfor
     {
         public string userName,regionName;
         public int totalCount, intPageCount, PageSize=10,row;
+        public User user = new User();
         public DataSet regionDs, ds,dsPer;
         GoodsShelvesBll shelvesbll = new GoodsShelvesBll();
         RegionBll rbll = new RegionBll();
@@ -31,7 +32,15 @@ namespace bms.Web.BasicInfor
             string op = Request["op"];
             if (op == "add")
             {
-                int regionId = int.Parse(Request["regionId"]);
+                int regionId;
+                if (user.RoleId.RoleName == "超级管理员")
+                {
+                    regionId = int.Parse(Request["regionId"]);
+                }
+                else
+                {
+                    regionId = user.ReginId.RegionId;
+                }
                 string shelfName = Request["shelfName"];
 
                 Region reg = new Region()
@@ -216,7 +225,15 @@ namespace bms.Web.BasicInfor
         //excel读到table
         private DataTable excelToDt()
         {
-            int regId = Convert.ToInt32(Request["regId"]);
+            int regId;
+            if (user.RoleId.RoleName == "超级管理员")
+            {
+                regId = Convert.ToInt32(Request["regId"]);
+            }
+            else
+            {
+                regId = user.ReginId.RegionId;
+            }
             DataTable dt1 = new DataTable();
             string path = Session["path"].ToString();
             string strConn = "";
@@ -280,7 +297,15 @@ namespace bms.Web.BasicInfor
         //取差集
         private void differentDt()
         {
-            int regId = Convert.ToInt32(Request["regId"]);
+            int regId;
+            if (user.RoleId.RoleName == "超级管理员")
+            {
+                regId = Convert.ToInt32(Request["regId"]);
+            }
+            else
+            {
+                regId = user.ReginId.RegionId;
+            }
             int j = shelvesbll.isGoodsShelves(regId).Tables[0].Rows.Count;
             //数据库无数据时直接导入excel
             if (j <= 0)
@@ -336,7 +361,7 @@ namespace bms.Web.BasicInfor
         protected void permission()
         {
             FunctionBll functionBll = new FunctionBll();
-            User user = (User)Session["user"];
+            user = (User)Session["user"];
             userName = user.UserName;
             regionName = user.ReginId.RegionName;
             Role role = new Role();
