@@ -55,11 +55,13 @@ namespace bms.Dao
                 DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
                 for (int j = 0; j < dr.Length; j++)
                 {
+                    float count = float.Parse(dr[j]["number"].ToString().Trim());
                     sltemp += float.Parse(dr[j]["number"].ToString().Trim());
                 }
                 if (sltemp > 0)
                 {
                     zl++;
+                    sltemp = 0;
                 }
             }
             return zl;
@@ -411,24 +413,56 @@ namespace bms.Dao
                 return sum = Convert.ToDouble(sumstring);
             }
         }
-        //public SaleMonomer getSalemonBasic(string saleId, string saleHeadId, string bookNum)
-        //{
-        //    string cmdtext = "select bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime from T_SaleMonomer where saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum";
-        //    string[] param = { "@saleId", "@saleHeadId", "@bookNum" };
-        //    object[] values = { saleId, saleHeadId, bookNum };
-        //    DataSet ds = db.FillDataSet(cmdtext, param, values);
-        //    SaleMonomer salemon =new SaleMonomer();
-        //    if (ds != null || ds.Tables[0].Rows.Count > 0)
-        //    {
-        //        if (ds.Tables[0].Rows.Count > 1)
-        //        {
-
-        //        }
-        //        else
-        //        {
-        //            salemon.BookNum = ds.Tables[0].Rows[0]["bookNum"].ToString();
-        //        }
-        //    }
-        //}
+        /// <summary>
+        /// 单头id，销售任务id，获取单体信息 group by
+        /// </summary>
+        /// <param name="saleId">销售任务id</param>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>数据集</returns>
+        public DataSet getSalemonBasic(string saleId, string saleHeadId)
+        {
+            string cmdtext = "select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice from V_SaleMonomer where saleTaskId=@saleId and saleHeadId=@saleHeadId group by bookNum,bookName,ISBN,unitPrice,realDiscount;";
+            string[] param = { "@saleId", "@saleHeadId" };
+            object[] values = { saleId, saleHeadId };
+            DataSet ds = db.FillDataSet(cmdtext, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// 获取该书在销售单头下的总数量
+        /// </summary>
+        /// <param name="saleId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <param name="bookNum">书号</param>
+        /// <returns>数量</returns>
+        public int getSalemonBookNumber(string saleId, string saleHeadId, string bookNum)
+        {
+            string cmdtext = "select sum(number) from T_SaleMonomer where saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum";
+            string[] param = { "@saleId", "@saleHeadId", "@bookNum" };
+            object[] values = { saleId, saleHeadId, bookNum };
+            int number = Convert.ToInt32(db.ExecuteScalar(cmdtext, param, values).ToString());
+            return number;
+        }
+        /// <summary>
+        /// 获取该书在销售单头下的总实洋
+        /// </summary>
+        /// <param name="saleId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <param name="bookNum">书号</param>
+        /// <returns>总实洋</returns>
+        public double getSalemonBookRealPrice(string saleId, string saleHeadId, string bookNum)
+        {
+            string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum";
+            string[] param = { "@saleId", "@saleHeadId", "@bookNum" };
+            object[] values = { saleId, saleHeadId, bookNum };
+            double realPrice = double.Parse(db.ExecuteScalar(cmdtext, param, values).ToString());
+            return realPrice;
+        }
     }
 }

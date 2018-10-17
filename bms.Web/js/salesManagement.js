@@ -351,7 +351,7 @@
             dataType: 'text',
             success: function (succ) {
                 if (succ == "成功") {
-                    window.location.href = "../SalesMGT/salesDetail.aspx";
+                    window.location.href = "../SalesMGT/searchSalesDetail.aspx";
                 }
             }
         })

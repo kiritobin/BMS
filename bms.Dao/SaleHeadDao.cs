@@ -105,5 +105,28 @@ namespace bms.Dao
             }
             return null;
         }
+
+        /// <summary>
+        /// 根据单头id 销售任务id获取销售单头信息
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <returns>数据集</returns>
+        public DataSet getSaleHeadBasic(string saleTaskId, string saleHeadId)
+        {
+            string comText = "select saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,dateTime,userName from V_SaleHead where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            String[] param = { "@saleTaskId", "@saleHeadId" };
+            String[] values = { saleTaskId, saleHeadId };
+            DataSet ds = db.FillDataSet(comText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
     }
 }
