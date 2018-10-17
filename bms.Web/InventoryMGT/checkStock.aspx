@@ -316,7 +316,7 @@
                                             </tr>
                                             <tr class="text-nowrap">
                                                 <td>
-                                                    <span>入库组织:</span>
+                                                    <span>入库来源:</span>
                                                 </td>
                                                 <td>
                                                     <input type="text" value="<%=putRegionName %>" class="form-control" disabled></td>
