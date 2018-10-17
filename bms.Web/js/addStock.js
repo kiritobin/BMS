@@ -420,6 +420,7 @@ $("#btnImport").click(function () {
                     sessionStorage.setItem("import", "导入失败");
                 }
                 else {
+                    $("#myModal1").modal("hide");
                     $("#close").show();
                     swal({
                         title: "提示",
