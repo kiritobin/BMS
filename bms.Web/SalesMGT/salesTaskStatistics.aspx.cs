@@ -43,7 +43,6 @@ namespace bms.Web.SalesMGT
                     alltotalprice = double.Parse(ds.Tables[0].Rows[0]["totalPrice"].ToString());
                     allreadprice = double.Parse(ds.Tables[0].Rows[0]["realPrice"].ToString());
                 }
-
             }
             //统计种数
             allkinds = saletaskbll.getkindsBySaleTaskId(saletaskId);
@@ -71,10 +70,10 @@ namespace bms.Web.SalesMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleMonomer";
             tb.OrderBy = "dateTime";
-            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice";
+            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = "saleTaskId='" + saletaskId + "' group by bookNum,bookName,ISBN,unitPrice,realDiscount";
+            tb.StrWhere = "saleTaskId='" + saletaskId + "' group by bookNum,bookName,ISBN,unitPrice";
             //获取展示的客户数据
             ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table
@@ -86,10 +85,9 @@ namespace bms.Web.SalesMGT
                 {
                     strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td>");
                     strb.Append("<td>" + 0 + "</td></tr>");
