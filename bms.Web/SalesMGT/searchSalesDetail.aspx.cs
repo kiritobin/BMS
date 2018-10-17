@@ -13,7 +13,7 @@ namespace bms.Web.SalesMGT
 {
     public partial class searchSalesDetail : System.Web.UI.Page
     {
-        public int totalCount, intPageCount, pageSize = 20, allstockNum = 0;
+        public int totalCount, intPageCount, pageSize = 20;
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         SaleHeadBll saleHeadbll = new SaleHeadBll();
         public DataSet ds, headBasicds;
