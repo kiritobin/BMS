@@ -26,10 +26,25 @@ namespace bms.Web.SalesMGT
         GoodsShelvesBll goods = new GoodsShelvesBll();
         DataTable monTable = new DataTable();
         RetailBll retailBll = new RetailBll();
+        User user = new User();
+        LoginBll loginBll = new LoginBll();
         public List<long> bookNumList = new List<long>();
         protected void Page_Load(object sender, EventArgs e)
         {
             getIsbn();
+            if (!IsPostBack)
+            {
+                string userID = Request.QueryString["userId"].ToString();
+                if (userID != null && userID != "")
+                {
+                    user = loginBll.getPwdByUserId(userID);
+                    Session["user"] = user;
+                }
+                else
+                {
+                    user = (User)Session["user"];
+                }
+            }
             string op = Request["op"];
             if (op == "add")
             {
@@ -125,7 +140,6 @@ namespace bms.Web.SalesMGT
             BookBasicData bookBasicData = basicBll.SelectById(Convert.ToInt64(bookNum));
             string isbn = bookBasicData.Isbn;
             string bookName = bookBasicData.BookName;
-            int billCount = Convert.ToInt32(Request["billCount"]);
             double discount=1;
             if (bookBasicData.Remarks == "")
             {
@@ -142,8 +156,6 @@ namespace bms.Web.SalesMGT
             int row = monTable.Rows.Count;
             double uPrice = bookBasicData.Price;
             SaleMonomer monomers = new SaleMonomer();
-            double totalPrice = Convert.ToDouble((billCount * uPrice).ToString("0.00"));
-            double realPrice = Convert.ToDouble((totalPrice * discount).ToString("0.00"));
             monTable.Columns.Add("ISBN", typeof(string));
             monTable.Columns.Add("unitPrice", typeof(double));
             monTable.Columns.Add("bookNum", typeof(long));
@@ -203,7 +215,6 @@ namespace bms.Web.SalesMGT
                 allTotal = allTotal + total;
                 allReal = allReal + real;
             }
-            User user = (User)Session["user"];
             DateTime nowTime = DateTime.Now;
             string nowDt = nowTime.ToString("yyyy-MM-dd");
             long count = 0;
