@@ -37,12 +37,16 @@ namespace bms.Web.InventoryMGT
             if(op== "searchISBN")
             {
                 string ISBN = Request["ISBN"];
+                string bookNum = Request["bookNO"];
                 bookds = bookBll.SelectByIsbn(ISBN);
                 if (bookds != null && bookds.Tables[0].Rows.Count > 0)
                 {
-                    if (bookds.Tables[0].Rows.Count > 1)
+                    if (bookNum == "" || bookNum == null)
                     {
-                        showBook();
+                        if (bookds.Tables[0].Rows.Count > 1)
+                        {
+                            showBook();
+                        }
                     }
                     else
                     {
