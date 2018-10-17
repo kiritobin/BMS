@@ -11,6 +11,12 @@ namespace bms.Bll
     using Result = Enums.OpResult;
     public class SaleMonomerBll
     {
+
+        public DataSet Select()
+        {
+            return SaleMonomerdao.Select();
+        }
+
         SaleMonomerDao SaleMonomerdao = new SaleMonomerDao();
         /// <summary>
         /// 查询该销售单头下是否有单体
@@ -311,6 +317,41 @@ namespace bms.Bll
         public double getsBookRealPrice(string saleHeadId)
         {
             return SaleMonomerdao.getsBookRealPrice(saleHeadId);
+        }
+
+        /// <summary>
+        /// 根据书号，单头id，销售任务id，获取单体信息
+        /// </summary>
+        /// <param name="saleId">销售任务id</param>
+        /// <param name="saleHeadId">单头id</param>
+        /// <param name="bookNum">书号</param>
+        /// <returns>数据集</returns>
+        public DataSet getSalemonBasic(string saleId, string saleHeadId)
+        {
+            return SaleMonomerdao.getSalemonBasic(saleId, saleHeadId);
+        }
+
+        /// <summary>
+        /// 获取该书在销售单头下的总数量
+        /// </summary>
+        /// <param name="saleId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <param name="bookNum">书号</param>
+        /// <returns>数量</returns>
+        public int getSalemonBookNumber(string saleId, string saleHeadId, string bookNum)
+        {
+            return SaleMonomerdao.getSalemonBookNumber(saleId, saleHeadId, bookNum);
+        }
+        /// <summary>
+        /// 获取该书在销售单头下的总实洋
+        /// </summary>
+        /// <param name="saleId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <param name="bookNum">书号</param>
+        /// <returns>总实洋</returns>
+        public double getSalemonBookRealPrice(string saleId, string saleHeadId, string bookNum)
+        {
+            return SaleMonomerdao.getSalemonBookRealPrice(saleId, saleHeadId, bookNum);
         }
     }
 }
