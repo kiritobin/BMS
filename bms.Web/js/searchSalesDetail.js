@@ -24,4 +24,7 @@
             });
         }
     });
+    $("#back").click(function () {
+        window.location.href = "../SalesMGT/salesManagement.aspx";
+    })
 })
