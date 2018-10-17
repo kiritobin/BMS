@@ -47,7 +47,7 @@ namespace bms.Web.BasicInfor
             string op = Request["op"];
             if (op == "del")
             {
-                long bookNum = long.Parse(Request["bookNum"]);
+                string bookNum = Request["bookNum"].ToString();
                 Result row = isDelete();
                 if (row == Result.记录不存在)
                 {
@@ -389,7 +389,7 @@ namespace bms.Web.BasicInfor
             }
             else
             {
-                except.Columns.Add("书号", typeof(long));
+                except.Columns.Add("书号", typeof(string));
                 except.Columns.Add("id", typeof(string));
                 except.Columns.Add("ISBN", typeof(string));
                 except.Columns.Add("书名", typeof(string));

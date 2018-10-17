@@ -26,7 +26,7 @@ namespace bms.Web.SalesMGT
         GoodsShelvesBll goods = new GoodsShelvesBll();
         DataTable monTable = new DataTable();
         RetailBll retailBll = new RetailBll();
-        public List<long> bookNumList = new List<long>();
+        public List<string> bookNumList = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
             getIsbn();
@@ -34,7 +34,7 @@ namespace bms.Web.SalesMGT
             if (op == "add")
             {
                 string headId = Request["headId"];
-                long bookNum = Convert.ToInt64(Request["bookNum"]);
+                string bookNum = Request["bookNum"].ToString();
                 add(bookNum, headId);
             }
             if (op == "insert")
@@ -43,8 +43,8 @@ namespace bms.Web.SalesMGT
             }
             if (op == "delete")
             {
-                long bookNum = Convert.ToInt64(Request["bookNum"]);
-                bookNumList = (List<long>)Session["List"];
+                string bookNum = Request["bookNum"].ToString();
+                bookNumList = (List<string>)Session["List"];
                 int index = bookNumList.IndexOf(bookNum);
                 bookNumList.RemoveAt(index);
                 Session["List"] = bookNumList;
@@ -86,7 +86,7 @@ namespace bms.Web.SalesMGT
                     int count = bookDs.Tables[0].Rows.Count;
                     if (count == 1)
                     {
-                        long bookNum = Convert.ToInt64(bookDs.Tables[0].Rows[0]["bookNum"]);
+                        string bookNum = bookDs.Tables[0].Rows[0]["bookNum"].ToString();
                         add(bookNum, retailHeadId);
                     }
                     if (op == "choose")
@@ -119,10 +119,10 @@ namespace bms.Web.SalesMGT
             return null;
         }
 
-        public void add(long bookNum,string headId)
+        public void add(string bookNum,string headId)
         {
-            bookNumList = (List<long>)Session["List"];
-            foreach (long bookNums in bookNumList)
+            bookNumList = (List<string>)Session["List"];
+            foreach (string bookNums in bookNumList)
             {
                 if (bookNums == bookNum)
                 {
@@ -138,7 +138,7 @@ namespace bms.Web.SalesMGT
             }
             else
             {
-                BookBasicData bookBasicData = basicBll.SelectById(Convert.ToInt64(bookNum));
+                BookBasicData bookBasicData = basicBll.SelectById(bookNum);
                 string isbn = bookBasicData.Isbn;
                 string bookName = bookBasicData.BookName;
                 int billCount = Convert.ToInt32(Request["billCount"]);
@@ -272,7 +272,7 @@ namespace bms.Web.SalesMGT
                     DataRow dr = dataTable.Rows[i];
                     monomers.ISBN1 = dr["ISBN"].ToString();
                     monomers.UnitPrice = Convert.ToDouble(dr["单价"]);
-                    monomers.BookNum = Convert.ToInt64(dr["书号"]);
+                    monomers.BookNum = dr["书号"].ToString();
                     monomers.RealDiscount = Convert.ToDouble(dr["折扣"]);
                     monomers.SaleIdMonomerId = i + 1;
                     monomers.Number = Convert.ToInt32(dr["数量"]);

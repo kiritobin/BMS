@@ -296,7 +296,7 @@ namespace bms.Dao
         /// <param name="bookNum">书号</param>
         /// <param name="saleId">销售任务id</param>
         /// <returns>受影响行数</returns>
-        public int updateAlreadyBought(int alreadyBought, long bookNum, string saleId)
+        public int updateAlreadyBought(int alreadyBought, string bookNum, string saleId)
         {
             string cmdText = "update T_SaleMonomer set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";
             //string cmdText = "update V_SaleMonomer set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";

@@ -132,7 +132,7 @@ namespace bms.Web.SalesMGT
                 {
                     bookNum = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
                     BookBasicData book = new BookBasicData();
-                    book = bookBll.SelectById(long.Parse(bookNum));
+                    book = bookBll.SelectById(bookNum);
                     unitPrice = book.Price;//定价
                 }
             }
@@ -171,7 +171,7 @@ namespace bms.Web.SalesMGT
             if (bookCount > 0)
             {
                 BookBasicData book = new BookBasicData();
-                book = bookBll.SelectById(long.Parse(bookNo));
+                book = bookBll.SelectById(bookNo);
                 double unitPrice = book.Price;//定价
                                               //double discount = double.Parse(Request["discount"]);//实际折扣
 
@@ -287,11 +287,11 @@ namespace bms.Web.SalesMGT
             {
                 bookNo = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
             }
-            DataSet stockDs = stbll.SelectByBookNum(long.Parse(bookNo), int.Parse(regionId));
+            DataSet stockDs = stbll.SelectByBookNum(bookNo, int.Parse(regionId));
             string shelvesId = stockDs.Tables[0].Rows[0]["goodsShelvesId"].ToString();//获取货架Id
             string oldStockNum = stockDs.Tables[0].Rows[0]["stockNum"].ToString();//原来的库存量
             int stockNum = newstockNum + int.Parse(oldStockNum);
-            Result row = stbll.update(stockNum, int.Parse(shelvesId), long.Parse(bookNo));
+            Result row = stbll.update(stockNum, int.Parse(shelvesId), bookNo);
             if (row == Result.更新成功)
             {
                 return "更新成功";

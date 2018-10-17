@@ -27,7 +27,7 @@ namespace bms.Web.SalesMGT
         string bookISBN, SaleHeadId, saleId;
         double disCount;
         int number;
-        long bookNum;
+        string bookNum;
         msg msg = new msg();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -79,7 +79,7 @@ namespace bms.Web.SalesMGT
                 {
                     count += 1;
                 }
-                long booknum = long.Parse(Request["bookNum"]);
+                string booknum = Request["bookNum"];
                 BookBasicBll bookbll = new BookBasicBll();
                 BookBasicData book = bookbll.SelectById(booknum);
                 string remarks = book.Remarks;
@@ -111,7 +111,7 @@ namespace bms.Web.SalesMGT
                 bookISBN = Request["bookISBN"];
                 disCount = double.Parse(Request["discount"]);
                 number = Convert.ToInt32(Request["number"]);
-                bookNum = long.Parse(Request["bookNum"]);
+                bookNum = Request["bookNum"].ToString();
                 addsalemon();
             }
             if (op == "success")
@@ -201,7 +201,7 @@ namespace bms.Web.SalesMGT
             }
 
             BookBasicBll bookbll = new BookBasicBll();
-            long booknum = long.Parse(bookds.Tables[0].Rows[0]["bookNum"].ToString());
+            string booknum = bookds.Tables[0].Rows[0]["bookNum"].ToString();
             BookBasicData book = bookbll.SelectById(booknum);
             string remarks = book.Remarks;
             if (remarks == "" || remarks == null)
