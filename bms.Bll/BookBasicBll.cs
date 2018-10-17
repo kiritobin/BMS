@@ -18,7 +18,16 @@ namespace bms.Bll
         {
             return basicDao.Select();
         }
-
+        /// <summary>
+        /// 通过ISBN和书名获取书号
+        /// </summary>
+        /// <param name="ISBN"></param>
+        /// <param name="bookName"></param>
+        /// <returns></returns>
+        public DataTable getBookNum(string ISBN, string bookName)
+        {
+            return basicDao.getBookNum(ISBN,bookName);
+        }
         /// <summary>
         /// 根据书号查找isbn，单价，折扣
         /// </summary>

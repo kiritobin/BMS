@@ -65,23 +65,22 @@ $(document).ready(function () {
         }
     });
 
-    $("#close").click(function () {
+    $("#close2").click(function () {
         $(" #file").val("");
-        sessionStorage.removeItem("import");
-        sessionStorage.removeItem("succ");
         $("#close").show();
         $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
         $("#img").attr("src", "../imgs/loading.gif");
-        if (sessionStorage.getItem("import")=="导入成功") {
+        if (sessionStorage.getItem("import") == "导入成功") {
+            sessionStorage.removeItem("import");
+            sessionStorage.removeItem("succ");
             window.location.reload();
         }
     });
 
-    $("#close2").click(function () {
-        $(" #file").val("");
-        sessionStorage.removeItem("import");
-        sessionStorage.removeItem("succ");
-    });
+    //$("#close").click(function () {
+    //    $(" #file").val("");
+        
+    //});
 
     function ajaxFileUpload() {
         $.ajaxFileUpload(
@@ -138,70 +137,71 @@ $(document).ready(function () {
         return false;
     }
 
-    $("#showIntersect").click(function () {
-        var file = $("#file").val();
-        if (file == "" || file == null) {
-            swal({
-                title: "提示",
-                text: "请上传文件",
-                type: "warning",
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: '确定',
-                confirmButtonClass: 'btn btn-success',
-                buttonsStyling: false,
-                allowOutsideClick: false
-            })
-        }
-        else if (sessionStorage.getItem("succ") != "上传成功") {
-            swal({
-                title: "提示",
-                text: "文件未上传成功",
-                type: "success",
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: '确定',
-                confirmButtonClass: 'btn btn-success',
-                buttonsStyling: false,
-                allowOutsideClick: false
-            })
-        }
-        else {
-            $("#myModal2").modal("hide");
-            $("#myModal1").modal("show");
-            $("#myModalLabe1").html("正在读取数据");
-            $("#close").hide();
-            $.ajax({
-                type: 'Post',
-                url: 'addStock.aspx',
-                data: {
-                    action: "showIntersect"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "库存中找不到数据") {
-                        swal({
-                            title: "提示",
-                            text: data,
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        })
-                        $("#myModal2").modal("hide");
-                        $("#myModal1").modal("hide");
-                    }
-                    else {
-                        $("#myModal2").modal("show");
-                        $("#myModal1").modal("hide");
-                        $("#table2 tr:not(:first)").empty(); //清空table处首行
-                        //$("#table2 tr:gt(1)").empty(); //清空table2行
-                        $("#table2").append(data); //加载table
-                    }
-                }
-            });
-        }
-    });
+    //$("#showIntersect").click(function () {
+    //    var file = $("#file").val();
+    //    if (file == "" || file == null) {
+    //        swal({
+    //            title: "提示",
+    //            text: "请上传文件",
+    //            type: "warning",
+    //            confirmButtonColor: '#3085d6',
+    //            confirmButtonText: '确定',
+    //            confirmButtonClass: 'btn btn-success',
+    //            buttonsStyling: false,
+    //            allowOutsideClick: false
+    //        })
+    //    }
+    //    else if (sessionStorage.getItem("succ") != "上传成功") {
+    //        swal({
+    //            title: "提示",
+    //            text: "文件未上传成功",
+    //            type: "success",
+    //            confirmButtonColor: '#3085d6',
+    //            confirmButtonText: '确定',
+    //            confirmButtonClass: 'btn btn-success',
+    //            buttonsStyling: false,
+    //            allowOutsideClick: false
+    //        })
+    //    }
+    //    else {
+    //        $("#myModal2").modal("hide");
+    //        $("#myModal1").modal("show");
+    //        $("#myModalLabe1").html("正在读取数据");
+    //        $("#close").hide();
+    //        $.ajax({
+    //            type: 'Post',
+    //            url: 'addStock.aspx',
+    //            data: {
+    //                action: "showIntersect"
+    //            },
+    //            dataType: 'text',
+    //            success: function (data) {
+    //                if (data == "库存中找不到数据") {
+    //                    swal({
+    //                        title: "提示",
+    //                        text: data,
+    //                        type: "warning",
+    //                        confirmButtonColor: '#3085d6',
+    //                        confirmButtonText: '确定',
+    //                        confirmButtonClass: 'btn btn-success',
+    //                        buttonsStyling: false,
+    //                        allowOutsideClick: false
+    //                    })
+    //                    $("#myModal2").modal("hide");
+    //                    $("#myModal1").modal("hide");
+    //                }
+    //                else {
+    //                    $("#myModal2").modal("show");
+    //                    $("#myModal1").modal("hide");
+    //                    $("#table2 tr:not(:first)").empty(); //清空table处首行
+    //                    //$("#table2 tr:gt(1)").empty(); //清空table2行
+    //                    $("#table2").append(data); //加载table
+    //                }
+    //            }
+    //        });
+    //    }
+    //});
+
 });
 
 //只允许数字
@@ -376,45 +376,66 @@ $("#table").delegate(".btn-danger", "click", function () {
 });
 
 $("#btnImport").click(function () {
-    $("#myModal2").modal("hide");
-    $("#myModal1").modal("show");
-    $("#close").hide();
-    $("#myModalLabe1").html("正在导入");
-            $.ajax({
-                type: 'Post',
-                url: 'addStock.aspx',
-                data: {
-                    action: "import"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data.indexOf("导入成功") >= 0) {
-                        $("#myModalLabe1").html(data);
-                        $("#close").show();
-                        $("#img").attr("src", "../imgs/success.png");
-                        sessionStorage.setItem("import","导入成功");
-                    } else if (data.indexOf("导入失败") >= 0) {
-                        $("#myModalLabe1").html(data);
-                        $("#close").show();
-                        $("#img").attr("src", "../imgs/lose.png");
-                        sessionStorage.setItem("import", "导入失败");
-                    }
-                    else {
-                        $("#close").show();
-                        swal({
-                            title: "提示",
-                            text: data,
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        })
-                        sessionStorage.setItem("import", "导入失败");
-                    }
+    var file = $("#file").val();
+    if (file == "" || file == null) {
+        swal({
+            title: "温馨提示:)",
+            text: "请上传文件",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-success",
+            type: "warning",
+            allowOutsideClick: false
+        })
+    }
+    else if (sessionStorage.getItem("succ") != "上传成功") {
+        swal({
+            title: "温馨提示:)",
+            text: "文件未上传成功",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-success",
+            type: "warning",
+            allowOutsideClick: false
+        })
+    }
+    else {
+        $("#myModal1").modal("show");
+        $("#close").hide();
+        $.ajax({
+            type: 'Post',
+            url: 'addStock.aspx',
+            data: {
+                action: "import"
+            },
+            dataType: 'text',
+            success: function (data) {
+                if (data.indexOf("导入成功") >= 0) {
+                    $("#myModalLabe1").html(data);
+                    $("#close").show();
+                    $("#img").attr("src", "../imgs/success.png");
+                    sessionStorage.setItem("import", "导入成功");
+                } else if (data.indexOf("导入失败") >= 0) {
+                    $("#myModalLabe1").html(data);
+                    $("#close").show();
+                    $("#img").attr("src", "../imgs/lose.png");
+                    sessionStorage.setItem("import", "导入失败");
                 }
-            });
+                else {
+                    $("#close").show();
+                    swal({
+                        title: "提示",
+                        text: data,
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    })
+                    sessionStorage.setItem("import", "导入失败");
+                }
+            }
+        });
+    }
 });
 
 $("#btnAdd").click(function () {
