@@ -410,7 +410,7 @@
         <script src="../js/sweetalert2.js"></script>
         <!-- paging -->
         <script src="../js/jquery.pagination.js"></script>
-        <script src="../js/warehouseManagement.js"></script>
+        <script src="../js/replenishMent.js"></script>
     <script src="../js/public.js"></script>
 </body>
 

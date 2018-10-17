@@ -117,6 +117,7 @@
     <Content Include="InventoryMGT\checkStock.aspx" />
     <Content Include="InventoryMGT\inventoryManagement.aspx" />
     <Content Include="InventoryMGT\replenishMent.aspx" />
+    <Content Include="js\addRs.js" />
     <Content Include="js\customerRetail.js" />
     <Content Include="js\jquery-migrate-1.2.1.min.js" />
     <Content Include="js\jquery.jqprint.js" />
@@ -125,6 +126,7 @@
     <Content Include="js\JsBarcode.all.min.js" />
     <Content Include="js\LodopFuncs.js" />
     <Content Include="js\public.js" />
+    <Content Include="js\replenishMent.js" />
     <Content Include="js\retail.js" />
     <Content Include="js\retailBack.js" />
     <Content Include="js\retailBackManagement.js" />
