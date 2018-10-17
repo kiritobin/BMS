@@ -47,10 +47,14 @@
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-warning btn-sm" id="toBack">返回</button>
                                     </div>
+                                    <%string type = Session["type"].ToString();
+                                        if (type == "search")
+                                        { %>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-info btn-sm" id="print">打印</button>
                                     </div>
-                                    <%string type = Session["type"].ToString();
+                                    <%} %>
+                                    <%
                                         if (type != "search")
                                         { %>
                                     <div class="btn-group" role="group">
@@ -59,26 +63,28 @@
                                     <%} %>
                                 </div>
                             </div>
-                            <div class="content_tab">
+                            <div class="content_tab" id="print_content">
+                                <%if (type == "search")
+                                    { %>
                                 <table class="table table_stock text-right">
                                     <tr class="text-nowrap">
                                         <td>
                                             <span>任务单据编号:</span>
                                         </td>
                                         <td>
-                                            <input value="" class="form-control" disabled>
+                                            <input value="<%=Session["saleId"].ToString() %>" class="form-control" disabled>
                                         </td>
                                         <td>
                                             <span>单头编号:</span>
                                         </td>
                                         <td>
-                                            <input value="" class="form-control" disabled>
+                                            <input value="<%=Session["sellId"].ToString() %>" class="form-control" disabled>
                                         </td>
                                         <td>
                                             <span>总品种:</span>
                                         </td>
                                         <td>
-                                            <input type="text" value="" class="form-control" disabled>
+                                            <input type="text" value="<%=staticsKinds %>" class="form-control" disabled>
                                         </td>
                                     </tr>
                                     <tr class="text-nowrap">
@@ -86,21 +92,22 @@
                                             <span>总数量:</span>
                                         </td>
                                         <td>
-                                            <input type="text" value="" class="form-control" disabled></td>
+                                            <input type="text" value="<%=staticsNumber %>" class="form-control" disabled></td>
                                         <td>
                                             <span>总码洋:</span>
                                         </td>
                                         <td>
-                                            <input type="text" value="" class="form-control" disabled>
+                                            <input type="text" value="<%=staticsTotalPrice %>" class="form-control" disabled>
                                         </td>
                                         <td>
                                             <span>总实洋:</span>
                                         </td>
                                         <td>
-                                            <input type="text" value="" class="form-control" disabled>
+                                            <input type="text" value="<%=staticsRealPrice %>" class="form-control" disabled>
                                         </td>
                                     </tr>
                                 </table>
+                                <%} %>
                                 <div class="table-responsive">
                                     <table class="table mostTable table-bordered text-center" id="table">
                                         <%--<thead>
