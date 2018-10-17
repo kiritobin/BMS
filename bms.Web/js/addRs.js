@@ -10,7 +10,7 @@
     }).bind("paste", function () {  //CTR+V事件处理    
         $(this).val($(this).val().replace(/[^\r\n\-0-9]/g, ''));
     }).css("ime-mode", "disabled");
-    //回车事件
+    //ISBN回车事件
     $("#table").delegate("#inputISBN", "keypress", function (e) {
         if (e.keyCode == 13) {
             var isbn = $(this).val();
@@ -24,7 +24,6 @@
                 }).catch(swal.noop);
             }
             else {
-                alert($(this).val());
                 $.ajax({
                     type: 'Post',
                     url: 'addRs.aspx',
@@ -64,11 +63,11 @@
             }
         }
     })
-    //一号多书确定书籍
+    //一号多模态框书确定书籍
     $("#sureBook").click(function () {
         var isbn = $("input[type='radio']:checked").parents('tr').find('td').eq(1).text();
-        alert(isbn);
         var bookNum = $("input[type='radio']:checked").val();
+        var bookName = $("input[type='radio']:checked").parents('tr').find('td').eq(3).text();
         var price = $("input[type='radio']:checked").parents('tr').find('td').eq(4).text();
         var discount = $("input[type='radio']:checked").parents('tr').find('td').eq(4).text();
         $.ajax({
@@ -77,6 +76,7 @@
             data: {
                 ISBN: isbn,
                 bookNO: bookNum,
+                bookName: bookName,
                 price: price,
                 op: "searchISBN"
             },
@@ -106,5 +106,71 @@
             }
         })
     })
+
+    $("#table").delegate("#inputCount", "keypress", function (e) {
+        if (e.keyCode == 13) {
+            var num = $("#table").find('tr').eq(1).find('td').eq(6).find('input').val();
+            if (num == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "不能含有未填项!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            }
+            else if (num == "0") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "数量不能未0!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            }
+            else {
+                $.ajax({
+                    type: 'Post',
+                    url: 'backQuery.aspx',
+                    data: {
+                        count: num,
+                        op: "add"
+                    },
+                    dataType: 'text',
+                    success: function (data) {
+                        if (data == "添加成功") {
+                            swal({
+                                title: "温馨提示",
+                                text: data,
+                                type: "success",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                                window.location.reload();
+                            })
+                        }
+                        else {
+                            swal({
+                                title: "温馨提示",
+                                text: data,
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-warning',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                                $("#table").find('tr').eq(1).find('td').eq(4).find('input').focus();
+                            })
+                        }
+                    }
+                });
+            }
+        }
+    })
+
 
 })
