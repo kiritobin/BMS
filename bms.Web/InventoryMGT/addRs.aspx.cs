@@ -9,7 +9,6 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Text;
 
 namespace bms.Web.InventoryMGT
 {
@@ -37,12 +36,16 @@ namespace bms.Web.InventoryMGT
             if(op== "searchISBN")
             {
                 string ISBN = Request["ISBN"];
+                string bookNum = Request["bookNO"];
                 bookds = bookBll.SelectByIsbn(ISBN);
                 if (bookds != null && bookds.Tables[0].Rows.Count > 0)
                 {
-                    if (bookds.Tables[0].Rows.Count > 1)
+                    if (bookNum == "" || bookNum == null)
                     {
-                        showBook();
+                        if (bookds.Tables[0].Rows.Count > 1)
+                        {
+                            showBook();
+                        }
                     }
                     else
                     {
@@ -55,6 +58,10 @@ namespace bms.Web.InventoryMGT
                     Response.Write("暂无此数据");
                     Response.End();
                 }
+            }
+            if(op == "add")
+            {
+
             }
         }
         /// <summary>
@@ -147,6 +154,7 @@ namespace bms.Web.InventoryMGT
             double unitPrice = 0;
             string isbn = Request["ISBN"];
             bookNum = Request["bookNO"];
+            bookName = Request["bookName"];
             if (isbn != "" || isbn != null)
             {
                 ISBN = isbn;
@@ -181,6 +189,13 @@ namespace bms.Web.InventoryMGT
             sb.Append("<td>" + "</td>");
             sb.Append("</tr>");
             return sb.ToString();
+        }
+        /// <summary>
+        /// 添加补货单体
+        /// </summary>
+        public void Insert()
+        {
+
         }
         /// <summary>
         /// 权限控制

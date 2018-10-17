@@ -125,6 +125,9 @@
                                     <div style="border: 1px solid #ddd">
                                         <h4 class="text-center" style="margin-top: 16px;"><strong>统计</strong></h4>
                                         <hr />
+                                        <input type="hidden" id="limtalltotalprice" value="<%=limtalltotalprice.ToString() %>" />
+                                        <input type="hidden" id="numberLimit" value="<%=numberLimit.ToString() %>" />
+                                        <input type="hidden" id="priceLimit" value="<%=priceLimit.ToString() %>" />
                                         <table class="table">
                                             <tr>
                                                 <td>书籍种数</td>
@@ -136,8 +139,7 @@
                                             </tr>
                                             <tr>
                                                 <td>总码洋</td>
-                                                <td id="alltotalprice"><%=alltotalprice.ToString() %><input type="hidden" id="limtalltotalprice" value="<%=limtalltotalprice.ToString() %>" /></td>
-
+                                                <td id="alltotalprice"><%=alltotalprice.ToString() %></td>
                                             </tr>
                                             <tr>
                                                 <td>总实洋</td>

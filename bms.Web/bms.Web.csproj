@@ -133,6 +133,7 @@
     <Content Include="js\retailBackQuery.js" />
     <Content Include="js\retailManagement.js" />
     <Content Include="js\retailQuery.js" />
+    <Content Include="js\salesTaskStatistics.js" />
     <Content Include="js\searchSalesDetail.js" />
     <Content Include="QRCode.aspx" />
     <Content Include="SalesMGT\booksOut.aspx" />

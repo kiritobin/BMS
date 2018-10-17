@@ -22,8 +22,8 @@ namespace bms.Web.SalesMGT
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         SaleTaskBll saletaskbll = new SaleTaskBll();
         public StringBuilder strbook = new StringBuilder();
-        public int allkinds, allnumber;
-        public double alltotalprice, allreadprice, limtalltotalprice;
+        public int allkinds, allnumber, numberLimit;
+        public double alltotalprice, allreadprice, limtalltotalprice, priceLimit;
         string bookISBN, SaleHeadId, saleId;
         double disCount;
         int number;
@@ -182,6 +182,8 @@ namespace bms.Web.SalesMGT
         {
             DataSet limtds = saletaskbll.SelectBysaleTaskId(saleId);
             limtalltotalprice = double.Parse(limtds.Tables[0].Rows[0]["totalPriceLimit"].ToString());
+            numberLimit = int.Parse(limtds.Tables[0].Rows[0]["numberLimit"].ToString());
+            priceLimit = double.Parse(limtds.Tables[0].Rows[0]["priceLimit"].ToString());
         }
 
 
@@ -303,7 +305,7 @@ namespace bms.Web.SalesMGT
                                     }
                                     int price = Convert.ToInt32(book.Price);
                                     int totalPrice = price * number;
-                                    double realPrice = totalPrice * (disCount/ 100);
+                                    double realPrice = totalPrice * (disCount / 100);
                                     DateTime Time = DateTime.Now.ToLocalTime();
                                     SaleMonomer newSalemon = new SaleMonomer()
                                     {
@@ -535,15 +537,17 @@ namespace bms.Web.SalesMGT
             strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
+                string bookNum = ds.Tables[0].Rows[i]["bookNum"].ToString();
+                int alreadyBought = salemonbll.getBookNumberSumByBookNum(bookNum,saleId);
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
+                strb.Append("<td>" + bookNum + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["alreadyBought"].ToString() + "</td></tr>");
+                strb.Append("<td>" + alreadyBought + "</td></tr>");
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");

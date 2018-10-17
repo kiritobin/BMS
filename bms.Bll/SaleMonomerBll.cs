@@ -353,5 +353,16 @@ namespace bms.Bll
         {
             return SaleMonomerdao.getSalemonBookRealPrice(saleId, saleHeadId, bookNum);
         }
+
+        /// <summary>
+        /// 根据书号和销售任务id获取该书的已购数量
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns>数量</returns>
+        public int getBookNumberSumByBookNum(string bookNum, string saleTaskId)
+        {
+            return SaleMonomerdao.getBookNumberSumByBookNum(bookNum, saleTaskId);
+        }
     }
 }

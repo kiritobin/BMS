@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/demo.css">
-     <link rel="stylesheet" href="../css/pagination.css">
+    <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
     <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css">
 </head>
@@ -50,7 +50,7 @@
                                         <button class="btn btn-info btn-sm" id="print">打印</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-warning btn-sm" id="back">返回</button>
+                                        <button class="btn btn-warning btn-sm" onclick="window.location.href='searchSalesDetail.aspx'" id="back">返回</button>
                                     </div>
                                 </div>
                             </div>
@@ -66,19 +66,25 @@
                                                     <input value="<%=saletaskId.ToString() %>" class="form-control" disabled>
                                                 </td>
                                                 <td>
+                                                    <span>所属客户:</span>
+                                                </td>
+                                                <td>
+                                                    <input value="<%=customerName %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
                                                     <span>操作员:</span>
                                                 </td>
                                                 <td>
                                                     <input value="<%=userName %>" class="form-control" disabled>
                                                 </td>
+                                            </tr>
+                                            <tr class="text-nowrap">
                                                 <td>
                                                     <span>书籍种数:</span>
                                                 </td>
                                                 <td>
                                                     <input type="text" value="<%=allkinds %>" class="form-control" disabled>
                                                 </td>
-                                            </tr>
-                                            <tr class="text-nowrap">
                                                 <td>
                                                     <span>书本总数:</span>
                                                 </td>
@@ -90,26 +96,34 @@
                                                 <td>
                                                     <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
                                                 </td>
+                                            </tr>
+                                            <tr class="text-nowrap">
                                                 <td>
                                                     <span>总实洋:</span>
                                                 </td>
                                                 <td>
                                                     <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
                                                 </td>
-                                            </tr>
-                                            <tr class="text-nowrap">
                                                 <td>
-                                                    <span>制单日期:</span>
+                                                    <span>开始日期:</span>
                                                 </td>
                                                 <td>
                                                     <div class="jeinpbox">
-                                                        <input type="text" value="<%=time %>" class="form-control" disabled id="test2">
+                                                        <input type="text" value="<%=startTime %>" class="form-control" disabled >
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span>结束日期:</span>
+                                                </td>
+                                                <td>
+                                                    <div class="jeinpbox">
+                                                        <input type="text" value="<%=finishTime %>" class="form-control" disabled>
                                                     </div>
                                                 </td>
                                             </tr>
                                         </table>
 
-<%--                                        <table class="table mostTable table-bordered text-center" id="table">
+                                        <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
                                                     <td class="bbb">
@@ -131,9 +145,6 @@
                                                         <nobr>数量</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>折扣</nobr>
-                                                    </td>
-                                                    <td>
                                                         <nobr>实洋</nobr>
                                                     </td>
                                                     <td>
@@ -142,7 +153,7 @@
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
-                                        </table>--%>
+                                        </table>
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
@@ -192,6 +203,7 @@
     </object>
     <script src="../js/LodopFuncs.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/salesTaskStatistics.js"></script>
 </body>
 
 </html>

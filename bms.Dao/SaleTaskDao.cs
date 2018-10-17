@@ -85,7 +85,7 @@ namespace bms.Dao
         /// <summary>
         /// 统计销售任务总种数
         /// </summary>
-        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="customer">客户id</param>
         /// <returns>返回总种数</returns>
         public int getkinds(string customerID)
         {
@@ -108,6 +108,7 @@ namespace bms.Dao
                 if (sltemp > 0)
                 {
                     zl++;
+                    sltemp = 0;
                 }
             }
             return zl;
@@ -289,11 +290,72 @@ namespace bms.Dao
                 return null;
             }
         }
-        //select sum(number),sum(totalPrice),sum(realPrice) FROM V_SaleMonomer where saleTaskId='XSRW20181017000001'
+        /// <summary>
+        /// 根据销售任务ID，统计销售任务的总数量，总码洋，总实洋
+        /// </summary>
+        /// <param name="saleTaskId">销售任务ID</param>
+        /// <returns>数据集</returns>
         public DataSet getSaleTaskStatistics(string saleTaskId)
         {
-            DataSet ds=null;
+            string comText = "select sum(number) as number,sum(totalPrice) as totalPrice,sum(realPrice) as realPrice from T_SaleMonomer where saleTaskId=@saleTaskId";
+            string[] param = { "@saleTaskId" };
+            object[] values = { saleTaskId };
+            DataSet ds = db.FillDataSet(comText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+        /// <summary>
+        /// 根据销售任务id获取操作员,客户
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns>数据集</returns>
+        public DataSet getcustomerName(string saleTaskId)
+        {
+            string cmdText = "select userName,customerName,startTime,finishTime from V_SaleTask where saleTaskId=@saleTaskId";
+            string[] param = { "@saleTaskId" };
+            object[] values = { saleTaskId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
             return ds;
+        }
+
+        /// <summary>
+        /// 统计种数
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns></returns>
+        public int getkindsBySaleTaskId(string saleTaskId)
+        {
+            string cmdText = "select bookNum,number from V_SaleMonomer where saleTaskId=@saleTaskId";
+            string[] param = { "@saleTaskId"};
+            object[] values = { saleTaskId };
+            float sltemp = 0;
+            int zl = 0;
+            DataTable dtcount = db.getkinds(cmdText, param, values);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    float count = float.Parse(dr[j]["number"].ToString().Trim());
+                    sltemp += float.Parse(dr[j]["number"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                    sltemp = 0;
+                }
+            }
+            return zl;
         }
     }
 }

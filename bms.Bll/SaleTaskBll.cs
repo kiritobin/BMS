@@ -104,7 +104,7 @@ namespace bms.Bll
         /// <summary>
         /// 统计销售任务总种数
         /// </summary>
-        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="customerID">客户id</param>
         /// <returns>返回总种数</returns>
         public int getkinds(string customerID)
         {
@@ -268,6 +268,33 @@ namespace bms.Bll
         public string getSaleTaskFinishTime(string saleId)
         {
             return saleDao.getSaleFinishTime(saleId);
+        }
+        /// <summary>
+        /// 根据销售任务ID，统计销售任务的总数量，总码洋，总实洋
+        /// </summary>
+        /// <param name="saleTaskId">销售任务ID</param>
+        /// <returns>数据集</returns>
+        public DataSet getSaleTaskStatistics(string saleTaskId)
+        {
+            return saleDao.getSaleTaskStatistics(saleTaskId);
+        }
+        /// <summary>
+        /// 根据销售任务id获取操作员
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns>操作员名称</returns>
+        public DataSet getcustomerName(string saleTaskId)
+        {
+            return saleDao.getcustomerName(saleTaskId);
+        }
+        /// <summary>
+        /// 通过销售任务Id统计种数
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns></returns>
+        public int getkindsBySaleTaskId(string saleTaskId)
+        {
+            return saleDao.getkindsBySaleTaskId(saleTaskId);
         }
     }
 }
