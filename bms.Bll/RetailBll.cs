@@ -27,7 +27,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="bookNum">书号</param>
         /// <returns></returns>
-        public Result selectByBookNum(long bookNum, string retailHeadId)
+        public Result selectByBookNum(string bookNum, string retailHeadId)
         {
             int row = dao.selectByBookNum(bookNum, retailHeadId);
             if (row > 0)

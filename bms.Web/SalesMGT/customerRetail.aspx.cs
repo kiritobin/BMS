@@ -34,7 +34,7 @@ namespace bms.Web.SalesMGT
             if (op == "add")
             {
                 string headId = Request["headId"];
-                long bookNum = Convert.ToInt64(Request["bookNum"]);
+                string bookNum = Request["bookNum"].ToString();
                 add(bookNum, headId);
             }
             if (op == "delete")
@@ -69,7 +69,7 @@ namespace bms.Web.SalesMGT
                 for(int i = 0; i < row; i++)
                 {
                     DataRow dr = dsEnd.Tables[0].Rows[i];
-                    long bookNum = Convert.ToInt64(dr["bookNum"]);
+                    string bookNum = dr["bookNum"].ToString();
                     int number = Convert.ToInt32(dr["number"]);
                     User user = (User)Session["user"];
                     DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
@@ -145,7 +145,7 @@ namespace bms.Web.SalesMGT
                     if (count == 1)
                     {
                         string headId = Request["headId"];
-                        long bookNum = Convert.ToInt64(bookDs.Tables[0].Rows[0]["bookNum"]);
+                        string bookNum = bookDs.Tables[0].Rows[0]["bookNum"].ToString();
                         add(bookNum, headId);
                     }
                     if (op == "choose")
@@ -179,12 +179,12 @@ namespace bms.Web.SalesMGT
         /// 客户添加图书
         /// </summary>
         /// <param name="bookNum"></param>
-        public void add(long bookNum,string headId)
+        public void add(string bookNum,string headId)
         {
             Result record = retailBll.selectByBookNum(bookNum, headId);
             if (record == Result.记录不存在)
             {
-                BookBasicData bookBasicData = basicBll.SelectById(Convert.ToInt64(bookNum));
+                BookBasicData bookBasicData = basicBll.SelectById(bookNum);
                 string isbn = bookBasicData.Isbn;
                 string bookName = bookBasicData.BookName;
                 int billCount = Convert.ToInt32(Request["billCount"]);

@@ -37,7 +37,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="bookNum">书号</param>
         /// <returns></returns>
-        public BookBasicData SelectById(long bookNum)
+        public BookBasicData SelectById(string bookNum)
         {
             MySqlHelp db = new MySqlHelp();
             string comText = "select ISBN,price,bookName,supplier,remarks from T_BookBasicData where bookNum=@bookNum";
@@ -104,7 +104,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="bookNum">书号</param>
         /// <returns></returns>
-        public int Delete(long bookNum)
+        public int Delete(string bookNum)
         {
             string cmdText = "delete from T_BookBasicData where bookNum=@bookNum";
             String[] param = { "@bookNum" };

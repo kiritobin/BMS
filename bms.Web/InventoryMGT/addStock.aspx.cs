@@ -28,7 +28,7 @@ namespace bms.Web.InventoryMGT
         WarehousingBll warehousingBll = new WarehousingBll();
         GoodsShelvesBll goodsShelvesBll = new GoodsShelvesBll();
         BookBasicBll bookBasicBll = new BookBasicBll();
-        public List<long> bookNumList = new List<long>();
+        public List<string> bookNumList = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
             string kind = Request["kind"];
@@ -68,8 +68,8 @@ namespace bms.Web.InventoryMGT
             }
             if (op == "delete")
             {
-                long bookNum = Convert.ToInt64(Request["bookNum"]);
-                bookNumList = (List<long>)Session["List"];
+                string bookNum = Request["bookNum"].ToString();
+                bookNumList = (List<string>)Session["List"];
                 int index = bookNumList.IndexOf(bookNum);
                 bookNumList.RemoveAt(index);
                 Session["List"] = bookNumList;
@@ -397,16 +397,16 @@ namespace bms.Web.InventoryMGT
                         sbGoods.Append("</select>");
                         for (int i = 0; i < monTable.Rows.Count; i++)
                         {
-                            bookNumList = (List<long>)Session["List"];
-                            foreach (long bookNums in bookNumList)
+                            bookNumList = (List<string>)Session["List"];
+                            foreach (string bookNums in bookNumList)
                             {
-                                if (bookNums == Convert.ToInt64(monTable.Rows[i]["bookNum"]))
+                                if (bookNums == monTable.Rows[i]["bookNum"].ToString())
                                 {
                                     Response.Write("已添加过此图书");
                                     Response.End();
                                 }
                             }
-                            bookNumList.Add(Convert.ToInt64(monTable.Rows[i]["bookNum"]));
+                            bookNumList.Add(monTable.Rows[i]["bookNum"].ToString());
                             Session["List"] = bookNumList;
                             sb.Append("<tr><td>" + monTable.Rows[i]["monId"] + "</td>");
                             sb.Append("<td><textarea class='isbn textareaISBN' row='1' maxlength='13'>" + monTable.Rows[i]["ISBN"] + "</textarea></td>");
@@ -468,7 +468,7 @@ namespace bms.Web.InventoryMGT
                 monTable.Columns.Add("singleHeadId", typeof(string));
                 monTable.Columns.Add("supplier", typeof(string));
 
-                long bookNum = Convert.ToInt64(Request["bookNum"]);
+                string bookNum = Request["bookNum"].ToString();
                 BookBasicData bookBasicData = bookBasicBll.SelectById(bookNum);
                 string supplier = bookBasicData.Publisher;
                 string bookName = bookBasicData.BookName;
@@ -476,8 +476,8 @@ namespace bms.Web.InventoryMGT
                 double price = bookBasicData.Price;
                 string _isbn = bookBasicData.Isbn;
 
-                bookNumList = (List<long>)Session["List"];
-                foreach (long bookNums in bookNumList)
+                bookNumList = (List<string>)Session["List"];
+                foreach (string bookNums in bookNumList)
                 {
                     if (bookNums == bookNum)
                     {
@@ -544,7 +544,7 @@ namespace bms.Web.InventoryMGT
                     DataRow drow = dataTable.Rows[i];
                     book.Isbn = drow["ISBN号"].ToString();
                     book.Price = Convert.ToDouble(drow["单价"]);
-                    book.BookNum = Convert.ToInt64(drow["书号"]);
+                    book.BookNum = drow["书号"].ToString();
                     monomers.Isbn = book;
                     monomers.UPrice = book;
                     monomers.BookNum = book;
@@ -573,7 +573,7 @@ namespace bms.Web.InventoryMGT
 
                         BookBasicData bookBasic = new BookBasicData();
                         bookBasic.Isbn = book.Isbn;
-                        bookBasic.BookNum = Convert.ToInt64(drow["书号"]);
+                        bookBasic.BookNum = drow["书号"].ToString();
                         Stock stock = new Stock();
                         stock.StockNum = Convert.ToInt32(drow["商品数量"]);
                         stock.ISBN = bookBasic;
@@ -584,7 +584,7 @@ namespace bms.Web.InventoryMGT
                         goodsShelves.GoodsShelvesId = goodsShelf;
                         stock.GoodsShelvesId = goodsShelves;
                         StockBll stockBll = new StockBll();
-                        Result results = stockBll.GetByBookNum(Convert.ToInt64(drow["书号"]), goodsShelf);
+                        Result results = stockBll.GetByBookNum(drow["书号"].ToString(), goodsShelf);
                         if (results == Result.记录不存在)
                         {
                             Result result = stockBll.insert(stock);
@@ -596,8 +596,8 @@ namespace bms.Web.InventoryMGT
                         }
                         else
                         {
-                            int rows = stockBll.getStockNum(Convert.ToInt64(drow["书号"]), goodsShelf);
-                            Result result = stockBll.update(Convert.ToInt32(drow["商品数量"]) + rows, goodsShelf, Convert.ToInt64(drow["书号"]));
+                            int rows = stockBll.getStockNum(drow["书号"].ToString(), goodsShelf);
+                            Result result = stockBll.update(Convert.ToInt32(drow["商品数量"]) + rows, goodsShelf, drow["书号"].ToString());
                             if (result == Result.更新失败)
                             {
                                 Response.Write("添加失败");

@@ -37,7 +37,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="bookNum">书号</param>
         /// <returns></returns>
-        public int selectByBookNum(long bookNum,string retailHeadId)
+        public int selectByBookNum(string bookNum,string retailHeadId)
         {
             string cmdText = "select count(retailMonomerId) from T_RetailMonomer where bookNum=@bookNum and retailHeadId=@retailHeadId";
             string[] param = { "@bookNum", "@retailHeadId" };

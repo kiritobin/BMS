@@ -296,7 +296,7 @@ namespace bms.Dao
         /// <param name="bookNum">书号</param>
         /// <param name="saleId">销售任务id</param>
         /// <returns>受影响行数</returns>
-        public int updateAlreadyBought(int alreadyBought, long bookNum, string saleId)
+        public int updateAlreadyBought(int alreadyBought, string bookNum, string saleId)
         {
             string cmdText = "update T_SaleMonomer set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";
             //string cmdText = "update V_SaleMonomer set alreadyBought=@alreadyBought where bookNum=@bookNum and saleTaskId=@saleId";
@@ -411,5 +411,24 @@ namespace bms.Dao
                 return sum = Convert.ToDouble(sumstring);
             }
         }
+        //public SaleMonomer getSalemonBasic(string saleId, string saleHeadId, string bookNum)
+        //{
+        //    string cmdtext = "select bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime from T_SaleMonomer where saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum";
+        //    string[] param = { "@saleId", "@saleHeadId", "@bookNum" };
+        //    object[] values = { saleId, saleHeadId, bookNum };
+        //    DataSet ds = db.FillDataSet(cmdtext, param, values);
+        //    SaleMonomer salemon =new SaleMonomer();
+        //    if (ds != null || ds.Tables[0].Rows.Count > 0)
+        //    {
+        //        if (ds.Tables[0].Rows.Count > 1)
+        //        {
+
+        //        }
+        //        else
+        //        {
+        //            salemon.BookNum = ds.Tables[0].Rows[0]["bookNum"].ToString();
+        //        }
+        //    }
+        //}
     }
 }

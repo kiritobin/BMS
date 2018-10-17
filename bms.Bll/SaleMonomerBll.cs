@@ -271,7 +271,7 @@ namespace bms.Bll
         /// <param name="bookNum">书号</param>
         /// <param name="saleId">销售任务id</param>
         /// <returns>受影响行数</returns>
-        public int updateAlreadyBought(int alreadyBought, long bookNum, string saleId)
+        public int updateAlreadyBought(int alreadyBought, string bookNum, string saleId)
         {
             return SaleMonomerdao.updateAlreadyBought(alreadyBought, bookNum, saleId);
         }

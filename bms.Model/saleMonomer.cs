@@ -8,7 +8,7 @@ namespace bms.Model
     public class SaleMonomer
     {
         private int saleIdMonomerId;
-        private long  bookNum;
+        private string  bookNum;
         private string ISBN;
         private string saleHeadId;
         private string saleTaskId;
@@ -35,7 +35,7 @@ namespace bms.Model
         /// <param name="realPrice">实洋</param>
         /// <param name="datetime">采集时间</param>
         /// <param name="saleTaskId">销售任务id</param>
-        public SaleMonomer(int saleIdMonomerId, long bookNum, string iSBN, string saleHeadId, double unitPrice, int number, double totalPrice, double realDiscount, double realPrice, DateTime datetime,int type, int alreadyBought, string saleTaskId)
+        public SaleMonomer(int saleIdMonomerId, string bookNum, string iSBN, string saleHeadId, double unitPrice, int number, double totalPrice, double realDiscount, double realPrice, DateTime datetime,int type, int alreadyBought, string saleTaskId)
         {
             this.saleIdMonomerId = saleIdMonomerId;
             this.bookNum = bookNum;
@@ -70,7 +70,7 @@ namespace bms.Model
         /// <summary>
         /// 书号
         /// </summary>
-        public long BookNum
+        public string BookNum
         {
             get
             {

@@ -29,7 +29,7 @@ namespace bms.Web.InventoryMGT
         StockBll stockBll = new StockBll();
         BookBasicBll basicBll = new BookBasicBll();
         GoodsShelvesBll goods = new GoodsShelvesBll();
-        public List<long> bookNumList = new List<long>();
+        public List<string> bookNumList = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
             string kind = Request["kind"];
@@ -130,16 +130,16 @@ namespace bms.Web.InventoryMGT
                     {
                         for (int i = 0; i < monTable.Rows.Count; i++)
                         {
-                            bookNumList = (List<long>)Session["List"];
-                            foreach (long bookNums in bookNumList)
+                            bookNumList = (List<string>)Session["List"];
+                            foreach (string bookNums in bookNumList)
                             {
-                                if (bookNums == Convert.ToInt64(monTable.Rows[i]["bookNum"]))
+                                if (bookNums == monTable.Rows[i]["bookNum"].ToString())
                                 {
                                     Response.Write("已添加过此图书");
                                     Response.End();
                                 }
                             }
-                            bookNumList.Add(Convert.ToInt64(monTable.Rows[i]["bookNum"]));
+                            bookNumList.Add(monTable.Rows[i]["bookNum"].ToString());
                             Session["List"] = bookNumList;
                             sb.Append("<tr><td>" + monTable.Rows[i]["monId"] + "</td>");
                             sb.Append("<td><textarea class='isbn textareaISBN' row='1' maxlength='13'>" + monTable.Rows[i]["ISBN"] + "</textarea></td>");
@@ -191,7 +191,7 @@ namespace bms.Web.InventoryMGT
                 monTable.Columns.Add("singleHeadId", typeof(string));
                 monTable.Columns.Add("supplier", typeof(string));
 
-                long bookNum = Convert.ToInt64(Request["bookNum"]);
+                string bookNum = Request["bookNum"].ToString();
                 BookBasicData bookBasicData = basicBll.SelectById(bookNum);
                 string supplier = bookBasicData.Publisher;
                 string bookName = bookBasicData.BookName;
@@ -199,8 +199,8 @@ namespace bms.Web.InventoryMGT
                 double price = bookBasicData.Price;
                 string _isbn = bookBasicData.Isbn;
 
-                bookNumList = (List<long>)Session["List"];
-                foreach (long bookNums in bookNumList)
+                bookNumList = (List<string>)Session["List"];
+                foreach (string bookNums in bookNumList)
                 {
                     if (bookNums == bookNum)
                     {
@@ -258,7 +258,7 @@ namespace bms.Web.InventoryMGT
                     DataRow drow = dataTable.Rows[i];
                     book.Isbn = drow["ISBN号"].ToString();
                     book.Price = Convert.ToDouble(drow["单价"]);
-                    book.BookNum = Convert.ToInt64(drow["书号"]);
+                    book.BookNum = drow["书号"].ToString();
                     monomers.Isbn = book;
                     monomers.UPrice = book;
                     monomers.BookNum = book;
@@ -284,7 +284,7 @@ namespace bms.Web.InventoryMGT
                     }
                     else if (row == Result.添加成功)
                     {
-                        long bookNum = Convert.ToInt64(drow["书号"]);
+                        string bookNum = drow["书号"].ToString();
                         int billCount = Convert.ToInt32(drow["商品数量"]);
                         DataSet dsGoods = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
                         for (int j = 0; j < dsGoods.Tables[0].Rows.Count; j++)
@@ -356,7 +356,7 @@ namespace bms.Web.InventoryMGT
             else if (action == "checkNum")
             {
                 int regId = user.ReginId.RegionId;
-                long bookNum = Convert.ToInt64(Request["bookNum"]);
+                string bookNum = Request["bookNum"].ToString();
                 int billCount = Convert.ToInt32(Request["count"]);
                 DataSet dsGoods = stockBll.SelectByBookNum(bookNum, regId);
                 int j = dsGoods.Tables[0].Rows.Count;

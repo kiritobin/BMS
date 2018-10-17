@@ -31,7 +31,7 @@ namespace bms.Dao
         /// <param name="stockNum">库存数量</param>
         /// <param name="goodsShelvesId">货架号</param>
         /// <returns></returns>
-        public int update(int stockNum,int goodsShelvesId,long bookNum)
+        public int update(int stockNum,int goodsShelvesId,string bookNum)
         {
             string cmdText = "update T_Stock set stockNum=@stockNum where goodsShelvesId=@goodsShelvesId and bookNum=@bookNum";
             string[] param = { "@stockNum", "@goodsShelvesId","@bookNum" };
@@ -46,7 +46,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="ISBN">ISBN</param>
         /// <returns></returns>
-        public DataSet SelectByBookNum(long bookNum,int regionId)
+        public DataSet SelectByBookNum(string bookNum,int regionId)
         {
             string cmdText = "select goodsShelvesId,stockNum from T_Stock where bookNum = @bookNum and regionId=@regionId order by stockNum asc";
             String[] param = { "@bookNum", "@regionId" };
@@ -68,7 +68,7 @@ namespace bms.Dao
         /// <param name="bookNum">书号</param>
         /// <param name="goodsShelf">货架Id</param>
         /// <returns></returns>
-        public int getStockNum(long bookNum, int goodsShelf)
+        public int getStockNum(string bookNum, int goodsShelf)
         {
             string cmdText = "select stockNum from T_Stock where goodsShelvesId = @goodsShelf and bookNum=@bookNum";
             String[] param = { "@goodsShelf", "@bookNum" };
@@ -91,7 +91,7 @@ namespace bms.Dao
         /// <param name="bookNum">书号</param>
         /// <param name="goodsShelf">货架号</param>
         /// <returns></returns>
-        public int GetByBookNum(long bookNum, int goodsShelf)
+        public int GetByBookNum(string bookNum, int goodsShelf)
         {
             string cmdText = "select count(stockId) from T_Stock where bookNum=@bookNum and goodsShelvesId=@goodsShelf";
             String[] param = { "@bookNum" , "@goodsShelf" };
@@ -104,7 +104,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="bookNum"></param>
         /// <returns></returns>
-        public int selectStockNum(long bookNum)
+        public int selectStockNum(string bookNum)
         {
             string cmdText = "select stockNum from T_Stock where bookNum=@bookNum";
             String[] param = { "@bookNum" };

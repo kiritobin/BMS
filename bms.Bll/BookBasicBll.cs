@@ -24,7 +24,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="bookNum">书号</param>
         /// <returns></returns>
-        public BookBasicData SelectById(long bookNum)
+        public BookBasicData SelectById(string bookNum)
         {
             return basicDao.SelectById(bookNum);
         }
@@ -84,7 +84,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="bookNum">书号</param>
         /// <returns>执行结果</returns>
-        public Result Delete(long bookNum)
+        public Result Delete(string bookNum)
         {
             int row = basicDao.Delete(bookNum);
             if (row>0)

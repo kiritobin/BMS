@@ -26,29 +26,14 @@ namespace bms.Web.SalesMGT
         GoodsShelvesBll goods = new GoodsShelvesBll();
         DataTable monTable = new DataTable();
         RetailBll retailBll = new RetailBll();
-        User user = new User();
-        LoginBll loginBll = new LoginBll();
-        public List<long> bookNumList = new List<long>();
+        public List<string> bookNumList = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
             getIsbn();
-            if (!IsPostBack)
-            {
-                string userID = Request.QueryString["userId"].ToString();
-                if (userID != null && userID != "")
-                {
-                    user = loginBll.getPwdByUserId(userID);
-                    Session["user"] = user;
-                }
-                else
-                {
-                    user = (User)Session["user"];
-                }
-            }
             string op = Request["op"];
             if (op == "add")
             {
-                long bookNum = Convert.ToInt64(Request["bookNum"]);
+                string bookNum = Request["bookNum"].ToString();
                 add(bookNum);
             }
             if(op == "insert")
@@ -57,8 +42,8 @@ namespace bms.Web.SalesMGT
             }
             if(op == "delete")
             {
-                long bookNum = Convert.ToInt64(Request["bookNum"]);
-                bookNumList = (List<long>)Session["List"];
+                string bookNum = Request["bookNum"].ToString();
+                bookNumList = (List<string>)Session["List"];
                 int index = bookNumList.IndexOf(bookNum);
                 bookNumList.RemoveAt(index);
                 Session["List"] = bookNumList;
@@ -92,7 +77,7 @@ namespace bms.Web.SalesMGT
                     {
                         if (count == 1)
                         {
-                            long bookNum = Convert.ToInt64(bookDs.Tables[0].Rows[0]["bookNum"]);
+                            string bookNum = bookDs.Tables[0].Rows[0]["bookNum"].ToString();
                             add(bookNum);
                         }
                         if (op == "choose")
@@ -126,10 +111,10 @@ namespace bms.Web.SalesMGT
             return null;
         }
 
-        public void add(long bookNum)
+        public void add(string bookNum)
         {
-            bookNumList = (List<long>)Session["List"];
-            foreach (long bookNums in bookNumList)
+            bookNumList = (List<string>)Session["List"];
+            foreach (string bookNums in bookNumList)
             {
                 if(bookNums == bookNum)
                 {
@@ -137,9 +122,10 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
-            BookBasicData bookBasicData = basicBll.SelectById(Convert.ToInt64(bookNum));
+            BookBasicData bookBasicData = basicBll.SelectById(bookNum);
             string isbn = bookBasicData.Isbn;
             string bookName = bookBasicData.BookName;
+            int billCount = Convert.ToInt32(Request["billCount"]);
             double discount=1;
             if (bookBasicData.Remarks == "")
             {
@@ -156,6 +142,8 @@ namespace bms.Web.SalesMGT
             int row = monTable.Rows.Count;
             double uPrice = bookBasicData.Price;
             SaleMonomer monomers = new SaleMonomer();
+            double totalPrice = Convert.ToDouble((billCount * uPrice).ToString("0.00"));
+            double realPrice = Convert.ToDouble((totalPrice * discount).ToString("0.00"));
             monTable.Columns.Add("ISBN", typeof(string));
             monTable.Columns.Add("unitPrice", typeof(double));
             monTable.Columns.Add("bookNum", typeof(long));
@@ -215,6 +203,7 @@ namespace bms.Web.SalesMGT
                 allTotal = allTotal + total;
                 allReal = allReal + real;
             }
+            User user = (User)Session["user"];
             DateTime nowTime = DateTime.Now;
             string nowDt = nowTime.ToString("yyyy-MM-dd");
             long count = 0;
@@ -271,7 +260,7 @@ namespace bms.Web.SalesMGT
                     DataRow dr = dataTable.Rows[i];
                     monomers.ISBN1 = dr["ISBN"].ToString();
                     monomers.UnitPrice = Convert.ToDouble(dr["单价"]);
-                    monomers.BookNum = Convert.ToInt64(dr["书号"]);
+                    monomers.BookNum = dr["书号"].ToString();
                     monomers.RealDiscount = Convert.ToDouble(dr["折扣"]);
                     monomers.SaleIdMonomerId = i+1;
                     monomers.Number = Convert.ToInt32(dr["数量"]);
