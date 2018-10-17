@@ -159,14 +159,14 @@
                                 <table id="tablePay" style="width: 300px;">
                                     <thead>
                                         <tr>
-                                            <td style="width: 48%">名称</td>
+                                            <td style="width: 40%">名称</td>
                                             <td style="width: 20%">数量</td>
                                             <td style="width: 30%">金额</td>
                                         </tr>
                                     </thead>
                                 </table>
                                 <hr />
-                                <table class="other_fee" style="width: 250px;height:100px; font-size:14px;">
+                                <table class="other_fee" style="width: 300px;height:100px; font-size:14px;">
                                     <thead>
                                         <tr>
                                             <td style="width: 50%">码洋:￥<span id="alltotal"></span></td>
