@@ -73,20 +73,6 @@ namespace bms.Web.SalesMGT
             //保存单据
             if (op == "sure")
             {
-                //SellOffHead sell = new SellOffHead();
-                //sell.SellOffHeadId = Session["sellId"].ToString();
-                //sell.State = 1;
-                //Result result = shBll.Update(sell);
-                //if (result == Result.更新成功)
-                //{
-                //    Response.Write("更新成功");
-                //    Response.End();
-                //}
-                //else
-                //{
-                //    Response.Write("保存失败");
-                //    Response.End();
-                //}
                 string sellId = Session["sellId"].ToString();
                 int row = smBll.GetCount(sellId);
                 if (row > 0)
@@ -110,6 +96,8 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
+
+
         }
         /// <summary>
         /// 带输入框的tr列表
@@ -354,13 +342,12 @@ namespace bms.Web.SalesMGT
                     sb.Append("<td>" + double.Parse(realCount) + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
-                    //sb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
-                    //sb.Append("<td>" + "<button class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true'></i></button>" + "</td>");
                     sb.Append("</tr>");
                 }
             }
+            sb.Append("<tr>");
+            sb.Append("</tr>");
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
-            //sb.Append("<input type='hidden' value='" + discount + "' id='sellId' />");
             sb.Append("</tbody>");
             return sb.ToString();
         }

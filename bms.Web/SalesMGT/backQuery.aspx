@@ -60,6 +60,47 @@
                                 </div>
                             </div>
                             <div class="content_tab">
+                                <table class="table table_stock text-right">
+                                    <tr class="text-nowrap">
+                                        <td>
+                                            <span>任务单据编号:</span>
+                                        </td>
+                                        <td>
+                                            <input value="" class="form-control" disabled>
+                                        </td>
+                                        <td>
+                                            <span>单头编号:</span>
+                                        </td>
+                                        <td>
+                                            <input value="" class="form-control" disabled>
+                                        </td>
+                                        <td>
+                                            <span>总品种:</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="" class="form-control" disabled>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-nowrap">
+                                        <td>
+                                            <span>总数量:</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="" class="form-control" disabled></td>
+                                        <td>
+                                            <span>总码洋:</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="" class="form-control" disabled>
+                                        </td>
+                                        <td>
+                                            <span>总实洋:</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="" class="form-control" disabled>
+                                        </td>
+                                    </tr>
+                                </table>
                                 <div class="table-responsive">
                                     <table class="table mostTable table-bordered text-center" id="table">
                                         <%--<thead>
