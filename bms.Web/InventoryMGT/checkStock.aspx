@@ -38,11 +38,12 @@
             <div class="logo">
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
-                <span style="margin-left:90px;color:red;"><%=userName %>&nbsp-&nbsp<%=regionName %></span>
+                <span style="margin-left: 90px; color: red;"><%=userName %>&nbsp-&nbsp<%=regionName %></span>
             </div>
-           <div class="sidebar-wrapper">
+            <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <%if (funcUser||funcRole||funcOrg||funcGoods) { %>
+                    <%if (funcUser || funcRole || funcOrg || funcGoods)
+                        { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
@@ -53,28 +54,32 @@
                         </a>
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
-                                <%if (funcRole) { %>
+                                <%if (funcRole)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcUser) { %>
+                                <%if (funcUser)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcOrg) { %>
+                                <%if (funcOrg)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcGoods) { %>
+                                <%if (funcGoods)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
@@ -98,7 +103,7 @@
                         <div class="collapse" id="userManage">
                             <ul class="nav">
                                 <%if (funcCustom)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
@@ -117,10 +122,11 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcPut||funcOut||funcReturn||funcSupply) {%>
+                    <%if (funcPut || funcOut || funcReturn || funcSupply)
+                        {%>
                     <li class="nav-item active">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
-                             <i class="fa fa-book"></i>
+                            <i class="fa fa-book"></i>
                             <p>
                                 库存管理
                                 <b class="caret"></b>
@@ -128,28 +134,32 @@
                         </a>
                         <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
-                                <%if (funcPut) { %>
+                                <%if (funcPut)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcOut) { %>
+                                <%if (funcOut)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcReturn) { %>
+                                <%if (funcReturn)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcSupply) { %>
+                                <%if (funcSupply)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
@@ -160,7 +170,8 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcSale||funcSaleOff||funcRetail) { %>
+                    <%if (funcSale || funcSaleOff || funcRetail)
+                        { %>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
@@ -171,14 +182,16 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
-                                <%if (funcSale) { %>
+                                <%if (funcSale)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcRetail){ %>
+                                <%if (funcRetail)
+                                { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/retailManagement.aspx" id="retail">
                                         <span class="sidebar-normal">零售管理</span>
@@ -293,7 +306,8 @@
                                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
                                         </div>--%>
                                     </div>
-                                    <table class="table table_stock text-right">
+                                    <div id="content">
+                                        <table class="table table_stock text-right">
                                             <tr class="text-nowrap">
                                                 <td>
                                                     <span>单据编号:</span>
@@ -301,17 +315,13 @@
                                                 <td>
                                                     <input value="<%=putId %>" class="form-control" disabled>
                                                 </td>
+                                                <td></td>
+                                                <td></td>
                                                 <td>
                                                     <span>操作员:</span>
                                                 </td>
                                                 <td>
                                                     <input value="<%=putOperator %>" class="form-control" disabled>
-                                                </td>
-                                                <td>
-                                                    <span>单据总数:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=putCount %>" class="form-control" disabled>
                                                 </td>
                                             </tr>
                                             <tr class="text-nowrap">
@@ -320,20 +330,8 @@
                                                 </td>
                                                 <td>
                                                     <input type="text" value="<%=putRegionName %>" class="form-control" disabled></td>
-                                                <td>
-                                                    <span>总码洋:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=putTotalPrice %>" class="form-control" disabled>
-                                                </td>
-                                                <td>
-                                                    <span>总实洋:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=putRealPrice %>" class="form-control" disabled>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-nowrap">
+                                                <td></td>
+                                                <td></td>
                                                 <td>
                                                     <span>制单日期:</span>
                                                 </td>
@@ -343,24 +341,53 @@
                                                     </div>
                                                 </td>
                                             </tr>
+
                                         </table>
-                                    <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center" id="table">
-                                            <thead>
-                                                <tr>
-                                                    <td>序号</td>
-                                                    <td>单据编号</td>
-                                                    <td>ISBN号</td>
-                                                    <td>商品数量</td>
-                                                    <td>单价</td>
-                                                    <td>折扣</td>
-                                                    <td>实洋</td>
-                                                    <td>码洋</td>
-                                                    <td>货架</td>
+                                        <div class="table-responsive">
+                                            <table class="table mostTable table-bordered text-center" id="table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>序号</td>
+                                                        <td>单据编号</td>
+                                                        <td>ISBN号</td>
+                                                        <td>商品数量</td>
+                                                        <td>单价</td>
+                                                        <td>折扣</td>
+                                                        <td>实洋</td>
+                                                        <td>码洋</td>
+                                                        <td>货架</td>
+                                                    </tr>
+                                                </thead>
+                                                <%=getData() %>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <table class="table table_stock text-right">
+                                                <tr class="text-nowrap">
+                                                    <td>
+                                                        <span>总合计:</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>单据总数:</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" value="<%=putCount %>" class="form-control" disabled>
+                                                    </td>
+                                                    <td>
+                                                        <span>总码洋:</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" value="<%=putTotalPrice %>" class="form-control" disabled>
+                                                    </td>
+                                                    <td>
+                                                        <span>总实洋:</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" value="<%=putRealPrice %>" class="form-control" disabled>
+                                                    </td>
                                                 </tr>
-                                            </thead>
-                                            <%=getData() %>
-                                        </table>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
