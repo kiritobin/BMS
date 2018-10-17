@@ -15,7 +15,7 @@ namespace bms.Web.AccessMGT
     using Result = Enums.OpResult;
     public partial class userManagement : System.Web.UI.Page
     {
-        public int currentPage = 1, pageSize = 5, totalCount, intPageCount;
+        public int currentPage = 1, pageSize = 10, totalCount, intPageCount;
         public string search = "",userName,regionName;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         public DataSet dsRegion,dsRole,ds,dsPer;
