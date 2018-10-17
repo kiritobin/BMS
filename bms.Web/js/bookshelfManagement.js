@@ -290,10 +290,23 @@
     //导入
     $("#btnImport").click(function () {
         var file = $("#file").val();
+        var regId = $("#regName").val();
         if (file == "" || file == null) {
             swal({
                 title: "提示",
                 text: "请上传文件",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            })
+        }
+        else if (regId == "" || regId == null) {
+            swal({
+                title: "提示",
+                text: "请选择地区",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
@@ -321,6 +334,7 @@
                 type: 'Post',
                 url: 'bookshelfManagement.aspx',
                 data: {
+                    regId: regId,
                     op: "import"
                 },
                 dataType: 'text',
@@ -352,6 +366,20 @@
                     }
                 }
             });
+        }
+    });
+    $("#close2").click(function () {
+        $("#close2").show();
+        $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
+        $("#img").attr("src", "../imgs/loading.gif");
+        $(" #file").val("");
+    });
+    $("#close3").click(function () {
+        if (sessionStorage.getItem("import") == "导入成功") {
+            window.location.reload();
+            sessionStorage.removeItem("import");
+            sessionStorage.removeItem("succ");
+            window.location.reload();
         }
     });
 })

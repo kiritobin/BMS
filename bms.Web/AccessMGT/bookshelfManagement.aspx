@@ -37,7 +37,7 @@
             <div class="logo">
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
-                <span style="margin-left:90px;color:red;"><%=userName %>&nbsp-&nbsp<%=regionName %></span>
+                <span style="margin-left: 90px; color: red;"><%=userName %>&nbsp-&nbsp<%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -337,7 +337,7 @@
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel3">货架导入
                             </h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <button type="button" class="close" data-dismiss="modal" id="close3" aria-hidden="true">
                                 <i class="fa fa-close"></i>
                             </button>
                         </div>
@@ -345,7 +345,7 @@
                             <table class="table text-center model-table">
                                 <tr>
                                     <td colspan="2">
-                                        <a class="btn btn-success" id="downEx" href="/uploads/muban/货架管理.zip">下载模板</a>
+                                        <a class="btn btn-success" id="downEx" href="/uploads/muban/货架表.zip">下载模板</a>
                                         <span class="btn btn-success fileinput-button">
                                             <span>选择文件</span>
                                             <input type="file" class="" name="file" id="file" value="">
@@ -354,6 +354,16 @@
                                     </td>
                                 </tr>
                             </table>
+                            <div class="text-center">
+                                <span>请选择地区:</span>
+                                <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="regName" style="float: left;">
+                                    <option value="">请选择地区</option>
+                                    <%for (int j = 0; j < regionDs.Tables[0].Rows.Count; j++)
+                                        { %>
+                                    <option value="<%=regionDs.Tables[0].Rows[j]["regionId"] %>"><%=regionDs.Tables[0].Rows[j]["regionName"] %></option>
+                                    <%}%>
+                                </select>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-success" id="btnImport" data-toggle="modal">导入</button>

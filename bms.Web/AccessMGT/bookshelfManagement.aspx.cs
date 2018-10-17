@@ -216,8 +216,7 @@ namespace bms.Web.BasicInfor
         //excel读到table
         private DataTable excelToDt()
         {
-            User user = (User)Session["user"];
-            int regId = user.ReginId.RegionId;
+            int regId = Convert.ToInt32(Request["regId"]);
             DataTable dt1 = new DataTable();
             string path = Session["path"].ToString();
             string strConn = "";
@@ -281,8 +280,7 @@ namespace bms.Web.BasicInfor
         //取差集
         private void differentDt()
         {
-            User user = (User)Session["user"];
-            int regId = user.ReginId.RegionId;
+            int regId = Convert.ToInt32(Request["regId"]);
             int j = shelvesbll.isGoodsShelves(regId).Tables[0].Rows.Count;
             //数据库无数据时直接导入excel
             if (j <= 0)
