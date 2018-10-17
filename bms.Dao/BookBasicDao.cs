@@ -84,7 +84,7 @@ namespace bms.Dao
             }
             else
             {
-                string comText = "select bookNum,ISBN,price,bookName,supplier from T_BookBasicData where ISBN=@ISBN";
+                string comText = "select bookNum,ISBN,price,author,bookName,supplier from T_BookBasicData where ISBN=@ISBN";
                 string[] param = { "@ISBN" };
                 object[] values = { ISBN };
                 DataSet ds = db.FillDataSet(comText, param, values);

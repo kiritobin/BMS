@@ -73,7 +73,7 @@ namespace bms.Web.SalesMGT
             string kind = Request["kind"];
             if (kind == "0")
             {
-                Session["List"] = new List<long>();
+                Session["List"] = new List<string>();
             }
             double disCount = Convert.ToDouble(Request["disCount"]);
             int billCount = Convert.ToInt32(Request["billCount"]);
@@ -264,7 +264,7 @@ namespace bms.Web.SalesMGT
             Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)
             {//添加单体
-                Session["List"] = new List<long>();
+                //Session["List"] = new List<string>();
                 SaleMonomer monomers = new SaleMonomer();
                 int Count = dataTable.Rows.Count;
                 for (int i = 0; i < Count; i++)
