@@ -66,7 +66,21 @@ namespace bms.Web.InventoryMGT
             ds = rmBll.Select();
             DataTable dsdt = ds.Tables[0];
             StringBuilder sb = new StringBuilder();
-            sb.Append("<tbody>");
+            sb.Append("<thead>");//表头
+            sb.Append("<tr>");
+            sb.Append("<th>" + "序号" + "</th>");
+            sb.Append("<th>" + "补货日期" + "</th>");
+            sb.Append("<th>" + "ISBN号" + "</th>");
+            sb.Append("<th>" + "书号" + "</th>");
+            sb.Append("<th>" + "书名" + "</th>");
+            sb.Append("<th>" + "单价" + "</th>");
+            sb.Append("<th>" + "数量" + "</th>");
+            sb.Append("<th>" + "码洋" + "</th>");
+            sb.Append("<th>" + "实际折扣" + "</th>");
+            sb.Append("<th>" + "实洋" + "</th>");
+            sb.Append("</tr>");
+            sb.Append("</thead>");
+            sb.Append("<tbody>");//表体
             sb.Append(WriteTable());
             for (int i = 0; i < dsdt.Rows.Count; i++)
             {

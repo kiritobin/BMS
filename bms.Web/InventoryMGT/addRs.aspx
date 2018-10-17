@@ -359,40 +359,6 @@
                                     </table>
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        <nobr>序号</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>补货日期</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>ISBN号</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>书号</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>书名</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>单价</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>数量</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>码洋</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>实际折扣</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>实洋</nobr>
-                                                    </th>
-                                                </tr>
-                                            </thead>
                                             <%=getData() %>
                                         </table>
                                     </div>

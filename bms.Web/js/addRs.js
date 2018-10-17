@@ -57,7 +57,7 @@
                             $("#table").empty();
                             $("#table").append(data); //加载table
                             $("#table tr:first").find("td").eq(5).children().focus();
-                            $("#table").find('tr').eq(1).find('td').eq(4).find('input').focus();
+                            $("#table").find('tr').eq(1).find('td').eq(6).find('input').focus();
                         }
                     }
                 });
@@ -73,12 +73,12 @@
         var discount = $("input[type='radio']:checked").parents('tr').find('td').eq(4).text();
         $.ajax({
             type: 'Post',
-            url: 'backQuery.aspx',
+            url: 'addRs.aspx',
             data: {
                 ISBN: isbn,
                 bookNO: bookNum,
                 price: price,
-                op: "search"
+                op: "searchISBN"
             },
             dataType: 'text',
             success: function (data) {
@@ -100,8 +100,8 @@
                     $("#myModa2").modal("hide");
                     $("#table").empty();
                     $("#table").append(data); //加载table
-                    $("#table tr:first").find("td").eq(6).children().focus();
-                    $("#table").find('tr').eq(1).find('td').eq(4).find('input').focus();
+                    $("#table tr:first").find("td").eq(5).children().focus();
+                    $("#table").find('tr').eq(1).find('td').eq(6).find('input').focus();
                 }
             }
         })
