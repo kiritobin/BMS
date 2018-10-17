@@ -815,7 +815,15 @@ namespace bms.Web.InventoryMGT
                         }
                         string bookNum = bookDt.Rows[0]["bookNum"].ToString();
                         double price = Convert.ToDouble(bookDt.Rows[0]["price"].ToString());
-                        double discount= Convert.ToDouble(bookDt.Rows[0]["author"].ToString());
+                        double discount;
+                        if (bookDt.Rows[0]["author"].ToString() == null || bookDt.Rows[0]["author"].ToString() == "")
+                        {
+                            discount = 100;
+                        }
+                        else
+                        {
+                            discount = Convert.ToDouble(bookDt.Rows[0]["author"].ToString());
+                        }
                         double num = Convert.ToDouble(dt1.Rows[i]["商品数量"].ToString());
                         double total = price * num;
                         double real= total * discount * 0.01;
