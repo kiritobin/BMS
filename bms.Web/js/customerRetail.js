@@ -459,9 +459,16 @@ $("#btnSettle").click(function () {
                     $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
                     $("#tablePay tr:not(:first)").empty()
                     $("#tablePay").append(datas[1]);
-                    sessionStorage.removeItem("retailId");
                     $("#sale").show();
-
+                    //一维码
+                    JsBarcode("#img", sessionStorage.getItem("retailId"), {
+                        displayValue: false, //是否在条形码下方显示文字
+                        //fontSize: 15,//设置文本的大小
+                        margin: 0,//设置条形码周围的空白边距
+                        width: 10,//设置条之间的宽度
+                        height: 50,//高度
+                    });
+                    sessionStorage.removeItem("retailId");
                     var status = "";
                     var LODOP = getLodop();
                     LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
