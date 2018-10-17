@@ -411,5 +411,17 @@ namespace bms.Dao
                 return sum = Convert.ToDouble(sumstring);
             }
         }
+        //public SaleMonomer getSalemonBasic(string saleId, string saleHeadId, string bookNum)
+        //{
+        //    string cmdtext = "select bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime from T_SaleMonomer where saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum";
+        //    string[] param = { "@saleId", "@saleHeadId", "@bookNum" };
+        //    object[] values = { saleId, saleHeadId, bookNum };
+        //    DataSet ds = db.FillDataSet(cmdtext, param, values);
+        //    SaleMonomer salemon;
+        //    if (ds != null || ds.Tables[0].Rows.Count > 0)
+        //    {
+        //        salemon.BookNum=ds.Tables[0].Rows[]
+        //    }
+        //}
     }
 }
