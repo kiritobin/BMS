@@ -134,12 +134,12 @@ $("#search").keypress(function (e) {
                                 //$("#table tr:eq(1)").empty();
                                 $(".first").remove();
                             }
-                            $("#table").append(data);
+                            $("#table").prepend(data);
                             //计算合计内容
                             var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
-                            var numbers = parseInt(sessionStorage.getItem("number")) + parseInt($("#table tr:last").find("td:eq(4)").children().val());
-                            var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim());
-                            var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tr:last").find("td:eq(7)").text().trim());
+                            var numbers = parseInt(sessionStorage.getItem("number")) + parseInt($("#table tbody tr:first").find("td:eq(4)").children().val());
+                            var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
+                            var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
                             sessionStorage.setItem("kind", kinds);
                             sessionStorage.setItem("number", numbers);
                             sessionStorage.setItem("totalPrice", totalPrices);
@@ -199,8 +199,8 @@ $("#btnAdd").click(function () {
                 $("#table").append(data);
                 var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
                 var numbers = parseInt(sessionStorage.getItem("number")) + 1;
-                var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim());
-                var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tr:last").find("td:eq(7)").text().trim());
+                var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
+                var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
                 sessionStorage.setItem("kind", kinds);
                 sessionStorage.setItem("number", numbers);
                 sessionStorage.setItem("totalPrice", totalPrices);

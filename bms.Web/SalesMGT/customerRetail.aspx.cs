@@ -271,36 +271,50 @@ namespace bms.Web.SalesMGT
         public void scann()
         {
             string retailId = Request["retailId"];
-            DataSet ds = retailBll.GetRetail(retailId);
-            if(ds == null)
+            int state = retailBll.GetRetailType(retailId);
+            if (state == 1)
             {
-                Response.Write("记录不存在");
+                Response.Write("此单据已结算");
                 Response.End();
             }
-            StringBuilder sb = new StringBuilder();
-            int counts = ds.Tables[0].Rows.Count;
-            for (int i = 0; i < counts; i++)
+            else if (state == 2)
             {
-                DataRow dr = ds.Tables[0].Rows[i];
-                sb.Append("<tr><td>" + dr["retailMonomerId"].ToString() + "</td>");
-                sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-                sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
-                sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
-                sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
-                sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
-                sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
-                sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
-                sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
-                sb.Append("<td><button class='btn btn-danger btn-sm delete'><i class='fa fa-trash'></i></button></td></tr>");
+                Response.Write("此单据为退货单据");
+                Response.End();
             }
-            SaleHead sale = retailBll.GetHead(retailId);
-            allReal = sale.AllRealPrice;
-            allTotal = sale.AllTotalPrice;
-            count = sale.Number;
-            kind = counts;
-            Response.Write("number:" + allTotal +","+ allReal + "," + count + "," + kind + "|:" + sb.ToString());
-            Response.End();
+            else
+            {
+                DataSet ds = retailBll.GetRetail(retailId);
+                if (ds == null)
+                {
+                    Response.Write("记录不存在");
+                    Response.End();
+                }
+                StringBuilder sb = new StringBuilder();
+                int counts = ds.Tables[0].Rows.Count;
+                for (int i = 0; i < counts; i++)
+                {
+                    DataRow dr = ds.Tables[0].Rows[i];
+                    sb.Append("<tr><td>" + dr["retailMonomerId"].ToString() + "</td>");
+                    sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                    sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
+                    sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
+                    sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
+                    sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                    sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
+                    sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
+                    sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
+                    sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
+                    sb.Append("<td><button class='btn btn-danger btn-sm delete'><i class='fa fa-trash'></i></button></td></tr>");
+                }
+                SaleHead sale = retailBll.GetHead(retailId);
+                allReal = sale.AllRealPrice;
+                allTotal = sale.AllTotalPrice;
+                count = sale.Number;
+                kind = counts;
+                Response.Write("number:" + allTotal + "," + allReal + "," + count + "," + kind + "|:" + sb.ToString());
+                Response.End();
+            }
         }
         /// <summary>
         /// 收银修改数量

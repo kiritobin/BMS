@@ -2,7 +2,7 @@
     //sessionStorage.removeItem("save");
     //打印
     $("#print").click(function () {
-        $("#table").jqprint();
+        $("#print_content").jqprint();
     })
     //只允许输入数字
     $("#table").delegate("#inputISBN", "keyup", function (e) {
@@ -29,7 +29,17 @@
                     confirmButtonClass: "btn btn-warning",
                     type: "warning"
                 }).catch(swal.noop);
-            } else {
+            }
+            else if (count == "0") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "数量不能未0!",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            }
+            else {
                 $.ajax({
                     type: 'Post',
                     url: 'backQuery.aspx',

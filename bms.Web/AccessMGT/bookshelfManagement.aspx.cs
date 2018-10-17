@@ -10,16 +10,20 @@ using System.Web.UI.WebControls;
 namespace bms.Web.BasicInfor
 {
     using Model;
+    using System.Data.OleDb;
     using System.Text;
     using System.Web.Security;
     using Result = Enums.OpResult;
     public partial class bookshelfManagement : System.Web.UI.Page
     {
         public string userName,regionName;
-        public int totalCount, intPageCount, PageSize=10;
+        public int totalCount, intPageCount, PageSize=10,row;
+        public User user = new User();
         public DataSet regionDs, ds,dsPer;
         GoodsShelvesBll shelvesbll = new GoodsShelvesBll();
         RegionBll rbll = new RegionBll();
+        UserBll userBll = new UserBll();
+        DataTable except = new DataTable();//接受差集
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,7 +32,15 @@ namespace bms.Web.BasicInfor
             string op = Request["op"];
             if (op == "add")
             {
-                int regionId = int.Parse(Request["regionId"]);
+                int regionId;
+                if (user.RoleId.RoleName == "超级管理员")
+                {
+                    regionId = int.Parse(Request["regionId"]);
+                }
+                else
+                {
+                    regionId = user.ReginId.RegionId;
+                }
                 string shelfName = Request["shelfName"];
 
                 Region reg = new Region()
@@ -93,6 +105,30 @@ namespace bms.Web.BasicInfor
                 Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
+            }
+            if (op=="import")
+            {
+                DataTable dtInsert = new DataTable();
+                System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+                watch.Start();
+                differentDt();
+                dtInsert = except; //赋给新table
+                TimeSpan ts = watch.Elapsed;
+                dtInsert.TableName = "T_GoodsShelves"; //导入的表名
+                int a = userBll.BulkInsert(dtInsert);
+                watch.Stop();
+                double minute = ts.TotalMinutes; //计时
+                string m = minute.ToString("0.00");
+                if (a > 0)
+                {
+                    Response.Write("导入成功，总数据有" + row + "条，共导入" + a + "条数据" + "，共用时：" + m + "分钟");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据");
+                    Response.End();
+                }
             }
         }
 
@@ -186,10 +222,146 @@ namespace bms.Web.BasicInfor
             return strb.ToString();
         }
 
+        //excel读到table
+        private DataTable excelToDt()
+        {
+            int regId;
+            if (user.RoleId.RoleName == "超级管理员")
+            {
+                regId = Convert.ToInt32(Request["regId"]);
+            }
+            else
+            {
+                regId = user.ReginId.RegionId;
+            }
+            DataTable dt1 = new DataTable();
+            string path = Session["path"].ToString();
+            string strConn = "";
+            //文件类型判断
+            string[] sArray = path.Split('.');
+            int count = sArray.Length - 1;
+            if (sArray[count] == "xls")
+            {
+                strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+            }
+            else if (sArray[count] == "xlsx")
+            {
+                strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+            }
+            OleDbConnection conn = new OleDbConnection(strConn);
+            try
+            {
+                conn.Open();
+                string strExcel1 = "select 货架名称 from [Sheet1$]";
+                OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
+                dt1.Columns.Add("id"); //匹配列，与结构一致
+                oda1.Fill(dt1);
+                DataColumn dc = new DataColumn("地区ID", typeof(int));
+                dc.DefaultValue = regId; 
+                dt1.Columns.Add(dc);
+
+                row = dt1.Rows.Count; //获取总数
+                GetDistinctSelf(dt1, "货架名称");
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
+                Response.End();
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return dt1;
+        }
+        //某字段table去重方法
+        private DataTable GetDistinctSelf(DataTable SourceDt, string field)
+        {
+            int j = SourceDt.Rows.Count;
+            if (j > 1)
+            {
+                int k = j - 2;
+                for (int i = 1; i <= k; i++)
+                {
+                    DataRow dr = SourceDt.Rows[i];
+                    string isbn = dr[field].ToString();
+                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{1}'", field, isbn));
+                    if (rows.Length > 1)
+                    {
+                        SourceDt.Rows.RemoveAt(i);
+                    }
+                }
+            }
+            return SourceDt;
+        }
+        //取差集
+        private void differentDt()
+        {
+            int regId;
+            if (user.RoleId.RoleName == "超级管理员")
+            {
+                regId = Convert.ToInt32(Request["regId"]);
+            }
+            else
+            {
+                regId = user.ReginId.RegionId;
+            }
+            int j = shelvesbll.isGoodsShelves(regId).Tables[0].Rows.Count;
+            //数据库无数据时直接导入excel
+            if (j <= 0)
+            {
+               except = excelToDt();
+            }
+            else
+            {
+                except.Columns.Add("id", typeof(string));
+                except.Columns.Add("货架名称", typeof(string));
+                except.Columns.Add("地区ID", typeof(string));
+
+                DataRowCollection count = excelToDt().Rows;
+                foreach (DataRow row in count)//遍历excel数据集
+                {
+                    try
+                    {
+                        string goodsName = ToSBC(row[1].ToString());
+                        DataRow[] rows = shelvesbll.isGoodsShelves(regId).Tables[0].Select(string.Format("shelvesName='{0}'", goodsName));
+                        if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
+                        {
+                            except.Rows.Add(row[0], row[1], row[2]);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Response.Write(ex);
+                        Response.End();
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// 半角转全角
+        /// </summary>
+        /// <param name="input">需要转换的字符串</param>
+        /// <returns></returns>
+        private String ToSBC(String input)
+        {
+            char[] c = input.ToCharArray();
+            for (int i = 0; i < c.Length; i++)
+            {
+                if (c[i] == 32)
+                {
+                    c[i] = (char)12288;
+                    continue;
+                }
+                if (c[i] < 127)
+                    c[i] = (char)(c[i] + 65248);
+            }
+            return new String(c);
+        }
         protected void permission()
         {
             FunctionBll functionBll = new FunctionBll();
-            User user = (User)Session["user"];
+            user = (User)Session["user"];
             userName = user.UserName;
             regionName = user.ReginId.RegionName;
             Role role = new Role();

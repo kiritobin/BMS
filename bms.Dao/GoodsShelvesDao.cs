@@ -56,6 +56,26 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 判断有无货架
+        /// </summary>
+        /// <param name="regionId"></param>
+        /// <returns></returns>
+        public DataSet isGoodsShelves(int regionId)
+        {
+            string cmdText = "select shelvesName from T_GoodsShelves where regionId = @regionId";
+            String[] param = { "@regionId" };
+            String[] values = { regionId.ToString() };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
         /// 通过地区id和货架名查货架id
         /// </summary>
         /// <param name="regionId"></param>
