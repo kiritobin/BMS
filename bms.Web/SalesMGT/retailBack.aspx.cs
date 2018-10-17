@@ -264,7 +264,7 @@ namespace bms.Web.SalesMGT
             Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)
             {//添加单体
-                //Session["List"] = new List<string>();
+                Session["List"] = new List<string>();
                 SaleMonomer monomers = new SaleMonomer();
                 int Count = dataTable.Rows.Count;
                 for (int i = 0; i < Count; i++)
