@@ -103,7 +103,7 @@ $("#search").keypress(function (e) {
         } else {
             $.ajax({
                 type: 'Post',
-                url: 'retail.aspx',
+                url: 'retail.aspx?userId=',
                 data: {
                     kind: sessionStorage.getItem("kind"),
                     isbn: isbn,
@@ -159,9 +159,9 @@ $("#search").keypress(function (e) {
                         $("#table").prepend(data);
                     //计算合计内容
                         var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
-                        var numbers = parseInt(sessionStorage.getItem("number")) + parseInt($("#table tr:last").find("td:eq(3)").text().trim());
-                        var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim());
-                        var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tr:last").find("td:eq(7)").text().trim());
+                        var numbers = parseInt(sessionStorage.getItem("number")) + 1;
+                        var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
+                        var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
                         sessionStorage.setItem("kind", kinds);
                         sessionStorage.setItem("number", numbers);
                         sessionStorage.setItem("totalPrice", totalPrices);
@@ -180,15 +180,12 @@ $("#search").keypress(function (e) {
         }
     }
 })
-$("#close").click(function () {
-    window.location.reload();
-})
 //选择一号多书中需要的图书
 $("#btnAdd").click(function () {
     var bookNum = $("input[type='radio']:checked").val();
     $.ajax({
         type: 'Post',
-        url: 'retail.aspx',
+        url: 'retail.aspx?userId=',
         data: {
             bookNum: bookNum,
             op: 'add'
@@ -213,8 +210,8 @@ $("#btnAdd").click(function () {
             $("#table").prepend(data);
             var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
             var numbers = parseInt(sessionStorage.getItem("number")) + 1;
-            var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tr:last").find("td:eq(6)").text().trim());
-            var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tr:last").find("td:eq(7)").text().trim());
+            var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
+            var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
             sessionStorage.setItem("kind", kinds);
             sessionStorage.setItem("number", numbers);
             sessionStorage.setItem("totalPrice", totalPrices);
@@ -245,7 +242,7 @@ $("#insert").click(function () {
         var json = JSON.stringify(table);
         $.ajax({
             type: 'Post',
-            url: 'retail.aspx',
+            url: 'retail.aspx?userId=',
             data: {
                 json: json,
                 op: 'insert'
@@ -329,7 +326,7 @@ $("#table").delegate(".btn-delete", "click", function () {
     $(this).parent().parent().remove();
     $.ajax({
         type: 'Post',
-        url: 'retail.aspx',
+        url: 'retail.aspx?userId=',
         data: {
             bookNum: bookNum,
             totalPrice: totalPrice,
