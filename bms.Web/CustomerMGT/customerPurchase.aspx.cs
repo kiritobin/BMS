@@ -75,7 +75,6 @@ namespace bms.Web.CustomerMGT
 
             //生成table
             StringBuilder sb = new StringBuilder();
-            sb.Append("<tbody>");
             int j = ds.Tables[0].Rows.Count;
             for (int i = 0; i < j; i++)
             {
@@ -91,8 +90,7 @@ namespace bms.Web.CustomerMGT
                 sb.Append("<td>" + dr["regionName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["dateTime"].ToString() + "</td></tr>");
             }
-            sb.Append("</tbody>");
-            sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {

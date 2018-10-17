@@ -237,7 +237,6 @@ namespace bms.Web.SalesMGT
             //customerds = custBll.select();
             //生成table
             StringBuilder strb = new StringBuilder();
-            strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 string state = ds.Tables[0].Rows[i]["state"].ToString();
@@ -267,8 +266,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + "</td></tr>");
 
             }
-            strb.Append("</tbody>");
-            strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {

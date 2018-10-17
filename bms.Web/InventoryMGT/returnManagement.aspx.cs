@@ -175,7 +175,6 @@ namespace bms.Web.BasicInfor
 
             //生成table
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append("<tbody>");
             int count = ds.Tables[0].Rows.Count;
             DataTable dt = ds.Tables[0];
             for (int i = 0; i < count; i++)
@@ -201,8 +200,7 @@ namespace bms.Web.BasicInfor
                 }
                 sb.Append("</td></tr>");
             }
-            sb.Append("</tbody>");
-            sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             if (op == "paging")
             {
                 Response.Write(sb.ToString());

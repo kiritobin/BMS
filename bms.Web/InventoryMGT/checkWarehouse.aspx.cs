@@ -85,7 +85,6 @@ namespace bms.Web.InventoryMGT
 
             //生成table
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append("<tbody>");
             int count = ds.Tables[0].Rows.Count;
             for (int i = 0; i < count; i++)
             {
@@ -99,7 +98,6 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<td>" + dr["discount"].ToString() + "</td>");
                 sb.Append("<td>" + dr["shelvesName"].ToString() + "</td></tr>");
             }
-            sb.Append("</tbody>");
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             if (op == "paging")
             {

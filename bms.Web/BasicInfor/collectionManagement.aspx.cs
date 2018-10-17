@@ -245,7 +245,6 @@ namespace bms.Web.CustomerMGT
             
             //生成table
             StringBuilder sb = new StringBuilder();
-            sb.Append("<tbody>");
             int count = ds.Tables[0].Rows.Count;
             DataRowCollection drc = ds.Tables[0].Rows;
             for (int i = 0; i < count; i++)
@@ -258,8 +257,7 @@ namespace bms.Web.CustomerMGT
                 sb.Append("<td>" + drc[i]["price"].ToString() + "</ td >");
                 sb.Append("<td>" + drc[i]["collectionNum"].ToString() + "</ td ></ tr >");
             }
-            sb.Append("</tbody>");
-            sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {

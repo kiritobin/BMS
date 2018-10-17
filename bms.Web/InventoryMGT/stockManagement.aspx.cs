@@ -177,7 +177,6 @@ namespace bms.Web.InventoryMGT
             dsRegion = regionBll.select();
             //生成table
             StringBuilder sb = new StringBuilder();
-            sb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 DataRow dr = ds.Tables[0].Rows[i];
@@ -200,8 +199,7 @@ namespace bms.Web.InventoryMGT
                 }
                 sb.Append("</td></tr>");
             }
-            sb.Append("</tbody>");
-            sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {

@@ -25,8 +25,9 @@
                 },
                 dataType: 'text',
                 success: function (data) {
-                    $("#table tr:not(:first)").empty(); //清空table处首行
+                    $("#table tr:not(:first)").remove(); //清空table处首行
                     $("#table").append(data); //加载table
+                    $("#intPageCount").remove();
                 }
             });
         }
@@ -36,7 +37,7 @@
     $("#cusSearch").change(function () {
         var custom = $("#cusSearch").find("option:selected").text();
         if (custom == "请选择客户") {
-            custom = "";
+            custom = "kiritobin";
         }
         var book = $("#bookSearch").val().trim();
         var isbn = $("#isbnSearch").val().trim();
@@ -53,7 +54,7 @@
             dataType: 'text',
             success: function (data) {
                 $("#intPageCount").remove();
-                $("#table tr:not(:first)").empty(); //清空table处首行
+                $("#table tr:not(:first)").remove(); //清空table处首行
                 $("#table").append(data); //加载table
                 $(".paging").empty();
                 $('.paging').pagination({
@@ -81,8 +82,9 @@
                             },
                             dataType: 'text',
                             success: function (data) {
-                                $("#table tr:not(:first)").empty(); //清空table处首行
+                                $("#table tr:not(:first)").remove(); //清空table处首行
                                 $("#table").append(data); //加载table
+                                $("#intPageCount").remove();
                             }
                         });
                     }
@@ -97,7 +99,7 @@
         var isbn = $("#isbnSearch").val().trim();
         var custom = $("#cusSearch").find("option:selected").text();
         if (custom =="请选择客户") {
-            custom = "";
+            custom = "kiritobin";
         }
         $.ajax({
             type: 'Post',
@@ -142,6 +144,7 @@
                             success: function (data) {
                                 $("#table tr:not(:first)").empty(); //清空table处首行
                                 $("#table").append(data); //加载table
+                                $("#intPageCount").remove();
                             }
                         });
                     }

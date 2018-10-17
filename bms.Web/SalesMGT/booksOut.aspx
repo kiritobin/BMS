@@ -43,7 +43,7 @@
             <div class="row3">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header card-header-danger">
+                        <div class="card-header card-header-warning">
                             <label id="time" class="pull-right" style="color:white"></label>
                             <h3 class="card-title">图书团采排行榜TOP10</h3>
                         </div>

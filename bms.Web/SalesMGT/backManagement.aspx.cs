@@ -109,7 +109,6 @@ namespace bms.Web.SalesMGT
             ds = uBll.selectByPage(tb, out totalCount, out intPageCount);
             StringBuilder strb = new StringBuilder();
             int row = 0;//判断销退单头中是否有单体
-            strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 //strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
@@ -145,7 +144,6 @@ namespace bms.Web.SalesMGT
                 }
                 strb.Append("</td>");
             }
-            strb.Append("</tbody>");
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             strb.Append("<input type='hidden' value='" + Session["saleId"].ToString() + "' id='saleTaskId' />");
             string op = Request["op"];

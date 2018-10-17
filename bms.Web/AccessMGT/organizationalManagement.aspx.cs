@@ -84,7 +84,6 @@ namespace bms.Web.AccessMGT
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
             //生成table
             StringBuilder sb = new StringBuilder();
-            sb.Append("<tbody class='text-center'>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
@@ -93,8 +92,7 @@ namespace bms.Web.AccessMGT
                 sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[i]["regionId"].ToString() + "' /><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td>");
                 sb.Append("<td style='display:none' clall='id'>" + ds.Tables[0].Rows[i]["regionId"].ToString() + "</ td ></ tr >");
             }
-            sb.Append("</tbody>");
-            sb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
             if (op == "paging")
             {

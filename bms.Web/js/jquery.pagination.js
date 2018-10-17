@@ -93,6 +93,13 @@
             return opts.totalData && opts.showData ? Math.ceil(parseInt(opts.totalData) / opts.showData) : opts.pageCount;
         };
 
+        //this.getPageCount = function () {
+        //    var _pageCount = opts.totalData && opts.showData ? Math.ceil(parseInt(opts.totalData) / opts.showData) : opts.pageCount;
+        //    if (_pageCount < opts.count)
+        //        opts.count = _pageCount;
+        //    return _pageCount;
+        //};
+
         /**
          * 获取当前页
          * @return {int} 当前页码
@@ -181,10 +188,9 @@
             var index = 1;
             $obj.off().on('click', 'a', function () {
                 if ($(this).hasClass(opts.nextCls)) {
-                    if ($obj.find('.' + opts.activeCls).text() >= pageCount) {
-                        index = parseInt($obj.find('.' + opts.activeCls).text()) + 1;
-                        //$(this).addClass('disabled');
-                        //return false;
+                    if ($obj.find('.' + opts.activeCls).text() >= parseInt(pageCount)) {
+                        $(this).addClass('disabled');
+                        return false;
                     } else {
                         index = parseInt($obj.find('.' + opts.activeCls).text()) + 1;
                     }
