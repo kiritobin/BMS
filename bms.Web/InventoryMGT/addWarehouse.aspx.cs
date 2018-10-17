@@ -35,7 +35,7 @@ namespace bms.Web.InventoryMGT
             string kind = Request["kind"];
             if (kind == "0")
             {
-                Session["List"] = new List<long>();
+                Session["List"] = new List<string>();
             }
             permission();
             Monomers monoDiscount = warehousingBll.getDiscount();

@@ -55,7 +55,15 @@ namespace bms.Bll
         {
             return shelvesdao.Select(regionId);
         }
-
+        /// <summary>
+        /// 判断有无货架
+        /// </summary>
+        /// <param name="regionId"></param>
+        /// <returns></returns>
+        public DataSet isGoodsShelves(int regionId)
+        {
+            return shelvesdao.isGoodsShelves(regionId);
+        }
         /// <summary>
         /// 查询货架名是否重复
         /// </summary>

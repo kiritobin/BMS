@@ -328,7 +328,7 @@
                                         </tr>
                                         <tr class="text-nowrap">
                                             <td>
-                                                <span>入库组织:</span>
+                                                <span>接收组织:</span>
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control" disabled value="<%=shRegionName %>">

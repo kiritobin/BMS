@@ -31,6 +31,29 @@ namespace bms.Dao
                 return null;
             }
         }
+        /// <summary>
+        /// 通过ISBN和书名获取书号 单价 进货折扣
+        /// </summary>
+        /// <param name="ISBN"></param>
+        /// <param name="bookName"></param>
+        /// <returns></returns>
+        public DataTable getBookNum(string ISBN,string bookName)
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comText = "select bookNum,price,author from T_BookBasicData where ISBN=@ISBN and bookName=@bookName";
+            string[] parames = { "@ISBN" , "@bookName" };
+            object[] value = { ISBN,bookName };
+            DataSet ds = db.FillDataSet(comText, parames, value);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                return dt;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// 根据书号查找isbn，单价，折扣
@@ -84,7 +107,7 @@ namespace bms.Dao
             }
             else
             {
-                string comText = "select bookNum,ISBN,price,bookName,supplier from T_BookBasicData where ISBN=@ISBN";
+                string comText = "select bookNum,ISBN,price,author,bookName,supplier from T_BookBasicData where ISBN=@ISBN";
                 string[] param = { "@ISBN" };
                 object[] values = { ISBN };
                 DataSet ds = db.FillDataSet(comText, param, values);

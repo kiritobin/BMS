@@ -182,18 +182,35 @@ $("#scannSea").keypress(function (e) {
                         confirmButtonClass: "btn btn-warning",
                         type: "warning"
                     }).catch(swal.noop);
+                } else if (data == "此单据已结算") {
+                    swal({
+                        title: "此单据已结算",
+                        text: "单据编号：" + retailId + "已结算",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                } else if (data == "此单据为退货单据") {
+                    swal({
+                        title: "此单据为退货单据",
+                        text: "单据编号：" + retailId + "为退货单据",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                }else {
+                    var datas = data.split("|:");
+                    var math = datas[0].split(",");
+                    var total = math[0].split(":");
+                    $("#total").text(total[1]);
+                    $("#real").text(math[1]);
+                    $("#number").text(math[2]);
+                    $("#kind").text(math[3]);
+                    $("#table tr:not(:first)").empty();//清空除第一行以外的信息
+                    $("#table").append(datas[1]);
+                    $("#scannSea").val("");
+                    $("#myModal1").modal("hide");
                 }
-                var datas = data.split("|:");
-                var math = datas[0].split(",");
-                var total = math[0].split(":");
-                $("#total").text(total[1]);
-                $("#real").text(math[1]);
-                $("#number").text(math[2]);
-                $("#kind").text(math[3]);
-                $("#table tr:not(:first)").empty();//清空除第一行以外的信息
-                $("#table").append(datas[1]);
-                $("#scannSea").val("");
-                $("#myModal1").modal("hide");
             }
         })
     }
@@ -442,9 +459,17 @@ $("#btnSettle").click(function () {
                     $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
                     $("#tablePay tr:not(:first)").empty()
                     $("#tablePay").append(datas[1]);
-                    sessionStorage.removeItem("retailId");
                     $("#sale").show();
-
+                    $("#myModal2").modal("hide");
+                    //一维码
+                    JsBarcode("#img", sessionStorage.getItem("retailId"), {
+                        displayValue: false, //是否在条形码下方显示文字
+                        //fontSize: 15,//设置文本的大小
+                        margin: 0,//设置条形码周围的空白边距
+                        width: 10,//设置条之间的宽度
+                        height: 50,//高度
+                    });
+                    sessionStorage.removeItem("retailId");
                     var status = "";
                     var LODOP = getLodop();
                     LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
@@ -460,7 +485,7 @@ $("#btnSettle").click(function () {
                         LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
                         LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
                         LODOP.PRINT();
-                        //window.location.reload();
+                        window.location.reload();
                     }
                 }
             }
