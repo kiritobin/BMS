@@ -413,7 +413,7 @@
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel"><%=Session["id"] %>数据导入
                             </h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <button type="button" class="close" id="close2" data-dismiss="modal" aria-hidden="true">
                                 <i class="fa fa-close"></i>
                             </button>
                         </div>
@@ -432,47 +432,11 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-success" id="showIntersect" data-toggle="modal">导入</button>
+                            <button class="btn btn-success" id="btnImport" data-toggle="modal">导入</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="modal fade" id="myModal2" style="height: 800px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="min-width: 1000px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel2">导入</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close2">
-                               <i class="fa fa-close"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body" style="max-height: 500px; overflow: auto;">
-                            <button type="button" class="btn btn-success" data-toggle="modal" id="btnImport">确认导入</button>
-                            <table class="table mostTable table-bordered text-center" id="table2">
-                                <thead>
-                                    <tr>
-                                        <td><nobr>序号</nobr></td>
-                                        <td><nobr>单据编号</nobr></td>
-                                        <td><nobr>书名</nobr></td>
-                                        <td><nobr>书号</nobr></td>
-                                        <td><nobr>ISBN号</nobr></td>
-                                        <td><nobr>数量</nobr></td>
-                                        <td><nobr>单价</nobr></td>
-                                        <td><nobr>码洋</nobr></td>
-                                        <td><nobr>实洋</nobr></td>
-                                        <td><nobr>折扣</nobr></td>
-                                        <td><nobr>流水号</nobr></td>
-                                    </tr>
-                                </thead>
-
-                            </table>
-                        </div>
-                        <div class="m-style paging2"></div>
-                    </div>
-                </div>
-            </div>
-
             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="width: 500px; height: 500px">
                     <div class="modal-content">
