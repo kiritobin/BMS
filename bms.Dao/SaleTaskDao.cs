@@ -289,5 +289,11 @@ namespace bms.Dao
                 return null;
             }
         }
+        //select sum(number),sum(totalPrice),sum(realPrice) FROM V_SaleMonomer where saleTaskId='XSRW20181017000001'
+        public DataSet getSaleTaskStatistics(string saleTaskId)
+        {
+            DataSet ds=null;
+            return ds;
+        }
     }
 }
