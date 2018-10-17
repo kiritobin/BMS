@@ -122,6 +122,21 @@ namespace bms.Dao
         }
 
         /// <summary>
+        /// 查询单头下的状态
+        /// </summary>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>数据集</returns>
+        public int GetRetailType(string retailHeadId)
+        {
+            string cmdText = "select state from T_RetailHead where retailHeadId=@retailHeadId";
+            string[] param = { "@retailHeadId" };
+            object[] values = { retailHeadId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            int state = Convert.ToInt32(ds.Tables[0].Rows[0]["state"]);
+            return state;
+        }
+
+        /// <summary>
         /// 查询零售单体
         /// </summary>
         /// <param name="retailMonomerId">零售单体ID</param>

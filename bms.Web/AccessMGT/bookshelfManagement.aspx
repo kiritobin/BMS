@@ -293,6 +293,7 @@
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="search_goods" value="" class="searchOne" placeholder="请输入货架名称">
                                             </div>
+                                            <input type="hidden" id="roleName" value="<%=user.RoleId.RoleName %>" />
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
@@ -354,6 +355,7 @@
                                     </td>
                                 </tr>
                             </table>
+                            <%if(user.RoleId.RoleName == "超级管理员"){ %>
                             <div class="text-center">
                                 <span>请选择地区:</span>
                                 <select class="selectpicker" title="请选择地区" data-style="btn-sm" id="regName" style="float: left;">
@@ -364,6 +366,7 @@
                                     <%}%>
                                 </select>
                             </div>
+                            <%} %>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-success" id="btnImport" data-toggle="modal">导入</button>
@@ -384,6 +387,7 @@
                         </div>
                         <div class="modal-body">
                             <table class="table model-table">
+                                <%if(user.RoleId.RoleName == "超级管理员"){ %>
                                 <tr>
                                     <td class="text-right"><span>货架所在地区:</span></td>
                                     <td>
@@ -395,6 +399,7 @@
                                         </select>
                                     </td>
                                 </tr>
+                                <%} %>
                                 <tr>
                                     <td class="text-right"><span>货架名称:</span></td>
                                     <td>

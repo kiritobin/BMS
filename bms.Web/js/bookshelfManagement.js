@@ -145,7 +145,13 @@
     })
     //添加按钮事件
     $("#btnAdd").click(function () {
-        var region = $("#model-select-region").find("option:selected").val().trim();
+        var roleName = $("#roleName").val().trim();
+        var region;
+        if (roleName == "超级管理员") {
+            region = $("#model-select-region").find("option:selected").val().trim();
+        } else {
+            region = "";
+        }
         var shelfName = $("#shelfName").val().trim();
         if (shelfName == "") {
             swal({
@@ -290,7 +296,13 @@
     //导入
     $("#btnImport").click(function () {
         var file = $("#file").val();
-        var regId = $("#regName").val();
+        var roleName = $("#roleName").val().trim();
+        var regId;
+        if (roleName == "超级管理员") {
+            regId = $("#regName").val();
+        } else {
+            regId = "";
+        }
         if (file == "" || file == null) {
             swal({
                 title: "提示",
