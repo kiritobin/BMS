@@ -299,6 +299,9 @@
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                             </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal3">导入</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -327,6 +330,38 @@
                     </div>
                 </div>
             </div>
+            <!--导入模态框 -->
+            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel3">货架导入
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table text-center model-table">
+                                <tr>
+                                    <td colspan="2">
+                                        <a class="btn btn-success" id="downEx" href="/uploads/muban/货架管理.zip">下载模板</a>
+                                        <span class="btn btn-success fileinput-button">
+                                            <span>选择文件</span>
+                                            <input type="file" class="" name="file" id="file" value="">
+                                        </span>
+                                        <button class="btn btn-success" id="upload">上传</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success" id="btnImport" data-toggle="modal">导入</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!--添加货架模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
@@ -364,6 +399,22 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="width: 500px; height: 500px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
+                            <button type="button" class="close" id="close2" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -391,6 +442,6 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/bookshelfManagement.js"></script>
+    <script src="../js/ajaxfileupload.js"></script>
 </body>
-
 </html>
