@@ -156,10 +156,10 @@
                                     </tr>
                                 </table>
                                 <div style="margin-top: 10px;">
-                                    <div id="output" style="width: 190px; height: 200px;display:none"></div>
-                                    <img src="#" style="width: 190px; height: 50px" id="img" />
+                                    <div id="output" style="width: 200px; height: 200px;display:none"></div>
+                                    <img src="#" style="width: 200px; height: 50px; margin-left:10px;" id="img" />
                                 </div>
-                                <div style="width: 260px;">
+                                <div style="width: 260px; margin-left:10px;">
                                     <hr / style="color:lightseagreen">
                                     时间：<span id="timeEnd"></span>
                                 </div>
