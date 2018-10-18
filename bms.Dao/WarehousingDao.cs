@@ -286,5 +286,25 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(cmdText, param, values);
             return ds;
         }
+        /// <summary>
+        /// 根据入库单头ID获取单体合计
+        /// </summary>
+        /// <param name="singleHeadId"></param>
+        /// <returns></returns>
+        public DataSet addupRKMonomer(string singleHeadId)
+        {
+            string cmdText = "select singleHeadId,sum(number),SUM(totalPrice),SUM(realPrice) from T_Monomers where singleHeadId=@singleHeadId GROUP BY singleHeadId";
+            string[] param = { "@singleHeadId" };
+            object[] values = { singleHeadId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

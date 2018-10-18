@@ -468,6 +468,7 @@
             </footer>
         </div>
     </div>
+<%--    <input type="hidden" id="returnId" value="<%=Session["id"].ToString() %>" />--%>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
