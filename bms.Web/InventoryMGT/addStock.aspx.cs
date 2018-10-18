@@ -585,11 +585,6 @@ namespace bms.Web.InventoryMGT
                                     Response.Write("添加失败");
                                     Response.End();
                                 }
-                                //else
-                                //{
-                                //    Response.Write("添加成功");
-                                //    Response.End();
-                                //}
                             }
                         }
                     }
@@ -652,6 +647,7 @@ namespace bms.Web.InventoryMGT
                     //}
                     else
                     {
+                        //写入库存
                         int rows = stockBll.getStockNum(drow["书号"].ToString(), goodsShelf);
                         Result result = stockBll.update(Convert.ToInt32(drow["商品数量"]) + rows, goodsShelf, drow["书号"].ToString());
                         if (result == Result.更新失败)
@@ -659,8 +655,45 @@ namespace bms.Web.InventoryMGT
                             Response.Write("添加失败");
                             Response.End();
                         }
+
+                        //添加单体
+                        result = stockBll.insert(stock);
+                        if (result == Result.添加失败)
+                        {
+                            Response.Write("添加失败");
+                            Response.End();
+                        }
+                        else
+                        {
+                            book.Isbn = bookBasic.Isbn;
+                            book.Price = Convert.ToDouble(drow["单价"]);
+                            book.BookNum = bookBasic.BookNum;
+                            monomers.Isbn = book;
+                            monomers.UPrice = book;
+                            monomers.BookNum = book;
+                            monomers.Discount = Convert.ToDouble(drow["折扣"]);
+                            monomers.MonomersId = Convert.ToInt32(drow["单据编号"]);
+                            monomers.Number = stock.StockNum;
+                            monomers.TotalPrice = Convert.ToDouble(drow["码洋"]);
+                            monomers.RealPrice = Convert.ToDouble(drow["实洋"]);
+                            monomers.ShelvesId = goodsShelf;//货架号
+                            SingleHead single = new SingleHead();
+                            single.SingleHeadId = Session["id"].ToString();
+                            monomers.SingleHeadId = single;
+                            count = Convert.ToInt32(drow["商品数量"]);
+                            counts = counts + count;
+                            total = Convert.ToDouble(drow["码洋"]);
+                            allTotal = allTotal + total;
+                            real = Convert.ToDouble(drow["实洋"]);
+                            allReal = allReal + real;
+                            Result row = warehousingBll.insertMono(monomers);
+                            if (row == Result.添加失败)
+                            {
+                                Response.Write("添加失败");
+                                Response.End();
+                            }
+                        }
                     }
-                    //}
                 }
                 SingleHead singleHead = new SingleHead();
                 singleHead.SingleHeadId = Session["id"].ToString();
