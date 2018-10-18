@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 
-<body style="overflow:hidden;">
+<body style="overflow: hidden;">
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -105,14 +105,12 @@
                             <div class="retailList">
                                 <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
                             </div>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="text-white col-sm-6 text-right" id="insert">
-                                        <button class="btn btn-success btn-lg btnText">打  印</button>
-                                    </div>
-                                    <div class="text-white col-sm-6 text-left" id="giveup">
-                                        <button class="btn btn-danger btn-lg btnText">放  弃</button>
-                                    </div>
+                            <div class="row">
+                                <div class="text-white col-sm-6 text-left" id="insert">
+                                    <button class="btn btn-success btn-lg btnText col-sm-12">打  印</button>
+                                </div>
+                                <div class="text-white col-sm-6 text-right" id="giveup">
+                                    <button class="btn btn-danger btn-lg btnText col-sm-12">放  弃</button>
                                 </div>
                             </div>
                         </div>
@@ -142,25 +140,24 @@
                             </fieldset>
                         </div>
                         <!--startprint-->
-                        <div class="border content" style="position:relative;top:100px; height: 500px;" id="ticket">
+                        <div class="border content" style="position: relative; top: 100px; height: 500px;" id="ticket">
                             <div style="margin: 0 auto; color: black; font-weight: 400">
-                                <br />
                                 <table class="table">
                                     <tr>
-                                        <td style="width:50%;text-align:left;">品种：<span id="kindEnd"></span>&nbsp&nbsp</td>
-                                        <td style="width:50%;text-align:left;">码洋：￥&nbsp&nbsp<span id="totalEnd"></span></td>
+                                        <td style="width: 50%; text-align: left;">品种：<span id="kindEnd"></span>&nbsp&nbsp</td>
+                                        <td style="width: 50%; text-align: left;">码洋：￥&nbsp&nbsp<span id="totalEnd"></span></td>
                                     </tr>
                                     <tr>
-                                        <td style="width:50%;text-align:left;">数量：<span id="numberEnd"></span>&nbsp&nbsp</td>
-                                        <td style="width:50%;text-align:left;">应收：￥&nbsp&nbsp<span id="realEnd"></span></td>
+                                        <td style="width: 50%; text-align: left;">数量：<span id="numberEnd"></span>&nbsp&nbsp</td>
+                                        <td style="width: 50%; text-align: left;">应收：￥&nbsp&nbsp<span id="realEnd"></span></td>
                                     </tr>
                                 </table>
                                 <div style="margin-top: 10px;">
-                                    <div id="output" style="width: 190px; height: 200px;display:none"></div>
+                                    <div id="output" style="width: 190px; height: 200px; display: none"></div>
                                     <img src="#" style="width: 190px; height: 50px" id="img" />
                                 </div>
                                 <div style="width: 260px;">
-                                    <hr / style="color:lightseagreen">
+                                    <hr style="color: lightseagreen" />
                                     时间：<span id="timeEnd"></span>
                                 </div>
                             </div>
@@ -174,7 +171,7 @@
     <!--选择图书模态框-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
-            <div class="modal-content" style="width:700px;">
+            <div class="modal-content" style="width: 700px;">
                 <div class="modal-header">
                     <h4 class="modal-title float-left" id="myModalLabel">请选择需要的图书</h4>
                     <button type="button" id="close" class="close" data-dismiss="modal" aria-hidden="true">
@@ -191,10 +188,18 @@
                                         <label aria-disabled="true"><i class="mdi mdi-check"></i></label>
                                     </div>
                                 </th>
-                                <th><nobr>ISBN</nobr></th>
-                                <th><nobr>书名</nobr></th>
-                                <th><nobr>单价</nobr></th>
-                                <th><nobr>出版社</nobr></th>
+                                <th>
+                                    <nobr>ISBN</nobr>
+                                </th>
+                                <th>
+                                    <nobr>书名</nobr>
+                                </th>
+                                <th>
+                                    <nobr>单价</nobr>
+                                </th>
+                                <th>
+                                    <nobr>出版社</nobr>
+                                </th>
                             </tr>
                         </thead>
                         <%=getIsbn() %>
@@ -219,7 +224,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/retail.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
-     <script src="../js/JsBarcode.all.min.js"></script>
+    <script src="../js/JsBarcode.all.min.js"></script>
     <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
         <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
     </object>
