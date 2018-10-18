@@ -24,9 +24,6 @@
 </head>
 
 <body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -75,33 +72,6 @@
                                                     <input value="<%=userName %>" class="form-control" disabled>
                                                 </td>
                                                 <td>
-                                                    <span>书籍种数:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=allkinds %>" class="form-control" disabled>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-nowrap">
-                                                <td>
-                                                    <span>书本总数:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
-                                                <td>
-                                                    <span>总码洋:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
-                                                </td>
-                                                <td>
-                                                    <span>总实洋:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-nowrap">
-                                                <td>
                                                     <span>制单日期:</span>
                                                 </td>
                                                 <td>
@@ -111,7 +81,6 @@
                                                 </td>
                                             </tr>
                                         </table>
-
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
@@ -146,6 +115,34 @@
                                             </thead>
                                             <%=getData() %>
                                         </table>
+                                    <table class="table table_stock text-center">
+                                        <tr class="text-nowrap">
+                                            <td>总合计：</td>
+                                            <td>
+                                                <span>书籍种数:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="<%=allkinds %>" class="form-control" disabled>
+                                            </td>
+                                            <td>
+                                                <span>书本总数:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
+                                            <td>
+                                                <span>总码洋:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
+                                            </td>
+                                            <td>
+                                                <span>总实洋:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
+                                            </td>
+                                        </tr>
+                                    </table>
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">

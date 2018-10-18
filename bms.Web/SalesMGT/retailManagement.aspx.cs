@@ -18,6 +18,7 @@ namespace bms.Web.SalesMGT
         RetailBll retailbll = new RetailBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected string userName, regionName;
+        protected User user;
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
@@ -94,7 +95,7 @@ namespace bms.Web.SalesMGT
         protected void permission()
         {
             FunctionBll functionBll = new FunctionBll();
-            User user = (User)Session["user"];
+            user = (User)Session["user"];
             userName = user.UserName;
             regionName = user.ReginId.RegionName;
             Role role = new Role();

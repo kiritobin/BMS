@@ -25,10 +25,6 @@ namespace bms.Web.InventoryMGT
             permission();
             getData();
             string op = Request["op"];
-            //if (op == "export")
-            //{
-            //    export();
-            //}
             if (op == "logout")
             {
                 //删除身份凭证
@@ -39,7 +35,14 @@ namespace bms.Web.InventoryMGT
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
             HeadId = Request.QueryString["returnId"];
-            //string singleHeadId = "20180927000001";
+            if (HeadId == null || HeadId == "")
+            {
+                HeadId = Session["HeadId"].ToString();
+            }
+            else
+            {
+                Session["HeadId"] = HeadId;
+            }
             putDt = warehousingBll.SelectSingleHead(HeadId);
             int count = putDt.Rows.Count;
             for (int i = 0; i < count; i++)
@@ -51,6 +54,27 @@ namespace bms.Web.InventoryMGT
                 putTotalPrice = putDt.Rows[i]["allTotalPrice"].ToString();
                 putRealPrice = putDt.Rows[i]["allRealPrice"].ToString();
                 putTime = Convert.ToDateTime(putDt.Rows[i]["time"]).ToString("yyyy年MM月dd日 HH:mm:ss");
+            }
+            if (op== "print")
+            {
+                //string HeadId = Request.QueryString["returnId"];
+                StringBuilder sb = new StringBuilder();
+                SaleMonomerBll saleMonomerBll = new SaleMonomerBll();
+                DataSet dataSet = saleMonomerBll.checkStock(HeadId);
+                DataRowCollection drc = dataSet.Tables[0].Rows;
+                for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                {
+                    sb.Append("<tr><td>" + (i + 1) + "</td>");
+                    sb.Append("<td>" + drc[i]["ISBN"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["number"].ToString() + "</td>");
+                    sb.Append("<td>" + drc[i]["uPrice"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["discount"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["totalPrice"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["realPrice"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["shelvesName"].ToString() + "</td ></tr >");
+                }
+                Response.Write(sb);
+                Response.End();
             }
         }
 
@@ -68,7 +92,7 @@ namespace bms.Web.InventoryMGT
             tbd.OrderBy = "singleHeadId";
             tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "singleHeadId='"+HeadId + "'";
+            tbd.StrWhere = "deleteState=0 and singleHeadId='" + HeadId + "'";
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
@@ -80,7 +104,6 @@ namespace bms.Web.InventoryMGT
             for (int i = 0; i < count; i++)
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                sb.Append("<td>" + drc[i]["singleHeadId"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["ISBN"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["number"].ToString() + "</td>");
                 sb.Append("<td>" + drc[i]["uPrice"].ToString() + "</td >");

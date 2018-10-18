@@ -82,6 +82,10 @@ namespace bms.Bll
                 return state = 4;
             }
         }
+        public DataSet checkStock(string singleHeadId)
+        {
+            return SaleMonomerdao.checkStock(singleHeadId);
+        }
         /// <summary>
         /// 单体添加
         /// </summary>

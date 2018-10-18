@@ -225,5 +225,14 @@ namespace bms.Bll
             DataSet ds = monoDao.getAllTime(type);
             return ds;
         }
+        /// <summary>
+        /// 根据入库单头ID获取单体合计
+        /// </summary>
+        /// <param name="singleHeadId"></param>
+        public DataSet addupRKMonomer(string singleHeadId)
+        {
+            DataSet ds = monoDao.addupRKMonomer(singleHeadId);
+            return ds;
+        }
     }
 }

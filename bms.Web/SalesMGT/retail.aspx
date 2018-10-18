@@ -105,14 +105,12 @@
                             <div class="retailList">
                                 <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
                             </div>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="text-white col-sm-6 text-right" id="insert">
-                                        <button class="btn btn-success btn-lg btnText">打  印</button>
-                                    </div>
-                                    <div class="text-white col-sm-6 text-left" id="giveup">
-                                        <button class="btn btn-danger btn-lg btnText">放  弃</button>
-                                    </div>
+                            <div class="row">
+                                <div class="text-white col-sm-6 text-right" id="insert">
+                                    <button class="btn btn-success btn-lg col-sm-12 btnText">打  印</button>
+                                </div>
+                                <div class="text-white col-sm-6 text-left" id="giveup">
+                                    <button class="btn btn-danger btn-lg col-sm-12 btnText">放  弃</button>
                                 </div>
                             </div>
                         </div>
@@ -156,10 +154,10 @@
                                     </tr>
                                 </table>
                                 <div style="margin-top: 10px;">
-                                    <div id="output" style="width: 190px; height: 200px;display:none"></div>
-                                    <img src="#" style="width: 190px; height: 50px" id="img" />
+                                    <div id="output" style="width: 200px; height: 200px;display:none"></div>
+                                    <img src="#" style="width: 200px; height: 50px; margin-left:10px;" id="img" />
                                 </div>
-                                <div style="width: 260px;">
+                                <div style="width: 260px; margin-left:10px;">
                                     <hr / style="color:lightseagreen">
                                     时间：<span id="timeEnd"></span>
                                 </div>

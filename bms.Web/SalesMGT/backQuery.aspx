@@ -22,9 +22,6 @@
 </head>
 
 <body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -81,29 +78,10 @@
                                             <input value="<%=Session["sellId"].ToString() %>" class="form-control" disabled>
                                         </td>
                                         <td>
-                                            <span>总品种:</span>
+                                            <span>制单时间:</span>
                                         </td>
                                         <td>
-                                            <input type="text" value="<%=staticsKinds %>" class="form-control" disabled>
-                                        </td>
-                                    </tr>
-                                    <tr class="text-nowrap">
-                                        <td>
-                                            <span>总数量:</span>
-                                        </td>
-                                        <td>
-                                            <input type="text" value="<%=staticsNumber %>" class="form-control" disabled></td>
-                                        <td>
-                                            <span>总码洋:</span>
-                                        </td>
-                                        <td>
-                                            <input type="text" value="<%=staticsTotalPrice %>" class="form-control" disabled>
-                                        </td>
-                                        <td>
-                                            <span>总实洋:</span>
-                                        </td>
-                                        <td>
-                                            <input type="text" value="<%=staticsRealPrice %>" class="form-control" disabled>
+                                            <input value="<%=staticsTime %>" class="form-control" disabled>
                                         </td>
                                     </tr>
                                 </table>
@@ -123,6 +101,34 @@
                                             </tr>
                                         </thead>--%>
                                         <%=GetData() %>
+                                    </table>
+                                    <table class="table table_stock text-right">
+                                    <tr class="text-nowrap">
+                                        <td>总合计：</td>
+                                        <td>
+                                            <span>总品种:</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="<%=staticsKinds %>" class="form-control" disabled>
+                                        </td>
+                                        <td>
+                                            <span>总数量:</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="<%=staticsNumber %>" class="form-control" disabled></td>
+                                        <td>
+                                            <span>总码洋:</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="<%=staticsTotalPrice %>" class="form-control" disabled>
+                                        </td>
+                                        <td>
+                                            <span>总实洋:</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="<%=staticsRealPrice %>" class="form-control" disabled>
+                                        </td>
+                                    </tr>
                                     </table>
                                 </div>
                             </div>

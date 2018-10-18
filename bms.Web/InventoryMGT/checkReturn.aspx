@@ -268,7 +268,6 @@
                 </div>
             </div>
         </nav>
-    </div>
     <!-- 主界面内容 -->
     <div class="content">
         <div class="container-fluid">
@@ -296,19 +295,19 @@
                                         <tr>
                                             <td class="td_text"><span class="span-text">单据编号:</span></td>
                                             <td class="td_width">
-                                                <input type="text" value="<%=shId %>" class="input_text"></td>
+                                                <input type="text" value="<%=shId %>" class="form-control" disabled></td>
                                             <td class="td_text"><span class="span-text">操作员:</span></td>
                                             <td class="td_width">
-                                                <input type="text" value="<%=shOperator %>" class="input_text"></td>
+                                                <input type="text" value="<%=shOperator %>" class="form-control" disabled></td>
                                         </tr>
                                         <tr>
                                             <td class="td_text"><span class="span-text">退货组织:</span></td>
                                             <td class="td_width">
-                                                <input type="text" value="<%=shRegionName %>" class="input_text"></td>
+                                                <input type="text" value="<%=shRegionName %>" class="form-control" disabled></td>
                                             <td class="td_text"><span class="span-text">制单日期:</span></td>
                                             <td class="td_width">
                                                 <div class="jeinpbox">
-                                                    <input type="text" value="<%=shTime %>" class="jeinput input_text" id="test2">
+                                                    <input type="text" value="<%=shTime %>" class="form-control" disabled id="test2">
                                                 </div>
                                             </td>
                                         </tr>
@@ -321,7 +320,6 @@
                                                 </tr>
                                                 <tr>
                                                     <td>序号</td>
-                                                    <td>单据编号</td>
                                                     <td>ISBN号</td>
                                                     <td>商品数量</td>
                                                     <td>单价</td>
@@ -339,13 +337,13 @@
                                             <td>总合计：</td>
                                             <td class="td_text"><span class="span-text">单据总数:</span></td>
                                             <td class="td_width">
-                                                <input type="text" value="<%=shCount %>" class="input_text"></td>
+                                                <input type="text" value="<%=shCount %>" class="form-control" disabled></td>
                                             <td class="td_text"><span class="span-text">总码洋:</span></td>
                                             <td class="td_width">
-                                                <input type="text" value="<%=shTotalPrice %>" class="input_text"></td>
+                                                <input type="text" value="<%=shTotalPrice %>" class="form-control" disabled></td>
                                             <td class="td_text"><span class="span-text">总实洋:</span></td>
                                             <td class="td_width">
-                                                <input type="text" value="<%=shRealPrice %>" class="input_text"></td>
+                                                <input type="text" value="<%=shRealPrice %>" class="form-control" disabled></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -374,6 +372,7 @@
                 </div>
             </div>
         </footer>
+    </div>
     </div>
 </div>
 <script src="../js/jquery-3.3.1.min.js"></script>

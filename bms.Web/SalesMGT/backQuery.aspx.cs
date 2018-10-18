@@ -31,6 +31,7 @@ namespace bms.Web.SalesMGT
         public int staticsNumber;//总数量
         public double staticsTotalPrice;//总码洋
         public double staticsRealPrice;//总实洋
+        public DateTime staticsTime;
         protected void Page_Load(object sender, EventArgs e)
         {
             string sellId = Session["sellId"].ToString();
@@ -112,6 +113,7 @@ namespace bms.Web.SalesMGT
                     staticsNumber = Convert.ToInt32(tRows.Rows[0]["count"].ToString());
                     staticsTotalPrice = Convert.ToDouble(tRows.Rows[0]["totalPrice"].ToString());
                     staticsRealPrice = Convert.ToDouble(tRows.Rows[0]["realPrice"]);
+                    staticsTime = Convert.ToDateTime(tRows.Rows[0]["makingTime"]);
                 }
             }
             else

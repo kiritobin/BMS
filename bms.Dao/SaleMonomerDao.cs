@@ -74,8 +74,30 @@ namespace bms.Dao
         public DataSet saleheadstate(string saleTaskId, string saleHeadId)
         {
             string cmdText = "select state from T_SaleHead where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
-            string[] param = { "saleTaskId", "@saleHeadId" };
+            string[] param = { "@saleTaskId", "@saleHeadId" };
             object[] values = { saleTaskId, saleHeadId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// 入库查询
+        /// </summary>
+        /// <param name="singleHeadId"></param>
+        /// <returns></returns>
+        public DataSet checkStock(string singleHeadId)
+        {
+            string cmdText = "select singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName from V_Monomer where singleHeadId=@singleHeadId";
+            string[] param = { "@singleHeadId"};
+            object[] values = { singleHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
 
             if (ds != null || ds.Tables[0].Rows.Count > 0)

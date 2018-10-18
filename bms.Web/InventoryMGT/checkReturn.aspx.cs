@@ -20,8 +20,10 @@ namespace bms.Web.InventoryMGT
         public int totalCount, intPageCount, pageSize = 20;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         WarehousingBll warehousingBll = new WarehousingBll();
+        string headId;
         protected void Page_Load(object sender, EventArgs e)
         {
+            headId = Request.QueryString["sId"];
             permission();
             getData();
             string op = Request["op"];
@@ -34,19 +36,17 @@ namespace bms.Web.InventoryMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
-            string singleHeadId = Request.QueryString["returnId"];
-            //string singleHeadId = "20180927000002";
-            shDt = warehousingBll.SelectSingleHead(singleHeadId);
+            shDt = warehousingBll.SelectSingleHead(headId);
             int count = shDt.Rows.Count;
             for (int i = 0; i < count; i++)
             {
-                shId = shDt.Rows[i]["singleHeadId"].ToString();
-                shOperator = shDt.Rows[i]["userName"].ToString();
-                shCount = shDt.Rows[i]["allBillCount"].ToString();
-                shRegionName = shDt.Rows[i]["regionName"].ToString();
-                shTotalPrice = shDt.Rows[i]["allTotalPrice"].ToString();
-                shRealPrice = shDt.Rows[i]["allRealPrice"].ToString();
-                shTime = Convert.ToDateTime(shDt.Rows[i]["time"]).ToString("yyyy年MM月dd日 HH:mm:ss");
+                shId = shDt.Rows[0]["singleHeadId"].ToString();
+                shOperator = shDt.Rows[0]["userName"].ToString();
+                shCount = shDt.Rows[0]["allBillCount"].ToString();
+                shRegionName = shDt.Rows[0]["regionName"].ToString();
+                shTotalPrice = shDt.Rows[0]["allTotalPrice"].ToString();
+                shRealPrice = shDt.Rows[0]["allRealPrice"].ToString();
+                shTime = Convert.ToDateTime(shDt.Rows[0]["time"]).ToString("yyyy年MM月dd日 HH:mm:ss");
             }
         }
 
@@ -60,10 +60,10 @@ namespace bms.Web.InventoryMGT
             }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_Monomer";
-            tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName";
+            tbd.OrderBy = "monId";
+            tbd.StrColumnlist = "monId,singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "";
+            tbd.StrWhere = "deleteState=0 and singleHeadId='" + headId + "'";
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
@@ -75,7 +75,6 @@ namespace bms.Web.InventoryMGT
             for (int i = 0; i < count; i++)
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                sb.Append("<td>" + drc[i]["singleHeadId"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["ISBN"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["number"].ToString() + "</td>");
                 sb.Append("<td>" + drc[i]["uPrice"].ToString() + "</td >");
