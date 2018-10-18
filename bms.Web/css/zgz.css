@@ -125,8 +125,13 @@
 .card_btn {
     margin-left: 10px;
 }
-.retail-content .container-fluid .card .card-body .row {
+/*.retail-content .container-fluid .card .card-body .row {
     margin-right: 0px;
+}*/
+
+.btnText{
+    height:100px;
+    font-size:40px !important;
 }
 
 .list-unstyled li {

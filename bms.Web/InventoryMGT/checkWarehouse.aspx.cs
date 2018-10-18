@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -58,6 +59,26 @@ namespace bms.Web.InventoryMGT
                 Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
+            }
+            if (op=="print")
+            {
+                StringBuilder sb = new StringBuilder();
+                SaleMonomerBll saleMonomerBll = new SaleMonomerBll();
+                DataSet dataSet = saleMonomerBll.checkStock(singleHeadId);
+                DataRowCollection drc = dataSet.Tables[0].Rows;
+                for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                {
+                    sb.Append("<tr><td>" + (i + 1) + "</td>");
+                    sb.Append("<td>" + drc[i]["ISBN"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["number"].ToString() + "</td>");
+                    sb.Append("<td>" + drc[i]["uPrice"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["discount"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["totalPrice"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["realPrice"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["shelvesName"].ToString() + "</td ></tr >");
+                }
+                Response.Write(sb);
+                Response.End();
             }
         }
         /// <summary>
