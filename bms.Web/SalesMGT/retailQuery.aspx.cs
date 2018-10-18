@@ -44,9 +44,9 @@ namespace bms.Web.SalesMGT
             }
             string search = "deleteState=0 and retailHeadId=" + "'" + retailHeadId + "'";
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "T_RetailMonomer";
+            tb.StrTable = "V_RetailMonomer";
             tb.OrderBy = "retailMonomerId";
-            tb.StrColumnlist = "bookNum,ISBN,unitPrice,number,totalPrice,realDiscount,dateTime,realPrice";
+            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,totalPrice,realDiscount,dateTime,realPrice";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
@@ -58,6 +58,7 @@ namespace bms.Web.SalesMGT
             {
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</nobr></td>");
+                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</nobr></td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");

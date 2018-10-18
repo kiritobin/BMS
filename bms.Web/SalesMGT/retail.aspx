@@ -29,6 +29,9 @@
                 <div class="col-sm-2">
                     <input type="text" id="search" class="topSearch">
                 </div>
+                <div class="text-white col-sm-6 text-right" id="preRecord">
+                    <button class="btn btn-success btn-lg col-sm-6 btnText"><%=headId %></button>
+                </div>
             </div>
             <div class="card">
                 <div class="card-header card-header-danger">
@@ -155,7 +158,7 @@
                                 </table>
                                 <div style="margin-top: 10px;">
                                     <div id="output" style="width: 200px; height: 200px;display:none"></div>
-                                    <img src="#" style="width: 200px; height: 50px; margin-left:10px;" id="img" />
+                                    <img src="#" style="width: 200px; height: 200px; margin-left:10px;" id="img" />
                                 </div>
                                 <div style="width: 260px; margin-left:10px;">
                                     <hr / style="color:lightseagreen">
@@ -217,7 +220,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/retail.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
-     <script src="../js/JsBarcode.all.min.js"></script>
+     <script src="../js/jquery.qrcode.min.js"></script>
     <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
         <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
     </object>

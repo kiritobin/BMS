@@ -77,7 +77,7 @@ namespace bms.Bll
         }
 
         /// <summary>
-        /// 查询零售单体
+        /// 根据单头ID查询零售单头信息
         /// </summary>
         /// <param name="retailHeadId">零售单头ID</param>
         /// <returns>受影响行数</returns>
