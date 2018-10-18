@@ -486,5 +486,28 @@ namespace bms.Dao
             double realPrice = double.Parse(db.ExecuteScalar(cmdtext, param, values).ToString());
             return realPrice;
         }
+
+        /// <summary>
+        /// 根据书号和销售任务id获取该书的已购数量
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns>数量</returns>
+        public int getBookNumberSumByBookNum(string bookNum,string saleTaskId)
+        {
+            string cmdtext = "select sum(number) from V_SaleMonomer where bookNum=@bookNum and saleTaskId=@saleTaskId;";
+            string[] param = { "@bookNum" , "@saleTaskId" };
+            object[] values = { bookNum, saleTaskId };
+            string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
+            int sum;
+            if (sumstring == "" || sumstring == null)
+            {
+                return sum = 0;
+            }
+            else
+            {
+                return sum = Convert.ToInt32(sumstring);
+            }
+        }
     }
 }

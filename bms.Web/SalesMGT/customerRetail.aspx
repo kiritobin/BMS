@@ -22,8 +22,7 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-
-<body style="overflow:hidden;">
+<body  style="overflow:hidden;">
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -159,14 +158,14 @@
                                 <table id="tablePay" style="width: 300px;">
                                     <thead>
                                         <tr>
-                                            <td style="width: 48%">名称</td>
+                                            <td style="width: 40%">名称</td>
                                             <td style="width: 20%">数量</td>
                                             <td style="width: 30%">金额</td>
                                         </tr>
                                     </thead>
                                 </table>
                                 <hr />
-                                <table class="other_fee" style="width: 250px;height:100px; font-size:14px;">
+                                <table class="other_fee" style="width: 300px;height:100px; font-size:14px;">
                                     <thead>
                                         <tr>
                                             <td style="width: 50%">码洋:￥<span id="alltotal"></span></td>
@@ -185,7 +184,7 @@
                                     </thead>
                                 </table>
                             </div>
-                            <img src="#" class="border" id="img" style="width:250px;height:50px;" />
+                            <img src="#" class="border" id="img" style="width:230px;height:50px;" />
                         </div>
                     </div>
                 </div>

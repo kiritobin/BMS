@@ -291,7 +291,7 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <a class="btn btn-success btn-sm" href="retail.aspx" id="btn-add">添加</a>
+                                                <a class="btn btn-success btn-sm" href="retail.aspx?userId=<%=user.UserId %>" id="btn-add">添加</a>
                                             </div>
                                         </div>
                                     </div>

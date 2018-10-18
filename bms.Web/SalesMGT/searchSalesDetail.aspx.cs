@@ -69,11 +69,11 @@ namespace bms.Web.SalesMGT
                 {
                     strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td>");
                     strb.Append("<td>" + 0 + "</td></tr>");
                 }
