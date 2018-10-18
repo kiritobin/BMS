@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-
-<body style="overflow:hidden;">
+<%-- style="overflow:hidden;"--%>
+<body>
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -148,9 +148,13 @@
                         </div>
                         <!--销售小票-->
                         <div class="print_container border" style="width: 350px;position:relative;top:1000px;" id="sale">
-                            <h2>新华书店</h2>
-                            <div id="output" style="width: 200px; height: 200px;display:none"></div>
-                            <img src="#" class="border" id="img" style="width:70px;height:70px; float:right;position:relative;bottom:70px;right:85px;" />
+                            <div class="row">
+                                <h2 style="margin-left:15px;">新华书店</h2>
+                                <div>
+                                    <div id="output" style="width: 200px; height: 200px;display:none"></div>
+                                    <img src="#" id="img" style="width:70px;height:70px; float:right;margin-left:20px;" />
+                                </div>
+                            </div>
                             <hr />
                             <div class="container">
                                 <span style="font-size: 16px;">购买时间：<%=DateTime.Now %></span><br />
@@ -267,7 +271,8 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-success btn-md" id="btnSettle"></button>
-                    <button class="btn btn-success btn-md" id="preRecord">补打</button>
+                    <button class="btn btn-info btn-md" id="preRecord">补打</button>
+                    &nbsp&nbsp&nbsp&nbsp
                     <button class="btn btn-success btn-md" id="btnClose">确定</button>
                 </div>
             </div>
@@ -289,9 +294,8 @@
     <script src="../js/jedate.min.js"></script>
     <script src="../js/customerRetail.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
-     <script src="../js/jquery.qrcode.min.js"
-         ></script>
-        <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
+    <script src="../js/jquery.qrcode.min.js"></script>
+    <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
         <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
     </object>
     <script src="../js/LodopFuncs.js"></script>
