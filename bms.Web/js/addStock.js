@@ -73,6 +73,7 @@ $(document).ready(function () {
         if (sessionStorage.getItem("import") == "导入成功") {
             sessionStorage.removeItem("import");
             sessionStorage.removeItem("succ");
+            //window.location.href = "stockManageMent.aspx";
             window.location.reload();
         }
     });
@@ -413,6 +414,7 @@ $("#btnImport").click(function () {
                     $("#close").show();
                     $("#img").attr("src", "../imgs/success.png");
                     sessionStorage.setItem("import", "导入成功");
+                    window.location.href = "stockManageMent.aspx";
                 } else if (data.indexOf("导入失败") >= 0) {
                     $("#myModalLabe1").html(data);
                     $("#close").show();

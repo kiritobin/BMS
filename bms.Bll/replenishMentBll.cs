@@ -38,5 +38,97 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
+        /// <summary>
+        /// 添加补货单头
+        /// </summary>
+        /// <param name="rd">补货单头实体</param>
+        /// <returns>添加结果</returns>
+        public Result InsertRsHead(replenishMentHead rd)
+        {
+            int row = dao.InsertRsHead(rd);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
+        }
+        /// <summary>
+        /// 更新补货单头的种数，数量，总码洋，总实洋
+        /// </summary>
+        /// <param name="rd">销售单头实体</param>
+        /// <returns>结果</returns>
+        public Result updateRsHead(replenishMentHead rd)
+        {
+            int row = dao.updateRsHead(rd);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+        /// <summary>
+        /// 获取单头数量
+        /// </summary>
+        /// <returns>行数</returns>
+        public int countHead()
+        {
+            int row = dao.countHead();
+            if (row > 0)
+            {
+                return row;
+            }
+            else
+            {
+                return row = 0;
+            }
+        }
+        /// <summary>
+        /// 获取制单日期
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getRsHeadTime()
+        {
+            string time = dao.RsHeadTime();
+            if (time != null || time == "")
+            {
+                return time;
+            }
+            else
+            {
+                return time = "";
+            }
+        }
+        /// <summary>
+        /// 根据销售任务或取补货头ID
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns>补货单头id</returns>
+        public string getRsHeadID(string saleTaskId)
+        {
+            return dao.getRsHeadID(saleTaskId);
+        }
+        /// <summary>
+        /// 获取该补货单头下的单体数量
+        /// </summary>
+        /// <param name="rsHeadID">补货单头id</param>
+        /// <returns>数量</returns>
+        public int countMon(string rsHeadID)
+        {
+            int row = dao.countMon(rsHeadID);
+            if (row > 0)
+            {
+                return row;
+            }
+            else
+            {
+                return row = 0;
+            }
+        }
     }
 }
