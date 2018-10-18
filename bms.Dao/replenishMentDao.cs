@@ -125,5 +125,100 @@ namespace bms.Dao
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
             return row;
         }
+        /// <summary>
+        /// 统计补货单头种数
+        /// </summary>
+        /// <param name="rsHeadID">补货单头id</param>
+        /// <returns></returns>
+        public int getkinds(string rsHeadID)
+        {
+            string cmdText = "select bookNum,count from T_ReplenishmentMonomer where rsHeadID=@rsHeadID";
+            string[] param = { "@rsHeadID" };
+            object[] values = { rsHeadID };
+            float sltemp = 0;
+            int zl = 0;
+            DataTable dtcount = db.getkinds(cmdText, param, values);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    float count = float.Parse(dr[j]["count"].ToString().Trim());
+                    sltemp += float.Parse(dr[j]["count"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                    sltemp = 0;
+                }
+            }
+            return zl;
+        }
+        /// <summary>
+        /// 获取该单头id下的书本数量
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public int getsBookNumberSum(string rsHeadID)
+        {
+            string cmdtext = "select sum(count) from T_ReplenishmentMonomer where rsHeadID=@rsHeadID";
+            string[] param = { "@rsHeadID" };
+            object[] values = { rsHeadID };
+            string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
+            int sum;
+            if (sumstring == "" || sumstring == null)
+            {
+                return sum = 0;
+            }
+            else
+            {
+                return sum = Convert.ToInt32(sumstring);
+            }
+        }
+        /// <summary>
+        /// 获取该单头id下的码洋
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public double getsBookTotalPrice(string rsHeadID)
+        {
+            string cmdtext = "select sum(totalPrice) from T_ReplenishmentMonomer where rsHeadID=@rsHeadID";
+            string[] param = { "@rsHeadID" };
+            object[] values = { rsHeadID };
+            string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
+            double sum;
+            if (sumstring == "" || sumstring == null)
+            {
+                return sum = 0;
+            }
+            else
+            {
+                return sum = Convert.ToInt32(sumstring);
+            }
+        }
+        /// <summary>
+        /// 获取该单头id下的实洋
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public double getsBookRealPrice(string rsHeadID)
+        {
+            string cmdtext = "select sum(realPrice) from T_ReplenishmentMonomer where rsHeadID=@rsHeadID";
+            string[] param = { "@rsHeadID" };
+            object[] values = { rsHeadID };
+            string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
+            double sum;
+            if (sumstring == "" || sumstring == null)
+            {
+                return sum = 0;
+            }
+            else
+            {
+                return sum = Convert.ToDouble(sumstring);
+            }
+        }
     }
 }

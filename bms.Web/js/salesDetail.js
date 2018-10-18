@@ -130,7 +130,7 @@
                             number: number,
                             discount: discount,
                             op: "addsale",
-                            tips:"addsale"
+                            tips: "addsale"
                         },
                         dataType: 'json',
                         success: function (succ) {
@@ -143,26 +143,12 @@
                                 $("#kinds").text(succ.AllKinds);
                                 $("#allnumber").text(succ.Number);
                                 $("#alltotalprice").text(succ.AlltotalPrice);
-                                var alltotalprice = parseFloat(succ.AlltotalPrice);
-                                var limtalltotalprice = parseFloat(limited);
-                                if (alltotalprice > limtalltotalprice) {
-                                    swal({
-                                        title: "温馨提示:)",
-                                        text: "已添加成功但已达到码洋上限",
-                                        type: "warning",
-                                        confirmButtonColor: '#3085d6',
-                                        confirmButtonText: '确定',
-                                        confirmButtonClass: 'btn btn-success',
-                                        buttonsStyling: false,
-                                        allowOutsideClick: false
-                                    })
-                                }
                                 $("#allreadprice").text(succ.AllrealPrice);
                             } else if (succ.Messege == "库存不足") {
                                 var count = succ.Count;
                                 swal({
-                                    title: "温馨提示:)",
-                                    text: "库存数量不足!是否生成补货单？",
+                                    title: "库存不足",
+                                    text: "当前最大库存为:" + succ.Count1 + "是否生成补货单？",
                                     type: "question",
                                     showCancelButton: true,
                                     confirmButtonColor: '#3085d6',
@@ -197,21 +183,18 @@
                                                 $("#kinds").text(succ.AllKinds);
                                                 $("#allnumber").text(succ.Number);
                                                 $("#alltotalprice").text(succ.AlltotalPrice);
-                                                var alltotalprice = parseFloat(succ.AlltotalPrice);
-                                                var limtalltotalprice = parseFloat(limited);
-                                                if (alltotalprice > limtalltotalprice) {
-                                                    swal({
-                                                        title: "温馨提示:)",
-                                                        text: "已添加成功但已达到码洋上限",
-                                                        type: "warning",
-                                                        confirmButtonColor: '#3085d6',
-                                                        confirmButtonText: '确定',
-                                                        confirmButtonClass: 'btn btn-success',
-                                                        buttonsStyling: false,
-                                                        allowOutsideClick: false
-                                                    })
-                                                }
                                                 $("#allreadprice").text(succ.AllrealPrice);
+                                                swal({
+                                                    title: "温馨提示:)",
+                                                    text: "添加成功并已完成补货单的添加！",
+                                                    type: "success",
+                                                    confirmButtonColor: '#3085d6',
+                                                    confirmButtonText: '确定',
+                                                    confirmButtonClass: 'btn btn-success',
+                                                    buttonsStyling: false,
+                                                    allowOutsideClick: false
+                                                }).then(function () {
+                                                })
                                             }
                                             else if (succ.Messege == "添加失败") {
                                                 swal({
@@ -361,7 +344,7 @@
                         number: number,
                         discount: discount,
                         op: "addsale",
-                        tips:"addsale"
+                        tips: "addsale"
                     },
                     dataType: 'json',
                     success: function (succ) {
@@ -374,26 +357,12 @@
                             $("#kinds").text(succ.AllKinds);
                             $("#allnumber").text(succ.Number);
                             $("#alltotalprice").text(succ.AlltotalPrice);
-                            var alltotalprice = parseFloat(succ.AlltotalPrice);
-                            var limtalltotalprice = parseFloat(limited);
-                            if (alltotalprice > limtalltotalprice) {
-                                swal({
-                                    title: "温馨提示:)",
-                                    text: "已添加成功但已达到码洋上限",
-                                    type: "warning",
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: '确定',
-                                    confirmButtonClass: 'btn btn-success',
-                                    buttonsStyling: false,
-                                    allowOutsideClick: false
-                                })
-                            }
                             $("#allreadprice").text(succ.AllrealPrice);
                         } else if (succ.Messege == "库存不足") {
                             var count = succ.Count;
                             swal({
-                                title: "温馨提示:)",
-                                text: "库存数量不足!是否生成补货单？",
+                                title: "库存不足",
+                                text: "当前最大库存为:" + succ.Count1 + "是否生成补货单？",
                                 type: "question",
                                 showCancelButton: true,
                                 confirmButtonColor: '#3085d6',
@@ -430,19 +399,18 @@
                                             $("#alltotalprice").text(succ.AlltotalPrice);
                                             var alltotalprice = parseFloat(succ.AlltotalPrice);
                                             var limtalltotalprice = parseFloat(limited);
-                                            if (alltotalprice > limtalltotalprice) {
-                                                swal({
-                                                    title: "温馨提示:)",
-                                                    text: "已添加成功但已达到码洋上限",
-                                                    type: "warning",
-                                                    confirmButtonColor: '#3085d6',
-                                                    confirmButtonText: '确定',
-                                                    confirmButtonClass: 'btn btn-success',
-                                                    buttonsStyling: false,
-                                                    allowOutsideClick: false
-                                                })
-                                            }
                                             $("#allreadprice").text(succ.AllrealPrice);
+                                            swal({
+                                                title: "温馨提示:)",
+                                                text: "添加成功并已完成补货单的添加！",
+                                                type: "success",
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: '确定',
+                                                confirmButtonClass: 'btn btn-success',
+                                                buttonsStyling: false,
+                                                allowOutsideClick: false
+                                            }).then(function () {
+                                            })
                                         }
                                         else if (succ.Messege == "添加失败") {
                                             swal({
