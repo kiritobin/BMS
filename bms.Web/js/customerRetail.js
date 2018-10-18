@@ -7,13 +7,8 @@
     setInterval("showTime()", 1000);
     $("#sale").hide();
     $("#btnSettle").hide();
-    if ($("#discountEnd").val().trim() != "" && $("#discountEnd").val().trim() != 0 && $("#discountEnd").val().trim() != "0" && $("#copeEnd").val().trim() != "" && $("#copeEnd").val().trim() != 0 && $("#copeEnd").val().trim() != "0") {
-        $(document).keypress(function (e) {
-            if (e.keyCode == 13) {
-                $("#btnSettle").click();
-            }
-        })
-    }
+    $("#preRecord").hide();
+    $("#btnClose").hide();
 })
 //获取当前时间
 function showTime() {
@@ -509,6 +504,8 @@ $("#btnSettle").click(function () {
                     var strDataURI = canvas.toDataURL("image/png");
                     document.getElementById('img').src = strDataURI;
 
+                    $("#preRecord").show();
+                    $("#btnClose").show();
                     var status = "";
                     var LODOP = getLodop();
                     LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
@@ -524,8 +521,6 @@ $("#btnSettle").click(function () {
                         LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
                         LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
                         LODOP.PRINT();
-                        $("#preRecord").show();
-                        $("#btnClose").show();
                         //window.location.reload();
                     }
                 }
