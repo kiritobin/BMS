@@ -12,7 +12,7 @@ namespace bms.Model
         private int rsMonomerID;
         private string bookNum;
         private string isbn;
-        private replenishMentHead rsHeadID;
+        private string rsHeadID;
         private double unitPrice;
         private int count;
         private double totalPrice;
@@ -34,7 +34,7 @@ namespace bms.Model
         /// <param name="realPrice">实洋</param>
         /// <param name="time">补货时间</param>
         /// <param name="deleteState">删除状态</param>
-        public replenishMentMonomer(int rsMonomerID, string bookNum, string isbn, replenishMentHead rsHeadID, double unitPrice, int count, double totalPrice, double realDiscount, double realPrice, DateTime time, int deleteState)
+        public replenishMentMonomer(int rsMonomerID, string bookNum, string isbn, string rsHeadID, double unitPrice, int count, double totalPrice, double realDiscount, double realPrice, DateTime time, int deleteState)
         {
             this.rsMonomerID = rsMonomerID;
             this.bookNum = bookNum;
@@ -88,7 +88,7 @@ namespace bms.Model
             }
         }
 
-        public replenishMentHead RsHeadID
+        public string RsHeadID
         {
             get
             {
@@ -190,6 +190,12 @@ namespace bms.Model
             {
                 deleteState = value;
             }
+        }
+        /// <summary>
+        /// 空的构造方法
+        /// </summary>
+        public replenishMentMonomer() {
+
         }
     }
 }
