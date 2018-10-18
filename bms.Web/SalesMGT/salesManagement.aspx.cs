@@ -104,26 +104,23 @@ namespace bms.Web.SalesMGT
                 {
                     string time = saleheadbll.getSaleHeadTime();
                     string nowTime = DateTime.Now.ToLocalTime().ToString();
-                    string equalsTime = nowTime.Substring(0,10);
+                    string equalsTime = nowTime.Substring(0, 10);
                     if (time.Equals(equalsTime))
                     {
                         count += 1;
                         SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                        Session["saleheadId"] = SaleHeadId;
                     }
                     else
                     {
                         count = 1;
                         SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                        Session["saleheadId"] = SaleHeadId;
                     }
-                    
+
                 }
                 else
                 {
                     count = 1;
                     SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                    Session["saleheadId"] = SaleHeadId;
                 }
                 salehead.SaleHeadId = SaleHeadId;
                 salehead.SaleTaskId = saleId;

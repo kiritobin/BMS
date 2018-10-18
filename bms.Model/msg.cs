@@ -15,14 +15,15 @@ namespace bms.Model
         private string alltotalPrice;
         private string allrealPrice;
         private string messege;
-
+        private string count;
+        private string count1;
 
         /// <summary>
         /// 无参构造
         /// </summary>
         public msg() { }
 
-        public msg(string dataTable, string allKinds,string number,string alltotalPrice,string allrealPrice, string messege, string dataTable1)
+        public msg(string dataTable, string allKinds,string number,string alltotalPrice,string allrealPrice, string messege, string dataTable1, string count, string count1)
         {
             this.dataTable = dataTable;
             this.allKinds = allKinds;
@@ -31,6 +32,8 @@ namespace bms.Model
             this.allrealPrice = allrealPrice;
             this.messege = messege;
             this.dataTable1 = dataTable1;
+            this.count = count;
+            this.count1 = count1;
         }
 
         /// <summary>
@@ -135,6 +138,32 @@ namespace bms.Model
             set
             {
                 dataTable1 = value;
+            }
+        }
+        //
+        public string Count
+        {
+            get
+            {
+                return count;
+            }
+
+            set
+            {
+                count = value;
+            }
+        }
+
+        public string Count1
+        {
+            get
+            {
+                return count1;
+            }
+
+            set
+            {
+                count1 = value;
             }
         }
     }

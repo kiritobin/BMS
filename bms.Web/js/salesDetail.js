@@ -81,14 +81,19 @@
         }
     })
     var limited = $("#limtalltotalprice").val();
+    var numberLimit = $("#numberLimit").val();
+    var priceLimit = $("#priceLimit").val();
+
     //数量回车
     $("#table").delegate(".count", "keypress", function (e) {
         if (e.keyCode == 13) {
             var num = $(this).parent().prev().prev().prev().prev().prev().text();
             var bookNum = $(this).parent().prev().prev().prev().text();
             var bookISBN = $(this).parent().prev().prev().prev().prev().children().val();
+            var price = $(this).parent().prev().text().trim();
             var number = $(this).val().trim();
             var discount = $(this).parent().next().children().val().trim();
+            var allprice = number * price;
             if (number == "") {
                 swal({
                     title: "温馨提示:)",
@@ -100,7 +105,236 @@
                     buttonsStyling: false,
                     allowOutsideClick: false
                 })
-            } else {
+            } else if (parseFloat(price) > parseFloat(priceLimit) || number > numberLimit || allprice > limited) {
+                swal({
+                    title: "是否继续录入",
+                    text: "本次录入已达上限,是否继续录入?" + "<br/>" + "最大数量为:" + numberLimit + " 单价限制为:" + priceLimit + " 总码洋限制为:" + limited,
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    buttonsStyling: false,
+                    showLoaderOnConfirm: true,//是否显示load
+                    allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+                }).then(function () {
+                    $.ajax({
+                        type: 'Post',
+                        url: 'salesDetail.aspx',
+                        data: {
+                            bookISBN: bookISBN,
+                            bookNum: bookNum,
+                            number: number,
+                            discount: discount,
+                            op: "addsale",
+                            tips: "addsale"
+                        },
+                        dataType: 'json',
+                        success: function (succ) {
+                            if (succ.Messege == "添加成功") {
+                                $("#table tbody").html("");
+                                $("#table").append(succ.DataTable);
+                                $("#table").append(succ.DataTable1);
+                                //$("#table").append(table);
+                                $("#ISBN").focus();
+                                $("#kinds").text(succ.AllKinds);
+                                $("#allnumber").text(succ.Number);
+                                $("#alltotalprice").text(succ.AlltotalPrice);
+                                $("#allreadprice").text(succ.AllrealPrice);
+                            } else if (succ.Messege == "库存不足") {
+                                var count = succ.Count;
+                                swal({
+                                    title: "库存不足",
+                                    text: "当前最大库存为:" + succ.Count1 + "是否生成补货单？",
+                                    type: "question",
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: '确定',
+                                    cancelButtonText: '取消',
+                                    confirmButtonClass: 'btn btn-success',
+                                    cancelButtonClass: 'btn btn-danger',
+                                    buttonsStyling: false,
+                                    allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+                                }).then(function () {
+                                    $.ajax({
+                                        type: 'Post',
+                                        url: 'salesDetail.aspx',
+                                        data: {
+                                            bookISBN: bookISBN,
+                                            bookNum: bookNum,
+                                            number: number,
+                                            discount: discount,
+                                            count: count,
+                                            op: "addRsMon",
+                                            tips: "addMon"
+                                        },
+                                        dataType: 'json',
+                                        success: function (succ) {
+                                            if (succ.Messege == "添加成功") {
+                                                $("#table tbody").html("");
+                                                $("#table").append(succ.DataTable);
+                                                $("#table").append(succ.DataTable1);
+                                                //$("#table").append(table);
+                                                $("#ISBN").focus();
+                                                $("#kinds").text(succ.AllKinds);
+                                                $("#allnumber").text(succ.Number);
+                                                $("#alltotalprice").text(succ.AlltotalPrice);
+                                                $("#allreadprice").text(succ.AllrealPrice);
+                                                swal({
+                                                    title: "温馨提示:)",
+                                                    text: "添加成功并已完成补货单的添加！",
+                                                    type: "success",
+                                                    confirmButtonColor: '#3085d6',
+                                                    confirmButtonText: '确定',
+                                                    confirmButtonClass: 'btn btn-success',
+                                                    buttonsStyling: false,
+                                                    allowOutsideClick: false
+                                                }).then(function () {
+                                                })
+                                            }
+                                            else if (succ.Messege == "添加失败") {
+                                                swal({
+                                                    title: "温馨提示:)",
+                                                    text: "添加失败",
+                                                    type: "warning",
+                                                    confirmButtonColor: '#3085d6',
+                                                    confirmButtonText: '确定',
+                                                    confirmButtonClass: 'btn btn-success',
+                                                    buttonsStyling: false,
+                                                    allowOutsideClick: false
+                                                }).then(function () {
+                                                })
+                                            }
+                                            else if (succ.Messege == "该书无库存") {
+                                                swal({
+                                                    title: "温馨提示:)",
+                                                    text: "该书无库存",
+                                                    type: "warning",
+                                                    confirmButtonColor: '#3085d6',
+                                                    confirmButtonText: '确定',
+                                                    confirmButtonClass: 'btn btn-success',
+                                                    buttonsStyling: false,
+                                                    allowOutsideClick: false
+                                                }).then(function () {
+                                                })
+                                            }
+                                            else if (succ.Messege == "无数据") {
+                                                swal({
+                                                    title: "温馨提示:)",
+                                                    text: "无数据",
+                                                    type: "warning",
+                                                    confirmButtonColor: '#3085d6',
+                                                    confirmButtonText: '确定',
+                                                    confirmButtonClass: 'btn btn-success',
+                                                    buttonsStyling: false,
+                                                    allowOutsideClick: false
+                                                }).then(function () {
+                                                })
+                                            }
+                                            else if (succ.Messege == "客户馆藏已存在") {
+                                                swal({
+                                                    title: "温馨提示:)",
+                                                    text: "无数据",
+                                                    type: "warning",
+                                                    confirmButtonColor: '#3085d6',
+                                                    confirmButtonText: '确定',
+                                                    confirmButtonClass: 'btn btn-success',
+                                                    buttonsStyling: false,
+                                                    allowOutsideClick: false
+                                                }).then(function () {
+                                                })
+                                            }
+                                            else {
+                                                swal({
+                                                    title: "温馨提示:)",
+                                                    text: succ.Messege,
+                                                    type: "warning",
+                                                    confirmButtonColor: '#3085d6',
+                                                    confirmButtonText: '确定',
+                                                    confirmButtonClass: 'btn btn-success',
+                                                    buttonsStyling: false,
+                                                    allowOutsideClick: false
+                                                }).then(function () {
+                                                })
+                                            }
+                                        }
+                                    })
+                                })
+                            }
+                            else if (succ.Messege == "添加失败") {
+                                swal({
+                                    title: "温馨提示:)",
+                                    text: "添加失败",
+                                    type: "warning",
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: '确定',
+                                    confirmButtonClass: 'btn btn-success',
+                                    buttonsStyling: false,
+                                    allowOutsideClick: false
+                                }).then(function () {
+                                })
+                            }
+                            else if (succ.Messege == "该书无库存") {
+                                swal({
+                                    title: "温馨提示:)",
+                                    text: "该书无库存",
+                                    type: "warning",
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: '确定',
+                                    confirmButtonClass: 'btn btn-success',
+                                    buttonsStyling: false,
+                                    allowOutsideClick: false
+                                }).then(function () {
+                                })
+                            }
+                            else if (succ.Messege == "无数据") {
+                                swal({
+                                    title: "温馨提示:)",
+                                    text: "无数据",
+                                    type: "warning",
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: '确定',
+                                    confirmButtonClass: 'btn btn-success',
+                                    buttonsStyling: false,
+                                    allowOutsideClick: false
+                                }).then(function () {
+                                })
+                            }
+                            else if (succ.Messege == "客户馆藏已存在") {
+                                swal({
+                                    title: "温馨提示:)",
+                                    text: "无数据",
+                                    type: "warning",
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: '确定',
+                                    confirmButtonClass: 'btn btn-success',
+                                    buttonsStyling: false,
+                                    allowOutsideClick: false
+                                }).then(function () {
+                                })
+                            }
+                            else {
+                                swal({
+                                    title: "温馨提示:)",
+                                    text: succ.Messege,
+                                    type: "warning",
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: '确定',
+                                    confirmButtonClass: 'btn btn-success',
+                                    buttonsStyling: false,
+                                    allowOutsideClick: false
+                                }).then(function () {
+                                })
+                            }
+                        }
+                    })
+                })
+            }
+            else {
                 $.ajax({
                     type: 'Post',
                     url: 'salesDetail.aspx',
@@ -109,7 +343,8 @@
                         bookNum: bookNum,
                         number: number,
                         discount: discount,
-                        op: "addsale"
+                        op: "addsale",
+                        tips: "addsale"
                     },
                     dataType: 'json',
                     success: function (succ) {
@@ -122,32 +357,128 @@
                             $("#kinds").text(succ.AllKinds);
                             $("#allnumber").text(succ.Number);
                             $("#alltotalprice").text(succ.AlltotalPrice);
-                            var alltotalprice = parseFloat(succ.AlltotalPrice);
-                            var limtalltotalprice = parseFloat(limited);
-                            if (alltotalprice > limtalltotalprice) {
-                                swal({
-                                    title: "温馨提示:)",
-                                    text: "已添加成功但已达到码洋上限",
-                                    type: "warning",
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: '确定',
-                                    confirmButtonClass: 'btn btn-success',
-                                    buttonsStyling: false,
-                                    allowOutsideClick: false
-                                })
-                            }
                             $("#allreadprice").text(succ.AllrealPrice);
                         } else if (succ.Messege == "库存不足") {
+                            var count = succ.Count;
                             swal({
-                                title: "温馨提示:)",
-                                text: "库存数量不足",
-                                type: "warning",
+                                title: "库存不足",
+                                text: "当前最大库存为:" + succ.Count1 + "是否生成补货单？",
+                                type: "question",
+                                showCancelButton: true,
                                 confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
                                 confirmButtonText: '确定',
+                                cancelButtonText: '取消',
                                 confirmButtonClass: 'btn btn-success',
+                                cancelButtonClass: 'btn btn-danger',
                                 buttonsStyling: false,
-                                allowOutsideClick: false
+                                allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
                             }).then(function () {
+                                $.ajax({
+                                    type: 'Post',
+                                    url: 'salesDetail.aspx',
+                                    data: {
+                                        bookISBN: bookISBN,
+                                        bookNum: bookNum,
+                                        number: number,
+                                        discount: discount,
+                                        count: count,
+                                        op: "addRsMon",
+                                        tips: "addMon"
+                                    },
+                                    dataType: 'json',
+                                    success: function (succ) {
+                                        if (succ.Messege == "添加成功") {
+                                            $("#table tbody").html("");
+                                            $("#table").append(succ.DataTable);
+                                            $("#table").append(succ.DataTable1);
+                                            //$("#table").append(table);
+                                            $("#ISBN").focus();
+                                            $("#kinds").text(succ.AllKinds);
+                                            $("#allnumber").text(succ.Number);
+                                            $("#alltotalprice").text(succ.AlltotalPrice);
+                                            var alltotalprice = parseFloat(succ.AlltotalPrice);
+                                            var limtalltotalprice = parseFloat(limited);
+                                            $("#allreadprice").text(succ.AllrealPrice);
+                                            swal({
+                                                title: "温馨提示:)",
+                                                text: "添加成功并已完成补货单的添加！",
+                                                type: "success",
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: '确定',
+                                                confirmButtonClass: 'btn btn-success',
+                                                buttonsStyling: false,
+                                                allowOutsideClick: false
+                                            }).then(function () {
+                                            })
+                                        }
+                                        else if (succ.Messege == "添加失败") {
+                                            swal({
+                                                title: "温馨提示:)",
+                                                text: "添加失败",
+                                                type: "warning",
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: '确定',
+                                                confirmButtonClass: 'btn btn-success',
+                                                buttonsStyling: false,
+                                                allowOutsideClick: false
+                                            }).then(function () {
+                                            })
+                                        }
+                                        else if (succ.Messege == "该书无库存") {
+                                            swal({
+                                                title: "温馨提示:)",
+                                                text: "该书无库存",
+                                                type: "warning",
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: '确定',
+                                                confirmButtonClass: 'btn btn-success',
+                                                buttonsStyling: false,
+                                                allowOutsideClick: false
+                                            }).then(function () {
+                                            })
+                                        }
+                                        else if (succ.Messege == "无数据") {
+                                            swal({
+                                                title: "温馨提示:)",
+                                                text: "无数据",
+                                                type: "warning",
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: '确定',
+                                                confirmButtonClass: 'btn btn-success',
+                                                buttonsStyling: false,
+                                                allowOutsideClick: false
+                                            }).then(function () {
+                                            })
+                                        }
+                                        else if (succ.Messege == "客户馆藏已存在") {
+                                            swal({
+                                                title: "温馨提示:)",
+                                                text: "无数据",
+                                                type: "warning",
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: '确定',
+                                                confirmButtonClass: 'btn btn-success',
+                                                buttonsStyling: false,
+                                                allowOutsideClick: false
+                                            }).then(function () {
+                                            })
+                                        }
+                                        else {
+                                            swal({
+                                                title: "温馨提示:)",
+                                                text: succ.Messege,
+                                                type: "warning",
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: '确定',
+                                                confirmButtonClass: 'btn btn-success',
+                                                buttonsStyling: false,
+                                                allowOutsideClick: false
+                                            }).then(function () {
+                                            })
+                                        }
+                                    }
+                                })
                             })
                         }
                         else if (succ.Messege == "添加失败") {
@@ -310,7 +641,7 @@
                         swal({
                             title: "提示",
                             text: "状态修改成功",
-                            type: "question",
+                            type: "success",
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
@@ -337,9 +668,8 @@
                             allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
                         })
                     }
-                    
-                    else
-                    {
+
+                    else {
                         swal({
                             title: "温馨提示:)",
                             text: "单据状态修改失败，请联系技术人员！",

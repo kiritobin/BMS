@@ -18,6 +18,7 @@ namespace bms.Web.SalesMGT
     {
         protected DataSet ds;
         protected int pageSize = 20, totalCount, intPageCount;
+        protected string headId="";
         public double discount;
         SaleHead single = new SaleHead();
         UserBll userBll = new UserBll();
@@ -62,6 +63,21 @@ namespace bms.Web.SalesMGT
                 int index = bookNumList.IndexOf(bookNum);
                 bookNumList.RemoveAt(index);
                 Session["List"] = bookNumList;
+            }
+            if(op == "preRecord")
+            {
+                string headId = Request["headId"];
+                SaleHead sale = retailBll.GetHead(headId);
+                if (sale == null)
+                {
+                    Response.Write("无记录:|");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write(sale.KindsNum + ":|" + sale.Number + ":|" + sale.AllTotalPrice + ":|" + sale.AllRealPrice);
+                    Response.End();
+                }
             }
         }
 
@@ -259,6 +275,7 @@ namespace bms.Web.SalesMGT
             single.UserId = user.UserId;
             single.DateTime = DateTime.Now;
             single.State = 0;
+            headId = retailHeadId;
             Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)
             {

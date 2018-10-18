@@ -16,33 +16,18 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/pagination.css" />
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
 </head>
 
 <body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
-            <!--
-                Tip 1: 需要改变导航条的颜色可以修改: data-color="purple | azure | green | orange | danger"
-        
-                Tip 2: 需要改变导航条的背景图片可以修改 data-image tag
-            -->
             <!-- 平台字体logo -->
             <div class="logo">
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
-                <span style="margin-left:90px;color:red;"><%=userName %>&nbsp-&nbsp<%=regionName %></span>
+                <span style="margin-left: 90px; color: red;"><%=userName %></span><br />
+                <span style="margin-left: 90px; color: red;"><%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -352,6 +337,7 @@
                                                 <tr>
                                                     <td>序号</td>
                                                     <td>书号</td>
+                                                    <td>书名</td>
                                                     <td>ISBN号</td>
                                                     <td>单价</td>
                                                     <td>数量</td>

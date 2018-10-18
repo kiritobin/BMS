@@ -116,7 +116,8 @@ namespace bms.Web.BasicInfor
             if (j > 1)
             {
                 int k = j - 2;
-                for (int i = 1; i <= k; i++)
+                int i = 1;
+                while (i <= k)
                 {
                     DataRow dr = SourceDt.Rows[i];
                     string isbn = dr[field1].ToString();
@@ -126,6 +127,11 @@ namespace bms.Web.BasicInfor
                     if (rows.Length > 1)
                     {
                         SourceDt.Rows.RemoveAt(i);
+                        k = k - 1;
+                    }
+                    else
+                    {
+                        i++;
                     }
                 }
             }

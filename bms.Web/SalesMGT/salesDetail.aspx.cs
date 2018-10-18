@@ -18,20 +18,25 @@ namespace bms.Web.SalesMGT
     {
         public int totalCount, intPageCount, pageSize = 100, allstockNum = 0;
         public string type, defaultdiscount;
-        public DataSet ds, bookds;
+        public DataSet ds, bookds, stockbook;
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         SaleTaskBll saletaskbll = new SaleTaskBll();
         public StringBuilder strbook = new StringBuilder();
         public int allkinds, allnumber, numberLimit;
         public double alltotalprice, allreadprice, limtalltotalprice, priceLimit;
-        string bookISBN, SaleHeadId, saleId;
+        string bookISBN, SaleHeadId, saleId, rsHead;
         double disCount;
-        int number;
+        int number, d_Value;
         string bookNum;
         msg msg = new msg();
+        User user = new User();
+        BookBasicBll bookbll = new BookBasicBll();
+        StockBll stockbll = new StockBll();
+        replenishMentBll replenBll = new replenishMentBll();
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
+            user = (User)Session["user"];
             type = Session["saleType"].ToString();
             saleId = Session["saleId"].ToString();
             getlimt();
@@ -46,7 +51,6 @@ namespace bms.Web.SalesMGT
             if (op == "search")
             {
                 string ISBN = Request["ISBN"];
-                BookBasicBll bookbll = new BookBasicBll();
                 bookds = bookbll.SelectByIsbn(ISBN);
                 if (bookds != null)
                 {
@@ -67,49 +71,25 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
-            //添加
+            //一书多好选择后执行
             if (op == "add")
             {
-                int count = salemonbll.SelectBySaleHeadId(SaleHeadId);
-                if (count == 0)
-                {
-                    count = 1;
-                }
-                else
-                {
-                    count += 1;
-                }
-                string booknum = Request["bookNum"];
-                BookBasicBll bookbll = new BookBasicBll();
-                BookBasicData book = bookbll.SelectById(booknum);
-                string remarks = book.Remarks;
-                if (remarks == "" || remarks == null)
-                {
-                    remarks = defaultdiscount;
-
-                }
-                string ISBN = Request["isbn"];
-                string bookname = Request["bookname"];
-                string price = Request["price"];
-                StringBuilder sb = new StringBuilder();
-                sb.Append("<tbody>");
-                sb.Append("<tr class='first'><td>" + count + "</td>");
-                sb.Append("<td>" + "<input type='text' class='isbn textareaISBN' value='" + ISBN + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
-                sb.Append("<td>" + booknum + "</td>");
-                sb.Append("<td>" + bookname + "</td>");
-                sb.Append("<td>" + price + "</td>");
-                sb.Append("<td><input class='count textareaCount' type='number'/></td>");
-                sb.Append("<td><input class='discount textareaDiscount' value='" + remarks + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
-                sb.Append("<td>" + "" + "</td>");
-                sb.Append("<td>" + "" + "</td></tr>");
-                sb.Append("</tbody>");
-                Response.Write(sb.ToString());
-                Response.End();
+                showBook();
             }
+            //添加销售单体
             if (op == "addsale")
             {
                 bookISBN = Request["bookISBN"];
                 disCount = double.Parse(Request["discount"]);
+                number = Convert.ToInt32(Request["number"]);
+                bookNum = Request["bookNum"].ToString();
+                addsalemon();
+            }
+            if (op == "addRsMon")
+            {
+                bookISBN = Request["bookISBN"];
+                disCount = double.Parse(Request["discount"]);
+                d_Value = Convert.ToInt32(Request["count"]);
                 number = Convert.ToInt32(Request["number"]);
                 bookNum = Request["bookNum"].ToString();
                 addsalemon();
@@ -176,6 +156,88 @@ namespace bms.Web.SalesMGT
             }
         }
         /// <summary>
+        /// 一号多书时选择其中一本后触发
+        /// </summary>
+        public void showBook()
+        {
+            int count = salemonbll.SelectBySaleHeadId(SaleHeadId);
+            if (count == 0)
+            {
+                count = 1;
+            }
+            else
+            {
+                count += 1;
+            }
+            string booknum = Request["bookNum"];
+            BookBasicBll bookbll = new BookBasicBll();
+            BookBasicData book = bookbll.SelectById(booknum);
+            string remarks = book.Remarks;
+            if (remarks == "" || remarks == null)
+            {
+                remarks = defaultdiscount;
+            }
+            string ISBN = Request["isbn"];
+            string bookname = Request["bookname"];
+            string price = Request["price"];
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<tbody>");
+            sb.Append("<tr class='first'><td>" + count + "</td>");
+            sb.Append("<td>" + "<input type='text' class='isbn textareaISBN' value='" + ISBN + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
+            sb.Append("<td>" + booknum + "</td>");
+            sb.Append("<td>" + bookname + "</td>");
+            sb.Append("<td>" + price + "</td>");
+            sb.Append("<td><input class='count textareaCount' type='number'/></td>");
+            sb.Append("<td><input class='discount textareaDiscount' value='" + remarks + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
+            sb.Append("<td>" + "" + "</td>");
+            sb.Append("<td>" + "" + "</td></tr>");
+            sb.Append("</tbody>");
+            Response.Write(sb.ToString());
+            Response.End();
+        }
+        /// <summary>
+        /// 添加补货单头
+        /// </summary>
+        public Result addrsHead()
+        {
+            replenishMentHead rsHead = new replenishMentHead();
+            replenishMentBll replenBll = new replenishMentBll();
+            rsHead.AllTotalPrice = 0;
+            rsHead.AllRealPrice = 0;
+            rsHead.KindsNum = 0;
+            rsHead.Number = 0;
+            rsHead.SaleTaskId = saleId;
+            rsHead.UserId = user.UserId;
+            rsHead.Time = DateTime.Now.ToLocalTime();
+            int count = replenBll.countHead();
+            string rsHeadId;
+            if (count > 0)
+            {
+                string time = replenBll.getRsHeadTime();
+                string nowTime = DateTime.Now.ToLocalTime().ToString();
+                string equalsTime = nowTime.Substring(0, 10);
+                if (time.Equals(equalsTime))
+                {
+                    count += 1;
+                    rsHeadId = "BH" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                }
+                else
+                {
+                    count = 1;
+                    rsHeadId = "BH" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                }
+
+            }
+            else
+            {
+                count = 1;
+                rsHeadId = "BH" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+            }
+            rsHead.RsHeadID = rsHeadId;
+            return replenBll.InsertRsHead(rsHead);
+
+        }
+        /// <summary>
         /// 获取销售任务码洋限制
         /// </summary>
         public void getlimt()
@@ -185,7 +247,6 @@ namespace bms.Web.SalesMGT
             numberLimit = int.Parse(limtds.Tables[0].Rows[0]["numberLimit"].ToString());
             priceLimit = double.Parse(limtds.Tables[0].Rows[0]["priceLimit"].ToString());
         }
-
 
         /// <summary>
         /// 只有一条数据时
@@ -244,10 +305,8 @@ namespace bms.Web.SalesMGT
             }
             else
             {
-                StockBll stockbll = new StockBll();
-                User user = (User)Session["user"];
                 int RegionId = user.ReginId.RegionId;
-                DataSet stockbook = stockbll.SelectByBookNum(bookNum, RegionId);
+                stockbook = stockbll.SelectByBookNum(bookNum, RegionId);
                 if (stockbook != null)
                 {
                     for (int i = 0; i < stockbook.Tables[0].Rows.Count; i++)
@@ -261,150 +320,50 @@ namespace bms.Web.SalesMGT
                         Response.Write(ObjectToJson(msg));
                         Response.End();
                     }
-                    if (number > allstockNum)
+                    string tips = Request["tips"].ToString();
+                    if (tips == "addsale")
                     {
-                        msg.Messege = "库存不足";
-                        Response.Write(ObjectToJson(msg));
-                        Response.End();
-                    }
-                    else
-                    {
-                        SaleHeadBll saleheadbll = new SaleHeadBll();
-                        string saletaskId = saleheadbll.SelectTaskByheadId(SaleHeadId);
-                        string customerId = saletaskbll.getCustomerId(saletaskId);
-                        int AlreadyBought = 0;
-
-                        //判断馆藏
-                        LibraryCollectionBll library = new LibraryCollectionBll();
-                        Result libresult = library.Selectbook(customerId, bookISBN);
-                        if (libresult == Result.记录不存在)
+                        if (number > allstockNum)
                         {
-                            int countnumber = number;
-                            for (int i = 0; i < stockbook.Tables[0].Rows.Count; i++)
-                            {
-                                int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[i]["stockNum"]);
-                                int goodsId = Convert.ToInt32(stockbook.Tables[0].Rows[i]["goodsShelvesId"]);
-
-                                if (countnumber <= stockNum)
-                                {
-                                    BookBasicBll Bookbll = new BookBasicBll();
-                                    BookBasicData book = new BookBasicData();
-                                    book = Bookbll.SelectById(bookNum);
-                                    string saleHeadId = SaleHeadId;
-                                    //Session["saleheadId"].ToString();
-                                    int saleIdmonomerId;
-                                    int count = salemonbll.SelectBySaleHeadId(saleHeadId);
-                                    if (count == 0)
-                                    {
-                                        saleIdmonomerId = 1;
-                                        salemonbll.updateHeadstate(saleId, SaleHeadId, saleIdmonomerId);
-                                    }
-                                    else
-                                    {
-                                        saleIdmonomerId = count + 1;
-                                    }
-                                    int price = Convert.ToInt32(book.Price);
-                                    int totalPrice = price * number;
-                                    double realPrice = totalPrice * (disCount / 100);
-                                    DateTime Time = DateTime.Now.ToLocalTime();
-                                    SaleMonomer newSalemon = new SaleMonomer()
-                                    {
-                                        AlreadyBought = AlreadyBought,
-                                        SaleIdMonomerId = saleIdmonomerId,
-                                        BookNum = bookNum,
-                                        ISBN1 = bookISBN,
-                                        SaleHeadId = saleHeadId,
-                                        Number = number,
-                                        UnitPrice = price,
-                                        TotalPrice = totalPrice,
-                                        RealPrice = realPrice,
-                                        RealDiscount = disCount,
-                                        Datetime = Time,
-                                        SaleTaskId = saleId
-
-                                    };
-                                    //更新库存
-                                    int stockcount = 0;
-                                    if (number < 0)
-                                    {
-                                        number = Math.Abs(number);
-                                        stockcount = stockNum + number;
-                                    }
-                                    else
-                                    {
-                                        stockcount = stockNum - countnumber;
-                                    }
-                                    Result upresult = stockbll.update(stockcount, goodsId, bookNum);
-                                    if (upresult == Result.更新成功)
-                                    {
-                                        //添加
-                                        Result result = salemonbll.Insert(newSalemon);
-                                        if (result == Result.添加成功)
-                                        {
-                                            //获取已购数
-                                            int frequency = salemonbll.SelectnumberBysaletask(saletaskId, bookNum.ToString());
-                                            if (frequency > 0)
-                                            {
-                                                DataSet bookcount = salemonbll.SelectCountBybookNum(saletaskId, bookNum.ToString());
-                                                AlreadyBought = Convert.ToInt32(bookcount.Tables[0].Rows[0]["alreadyBought"]);
-                                                AlreadyBought += number;
-                                            }
-                                            else
-                                            {
-                                                AlreadyBought = number;
-                                            }
-                                            //更新已购数
-                                            salemonbll.updateAlreadyBought(AlreadyBought, bookNum, saleId);
-
-                                            Result res = updateSalehead();
-                                            if (res == Result.更新成功)
-                                            {
-                                                msg.DataTable = getData();
-                                                msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' type='number'/></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
-                                                msg.AllKinds = allkinds.ToString();
-                                                msg.Number = allnumber.ToString();
-                                                msg.AlltotalPrice = alltotalprice.ToString();
-                                                msg.AllrealPrice = allreadprice.ToString();
-                                                msg.Messege = "添加成功";
-
-                                                Response.Write(ObjectToJson(msg));
-                                                Response.End();
-                                            }
-                                        }
-                                        else
-                                        {
-                                            msg.Messege = "添加失败";
-                                            Response.Write(ObjectToJson(msg));
-                                            Response.End();
-                                        }
-                                    }
-
-                                }
-                                else
-                                {
-                                    countnumber = countnumber - stockNum;
-                                    Result upre = stockbll.update(0, goodsId, bookNum);
-                                    if (number == 0)
-                                    {
-                                        msg.Messege = "添加成功";
-                                        Response.Write(ObjectToJson(msg));
-                                        Response.End();
-                                    }
-                                    if (upre == Result.更新失败)
-                                    {
-                                        msg.Messege = "添加失败";
-                                        Response.Write(ObjectToJson(msg));
-                                        Response.End();
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            msg.Messege = "客户馆藏已存在";
+                            d_Value = number - allstockNum;
+                            msg.Count = d_Value.ToString();
+                            msg.Count1 = allstockNum.ToString();
+                            msg.Messege = "库存不足";
                             Response.Write(ObjectToJson(msg));
                             Response.End();
                         }
+                    }
+                    if (tips == "addMon")
+                    {
+                        //库存不足，生成询问是否生成补货单
+
+                        //判断是否已有该销售任务的补货单头
+
+                        rsHead = replenBll.getRsHeadID(saleId);
+                        //已有补货单头,直接添加补货单体
+                        if (rsHead != "none")
+                        {
+                            addRsmon();
+                        }
+                        //没有补货单头，先生成补货单头，在添加补货单体
+                        else
+                        {
+                            Result result = addrsHead();
+                            if (result == Result.添加成功)
+                            {
+                                addRsmon();
+                            }
+                            else
+                            {
+                                msg.Messege = "添加补货单头失败";
+                                Response.Write(ObjectToJson(msg));
+                                Response.End();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        addSaleMon();
                     }
                 }
                 else
@@ -415,6 +374,283 @@ namespace bms.Web.SalesMGT
                 }
             }
         }
+        /// <summary>
+        /// 添加补货单体
+        /// </summary>
+        public void addRsmon()
+        {
+            //添加补货单体
+            int rsMonomerId;
+            int count = replenBll.countMon(rsHead);
+            if (count > 0)
+            {
+                rsMonomerId = count + 1;
+            }
+            else
+            {
+                rsMonomerId = 1;
+            }
+            BookBasicData book = bookbll.SelectById(bookNum);
+            double allPrice = d_Value * book.Price;
+            double allRealPrice = allPrice * (disCount / 100);
+            replenishMentMonomer replenMon = new replenishMentMonomer()
+            {
+                Isbn = book.Isbn,
+                UnitPrice = book.Price,
+                BookNum = bookNum,
+                Count = d_Value,
+                RealDiscount = disCount,
+                Time = DateTime.Now.ToLocalTime(),
+                RsHeadID = rsHead,
+                RsMonomerID = rsMonomerId,
+                TotalPrice = allPrice,
+                RealPrice = allRealPrice
+            };
+            Result addmonRes = replenBll.Insert(replenMon);
+            if (addmonRes == Result.添加成功)
+            {
+                //更新补货单头
+                int rskinds = replenBll.getkinds(rsHead);
+                int rsnumber = replenBll.getsBookNumberSum(rsHead);
+                double rsallPrice = replenBll.getsBookTotalPrice(rsHead);
+                double rsallRealPrice = replenBll.getsBookRealPrice(rsHead);
+                replenishMentHead upRsHead = new replenishMentHead()
+                {
+                    RsHeadID = rsHead,
+                    KindsNum = rskinds,
+                    Number = rsnumber,
+                    AllTotalPrice = rsallPrice,
+                    AllRealPrice = rsallRealPrice
+                };
+                replenBll.updateRsHead(upRsHead);
+                //添加补货单后继续录入
+                addSaleMon();
+            }
+            else
+            {
+                msg.Messege = "添加补货单体失败";
+                Response.Write(ObjectToJson(msg));
+                Response.End();
+            }
+        }
+
+        /// <summary>
+        /// 判断库存后添加销售单
+        /// </summary>
+        public void addSaleMon()
+        {
+            SaleHeadBll saleheadbll = new SaleHeadBll();
+            string saletaskId = saleheadbll.SelectTaskByheadId(SaleHeadId);
+            string customerId = saletaskbll.getCustomerId(saletaskId);
+            int AlreadyBought = 0;
+
+            //判断馆藏
+            LibraryCollectionBll library = new LibraryCollectionBll();
+            Result libresult = library.Selectbook(customerId, bookISBN);
+            if (libresult == Result.记录不存在)
+            {
+                int countnumber;
+                if (number > allstockNum)
+                {
+                    countnumber = allstockNum;
+                }
+                else
+                {
+                    countnumber = number;
+                }
+                for (int i = 0; i < stockbook.Tables[0].Rows.Count; i++)
+                {
+                    int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[i]["stockNum"]);
+                    int goodsId = Convert.ToInt32(stockbook.Tables[0].Rows[i]["goodsShelvesId"]);
+
+                    if (countnumber <= stockNum)
+                    {
+                        //BookBasicBll Bookbll = new BookBasicBll();
+                        //BookBasicData book = new BookBasicData();
+                        //book = Bookbll.SelectById(bookNum);
+                        //string saleHeadId = SaleHeadId;
+                        ////Session["saleheadId"].ToString();
+                        //int saleIdmonomerId;
+                        //int count = salemonbll.SelectBySaleHeadId(saleHeadId);
+                        //if (count == 0)
+                        //{
+                        //    saleIdmonomerId = 1;
+                        //    salemonbll.updateHeadstate(saleId, SaleHeadId, saleIdmonomerId);
+                        //}
+                        //else
+                        //{
+                        //    saleIdmonomerId = count + 1;
+                        //}
+                        //int price = Convert.ToInt32(book.Price);
+                        //int totalPrice = price * number;
+                        //double realPrice = totalPrice * (disCount / 100);
+                        //DateTime Time = DateTime.Now.ToLocalTime();
+                        //SaleMonomer newSalemon = new SaleMonomer()
+                        //{
+                        //    AlreadyBought = AlreadyBought,
+                        //    SaleIdMonomerId = saleIdmonomerId,
+                        //    BookNum = bookNum,
+                        //    ISBN1 = bookISBN,
+                        //    SaleHeadId = saleHeadId,
+                        //    Number = number,
+                        //    UnitPrice = price,
+                        //    TotalPrice = totalPrice,
+                        //    RealPrice = realPrice,
+                        //    RealDiscount = disCount,
+                        //    Datetime = Time,
+                        //    SaleTaskId = saleId
+                        //};
+                        //更新库存
+                        int stockcount = 0;
+                        if (number < 0)
+                        {
+                            int addnum = Math.Abs(number);
+                            stockcount = stockNum + addnum;
+                        }
+                        else
+                        {
+                            stockcount = stockNum - countnumber;
+                        }
+                        Result upresult = stockbll.update(stockcount, goodsId, bookNum);
+                        if (upresult == Result.更新成功)
+                        {
+                            //添加销售单体明细
+                            Result result = addSalemonDetail();
+                            if (result == Result.添加成功)
+                            {
+                                ////获取已购数
+                                //int frequency = salemonbll.SelectnumberBysaletask(saletaskId, bookNum.ToString());
+                                //if (frequency > 0)
+                                //{
+                                //    DataSet bookcount = salemonbll.SelectCountBybookNum(saletaskId, bookNum.ToString());
+                                //    AlreadyBought = Convert.ToInt32(bookcount.Tables[0].Rows[0]["alreadyBought"]);
+                                //    AlreadyBought += number;
+                                //}
+                                //else
+                                //{
+                                //    AlreadyBought = number;
+                                //}
+                                ////更新已购数
+                                //salemonbll.updateAlreadyBought(AlreadyBought, bookNum, saleId);
+
+                                Result res = updateSalehead();
+                                if (res == Result.更新成功)
+                                {
+                                    msg.DataTable = getData();
+                                    msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' type='number'/></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
+                                    msg.AllKinds = allkinds.ToString();
+                                    msg.Number = allnumber.ToString();
+                                    msg.AlltotalPrice = alltotalprice.ToString();
+                                    msg.AllrealPrice = allreadprice.ToString();
+                                    msg.Messege = "添加成功";
+
+                                    Response.Write(ObjectToJson(msg));
+                                    Response.End();
+                                }
+                            }
+                            else
+                            {
+                                msg.Messege = "添加失败";
+                                Response.Write(ObjectToJson(msg));
+                                Response.End();
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        countnumber = countnumber - stockNum;
+                        Result upre = stockbll.update(0, goodsId, bookNum);
+                        if (number == 0)
+                        {
+                            msg.Messege = "添加成功";
+                            Response.Write(ObjectToJson(msg));
+                            Response.End();
+                        }
+                        if (upre == Result.更新失败)
+                        {
+                            msg.Messege = "添加失败";
+                            Response.Write(ObjectToJson(msg));
+                            Response.End();
+                        }
+                        if (stockbook.Tables[0].Rows.Count == 1 && upre == Result.更新成功)
+                        {
+                            Result addSalemonres = addSalemonDetail();
+                            if (addSalemonres == Result.添加成功)
+                            {
+                                Result res = updateSalehead();
+                                if (res == Result.更新成功)
+                                {
+                                    msg.DataTable = getData();
+                                    msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' type='number'/></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
+                                    msg.AllKinds = allkinds.ToString();
+                                    msg.Number = allnumber.ToString();
+                                    msg.AlltotalPrice = alltotalprice.ToString();
+                                    msg.AllrealPrice = allreadprice.ToString();
+                                    msg.Messege = "添加成功";
+
+                                    Response.Write(ObjectToJson(msg));
+                                    Response.End();
+                                }
+                            }
+                            else
+                            {
+                                msg.Messege = "添加失败";
+                                Response.Write(ObjectToJson(msg));
+                                Response.End();
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                msg.Messege = "客户馆藏已存在";
+                Response.Write(ObjectToJson(msg));
+                Response.End();
+            }
+        }
+
+        public Result addSalemonDetail()
+        {
+            BookBasicBll Bookbll = new BookBasicBll();
+            BookBasicData book = new BookBasicData();
+            book = Bookbll.SelectById(bookNum);
+            string saleHeadId = SaleHeadId;
+            //Session["saleheadId"].ToString();
+            int saleIdmonomerId;
+            int count = salemonbll.SelectBySaleHeadId(saleHeadId);
+            if (count == 0)
+            {
+                saleIdmonomerId = 1;
+                salemonbll.updateHeadstate(saleId, SaleHeadId, saleIdmonomerId);
+            }
+            else
+            {
+                saleIdmonomerId = count + 1;
+            }
+            int price = Convert.ToInt32(book.Price);
+            int totalPrice = price * number;
+            double realPrice = totalPrice * (disCount / 100);
+            DateTime Time = DateTime.Now.ToLocalTime();
+            SaleMonomer newSalemon = new SaleMonomer()
+            {
+                AlreadyBought = 0,
+                SaleIdMonomerId = saleIdmonomerId,
+                BookNum = bookNum,
+                ISBN1 = bookISBN,
+                SaleHeadId = saleHeadId,
+                Number = number,
+                UnitPrice = price,
+                TotalPrice = totalPrice,
+                RealPrice = realPrice,
+                RealDiscount = disCount,
+                Datetime = Time,
+                SaleTaskId = saleId
+            };
+            return salemonbll.Insert(newSalemon);
+        }
+
         /// <summary>
         /// 对象转json
         /// </summary>
@@ -538,11 +774,11 @@ namespace bms.Web.SalesMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 string bookNum = ds.Tables[0].Rows[i]["bookNum"].ToString();
-                int alreadyBought = salemonbll.getBookNumberSumByBookNum(bookNum,saleId);
+                int alreadyBought = salemonbll.getBookNumberSumByBookNum(bookNum, saleId);
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 strb.Append("<td>" + bookNum + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
