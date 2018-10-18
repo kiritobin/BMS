@@ -27,7 +27,19 @@ namespace bms.Web.CustomerMGT
         SaleHead single = new SaleHead();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            BookBasicData bookId = bookbll.getBookNum();
+            if (!IsPostBack)
+            {
+                if (bookId.NewBookNum == "0" || bookId.NewBookNum == null)
+                {
+                    num = "0";
+                }
+                else
+                {
+                    num = bookId.NewBookNum;
+                }
+                ViewState["i"] = num;
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -40,6 +52,7 @@ namespace bms.Web.CustomerMGT
             dtInsert = except; //赋给新table
             TimeSpan ts = watch.Elapsed;
             dtInsert.TableName = "T_BookBasicData"; //导入的表名
+            int k = except.Rows.Count;
             GridView1.DataSource = dtInsert;
             GridView1.DataBind();
             //int a = userBll.BulkInsert(dtInsert);
@@ -51,7 +64,8 @@ namespace bms.Web.CustomerMGT
             if (j > 1)
             {
                 int k = j - 2;
-                for (int i = 1; i <= k; i++)
+                int i = 0;
+                while (i <= k)
                 {
                     DataRow dr = SourceDt.Rows[i];
                     string isbn = dr[field1].ToString();
@@ -61,6 +75,11 @@ namespace bms.Web.CustomerMGT
                     if (rows.Length > 1)
                     {
                         SourceDt.Rows.RemoveAt(i);
+                        k = k - 1;
+                    }
+                    else
+                    {
+                        i++;
                     }
                 }
             }
@@ -70,7 +89,7 @@ namespace bms.Web.CustomerMGT
         private DataTable excelToDt()
         {
             DataTable dt1 = new DataTable();
-            string path = @"F:\c#\repos\bms\bms.Web\uploads\muban\基础数据表\244.xlsx";
+            string path = @"C:\Users\daobin\Desktop\23.xlsx";
             string strConn = "";
             //文件类型判断
             string[] sArray = path.Split('.');
