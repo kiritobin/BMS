@@ -190,7 +190,7 @@ namespace bms.Web.BasicInfor
                 sb.Append("<td>");
                 if (dr["allBillCount"].ToString() != "0" && dr["allBillCount"].ToString() != "")
                 {
-                    sb.Append("<a href='addReturn.aspx?sId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-info btn-sm'><i class='fa fa-search'></i></button></a>");
+                    sb.Append("<a href='checkReturn.aspx?sId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-info btn-sm'><i class='fa fa-search'></i></button></a>");
                 }
                 else
                 {
