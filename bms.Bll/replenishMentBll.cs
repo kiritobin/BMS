@@ -130,5 +130,41 @@ namespace bms.Bll
                 return row = 0;
             }
         }
+        /// <summary>
+        /// 统计补货单头种数
+        /// </summary>
+        /// <param name="rsHeadID">补货单头id</param>
+        /// <returns></returns>
+        public int getkinds(string rsHeadID)
+        {
+            return dao.getkinds(rsHeadID);
+        }
+        /// <summary>
+        /// 获取该单头id下的书本数量
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public int getsBookNumberSum(string rsHeadID)
+        {
+            return dao.getsBookNumberSum(rsHeadID);
+        }
+        /// <summary>
+        /// 获取该单头id下的码洋
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public double getsBookTotalPrice(string rsHeadID)
+        {
+            return dao.getsBookTotalPrice(rsHeadID);
+        }
+        /// <summary>
+        /// 获取该单头id下的实洋
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>结果</returns>
+        public double getsBookRealPrice(string rsHeadID)
+        {
+            return dao.getsBookRealPrice(rsHeadID);
+        }
     }
 }
