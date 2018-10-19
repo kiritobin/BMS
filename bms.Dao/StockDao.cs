@@ -68,11 +68,11 @@ namespace bms.Dao
         /// <param name="bookNum">书号</param>
         /// <param name="goodsShelf">货架Id</param>
         /// <returns></returns>
-        public int getStockNum(string bookNum, int goodsShelf)
+        public int getStockNum(string bookNum, int goodsShelf,int regionId)
         {
-            string cmdText = "select stockNum from T_Stock where goodsShelvesId = @goodsShelf and bookNum=@bookNum";
-            String[] param = { "@goodsShelf", "@bookNum" };
-            String[] values = { goodsShelf.ToString(), bookNum.ToString() };
+            string cmdText = "select stockNum from T_Stock where goodsShelvesId = @goodsShelf and bookNum=@bookNum and regionId=@regionId";
+            String[] param = { "@goodsShelf", "@bookNum", "@regionId" };
+            String[] values = { goodsShelf.ToString(), bookNum.ToString(), regionId.ToString() };
             DataSet ds = db.FillDataSet(cmdText, param, values);
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
