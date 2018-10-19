@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -14,11 +15,18 @@ namespace bms.Web.InventoryMGT
     public partial class checkRs : System.Web.UI.Page
     {
         public string userName, regionName;
-        protected DataSet dsPer;
+        protected DataSet dsPer, ds;
+        string rsHeadId;
+        SaleTaskBll saleBll = new SaleTaskBll();
+        replenishMentBll repBll = new replenishMentBll();
+        public int totalCount, intPageCount, pageSize = 15;
+        public string rsHeadID, customerName, userNamemsg, kingdsNum, number, allTotalPrice, allRealPrice, dateTime, state;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {
+            rsHeadId = Session["rsHeadId"].ToString();
             permission();
+            getData();
             string op = Request["op"];
             if (op == "logout")
             {
@@ -99,6 +107,56 @@ namespace bms.Web.InventoryMGT
                     funcRetail = true;
                 }
             }
+        }
+
+        public void getHeadMsg()
+        {
+            repBll.getHeadMsg(rsHeadId);
+        }
+
+        /// <summary>
+        /// 获取基础数据
+        /// </summary>
+        /// <returns></returns>
+        public string getData()
+        {
+            //获取分页数据
+            int currentPage = Convert.ToInt32(Request["page"]);
+            if (currentPage == 0)
+            {
+                currentPage = 1;
+            }
+            TableBuilder tb = new TableBuilder();
+            tb.StrTable = "V_ReplenishMentMononer";
+            tb.OrderBy = "rsMononerID";
+            tb.StrColumnlist = "rsMononerID,bookNum,bookName,price,count,realDiscount,totalPrice,realPrice,dateTime";
+            tb.IntPageSize = pageSize;
+            tb.IntPageNum = currentPage;
+            tb.StrWhere = "deleteState=0 and rsHeadID=" + rsHeadId;
+            //获取展示的客户数据
+            ds = saleBll.selectBypage(tb, out totalCount, out intPageCount);
+            //生成table
+            StringBuilder strb = new StringBuilder();
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
+                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</nobr></td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
+                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</nobr></td></tr>");
+            }
+            strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
+            string op = Request["op"];
+            if (op == "paging")
+            {
+                Response.Write(strb.ToString());
+                Response.End();
+            }
+            return strb.ToString();
         }
     }
 }
