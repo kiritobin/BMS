@@ -242,11 +242,11 @@ namespace bms.Web.SalesMGT
             {
                 if (roleName == "超级管理员")
                 {
-                    search = String.Format(" saleTaskId {0} and deleteState=0 ", "like '%" + search + "%'");
+                    search = String.Format(" saleTaskId {0} or userName {0} or customerName {0} and deleteState=0 ", "like '%" + search + "%'");
                 }
                 else
                 {
-                    search = String.Format(" saleTaskId {0} and deleteState=0 and regionId=" + regionId, "like '%" + search + "%'");
+                    search = String.Format(" saleTaskId {0} or userName {0} or customerName {0} and deleteState=0 and regionId=" + regionId, "like '%" + search + "%'");
                 }
             }
 

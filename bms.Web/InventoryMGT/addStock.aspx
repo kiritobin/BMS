@@ -351,15 +351,13 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <%if (isAdmin)
-                                                        { %>
                                                     <select class="goods">
+                                                        <option value="">请选择货架</option>
                                                         <%for (int i = 0; i < dsGoods.Tables[0].Rows.Count; i++)
                                                             { %>
                                                         <option value="<%=dsGoods.Tables[0].Rows[i]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[i]["shelvesName"] %></option>
                                                         <%}%>
                                                     </select>
-                                                    <%} %>
                                                 </td>
                                                 <td>
                                                     <textarea class="count textareaCount" rows="1">0</textarea></td>
@@ -457,8 +455,6 @@
                                 </tr>
                             </table>
                             <div class="text-center">
-                                <%if (isAdmin)
-                                    {%>
                                 <span>请选择货架:</span>
                                 <select class="selectpicker" title="请选择货架" data-style="btn-sm" id="goods" style="float: left;">
                                     <option value="">请选择货架</option>
@@ -467,7 +463,6 @@
                                     <option value="<%=dsGoods.Tables[0].Rows[j]["goodsShelvesId"] %>"><%=dsGoods.Tables[0].Rows[j]["shelvesName"] %></option>
                                     <%}%>
                                 </select>
-                                <%} %>
                             </div>
                         </div>
                         <div class="modal-footer">

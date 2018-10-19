@@ -24,9 +24,9 @@
             });
         }
     });
-    $("#back").click(function () {
-        window.location.href = "../SalesMGT/salesManagement.aspx";
-    })
+    //$("#back").click(function () {
+    //    window.location.href = "../SalesMGT/salesManagement.aspx";
+    //})
 })
 
 $("#print").click(function () {

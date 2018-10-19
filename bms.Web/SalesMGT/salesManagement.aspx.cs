@@ -185,41 +185,41 @@ namespace bms.Web.SalesMGT
             {
                 currentPage = 1;
             }
-            string saleTaskId = Request["saleTaskId"];
+            string saleHeadId = Request["saleTaskId"];
             string regionName = Request["regionName"];
             string userName = Request["userName"];
             string search = "";
-            if ((saleTaskId == "" || saleTaskId == null) && (regionName == null || regionName == "") && (userName == null || userName == ""))
+            if ((saleHeadId == "" || saleHeadId == null) && (regionName == null || regionName == "") && (userName == null || userName == ""))
             {
                 search = "";
             }
-            else if ((saleTaskId != "" && saleTaskId != null) && (regionName == null || regionName == "") && (userName == null || userName == ""))
+            else if ((saleHeadId != "" && saleHeadId != null) && (regionName == null || regionName == "") && (userName == null || userName == ""))
             {
-                search = String.Format(" saleTaskId like '%{0}%'", saleTaskId);
+                search = String.Format(" saleHeadId like '%{0}%'", saleHeadId);
             }
-            else if ((saleTaskId == "" || saleTaskId == null) && (regionName != "" && regionName != null) && (userName == null || userName == ""))
+            else if ((saleHeadId == "" || saleHeadId == null) && (regionName != "" && regionName != null) && (userName == null || userName == ""))
             {
-                search = "regionName=" + regionName;
+                search = "regionName='" + regionName+"'";
             }
-            else if ((saleTaskId == "" || saleTaskId == null) && (userName != "" && userName != null) && (regionName == null || regionName == ""))
+            else if ((saleHeadId == "" || saleHeadId == null) && (userName != "" && userName != null) && (regionName == null || regionName == ""))
             {
                 search = "userName='" + userName + "'";
             }
-            else if ((saleTaskId == "" || saleTaskId == null) && (userName != "" && userName != null) && (regionName != null && regionName != ""))
+            else if ((saleHeadId == "" || saleHeadId == null) && (userName != "" && userName != null) && (regionName != null && regionName != ""))
             {
                 search = "regionName='" + regionName + "' and userName='" + userName + "'";
             }
-            else if ((saleTaskId != "" && saleTaskId != null) && (regionName != null && regionName != "") && (userName == null || userName == ""))
+            else if ((saleHeadId != "" && saleHeadId != null) && (regionName != null && regionName != "") && (userName == null || userName == ""))
             {
-                search = String.Format(" saleTaskId like '%{0}%' and regionName = '{1}'", saleTaskId, regionName);
+                search = String.Format(" saleHeadId like '%{0}%' and regionName = '{1}'", saleHeadId, regionName);
             }
-            else if ((saleTaskId != "" && saleTaskId != null) && (regionName == null || regionName == "") && (userName != null && userName != ""))
+            else if ((saleHeadId != "" && saleHeadId != null) && (regionName == null || regionName == "") && (userName != null && userName != ""))
             {
-                search = String.Format(" saleTaskId like '%{0}%' and userName='{1}'", saleTaskId, userName);
+                search = String.Format(" saleHeadId like '%{0}%' and userName='{1}'", saleHeadId, userName);
             }
             else
             {
-                search = String.Format(" saleTaskId like '%{0}%' and regionName = '{1}' and userName='{2}'", saleTaskId, regionName, userName);
+                search = String.Format(" saleHeadId like '%{0}%' and regionName = '{1}' and userName='{2}'", saleHeadId, regionName, userName);
             }
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleHead";

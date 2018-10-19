@@ -50,7 +50,7 @@
                                         <button class="btn btn-info btn-sm" onclick="window.location.href='salesTaskStatistics.aspx'">统计销售任务</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-warning btn-sm" id="back">返回</button>
+                                        <button class="btn btn-warning btn-sm" id="back" onclick="window.location.href = 'salesManagement.aspx'">返回</button>
                                     </div>
                                 </div>
                             </div>

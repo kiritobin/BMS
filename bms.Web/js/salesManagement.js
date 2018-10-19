@@ -21,7 +21,8 @@
                 dataType: 'text',
                 success: function (data) {
                     $("#table tr:not(:first)").remove(); //清空table处首行
-                    $("#table").append(data); //加载table
+                    $("#table tbody").html(data);
+                   // $("#table").append(data); //加载table
                     $("#intPageCount").remove();
                 }
             });
@@ -47,9 +48,7 @@
                 $("#table tr:not(:first)").remove(); //清空table处首行
                 $("#table").append(data); //加载table
                 $(".paging").empty();
-                $('.paging').pagination({
-                    //totalData: $("#countPage").val(), //数据总数
-                    //showData: $("#totalCount").val(), //每页显示的条数
+                $(".paging").pagination({
                     pageCount: $("#intPageCount").val(), //总页数
                     jump: true,
                     mode: 'fixed',//固定页码数量
