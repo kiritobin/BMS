@@ -280,7 +280,7 @@
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="btn-group" role="group">
-                                            <input type="text" class="searchOne" id="search_All" placeholder="请输入任务ID">
+                                            <input type="text" class="searchOne" id="search_All" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                         </div>
                                         <div class="btn-group" role="group">
