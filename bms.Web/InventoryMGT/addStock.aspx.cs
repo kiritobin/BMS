@@ -29,6 +29,7 @@ namespace bms.Web.InventoryMGT
         WarehousingBll warehousingBll = new WarehousingBll();
         GoodsShelvesBll goodsShelvesBll = new GoodsShelvesBll();
         BookBasicBll bookBasicBll = new BookBasicBll();
+        StockBll stockBll = new StockBll();
         public List<string> bookNumList = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -92,8 +93,49 @@ namespace bms.Web.InventoryMGT
                 watch.Stop();
                 double minute = ts.TotalMinutes; //计时
                 string m = minute.ToString("0.00");
+                
                 if (update == "更新成功")
                 {
+                    string goods = Request["goods"];
+                    BookBasicData book = new BookBasicData();
+                    Stock stock = new Stock();
+                    Region rg = new Region();
+                    GoodsShelves gs = new GoodsShelves();
+                    for (int k=0;k<dtInsert.Rows.Count;k++)
+                    {
+                        string bookNum = dtInsert.Rows[k]["书号"].ToString();
+                        int count = Convert.ToInt32(dtInsert.Rows[k]["商品数量"]);
+                        string isbn = dtInsert.Rows[k]["ISBN"].ToString();
+                        Result results = stockBll.GetByBookNum(bookNum, int.Parse(goods));//判断是否已经有库存
+                        book.BookNum = bookNum;
+                        book.Isbn = isbn;
+                        stock.BookNum = book;
+                        stock.ISBN = book;
+                        stock.StockNum = count;
+                        rg.RegionId = regionId;
+                        gs.GoodsShelvesId = int.Parse(goods);
+                        stock.RegionId = rg;
+                        stock.GoodsShelvesId = gs;
+                        if(results == Result.记录不存在)
+                        {
+                            Result result = stockBll.insert(stock);
+                            if (result == Result.添加失败)
+                            {
+                                Response.Write("添加库存失败");
+                                Response.End();
+                            }
+                        }
+                        else
+                        {
+                            int rows = stockBll.getStockNum(bookNum, int.Parse(goods), regionId);
+                            Result result = stockBll.update((count + rows), int.Parse(goods), bookNum);
+                            if(result == Result.更新失败)
+                            {
+                                Response.Write("更新库存失败");
+                                Response.End();
+                            }
+                        }
+                    }
                     if (a > 0)
                     {
                         int cf = row - a;
@@ -550,7 +592,6 @@ namespace bms.Web.InventoryMGT
                         int goodsShelf = Convert.ToInt32(drow["货架号"]);
                         goodsShelves.GoodsShelvesId = goodsShelf;//货架ID
                         stock.GoodsShelvesId = goodsShelves;
-                        StockBll stockBll = new StockBll();
                         Result results = stockBll.GetByBookNum(drow["书号"].ToString(), goodsShelf);
                         if (results == Result.记录不存在)
                         {
@@ -963,7 +1004,7 @@ namespace bms.Web.InventoryMGT
                     }
                     double num = Convert.ToDouble(dt1.Rows[i]["商品数量"].ToString());
                     double total = price * num;
-                    double real = total * discount * 0.01;
+                    double real = total * discount; //* 0.01;
 
                     DataRowCollection k = dt1.Rows;
                     DataRow dataRow = dt1.Rows[i];
