@@ -96,7 +96,7 @@ namespace bms.Dao
         public DataSet checkStock(string singleHeadId)
         {
             string cmdText = "select singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName from V_Monomer where singleHeadId=@singleHeadId and deleteState=0 order by singleHeadId";
-            string[] param = { "@singleHeadId"};
+            string[] param = { "@singleHeadId" };
             object[] values = { singleHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
 
@@ -377,11 +377,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleHeadId">单头id</param>
         /// <returns>结果</returns>
-        public int getsBookNumberSum(string saleHeadId)
+        public int getsBookNumberSum(string saleHeadId, string saleId)
         {
-            string cmdtext = "select sum(number) from T_SaleMonomer where saleHeadId=@saleHeadId";
-            string[] param = { "@saleHeadId" };
-            object[] values = { saleHeadId };
+            string cmdtext = "select sum(number) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
+            string[] param = { "@saleHeadId", "@saleId" };
+            object[] values = { saleHeadId, saleId };
             string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
             int sum;
             if (sumstring == "" || sumstring == null)
@@ -398,11 +398,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleHeadId">单头id</param>
         /// <returns>结果</returns>
-        public double getsBookTotalPrice(string saleHeadId)
+        public double getsBookTotalPrice(string saleHeadId, string saleId)
         {
-            string cmdtext = "select sum(totalPrice) from T_SaleMonomer where saleHeadId=@saleHeadId";
-            string[] param = { "@saleHeadId" };
-            object[] values = { saleHeadId };
+            string cmdtext = "select sum(totalPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
+            string[] param = { "@saleHeadId", "@saleId" };
+            object[] values = { saleHeadId, saleId };
             string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
             double sum;
             if (sumstring == "" || sumstring == null)
@@ -419,11 +419,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleHeadId">单头id</param>
         /// <returns>结果</returns>
-        public double getsBookRealPrice(string saleHeadId)
+        public double getsBookRealPrice(string saleHeadId, string saleId)
         {
-            string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId";
-            string[] param = { "@saleHeadId" };
-            object[] values = { saleHeadId };
+            string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
+            string[] param = { "@saleHeadId", "@saleId" };
+            object[] values = { saleHeadId, saleId };
             string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
             double sum;
             if (sumstring == "" || sumstring == null)
@@ -493,10 +493,10 @@ namespace bms.Dao
         /// <param name="bookNum">书号</param>
         /// <param name="saleTaskId">销售任务id</param>
         /// <returns>数量</returns>
-        public int getBookNumberSumByBookNum(string bookNum,string saleTaskId)
+        public int getBookNumberSumByBookNum(string bookNum, string saleTaskId)
         {
             string cmdtext = "select sum(number) from V_SaleMonomer where bookNum=@bookNum and saleTaskId=@saleTaskId;";
-            string[] param = { "@bookNum" , "@saleTaskId" };
+            string[] param = { "@bookNum", "@saleTaskId" };
             object[] values = { bookNum, saleTaskId };
             string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
             int sum;

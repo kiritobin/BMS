@@ -300,27 +300,27 @@ namespace bms.Bll
         /// </summary>
         /// <param name="saleHeadId">单头id</param>
         /// <returns>结果</returns>
-        public int getsBookNumberSum(string saleHeadId)
+        public int getsBookNumberSum(string saleHeadId, string saleId)
         {
-            return SaleMonomerdao.getsBookNumberSum(saleHeadId);
+            return SaleMonomerdao.getsBookNumberSum(saleHeadId, saleId);
         }
         /// <summary>
         /// 获取该单头id下的码洋
         /// </summary>
         /// <param name="saleHeadId">单头id</param>
         /// <returns>结果</returns>
-        public double getsBookTotalPrice(string saleHeadId)
+        public double getsBookTotalPrice(string saleHeadId, string saleId)
         {
-            return SaleMonomerdao.getsBookTotalPrice(saleHeadId);
+            return SaleMonomerdao.getsBookTotalPrice(saleHeadId, saleId);
         }
         /// <summary>
         /// 获取该单头id下的实洋
         /// </summary>
         /// <param name="saleHeadId">单头id</param>
         /// <returns>结果</returns>
-        public double getsBookRealPrice(string saleHeadId)
+        public double getsBookRealPrice(string saleHeadId, string saleId)
         {
-            return SaleMonomerdao.getsBookRealPrice(saleHeadId);
+            return SaleMonomerdao.getsBookRealPrice(saleHeadId, saleId);
         }
 
         /// <summary>

@@ -326,9 +326,7 @@
                                                     <td>操作</td>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <%=getData()%>
-                                            </tbody>
+                                            <%=getData()%>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">

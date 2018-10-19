@@ -199,7 +199,7 @@ namespace bms.Web.SalesMGT
             }
             else if ((saleHeadId == "" || saleHeadId == null) && (regionName != "" && regionName != null) && (userName == null || userName == ""))
             {
-                search = "regionName='" + regionName+"'";
+                search = "regionName='" + regionName + "'";
             }
             else if ((saleHeadId == "" || saleHeadId == null) && (userName != "" && userName != null) && (regionName == null || regionName == ""))
             {
@@ -249,7 +249,7 @@ namespace bms.Web.SalesMGT
                 {
                     state = "单据已完成";
                 }
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["saleHeadId"].ToString() + "</td>");
+                strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["saleHeadId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
                 strb.Append("<td>" + state + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");

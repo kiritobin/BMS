@@ -609,9 +609,9 @@ namespace bms.Web.SalesMGT
         {
             //更新单头
             allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
-            allnumber = salemonbll.getsBookNumberSum(SaleHeadId);
-            alltotalprice = salemonbll.getsBookTotalPrice(SaleHeadId);
-            allreadprice = salemonbll.getsBookRealPrice(SaleHeadId);
+            allnumber = salemonbll.getsBookNumberSum(SaleHeadId, saleId);
+            alltotalprice = salemonbll.getsBookTotalPrice(SaleHeadId,saleId);
+            allreadprice = salemonbll.getsBookRealPrice(SaleHeadId, saleId);
             //DataSet allds = salemonbll.SelectMonomers(SaleHeadId);
             //int j = allds.Tables[0].Rows.Count;
             //for (int h = 0; h < j; h++)

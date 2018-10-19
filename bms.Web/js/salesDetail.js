@@ -31,6 +31,7 @@
     //isbn敲回车键
     $("#table").delegate(".isbn", "keypress", function (e) {
         if (e.keyCode == 13) {
+            $("#tablebook").html("");
             var ISBN = $(this).val().trim();
             if (ISBN == "") {
                 swal({
