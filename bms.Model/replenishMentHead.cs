@@ -7,7 +7,7 @@ namespace bms.Model
 {
     public class replenishMentHead
     {
-        private string rsHeadID;
+        //private string rsHeadID;
         private string saleTaskId;
         private int kindsNum;
         private int number;
@@ -30,9 +30,9 @@ namespace bms.Model
         /// <param name="state">状态（0为采集中，1为以完成）</param>
         /// <param name="time">制单时间</param>
         /// <param name="deleteState">删除状态</param>
-        public replenishMentHead(string rsHeadID, string saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, int userId, int state, DateTime time, int deleteState)
+        public replenishMentHead( string saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, int userId, int state, DateTime time, int deleteState)
         {
-            this.rsHeadID = rsHeadID;
+            //this.rsHeadID = rsHeadID;
             this.saleTaskId = saleTaskId;
             this.kindsNum = kindsNum;
             this.number = number;
@@ -43,18 +43,18 @@ namespace bms.Model
             this.time = time;
             this.deleteState = deleteState;
         }
-        public string RsHeadID
-        {
-            get
-            {
-                return rsHeadID;
-            }
+        //public string RsHeadID
+        //{
+        //    get
+        //    {
+        //        return rsHeadID;
+        //    }
 
-            set
-            {
-                rsHeadID = value;
-            }
-        }
+        //    set
+        //    {
+        //        rsHeadID = value;
+        //    }
+        //}
 
         public string SaleTaskId
         {

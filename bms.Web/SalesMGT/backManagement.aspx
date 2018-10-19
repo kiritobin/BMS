@@ -297,6 +297,9 @@
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" id="btn-add">添加</button>
                                             </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-warning btn-sm" onclick="window.location.href='tradeManagement.aspx'" id="back">返回</button>
+                                            </div>
                                         </div>
                                     </div>
 

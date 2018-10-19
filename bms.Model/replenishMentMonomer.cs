@@ -12,43 +12,50 @@ namespace bms.Model
         private int rsMonomerID;
         private string bookNum;
         private string isbn;
-        private string rsHeadID;
-        private double unitPrice;
+        private string author;
         private int count;
-        private double totalPrice;
-        private double realDiscount;
-        private double realPrice;
-        private DateTime time;
+        private string supplier;
+        private string saleTaskId;
+        private string saleHeadId;
+        private int saleIdMonomerId;
         private int deleteState;
+        private DateTime dateTime;
+
         /// <summary>
-        //参数构造函数
+        /// 空的构造方法
         /// </summary>
-        /// <param name="rsMonomerID">补货单体ID</param>
+        public replenishMentMonomer()
+        {
+
+        }
+        /// <summary>
+        /// 有参构造方法
+        /// </summary>
+        /// <param name="rsMonomerID">补货单体id</param>
         /// <param name="bookNum">书号</param>
-        /// <param name="isbn">国际书号</param>
-        /// <param name="rsHeadID">补货单头ID</param>
-        /// <param name="unitPrice">定价</param>
+        /// <param name="isbn">isbn</param>
+        /// <param name="author">进货折扣</param>
         /// <param name="count">数量</param>
-        /// <param name="totalPrice">码洋</param>
-        /// <param name="realDiscount">默认折扣</param>
-        /// <param name="realPrice">实洋</param>
-        /// <param name="time">补货时间</param>
+        /// <param name="supplier">出版社</param>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <param name="saleIdMonomerId">销售单体id</param>
         /// <param name="deleteState">删除状态</param>
-        public replenishMentMonomer(int rsMonomerID, string bookNum, string isbn, string rsHeadID, double unitPrice, int count, double totalPrice, double realDiscount, double realPrice, DateTime time, int deleteState)
+        /// <param name="dateTime">补货单生成时间</param>
+        public replenishMentMonomer(int rsMonomerID, string bookNum, string isbn, string author, int count, string supplier, string saleTaskId, string saleHeadId, int saleIdMonomerId, int deleteState, DateTime dateTime)
         {
             this.rsMonomerID = rsMonomerID;
             this.bookNum = bookNum;
             this.isbn = isbn;
-            this.rsHeadID = rsHeadID;
-            this.unitPrice = unitPrice;
+            this.author = author;
             this.count = count;
-            this.totalPrice = totalPrice;
-            this.realDiscount = realDiscount;
-            this.realPrice = realPrice;
-            this.time = time;
+            this.supplier = supplier;
+            this.saleTaskId = saleTaskId;
+            this.saleHeadId = saleHeadId;
+            this.saleIdMonomerId = saleIdMonomerId;
             this.deleteState = deleteState;
+            this.dateTime = dateTime;
         }
-
         public int RsMonomerID
         {
             get
@@ -88,29 +95,16 @@ namespace bms.Model
             }
         }
 
-        public string RsHeadID
+        public string Author
         {
             get
             {
-                return rsHeadID;
+                return author;
             }
 
             set
             {
-                rsHeadID = value;
-            }
-        }
-
-        public double UnitPrice
-        {
-            get
-            {
-                return unitPrice;
-            }
-
-            set
-            {
-                unitPrice = value;
+                author = value;
             }
         }
 
@@ -127,55 +121,55 @@ namespace bms.Model
             }
         }
 
-        public double TotalPrice
+        public string Supplier
         {
             get
             {
-                return totalPrice;
+                return supplier;
             }
 
             set
             {
-                totalPrice = value;
+                supplier = value;
             }
         }
 
-        public double RealDiscount
+        public string SaleTaskId
         {
             get
             {
-                return realDiscount;
+                return saleTaskId;
             }
 
             set
             {
-                realDiscount = value;
+                saleTaskId = value;
             }
         }
 
-        public double RealPrice
+        public string SaleHeadId
         {
             get
             {
-                return realPrice;
+                return saleHeadId;
             }
 
             set
             {
-                realPrice = value;
+                saleHeadId = value;
             }
         }
 
-        public DateTime Time
+        public int SaleIdMonomerId
         {
             get
             {
-                return time;
+                return saleIdMonomerId;
             }
 
             set
             {
-                time = value;
+                saleIdMonomerId = value;
             }
         }
 
@@ -191,11 +185,18 @@ namespace bms.Model
                 deleteState = value;
             }
         }
-        /// <summary>
-        /// 空的构造方法
-        /// </summary>
-        public replenishMentMonomer() {
 
+        public DateTime DateTime
+        {
+            get
+            {
+                return dateTime;
+            }
+
+            set
+            {
+                dateTime = value;
+            }
         }
     }
 }
