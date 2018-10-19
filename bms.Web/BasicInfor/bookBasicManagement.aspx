@@ -289,6 +289,8 @@
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" value="" class="searchOne" id="bookISBN" placeholder="ISBN查询">
+                                            </div>
+                                            <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <%if (funcBook)
@@ -360,11 +362,11 @@
                 </div>
             </div>
             <!--添加书籍模态框-->
-            <div class="modal fade" id="myModal" style="height: 800px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="min-width: 1000px;">
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">基础数据导入导入</h4>
+                            <h4 class="modal-title float-left" id="myModalLabel">基础数据导入</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                 <i class="fa fa-close"></i>
                             </button>
@@ -373,12 +375,12 @@
                             <table class="table text-center model-table">
                                 <tr>
                                     <td>
-                                        <button class="btn btn-success" id="downEx"><a style="color: white" href="/uploads/muban/基础数据表.zip">下载模板</a></button>
-                                        <span class="btn btn-success fileinput-button">
+                                        <a class="btn btn-success" id="downEx" style="color: white" href="/uploads/muban/基础数据表.zip">下载模板</a>
+                                        <a class="btn btn-success text-white fileinput-button">
                                             <span>选择文件</span>
-                                            <input type="file" name="file" id="file" style="">
-                                        </span>
-                                        <button class="btn btn-success" id="upload">上传</button>
+                                            <input type="file" name="file" id="file">
+                                        </a>
+                                        <a class="btn btn-success text-white" id="upload">上传文件</a>
                                     </td>
                                 </tr>
                             </table>
