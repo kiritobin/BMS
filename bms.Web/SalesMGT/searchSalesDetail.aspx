@@ -108,9 +108,6 @@
                                                     <td>
                                                         <nobr>实洋</nobr>
                                                     </td>
-                                                    <td>
-                                                        <nobr>操作员</nobr>
-                                                    </td>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>

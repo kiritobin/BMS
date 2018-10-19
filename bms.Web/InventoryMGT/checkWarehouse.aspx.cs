@@ -96,8 +96,8 @@ namespace bms.Web.InventoryMGT
             string op = Request["op"];
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_Monomer";
-            tbd.OrderBy = "monId";
-            tbd.StrColumnlist = "singleHeadId,monId,ISBN,number,uPrice,totalPrice,realPrice,discount,goodsShelvesId,shelvesName,type,deleteState";
+            tbd.OrderBy = "singleHeadId";
+            tbd.StrColumnlist = "singleHeadId,monId,ISBN,number,uPrice,totalPrice,realPrice,discount,shelvesId,shelvesName,type,deleteState";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "deleteState=0 and singleHeadId='" + singleHeadId + "'";
             tbd.IntPageNum = currentPage;
