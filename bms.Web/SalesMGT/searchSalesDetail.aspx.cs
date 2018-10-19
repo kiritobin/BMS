@@ -24,6 +24,7 @@ namespace bms.Web.SalesMGT
         {
             getData();
             getSaleHeadBasic();
+            print();
         }
         //获取单头信息
         public void getSaleHeadBasic()
@@ -51,7 +52,7 @@ namespace bms.Web.SalesMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleMonomer";
             tb.OrderBy = "dateTime";
-            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice";
+            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice,userName";
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
@@ -68,14 +69,14 @@ namespace bms.Web.SalesMGT
                 if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
                 {
                     strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td>");
-                    strb.Append("<td>" + 0 + "</td></tr>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"] + "</td></tr>");
                 }
             }
             strb.Append("</tbody>");
@@ -87,6 +88,33 @@ namespace bms.Web.SalesMGT
                 Response.End();
             }
             return strb.ToString();
+        }
+        //打印
+        private void print()
+        {
+            saleheadId = Session["saleheadId"].ToString();
+            saletaskId = Session["saleId"].ToString();
+            string op = Request["op"];
+            if (op=="print")
+            {
+                StringBuilder sb = new StringBuilder();
+                SellOffMonomerBll sellOffMonomerBll = new SellOffMonomerBll();
+                DataSet dataSet = sellOffMonomerBll.searchSalesDetail(saletaskId, saleheadId);
+                DataRowCollection drc = dataSet.Tables[0].Rows;
+                for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                {
+                    sb.Append("<tr><td>" + (i + 1) + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"] + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td></tr>");
+                }
+                Response.Write(sb);
+                Response.End();
+            }
         }
     }
 }

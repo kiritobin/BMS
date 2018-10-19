@@ -158,5 +158,9 @@ namespace bms.Bll
             DataSet ds = dao.getRetailRank();
             return ds;
         }
+        public DataSet searchSalesDetail(string saletaskId, string saleheadId)
+        {
+            return dao.searchSalesDetail(saletaskId, saleheadId);
+        }
     }
 }
