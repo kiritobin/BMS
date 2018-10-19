@@ -28,9 +28,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int Insert(replenishMentMonomer rm)
         {
-            string sql = "insert into T_ReplenishmentMonomer(rsMononerID,bookNum,ISBN,rsHeadID,unitPrice,count,totalPrice,realDiscount,realPrice,dateTime) VALUES(@rsMonomerID,@bookNum,@ISBN,@rsHeadID,@unitPrice,@count,@totalPrice,@realDiscount,@realPrice,@dateTime)";
-            string[] param = { "@rsMonomerID", "@bookNum", "@ISBN", "@rsHeadID", "@unitPrice", "@count", "@totalPrice", "@realDiscount", "@realPrice", "@dateTime" };
-            object[] values = { rm.RsMonomerID, rm.BookNum, rm.Isbn, rm.RsHeadID, rm.UnitPrice, rm.Count, rm.TotalPrice, rm.RealDiscount, rm.RealPrice, rm.Time };
+            string sql = "insert into T_ReplenishmentMonomer(rsMononerID,bookNum,ISBN,author,count,supplier,dateTime,saleTaskId,saleHeadId,saleIdMonomerId) VALUES(@rsMononerID,@bookNum,@ISBN,@author,@count,@supplier,@dateTime,@saleTaskId,@saleHeadId,@saleIdMonomerId)";
+            string[] param = { "@rsMononerID", "@bookNum", "@ISBN", "@author", "@count", "@supplier", "@dateTime", "@saleTaskId", "@saleHeadId", "@saleIdMonomerId" };
+            object[] values = { rm.RsMonomerID, rm.BookNum, rm.Isbn, rm.Author, rm.Count, rm.Supplier, rm.DateTime, rm.SaleTaskId, rm.SaleHeadId, rm.SaleIdMonomerId };
             int row = db.ExecuteNoneQuery(sql, param, values);
             return row;
         }
@@ -41,9 +41,9 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int InsertRsHead(replenishMentHead rd)
         {
-            string cmdText = "insert into T_ReplenishmentHead(rsHeadID,saleTaskId,kingdsNum,number,allTotalPrice,allRealPrice,userId,dateTime) VALUES(@rsHeadID,@saleTaskId,@kingdsNum,@number,@allTotalPrice,@allRealPrice,@userId,@dateTimee)";
-            string[] param = { "@rsHeadID", "@saleTaskId", "@kingdsNum", "@number", "@allTotalPrice", "@allRealPrice", "@userId", "@dateTimee" };
-            object[] values = { rd.RsHeadID, rd.SaleTaskId, rd.KindsNum, rd.Number, rd.AllTotalPrice, rd.AllRealPrice, rd.UserId, rd.Time };
+            string cmdText = "insert into T_ReplenishmentHead(saleTaskId,kingdsNum,number,userId,dateTime) VALUES(@saleTaskId,@kingdsNum,@number,@userId,@dateTimee)";
+            string[] param = { "@saleTaskId", "@kingdsNum", "@number", "@allTotalPrice", "@allRealPrice", "@userId", "@dateTimee" };
+            object[] values = { rd.SaleTaskId, rd.KindsNum, rd.Number, rd.UserId, rd.Time };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -54,9 +54,9 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int updateRsHead(replenishMentHead rd)
         {
-            string cmdText = "update T_ReplenishmentHead set kingdsNum=@kindsNum,number=@number,allTotalPrice=@allTotalPrice,allRealPrice=@allRealPrice where rsHeadID=@rsHeadID";
-            string[] param = { "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@rsHeadID" };
-            object[] values = { rd.KindsNum, rd.Number, rd.AllTotalPrice, rd.AllRealPrice, rd.RsHeadID };
+            string cmdText = "update T_ReplenishmentHead set kingdsNum=@kindsNum,number=@number where saleTaskId=@saleTaskId";
+            string[] param = { "@kindsNum", "@number", "@saleTaskId" };
+            object[] values = { rd.KindsNum, rd.Number, rd.SaleTaskId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -92,7 +92,7 @@ namespace bms.Dao
         /// <returns>补货单头id</returns>
         public string getRsHeadID(string saleTaskId)
         {
-            string comText = "select rsHeadID from T_ReplenishmentHead where saleTaskId=@saleTaskId";
+            string comText = "select saleTaskId from T_ReplenishmentHead where saleTaskId=@saleTaskId";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             string rsHeadId;
@@ -100,7 +100,7 @@ namespace bms.Dao
             if (ds.Tables[0].Rows.Count > 0)
             {
                 string text = ds.Tables[0].Rows[0].ToString();
-                rsHeadId = ds.Tables[0].Rows[0]["rsHeadID"].ToString();
+                rsHeadId = ds.Tables[0].Rows[0]["saleTaskId"].ToString();
                 if (rsHeadId == "" || rsHeadId == null)
                 {
                     return rsHeadId = "none";
@@ -117,11 +117,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="rsHeadID">补货单头id</param>
         /// <returns>数量</returns>
-        public int countMon(string rsHeadID)
+        public int countMon(string saleTaskId)
         {
-            string cmdText = "select count(rsMononerID) from T_ReplenishmentMonomer where rsHeadID=@rsHeadID";
-            string[] param = { "@rsHeadID" };
-            object[] values = { rsHeadID };
+            string cmdText = "select count(rsMononerID) from T_ReplenishmentMonomer where saleTaskId=@saleTaskId";
+            string[] param = { "@saleTaskId" };
+            object[] values = { saleTaskId };
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
             return row;
         }
@@ -132,8 +132,8 @@ namespace bms.Dao
         /// <returns></returns>
         public int getkinds(string rsHeadID)
         {
-            string cmdText = "select bookNum,count from T_ReplenishmentMonomer where rsHeadID=@rsHeadID";
-            string[] param = { "@rsHeadID" };
+            string cmdText = "select bookNum,count from T_ReplenishmentMonomer where saleTaskId=@saleTaskId";
+            string[] param = { "@saleTaskId" };
             object[] values = { rsHeadID };
             float sltemp = 0;
             int zl = 0;
@@ -164,7 +164,7 @@ namespace bms.Dao
         /// <returns>结果</returns>
         public int getsBookNumberSum(string rsHeadID)
         {
-            string cmdtext = "select sum(count) from T_ReplenishmentMonomer where rsHeadID=@rsHeadID";
+            string cmdtext = "select sum(count) from T_ReplenishmentMonomer where saleTaskId=@rsHeadID";
             string[] param = { "@rsHeadID" };
             object[] values = { rsHeadID };
             string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
@@ -185,7 +185,7 @@ namespace bms.Dao
         /// <returns>结果</returns>
         public double getsBookTotalPrice(string rsHeadID)
         {
-            string cmdtext = "select sum(totalPrice) from T_ReplenishmentMonomer where rsHeadID=@rsHeadID";
+            string cmdtext = "select sum(totalPrice) from T_ReplenishmentMonomer where saleTaskId=@rsHeadID";
             string[] param = { "@rsHeadID" };
             object[] values = { rsHeadID };
             string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
@@ -206,7 +206,7 @@ namespace bms.Dao
         /// <returns>结果</returns>
         public double getsBookRealPrice(string rsHeadID)
         {
-            string cmdtext = "select sum(realPrice) from T_ReplenishmentMonomer where rsHeadID=@rsHeadID";
+            string cmdtext = "select sum(realPrice) from T_ReplenishmentMonomer where saleTaskId=@rsHeadID";
             string[] param = { "@rsHeadID" };
             object[] values = { rsHeadID };
             string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
@@ -227,7 +227,7 @@ namespace bms.Dao
         /// <returns>count</returns>
         public int getRsMonCount(string rsHeadID)
         {
-            string cmdtext = "select count(rsMononerID) from T_ReplenishmentMonomer where rsHeadID=@rsHeadID";
+            string cmdtext = "select count(rsMononerID) from T_ReplenishmentMonomer where saleTaskId=@rsHeadID";
             string[] param = { "@rsHeadID" };
             object[] values = { rsHeadID };
             string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
@@ -248,7 +248,7 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Delete(string rsHeadID)
         {
-            string cmdText = "update T_SaleTask set deleteState = 1 where rsHeadID=@rsHeadID";
+            string cmdText = "update T_SaleTask set deleteState = 1 where saleTaskId=@rsHeadID";
             String[] param = { "@rsHeadID" };
             String[] values = { rsHeadID.ToString() };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
@@ -261,7 +261,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet getHeadMsg(string rsHeadId)
         {
-            string cmdtext = "select rsHeadID,customerName,userName,kingdsNum,number,allTotalPrice,allRealPrice,dateTime,state from V_ReplenishMentHead where rsHeadID=@rsHeadID";
+            string cmdtext = "select rsHeadID,customerName,userName,kingdsNum,number,allTotalPrice,allRealPrice,dateTime,state from V_ReplenishMentHead where saleTaskId=@rsHeadID";
             string[] param = { "@rsHeadID" };
             object[] values = { rsHeadId };
             DataSet ds = db.FillDataSet(cmdtext, param, values);

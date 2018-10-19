@@ -63,7 +63,7 @@ namespace bms.Dao
         public BookBasicData SelectById(string bookNum)
         {
             MySqlHelp db = new MySqlHelp();
-            string comText = "select ISBN,price,bookName,supplier,remarks from T_BookBasicData where bookNum=@bookNum";
+            string comText = "select ISBN,price,bookName,supplier,remarks,author from T_BookBasicData where bookNum=@bookNum";
             string[] param = { "@bookNum" };
             object[] values = { bookNum };
             DataSet ds = db.FillDataSet(comText, param, values);
@@ -74,12 +74,14 @@ namespace bms.Dao
                 string remarks = ds.Tables[0].Rows[0]["remarks"].ToString();
                 string bookName = ds.Tables[0].Rows[0]["bookName"].ToString();
                 string supplier = ds.Tables[0].Rows[0]["supplier"].ToString();
+                string author = ds.Tables[0].Rows[0]["author"].ToString();
                 BookBasicData bookBasic = new BookBasicData();
                 bookBasic.Isbn = isbn;
                 bookBasic.Price = Convert.ToDouble(price);
                 bookBasic.Remarks = remarks;
                 bookBasic.BookName = bookName;
                 bookBasic.Publisher = supplier;
+                bookBasic.Author = author;
                 return bookBasic;
             }
             else

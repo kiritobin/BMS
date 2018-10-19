@@ -118,9 +118,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="rsHeadID">补货单头id</param>
         /// <returns>数量</returns>
-        public int countMon(string rsHeadID)
+        public int countMon(string saleTaskId)
         {
-            int row = dao.countMon(rsHeadID);
+            int row = dao.countMon(saleTaskId);
             if (row > 0)
             {
                 return row;

@@ -148,7 +148,7 @@
                                 var count = succ.Count;
                                 swal({
                                     title: "库存不足",
-                                    text: "当前最大库存为:" + succ.Count1 + "是否生成补货单？",
+                                    text: "当前最大库存为:" + succ.Count1 + ",是否生成补货单？",
                                     type: "question",
                                     showCancelButton: true,
                                     confirmButtonColor: '#3085d6',
@@ -209,19 +209,6 @@
                                                 }).then(function () {
                                                 })
                                             }
-                                            else if (succ.Messege == "该书无库存") {
-                                                swal({
-                                                    title: "温馨提示:)",
-                                                    text: "该书无库存",
-                                                    type: "warning",
-                                                    confirmButtonColor: '#3085d6',
-                                                    confirmButtonText: '确定',
-                                                    confirmButtonClass: 'btn btn-success',
-                                                    buttonsStyling: false,
-                                                    allowOutsideClick: false
-                                                }).then(function () {
-                                                })
-                                            }
                                             else if (succ.Messege == "无数据") {
                                                 swal({
                                                     title: "温馨提示:)",
@@ -269,19 +256,6 @@
                                 swal({
                                     title: "温馨提示:)",
                                     text: "添加失败",
-                                    type: "warning",
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: '确定',
-                                    confirmButtonClass: 'btn btn-success',
-                                    buttonsStyling: false,
-                                    allowOutsideClick: false
-                                }).then(function () {
-                                })
-                            }
-                            else if (succ.Messege == "该书无库存") {
-                                swal({
-                                    title: "温馨提示:)",
-                                    text: "该书无库存",
                                     type: "warning",
                                     confirmButtonColor: '#3085d6',
                                     confirmButtonText: '确定',
@@ -425,19 +399,6 @@
                                             }).then(function () {
                                             })
                                         }
-                                        else if (succ.Messege == "该书无库存") {
-                                            swal({
-                                                title: "温馨提示:)",
-                                                text: "该书无库存",
-                                                type: "warning",
-                                                confirmButtonColor: '#3085d6',
-                                                confirmButtonText: '确定',
-                                                confirmButtonClass: 'btn btn-success',
-                                                buttonsStyling: false,
-                                                allowOutsideClick: false
-                                            }).then(function () {
-                                            })
-                                        }
                                         else if (succ.Messege == "无数据") {
                                             swal({
                                                 title: "温馨提示:)",
@@ -485,19 +446,6 @@
                             swal({
                                 title: "温馨提示:)",
                                 text: "添加失败",
-                                type: "warning",
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: '确定',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false,
-                                allowOutsideClick: false
-                            }).then(function () {
-                            })
-                        }
-                        else if (succ.Messege == "该书无库存") {
-                            swal({
-                                title: "温馨提示:)",
-                                text: "该书无库存",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: '确定',
