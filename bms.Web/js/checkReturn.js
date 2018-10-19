@@ -90,3 +90,7 @@ $("#print").click(function () {
         }
     })
 })
+
+$("#back").click(function () {
+    window.location.href = "returnManagement.aspx";
+})
