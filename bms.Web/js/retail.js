@@ -6,6 +6,7 @@
     sessionStorage.setItem("realPrice", 0);
     setInterval("showTime()", 1000);
     $("#ticket").hide();
+    $("#preRecord").text(sessionStorage.getItem("preRecord"));
     //加的效果
     $("#table").delegate(".add", "click", function () {
         var n = $(this).prev().val();
@@ -262,33 +263,34 @@ $("#insert").click(function () {
                 } else {
                     $("#ticket").show();
                     var headId = datas[1];
+                    sessionStorage.setItem("preRecord", headId);
                     $("#kindEnd").text(sessionStorage.getItem("kind"));
                     $("#numberEnd").text(sessionStorage.getItem("number"));
                     $("#totalEnd").text(sessionStorage.getItem("totalPrice"));
                     $("#realEnd").text(sessionStorage.getItem("realPrice"));
                     $("#timeEnd").text(endTime())
                     //二维码
-                    //jQuery('#output').qrcode({
-                    //    render: "canvas",
-                    //    foreground: "black",
-                    //    background: "white",
-                    //    text: headId
-                    //});
-                    //$("canvas").attr("id", "qrcode");
-                    //var canvas = document.getElementById('qrcode');
-                    //var context = canvas.getContext('2d');
-                    //var image = new Image();
-                    //var strDataURI = canvas.toDataURL("image/png");
-                    //document.getElementById('img').src = strDataURI;
+                    jQuery('#output').qrcode({
+                        render: "canvas",
+                        foreground: "black",
+                        background: "white",
+                        text: headId
+                    });
+                    $("canvas").attr("id", "qrcode");
+                    var canvas = document.getElementById('qrcode');
+                    var context = canvas.getContext('2d');
+                    var image = new Image();
+                    var strDataURI = canvas.toDataURL("image/png");
+                    document.getElementById('img').src = strDataURI;
 
                     //一维码
-                    JsBarcode("#img", headId, {
-                        displayValue: false, //是否在条形码下方显示文字
-                        //fontSize: 15,//设置文本的大小
-                        margin: 0,//设置条形码周围的空白边距
-                        width: 10,//设置条之间的宽度
-                        height: 50,//高度
-                    });
+                    //JsBarcode("#img", headId, {
+                    //    displayValue: false, //是否在条形码下方显示文字
+                    //    //fontSize: 15,//设置文本的大小
+                    //    margin: 0,//设置条形码周围的空白边距
+                    //    width: 10,//设置条之间的宽度
+                    //    height: 50,//高度
+                    //});
                     var status = "";
                     var LODOP = getLodop();
                     //LODOP.ADD_PRINT_HTM(0, 50, 900, 850, document.getElementById("ticket").innerHTML);
@@ -302,10 +304,10 @@ $("#insert").click(function () {
                     if (status != "" || status != null) {
                         LODOP.ADD_PRINT_HTM(0, 50, 900, 500, document.getElementById("ticket").innerHTML);
                         LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                        LODOP.SET_PRINT_PAGESIZE(1, 700, 550, "");
+                        LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
                         //LODOP.PREVIEW();
                         LODOP.PRINT();
-
+                        $("#preRecord").text(sessionStorage.getItem("preRecord"));
                         window.location.reload();
                         sessionStorage.removeItem("kind");
                         sessionStorage.removeItem("number");
@@ -316,6 +318,82 @@ $("#insert").click(function () {
             }
         })
     }
+})
+//补打上一条记录单据
+$("#preRecord").click(function () {
+    var headId = $("#preRecord").text().trim();
+    $.ajax({
+        type: 'Post',
+        url: 'retail.aspx?userId=',
+        data: {
+            headId: headId,
+            op: 'preRecord'
+        },
+        dataType: 'text',
+        success: function (succ) {
+            var data = succ.split(":|");
+            if (data == "无记录") {
+                swal({
+                    title: "此前未最新记录",
+                    text: "无上一条记录",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            } else {
+                var kinds = data[0];
+                var number = data[1];
+                var total = data[2];
+                var real = data[3];
+                $("#ticket").show();
+                $("#kindEnd").text(kinds);
+                $("#numberEnd").text(number);
+                $("#totalEnd").text(total);
+                $("#realEnd").text(real);
+                $("#timeEnd").text(endTime())
+                //二维码
+                jQuery('#output').qrcode({
+                    render: "canvas",
+                    foreground: "black",
+                    background: "white",
+                    text: headId
+                });
+                $("canvas").attr("id", "qrcode");
+                var canvas = document.getElementById('qrcode');
+                var context = canvas.getContext('2d');
+                var image = new Image();
+                var strDataURI = canvas.toDataURL("image/png");
+                document.getElementById('img').src = strDataURI;
+
+                //一维码
+                //JsBarcode("#img", headId, {
+                //    displayValue: false, //是否在条形码下方显示文字
+                //    //fontSize: 15,//设置文本的大小
+                //    margin: 0,//设置条形码周围的空白边距
+                //    width: 10,//设置条之间的宽度
+                //    height: 50,//高度
+                //});
+                var status = "";
+                var LODOP = getLodop();
+                //LODOP.ADD_PRINT_HTM(0, 50, 900, 850, document.getElementById("ticket").innerHTML);
+                //LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                //LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
+                //LODOP.PREVIEW();
+                LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
+                LODOP.On_Return = function (TaskID, Value) {
+                    status = Value;
+                };
+                if (status != "" || status != null) {
+                    LODOP.ADD_PRINT_HTM(0, 50, 900, 500, document.getElementById("ticket").innerHTML);
+                    LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                    LODOP.SET_PRINT_PAGESIZE(1, 700, 550, "");
+                    //LODOP.PREVIEW();
+                    LODOP.PRINT();
+                    window.location.reload();
+                }
+            }
+        }
+    })
 })
 //删除
 $("#table").delegate(".btn-delete", "click", function () {

@@ -18,6 +18,7 @@ namespace bms.Model
         private GoodsShelves goodsShelvesId;
         private int type;
         private SingleHead singleHeadId;
+        private int shelvesId;
         /// <summary>
         /// 单体
         /// </summary>
@@ -183,6 +184,21 @@ namespace bms.Model
                 singleHeadId = value;
             }
         }
+        /// <summary>
+        /// 货架ID
+        /// </summary>
+        public int ShelvesId
+        {
+            get
+            {
+                return shelvesId;
+            }
+
+            set
+            {
+                shelvesId = value;
+            }
+        }
 
         /// <summary>
         /// 无参构造
@@ -202,7 +218,7 @@ namespace bms.Model
         /// <param name="goodsShelvesId">货架ID</param>
         /// <param name="type">0为出库，1入库</param>
         /// <param name="singleHeadId">单头ID</param>
-        public Monomers(int monomersId, BookBasicData bookNum, BookBasicData isbn, int number, BookBasicData uPrice, double totalPrice, double realPrice, double discount, GoodsShelves goodsShelvesId, int type, SingleHead singleHeadId)
+        public Monomers(int monomersId, BookBasicData bookNum, BookBasicData isbn, int number, BookBasicData uPrice, double totalPrice, double realPrice, double discount, GoodsShelves goodsShelvesId, int type, SingleHead singleHeadId,int shelvesId)
         {
             this.MonomersId = monomersId;
             this.BookNum = bookNum;
@@ -215,7 +231,8 @@ namespace bms.Model
             this.GoodsShelvesId = goodsShelvesId;
             this.Type = type;
             this.SingleHeadId = singleHeadId;
+            this.ShelvesId = shelvesId;
         }
-        
+
     }
 }
