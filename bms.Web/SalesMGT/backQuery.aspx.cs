@@ -102,7 +102,6 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
-
             DataSet headDs = shBll.Select(sellId);
             DataTable tRows = headDs.Tables[0];
             if (tRows.Rows.Count > 0 && headDs != null)
@@ -343,14 +342,14 @@ namespace bms.Web.SalesMGT
             StringBuilder sb = new StringBuilder();
             sb.Append("<thead>");//表头
             sb.Append("<tr>");
-            sb.Append("<th>" + "序号" + "</th>");
-            sb.Append("<th>" + "ISBN号" + "</th>");
-            sb.Append("<th>" + "书号" + "</th>");
-            sb.Append("<th>" + "单价" + "</th>");
-            sb.Append("<th>" + "数量" + "</th>");
-            sb.Append("<th>" + "实际折扣" + "</th>");
-            sb.Append("<th>" + "码洋" + "</th>");
-            sb.Append("<th>" + "实洋" + "</th>");
+            sb.Append("<td>" + "序号" + "</td>");
+            sb.Append("<td>" + "ISBN号" + "</td>");
+            sb.Append("<td>" + "书号" + "</td>");
+            sb.Append("<td>" + "单价" + "</td>");
+            sb.Append("<td>" + "数量" + "</td>");
+            sb.Append("<td>" + "实际折扣" + "</td>");
+            sb.Append("<td>" + "码洋" + "</td>");
+            sb.Append("<td>" + "实洋" + "</td>");
             sb.Append("</tr>");
             sb.Append("</thead>");
             sb.Append("<tbody>");//表体

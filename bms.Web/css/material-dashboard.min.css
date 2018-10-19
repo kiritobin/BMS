@@ -1532,7 +1532,7 @@ pre {
 }
 
     .table-bordered thead td, .table-bordered thead th {
-        border-bottom-width: 2px;
+        /*border-bottom-width: 2px;*/
     }
 
 .table-striped tbody tr:nth-of-type(odd) {

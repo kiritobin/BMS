@@ -76,7 +76,6 @@ namespace bms.Web.SalesMGT
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"] + "</td></tr>");
                 }
             }
             strb.Append("</tbody>");
