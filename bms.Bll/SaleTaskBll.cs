@@ -288,6 +288,15 @@ namespace bms.Bll
             return saleDao.getcustomerName(saleTaskId);
         }
         /// <summary>
+        /// 销售统计计划
+        /// </summary>
+        /// <param name="saleTaskId"></param>
+        /// <returns></returns>
+        public DataSet salesTaskStatistics(string saleTaskId)
+        {
+            return saleDao.salesTaskStatistics(saleTaskId);
+        }
+        /// <summary>
         /// 通过销售任务Id统计种数
         /// </summary>
         /// <param name="saleTaskId">销售任务id</param>

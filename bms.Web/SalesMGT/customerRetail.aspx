@@ -269,7 +269,7 @@
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success btn-md" id="btnSettle"></button>
+                    <button class="btn btn-success btn-md" id="btnSettle">打印</button>
                     <button class="btn btn-info btn-md" id="preRecord">补打</button>
                     &nbsp&nbsp&nbsp&nbsp
                     <button class="btn btn-success btn-md" id="btnClose">确定</button>

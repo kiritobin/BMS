@@ -1,5 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="checkRs.aspx.cs" Inherits="bms.Web.InventoryMGT.checkRs" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="customerRs.aspx.cs" Inherits="bms.Web.InventoryMGT.customerRs" %>
+<%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -279,91 +279,97 @@
                                     </div>
                                     <div class="card-header from-group">
                                         <div class="input-group">
-
-                                            <%--<div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" id="export">导出</button>
-                                            </div>--%>
+                                            <div class="btn-group" role="group">
+                                                <select class="modal_select" id="cusSearch">
+                                                    <option value="">请选择客户</option>
+                                                    <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsCustom.Tables[0].Rows[i]["customerID"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
+                                                    <%} %>
+                                                </select>
+                                            </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="print">打印</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-warning btn-sm" id="back" onclick="window,location.href='replenishMent.aspx'">返回</button>
                                             </div>
-                                            <%--<div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                              &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
-                                        </div>--%>
                                         </div>
-                                        <div id="content">
-                                            <table class="table table_stock text-right">
-                                                <tr class="text-nowrap">
-                                                    <td>
-                                                        <span>单据编号:</span>
-                                                    </td>
-                                                    <td>
-                                                        <input value="<%=saleTaskId %>" class="form-control" disabled>
-                                                    </td>
-                                                    <td>
-                                                        <span>所属客户:</span>
-                                                    </td>
-                                                    <td>
-                                                        <input value="<%=customerName %>" class="form-control" disabled>
-                                                    </td>
-                                                    <td>
-                                                        <span>操作员:</span>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" value="<%=userNamemsg %>" class="form-control" disabled>
-                                                    </td>
-                                                </tr>
-                                                <tr class="text-nowrap">
-                                                    <td>
-                                                        <span>单据状态:</span>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" value="<%=state %>" class="form-control" disabled>
-                                                    </td>
-                                                    <td>
-                                                        <span>制单日期:</span>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" value="<%=dateTime %>" class="form-control" disabled>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <div class="table-responsive">
-                                                <table class="table mostTable table-bordered text-center" id="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <td>序号</td>
-                                                            <td>书号</td>
-                                                            <td>书名</td>
-                                                            <td>数量</td>
-                                                            <td>日期</td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <%=getData() %>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <table class="table table_stock text-right">
-                                                <tr class="text-nowrap">
-                                                    <td>
-                                                        <span>书籍种数:</span>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" value="<%=kingdsNum %>" class="form-control" disabled>
-                                                    </td>
-                                                    <td>
-                                                        <span>总数量:</span>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" value="<%=number %>" class="form-control" disabled></td>
-                                                    <td>
-                                                </tr>
+                                        <%--<table class="table table_stock text-right">
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>单据编号:</span>
+                                                </td>
+                                                <td>
+                                                    <input value="<%=saleTaskId %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>所属客户:</span>
+                                                </td>
+                                                <td>
+                                                    <input value="<%=customerName %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>操作员:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=userNamemsg %>" class="form-control" disabled>
+                                                </td>
+                                            </tr>
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>书籍种数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=kingdsNum %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>总数量:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=number %>" class="form-control" disabled></td>
+                                                <td>
+                                                    <span>总码洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=allTotalPrice %>" class="form-control" disabled>
+                                                </td>
+                                            </tr>
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>总实洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=allRealPrice %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>单据状态:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=state %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>制单日期:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=dateTime %>" class="form-control" disabled>
+                                                </td>
+                                            </tr>
+                                        </table>--%>
+                                        <div class="table-responsive">
+                                            <table class="table mostTable table-bordered text-center" id="table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>序号</td>
+                                                        <td>ISBN</td>
+                                                        <td>书号</td>
+                                                        <td>书名</td>
+                                                        <td>数量</td>
+                                                        <td>客户</td>
+                                                        <td>地区</td>
+                                                        <td>日期</td>
+                                                    </tr>
+                                                </thead>
                                             </table>
                                         </div>
                                         <div class="copyright float-right page-box">
@@ -409,8 +415,11 @@
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
-    <script src="../js/checkStock.js"></script>
+    <script src="../js/customerRs.js"></script>
     <script src="../js/public.js"></script>
 </body>
 
 </html>
+
+
+

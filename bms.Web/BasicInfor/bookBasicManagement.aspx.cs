@@ -87,14 +87,16 @@ namespace bms.Web.BasicInfor
                 string m = minute.ToString("0.00");
                 if (a > 0)
                 {
+                    int cf = row - a;
                     BookBasicData bookNum = bookbll.getBookNum();
                     Result result = bookbll.updateBookNum(last); //更新书号
-                    Response.Write("导入成功，总数据有" + row + "条，共导入" + a + "条数据" + "，共用时：" + m + "分钟");
+                    //Response.Write("导入成功，总数据有" + row + "条，共导入" + a + "条数据" + "，共用时：" + m + "分钟");
+                    Response.Write("导入成功，共导入数据"+a+"条数据，共有重复数据"+cf+"条");
                     Response.End();
                 }
                 else
                 {
-                    Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据");
+                    Response.Write("导入失败，可能重复导入");
                     Response.End();
                 }
             }
@@ -115,24 +117,32 @@ namespace bms.Web.BasicInfor
             int j = SourceDt.Rows.Count;
             if (j > 1)
             {
-                int k = j - 2;
-                int i = 1;
-                while (i <= k)
+                try
                 {
-                    DataRow dr = SourceDt.Rows[i];
-                    string isbn = dr[field1].ToString();
-                    string bookName = dr[field2].ToString();
-                    double price = Convert.ToDouble(dr[field3]);
-                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{3}' and {1}='{4}' and {2}={5}", field1, field2, field3, isbn, ToSBC(bookName), price));
-                    if (rows.Length > 1)
+                    int k = j - 2;
+                    int i = 1;
+                    while (i <= k)
                     {
-                        SourceDt.Rows.RemoveAt(i);
-                        k = k - 1;
+                        DataRow dr = SourceDt.Rows[i];
+                        string isbn = dr[field1].ToString();
+                        string bookName = dr[field2].ToString();
+                        double price = Convert.ToDouble(dr[field3]);
+                        DataRow[] rows = SourceDt.Select(string.Format("{0}='{3}' and {1}='{4}' and {2}={5}", field1, field2, field3, isbn, ToSBC(bookName), price));
+                        if (rows.Length > 1)
+                        {
+                            SourceDt.Rows.RemoveAt(i);
+                            k = k - 1;
+                        }
+                        else
+                        {
+                            i++;
+                        }
                     }
-                    else
-                    {
-                        i++;
-                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write(ex);
+                    Response.End();
                 }
             }
             return SourceDt;
@@ -296,7 +306,7 @@ namespace bms.Web.BasicInfor
             }
             else if ((bookName == "" || bookName == null) && (bookNum != "" && bookNum != null) && (bookISBN == null || bookISBN == ""))
             {
-                search = "bookNum=' " + bookNum + "'";
+                search = "bookNum='" + bookNum + "'";
             }
             else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum == null || bookNum == ""))
             {
@@ -316,7 +326,7 @@ namespace bms.Web.BasicInfor
             }
             else
             {
-                search = String.Format(" bookName like '%{0}%' and bookNum = '{1}' and ISBN='{2}'", bookName, bookNum, bookISBN);
+                search = String.Format(" bookName like '%{0}%' and bookNum ='{1}' and ISBN='{2}'", bookName, bookNum, bookISBN);
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();

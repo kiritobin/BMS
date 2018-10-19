@@ -77,31 +77,6 @@
                                             </tr>
                                             <tr class="text-nowrap">
                                                 <td>
-                                                    <span>书籍种数:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=allkinds %>" class="form-control" disabled>
-                                                </td>
-                                                <td>
-                                                    <span>书本总数:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
-                                                <td>
-                                                    <span>总码洋:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-nowrap">
-                                                <td>
-                                                    <span>总实洋:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
-                                                </td>
-                                                <td>
                                                     <span>开始日期:</span>
                                                 </td>
                                                 <td>
@@ -144,14 +119,40 @@
                                                     <td>
                                                         <nobr>实洋</nobr>
                                                     </td>
-                                                    <td>
-                                                        <nobr>操作员</nobr>
-                                                    </td>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
                                         </table>
+
+                                        <table class="table table_stock text-center">
+                                        <tr class="text-nowrap">
+                                            <td>
+                                                <span>书籍种数:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="<%=allkinds %>" class="form-control" disabled>
+                                            </td>
+                                            <td>
+                                                <span>书本总数:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
+                                            <td>
+                                                <span>总码洋:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
+                                            </td>
+                                            <td>
+                                                <span>总实洋:</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
+                                            </td>
+                                        </tr>
+                                    </table>
                                     </div>
+                                    
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>

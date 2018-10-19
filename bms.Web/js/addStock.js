@@ -212,14 +212,14 @@ $("#table").delegate(".isbn", "keyup", function (e){
     $(this).val($(this).val().replace(/[^0-9.]/g, ''));
     }).css("ime-mode", "disabled"); 
 $("#table").delegate(".count", "keyup", function (e) {
-    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
 }).bind("paste", function () {  //CTR+V事件处理    
-    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
     }).css("ime-mode", "disabled"); 
 $("#table").delegate(".discount", "keyup", function (e) {
-    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
 }).bind("paste", function () {  //CTR+V事件处理    
-    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
 }).css("ime-mode", "disabled"); 
 //isbn回车
 $("#table").delegate(".isbn", "keypress", function (e) {
@@ -309,7 +309,7 @@ $("#table").delegate(".count","keypress" ,function (e) {
         var total = $(this).parent().next().next().next();
         var real = $(this).parent().next().next().next().next();
         total.text((count * price).toFixed(2));
-        real.text((count * price * discount*0.01).toFixed(2));
+        real.text((count * price * discount).toFixed(2));
         if (count <= 0) {
             swal({
                 title: "温馨提示:)",
@@ -337,7 +337,7 @@ $("#table").delegate(".count", "change", function (e) {
     var total = $(this).parent().next().next().next();
     var real = $(this).parent().next().next().next().next();
     total.text((count * price).toFixed(2));
-    real.text((count * price * discount * 0.01).toFixed(2));
+    real.text((count * price * discount).toFixed(2));
 });
 //下拉列表改变
 $("#table").delegate(".goods", "change", function () {
