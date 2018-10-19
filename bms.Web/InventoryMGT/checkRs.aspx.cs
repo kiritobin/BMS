@@ -111,7 +111,24 @@ namespace bms.Web.InventoryMGT
 
         public void getHeadMsg()
         {
-            repBll.getHeadMsg(rsHeadId);
+            DataSet rsHeads = repBll.getHeadMsg(rsHeadId);
+            rsHeadID = rsHeads.Tables[0].Rows[0]["rsHeadID"].ToString();
+            customerName = rsHeads.Tables[0].Rows[0]["customerName"].ToString();
+            userNamemsg = rsHeads.Tables[0].Rows[0]["userName"].ToString();
+            kingdsNum = rsHeads.Tables[0].Rows[0]["kingdsNum"].ToString();
+            number = rsHeads.Tables[0].Rows[0]["number"].ToString();
+            allTotalPrice = rsHeads.Tables[0].Rows[0]["allTotalPrice"].ToString();
+            allRealPrice = rsHeads.Tables[0].Rows[0]["allRealPrice"].ToString();
+            dateTime = rsHeads.Tables[0].Rows[0]["dateTime"].ToString();
+            state = rsHeads.Tables[0].Rows[0]["state"].ToString();
+            if (state == "0")
+            {
+                state = "单据未完成";
+            }
+            else
+            {
+                state = "单据已完成";
+            }
         }
 
         /// <summary>
@@ -129,10 +146,10 @@ namespace bms.Web.InventoryMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_ReplenishMentMononer";
             tb.OrderBy = "rsMononerID";
-            tb.StrColumnlist = "rsMononerID,bookNum,bookName,price,count,realDiscount,totalPrice,realPrice,dateTime";
+            tb.StrColumnlist = "rsMononerID,bookNum,bookName,price,sum(count) as allnumber,realDiscount,sum(totalPrice) as totalPrice,sum(realPrice) as realPrice,dateTime";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = "deleteState=0 and rsHeadID=" + rsHeadId;
+            tb.StrWhere = "deleteState=0 and rsHeadID='" + rsHeadId + "' group by bookNum,bookName,price";
             //获取展示的客户数据
             ds = saleBll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table
@@ -143,7 +160,7 @@ namespace bms.Web.InventoryMGT
                 strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</nobr></td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
