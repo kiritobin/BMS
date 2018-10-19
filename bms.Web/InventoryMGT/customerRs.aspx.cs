@@ -12,15 +12,15 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.InventoryMGT
 {
-    public partial class regionRs : System.Web.UI.Page
+    public partial class customerRs : System.Web.UI.Page
     {
         FunctionBll functionBll = new FunctionBll();
         public string userName, regionName;
         User user;
-        protected DataSet dsPer, ds, dsRegion;
+        protected DataSet dsPer, ds, dsCustom;
         SaleTaskBll saleBll = new SaleTaskBll();
         replenishMentBll repBll = new replenishMentBll();
-        RegionBll regionBll = new RegionBll();
+        LibraryCollectionBll libraryCollectionBll = new LibraryCollectionBll();
         public int totalCount, intPageCount, pageSize = 15;
         public string saleTaskId, customerName, userNamemsg, kingdsNum, number, allTotalPrice, allRealPrice, dateTime, state;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
@@ -28,20 +28,12 @@ namespace bms.Web.InventoryMGT
         {
             user = (User)Session["user"];
             permission();
-            dsRegion = regionBll.select();
-            if (user.RoleId.RoleName == "超级管理员")
-            {
-                string op1 = Request["op"];
-                if (op1 == "search")
-                {
-                    getData();
-                }
-            }
-            else
+            dsCustom = libraryCollectionBll.getCustomer();
+            string op = Request["op"];
+            if (op == "search")
             {
                 getData();
             }
-            string op = Request["op"];
             if (op == "logout")
             {
                 //删除身份凭证
@@ -53,49 +45,19 @@ namespace bms.Web.InventoryMGT
             }
         }
 
-        public void getHeadMsg()
-        {
-            DataSet rsHeads = repBll.getHeadMsg(saleTaskId);
-            saleTaskId = rsHeads.Tables[0].Rows[0]["rsHeadID"].ToString();
-            customerName = rsHeads.Tables[0].Rows[0]["customerName"].ToString();
-            userNamemsg = rsHeads.Tables[0].Rows[0]["userName"].ToString();
-            kingdsNum = rsHeads.Tables[0].Rows[0]["kingdsNum"].ToString();
-            number = rsHeads.Tables[0].Rows[0]["number"].ToString();
-            allTotalPrice = rsHeads.Tables[0].Rows[0]["allTotalPrice"].ToString();
-            allRealPrice = rsHeads.Tables[0].Rows[0]["allRealPrice"].ToString();
-            dateTime = rsHeads.Tables[0].Rows[0]["dateTime"].ToString();
-            state = rsHeads.Tables[0].Rows[0]["state"].ToString();
-            if (state == "0")
-            {
-                state = "单据未完成";
-            }
-            else
-            {
-                state = "单据已完成";
-            }
-        }
-
         /// <summary>
         /// 获取基础数据
         /// </summary>
         /// <returns></returns>
         public void getData()
         {
-            int regionId=0;
             string search = "";
             StringBuilder strb = new StringBuilder();
             string op = Request["op"];
-            if (op == "search")
+            if(op == "search")
             {
-                if (user.RoleId.RoleName == "超级管理员")
-                {
-                    regionId = Convert.ToInt32(Request["regionId"]);
-                }
-                else
-                {
-                    regionId = user.ReginId.RegionId;
-                }
-                search = " and regionId='" + regionId + "'";
+                string customerId = Request["cusId"];
+                search = " and customerId=" + customerId;
             }
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
@@ -109,7 +71,7 @@ namespace bms.Web.InventoryMGT
             tb.StrColumnlist = "regionName,customerName,rsMononerID,bookNum,ISBN,bookName,count,dateTime";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = "ISNULL(finishTime) and deleteState=0"+search;
+            tb.StrWhere = "ISNULL(finishTime) and deleteState=0" + search;
             //获取展示的客户数据
             ds = saleBll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table

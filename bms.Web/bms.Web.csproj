@@ -114,11 +114,13 @@
     <Content Include="InventoryMGT\checkReturn.aspx" />
     <Content Include="InventoryMGT\checkRs.aspx" />
     <Content Include="InventoryMGT\checkStock.aspx" />
+    <Content Include="InventoryMGT\customerRs.aspx" />
     <Content Include="InventoryMGT\inventoryManagement.aspx" />
     <Content Include="InventoryMGT\regionRs.aspx" />
     <Content Include="InventoryMGT\replenishMent.aspx" />
     <Content Include="js\checkRs.js" />
     <Content Include="js\customerRetail.js" />
+    <Content Include="js\customerRs.js" />
     <Content Include="js\jquery-migrate-1.2.1.min.js" />
     <Content Include="js\jquery.jqprint.js" />
     <Content Include="js\jquery.qrcode.min.js" />
@@ -374,6 +376,13 @@
     </Compile>
     <Compile Include="InventoryMGT\checkStock.aspx.designer.cs">
       <DependentUpon>checkStock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryMGT\customerRs.aspx.cs">
+      <DependentUpon>customerRs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InventoryMGT\customerRs.aspx.designer.cs">
+      <DependentUpon>customerRs.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\inventoryManagement.aspx.cs">
       <DependentUpon>inventoryManagement.aspx</DependentUpon>

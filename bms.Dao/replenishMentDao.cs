@@ -261,7 +261,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet getHeadMsg(string rsHeadId)
         {
-            string cmdtext = "select rsHeadID,customerName,userName,kingdsNum,number,allTotalPrice,allRealPrice,dateTime,state from V_ReplenishMentHead where saleTaskId=@rsHeadID";
+            string cmdtext = "select customerName,userName,kingdsNum,number,dateTime,state from V_ReplenishMentHead where saleTaskId=@rsHeadID";
             string[] param = { "@rsHeadID" };
             object[] values = { rsHeadId };
             DataSet ds = db.FillDataSet(cmdtext, param, values);

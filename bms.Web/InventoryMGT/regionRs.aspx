@@ -279,13 +279,9 @@
                                     </div>
                                     <div class="card-header from-group">
                                         <div class="input-group">
-
-                                            <%--<div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" id="export">导出</button>
-                                            </div>--%>
                                             <div class="btn-group" role="group">
                                                 <select class="modal_select" id="regionSearch">
-                                                    <option value="">请选择客户</option>
+                                                    <option value="">请选择地区</option>
                                                     <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                         {%>
                                                     <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -296,19 +292,10 @@
                                                 <button class="btn btn-info btn-sm" id="print">打印</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" id="btn_change">单据完成</button>
-                                            </div>
-                                            <div class="btn-group" role="group">
                                                 <button class="btn btn-warning btn-sm" id="back" onclick="window,location.href='replenishMent.aspx'">返回</button>
                                             </div>
-                                            <%--<div class="input-group no-border">
-                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
-                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
-                                              &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
-                                        </div>--%>
                                         </div>
-                                        <table class="table table_stock text-right">
+                                        <%--<table class="table table_stock text-right">
                                             <tr class="text-nowrap">
                                                 <td>
                                                     <span>单据编号:</span>
@@ -368,28 +355,21 @@
                                                     <input type="text" value="<%=dateTime %>" class="form-control" disabled>
                                                 </td>
                                             </tr>
-                                        </table>
+                                        </table>--%>
                                         <div class="table-responsive">
                                             <table class="table mostTable table-bordered text-center" id="table">
                                                 <thead>
-                                                    <tr style="border: 2px solid #DDD">
-                                                        <td colspan="9">商品</td>
-                                                    </tr>
                                                     <tr>
                                                         <td>序号</td>
+                                                        <td>ISBN</td>
                                                         <td>书号</td>
                                                         <td>书名</td>
-                                                        <td>单价</td>
                                                         <td>数量</td>
-                                                        <td>码洋</td>
-                                                        <td>折扣</td>
-                                                        <td>实洋</td>
+                                                        <td>客户</td>
+                                                        <td>地区</td>
                                                         <td>日期</td>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <%=getData() %>
-                                                </tbody>
                                             </table>
                                         </div>
                                         <div class="copyright float-right page-box">
@@ -435,27 +415,8 @@
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
-    <script src="../js/checkStock.js"></script>
+    <script src="../js/regionRs.js"></script>
     <script src="../js/public.js"></script>
-    <script>
-        var enLang = {
-            name: "en",
-            month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
-            weeks: ["SUN", "MON", "TUR", "WED", "THU", "FRI", "SAT"],
-            times: ["Hour", "Minute", "Second"],
-            timetxt: ["Time", "Start Time", "End Time"],
-            backtxt: "Back",
-            clear: "Clear",
-            today: "Now",
-            yes: "Confirm",
-            close: "Close"
-        }
-        //自定义格式选择
-        jeDate("#test1", {
-            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
-            format: "YYYY年MM月DD日"
-        });
-    </script>
 </body>
 
 </html>

@@ -29,7 +29,7 @@
     });
     //点击查看
     $("#table").delegate(".btn_search", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().text().trim();
         $.ajax({
             type: 'Post',
             url: 'replenishMent.aspx',

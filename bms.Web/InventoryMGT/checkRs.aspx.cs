@@ -16,17 +16,17 @@ namespace bms.Web.InventoryMGT
     {
         public string userName, regionName;
         protected DataSet dsPer, ds;
-        string rsHeadId;
         SaleTaskBll saleBll = new SaleTaskBll();
         replenishMentBll repBll = new replenishMentBll();
         public int totalCount, intPageCount, pageSize = 15;
-        public string rsHeadID, customerName, userNamemsg, kingdsNum, number, allTotalPrice, allRealPrice, dateTime, state;
+        public string saleTaskId, customerName, userNamemsg, kingdsNum, number,dateTime, state;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {
-            rsHeadId = Session["rsHeadId"].ToString();
+            saleTaskId = Session["rsHeadId"].ToString();
             permission();
             getData();
+            getHeadMsg();
             string op = Request["op"];
             if (op == "logout")
             {
@@ -111,14 +111,11 @@ namespace bms.Web.InventoryMGT
 
         public void getHeadMsg()
         {
-            DataSet rsHeads = repBll.getHeadMsg(rsHeadId);
-            rsHeadID = rsHeads.Tables[0].Rows[0]["rsHeadID"].ToString();
+            DataSet rsHeads = repBll.getHeadMsg(saleTaskId);
             customerName = rsHeads.Tables[0].Rows[0]["customerName"].ToString();
             userNamemsg = rsHeads.Tables[0].Rows[0]["userName"].ToString();
             kingdsNum = rsHeads.Tables[0].Rows[0]["kingdsNum"].ToString();
             number = rsHeads.Tables[0].Rows[0]["number"].ToString();
-            allTotalPrice = rsHeads.Tables[0].Rows[0]["allTotalPrice"].ToString();
-            allRealPrice = rsHeads.Tables[0].Rows[0]["allRealPrice"].ToString();
             dateTime = rsHeads.Tables[0].Rows[0]["dateTime"].ToString();
             state = rsHeads.Tables[0].Rows[0]["state"].ToString();
             if (state == "0")
@@ -146,10 +143,10 @@ namespace bms.Web.InventoryMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_ReplenishMentMononer";
             tb.OrderBy = "rsMononerID";
-            tb.StrColumnlist = "rsMononerID,bookNum,bookName,price,sum(count) as allnumber,realDiscount,sum(totalPrice) as totalPrice,sum(realPrice) as realPrice,dateTime";
+            tb.StrColumnlist = "rsMononerID,bookNum,bookName,sum(count) as allnumber,dateTime";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = "deleteState=0 and rsHeadID='" + rsHeadId + "' group by bookNum,bookName,price";
+            tb.StrWhere = "deleteState=0 and saleTaskId='" + saleTaskId + "' group by bookNum,bookName";
             //获取展示的客户数据
             ds = saleBll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table
@@ -159,11 +156,7 @@ namespace bms.Web.InventoryMGT
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</nobr></td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
                 strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</nobr></td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
