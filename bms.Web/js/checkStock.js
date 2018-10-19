@@ -55,9 +55,6 @@ $(document).ready(function () {
             });
         }
     });
-    function jump(cur) {
-        window.location.
-    }
 })
 
 $("#export").click(function () {

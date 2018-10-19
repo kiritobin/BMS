@@ -958,7 +958,7 @@ namespace bms.Web.InventoryMGT
                     dataRow[7] = discount;
                     dataRow[9] = h2o;
                     dataRow[11] = bookNum;
-                    dt.Rows.Add(dataRow[0], dataRow[1], dataRow[2], dataRow[3], dataRow[4], dataRow[5], dataRow[6], dataRow[7], dataRow[8], dataRow[9], dataRow[10], dataRow[11]);
+                    dt.Rows.Add(dataRow[0], dataRow[1], dataRow[2], dataRow[3], dataRow[4], dataRow[5], dataRow[6], dataRow[7], dataRow[8], dataRow[9], dataRow[10], dataRow[11],dataRow[12]);
                 }
             }
             catch (Exception ex)
