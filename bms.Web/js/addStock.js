@@ -309,7 +309,7 @@ $("#table").delegate(".count","keypress" ,function (e) {
         var total = $(this).parent().next().next().next();
         var real = $(this).parent().next().next().next().next();
         total.text((count * price).toFixed(2));
-        real.text((count * price * discount*0.01).toFixed(2));
+        real.text((count * price * discount).toFixed(2));
         if (count <= 0) {
             swal({
                 title: "温馨提示:)",
@@ -337,7 +337,7 @@ $("#table").delegate(".count", "change", function (e) {
     var total = $(this).parent().next().next().next();
     var real = $(this).parent().next().next().next().next();
     total.text((count * price).toFixed(2));
-    real.text((count * price * discount * 0.01).toFixed(2));
+    real.text((count * price * discount).toFixed(2));
 });
 //下拉列表改变
 $("#table").delegate(".goods", "change", function () {
