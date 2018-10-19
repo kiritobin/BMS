@@ -109,15 +109,14 @@
     <Content Include="imgs\success.png" />
     <Content Include="imgs\YNXH-LOGO.png" />
     <Content Include="InventoryMGT\addReturn.aspx" />
-    <Content Include="InventoryMGT\addRs.aspx" />
     <Content Include="InventoryMGT\addStock.aspx" />
     <Content Include="InventoryMGT\addWarehouse.aspx" />
     <Content Include="InventoryMGT\checkReturn.aspx" />
     <Content Include="InventoryMGT\checkRs.aspx" />
     <Content Include="InventoryMGT\checkStock.aspx" />
     <Content Include="InventoryMGT\inventoryManagement.aspx" />
+    <Content Include="InventoryMGT\regionRs.aspx" />
     <Content Include="InventoryMGT\replenishMent.aspx" />
-    <Content Include="js\addRs.js" />
     <Content Include="js\checkRs.js" />
     <Content Include="js\customerRetail.js" />
     <Content Include="js\jquery-migrate-1.2.1.min.js" />
@@ -127,6 +126,7 @@
     <Content Include="js\JsBarcode.all.min.js" />
     <Content Include="js\LodopFuncs.js" />
     <Content Include="js\public.js" />
+    <Content Include="js\regionRs.js" />
     <Content Include="js\replenishMent.js" />
     <Content Include="js\retail.js" />
     <Content Include="js\retailBack.js" />
@@ -340,13 +340,6 @@
     <Compile Include="InventoryMGT\addReturn.aspx.designer.cs">
       <DependentUpon>addReturn.aspx</DependentUpon>
     </Compile>
-    <Compile Include="InventoryMGT\addRs.aspx.cs">
-      <DependentUpon>addRs.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="InventoryMGT\addRs.aspx.designer.cs">
-      <DependentUpon>addRs.aspx</DependentUpon>
-    </Compile>
     <Compile Include="InventoryMGT\addStock.aspx.cs">
       <DependentUpon>addStock.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -388,6 +381,13 @@
     </Compile>
     <Compile Include="InventoryMGT\inventoryManagement.aspx.designer.cs">
       <DependentUpon>inventoryManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryMGT\regionRs.aspx.cs">
+      <DependentUpon>regionRs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InventoryMGT\regionRs.aspx.designer.cs">
+      <DependentUpon>regionRs.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\replenishMent.aspx.cs">
       <DependentUpon>replenishMent.aspx</DependentUpon>

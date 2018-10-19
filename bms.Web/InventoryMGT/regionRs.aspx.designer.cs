@@ -10,6 +10,6 @@
 namespace bms.Web.InventoryMGT {
     
     
-    public partial class addRs {
+    public partial class regionRs {
     }
 }

@@ -178,8 +178,8 @@ namespace bms.Web.InventoryMGT
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_ReplenishMentHead";
-            tb.OrderBy = "rsHeadID";
-            tb.StrColumnlist = "rsHeadID,saleTaskId,customerName,userName,kingdsNum,number,allTotalPrice,allRealPrice,dateTime,state";
+            tb.OrderBy = "saleTaskId";
+            tb.StrColumnlist = "saleTaskId,customerName,userName,kingdsNum,number,dateTime,state";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
@@ -198,14 +198,11 @@ namespace bms.Web.InventoryMGT
                 {
                     state = "已完成";
                 }
-                strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["rsHeadID"].ToString() + "</td>");
-                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</nobr></td>");
+                strb.Append("<tr><td><nobr>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</nobr></td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["kingdsNum"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allTotalPrice"].ToString() + "</td>");
-                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["allRealPrice"].ToString() + "</nobr></td>");
                 strb.Append("<td><nobr>" + state + "</nobr></td>");
                 strb.Append("<td style='width:150px;'><button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + "</td></tr>");
