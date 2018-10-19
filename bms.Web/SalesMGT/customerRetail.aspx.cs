@@ -65,65 +65,85 @@ namespace bms.Web.SalesMGT
             {
                 string headId = Request["headId"];
                 DataSet dsEnd = retailBll.GetRetail(headId);
-                int row = dsEnd.Tables[0].Rows.Count;
-                for(int i = 0; i < row; i++)
+                if (dsEnd == null)
                 {
-                    DataRow dr = dsEnd.Tables[0].Rows[i];
-                    string bookNum = dr["bookNum"].ToString();
-                    int number = Convert.ToInt32(dr["number"]);
-                    User user = (User)Session["user"];
-                    DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
-                    int rows = dsStock.Tables[0].Rows.Count;
-                    if (rows == 0)
+                    Response.Write("此单据不存在:|");
+                    Response.End();
+                }
+                else
+                {
+                    int row = dsEnd.Tables[0].Rows.Count;
+                    for (int i = 0; i < row; i++)
                     {
-                        Response.Write("此书籍无库存:|"+ dr["bookName"]);
-                        Response.End();
-                    }
-                    else
-                    {
-                        for (int j = 0; j < rows; j++)
+                        DataRow dr = dsEnd.Tables[0].Rows[i];
+                        string bookNum = dr["bookNum"].ToString();
+                        int number = Convert.ToInt32(dr["number"]);
+                        User user = (User)Session["user"];
+                        DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
+                        int rows = dsStock.Tables[0].Rows.Count;
+                        if (rows == 0)
                         {
-                            int count = number;
-                            int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
-                            if (stockNum == 0)
+                            Response.Write("此书籍无库存:|" + dr["bookName"]);
+                            Response.End();
+                        }
+                        else
+                        {
+                            for (int j = 0; j < rows; j++)
                             {
-                                Response.Write("此书籍库存不足:|");
-                                Response.End();
-                            }
-                            else
-                            {
-                                int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[j]["goodsShelvesId"]);
-                                if (stockNum > number)
+                                int count = number;
+                                int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
+                                if (stockNum == 0)
                                 {
-                                    Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
-                                    if (stock == Result.更新失败)
-                                    {
-                                        Response.Write("更新失败:|");
-                                        Response.End();
-                                    }
-                                    count = 0;
+                                    Response.Write("此书籍库存不足:|");
+                                    Response.End();
                                 }
                                 else
                                 {
-                                    count = number - stockNum;
-                                    Result stock = stockBll.update(0, goodsId, bookNum);
-                                    if (stock == Result.更新失败)
+                                    int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[j]["goodsShelvesId"]);
+                                    if (stockNum > number)
                                     {
-                                        Response.Write("更新失败:|");
-                                        Response.End();
-                                    }
-                                }
-                                if (count == 0)
-                                {
-                                    Result end = retailBll.updateType(headId);
-                                    if (end == Result.更新成功)
-                                    {
-                                        Pay(headId);
+                                        Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
+                                        if (stock == Result.更新失败)
+                                        {
+                                            Response.Write("更新失败:|");
+                                            Response.End();
+                                        }
+                                        else
+                                        {
+                                            Result end = retailBll.updateType(headId);
+                                            if (end == Result.更新成功)
+                                            {
+                                                Pay(headId);
+                                            }
+                                            else
+                                            {
+                                                Response.Write("更新失败:|");
+                                                Response.End();
+                                            }
+                                        }
                                     }
                                     else
                                     {
-                                        Response.Write("更新失败:|");
-                                        Response.End();
+                                        count = number - stockNum;
+                                        Result stock = stockBll.update(0, goodsId, bookNum);
+                                        if (stock == Result.更新失败)
+                                        {
+                                            Response.Write("更新失败:|");
+                                            Response.End();
+                                        }
+                                        if (count == 0)
+                                        {
+                                            Result end = retailBll.updateType(headId);
+                                            if (end == Result.更新成功)
+                                            {
+                                                Pay(headId);
+                                            }
+                                            else
+                                            {
+                                                Response.Write("更新失败:|");
+                                                Response.End();
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -279,49 +299,57 @@ namespace bms.Web.SalesMGT
         public void scann()
         {
             string retailId = Request["retailId"];
-            int state = retailBll.GetRetailType(retailId);
-            if (state == 1)
+            SaleHead sale = retailBll.GetHead(retailId);
+            if (sale == null)
             {
-                Response.Write("此单据已结算");
-                Response.End();
-            }
-            else if (state == 2)
-            {
-                Response.Write("此单据为退货单据");
+                Response.Write("记录不存在");
                 Response.End();
             }
             else
             {
-                DataSet ds = retailBll.GetRetail(retailId);
-                if (ds == null)
+                int state = retailBll.GetRetailType(retailId);
+                if (state == 1)
                 {
-                    Response.Write("记录不存在");
+                    Response.Write("此单据已结算");
                     Response.End();
                 }
-                StringBuilder sb = new StringBuilder();
-                int counts = ds.Tables[0].Rows.Count;
-                for (int i = 0; i < counts; i++)
+                else if (state == 2)
                 {
-                    DataRow dr = ds.Tables[0].Rows[i];
-                    sb.Append("<tr><td>" + dr["retailMonomerId"].ToString() + "</td>");
-                    sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                    sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-                    sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
-                    sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
-                    sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
-                    sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
-                    sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
-                    sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
-                    sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
-                    sb.Append("<td><button class='btn btn-danger btn-sm delete'><i class='fa fa-trash'></i></button></td></tr>");
+                    Response.Write("此单据为退货单据");
+                    Response.End();
                 }
-                SaleHead sale = retailBll.GetHead(retailId);
-                allReal = sale.AllRealPrice;
-                allTotal = sale.AllTotalPrice;
-                count = sale.Number;
-                kind = counts;
-                Response.Write("number:" + allTotal + "," + allReal + "," + count + "," + kind + "|:" + sb.ToString());
-                Response.End();
+                else
+                {
+                    DataSet ds = retailBll.GetRetail(retailId);
+                    if (ds == null)
+                    {
+                        Response.Write("记录不存在");
+                        Response.End();
+                    }
+                    StringBuilder sb = new StringBuilder();
+                    int counts = ds.Tables[0].Rows.Count;
+                    for (int i = 0; i < counts; i++)
+                    {
+                        DataRow dr = ds.Tables[0].Rows[i];
+                        sb.Append("<tr><td>" + dr["retailMonomerId"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
+                        sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
+                        sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                        sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
+                        sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
+                        sb.Append("<td><button class='btn btn-danger btn-sm delete'><i class='fa fa-trash'></i></button></td></tr>");
+                    }
+                    allReal = sale.AllRealPrice;
+                    allTotal = sale.AllTotalPrice;
+                    count = sale.Number;
+                    kind = counts;
+                    Response.Write("number:" + allTotal + "," + allReal + "," + count + "," + kind + "|:" + sb.ToString());
+                    Response.End();
+                }
             }
         }
         /// <summary>

@@ -22,8 +22,7 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-<%-- style="overflow:hidden;"--%>
-<body>
+<body style="overflow:hidden;">
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -147,13 +146,13 @@
                             </fieldset>
                         </div>
                         <!--销售小票-->
-                        <div class="print_container border" style="width: 350px;position:relative;top:1000px;" id="sale">
+                        <div class="print_container border" style="width: 400px;position:relative;top:1000px;" id="sale">
                             <div class="row">
-                                <h2 style="margin-left:15px;">新华书店</h2>
-                                <div>
-                                    <div id="output" style="width: 200px; height: 200px;display:none"></div>
-                                    <img src="#" id="img" style="width:70px;height:70px; float:right;margin-left:20px;" />
-                                </div>
+                                <span style="font-size:38px;margin-bottom:50px;">新华书店</span>
+                                <span>
+                                    <span id="output" style="width: 200px; height: 200px;display:none"></span>
+                                    <img src="#" id="img" style="width:70px;height:70px;margin-left:10px;margin-top:20px;" />
+                                </span>
                             </div>
                             <hr />
                             <div class="container">
