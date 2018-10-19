@@ -6,6 +6,7 @@
     sessionStorage.setItem("realPrice", 0);
     setInterval("showTime()", 1000);
     $("#ticket").hide();
+    $("#preRecord").text(sessionStorage.getItem("preRecord"));
     //加的效果
     $("#table").delegate(".add", "click", function () {
         var n = $(this).prev().val();
@@ -262,6 +263,7 @@ $("#insert").click(function () {
                 } else {
                     $("#ticket").show();
                     var headId = datas[1];
+                    sessionStorage.setItem("preRecord", headId);
                     $("#kindEnd").text(sessionStorage.getItem("kind"));
                     $("#numberEnd").text(sessionStorage.getItem("number"));
                     $("#totalEnd").text(sessionStorage.getItem("totalPrice"));
@@ -302,10 +304,10 @@ $("#insert").click(function () {
                     if (status != "" || status != null) {
                         LODOP.ADD_PRINT_HTM(0, 50, 900, 500, document.getElementById("ticket").innerHTML);
                         LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                        LODOP.SET_PRINT_PAGESIZE(1, 700, 550, "");
+                        LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
                         //LODOP.PREVIEW();
                         LODOP.PRINT();
-
+                        $("#preRecord").text(sessionStorage.getItem("preRecord"));
                         window.location.reload();
                         sessionStorage.removeItem("kind");
                         sessionStorage.removeItem("number");

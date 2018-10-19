@@ -166,5 +166,48 @@ namespace bms.Bll
         {
             return dao.getsBookRealPrice(rsHeadID);
         }
+        /// <summary>
+        /// 根据补货单头id判断其单体是否有数据
+        /// </summary>
+        /// <param name="rsHeadID">补货单头id</param>
+        /// <returns>count</returns>
+        public int getRsMonCount(string rsHeadID)
+        {
+            return dao.getRsMonCount(rsHeadID);
+        }
+        /// <summary>
+        /// 删除补货单
+        /// </summary>
+        /// <param name="rsHeadID">补货单头id</param>
+        /// <returns>受影响行数</returns>
+        public Result Delete(string rsHeadID)
+        {
+            int row = dao.Delete(rsHeadID);
+            if (row > 0)
+            {
+                return Result.删除成功;
+            }
+            else
+            {
+                return Result.删除失败;
+            }
+        }
+        /// <summary>
+        /// 根据补货单头id获取单头信息
+        /// </summary>
+        /// <param name="rsHeadId">补货单头id</param>
+        /// <returns>数据集</returns>
+        public DataSet getHeadMsg(string rsHeadId)
+        {
+            DataSet ds = dao.getHeadMsg(rsHeadId);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

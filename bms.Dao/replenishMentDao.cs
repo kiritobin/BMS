@@ -220,5 +220,52 @@ namespace bms.Dao
                 return sum = Convert.ToDouble(sumstring);
             }
         }
+        /// <summary>
+        /// 根据补货单头id判断其单体是否有数据
+        /// </summary>
+        /// <param name="rsHeadID">补货单头id</param>
+        /// <returns>count</returns>
+        public int getRsMonCount(string rsHeadID)
+        {
+            string cmdtext = "select count(rsMononerID) from T_ReplenishmentMonomer where rsHeadID=@rsHeadID";
+            string[] param = { "@rsHeadID" };
+            object[] values = { rsHeadID };
+            string sumstring = db.ExecuteScalar(cmdtext, param, values).ToString();
+            int sum;
+            if (sumstring == "" || sumstring == null)
+            {
+                return sum = 0;
+            }
+            else
+            {
+                return sum = int.Parse((sumstring));
+            }
+        }
+        /// <summary>
+        /// 删除补货单
+        /// </summary>
+        /// <param name="rsHeadID">补货单头id</param>
+        /// <returns>受影响行数</returns>
+        public int Delete(string rsHeadID)
+        {
+            string cmdText = "update T_SaleTask set deleteState = 1 where rsHeadID=@rsHeadID";
+            String[] param = { "@rsHeadID" };
+            String[] values = { rsHeadID.ToString() };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+        /// <summary>
+        /// 根据补货单头id获取单头信息
+        /// </summary>
+        /// <param name="rsHeadId">补货单头id</param>
+        /// <returns>数据集</returns>
+        public DataSet getHeadMsg(string rsHeadId)
+        {
+            string cmdtext = "select rsHeadID,customerName,userName,kingdsNum,number,allTotalPrice,allRealPrice,dateTime,state from V_ReplenishMentHead where rsHeadID=@rsHeadID";
+            string[] param = { "@rsHeadID" };
+            object[] values = { rsHeadId };
+            DataSet ds = db.FillDataSet(cmdtext, param, values);
+            return ds;
+        }
     }
 }

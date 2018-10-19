@@ -29,8 +29,8 @@
                 <div class="col-sm-2">
                     <input type="text" id="search" class="topSearch">
                 </div>
-                <div class="text-white col-sm-6 text-right" id="preRecord">
-                    <button class="btn btn-success btn-lg col-sm-6 btnText"><%=headId %></button>
+                <div class="col-sm-6 text-right">
+                    <button class="col-sm-6 btnText" style="background-color:#eee;border:0;color:#eee;" id="preRecord">123</button>
                 </div>
             </div>
             <div class="card">

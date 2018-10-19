@@ -403,7 +403,129 @@ $("#copeEnd").keypress(function (e) {
             var real = give - cope;
             sessionStorage.setItem("dibs", real);
             $("#change").text((real).toFixed(2));
-            $("#btnSettle").focus();
+            //$("#btnSettle").focus();
+            if ($("#discountEnd").val().trim() == "" || $("#discountEnd").val().trim() == 0 || $("#discountEnd").val().trim() == "0") {
+                swal({
+                    title: "请输入折扣",
+                    text: "折扣不能为空或0",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            } else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
+                swal({
+                    title: "请输入实付金额",
+                    text: "实付金额不能为空或0",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            }
+            else {
+                $.ajax({
+                    type: 'Post',
+                    url: 'customerRetail.aspx',
+                    data: {
+                        headId: sessionStorage.getItem("retailId"),
+                        op: 'end'
+                    },
+                    dataType: 'text',
+                    success: function (succ) {
+                        var datas = succ.split(":|");
+                        var data = datas[0];
+                        if (data == "此书籍库存不足") {
+                            swal({
+                                title: "此书籍库存不足",
+                                text: "书名:" + datas[1] + "库存不足",
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-warning",
+                                type: "warning"
+                            }).catch(swal.noop);
+                        } else if (data == "此书籍无库存") {
+                            swal({
+                                title: "书籍不存在",
+                                text: "书名:" + datas[1] + "不存在",
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-warning",
+                                type: "warning"
+                            }).catch(swal.noop);
+                        } else if (data == "此单据不存在") {
+                            swal({
+                                title: "此单据不存在",
+                                text: "",
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-warning",
+                                type: "warning"
+                            }).catch(swal.noop);
+                        }else if (data == "更新失败") {
+                            swal({
+                                title: "结算失败",
+                                text: "",
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-warning",
+                                type: "warning"
+                            }).catch(swal.noop);
+                        } else if (data == "更新成功") {
+                            var discount = parseFloat($("#discountEnd").val());
+                            $("#id").text(sessionStorage.getItem("retailId"));
+                            $("#alltotal").text(sessionStorage.getItem("total"));
+                            $("#alldiscount").text(discount + "%");
+                            $("#allreal").text((parseFloat(sessionStorage.getItem("total")) * parseFloat(discount * 0.01)).toFixed(2));
+                            $("#allcope").text(sessionStorage.getItem("give"));
+                            $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
+                            $("#tablePay tr:not(:first)").empty()
+                            $("#tablePay").append(datas[1]);
+                            $("#sale").show();
+                            //$("#myModal2").modal("hide");
+                            //一维码
+                            //JsBarcode("#img", sessionStorage.getItem("retailId"), {
+                            //    displayValue: false, //是否在条形码下方显示文字
+                            //    //fontSize: 15,//设置文本的大小
+                            //    margin: 0,//设置条形码周围的空白边距
+                            //    width: 10,//设置条之间的宽度
+                            //    height: 50,//高度
+                            //});
+                            var headId = sessionStorage.getItem("retailId");
+                            //二维码
+                            jQuery('#output').qrcode({
+                                render: "canvas",
+                                foreground: "black",
+                                background: "white",
+                                text: headId
+                            });
+                            $("canvas").attr("id", "qrcode");
+                            var canvas = document.getElementById('qrcode');
+                            var context = canvas.getContext('2d');
+                            var image = new Image();
+                            var strDataURI = canvas.toDataURL("image/png");
+                            document.getElementById('img').src = strDataURI;
+
+                            var status = "";
+                            var LODOP = getLodop();
+                            LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
+                            LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                            LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
+                            LODOP.PRINT();
+                            //LODOP.PREVIEW();
+                            LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
+                            LODOP.On_Return = function (TaskID, Value) {
+                                status = Value;
+                            };
+                            if (status != "" || status != null) {
+                                LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
+                                LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                                LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
+                                LODOP.PRINT();
+                               // LODOP.PREVIEW();
+                                //window.location.reload();
+                            }
+                            $("#settleClose").hide();
+                            $("#preRecord").show();
+                            $("#btnClose").show();
+                        }
+                    }
+                })
+            }
         }
     }
 })
@@ -414,120 +536,6 @@ $("#settleClose").click(function () {
     $("#copeEnd").val("");
     $("#change").text("");
 })
-//收银完成
-$("#btnSettle").click(function () {
-    if ($("#discountEnd").val().trim() == "" || $("#discountEnd").val().trim() == 0 || $("#discountEnd").val().trim() == "0") {
-        swal({
-            title: "请输入折扣",
-            text: "折扣不能为空或0",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
-        swal({
-            title: "请输入实付金额",
-            text: "实付金额不能为空或0",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    }
-    else {
-        $.ajax({
-            type: 'Post',
-            url: 'customerRetail.aspx',
-            data: {
-                headId: sessionStorage.getItem("retailId"),
-                op: 'end'
-            },
-            dataType: 'text',
-            success: function (succ) {
-                var datas = succ.split(":|");
-                var data = datas[0];
-                if (data == "此书籍库存不足") {
-                    swal({
-                        title: "此书籍库存不足",
-                        text: "书名:" + datas[1] + "库存不足",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                }else if (data == "此书籍无库存") {
-                    swal({
-                        title: "书籍不存在",
-                        text: "书名:" + datas[1]+"不存在",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                }else if (data == "更新失败") {
-                    swal({
-                        title: "结算失败",
-                        text: "结算失败",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
-                } else if(data== "更新成功"){
-                    var discount = parseFloat($("#discountEnd").val());
-                    $("#id").text(sessionStorage.getItem("retailId"));
-                    $("#alltotal").text(sessionStorage.getItem("total"));
-                    $("#alldiscount").text(discount + "%");
-                    $("#allreal").text((parseFloat(sessionStorage.getItem("total")) * parseFloat(discount * 0.01)).toFixed(2));
-                    $("#allcope").text(sessionStorage.getItem("give"));
-                    $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
-                    $("#tablePay tr:not(:first)").empty()
-                    $("#tablePay").append(datas[1]);
-                    $("#sale").show();
-                    //$("#myModal2").modal("hide");
-                    //一维码
-                    //JsBarcode("#img", sessionStorage.getItem("retailId"), {
-                    //    displayValue: false, //是否在条形码下方显示文字
-                    //    //fontSize: 15,//设置文本的大小
-                    //    margin: 0,//设置条形码周围的空白边距
-                    //    width: 10,//设置条之间的宽度
-                    //    height: 50,//高度
-                    //});
-                    var headId = sessionStorage.getItem("retailId");
-                    //二维码
-                    jQuery('#output').qrcode({
-                        render: "canvas",
-                        foreground: "black",
-                        background: "white",
-                        text: headId
-                    });
-                    $("canvas").attr("id", "qrcode");
-                    var canvas = document.getElementById('qrcode');
-                    var context = canvas.getContext('2d');
-                    var image = new Image();
-                    var strDataURI = canvas.toDataURL("image/png");
-                    document.getElementById('img').src = strDataURI;
-
-                    $("#preRecord").show();
-                    $("#btnClose").show();
-                    var status = "";
-                    var LODOP = getLodop();
-                    LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
-                    LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                    LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
-                    LODOP.PRINT();
-                    LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
-                    LODOP.On_Return = function (TaskID, Value) {
-                        status = Value;
-                    };
-                    if (status != "" || status != null) {
-                        LODOP.ADD_PRINT_HTM(0, 25, 900, 500, document.getElementById("sale").innerHTML);
-                        LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                        LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
-                        LODOP.PRINT();
-                        //window.location.reload();
-                    }
-                }
-            }
-        })
-    }
-})
 //补打上一条记录
 $("#preRecord").click(function () {
     var status = "";
@@ -536,6 +544,7 @@ $("#preRecord").click(function () {
     LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
     LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
     LODOP.PRINT();
+    //LODOP.PREVIEW();
     LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
     LODOP.On_Return = function (TaskID, Value) {
         status = Value;
@@ -545,6 +554,7 @@ $("#preRecord").click(function () {
         LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
         LODOP.SET_PRINT_PAGESIZE(3, 700, 100, "");
         LODOP.PRINT();
+         //LODOP.PREVIEW();
         //window.location.reload();
     }
 })

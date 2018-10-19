@@ -18,7 +18,7 @@ namespace bms.Web.SalesMGT
     {
         protected DataSet ds;
         protected int pageSize = 20, totalCount, intPageCount;
-        protected string headId="";
+        protected string headID="";
         public double discount;
         SaleHead single = new SaleHead();
         UserBll userBll = new UserBll();
@@ -275,7 +275,7 @@ namespace bms.Web.SalesMGT
             single.UserId = user.UserId;
             single.DateTime = DateTime.Now;
             single.State = 0;
-            headId = retailHeadId;
+            headID = retailHeadId;
             Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)
             {
