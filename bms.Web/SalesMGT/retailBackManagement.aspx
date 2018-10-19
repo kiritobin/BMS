@@ -335,6 +335,11 @@
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/retailBackManagement.js"></script>
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/jedate.min.js"></script>
+    <script src="../js/ajaxfileupload.js"></script>
+    <script src="../js/jquery.tabletojson.js"></script>
+    <script src="../js/public.js"></script>
 </body>
 
 </html>

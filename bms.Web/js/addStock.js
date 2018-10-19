@@ -212,14 +212,14 @@ $("#table").delegate(".isbn", "keyup", function (e){
     $(this).val($(this).val().replace(/[^0-9.]/g, ''));
     }).css("ime-mode", "disabled"); 
 $("#table").delegate(".count", "keyup", function (e) {
-    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
 }).bind("paste", function () {  //CTR+V事件处理    
-    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
     }).css("ime-mode", "disabled"); 
 $("#table").delegate(".discount", "keyup", function (e) {
-    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
 }).bind("paste", function () {  //CTR+V事件处理    
-    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
 }).css("ime-mode", "disabled"); 
 //isbn回车
 $("#table").delegate(".isbn", "keypress", function (e) {
