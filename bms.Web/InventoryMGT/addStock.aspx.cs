@@ -24,6 +24,7 @@ namespace bms.Web.InventoryMGT
         public double discount;
         public string singleHeadId = "", userName, regionName;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
+        public bool isAdmin;
         BookBasicBll basicBll = new BookBasicBll();
         WarehousingBll warehousingBll = new WarehousingBll();
         GoodsShelvesBll goodsShelvesBll = new GoodsShelvesBll();
@@ -37,6 +38,7 @@ namespace bms.Web.InventoryMGT
                 Session["List"] = new List<string>();
             }
             permission();
+            User user = (User)Session["user"];
             //Monomers monoDiscount = warehousingBll.getDiscount();
             //discount = (monoDiscount.Discount);
             selectIsbn();
@@ -53,7 +55,6 @@ namespace bms.Web.InventoryMGT
                     singleHeadId = Session["id"].ToString();
                 }
             }
-            User user = (User)Session["user"];
             int regionId = user.ReginId.RegionId;
             dsGoods = goodsShelvesBll.Select(regionId);
             string op = Request["op"];
