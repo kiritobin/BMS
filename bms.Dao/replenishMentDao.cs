@@ -42,7 +42,7 @@ namespace bms.Dao
         public int InsertRsHead(replenishMentHead rd)
         {
             string cmdText = "insert into T_ReplenishmentHead(saleTaskId,kingdsNum,number,userId,dateTime) VALUES(@saleTaskId,@kingdsNum,@number,@userId,@dateTimee)";
-            string[] param = { "@saleTaskId", "@kingdsNum", "@number", "@allTotalPrice", "@allRealPrice", "@userId", "@dateTimee" };
+            string[] param = { "@saleTaskId", "@kingdsNum", "@number", "@userId", "@dateTimee" };
             object[] values = { rd.SaleTaskId, rd.KindsNum, rd.Number, rd.UserId, rd.Time };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
