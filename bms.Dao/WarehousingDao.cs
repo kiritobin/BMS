@@ -96,9 +96,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int insertMono(Monomers monomers)
         {
-            string cmdText = "insert into T_Monomers(monId,singleHeadId,bookNum,ISBN,number,uPrice,totalPrice,realPrice,discount,type) values(@monId,@singleHeadId,@bookNum,@ISBN,@number,@uPrice,@totalPrice,@realPrice,@discount,@type)";
-            string[] param = { "@monId", "@singleHeadId", "@bookNum", "@ISBN", "@number", "@uPrice", "@totalPrice", "@realPrice", "@discount", "@type" };
-            object[] values = { monomers.MonomersId, monomers.SingleHeadId.SingleHeadId,monomers.BookNum.BookNum, monomers.Isbn.Isbn, monomers.Number, monomers.UPrice.Price, monomers.TotalPrice, monomers.RealPrice, monomers.Discount, monomers.Type };
+            string cmdText = "insert into T_Monomers(monId,singleHeadId,bookNum,ISBN,number,uPrice,totalPrice,realPrice,discount,shelvesId,type) values(@monId,@singleHeadId,@bookNum,@ISBN,@number,@uPrice,@totalPrice,@realPrice,@discount,@shelvesId,@type)";
+            string[] param = { "@monId", "@singleHeadId", "@bookNum", "@ISBN", "@number", "@uPrice", "@totalPrice", "@realPrice", "@discount", "@shelvesId", "@type" };
+            object[] values = { monomers.MonomersId, monomers.SingleHeadId.SingleHeadId,monomers.BookNum.BookNum, monomers.Isbn.Isbn, monomers.Number, monomers.UPrice.Price, monomers.TotalPrice, monomers.RealPrice, monomers.Discount,monomers.ShelvesId, monomers.Type };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }

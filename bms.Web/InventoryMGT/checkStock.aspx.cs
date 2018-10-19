@@ -22,6 +22,18 @@ namespace bms.Web.InventoryMGT
         WarehousingBll warehousingBll = new WarehousingBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                HeadId = Request.QueryString["returnId"];
+                if (HeadId == null || HeadId == "")
+                {
+                    HeadId = Session["HeadId"].ToString();
+                }
+                else
+                {
+                    Session["HeadId"] = HeadId;
+                }
+            }
             permission();
             getData();
             string op = Request["op"];
@@ -33,15 +45,6 @@ namespace bms.Web.InventoryMGT
                 Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
-            }
-            HeadId = Request.QueryString["returnId"];
-            if (HeadId == null || HeadId == "")
-            {
-                HeadId = Session["HeadId"].ToString();
-            }
-            else
-            {
-                Session["HeadId"] = HeadId;
             }
             putDt = warehousingBll.SelectSingleHead(HeadId);
             int count = putDt.Rows.Count;
@@ -80,7 +83,7 @@ namespace bms.Web.InventoryMGT
 
         protected string getData()
         {
-            string HeadId = Request.QueryString["returnId"];
+            string HeadId = Session["HeadId"].ToString();
             UserBll userBll = new UserBll();
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)

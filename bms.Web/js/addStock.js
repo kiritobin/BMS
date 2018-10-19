@@ -356,7 +356,7 @@ $("#table").delegate(".discount", "change", function () {
     var total = $(this).parent().next();
     var real = $(this).parent().next().next();
     total.text((count * price).toFixed(2));
-    real.text((count * price * discount * 0.01).toFixed(2));
+    real.text((count * price * discount).toFixed(2));
         $.ajax({
             type: 'Post',
             url: 'addStock.aspx',
@@ -378,6 +378,7 @@ $("#table").delegate(".btn-danger", "click", function () {
 
 $("#btnImport").click(function () {
     var file = $("#file").val();
+    var goods = $("#goods").val();
     if (file == "" || file == null) {
         swal({
             title: "温馨提示:)",
@@ -398,6 +399,16 @@ $("#btnImport").click(function () {
             allowOutsideClick: false
         })
     }
+    else if (goods==""||goods==null) {
+        swal({
+            title: "温馨提示:)",
+            text: "请选择货架",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-success",
+            type: "warning",
+            allowOutsideClick: false
+        })
+    }
     else {
         $("#myModal1").modal("show");
         $("#close").hide();
@@ -405,6 +416,7 @@ $("#btnImport").click(function () {
             type: 'Post',
             url: 'addStock.aspx',
             data: {
+                goods:goods,
                 action: "import"
             },
             dataType: 'text',

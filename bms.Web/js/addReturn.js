@@ -132,7 +132,7 @@ $("#table").delegate(".count", "keypress", function (e) {
         var total = $(this).parent().next().next().next();
         var real = $(this).parent().next().next().next().next();
         total.text((count * price).toFixed(2));
-        real.text((count * price * discount * 0.01).toFixed(2));
+        real.text((count * price * discount).toFixed(2));
         var _this = $(this);
         if (count <= 0) {
             swal({
