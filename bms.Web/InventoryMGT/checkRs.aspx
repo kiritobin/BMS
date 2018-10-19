@@ -279,17 +279,18 @@
                                     </div>
                                     <div class="card-header from-group">
                                         <div class="input-group">
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning btn-sm" id="back" onclick="window,location.href='replenishMent.aspx'">返回</button>
-                                            </div>
+
                                             <%--<div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" id="export">导出</button>
                                             </div>--%>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="print">打印</button>
                                             </div>
-                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" id="btn_">单据完成</button>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" id="btn_change">单据完成</button>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-warning btn-sm" id="back" onclick="window,location.href='replenishMent.aspx'">返回</button>
                                             </div>
                                             <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
@@ -377,7 +378,9 @@
                                                         <td>日期</td>
                                                     </tr>
                                                 </thead>
-                                                <%=getData() %>
+                                                <tbody>
+                                                    <%=getData() %>
+                                                </tbody>
                                             </table>
                                         </div>
                                         <div class="copyright float-right page-box">
