@@ -84,9 +84,9 @@ namespace bms.Bll
         /// <param name="bookNum">书号</param>
         /// <param name="goodsShelf">货架Id</param>
         /// <returns></returns>
-        public int getStockNum(string bookNum, int goodsShelf)
+        public int getStockNum(string bookNum, int goodsShelf,int regionId)
         {
-            return stockDao.getStockNum(bookNum, goodsShelf);
+            return stockDao.getStockNum(bookNum, goodsShelf, regionId);
         }
         /// <summary>
         /// 通过书号获取库存

@@ -285,6 +285,7 @@ $("#save").click(function () {
                         type: "success",
                         allowOutsideClick: false
                     })
+                    window.location.href = "warehouseManagement.aspx";
                     sessionStorage.removeItem("kind");
                 }
                 else {

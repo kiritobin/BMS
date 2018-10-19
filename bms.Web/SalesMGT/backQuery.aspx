@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-
 <body>
     <div class="content">
         <div class="container-fluid">
@@ -63,73 +62,63 @@
                             <div class="content_tab" id="print_content">
                                 <%if (type == "search")
                                     { %>
-                                <table class="table table_stock text-right">
-                                    <tr class="text-nowrap">
-                                        <td>
-                                            <span>任务单据编号:</span>
-                                        </td>
-                                        <td>
-                                            <input value="<%=Session["saleId"].ToString() %>" class="form-control" disabled>
-                                        </td>
-                                        <td>
-                                            <span>单头编号:</span>
-                                        </td>
-                                        <td>
-                                            <input value="<%=Session["sellId"].ToString() %>" class="form-control" disabled>
-                                        </td>
-                                        <td>
-                                            <span>制单时间:</span>
-                                        </td>
-                                        <td>
-                                            <input value="<%=staticsTime %>" class="form-control" disabled>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <%} %>
-                                <div class="table-responsive">
-                                    <table class="table mostTable table-bordered text-center" id="table">
-                                        <%--<thead>
-                                            <tr>
-                                                <th>序号</th>
-                                                <th>ISBN号</th>
-                                                <th>书号</th>
-                                                <th>单价</th>
-                                                <th>数量</th>
-                                                <th>实际折扣</th>
-                                                <th>码洋</th>
-                                                <th>实洋</th>
-                                            </tr>
-                                        </thead>--%>
-                                        <%=GetData() %>
-                                    </table>
+                                <div id="content">
                                     <table class="table table_stock text-right">
-                                    <tr class="text-nowrap">
-                                        <td>总合计：</td>
-                                        <td>
-                                            <span>总品种:</span>
-                                        </td>
-                                        <td>
-                                            <input type="text" value="<%=staticsKinds %>" class="form-control" disabled>
-                                        </td>
-                                        <td>
-                                            <span>总数量:</span>
-                                        </td>
-                                        <td>
-                                            <input type="text" value="<%=staticsNumber %>" class="form-control" disabled></td>
-                                        <td>
-                                            <span>总码洋:</span>
-                                        </td>
-                                        <td>
-                                            <input type="text" value="<%=staticsTotalPrice %>" class="form-control" disabled>
-                                        </td>
-                                        <td>
-                                            <span>总实洋:</span>
-                                        </td>
-                                        <td>
-                                            <input type="text" value="<%=staticsRealPrice %>" class="form-control" disabled>
-                                        </td>
-                                    </tr>
+                                        <tr class="text-nowrap">
+                                            <td>
+                                                <span>任务单据编号:</span>
+                                            </td>
+                                            <td>
+                                                <input value="<%=Session["saleId"].ToString() %>" class="form-control" disabled>
+                                            </td>
+                                            <td>
+                                                <span>单头编号:</span>
+                                            </td>
+                                            <td>
+                                                <input value="<%=Session["sellId"].ToString() %>" class="form-control" disabled>
+                                            </td>
+                                            <td>
+                                                <span>制单时间:</span>
+                                            </td>
+                                            <td>
+                                                <input value="<%=staticsTime %>" class="form-control" disabled>
+                                            </td>
+                                        </tr>
                                     </table>
+                                    <%} %>
+                                    <div>
+                                        <table class="table mostTable table-bordered text-center" id="table">
+                                            <%=GetData() %>
+                                        </table>
+                                        <table class="table table_stock text-right">
+                                            <tr class="text-nowrap">
+                                                <td>总合计：</td>
+                                                <td>
+                                                    <span>总品种:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=staticsKinds %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>总数量:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=staticsNumber %>" class="form-control" disabled></td>
+                                                <td>
+                                                    <span>总码洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=staticsTotalPrice %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>总实洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=staticsRealPrice %>" class="form-control" disabled>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -187,8 +176,12 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/backQuery.js"></script>
     <script src="../js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="../js/jquery.jqprint.js"></script>
+    <%--<script src="../js/jquery.jqprint.js"></script>--%>
     <script src="../js/public.js"></script>
+    <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
+        <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
+    </object>
+    <script src="../js/LodopFuncs.js"></script>
 </body>
 
 </html>
