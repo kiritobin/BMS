@@ -11,7 +11,7 @@
         callback: function (api) {
             $.ajax({
                 type: 'Post',
-                url: 'regionRs.aspx',
+                url: 'customerRs.aspx',
                 data: {
                     page: api.getCurrent(), //页码
                     op: "paging"
@@ -45,10 +45,10 @@ function logout() {
     }).then(function () {
         $.ajax({
             type: 'get',
-            url: 'regionRs.aspx',
+            url: 'customerRs.aspx',
             datatype: 'text',
             data: {
-                op:"logout"
+                op: "logout"
             },
             success: function (data) {
                 window.location.href = "../login.aspx";
@@ -58,16 +58,16 @@ function logout() {
 }
 
 //地区下拉框查询
-$("#regionSearch").change(function (){
-    var regionId = $("#regionSearch").val();
-    if (regionId != null || regionId != "") {
+$("#cusSearch").change(function () {
+    var cusId = $("#cusSearch").val();
+    if (cusId != null || cusId != "") {
         $.ajax({
             type: 'post',
-            url: 'regionRs.aspx',
+            url: 'customerRs.aspx',
             datatype: 'text',
             data: {
-                regionId: regionId,
-                op:"search"
+                cusId: cusId,
+                op: "search"
             },
             success: function (data) {
                 $("#intPageCount").remove();
@@ -90,7 +90,7 @@ $("#regionSearch").change(function (){
                         var isbn = $("#isbnSearch").val().trim();
                         $.ajax({
                             type: 'Post',
-                            url: 'regionRs.aspx',
+                            url: 'customerRs.aspx',
                             data: {
                                 page: api.getCurrent(), //页码
                                 regionId: regionId,

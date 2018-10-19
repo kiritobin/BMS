@@ -288,8 +288,8 @@
                                                 <input type="text" id="customer" class="searchOne" placeholder="请输入客户名称">
                                                 <button class="btn btn-info btn-sm" id="btn_search">查询</button>
                                             </div>
-                                            <button class="btn btn-success btn-sm" id="regionSearch">根据地区查询</button>
-                                            <button class="btn btn-success btn-sm" id="customerSearch">根据客户查询</button>
+                                            <a href="regionRs.aspx"><button class="btn btn-success btn-md">根据地区查询</button></a>
+                                            <a href="customerRs.aspx"><button class="btn btn-success btn-md">根据客户查询</button></a>
                                             <%-- <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                             </div>--%>
@@ -300,14 +300,11 @@
                                         <table class="table text-center table-bordered mostTable" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>补货单ID</th>
                                                     <th>销售任务ID</th>
                                                     <th>客户名称</th>
                                                     <th>操作员名称</th>
                                                     <th>书籍种数</th>
                                                     <th>数量</th>
-                                                    <th>总码洋</th>
-                                                    <th>总实洋</th>
                                                     <th>状态</th>
                                                     <th>操作</th>
                                                 </tr>
