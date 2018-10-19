@@ -231,7 +231,7 @@ function logout() {
     }).then(function () {
         $.ajax({
             type: 'get',
-            url: 'warehouseManagement.aspx?op=logout',
+            url: 'backManagement.aspx?op=logout',
             datatype: 'text',
             data: {},
             success: function (data) {
