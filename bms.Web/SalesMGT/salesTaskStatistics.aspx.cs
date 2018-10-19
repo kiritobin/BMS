@@ -24,6 +24,7 @@ namespace bms.Web.SalesMGT
         {
             saletaskId = Session["saleId"].ToString();
             getBasic();
+            print();
         }
         public void getBasic()
         {
@@ -89,8 +90,7 @@ namespace bms.Web.SalesMGT
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td>");
-                    strb.Append("<td>" + 0 + "</td></tr>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td></tr>");
                 }
             }
             strb.Append("</tbody>");
@@ -102,6 +102,33 @@ namespace bms.Web.SalesMGT
                 Response.End();
             }
             return strb.ToString();
+        }
+        private void print()
+        {
+            string op = Request["op"];
+            if (op=="print")
+            {
+                SaleTaskBll saleTaskBll = new SaleTaskBll();
+                DataSet ds = saleTaskBll.salesTaskStatistics(Session["saleId"].ToString());
+                StringBuilder strb = new StringBuilder();
+                strb.Append("<tbody>");
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
+                    {
+                        strb.Append("<tr><td>" + (i + 1) + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td></tr>");
+                    }
+                }
+                strb.Append("</tbody>");
+                Response.Write(strb.ToString());
+                Response.End();
+            }
         }
     }
 }
