@@ -286,7 +286,7 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="ID" class="searchOne" placeholder="请输入任务编号">
+                                                <input type="text" id="ID" class="searchOne" placeholder="请输入销售编号">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="regionName" class="searchOne" placeholder="请输入组织名称">
@@ -314,18 +314,21 @@
                                         <table class="table text-center table-bordered mostTable" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>销售ID</th>
-                                                    <th>任务ID</th>
-                                                    <th>状态</th>
-                                                    <th>组织名称</th>
-                                                    <th>操作员名称</th>
-                                                    <th>品种数</th>
-                                                    <th>码洋</th>
-                                                    <th>实洋</th>
-                                                    <th>制单时间</th>
-                                                    <th>操作</th>
+                                                    <td>销售编号</td>
+                                                    <td>任务编号</td>
+                                                    <td>状态</td>
+                                                    <td>组织名称</td>
+                                                    <td>操作员名称</td>
+                                                    <td>品种数</td>
+                                                    <td>码洋</td>
+                                                    <td>实洋</td>
+                                                    <td>制单时间</td>
+                                                    <td>操作</td>
                                                 </tr>
+                                            </thead>
+                                            <tbody>
                                                 <%=getData()%>
+                                            </tbody>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">

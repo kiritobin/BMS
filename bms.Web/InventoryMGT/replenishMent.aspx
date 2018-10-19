@@ -288,6 +288,8 @@
                                                 <input type="text" id="customer" class="searchOne" placeholder="请输入客户名称">
                                                 <button class="btn btn-info btn-sm" id="btn_search">查询</button>
                                             </div>
+                                            <button class="btn btn-success btn-sm" id="regionSearch">根据地区查询</button>
+                                            <button class="btn btn-success btn-sm" id="customerSearch">根据客户查询</button>
                                             <%-- <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                             </div>--%>

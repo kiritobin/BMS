@@ -26,7 +26,7 @@ namespace bms.Web.SalesMGT
         public double alltotalprice, allreadprice, limtalltotalprice, priceLimit;
         string bookISBN, SaleHeadId, saleId, rsHead;
         double disCount;
-        int number, d_Value;
+        int number, d_Value, saleIdmonomerId;
         string bookNum;
         msg msg = new msg();
         User user = new User();
@@ -202,40 +202,12 @@ namespace bms.Web.SalesMGT
         {
             replenishMentHead rsHead = new replenishMentHead();
             replenishMentBll replenBll = new replenishMentBll();
-            rsHead.AllTotalPrice = 0;
-            rsHead.AllRealPrice = 0;
             rsHead.KindsNum = 0;
             rsHead.Number = 0;
             rsHead.SaleTaskId = saleId;
             rsHead.UserId = user.UserId;
             rsHead.Time = DateTime.Now.ToLocalTime();
-            int count = replenBll.countHead();
-            string rsHeadId;
-            if (count > 0)
-            {
-                string time = replenBll.getRsHeadTime();
-                string nowTime = DateTime.Now.ToLocalTime().ToString();
-                string equalsTime = nowTime.Substring(0, 10);
-                if (time.Equals(equalsTime))
-                {
-                    count += 1;
-                    rsHeadId = "BH" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                }
-                else
-                {
-                    count = 1;
-                    rsHeadId = "BH" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                }
-
-            }
-            else
-            {
-                count = 1;
-                rsHeadId = "BH" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-            }
-            rsHead.RsHeadID = rsHeadId;
             return replenBll.InsertRsHead(rsHead);
-
         }
         /// <summary>
         /// 获取销售任务码洋限制
@@ -313,16 +285,10 @@ namespace bms.Web.SalesMGT
                     {
                         allstockNum += Convert.ToInt32(stockbook.Tables[0].Rows[i]["stockNum"]);
                     }
-                    if (allstockNum == 0)
-                    {
-
-                        msg.Messege = "该书无库存";
-                        Response.Write(ObjectToJson(msg));
-                        Response.End();
-                    }
                     string tips = Request["tips"].ToString();
                     if (tips == "addsale")
                     {
+                        //库存不足，生成询问是否生成补货单
                         if (number > allstockNum)
                         {
                             d_Value = number - allstockNum;
@@ -335,31 +301,8 @@ namespace bms.Web.SalesMGT
                     }
                     if (tips == "addMon")
                     {
-                        //库存不足，生成询问是否生成补货单
-
-                        //判断是否已有该销售任务的补货单头
-
-                        rsHead = replenBll.getRsHeadID(saleId);
-                        //已有补货单头,直接添加补货单体
-                        if (rsHead != "none")
-                        {
-                            addRsmon();
-                        }
-                        //没有补货单头，先生成补货单头，在添加补货单体
-                        else
-                        {
-                            Result result = addrsHead();
-                            if (result == Result.添加成功)
-                            {
-                                addRsmon();
-                            }
-                            else
-                            {
-                                msg.Messege = "添加补货单头失败";
-                                Response.Write(ObjectToJson(msg));
-                                Response.End();
-                            }
-                        }
+                        //先添加销售单体
+                        addSaleMon();
                     }
                     else
                     {
@@ -381,7 +324,7 @@ namespace bms.Web.SalesMGT
         {
             //添加补货单体
             int rsMonomerId;
-            int count = replenBll.countMon(rsHead);
+            int count = replenBll.countMon(saleId);
             if (count > 0)
             {
                 rsMonomerId = count + 1;
@@ -395,16 +338,15 @@ namespace bms.Web.SalesMGT
             double allRealPrice = allPrice * (disCount / 100);
             replenishMentMonomer replenMon = new replenishMentMonomer()
             {
-                Isbn = book.Isbn,
-                UnitPrice = book.Price,
                 BookNum = bookNum,
+                Isbn = book.Isbn,
+                Author = book.Author,
+                Supplier = book.Publisher,
                 Count = d_Value,
-                RealDiscount = disCount,
-                Time = DateTime.Now.ToLocalTime(),
-                RsHeadID = rsHead,
-                RsMonomerID = rsMonomerId,
-                TotalPrice = allPrice,
-                RealPrice = allRealPrice
+                DateTime = DateTime.Now.ToLocalTime(),
+                SaleTaskId = saleId,
+                SaleHeadId = SaleHeadId,
+                SaleIdMonomerId = saleIdmonomerId
             };
             Result addmonRes = replenBll.Insert(replenMon);
             if (addmonRes == Result.添加成功)
@@ -412,19 +354,13 @@ namespace bms.Web.SalesMGT
                 //更新补货单头
                 int rskinds = replenBll.getkinds(rsHead);
                 int rsnumber = replenBll.getsBookNumberSum(rsHead);
-                double rsallPrice = replenBll.getsBookTotalPrice(rsHead);
-                double rsallRealPrice = replenBll.getsBookRealPrice(rsHead);
                 replenishMentHead upRsHead = new replenishMentHead()
                 {
-                    RsHeadID = rsHead,
+                    SaleTaskId = rsHead,
                     KindsNum = rskinds,
                     Number = rsnumber,
-                    AllTotalPrice = rsallPrice,
-                    AllRealPrice = rsallRealPrice
                 };
                 replenBll.updateRsHead(upRsHead);
-                //添加补货单后继续录入
-                addSaleMon();
             }
             else
             {
@@ -465,42 +401,6 @@ namespace bms.Web.SalesMGT
 
                     if (countnumber <= stockNum)
                     {
-                        //BookBasicBll Bookbll = new BookBasicBll();
-                        //BookBasicData book = new BookBasicData();
-                        //book = Bookbll.SelectById(bookNum);
-                        //string saleHeadId = SaleHeadId;
-                        ////Session["saleheadId"].ToString();
-                        //int saleIdmonomerId;
-                        //int count = salemonbll.SelectBySaleHeadId(saleHeadId);
-                        //if (count == 0)
-                        //{
-                        //    saleIdmonomerId = 1;
-                        //    salemonbll.updateHeadstate(saleId, SaleHeadId, saleIdmonomerId);
-                        //}
-                        //else
-                        //{
-                        //    saleIdmonomerId = count + 1;
-                        //}
-                        //int price = Convert.ToInt32(book.Price);
-                        //int totalPrice = price * number;
-                        //double realPrice = totalPrice * (disCount / 100);
-                        //DateTime Time = DateTime.Now.ToLocalTime();
-                        //SaleMonomer newSalemon = new SaleMonomer()
-                        //{
-                        //    AlreadyBought = AlreadyBought,
-                        //    SaleIdMonomerId = saleIdmonomerId,
-                        //    BookNum = bookNum,
-                        //    ISBN1 = bookISBN,
-                        //    SaleHeadId = saleHeadId,
-                        //    Number = number,
-                        //    UnitPrice = price,
-                        //    TotalPrice = totalPrice,
-                        //    RealPrice = realPrice,
-                        //    RealDiscount = disCount,
-                        //    Datetime = Time,
-                        //    SaleTaskId = saleId
-                        //};
-                        //更新库存
                         int stockcount = 0;
                         if (number < 0)
                         {
@@ -518,21 +418,30 @@ namespace bms.Web.SalesMGT
                             Result result = addSalemonDetail();
                             if (result == Result.添加成功)
                             {
-                                ////获取已购数
-                                //int frequency = salemonbll.SelectnumberBysaletask(saletaskId, bookNum.ToString());
-                                //if (frequency > 0)
-                                //{
-                                //    DataSet bookcount = salemonbll.SelectCountBybookNum(saletaskId, bookNum.ToString());
-                                //    AlreadyBought = Convert.ToInt32(bookcount.Tables[0].Rows[0]["alreadyBought"]);
-                                //    AlreadyBought += number;
-                                //}
-                                //else
-                                //{
-                                //    AlreadyBought = number;
-                                //}
-                                ////更新已购数
-                                //salemonbll.updateAlreadyBought(AlreadyBought, bookNum, saleId);
-
+                                //单体添加成功，生成补货单
+                                //判断是否已有该销售任务的补货单头
+                                rsHead = replenBll.getRsHeadID(saleId);
+                                //已有补货单头,直接添加补货单体
+                                if (rsHead != "none")
+                                {
+                                    addRsmon();
+                                }
+                                //没有补货单头，先生成补货单头，在添加补货单体
+                                else
+                                {
+                                    Result resultrsHead = addrsHead();
+                                    if (resultrsHead == Result.添加成功)
+                                    {
+                                        addRsmon();
+                                    }
+                                    else
+                                    {
+                                        msg.Messege = "添加补货单头失败";
+                                        Response.Write(ObjectToJson(msg));
+                                        Response.End();
+                                    }
+                                }
+                                ///更新销售单头
                                 Result res = updateSalehead();
                                 if (res == Result.更新成功)
                                 {
@@ -578,6 +487,29 @@ namespace bms.Web.SalesMGT
                             Result addSalemonres = addSalemonDetail();
                             if (addSalemonres == Result.添加成功)
                             {
+                                //单体添加成功，生成补货单
+                                //判断是否已有该销售任务的补货单头
+                                rsHead = replenBll.getRsHeadID(saleId);
+                                //已有补货单头,直接添加补货单体
+                                if (rsHead != "none")
+                                {
+                                    addRsmon();
+                                }
+                                //没有补货单头，先生成补货单头，在添加补货单体
+                                else
+                                {
+                                    Result resultrsHead = addrsHead();
+                                    if (resultrsHead == Result.添加成功)
+                                    {
+                                        addRsmon();
+                                    }
+                                    else
+                                    {
+                                        msg.Messege = "添加补货单头失败";
+                                        Response.Write(ObjectToJson(msg));
+                                        Response.End();
+                                    }
+                                }
                                 Result res = updateSalehead();
                                 if (res == Result.更新成功)
                                 {
@@ -611,6 +543,10 @@ namespace bms.Web.SalesMGT
             }
         }
 
+        /// <summary>
+        /// 添加单体详细信息
+        /// </summary>
+        /// <returns></returns>
         public Result addSalemonDetail()
         {
             BookBasicBll Bookbll = new BookBasicBll();
@@ -618,7 +554,6 @@ namespace bms.Web.SalesMGT
             book = Bookbll.SelectById(bookNum);
             string saleHeadId = SaleHeadId;
             //Session["saleheadId"].ToString();
-            int saleIdmonomerId;
             int count = salemonbll.SelectBySaleHeadId(saleHeadId);
             if (count == 0)
             {
