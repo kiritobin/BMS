@@ -1,9 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="addRs.aspx.cs" Inherits="bms.Web.InventoryMGT.addRs" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="regionRs.aspx.cs" Inherits="bms.Web.InventoryMGT.regionRs" %>
+<%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">
-<!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -14,20 +13,18 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
-    <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/jedate.css" />
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
-    <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 
 <body>
     <div class="wrapper ">
         <!-- 左侧垂直导航 -->
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
+            <!-- 平台字体logo -->
             <div class="logo">
                 <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
                 </a>
@@ -270,199 +267,197 @@
                     </div>
                 </div>
             </nav>
-
             <!-- 主界面内容 -->
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header card-header-danger">
-                                    <h4 class="card-title">补货添加</h4>
-                                </div>
                                 <div class="card-body">
+                                    <div class="card-header card-header-danger">
+                                        <h4 class="card-title">补货查看</h4>
+                                    </div>
                                     <div class="card-header from-group">
                                         <div class="input-group">
+
+                                            <%--<div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" id="export">导出</button>
+                                            </div>--%>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-warning btn-sm" id="back" onclick="javascript:history.back(-1);">返回</button>
+                                                <select class="modal_select" id="regionSearch">
+                                                    <option value="">请选择客户</option>
+                                                    <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%} %>
+                                                </select>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="print">打印</button>
                                             </div>
-                                            <!--<div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" id="btn-search">添加</button>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" id="btn_change">单据完成</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
-                                            </div>-->
+                                                <button class="btn btn-warning btn-sm" id="back" onclick="window,location.href='replenishMent.aspx'">返回</button>
+                                            </div>
+                                            <%--<div class="input-group no-border">
+                                            <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
+                                            <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
+                                              &nbsp;
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                        </div>--%>
                                         </div>
-                                    </div>
-
-                                    <table class="table table_stock text-right">
-                                        <tr class="text-nowrap">
-                                            <td>
-                                                <span>单据编号:</span>
-                                            </td>
-                                            <td>
-                                                <input value="" class="form-control" disabled>
-                                            </td>
-                                            <td>
-                                                <span>操作员:</span>
-                                            </td>
-                                            <td>
-                                                <input value="" class="form-control" disabled>
-                                            </td>
-                                            <td>
-                                                <span>单据总数:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="" class="form-control" disabled>
-                                            </td>
-                                        </tr>
-                                        <tr class="text-nowrap">
-                                            <td>
-                                                <span>入库组织:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="" class="form-control" disabled></td>
-                                            <td>
-                                                <span>总码洋:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="" class="form-control" disabled>
-                                            </td>
-                                            <td>
-                                                <span>总实洋:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="" class="form-control" disabled>
-                                            </td>
-                                        </tr>
-                                        <tr class="text-nowrap">
-                                            <td>
-                                                <span>制单日期:</span>
-                                            </td>
-                                            <td>
-                                                <div class="jeinpbox">
-                                                    <input type="text" value="" class="form-control" disabled id="test2">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <div class="table-responsive">
-                                        <table class="table mostTable table-bordered text-center" id="table">
-                                            <%=getData() %>
+                                        <table class="table table_stock text-right">
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>单据编号:</span>
+                                                </td>
+                                                <td>
+                                                    <input value="<%=saleTaskId %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>所属客户:</span>
+                                                </td>
+                                                <td>
+                                                    <input value="<%=customerName %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>操作员:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=userNamemsg %>" class="form-control" disabled>
+                                                </td>
+                                            </tr>
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>书籍种数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=kingdsNum %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>总数量:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=number %>" class="form-control" disabled></td>
+                                                <td>
+                                                    <span>总码洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=allTotalPrice %>" class="form-control" disabled>
+                                                </td>
+                                            </tr>
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>总实洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=allRealPrice %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>单据状态:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=state %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>制单日期:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=dateTime %>" class="form-control" disabled>
+                                                </td>
+                                            </tr>
                                         </table>
-                                    </div>
-                                    <div class="copyright float-right page-box">
-                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div>
+                                        <div class="table-responsive">
+                                            <table class="table mostTable table-bordered text-center" id="table">
+                                                <thead>
+                                                    <tr style="border: 2px solid #DDD">
+                                                        <td colspan="9">商品</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>序号</td>
+                                                        <td>书号</td>
+                                                        <td>书名</td>
+                                                        <td>单价</td>
+                                                        <td>数量</td>
+                                                        <td>码洋</td>
+                                                        <td>折扣</td>
+                                                        <td>实洋</td>
+                                                        <td>日期</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <%=getData() %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="copyright float-right page-box">
+                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                                <div class="m-style paging"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--导入模态框-->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title float-left" id="myModalLabel">数据操作
-                                    </h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                        <i class="fa fa-close"></i>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <table class="table text-center model-table">
-                                        <tr>
-                                            <td colspan="2">
-                                                <a class="btn btn-success" id="downEx" href="/uploads/muban/客户馆藏数据表.xls">下载模板</a>
-                                                <span class="btn btn-success fileinput-button">
-                                                    <span>选择文件</span>
-                                                    <input type="file" class="" name="file" id="file" value="">
-                                                </span>
-                                                <button class="btn btn-success" id="upload">上传</button>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-success" id="btnImport" data-toggle="modal">导入</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
-                        <div class="modal-dialog" style="width: 500px; height: 500px">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
-                                    <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
-                                        <i class="fa fa-close"></i>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--一号多书模态框展示-->
-                <div class='modal fade' id='myModa2' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop='static'>
-                    <div class='modal-dialog' style='max-width: 900px;'>
-                        <div class='modal-content'>
-                            <div class='modal-header'>
-                                <h4 class='modal-title float-left' id='myModalLabel2'>请选择你要进行操作的书籍</h4>
-                                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>
-                                    <i class="fa fa-close"></i>
-                                </button>
-                            </div>
-                            <div class='modal-body'>
-                                <table id='tablebook' class='table mostTable table-bordered text-center'>
-                                </table>
-                            </div>
-                            <div class='modal-footer'>
-                                <button type='button' class='btn btn-success btn-sm' id='sureBook'>确定</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+
+                    <!-- 主界面页脚部分 -->
+                    <footer class="footer">
+                        <div class="container-fluid">
+                            <!-- 版权内容 -->
+                            <div class="copyright text-center">
+                                &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                            &nbsp;版权所有
+                                &nbsp;版权所有
                         <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
+                            </div>
                         </div>
-                    </div>
-                </footer>
+                    </footer>
+                </div>
             </div>
         </div>
-        </div>
-        <script src="../js/jquery-3.3.1.min.js"></script>
-        <!-- 左侧导航栏所需js -->
-        <script src="../js/popper.min.js"></script>
-        <script src="../js/bootstrap-material-design.min.js"></script>
-        <!-- 移动端手机菜单所需js -->
-        <script src="../js/perfect-scrollbar.jquery.min.js"></script>
-        <script src="../js/material-dashboard.min.js"></script>
-        <!-- selectpicker.js -->
-        <script src="../js/bootstrap-selectpicker.js"></script>
-        <!-- alert.js -->
-        <script src="../js/sweetalert2.js"></script>
-        <!-- paging.js -->
-        <script src="../js/jquery.pagination.js"></script>
-        <script src="../js/jedate.min.js"></script>
-        <script src="../js/addRs.js"></script>
-        <script src="../js/public.js"></script>
+    </div>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <!-- 左侧导航栏所需js -->
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap-material-design.min.js"></script>
+    <!-- 移动端手机菜单所需js -->
+    <script src="../js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../js/material-dashboard.min.js"></script>
+    <!-- selectpicker.js -->
+    <script src="../js/bootstrap-selectpicker.js"></script>
+    <!-- alert.js -->
+    <script src="../js/sweetalert2.js"></script>
+    <!-- paging.js -->
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/jedate.min.js"></script>
+    <script src="../js/checkStock.js"></script>
+    <script src="../js/public.js"></script>
+    <script>
+        var enLang = {
+            name: "en",
+            month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+            weeks: ["SUN", "MON", "TUR", "WED", "THU", "FRI", "SAT"],
+            times: ["Hour", "Minute", "Second"],
+            timetxt: ["Time", "Start Time", "End Time"],
+            backtxt: "Back",
+            clear: "Clear",
+            today: "Now",
+            yes: "Confirm",
+            close: "Close"
+        }
+        //自定义格式选择
+        jeDate("#test1", {
+            theme: { bgcolor: "#D91600", pnColor: "#FF6653" },
+            format: "YYYY年MM月DD日"
+        });
+    </script>
 </body>
 
 </html>
+
+
