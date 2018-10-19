@@ -29,6 +29,7 @@
 //打印
 $("#print").click(function () {
     //$("#content").jqprint();
+
     $.ajax({
         type: 'Post',
         url: 'salesTaskStatistics.aspx',
@@ -48,7 +49,7 @@ $("#print").click(function () {
                 status = Value;
             };
             if (status != "" || status != null) {
-                link = "<link rel='stylesheet' type='text/css' href='../css/zgz.css'><link rel='stylesheet' href='../css/material-dashboard.min.css'>";
+                link = "<link rel='stylesheet' type='text/css' href='../css/zgz.css'><link rel='stylesheet' href='../css/material-dashboard.min.css'><link rel='stylesheet' href='../css/lgd.css'>";
                 style = "<style>body{background-color:white !important;}#table tr td{border: 1px solid black !important;padding:5px 5px;font-size:13px;}</style>";
                 LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", link + style + "<body>" + document.getElementById("content").innerHTML + "</body>");
                 //LODOP.SET_PRINTER_INDEX("Send To OneNote 2016");

@@ -331,7 +331,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet salesTaskStatistics(string saleTaskId)
         {
-            string cmdText = "select bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice from V_SaleMonomer where saleTaskId=@saleTaskId and group by bookNum,bookName,ISBN,unitPrice order by dateTime";
+            string cmdText = "select bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice from V_SaleMonomer where saleTaskId=@saleTaskId  group by bookNum,bookName,ISBN,unitPrice order by dateTime";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
