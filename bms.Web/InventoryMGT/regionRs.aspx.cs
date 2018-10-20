@@ -15,13 +15,13 @@ namespace bms.Web.InventoryMGT
     public partial class regionRs : System.Web.UI.Page
     {
         FunctionBll functionBll = new FunctionBll();
-        public string userName, regionName;
+        public string userName, regionName, region;
         User user;
         protected DataSet dsPer, ds, dsRegion;
         SaleTaskBll saleBll = new SaleTaskBll();
         replenishMentBll repBll = new replenishMentBll();
         RegionBll regionBll = new RegionBll();
-        public int totalCount, intPageCount, pageSize = 15;
+        public int totalCount, intPageCount, pageSize = 15, counts,kinds, regionId;
         public string saleTaskId, customerName, userNamemsg, kingdsNum, number, allTotalPrice, allRealPrice, dateTime, state;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
@@ -29,18 +29,7 @@ namespace bms.Web.InventoryMGT
             user = (User)Session["user"];
             permission();
             dsRegion = regionBll.select();
-            if (user.RoleId.RoleName == "超级管理员")
-            {
-                string op1 = Request["op"];
-                if (op1 == "search")
-                {
-                    getData();
-                }
-            }
-            else
-            {
-                getData();
-            }
+            getData();
             string op = Request["op"];
             if (op == "logout")
             {
@@ -51,27 +40,9 @@ namespace bms.Web.InventoryMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
-        }
-
-        public void getHeadMsg()
-        {
-            DataSet rsHeads = repBll.getHeadMsg(saleTaskId);
-            saleTaskId = rsHeads.Tables[0].Rows[0]["rsHeadID"].ToString();
-            customerName = rsHeads.Tables[0].Rows[0]["customerName"].ToString();
-            userNamemsg = rsHeads.Tables[0].Rows[0]["userName"].ToString();
-            kingdsNum = rsHeads.Tables[0].Rows[0]["kingdsNum"].ToString();
-            number = rsHeads.Tables[0].Rows[0]["number"].ToString();
-            allTotalPrice = rsHeads.Tables[0].Rows[0]["allTotalPrice"].ToString();
-            allRealPrice = rsHeads.Tables[0].Rows[0]["allRealPrice"].ToString();
-            dateTime = rsHeads.Tables[0].Rows[0]["dateTime"].ToString();
-            state = rsHeads.Tables[0].Rows[0]["state"].ToString();
-            if (state == "0")
+            if (op=="print")
             {
-                state = "单据未完成";
-            }
-            else
-            {
-                state = "单据已完成";
+                print();
             }
         }
 
@@ -79,23 +50,39 @@ namespace bms.Web.InventoryMGT
         /// 获取基础数据
         /// </summary>
         /// <returns></returns>
-        public void getData()
+        public string getData()
         {
-            int regionId=0;
+            regionId= Convert.ToInt32(Request["regionId"]);
             string search = "";
             StringBuilder strb = new StringBuilder();
             string op = Request["op"];
-            if (op == "search")
+            if (regionId > 0)
             {
                 if (user.RoleId.RoleName == "超级管理员")
                 {
-                    regionId = Convert.ToInt32(Request["regionId"]);
+                    search = " and regionId=" + regionId;
+                    region = regionBll.selectById(regionId);
+                    kinds = repBll.getMonkinds(regionId,0);
+                    counts = repBll.getTotalMon(regionId,0);
+                }
+            }
+            else
+            {
+                if (user.RoleId.RoleName == "超级管理员")
+                {
+                    search = "";
+                    counts = 0;
+                    kinds = 0;
+                    region = "";
                 }
                 else
                 {
                     regionId = user.ReginId.RegionId;
+                    search = " and regionId=" + regionId;
+                    kinds = repBll.getMonkinds(regionId,0);
+                    counts = repBll.getTotalMon(regionId,0);
+                    region = regionBll.selectById(regionId);
                 }
-                search = " and regionId='" + regionId + "'";
             }
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
@@ -106,10 +93,10 @@ namespace bms.Web.InventoryMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_ReplenishMentMononer";
             tb.OrderBy = "rsMononerID";
-            tb.StrColumnlist = "regionName,customerName,rsMononerID,bookNum,ISBN,bookName,count,dateTime";
+            tb.StrColumnlist = "regionName,customerName,rsMononerID,bookNum,ISBN,bookName,sum(count) as count,dateTime";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = "ISNULL(finishTime) and deleteState=0"+search;
+            tb.StrWhere = "ISNULL(finishTime) and deleteState=0"+search + " group by regionName,customerName,rsMononerID,bookNum,ISBN,bookName";
             //获取展示的客户数据
             ds = saleBll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table
@@ -127,8 +114,12 @@ namespace bms.Web.InventoryMGT
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             strb.Append("</tbody>");
-            Response.Write(strb.ToString());
-            Response.End();
+            if (op == "paging")
+            {
+                Response.Write(strb.ToString()+ ":|" + kinds+":|"+ counts + ":|" + region );
+                Response.End();
+            }
+            return strb.ToString();
         }
 
         /// <summary>
@@ -201,6 +192,33 @@ namespace bms.Web.InventoryMGT
                     funcRetail = true;
                 }
             }
+        }
+
+        //打印
+        private void print()
+        {
+            WarehousingBll warehousingBll = new WarehousingBll();
+            DataSet ds = warehousingBll.regionRs(regionId);
+            StringBuilder strb = new StringBuilder();
+
+            region = regionBll.selectById(regionId);
+            kinds = repBll.getMonkinds(regionId, 0);
+            counts = repBll.getTotalMon(regionId, 0);
+            strb.Append("<tbody>");
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                strb.Append("<tr><td>" + (i + 1) + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
+                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</nobr></td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
+                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</nobr></td></tr>");
+            }
+            strb.Append("</tbody>");
+            Response.Write(strb.ToString() + ":|" + kinds + ":|" + counts + ":|" + region);
+            Response.End();
         }
     }
 }

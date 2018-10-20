@@ -243,5 +243,13 @@ namespace bms.Bll
         {
             return monoDao.checkRs(saleTaskId);
         }
+        public DataSet regionRs(int regionId)
+        {
+            return monoDao.regionRs(regionId);
+        }
+        public DataSet customerRs(int customerId)
+        {
+            return monoDao.customerRs(customerId);
+        }
     }
 }

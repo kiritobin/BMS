@@ -194,7 +194,8 @@ namespace bms.Web.SalesMGT
                     sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
                     sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
                     sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
-                    sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></td></tr>");
+                    sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></td>");
+                    sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td></tr>");
                 }
                 Response.Write(sb.ToString());
                 Response.End();

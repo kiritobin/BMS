@@ -71,7 +71,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allKinds"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allNumber"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allPrice"].ToString() + ".00￥" + "</td></tr>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["allPrice"].ToString() + ".00" + "</td></tr>");
             }
             strb.Append("</tbody>");
             return strb.ToString();

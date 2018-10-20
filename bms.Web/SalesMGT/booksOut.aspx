@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
+    <style>
+        #table{
+            font-size:24px;
+        }
+        #fontHead th{
+            font-size:24px;
+        }
+    </style>
 </head>
 <body>
     <!-- 主界面头部面板 -->
@@ -45,13 +53,13 @@
                     <div class="card">
                         <div class="card-header card-header-warning">
                             <label id="time" class="pull-right" style="color:white"></label>
-                            <h3 class="card-title">图书团采排行榜TOP10</h3>
+                            <h2 class="card-title">图书团采排行榜TOP10</h2>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table" id="table">
                                     <thead>
-                                        <tr>
+                                        <tr id="fontHead">
                                             <th>排名</th>
                                             <th>书名</th>
                                             <!--<th>数量</th>-->
@@ -74,6 +82,7 @@
             </div>
         </div>
     </div>
+    <script src="../js/public.js"></script>
     <script>
         function reload() {
             window.location.reload();
@@ -108,6 +117,5 @@
         }
         setTimeout("reload()", 600000);
     </script>
-    <script src="../js/public.js"></script>
 </body>
 </html>

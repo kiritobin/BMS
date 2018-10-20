@@ -21,8 +21,8 @@ namespace bms.Web.InventoryMGT
         SaleTaskBll saleBll = new SaleTaskBll();
         replenishMentBll repBll = new replenishMentBll();
         LibraryCollectionBll libraryCollectionBll = new LibraryCollectionBll();
-        public int totalCount, intPageCount, pageSize = 15;
-        public string saleTaskId, customerName, userNamemsg, kingdsNum, number, allTotalPrice, allRealPrice, dateTime, state;
+        public int totalCount, intPageCount, pageSize = 15, kinds,counts, customerId;
+        public string saleTaskId, customerName, userNamemsg, kingdsNum, number, allTotalPrice, allRealPrice, dateTime, state, customer;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,10 +30,7 @@ namespace bms.Web.InventoryMGT
             permission();
             dsCustom = libraryCollectionBll.getCustomer();
             string op = Request["op"];
-            if (op == "search")
-            {
-                getData();
-            }
+            getData();
             if (op == "logout")
             {
                 //删除身份凭证
@@ -43,21 +40,37 @@ namespace bms.Web.InventoryMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
+            if (op=="print")
+            {
+                print();
+            }
         }
 
         /// <summary>
         /// 获取基础数据
         /// </summary>
         /// <returns></returns>
-        public void getData()
+        public string getData()
         {
             string search = "";
             StringBuilder strb = new StringBuilder();
+            customerId = Convert.ToInt32(Request["cusId"]);
             string op = Request["op"];
-            if(op == "search")
+            if (customerId > 0)
             {
-                string customerId = Request["cusId"];
                 search = " and customerId=" + customerId;
+                CustomerBll customerBll = new CustomerBll();
+                Customer cus = customerBll.getCustomer(customerId);
+                customer = cus.CustomerName;
+                kinds = repBll.getMonkinds(customerId,1);
+                counts = repBll.getTotalMon(customerId,1);
+            }
+            else
+            {
+                search = "";
+                counts = 0;
+                kinds = 0;
+                customer = "";
             }
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
@@ -68,10 +81,10 @@ namespace bms.Web.InventoryMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_ReplenishMentMononer";
             tb.OrderBy = "rsMononerID";
-            tb.StrColumnlist = "regionName,customerName,rsMononerID,bookNum,ISBN,bookName,count,dateTime";
+            tb.StrColumnlist = "regionName,customerName,rsMononerID,bookNum,ISBN,bookName,sum(count) as count,dateTime";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = "ISNULL(finishTime) and deleteState=0" + search;
+            tb.StrWhere = "ISNULL(finishTime) and deleteState=0" + search + " group by regionName,customerName,rsMononerID,bookNum,ISBN,bookName";
             //获取展示的客户数据
             ds = saleBll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table
@@ -89,8 +102,12 @@ namespace bms.Web.InventoryMGT
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             strb.Append("</tbody>");
-            Response.Write(strb.ToString());
-            Response.End();
+            if (op == "paging")
+            {
+                Response.Write(strb.ToString() + ":|" + kinds + ":|" + counts + ":|" + customer);
+                Response.End();
+            }
+            return strb.ToString();
         }
 
         /// <summary>
@@ -163,6 +180,33 @@ namespace bms.Web.InventoryMGT
                     funcRetail = true;
                 }
             }
+        }
+        private void print()
+        {
+            StringBuilder strb = new StringBuilder();
+            WarehousingBll warehousingBll = new WarehousingBll();
+            DataSet ds = warehousingBll.customerRs(customerId);
+            CustomerBll customerBll = new CustomerBll();
+
+            Customer cus = customerBll.getCustomer(customerId);
+            customer = cus.CustomerName;
+            kinds = repBll.getMonkinds(customerId, 1);
+            counts = repBll.getTotalMon(customerId, 1);
+            strb.Append("<tbody>");
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                strb.Append("<tr><td>" + (i + 1) + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
+                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</nobr></td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
+                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</nobr></td></tr>");
+            }
+            strb.Append("</tbody>");
+            Response.Write(strb.ToString() + ":|" + kinds + ":|" + counts + ":|" + customer);
+            Response.End();
         }
     }
 }

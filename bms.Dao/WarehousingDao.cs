@@ -325,5 +325,36 @@ namespace bms.Dao
                 return null;
             }
         }
+        public DataSet regionRs(int regionId)
+        {
+            string cmdText = "select regionName,customerName,rsMononerID,bookNum,ISBN,bookName,sum(count) as count,dateTime from V_ReplenishMentMononer where ISNULL(finishTime) and deleteState=0 and regionId=@regionId group by regionName,customerName,rsMononerID,bookNum,ISBN,bookName order by rsMononerID";
+            string[] param = { "@regionId" };
+            object[] values = { regionId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public DataSet customerRs(int customerId)
+        {
+            string cmdText = "select regionName,customerName,rsMononerID,bookNum,ISBN,bookName,sum(count) as count,dateTime from V_ReplenishMentMononer where ISNULL(finishTime) and deleteState=0 and customerId=@customerId group by regionName,customerName,rsMononerID,bookNum,ISBN,bookName order by rsMononerID";
+            string[] param = { "@customerId" };
+            object[] values = { customerId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

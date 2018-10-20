@@ -122,9 +122,6 @@ namespace bms.Bll
                 int i = ds.Tables[0].Rows.Count - 1;
                 cust.CustomerId = Convert.ToInt32(ds.Tables[0].Rows[i]["customerID"].ToString());
                 cust.CustomerName = ds.Tables[0].Rows[i]["customerName"].ToString();
-                Region reg = new Region();
-                reg.RegionId = Convert.ToInt32(ds.Tables[0].Rows[i]["regionId"].ToString());
-                cust.RegionId = reg;
                 return cust;
             }
             else
