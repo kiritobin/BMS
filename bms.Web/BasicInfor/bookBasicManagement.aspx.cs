@@ -174,7 +174,7 @@ namespace bms.Web.BasicInfor
                 dt1.Columns.Add("id"); //匹配列，与结构一致
                 oda1.Fill(dt1);
                 row = dt1.Rows.Count; //获取总数
-                GetDistinctSelf(dt1, "ISBN", "书名", "单价");
+                //GetDistinctSelf(dt1, "ISBN", "书名", "单价");
             }
             catch (Exception ex)
             {
@@ -401,7 +401,8 @@ namespace bms.Web.BasicInfor
             //数据库无数据时直接导入excel
             if (j <= 0)
             {
-                except = addBookId();
+                //except = addBookId();
+                except= GetDistinctSelf(addBookId(), "ISBN", "书名", "单价"); 
             }
             else
             {
