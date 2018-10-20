@@ -40,61 +40,73 @@ namespace bms.Web.SalesMGT
             //添加销售任务
             if (op == "add")
             {
-                int count = saleBll.getCount();
-                if (count > 0)
+                User user = (User)Session["user"];
+                int custmerID = Convert.ToInt32(Request["Custmer"]);
+                int regionId = user.ReginId.RegionId;
+                string state = saleBll.getcustomermsg(custmerID, regionId);
+                if (state == "1")
                 {
-                    string time = saleBll.getSaleTaskTime();
-                    string nowTime = DateTime.Now.ToLocalTime().ToString();
-                    string equalsTime = nowTime.Substring(0, 10);
-                    if (time.Equals(equalsTime))
+                    Response.Write("该客户还有未完成的销售任务，不能添加");
+                    Response.End();
+                }
+                else
+                {
+                    int count = saleBll.getCount();
+                    if (count > 0)
                     {
-                        count += 1;
-                        saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        string time = saleBll.getSaleTaskTime();
+                        string nowTime = DateTime.Now.ToLocalTime().ToString();
+                        string equalsTime = nowTime.Substring(0, 10);
+                        if (time.Equals(equalsTime))
+                        {
+                            count += 1;
+                            saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        }
+                        else
+                        {
+                            count = 1;
+                            saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        }
+
                     }
                     else
                     {
                         count = 1;
                         saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                     }
+                    Customer customer = new Customer();
+                    customer.CustomerId = custmerID;
+                    int numberLimit = Convert.ToInt32(Request["numberLimit"]);
+                    int priceLimit = Convert.ToInt32(Request["priceLimit"]);
+                    int totalPriceLimit = Convert.ToInt32(Request["totalPriceLimit"]);
+                    double defaultDiscount = double.Parse(Request["defaultDiscount"]);
+                    string defaultCopy = Request["defaultCopy"].ToString();
+                    int userId = user.UserId;
+                    DateTime StartTime = DateTime.Now.ToLocalTime();
+                    SaleTask saleTask = new SaleTask()
+                    {
 
-                }
-                else
-                {
-                    count = 1;
-                    saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-                }
-                int custmerID = Convert.ToInt32(Request["Custmer"]);
-                Customer customer = new Customer();
-                customer.CustomerId = custmerID;
-                int numberLimit = Convert.ToInt32(Request["numberLimit"]);
-                int priceLimit = Convert.ToInt32(Request["priceLimit"]);
-                int totalPriceLimit = Convert.ToInt32(Request["totalPriceLimit"]);
-                double defaultDiscount = double.Parse(Request["defaultDiscount"]);
-                User user = (User)Session["user"];
-                int userId = user.UserId;
-                DateTime StartTime = DateTime.Now.ToLocalTime();
-                SaleTask saleTask = new SaleTask()
-                {
-                    SaleTaskId = saleTaskId,
-                    UserId = userId,
-                    Customer = customer,
-                    DefaultDiscount = defaultDiscount,
-                    DefaultCopy = "",
-                    NumberLimit = numberLimit,
-                    PriceLimit = priceLimit,
-                    TotalPiceLimit = totalPriceLimit,
-                    StartTime = StartTime,
-                };
-                Result result = saleBll.insert(saleTask);
-                if (result == Result.添加成功)
-                {
-                    Response.Write("添加成功");
-                    Response.End();
-                }
-                else
-                {
-                    Response.Write("添加失败");
-                    Response.End();
+                        SaleTaskId = saleTaskId,
+                        UserId = userId,
+                        Customer = customer,
+                        DefaultDiscount = defaultDiscount,
+                        DefaultCopy = defaultCopy,
+                        NumberLimit = numberLimit,
+                        PriceLimit = priceLimit,
+                        TotalPiceLimit = totalPriceLimit,
+                        StartTime = StartTime,
+                    };
+                    Result result = saleBll.insert(saleTask);
+                    if (result == Result.添加成功)
+                    {
+                        Response.Write("添加成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("添加失败");
+                        Response.End();
+                    }
                 }
             }
             //删除
@@ -197,8 +209,9 @@ namespace bms.Web.SalesMGT
                 double allprice = double.Parse(Request["allpricemlimited"]);
                 int number = int.Parse(Request["numberlimited"]);
                 double price = double.Parse(Request["pricelimited"]);
-                double defaultDiscount = double.Parse(Request["defaultDiscount"]);
-                int row = saleBll.update(number, price, allprice, defaultDiscount, saleId);
+                double defaultDiscount = double.Parse(Request["defaultDiscounted"]);
+                string defaultCopyed = Request["defaultCopyed"].ToString();
+                int row = saleBll.update(number, price, allprice, defaultDiscount, defaultCopyed, saleId);
                 if (row > 0)
                 {
                     Response.Write("保存成功");
@@ -253,7 +266,7 @@ namespace bms.Web.SalesMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleTask";
             tb.OrderBy = "saleTaskId";
-            tb.StrColumnlist = "saleTaskId,defaultDiscount,priceLimit,numberLimit,totalPriceLimit,startTime,finishTime,userId,userName,customerName,regionId";
+            tb.StrColumnlist = "saleTaskId,defaultDiscount,defaultCopy,priceLimit,numberLimit,totalPriceLimit,startTime,finishTime,userId,userName,customerName,regionId";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
@@ -275,13 +288,13 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</td>");
                 strb.Append("<td>" + Double.Parse(ds.Tables[0].Rows[i]["defaultDiscount"].ToString()) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["numberLimit"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["defaultCopy"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["priceLimit"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPriceLimit"].ToString() + "</td>");
                 strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["startTime"].ToString() + "</nobr></td>");
                 strb.Append("<td><nobr>" + time + "</nobr></td>");
                 strb.Append("<td style='width:100px;'>" + "<button class='btn btn-success btn-sm btn_sale'>销售</button>");
                 strb.Append("<button class='btn btn-success btn-sm btn_back'>销退</button></td>");
-                strb.Append("<td style='width:150px;'><button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button> <button class='btn btn-sm btn-success edited'>&nbsp 编辑 &nbsp</button>");
+                strb.Append("<td><button class='btn btn-success btn-sm btn_search'>查看</button> <button class='btn btn-sm btn-success edited' value='" + ds.Tables[0].Rows[i]["totalPriceLimit"].ToString() + "' >编辑</button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + "</td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");

@@ -206,7 +206,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet SelectBysaleTaskId(string saleTaskId)
         {
-            string sql = "select numberLimit,priceLimit,totalPriceLimit from T_SaleTask where saleTaskId=@saleTaskId";
+            string sql = "select numberLimit,priceLimit,defaultCopy from T_SaleTask where saleTaskId=@saleTaskId";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             DataSet ds = db.FillDataSet(sql, param, values);
@@ -219,11 +219,11 @@ namespace bms.Dao
         /// <param name="priceLimit">单价</param>
         /// <param name="totalPriceLimit">总码洋</param>
         /// <returns>受影响行数</returns>
-        public int update(int numberLimit, double priceLimit, double totalPriceLimit, double defaultDiscount, string saleId)
+        public int update(int numberLimit, double priceLimit, double totalPriceLimit, double defaultDiscount, string defaultCopy, string saleId)
         {
-            string cmdText = "update T_SaleTask set numberLimit=@numberLimit, priceLimit=@priceLimit, totalPriceLimit=@totalPriceLimit,defaultDiscount=@defaultDiscount where saleTaskId=@saleId";
-            string[] param = { "@numberLimit", "@priceLimit", "@totalPriceLimit", "@defaultDiscount", "@saleId" };
-            object[] values = { numberLimit, priceLimit, totalPriceLimit, defaultDiscount, saleId };
+            string cmdText = "update T_SaleTask set numberLimit=@numberLimit, priceLimit=@priceLimit, totalPriceLimit=@totalPriceLimit,defaultDiscount=@defaultDiscount,defaultCopy=@defaultCopy where saleTaskId=@saleId";
+            string[] param = { "@numberLimit", "@priceLimit", "@totalPriceLimit", "@defaultDiscount", "@@defaultCopy", "@saleId" };
+            object[] values = { numberLimit, priceLimit, totalPriceLimit, defaultDiscount, defaultCopy, saleId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -346,7 +346,7 @@ namespace bms.Dao
         public int getkindsBySaleTaskId(string saleTaskId)
         {
             string cmdText = "select bookNum,number from V_SaleMonomer where saleTaskId=@saleTaskId";
-            string[] param = { "@saleTaskId"};
+            string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             float sltemp = 0;
             int zl = 0;
@@ -369,6 +369,39 @@ namespace bms.Dao
                 }
             }
             return zl;
+        }
+        /// <summary>
+        /// 根据客户id获取他是否有过销售任务
+        /// </summary>
+        /// <param name="CustmerId">客户id</param>
+        /// <returns>0该客户还没有销售任务,1该客户已有销售任务但未完成,2已完成，可以添加</returns>
+        public string getcustomermsg(int CustmerId ,int regionId)
+        {
+            string cmdText = "select startTime,finishTime from V_SaleTask where customerId=@CustmerId and regionId=@regionId ";
+            string[] param = { "@CustmerId", "@regionId" };
+            object[] values = { CustmerId, regionId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            string state = "";
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    string finishtime = ds.Tables[0].Rows[i]["finishTime"].ToString();
+                    if (finishtime == "" || finishtime == null)
+                    {
+                        state = "1";
+                    }
+                    else
+                    {
+                        state = "2";
+                    }
+                }
+            }
+            else
+            {
+                state = "0";
+            }
+            return state;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace bms.Web.SalesMGT
         SaleTaskBll saletaskbll = new SaleTaskBll();
         public StringBuilder strbook = new StringBuilder();
         public int allkinds, allnumber, numberLimit;
-        public double alltotalprice, allreadprice, limtalltotalprice, priceLimit;
+        public double alltotalprice, allreadprice, defaultCopy, priceLimit;
         string bookISBN, SaleHeadId, saleId, rsHead;
         double disCount;
         int number, d_Value, saleIdmonomerId;
@@ -215,7 +215,7 @@ namespace bms.Web.SalesMGT
         public void getlimt()
         {
             DataSet limtds = saletaskbll.SelectBysaleTaskId(saleId);
-            limtalltotalprice = double.Parse(limtds.Tables[0].Rows[0]["totalPriceLimit"].ToString());
+            defaultCopy = double.Parse(limtds.Tables[0].Rows[0]["defaultCopy"].ToString());
             numberLimit = int.Parse(limtds.Tables[0].Rows[0]["numberLimit"].ToString());
             priceLimit = double.Parse(limtds.Tables[0].Rows[0]["priceLimit"].ToString());
         }

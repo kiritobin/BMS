@@ -47,7 +47,7 @@
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <%if (funcRole)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
@@ -55,7 +55,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcUser)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
@@ -63,7 +63,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcOrg)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -71,7 +71,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcGoods)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
@@ -95,7 +95,7 @@
                         <div class="collapse" id="userManage">
                             <ul class="nav">
                                 <%if (funcCustom)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
@@ -183,7 +183,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcRetail)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="retailManagement.aspx" id="retail">
                                         <span class="sidebar-normal">零售管理</span>
@@ -307,10 +307,10 @@
                                                         <nobr>最大采购数</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>单价上限</nobr>
+                                                        <nobr>默认复本</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>码洋上限</nobr>
+                                                        <nobr>单价上限</nobr>
                                                     </td>
                                                     <td>
                                                         <nobr>开始时间</nobr>
@@ -321,7 +321,7 @@
                                                     <td>
                                                         <nobr>销售/销退</nobr>
                                                     </td>
-                                                    <td class="table-thead-th">
+                                                    <td>
                                                         <nobr>操作</nobr>
                                                     </td>
                                                 </tr>
@@ -354,24 +354,29 @@
                         <div class="modal-body">
                             <table id="edited" class="table model-table">
                                 <tr>
-                                    <td class="text-right">码洋上限</td>
+                                    <td class="text-right">码洋上限:</td>
                                     <td>
                                         <input type="text" id="allpricemlimited" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                                 <tr>
-                                    <td class="text-right">最大采购数</td>
+                                    <td class="text-right">最大采购数:</td>
                                     <td>
                                         <input type="text" id="numberlimited" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                                 <tr>
-                                    <td class="text-right">默认折扣</td>
+                                    <td class="text-right">默认折扣:</td>
                                     <td>
                                         <input type="text" id="defaultDiscount" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                                 <tr>
-                                    <td class="text-right">单价上限</td>
+                                    <td class="text-right">单价上限:</td>
                                     <td>
                                         <input type="text" id="pricelimited" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">默认复本:</td>
+                                    <td>
+                                        <input type="text" id="defaultCopyed" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                             </table>
                         </div>
@@ -383,7 +388,7 @@
             </div>
             <!--添加模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width: 350px;">
+                <div class="modal-dialog" style="max-width: 450px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">任务添加</h4>
@@ -428,6 +433,11 @@
                                     <td>
                                         <input type="text" class="modal_search_add" id="Price" maxlength="4" oninput="value=value.replace(/[^\d]/g,'')">
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">默认复本:</td>
+                                    <td>
+                                        <input type="text" id="defaultCopy" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                             </table>
                         </div>

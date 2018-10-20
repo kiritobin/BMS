@@ -81,8 +81,8 @@
             }
         }
     })
-    var limited = $("#limtalltotalprice").val();
-    var numberLimit = $("#numberLimit").val();
+    // var defaultCopy = $("#defaultCopy").val();
+    // var numberLimit = $("#numberLimit").val();
     var priceLimit = $("#priceLimit").val();
 
     //数量回车
@@ -106,10 +106,10 @@
                     buttonsStyling: false,
                     allowOutsideClick: false
                 })
-            } else if (parseFloat(price) > parseFloat(priceLimit) || number > numberLimit || allprice > limited) {
+            } else if (parseFloat(price) > parseFloat(priceLimit)) {
                 swal({
                     title: "是否继续录入",
-                    text: "本次录入已达上限,是否继续录入?" + "<br/>" + "最大数量为:" + numberLimit + " 单价限制为:" + priceLimit + " 总码洋限制为:" + limited,
+                    text: "本次录入已达上限,是否继续录入?" + " 单价限制为:" + priceLimit,
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

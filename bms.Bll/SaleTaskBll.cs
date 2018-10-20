@@ -229,9 +229,9 @@ namespace bms.Bll
         /// <param name="priceLimit">单价</param>
         /// <param name="totalPriceLimit">总码洋</param>
         /// <returns>受影响行数</returns>
-        public int update(int numberLimit, double priceLimit, double totalPriceLimit, double defaultDiscount, string saleId)
+        public int update(int numberLimit, double priceLimit, double totalPriceLimit, double defaultDiscount, string defaultCopy, string saleId)
         {
-            return saleDao.update(numberLimit, priceLimit, totalPriceLimit, defaultDiscount, saleId);
+            return saleDao.update(numberLimit, priceLimit, totalPriceLimit, defaultDiscount, defaultCopy, saleId);
         }
         /// <summary>
         /// 更新任务完成时间
@@ -304,6 +304,15 @@ namespace bms.Bll
         public int getkindsBySaleTaskId(string saleTaskId)
         {
             return saleDao.getkindsBySaleTaskId(saleTaskId);
+        }
+        /// <summary>
+        /// 根据客户id获取他是否有过销售任务
+        /// </summary>
+        /// <param name="CustmerId">客户id</param>
+        /// <returns>0该客户还没有销售任务,1该客户已有销售任务但未完成,2已完成，可以添加</returns>
+        public string getcustomermsg(int CustmerId, int regionId)
+        {
+            return saleDao.getcustomermsg(CustmerId, regionId);
         }
     }
 }

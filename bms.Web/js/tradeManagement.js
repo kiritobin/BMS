@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
- $(".paging").pagination({
+    $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
         mode: 'fixed',//固定页码数量
@@ -31,18 +31,20 @@
         var saleId = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
         sessionStorage.setItem("saleid", saleId);
         var defaultDiscount = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
-        var number = $(this).parent().prev().prev().prev().prev().prev().prev().text().trim();
-        var price = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        var allprice = $(this).parent().prev().prev().prev().prev().text().trim();
+        var number = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        var price = $(this).parent().prev().prev().prev().prev().text().trim();
+        var allprice = $(this).val();
+        var defaultCopy = $(this).parent().prev().prev().prev().prev().prev().text().trim();
         $("#defaultDiscount").val(defaultDiscount);
         $("#allpricemlimited").val(allprice);
         $("#numberlimited").val(number);
         $("#pricelimited").val(price);
+        $("#defaultCopyed").val(defaultCopy);
         $.ajax({
             type: 'Post',
             url: 'tradeManagement.aspx',
             data: {
-                saleId:saleId,
+                saleId: saleId,
                 op: "isEdit"
             },
             dataType: 'text',
@@ -73,8 +75,9 @@
         var allpricemlimited = $("#allpricemlimited").val();
         var numberlimited = $("#numberlimited").val();
         var pricelimited = $("#pricelimited").val();
-        var defaultDiscount = $("#defaultDiscount").val();
-        if (allpricemlimited == "" || numberlimited == "" || pricelimited == "" || defaultDiscount == "") {
+        var defaultDiscounted = $("#defaultDiscount").val();
+        var defaultCopyed = $("#defaultCopyed").val();
+        if (allpricemlimited == "" || numberlimited == "" || pricelimited == "" || defaultDiscounted == "") {
             swal({
                 title: "温馨提示:)",
                 text: "不能含有未填项",
@@ -92,40 +95,41 @@
                     allpricemlimited: allpricemlimited,
                     numberlimited: numberlimited,
                     pricelimited: pricelimited,
-                    defaultDiscount, defaultDiscount,
-                        op: "edit"
-                    },
-                        dataType: 'text',
-                    success: function (data) {
-                        if (data == "保存成功") {
-                            swal({
-                                title: "温馨提示",
-                                text: "保存成功",
-                                type: "success",
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: '确定',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false,
-                                allowOutsideClick: false
-                            }).then(function () {
-                                window, location.reload();
-                            })
-                        }
-                        else {
-                            swal({
-                                title: "温馨提示",
-                                text: "保存失败",
-                                type: "warning",
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: '确定',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false,
-                                allowOutsideClick: false
-                            }).then(function () {
-                                window, location.reload();
-                            })
-                        }
+                    defaultDiscounted: defaultDiscounted,
+                    defaultCopyed: defaultCopyed,
+                    op: "edit"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "保存成功") {
+                        swal({
+                            title: "温馨提示",
+                            text: "保存成功",
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
                     }
+                    else {
+                        swal({
+                            title: "温馨提示",
+                            text: "保存失败",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window, location.reload();
+                        })
+                    }
+                }
             });
         }
     })
@@ -183,6 +187,7 @@
         var totalPrice = $("#totalPrice").val().trim();//单价上限
         var realPrice = $("#realPrice").val().trim();//码洋上限
         var Price = $("#Price").val().trim();//默认折扣
+        var defaultCopy = $("#defaultCopy").val().trim();//默认复本
         if (saleCustmer == "") {
             swal({
                 title: "温馨提示:)",
@@ -238,6 +243,7 @@
                     priceLimit: totalPrice,
                     totalPriceLimit: realPrice,
                     defaultDiscount: Price,
+                    defaultCopy: defaultCopy,
                     op: "add"
                 },
                 dataType: 'text',
@@ -258,7 +264,7 @@
                     } else {
                         swal({
                             title: "温馨提示",
-                            text: "添加失败",
+                            text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -274,7 +280,6 @@
     })
     //删除
     $("#table").delegate(".btn_del", "click", function () {
-        // var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
         var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
         swal({
             title: "温馨提示:)",
@@ -332,7 +337,7 @@
 
     //查看
     $("#table").delegate(".btn_search", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
         $.ajax({
             type: 'Post',
             url: 'tradeManagement.aspx',
@@ -363,7 +368,7 @@
 
     //售
     $("#table").delegate(".btn_sale", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
         var time = $(this).parent().prev().text();
         if (time == "销售任务采集中") {
             $.ajax({
@@ -408,7 +413,7 @@
     })
     //退
     $("#table").delegate(".btn_back", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
         var time = $(this).parent().prev().text();
         if (time == "销售任务采集中") {
             swal({
