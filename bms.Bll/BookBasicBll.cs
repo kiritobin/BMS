@@ -10,6 +10,25 @@ namespace bms.Bll
     public class BookBasicBll
     {
         BookBasicDao basicDao = new BookBasicDao();
+
+        /// <summary>
+        /// 添加基础数据
+        /// </summary>
+        /// <param name="basic">基础数据实体对象</param>
+        /// <returns></returns>
+        public Result Insert(BookBasicData basic)
+        {
+            int row = basicDao.Insert(basic);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
+        }
+
         /// <summary>
         /// 获取所有书本基础数据的ISBN，单价，书名
         /// </summary>

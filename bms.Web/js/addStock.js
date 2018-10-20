@@ -337,7 +337,7 @@ $("#table").delegate(".count", "change", function (e) {
     var total = $(this).parent().next().next().next();
     var real = $(this).parent().next().next().next().next();
     total.text((count * price).toFixed(2));
-    real.text((count * price * discount).toFixed(2));
+    real.text((count * price * discount * 0.01).toFixed(2));
 });
 //下拉列表改变
 $("#table").delegate(".goods", "change", function () {
@@ -356,7 +356,7 @@ $("#table").delegate(".discount", "change", function () {
     var total = $(this).parent().next();
     var real = $(this).parent().next().next();
     total.text((count * price).toFixed(2));
-    real.text((count * price * discount).toFixed(2));
+    real.text((count * price * discount * 0.01).toFixed(2));
         $.ajax({
             type: 'Post',
             url: 'addStock.aspx',

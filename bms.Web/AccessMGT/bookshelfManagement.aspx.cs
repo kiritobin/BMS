@@ -165,6 +165,7 @@ namespace bms.Web.BasicInfor
         public string getData()
         {
             //获取分页数据
+            User user = (User)Session["user"];
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
@@ -197,7 +198,14 @@ namespace bms.Web.BasicInfor
             tb.StrColumnlist = "goodsShelvesId,shelvesName,regionId,regionName";
             tb.IntPageSize = PageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = search;
+            if (user.RoleId.RoleName == "超级管理员")
+            {
+                tb.StrWhere = search;
+            }
+            else
+            {
+                tb.StrWhere = "regionId=" + user.ReginId.RegionId + " and " + search;
+            }
             //获取展示的客户数据
             ds = shelvesbll.selectByPage(tb, out totalCount, out intPageCount);
             //获取地区下拉数据

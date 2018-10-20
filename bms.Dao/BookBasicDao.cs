@@ -13,6 +13,19 @@ namespace bms.Dao
     {
         MySqlHelp db = new MySqlHelp();
         /// <summary>
+        /// 添加基础数据
+        /// </summary>
+        /// <param name="basic">基础数据实体对象</param>
+        /// <returns></returns>
+        public int Insert(BookBasicData basic)
+        {
+            string cmdText = "insert into T_BookBasicData(bookNum,ISBN,bookName,supplier,publishTime,price,catalog,author,remarks,dentification) values(@bookNum,@ISBN,@bookName,@supplier,@publishTime,@price,@catalog,@author,@remarks,@dentification)";
+            String[] param = { "@bookNum", "@ISBN", "@bookName","@supplier", "@publishTime","@price","@catalog","@author","@remarks","@dentification"};
+            object[] values = { basic.BookNum, basic.Isbn, basic.BookName, basic.Publisher, basic.PublishTime, basic.Price, basic.Catalog, basic.Author, basic.Remarks, basic.Dentification };
+            return db.ExecuteNoneQuery(cmdText, param, values);
+        }
+
+        /// <summary>
         /// 获取所有书本基础数据的ISBN，单价，书名
         /// </summary>
         /// <returns></returns>

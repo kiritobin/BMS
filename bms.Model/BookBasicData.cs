@@ -18,6 +18,7 @@ namespace bms.Model
         private string remarks;
         private string dentification;
         private string newBookNum;
+        private string time;
 
         /// <summary>
         /// 最新的书号
@@ -47,6 +48,18 @@ namespace bms.Model
             set
             {
                 bookNum = value;
+            }
+        }
+        public string Time
+        {
+            get
+            {
+                return time;
+            }
+
+            set
+            {
+                time = value;
             }
         }
         /// <summary>
