@@ -409,8 +409,12 @@
     <!-- paging.js -->
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jedate.min.js"></script>
-    <script src="../js/checkStock.js"></script>
+    <script src="../js/checkRs.js"></script>
     <script src="../js/public.js"></script>
+    <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
+        <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
+    </object>
+    <script src="../js/LodopFuncs.js"></script>
 </body>
 
 </html>

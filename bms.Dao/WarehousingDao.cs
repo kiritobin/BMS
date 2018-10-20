@@ -306,5 +306,24 @@ namespace bms.Dao
                 return null;
             }
         }
+        /// <summary>
+        /// 补货查看
+        /// </summary>
+        /// <returns></returns>
+        public DataSet checkRs(string saleTaskId)
+        {
+            string cmdText = "select rsMononerID,bookNum,bookName,sum(count) as allnumber,dateTime from V_ReplenishMentMononer where deleteState=0 and saleTaskId=@saleTaskId group by bookNum,bookName order by rsMononerID";
+            string[] param = { "@saleTaskId" };
+            object[] values = { saleTaskId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

@@ -234,5 +234,14 @@ namespace bms.Bll
             DataSet ds = monoDao.addupRKMonomer(singleHeadId);
             return ds;
         }
+        /// <summary>
+        /// 补货查看
+        /// </summary>
+        /// <param name="saleTaskId"></param>
+        /// <returns></returns>
+        public DataSet checkRs(string saleTaskId)
+        {
+            return monoDao.checkRs(saleTaskId);
+        }
     }
 }
