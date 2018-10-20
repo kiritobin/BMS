@@ -4,25 +4,26 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>图书综合管理系统</title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>云南新华书店项目综合管理系统</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- 字体图标样式 -->
-    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css" />
     <!-- css样式 -->
-    <link rel="stylesheet" href="../css/material-dashboard.min.css"/>
+    <link rel="stylesheet" href="../css/material-dashboard.min.css" />
     <link rel="stylesheet" href="../css/pagination.css" />
-    <link rel="stylesheet" href="../css/zgz.css"/>
-    <link rel="stylesheet" href="../css/lgd.css"/>
-    <link rel="stylesheet" href="../css/qc.css"/>
+    <link rel="stylesheet" href="../css/zgz.css" />
+    <link rel="stylesheet" href="../css/lgd.css" />
+    <link rel="stylesheet" href="../css/qc.css" />
     <style>
-        #table{
-            font-size:24px;
+        #table {
+            font-size: 24px;
         }
-        #fontHead th{
-            font-size:24px;
+
+        #fontHead th {
+            font-size: 24px;
         }
     </style>
 </head>
@@ -44,14 +45,14 @@
     <!-- 主界面内容 -->
     <div class="content">
         <div class="container-fluid">
-             <div class="col-sm-4 col-lg-3">
-                    <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
-                </div>
+            <div class="col-sm-4 col-lg-3">
+                <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre" />
+            </div>
             <div class="row3">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-danger">
-                            <label id="time" class="pull-right" style="color:white"></label>
+                            <label id="time" class="pull-right" style="color: white"></label>
                             <h2 class="card-title">图书零售排行榜TOP10</h2>
                         </div>
                         <div class="card-body">

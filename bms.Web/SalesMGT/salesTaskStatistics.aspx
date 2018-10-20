@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>云南新华书店项目综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
@@ -81,7 +81,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="jeinpbox">
-                                                        <input type="text" value="<%=startTime %>" class="form-control" disabled >
+                                                        <input type="text" value="<%=startTime %>" class="form-control" disabled>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -125,34 +125,34 @@
                                         </table>
 
                                         <table class="table table_stock text-center">
-                                        <tr class="text-nowrap">
-                                            <td>
-                                                <span>书籍种数:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<%=allkinds %>" class="form-control" disabled>
-                                            </td>
-                                            <td>
-                                                <span>书本总数:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
-                                            <td>
-                                                <span>总码洋:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
-                                            </td>
-                                            <td>
-                                                <span>总实洋:</span>
-                                            </td>
-                                            <td>
-                                                <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>书籍种数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=allkinds %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>书本总数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
+                                                <td>
+                                                    <span>总码洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>总实洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
-                                    
+
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
@@ -166,7 +166,7 @@
             </div>
         </div>
         <!-- 主界面页脚部分 -->
-        <footer class="footer content-footer">
+        <footer class="footer">
             <div class="container-fluid">
                 <!-- 版权内容 -->
                 <div class="copyright text-center">
@@ -174,8 +174,8 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                    &nbsp;版权所有
-                    <p><a href="../chrome/ChromeDownload.html">Chrome浏览器下载</a></p>
+                    &nbsp;版权归云南新华书店图书有限公司信息部所有
+                        <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                 </div>
             </div>
         </footer>
