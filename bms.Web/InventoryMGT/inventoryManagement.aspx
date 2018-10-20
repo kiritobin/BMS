@@ -289,10 +289,12 @@
                                             <div class="btn-group" role="group">
                                                 <input type="text" value="" class="searchOne" id="bookName" placeholder="书名查询">
                                             </div>
+                                            <%if(user.RoleId.RoleName == "超级管理员"){ %>
                                             <div class="btn-group" role="group">
                                                 <input type="text" value="" class="searchOne" id="area" placeholder="地区查询">
-                                                <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
+                                            <%} %>
+                                            <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -378,6 +380,7 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/sweetalert2.js"></script>
     <script src="../js/inventoryManagement.js"></script>
     <script src="../js/public.js"></script>
 </body>

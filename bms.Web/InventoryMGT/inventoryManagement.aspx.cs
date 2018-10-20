@@ -17,10 +17,12 @@ namespace bms.Web.InventoryMGT
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "",userName,regionName;
         public DataSet ds,dsPer;
+        public User user;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply,funcRetail;
         BookBasicBll bookbll = new BookBasicBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            user = (User)Session["user"];
             permission();
             getData();
             string op = Request["op"];
@@ -38,43 +40,71 @@ namespace bms.Web.InventoryMGT
         {
             string bookISBN = Request["bookISBN"];
             string bookName = Request["bookName"];
-            string area = Request["bookArea"];
-            currentPage = Convert.ToInt32(Request["page"]);
-            if (currentPage == 0)
+            if (user.RoleId.RoleName == "超级管理员")
             {
-                currentPage = 1;
-            }
-            if ((bookName == "" || bookName == null) && (area == null || area == "") && (bookISBN == null || bookISBN == ""))
-            {
-                search = "";
-            }
-            else if ((bookName != "" && bookName != null) && (area == null || area == "") && (bookISBN == null || bookISBN == ""))
-            {
-                search = String.Format(" bookName like '%{0}%'", bookName);
-            }
-            else if ((bookName == "" || bookName == null) && (area != "" && area != null) && (bookISBN == null || bookISBN == ""))
-            {
-                search = "regionName='" + area + "'";
-            }
-            else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (area == null || area == ""))
-            {
-                search = "ISBN='" + bookISBN + "'";
-            }
-            else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (area != null && area != ""))
-            {
-                search = "regionName='" + area + "' and ISBN='" + bookISBN + "'";
-            }
-            else if ((bookName != "" && bookName != null) && (area != null && area != "") && (bookISBN == null || bookISBN == ""))
-            {
-                search = String.Format(" bookName like '%{0}%' and regionName = '{1}'", bookName, area);
-            }
-            else if ((bookName != "" && bookName != null) && (area == null || area == "") && (bookISBN != null && bookISBN != ""))
-            {
-                search = String.Format(" bookName like '%{0}%' and ISBN='{1}'", bookName, bookISBN);
+                string area = Request["bookArea"];
+                currentPage = Convert.ToInt32(Request["page"]);
+                if (currentPage == 0)
+                {
+                    currentPage = 1;
+                }
+                if ((bookName == "" || bookName == null) && (area == null || area == "") && (bookISBN == null || bookISBN == ""))
+                {
+                    search = "";
+                }
+                else if ((bookName != "" && bookName != null) && (area == null || area == "") && (bookISBN == null || bookISBN == ""))
+                {
+                    search = String.Format(" bookName like '%{0}%'", bookName);
+                }
+                else if ((bookName == "" || bookName == null) && (area != "" && area != null) && (bookISBN == null || bookISBN == ""))
+                {
+                    search = "regionName='" + area + "'";
+                }
+                else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (area == null || area == ""))
+                {
+                    search = "ISBN='" + bookISBN + "'";
+                }
+                else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (area != null && area != ""))
+                {
+                    search = "regionName='" + area + "' and ISBN='" + bookISBN + "'";
+                }
+                else if ((bookName != "" && bookName != null) && (area != null && area != "") && (bookISBN == null || bookISBN == ""))
+                {
+                    search = String.Format(" bookName like '%{0}%' and regionName = '{1}'", bookName, area);
+                }
+                else if ((bookName != "" && bookName != null) && (area == null || area == "") && (bookISBN != null && bookISBN != ""))
+                {
+                    search = String.Format(" bookName like '%{0}%' and ISBN='{1}'", bookName, bookISBN);
+                }
+                else
+                {
+                    search = String.Format(" bookName like '%{0}%' and regionName = '{1}' and ISBN='{2}'", bookName, area, bookISBN);
+                }
             }
             else
             {
-                search = String.Format(" bookName like '%{0}%' and regionName = '{1}' and ISBN='{2}'", bookName, area, bookISBN);
+                string region = "regionId=" + user.ReginId.RegionId;
+                currentPage = Convert.ToInt32(Request["page"]);
+                if (currentPage == 0)
+                {
+                    currentPage = 1;
+                }
+                if ((bookName == "" || bookName == null) && (bookISBN == null || bookISBN == ""))
+                {
+                    search = region;
+                }
+                else if ((bookName != "" && bookName != null) && (bookISBN == null || bookISBN == ""))
+                {
+                    search = region+" and bookName like '%" +bookName+"%'";
+                }
+                else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null))
+                {
+                    search = region + " and ISBN='" + bookISBN + "'";
+                }
+                else if ((bookName != "" && bookName != null) && (bookISBN != null && bookISBN != ""))
+                {
+                    search = region + " and bookName like '%" + bookName+"%' and ISBN='"+bookISBN+"'";
+                }
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
@@ -117,7 +147,6 @@ namespace bms.Web.InventoryMGT
         protected void permission()
         {
             FunctionBll functionBll = new FunctionBll();
-            User user = (User)Session["user"];
             userName = user.UserName;
             regionName = user.ReginId.RegionName;
             Role role = new Role();
