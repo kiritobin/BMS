@@ -288,8 +288,15 @@
                                                 <input type="text" id="customer" class="searchOne" placeholder="请输入客户名称">
                                                 <button class="btn btn-info btn-sm" id="btn_search">查询</button>
                                             </div>
-                                            <a href="regionRs.aspx"><button class="btn btn-success btn-md">根据地区查询</button></a>
-                                            <a href="customerRs.aspx"><button class="btn btn-success btn-md">根据客户查询</button></a>
+                                            <div class="btn-group" role="group">
+                                                <a href="regionRs.aspx">
+                                                    <button class="btn btn-success btn-md">根据地区查询</button></a>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <a href="customerRs.aspx">
+                                                    <button class="btn btn-success btn-md">根据客户查询</button></a>
+                                            </div>
+
                                             <%-- <div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                             </div>--%>

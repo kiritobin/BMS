@@ -30,6 +30,26 @@ namespace bms.Dao
         }
 
         /// <summary>
+        /// 根据地区ID获取地区信息
+        /// </summary>
+        /// <returns></returns>
+        public string selectById(int regionId)
+        {
+            string cmdText = "select regionName from T_Region where deleteState=0 and regionId=@regionId";
+            string[] param = { "@regionId" };
+            object[] value = { regionId };
+            DataSet ds = db.FillDataSet(cmdText, param, value);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds.Tables[0].Rows[0]["regionName"].ToString();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// 添加分公司
         /// </summary>
         /// <param name="regionName">分公司名称</param>

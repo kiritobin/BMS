@@ -67,12 +67,16 @@ $("#regionSearch").change(function (){
             datatype: 'text',
             data: {
                 regionId: regionId,
-                op:"search"
+                op:"paging"
             },
-            success: function (data) {
+            success: function (succ) {
+                var data = succ.split(":|");
                 $("#intPageCount").remove();
                 $("#table tr:not(:first)").remove(); //清空table处首行
-                $("#table").append(data); //加载table
+                $("#table").append(data[0]); //加载table
+                $("#kinds").val(data[1]);
+                $("#count").val(data[2]);
+                $("#region").val(data[3]);
                 $(".paging").empty();
                 $('.paging').pagination({
                     //totalData: $("#countPage").val(), //数据总数
