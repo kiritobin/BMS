@@ -342,6 +342,7 @@
                                                     <tr>
                                                         <td><nobr>序号</nobr></td>
                                                         <td><nobr>ISBN号</nobr></td>
+                                                        <td><nobr>书名</nobr></td>
                                                         <td><nobr>商品数量</nobr></td>
                                                         <td><nobr>单价</nobr></td>
                                                         <td><nobr>折扣</nobr></td>

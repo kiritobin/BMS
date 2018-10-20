@@ -70,6 +70,7 @@ namespace bms.Web.InventoryMGT
                 {
                     sb.Append("<tr><td>" + (i + 1) + "</td>");
                     sb.Append("<td>" + drc[i]["ISBN"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["bookName"].ToString() + "</td>");
                     sb.Append("<td>" + drc[i]["number"].ToString() + "</td>");
                     sb.Append("<td>" + drc[i]["uPrice"].ToString() + "</td >");
                     sb.Append("<td>" + drc[i]["discount"].ToString() + "</td >");
@@ -97,7 +98,7 @@ namespace bms.Web.InventoryMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_Monomer";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,monId,ISBN,number,uPrice,totalPrice,realPrice,discount,shelvesId,shelvesName,type,deleteState";
+            tbd.StrColumnlist = "singleHeadId,monId,ISBN,number,uPrice,totalPrice,realPrice,discount,shelvesId,shelvesName,type,deleteState,bookName";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "deleteState=0 and singleHeadId='" + singleHeadId + "'";
             tbd.IntPageNum = currentPage;
@@ -112,6 +113,7 @@ namespace bms.Web.InventoryMGT
                 System.Data.DataRow dr = ds.Tables[0].Rows[i];
                 sb.Append("<tr><td>" + dr["monId"].ToString() + "</td>");
                 sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["number"].ToString() + "</td>");
                 sb.Append("<td>" + dr["uPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
