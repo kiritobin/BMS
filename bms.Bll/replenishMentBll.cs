@@ -209,5 +209,25 @@ namespace bms.Bll
                 return null;
             }
         }
+
+        /// <summary>
+        /// 根据地区ID获取补货单体统计
+        /// </summary>
+        /// <param name="regionId">地区id</param>
+        /// <returns>数据集</returns>
+        public int getTotalMon(int regionId, int type)
+        {
+            return dao.getTotalMon(regionId,type);
+        }
+
+        /// <summary>
+        /// 根据地区id获取补货单体总书籍品种数
+        /// </summary>
+        /// <param name="regionId">地区id</param>
+        /// <returns></returns>
+        public int getMonkinds(int regionId, int type)
+        {
+            return dao.getMonkinds(regionId,type);
+        }
     }
 }

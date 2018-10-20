@@ -267,5 +267,86 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(cmdtext, param, values);
             return ds;
         }
+
+        /// <summary>
+        /// 根据地区ID获取补货单体统计
+        /// </summary>
+        /// <param name="ID">地区ID或客户ID</param>
+        /// <param name="type">条件类型：0为地区，1为客户</param>
+        /// <returns>数据集</returns>
+        public int getTotalMon(int ID, int type)
+        {
+            string cmdtext;
+            if (type == 0)
+            {
+                cmdtext = "select sum(count) as number,regionName from V_ReplenishMentMononer where regionId=@ID";
+            }
+            else
+            {
+                cmdtext = "select sum(count) as number,regionName from V_ReplenishMentMononer where customerId=@ID";
+            }
+            string[] param = { "@ID" };
+            object[] values = { ID };
+            DataSet ds = db.FillDataSet(cmdtext, param, values);
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                string number = ds.Tables[0].Rows[0]["number"].ToString();
+                if (number == null || number == "")
+                {
+                    return 0;
+                }
+                else
+                {
+                    int row = Convert.ToInt32(number);
+                    return row;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 根据地区id获取补货单体总书籍品种数
+        /// </summary>
+        /// <param name="ID">地区ID或客户ID</param>
+        /// <param name="type">条件类型：0为地区，1为客户</param>
+        /// <returns></returns>
+        public int getMonkinds(int ID, int type)
+        {
+            string cmdText;
+            if (type == 0)
+            {
+                cmdText = "select bookNum,count from V_ReplenishMentMononer where regionId=@ID";
+            }
+            else
+            {
+                cmdText = "select bookNum,count from V_ReplenishMentMononer where customerId=@ID";
+            }
+            string[] param = { "@ID" };
+            object[] values = { ID };
+            float sltemp = 0;
+            int zl = 0;
+            DataTable dtcount = db.getkinds(cmdText, param, values);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    float count = float.Parse(dr[j]["count"].ToString().Trim());
+                    sltemp += float.Parse(dr[j]["count"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                    sltemp = 0;
+                }
+            }
+            return zl;
+        }
     }
 }

@@ -22,6 +22,15 @@ namespace bms.Bll
         }
 
         /// <summary>
+        /// 根据地区ID获取地区信息
+        /// </summary>
+        /// <returns></returns>
+        public string selectById(int regionId)
+        {
+            return regionDao.selectById(regionId);
+        }
+
+        /// <summary>
         /// 添加分公司
         /// </summary>
         /// <param name="regionName">分公司名称</param>
