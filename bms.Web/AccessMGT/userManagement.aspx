@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>图书综合管理系统</title>
+    <title>云南新华书店项目综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
@@ -25,11 +25,10 @@
         <!-- 左侧垂直导航 -->
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!-- 平台字体logo -->
-            <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
-                </a>
-                <span style="margin-left: 90px; color: red;"><%=userName %></span><br />
-                <span style="margin-left: 90px; color: red;"><%=regionName %></span>
+            <div class="logo text-center">
+                <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统</a>
+                <span class="text-danger"><%=userName %></span><br />
+                <span class="text-danger"><%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -150,7 +149,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcSupply)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
@@ -182,7 +181,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcRetail)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/retailManagement.aspx" id="retail">
                                         <span class="sidebar-normal">零售管理</span>
@@ -292,7 +291,7 @@
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
+                                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                             </div>
                                         </div>
                                     </div>
@@ -374,7 +373,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">提交</button>
+                            <button type="submit" class="btn btn-info btn-sm" id="btnAdd">提交</button>
                         </div>
                     </div>
                 </div>
@@ -433,7 +432,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-sm" id="btnEdit">提交</button>
+                            <button type="submit" class="btn btn-info btn-sm" id="btnEdit">提交</button>
                         </div>
                     </div>
                 </div>
@@ -447,7 +446,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        &nbsp;版权所有
+                        &nbsp;版权归云南新华书店图书有限公司信息部所有
                         <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                     </div>
                 </div>
@@ -468,7 +467,7 @@
     <script src="../js/demo.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script>
-    </script>
+</script>
 </body>
 
 </html>

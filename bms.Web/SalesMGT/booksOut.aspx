@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>图书综合管理系统</title>
+    <title>云南新华书店项目综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
@@ -21,11 +21,12 @@
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
     <style>
-        #table{
-            font-size:24px;
+        #table {
+            font-size: 24px;
         }
-        #fontHead th{
-            font-size:24px;
+
+        #fontHead th {
+            font-size: 24px;
         }
     </style>
 </head>
@@ -52,7 +53,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-warning">
-                            <label id="time" class="pull-right" style="color:white"></label>
+                            <label id="time" class="pull-right" style="color: white"></label>
                             <h2 class="card-title">图书团采排行榜TOP10</h2>
                         </div>
                         <div class="card-body">

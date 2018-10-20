@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>图书综合管理系统</title>
+    <title>云南新华书店项目综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
@@ -25,11 +25,10 @@
         <!-- 左侧垂直导航 -->
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!-- 平台字体logo -->
-            <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
-                </a>
-                <span style="margin-left: 90px; color: red;"><%=userName %></span><br />
-                <span style="margin-left: 90px; color: red;"><%=regionName %></span>
+            <div class="logo text-center">
+                <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统</a>
+                <span class="text-danger"><%=userName %></span><br />
+                <span class="text-danger"><%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -273,27 +272,27 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
+                                <div class="card-header card-header-danger">
+                                    <h4 class="card-title">补货查看</h4>
+                                </div>
                                 <div class="card-body">
-                                    <div class="card-header card-header-danger">
-                                        <h4 class="card-title">补货查看</h4>
-                                    </div>
                                     <div class="card-header from-group">
                                         <div class="input-group">
 
                                             <%--<div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" id="export">导出</button>
+                                                <button class="btn btn-info btn-sm" id="export">导出</button>
                                             </div>--%>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" id="print">打印</button>
+                                                <button class="btn btn-warning btn-sm" id="back" onclick="window,location.href='replenishMent.aspx'">返回</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-warning btn-sm" id="back" onclick="window,location.href='replenishMent.aspx'">返回</button>
+                                                <button class="btn btn-info btn-sm" id="print">打印</button>
                                             </div>
                                             <%--<div class="input-group no-border">
                                             <input type="text" value="" class="form-control col-sm-2 input-search" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search"><i class="fa fa-search fa-lg"></i>&nbsp;查询</button>
                                               &nbsp;
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
+                                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add"><i class="fa fa-plus fa-lg"></i>&nbsp;添加</button>
                                         </div>--%>
                                         </div>
                                         <div id="content">
@@ -376,23 +375,22 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- 主界面页脚部分 -->
-                    <footer class="footer">
-                        <div class="container-fluid">
-                            <!-- 版权内容 -->
-                            <div class="copyright text-center">
-                                &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                                &nbsp;版权所有
-                        <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
-                            </div>
-                        </div>
-                    </footer>
                 </div>
             </div>
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                        &nbsp;版权归云南新华书店图书有限公司信息部所有
+                        <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>

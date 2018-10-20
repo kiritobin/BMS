@@ -144,6 +144,7 @@ namespace bms.Web.AccessMGT
         /// </summary>
         protected string getData()
         {
+            User user = (User)Session["user"];
             currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
@@ -190,7 +191,14 @@ namespace bms.Web.AccessMGT
             tbd.OrderBy = "userID";
             tbd.StrColumnlist = "userID,userName,regionName,roleName,regionId,roleId";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = search;
+            if (user.RoleId.RoleName == "超级管理员")
+            {
+                tbd.StrWhere = search;
+            }
+            else
+            {
+                tbd.StrWhere = "regionId=" + user.ReginId.RegionId + " and " + search;
+            }
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);

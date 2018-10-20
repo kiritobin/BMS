@@ -1008,7 +1008,7 @@ namespace bms.Web.InventoryMGT
                     }
                     double num = Convert.ToDouble(dt1.Rows[i]["商品数量"].ToString());
                     double total = price * num;
-                    double real = total * discount; //* 0.01;
+                    double real = total * discount* 0.01;
 
                     DataRowCollection k = dt1.Rows;
                     DataRow dataRow = dt1.Rows[i];

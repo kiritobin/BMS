@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>图书综合管理平台</title>
+    <title>云南新华书店项目综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
@@ -161,7 +161,7 @@
                                     <img src="#" style="width: 200px; height: 200px; margin-left:10px;" id="img" />
                                 </div>
                                 <div style="width: 260px; margin-left:10px;">
-                                    <hr / style="color:lightseagreen">
+                                    <hr style="color:lightseagreen" />
                                     时间：<span id="timeEnd"></span>
                                 </div>
                             </div>

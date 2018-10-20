@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>图书综合管理系统</title>
+    <title>云南新华书店项目综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
@@ -27,10 +27,10 @@
         <!-- 左侧垂直导航 -->
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!-- 平台字体logo -->
-            <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台</a>
-                <span style="margin-left: 90px; color: red;"><%=userName %></span><br />
-                <span style="margin-left: 90px; color: red;"><%=regionName %></span>
+            <div class="logo text-center">
+                <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统</a>
+                <span class="text-danger"><%=userName %></span><br />
+                <span class="text-danger"><%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -296,7 +296,7 @@
                                             <%if (funcBook)
                                                 { %>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">导入</button>
+                                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">导入</button>
                                             </div>
                                             <%} %>
                                         </div>
@@ -375,18 +375,18 @@
                             <table class="table text-center model-table">
                                 <tr>
                                     <td>
-                                        <a class="btn btn-success" id="downEx" style="color: white" href="/uploads/muban/基础数据表.zip">下载模板</a>
-                                        <a class="btn btn-success text-white fileinput-button">
+                                        <a class="btn btn-info" id="downEx" style="color: white" href="/uploads/muban/基础数据表.zip">下载模板</a>
+                                        <a class="btn btn-info text-white fileinput-button">
                                             <span>选择文件</span>
                                             <input type="file" name="file" id="file">
                                         </a>
-                                        <a class="btn btn-success text-white" id="upload">上传文件</a>
+                                        <a class="btn btn-info text-white" id="upload">上传文件</a>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="btnImport">导入</button>
+                            <button type="submit" class="btn btn-info" id="btnImport">导入</button>
                         </div>
                     </div>
                 </div>
@@ -416,7 +416,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        &nbsp;版权所有
+                        &nbsp;版权归云南新华书店图书有限公司信息部所有
                         <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                     </div>
                 </div>

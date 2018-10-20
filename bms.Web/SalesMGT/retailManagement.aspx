@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>图书综合管理平台</title>
+    <title>云南新华书店项目综合管理系统</title>
 
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
@@ -22,11 +22,10 @@
         <!-- 左侧垂直导航 -->
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!-- 平台字体logo -->
-            <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
-                </a>
-                <span style="margin-left: 90px; color: red;"><%=userName %></span><br />
-                <span style="margin-left: 90px; color: red;"><%=regionName %></span>
+            <div class="logo text-center">
+                <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统</a>
+                <span class="text-danger"><%=userName %></span><br />
+                <span class="text-danger"><%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -43,7 +42,7 @@
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <%if (funcRole)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
@@ -51,7 +50,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcUser)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
@@ -59,7 +58,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcOrg)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -67,7 +66,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcGoods)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
@@ -91,7 +90,7 @@
                         <div class="collapse" id="userManage">
                             <ul class="nav">
                                 <%if (funcCustom)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
@@ -173,15 +172,15 @@
                                 <%if (funcSale)
                                     { %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../SalesMGT/tradeManagement.aspx">
+                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
                                 <%} %>
                                 <%if (funcRetail)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="retailManagement.aspx" id="retail">
+                                    <a class="nav-link activeNext" href="retailManagement.aspx" id="retail">
                                         <span class="sidebar-normal">零售管理</span>
                                     </a>
                                 </li>
@@ -277,7 +276,7 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <a class="btn btn-success btn-sm" href="retail.aspx?userId=<%=user.UserId %>" id="btn-add">添加</a>
+                                                <a class="btn btn-info btn-sm" href="retail.aspx?userId=<%=user.UserId %>" id="btn-add">添加</a>
                                             </div>
                                         </div>
                                     </div>
@@ -315,11 +314,11 @@
                     <!-- 版权内容 -->
                     <div class="copyright text-center">
                         &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                        &nbsp;版权所有
-                    <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                        &nbsp;版权归云南新华书店图书有限公司信息部所有
+                        <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                     </div>
                 </div>
             </footer>
