@@ -37,6 +37,10 @@ namespace bms.Web.InventoryMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
+            if (op=="print")
+            {
+                print();
+            }
         }
         protected void permission()
         {
@@ -154,7 +158,7 @@ namespace bms.Web.InventoryMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</nobr></td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"].ToString() + "</td>");
                 strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</nobr></td></tr>");
@@ -167,6 +171,24 @@ namespace bms.Web.InventoryMGT
                 Response.End();
             }
             return strb.ToString();
+        }
+
+        //打印
+        private void print()
+        {
+            WarehousingBll warehousingBll = new WarehousingBll();
+            DataSet dataSet = warehousingBll.checkRs(Session["rsHeadId"].ToString());
+            StringBuilder strb = new StringBuilder();
+            for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+            {
+                strb.Append("<tr><td>" + (i + 1)+"</td>");
+                strb.Append("<td>" + dataSet.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
+                strb.Append("<td><nobr>" + dataSet.Tables[0].Rows[i]["bookName"].ToString() + "</nobr></td>");
+                strb.Append("<td>" + dataSet.Tables[0].Rows[i]["allnumber"].ToString() + "</td>");
+                strb.Append("<td><nobr>" + dataSet.Tables[0].Rows[i]["dateTime"].ToString() + "</nobr></td></tr>");
+            }
+            Response.Write(strb.ToString());
+            Response.End();
         }
     }
 }
