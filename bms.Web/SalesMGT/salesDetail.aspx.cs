@@ -215,7 +215,15 @@ namespace bms.Web.SalesMGT
         public void getlimt()
         {
             DataSet limtds = saletaskbll.SelectBysaleTaskId(saleId);
-            defaultCopy = double.Parse(limtds.Tables[0].Rows[0]["defaultCopy"].ToString());
+            string copy = limtds.Tables[0].Rows[0]["defaultCopy"].ToString();
+            if (copy == "" || copy == null)
+            {
+                defaultCopy = 0;
+            }
+            else
+            {
+                defaultCopy = double.Parse(copy);
+            }
             numberLimit = int.Parse(limtds.Tables[0].Rows[0]["numberLimit"].ToString());
             priceLimit = double.Parse(limtds.Tables[0].Rows[0]["priceLimit"].ToString());
         }
@@ -310,7 +318,7 @@ namespace bms.Web.SalesMGT
                     }
                     if (tips == "addMon")
                     {
-                        //先添加销售单体
+                        //添加销售单体
                         addSaleMon();
                     }
                     else
@@ -345,7 +353,7 @@ namespace bms.Web.SalesMGT
             BookBasicData book = bookbll.SelectById(bookNum);
             replenishMentMonomer replenMon = new replenishMentMonomer()
             {
-                RsMonomerID=rsMonomerId,
+                RsMonomerID = rsMonomerId,
                 BookNum = bookNum,
                 Isbn = book.Isbn,
                 Author = book.Author,
@@ -430,10 +438,9 @@ namespace bms.Web.SalesMGT
                             Result result = addSalemonDetail();
                             if (result == Result.添加成功)
                             {
-                                //
+                                //单体添加成功，生成补货单
                                 if (d_Value > 0)
                                 {
-                                    //单体添加成功，生成补货单
                                     //判断是否已有该销售任务的补货单头
                                     rsHead = replenBll.getRsHeadID(saleId);
                                     //已有补货单头,直接添加补货单体
@@ -619,7 +626,7 @@ namespace bms.Web.SalesMGT
         }
 
         /// <summary>
-        /// 更新单头
+        /// 更新销售单头
         /// </summary>
         /// <returns>返回结果</returns>
         public Result updateSalehead()
