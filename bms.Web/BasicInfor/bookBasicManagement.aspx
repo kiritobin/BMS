@@ -296,7 +296,7 @@
                                             <%if (funcBook)
                                                 { %>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">导入</button>
                                             </div>
                                             <%} %>
                                         </div>

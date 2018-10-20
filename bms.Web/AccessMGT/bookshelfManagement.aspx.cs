@@ -261,7 +261,7 @@ namespace bms.Web.BasicInfor
                 dt1.Columns.Add(dc);
 
                 row = dt1.Rows.Count; //获取总数
-                GetDistinctSelf(dt1, "货架名称");
+                //GetDistinctSelf(dt1, "货架名称");
             }
             catch (Exception ex)
             {
@@ -316,7 +316,8 @@ namespace bms.Web.BasicInfor
             //数据库无数据时直接导入excel
             if (j <= 0)
             {
-               except = excelToDt();
+                //except = excelToDt();
+                except=GetDistinctSelf(excelToDt(), "货架名称");
             }
             else
             {
