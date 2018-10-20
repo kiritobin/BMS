@@ -289,7 +289,7 @@ namespace bms.Web.SalesMGT
                     if (tips == "addsale")
                     {
                         //库存不足，生成询问是否生成补货单
-                        if (number > allstockNum)
+                        if (number > allstockNum && number > 0)
                         {
                             d_Value = number - allstockNum;
                             msg.Count = d_Value.ToString();
@@ -298,7 +298,7 @@ namespace bms.Web.SalesMGT
                             Response.Write(ObjectToJson(msg));
                             Response.End();
                         }
-                        else if (allstockNum == 0)
+                        else if (allstockNum == 0 && number > 0)
                         {
                             d_Value = number;
                             msg.Count = d_Value.ToString();
@@ -345,6 +345,7 @@ namespace bms.Web.SalesMGT
             BookBasicData book = bookbll.SelectById(bookNum);
             replenishMentMonomer replenMon = new replenishMentMonomer()
             {
+                RsMonomerID=rsMonomerId,
                 BookNum = bookNum,
                 Isbn = book.Isbn,
                 Author = book.Author,
@@ -412,7 +413,7 @@ namespace bms.Web.SalesMGT
                         if (number < 0)
                         {
                             //如果输入负数，判断库存是否为零，如果不为零则加库存，为零则添加负数的补货单
-                            if (allstockNum != 0)
+                            if (allstockNum >= 0 && number < 0)
                             {
                                 int addnum = Math.Abs(number);
                                 stockcount = stockNum + addnum;
@@ -429,29 +430,34 @@ namespace bms.Web.SalesMGT
                             Result result = addSalemonDetail();
                             if (result == Result.添加成功)
                             {
-                                //单体添加成功，生成补货单
-                                //判断是否已有该销售任务的补货单头
-                                rsHead = replenBll.getRsHeadID(saleId);
-                                //已有补货单头,直接添加补货单体
-                                if (rsHead != "none")
+                                //
+                                if (d_Value > 0)
                                 {
-                                    addRsmon();
-                                }
-                                //没有补货单头，先生成补货单头，在添加补货单体
-                                else
-                                {
-                                    Result resultrsHead = addrsHead();
-                                    if (resultrsHead == Result.添加成功)
+                                    //单体添加成功，生成补货单
+                                    //判断是否已有该销售任务的补货单头
+                                    rsHead = replenBll.getRsHeadID(saleId);
+                                    //已有补货单头,直接添加补货单体
+                                    if (rsHead != "none")
                                     {
                                         addRsmon();
                                     }
+                                    //没有补货单头，先生成补货单头，在添加补货单体
                                     else
                                     {
-                                        msg.Messege = "添加补货单头失败";
-                                        Response.Write(ObjectToJson(msg));
-                                        Response.End();
+                                        Result resultrsHead = addrsHead();
+                                        if (resultrsHead == Result.添加成功)
+                                        {
+                                            addRsmon();
+                                        }
+                                        else
+                                        {
+                                            msg.Messege = "添加补货单头失败";
+                                            Response.Write(ObjectToJson(msg));
+                                            Response.End();
+                                        }
                                     }
                                 }
+
                                 ///更新销售单头
                                 Result res = updateSalehead();
                                 if (res == Result.更新成功)
