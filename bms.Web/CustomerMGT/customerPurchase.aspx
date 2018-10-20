@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>图书综合管理系统</title>
+    <title>云南新华书店项目综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
@@ -34,7 +34,8 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container">
                     <div class="navbar-wrapper">
-                    </div> <a class="btn btn-default btn-md" href="#"><%=userName %></a>
+                    </div>
+                    <a class="btn btn-default btn-md" href="#"><%=userName %></a>
                     <a class="btn btn-white btn-md" href="javascript:logout();">退出系统</a>
                 </div>
             </nav>
@@ -120,8 +121,8 @@
                         <script>
                             document.write(new Date().getFullYear());
                         </script>
-                        &nbsp;版权所有
-                        <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
+                        &nbsp;版权归云南新华书店图书有限公司信息部所有
+                        <p>建议使用<a href="../chrome/ChromeDownload.html" class="text-dark"> Google</a> | FireFox | 360极速浏览器浏览网页</p>
                     </div>
                 </div>
             </footer>

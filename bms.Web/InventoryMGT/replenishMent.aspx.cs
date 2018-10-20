@@ -204,7 +204,7 @@ namespace bms.Web.InventoryMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["kingdsNum"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");
                 strb.Append("<td><nobr>" + state + "</nobr></td>");
-                strb.Append("<td style='width:150px;'><button class='btn btn-success btn-sm btn_search'>&nbsp 查看 &nbsp</button>");
+                strb.Append("<td style='width:150px;'><button class='btn btn-success btn-sm btn_search'><i class='fa fa-search'></i></button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + "</td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
