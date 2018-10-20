@@ -220,37 +220,50 @@ $("#btnAdd").click(function () {
 //修改数量
 $("#table").delegate(".number", "change", function (e) {
     var number = parseInt($(this).val());
-    var total = parseFloat($(this).parent().next().next().text().trim());
-    var real = parseFloat($(this).parent().next().next().next().text().trim());
-    var price = parseFloat($(this).parent().prev().prev().text().trim());
-    var discount = parseFloat($(this).parent().next().text().trim());
-    if (discount > 10) {
-        discount = discount * 0.01;
-    } else if (discount < 10 && discount > 1) {
-        discount = discount * 0.1;
+    var max = $(this).parent().next().next().next().next().next().next().text();
+    if (number > max) {
+        swal({
+            title: "不可大于已购数量",
+            text: "最大数量为" + max,
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+        $("#search").val("");
+        $(this).val(max);
+    } else {
+        var total = parseFloat($(this).parent().next().next().text().trim());
+        var real = parseFloat($(this).parent().next().next().next().text().trim());
+        var price = parseFloat($(this).parent().prev().prev().text().trim());
+        var discount = parseFloat($(this).parent().next().text().trim());
+        if (discount > 10) {
+            discount = discount * 0.01;
+        } else if (discount < 10 && discount > 1) {
+            discount = discount * 0.1;
+        }
+        var totalPrice = parseFloat(number * price);
+        var realPrice = parseFloat(totalPrice * discount);
+        //计算合计内容
+        var count = parseInt($(this).parent().prev().text().trim());
+        var counts = parseInt($(this).val());
+        if (counts > count) {
+            sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) + 1);
+        } else if (counts < count) {
+            sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) - 1);
+        }
+        $(this).parent().prev().text(counts);
+        var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) - total + totalPrice;
+        var realPrices = parseFloat(sessionStorage.getItem("realPrice")) - real + realPrice;
+        sessionStorage.setItem("totalPrice", parseFloat(totalPrices));
+        sessionStorage.setItem("realPrice", parseFloat(realPrices));
+        $(this).parent().next().next().text(parseFloat(totalPrice));
+        $(this).parent().next().next().next().text(parseFloat(realPrice));
+        //展示合计内容
+        $("#number").text(sessionStorage.getItem("number"));
+        $("#total").text(parseFloat(totalPrices));
+        $("#real").text(parseFloat(realPrices));
+        $("#kind").text(parseInt(sessionStorage.getItem("kind")));
     }
-    var totalPrice = parseFloat(number * price);
-    var realPrice = parseFloat(totalPrice * discount);
-    //计算合计内容
-    var count = parseInt($(this).parent().prev().text().trim());
-    var counts = parseInt($(this).val());
-    if (counts > count) {
-        sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) + 1);
-    } else if (counts < count) {
-        sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) - 1);
-    }
-    $(this).parent().prev().text(counts);
-    var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) - total + totalPrice;
-    var realPrices = parseFloat(sessionStorage.getItem("realPrice")) - real + realPrice;
-    sessionStorage.setItem("totalPrice", parseFloat(totalPrices));
-    sessionStorage.setItem("realPrice", parseFloat(realPrices));
-    $(this).parent().next().next().text(parseFloat(totalPrice));
-    $(this).parent().next().next().next().text(parseFloat(realPrice));
-    //展示合计内容
-    $("#number").text(sessionStorage.getItem("number"));
-    $("#total").text(parseFloat(totalPrices));
-    $("#real").text(parseFloat(realPrices));
-    $("#kind").text(parseInt(sessionStorage.getItem("kind")));
 })
 //保存提交
 $("#insert").click(function () {
