@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>图书综合管理平台</title>
+    <title>云南新华书店项目综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
@@ -193,14 +193,14 @@
     <!--扫描模态框-->
     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
-            <div class="modal-content" style="width:400px; margin-top:50px;">
+            <div class="modal-content" style="width: 400px; margin-top: 50px;">
                 <div class="modal-header">
                     <h4 class="modal-title float-left" id="myModalLabel1">请扫描</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="fa fa-close"></i>
                     </button>
                 </div>
-                <div class="modal-body" style="margin:0 auto;">
+                <div class="modal-body" style="margin: 0 auto;">
                     单头ID:<input type="text" placeholder="请输入单头ID" id="scannSea" class="searchOne">
                 </div>
                 <div class="modal-footer"></div>

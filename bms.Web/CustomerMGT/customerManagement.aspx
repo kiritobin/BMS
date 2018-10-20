@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>图书综合管理系统</title>
+    <title>云南新华书店项目综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
@@ -27,11 +27,10 @@
         <!-- 左侧垂直导航 -->
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!-- 平台字体logo -->
-            <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
-                </a>
-                <span style="margin-left: 90px; color: red;"><%=userName %></span><br />
-                <span style="margin-left: 90px; color: red;"><%=regionName %></span>
+            <div class="logo text-center">
+                <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统</a>
+                <span class="text-danger"><%=userName %></span><br />
+                <span class="text-danger"><%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -48,7 +47,7 @@
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <%if (funcRole)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
@@ -56,7 +55,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcUser)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
@@ -64,7 +63,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcOrg)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -72,7 +71,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcGoods)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
@@ -84,7 +83,7 @@
                     </li>
                     <%} %>
                     <%if (funcCustom)
-                    {%>
+                        {%>
                     <li class="nav-item active">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="fa fa-user fa-lg"></i>
@@ -96,7 +95,7 @@
                         <div class="collapse show" id="userManage">
                             <ul class="nav">
                                 <%if (funcCustom)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
@@ -115,7 +114,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcPut || funcOut || funcReturn||funcSupply)
+                    <%if (funcPut || funcOut || funcReturn || funcSupply)
                         {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
@@ -128,7 +127,7 @@
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
                                 <%if (funcPut)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
@@ -136,7 +135,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcOut)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
@@ -144,14 +143,15 @@
                                 </li>
                                 <%} %>
                                 <%if (funcReturn)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcSupply) { %>
+                                <%if (funcSupply)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
@@ -162,7 +162,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcSale || funcSaleOff||funcRetail)
+                    <%if (funcSale || funcSaleOff || funcRetail)
                         { %>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
@@ -175,14 +175,15 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <%if (funcSale)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
                                 <%} %>
-                                <%if (funcRetail){ %>
+                                <%if (funcRetail)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/retailManagement.aspx" id="retail">
                                         <span class="sidebar-normal">零售管理</span>
@@ -285,7 +286,7 @@
                                                     <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                                 </div>
                                                 <div class="btn-group" role="group">
-                                                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
+                                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -340,7 +341,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-sm" id="btnAdd">添加</button>
+                            <button type="submit" class="btn btn-info btn-sm" id="btnAdd">添加</button>
                         </div>
                     </div>
                 </div>
@@ -370,7 +371,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-sm sava_Editor">提交</button>
+                            <button type="submit" class="btn btn-info btn-sm sava_Editor">提交</button>
                         </div>
                     </div>
                 </div>
@@ -384,7 +385,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        &nbsp;版权所有
+                        &nbsp;版权归云南新华书店图书有限公司信息部所有
                         <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                     </div>
                 </div>

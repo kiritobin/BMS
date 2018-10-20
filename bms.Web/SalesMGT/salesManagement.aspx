@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>图书综合管理系统</title>
+    <title>云南新华书店项目综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
@@ -29,11 +29,10 @@
         <!-- 左侧垂直导航 -->
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!-- 平台字体logo -->
-            <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
-                </a>
-                <span style="margin-left: 90px; color: red;"><%=userName %></span><br />
-                <span style="margin-left: 90px; color: red;"><%=regionName %></span>
+            <div class="logo text-center">
+                <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统</a>
+                <span class="text-danger"><%=userName %></span><br />
+                <span class="text-danger"><%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -298,10 +297,10 @@
                                             <%if (type == "add")
                                                 {%>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" id="btn_add">添加</button>
+                                                <button class="btn btn-info btn-sm" id="btn_add">添加</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" id="finish">完成</button>
+                                                <button class="btn btn-info btn-sm" id="finish">完成</button>
                                             </div>
                                             <% } %>
                                             <div class="btn-group" role="group">
@@ -346,10 +345,10 @@
                     <!-- 版权内容 -->
                     <div class="copyright text-center">
                         &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                        &nbsp;版权所有
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                        &nbsp;版权归云南新华书店图书有限公司信息部所有
                         <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                     </div>
                 </div>

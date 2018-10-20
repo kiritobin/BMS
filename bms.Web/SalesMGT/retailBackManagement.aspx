@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>图书综合管理平台</title>
+    <title>云南新华书店项目综合管理系统</title>
 
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
@@ -22,11 +22,10 @@
         <!-- 左侧垂直导航 -->
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!-- 平台字体logo -->
-            <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
-                </a>
-                <span style="margin-left: 90px; color: red;"><%=userName %></span><br />
-                <span style="margin-left: 90px; color: red;"><%=regionName %></span>
+            <div class="logo text-center">
+                <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统</a>
+                <span class="text-danger"><%=userName %></span><br />
+                <span class="text-danger"><%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -173,7 +172,7 @@
                                 <%if (funcSale)
                                     { %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../SalesMGT/tradeManagement.aspx">
+                                    <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
@@ -191,7 +190,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="retailBackManagement.aspx" id="retailBack">
+                                    <a class="nav-link activeNext" href="retailBackManagement.aspx" id="retailBack">
                                         <span class="sidebar-normal">零退管理</span>
                                     </a>
                                 </li>
@@ -277,7 +276,7 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <a class="btn btn-success btn-sm" href="retailBack.aspx" id="btn-add">添加</a>
+                                                <a class="btn btn-info btn-sm" href="retailBack.aspx" id="btn-add">添加</a>
                                             </div>
                                         </div>
                                     </div>
@@ -315,11 +314,11 @@
                     <!-- 版权内容 -->
                     <div class="copyright text-center">
                         &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                        &nbsp;版权所有
-                    <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                        &nbsp;版权归云南新华书店图书有限公司信息部所有
+                        <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                     </div>
                 </div>
             </footer>

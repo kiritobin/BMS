@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>云南新华书店项目综合管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 字体图标样式 -->
@@ -51,7 +51,7 @@
                                     <div class="btn-group" role="group">
                                         <%if (type == "addsale")
                                             {%>
-                                        <button class="btn btn-success btn-sm" id="success">单据完成</button>
+                                        <button class="btn btn-info btn-sm" id="success">单据完成</button>
                                         <%} %>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                     <input class="count textareaCount" type="number"/></td>
+                                                    <input class="count textareaCount" type="number" /></td>
                                                 <td>
                                                     <input class="discount textareaDiscount" onkeyup="this.value=this.value.replace(/[^\r\n0-9]/g,'');" /></td>
                                                 <td></td>
@@ -152,7 +152,7 @@
             </div>
         </div>
         <!-- 主界面页脚部分 -->
-        <footer class="footer content-footer">
+        <footer class="footer">
             <div class="container-fluid">
                 <!-- 版权内容 -->
                 <div class="copyright text-center">
@@ -160,8 +160,8 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                    &nbsp;版权所有
-                    <p><a href="../chrome/ChromeDownload.html">Chrome浏览器下载</a></p>
+                    &nbsp;版权归云南新华书店图书有限公司信息部所有
+                        <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                 </div>
             </div>
         </footer>
@@ -199,7 +199,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-sm" id="btnAdd">选择此书</button>
+                    <button type="submit" class="btn btn-info btn-sm" id="btnAdd">选择此书</button>
                 </div>
             </div>
         </div>
