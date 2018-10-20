@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="regionRs.aspx.cs" Inherits="bms.Web.InventoryMGT.regionRs" %>
+
 <%="" %>
 <!DOCTYPE html>
 
@@ -322,14 +323,14 @@
                                                 <table class="table mostTable table-bordered text-center" id="table">
                                                     <thead>
                                                         <tr>
-                                                            <td>序号</td>
-                                                            <td>ISBN</td>
-                                                            <td>书号</td>
-                                                            <td>书名</td>
-                                                            <td>数量</td>
-                                                            <td>客户</td>
-                                                            <td>地区</td>
-                                                            <td>日期</td>
+                                                            <td><nobr>序号</nobr></td>
+                                                            <td><nobr>ISBN</nobr></td>
+                                                            <td><nobr>书号</nobr></td>
+                                                            <td><nobr>书名</nobr></td>
+                                                            <td><nobr>数量</nobr></td>
+                                                            <td><nobr>客户</nobr></td>
+                                                            <td><nobr>地区</nobr></td>
+                                                            <td><nobr>日期</nobr></td>
                                                         </tr>
                                                     </thead>
                                                     <%=getData() %>
@@ -381,6 +382,10 @@
     <script src="../js/jedate.min.js"></script>
     <script src="../js/regionRs.js"></script>
     <script src="../js/public.js"></script>
+    <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
+        <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
+    </object>
+    <script src="../js/LodopFuncs.js"></script>
 </body>
 
 </html>
