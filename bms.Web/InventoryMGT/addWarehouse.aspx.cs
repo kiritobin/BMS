@@ -38,8 +38,6 @@ namespace bms.Web.InventoryMGT
                 Session["List"] = new List<string>();
             }
             permission();
-            Monomers monoDiscount = warehousingBll.getDiscount();
-            discount = (monoDiscount.Discount);
             selectIsbn();
 
             if (!IsPostBack)
@@ -91,14 +89,25 @@ namespace bms.Web.InventoryMGT
                 else
                 {
                     int billCount = Convert.ToInt32(Request["billCount"]);
-                    double disCount = Convert.ToDouble(Request["discount"]);
 
                     string bookName = dsBook.Tables[0].Rows[0]["bookName"].ToString();
                     string bookNum = dsBook.Tables[0].Rows[0]["bookNum"].ToString();
                     string supplier = dsBook.Tables[0].Rows[0]["supplier"].ToString();
                     double uPrice = Convert.ToDouble(dsBook.Tables[0].Rows[0]["price"]);
+                    if (dsBook.Tables[0].Rows[0]["author"].ToString() == null || dsBook.Tables[0].Rows[0]["author"].ToString() == "")
+                    {
+                        discount = 100;
+                    }
+                    else
+                    {
+                        discount = Convert.ToDouble(dsBook.Tables[0].Rows[0]["author"]);
+                        if (discount < 1)
+                        {
+                            discount = discount * 100;
+                        }
+                    }
                     double totalPrice = Convert.ToDouble((billCount * uPrice).ToString("0.00"));
-                    double realPrice = Convert.ToDouble((totalPrice * disCount).ToString("0.00"));
+                    double realPrice = Convert.ToDouble((totalPrice * discount * 0.01).ToString("0.00"));
 
                     monTable.Columns.Add("ISBN", typeof(string));
                     monTable.Columns.Add("uPrice", typeof(double));

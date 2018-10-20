@@ -391,9 +391,13 @@ namespace bms.Web.InventoryMGT
                     else
                     {
                         discount = Convert.ToDouble(dsBook.Tables[0].Rows[0]["author"]);
+                        if(discount < 1)
+                        {
+                            discount = discount * 100;
+                        }
                     }
                     double totalPrice = Convert.ToDouble((billCount * uPrice).ToString("0.00"));
-                    double realPrice = Convert.ToDouble((totalPrice * discount).ToString("0.00"));
+                    double realPrice = Convert.ToDouble((totalPrice * discount*0.01).ToString("0.00"));
                     monTable.Columns.Add("ISBN", typeof(string));
                     monTable.Columns.Add("uPrice", typeof(double));
                     monTable.Columns.Add("bookName", typeof(string));
