@@ -142,9 +142,12 @@ $("#print").click(function () {
                 $("#table tr:not(:first)").remove();
                 //$("#table").append(data);
                 $("#table").append(data[0]); //加载table
-                $("#kinds").val(data[1]);
-                $("#count").val(data[2]);
-                $("#region").val(data[3]);
+                $("#kinds").attr("value", data[1]);
+                $("#count").attr("value", data[2]);
+                $("#region").attr("value", data[3]);
+                //$("#kinds").val(data[1]);
+                //$("#count").val(data[2]);
+                //$("#region").val(data[3]);
                 var status = "";
                 var LODOP = getLodop();
                 var link = "";

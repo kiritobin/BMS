@@ -312,7 +312,7 @@
                                                         <input type="text" value="" id="count" class="form-control" disabled>
                                                     </td>
                                                     <td>
-                                                        <span>地区:</span>
+                                                        <span>客户:</span>
                                                     </td>
                                                     <td>
                                                         <input type="text" value="" id="region" class="form-control" disabled>
