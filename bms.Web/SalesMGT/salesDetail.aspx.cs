@@ -298,6 +298,15 @@ namespace bms.Web.SalesMGT
                             Response.Write(ObjectToJson(msg));
                             Response.End();
                         }
+                        else if (allstockNum == 0)
+                        {
+                            d_Value = number;
+                            msg.Count = d_Value.ToString();
+                            msg.Count1 = allstockNum.ToString();
+                            msg.Messege = "库存不足";
+                            Response.Write(ObjectToJson(msg));
+                            Response.End();
+                        }
                     }
                     if (tips == "addMon")
                     {
@@ -334,8 +343,6 @@ namespace bms.Web.SalesMGT
                 rsMonomerId = 1;
             }
             BookBasicData book = bookbll.SelectById(bookNum);
-            double allPrice = d_Value * book.Price;
-            double allRealPrice = allPrice * (disCount / 100);
             replenishMentMonomer replenMon = new replenishMentMonomer()
             {
                 BookNum = bookNum,
@@ -404,8 +411,12 @@ namespace bms.Web.SalesMGT
                         int stockcount = 0;
                         if (number < 0)
                         {
-                            int addnum = Math.Abs(number);
-                            stockcount = stockNum + addnum;
+                            //如果输入负数，判断库存是否为零，如果不为零则加库存，为零则添加负数的补货单
+                            if (allstockNum != 0)
+                            {
+                                int addnum = Math.Abs(number);
+                                stockcount = stockNum + addnum;
+                            }
                         }
                         else
                         {
@@ -610,7 +621,7 @@ namespace bms.Web.SalesMGT
             //更新单头
             allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
             allnumber = salemonbll.getsBookNumberSum(SaleHeadId, saleId);
-            alltotalprice = salemonbll.getsBookTotalPrice(SaleHeadId,saleId);
+            alltotalprice = salemonbll.getsBookTotalPrice(SaleHeadId, saleId);
             allreadprice = salemonbll.getsBookRealPrice(SaleHeadId, saleId);
             //DataSet allds = salemonbll.SelectMonomers(SaleHeadId);
             //int j = allds.Tables[0].Rows.Count;

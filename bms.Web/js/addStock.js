@@ -422,11 +422,24 @@ $("#btnImport").click(function () {
             dataType: 'text',
             success: function (data) {
                 if (data.indexOf("导入成功") >= 0) {
+                    //swal({
+                    //    title: "提示",
+                    //    text: "保存成功",
+                    //    type: "success",
+                    //    confirmButtonColor: '#3085d6',
+                    //    confirmButtonText: '确定',
+                    //    confirmButtonClass: 'btn btn-success',
+                    //    buttonsStyling: false,
+                    //    allowOutsideClick: false
+                    //}).then(function () {
+                    //    //sessionStorage.setItem("save","succ");
+                    //    window.location.reload();
+                    //})
                     $("#myModalLabe1").html(data);
                     $("#close").show();
                     $("#img").attr("src", "../imgs/success.png");
                     sessionStorage.setItem("import", "导入成功");
-                    window.location.href = "stockManageMent.aspx";
+                    //window.location.href = "stockManageMent.aspx";
                 } else if (data.indexOf("导入失败") >= 0) {
                     $("#myModalLabe1").html(data);
                     $("#close").show();
@@ -452,6 +465,9 @@ $("#btnImport").click(function () {
         });
     }
 });
+$("#close").click(function () {
+    window.location.href = "stockManageMent.aspx";
+})
 
 $("#btnAdd").click(function () {
     var sid = $("#table tr:last").find("td").eq(0).text();
