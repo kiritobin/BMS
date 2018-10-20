@@ -76,13 +76,14 @@
                         sessionStorage.setItem("import", "导入失败");
                     }
                     else {
+                        $("#myModal1").modal("hide");
                         $("#close").show();
                         swal({
                             title: "温馨提示:)",
                             text: data,
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-success",
-                            type: "warning",
+                            type: "success",
                             allowOutsideClick: false
                         })
                         sessionStorage.setItem("import", "导入失败");

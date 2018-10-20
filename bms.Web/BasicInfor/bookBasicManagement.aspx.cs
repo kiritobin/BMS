@@ -119,10 +119,8 @@ namespace bms.Web.BasicInfor
             int counts = 0;
             if (j > 1)
             {
-                try
-                {
-                    int k = j - 2;
-                    int i = 1;
+                    int k = j - 1;
+                    int i = 0;
                     while (i <= k)
                     {
                         DataRow dr = SourceDt.Rows[i];
@@ -142,17 +140,18 @@ namespace bms.Web.BasicInfor
                         if (rows.Length == 1)
                         {
                             BookBasicData basicData = new BookBasicData();
-                            basicData.BookNum = rows[0].ToString();
+                            basicData.BookNum = dr[0].ToString();
                             basicData.Isbn = isbn;
                             basicData.BookName = bookName;
-                            basicData.Publisher = rows[4].ToString();
-                            basicData.Time = rows[4].ToString();
+
+                            basicData.Publisher = dr[4].ToString();
+                            basicData.Time = dr[5].ToString();
                             //basicData.PublishTime = Convert.ToDateTime(rows[5]);
-                            basicData.Price = Convert.ToDouble(rows[6]);
-                            basicData.Catalog = rows[7].ToString();
-                            basicData.Author = rows[8].ToString();
-                            basicData.Remarks = rows[9].ToString();
-                            basicData.Dentification = rows[10].ToString();
+                            basicData.Price = Convert.ToDouble(dr[6]);
+                            basicData.Catalog = dr[7].ToString();
+                            basicData.Author = dr[8].ToString();
+                            basicData.Remarks = dr[9].ToString();
+                            basicData.Dentification = dr[10].ToString();
                             Result result = bookbll.Insert(basicData);
                             if (result == Result.添加失败)
                             {
@@ -163,21 +162,18 @@ namespace bms.Web.BasicInfor
                             {
                                 counts++;
                             }
+                            i++;
                         }
                         else
                         {
-                            i++;
+                            SourceDt.Rows.RemoveAt(i);
+                            k = k - 1;
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Response.Write(ex);
+                    int cf = row - counts;
+                    Response.Write("导入成功，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
                     Response.End();
-                }
-                int cf = row - counts;
-                Response.Write("导入成功，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
-                Response.End();
+
             }
             return SourceDt;
         }
@@ -428,6 +424,74 @@ namespace bms.Web.BasicInfor
             return row;
         }
 
+        //private void excelNo()
+        //{
+        //    BookBasicBll bookBasicBll = new BookBasicBll();
+        //        except.Columns.Add("书号", typeof(string));
+        //        except.Columns.Add("id", typeof(string));
+        //        except.Columns.Add("ISBN", typeof(string));
+        //        except.Columns.Add("书名", typeof(string));
+        //        except.Columns.Add("供应商", typeof(string));
+        //        except.Columns.Add("出版日期", typeof(string));
+        //        except.Columns.Add("单价", typeof(double));
+        //        except.Columns.Add("预收数量", typeof(string));
+        //        except.Columns.Add("进货折扣", typeof(string));
+        //        except.Columns.Add("销售折扣", typeof(string));
+        //        except.Columns.Add("备注", typeof(string));
+
+        //        DataRowCollection count = addBookId().Rows;
+        //        int counts = 0;
+        //        foreach (DataRow row in count)//遍历excel数据集
+        //        {
+        //            try
+        //            {
+        //                string isbn = row[2].ToString().Trim();
+        //                string bookName = ToSBC(row[3].ToString().Trim());
+        //                double price = Convert.ToDouble(row[6]);
+        //                DataRow[] rows = excelToDt().Select(string.Format("ISBN='{0}' and 书名='{1}' and 单价={2}", isbn, bookName, price));
+        //                if (rows.Length == 1)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
+        //                {
+        //                    //except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
+        //                    BookBasicData basicData = new BookBasicData();
+        //                    basicData.BookNum = row[0].ToString();
+        //                    basicData.Isbn = isbn;
+        //                    basicData.BookName = bookName;
+        //                    basicData.Publisher = row[4].ToString();
+        //                    basicData.Time = row[5].ToString();
+        //                    //basicData.PublishTime = Convert.ToDateTime(row[5]);
+        //                    basicData.Price = Convert.ToDouble(row[6]);
+        //                    basicData.Catalog = row[7].ToString();
+        //                    basicData.Author = row[8].ToString();
+        //                    basicData.Remarks = row[9].ToString();
+        //                    basicData.Dentification = row[10].ToString();
+        //                    Result result = bookBasicBll.Insert(basicData);
+        //                    if (result == Result.添加失败)
+        //                    {
+        //                        Response.Write("导入失败，可能重复导入");
+        //                        Response.End();
+        //                    }
+        //                    else
+        //                    {
+        //                        counts++;
+        //                    }
+        //                }
+        //            else
+        //            {
+        //                excelToDt().Rows.RemoveAt();
+        //            }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Response.Write(ex);
+        //                Response.End();
+        //            }
+        //        }
+        //        int cf = row - counts;
+        //        Response.Write("导入成功，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
+        //        Response.End();
+            
+        //}
+
         private void differentDt()
         {
             BookBasicBll bookBasicBll = new BookBasicBll();
@@ -437,6 +501,7 @@ namespace bms.Web.BasicInfor
             {
                 //except = addBookId();
                 except= GetDistinctSelf(addBookId(), "ISBN", "书名", "单价"); 
+                //excelNo();
             }
             else
             {
