@@ -503,9 +503,10 @@ namespace bms.Web.BasicInfor
             //数据库无数据时直接导入excel
             if (j <= 0)
             {
-                except = addBookId();
+                //except = addBookId();
                 //except= GetDistinctSelf(addBookId(), "ISBN", "书名", "单价"); 
-                //excelNo();
+                excelNo();
+                
             }
             else
             {
@@ -555,6 +556,7 @@ namespace bms.Web.BasicInfor
                             }
                             else
                             {
+                                Result reg = bookbll.updateBookNum(row[0].ToString()); //更新书号
                                 counts++;
                             }
                         }
@@ -711,6 +713,60 @@ namespace bms.Web.BasicInfor
             return repeatExcel;
         }
         #endregion
+
+        private void excelNo()
+        {
+            int counts = 0;
+            DataRowCollection count = addBookId().Rows;
+            foreach (DataRow row in count)//遍历excel数据集
+            {
+                try
+                {
+                    string isbn = row[2].ToString().Trim();
+                    string bookName = ToSBC(row[3].ToString().Trim());
+                    double price = Convert.ToDouble(row[6]);
+                        BookBasicData basicData = new BookBasicData();
+                        basicData.BookNum = row[0].ToString();
+                        basicData.Isbn = isbn;
+                        basicData.BookName = bookName;
+                        basicData.Publisher = row[4].ToString();
+                        basicData.Time = row[5].ToString();
+                        //basicData.PublishTime = Convert.ToDateTime(row[5]);
+                        basicData.Price = Convert.ToDouble(row[6]);
+                        basicData.Catalog = row[7].ToString();
+                        basicData.Author = row[8].ToString();
+                        basicData.Remarks = row[9].ToString();
+                        basicData.Dentification = row[10].ToString();
+                        Result result = bookbll.Insert(basicData);
+                        if (result == Result.添加失败)
+                        {
+                            Response.Write("导入失败，可能重复导入");
+                            Response.End();
+                        }
+                        else
+                        {
+                            Result reg = bookbll.updateBookNum(row[0].ToString()); //更新书号
+                            counts++;
+                        }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write(ex);
+                    Response.End();
+                }
+            }
+            int cf = row - counts;
+            if (counts == 0)
+            {
+                Response.Write("导入失败，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
+                Response.End();
+            }
+            else
+            {
+                Response.Write("导入成功，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
+                Response.End();
+            }
+        }
 
     }
 }
