@@ -24,6 +24,7 @@ namespace bms.Web.BasicInfor
         RegionBll rbll = new RegionBll();
         UserBll userBll = new UserBll();
         DataTable except = new DataTable();//接受差集
+        DataTable excel = new DataTable();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -311,6 +312,7 @@ namespace bms.Web.BasicInfor
         //取差集
         private void differentDt()
         {
+            excel = excelToDt();
             int regId;
             if (user.RoleId.RoleName == "超级管理员")
             {
@@ -325,7 +327,7 @@ namespace bms.Web.BasicInfor
             if (j <= 0)
             {
                 //except = excelToDt();
-                except=GetDistinctSelf(excelToDt(), "货架名称");
+                except=GetDistinctSelf(excel, "货架名称");
             }
             else
             {
@@ -333,7 +335,7 @@ namespace bms.Web.BasicInfor
                 except.Columns.Add("货架名称", typeof(string));
                 except.Columns.Add("地区ID", typeof(string));
                 DataSet dataSet = shelvesbll.isGoodsShelves(regId);
-                DataRowCollection count = excelToDt().Rows;
+                DataRowCollection count = excel.Rows;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
                     try

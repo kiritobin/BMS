@@ -30,6 +30,7 @@ namespace bms.Web.InventoryMGT
         GoodsShelvesBll goodsShelvesBll = new GoodsShelvesBll();
         BookBasicBll bookBasicBll = new BookBasicBll();
         StockBll stockBll = new StockBll();
+        DataTable excel = new DataTable();
         public List<string> bookNumList = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -213,8 +214,9 @@ namespace bms.Web.InventoryMGT
         /// <returns></returns>
         private DataTable serialNumber()
         {
+            excel = excelToDt();
             WarehousingBll warehousingBll = new WarehousingBll();
-            int row = excelToDt().Rows.Count;
+            int row = excel.Rows.Count;
             string now = DateTime.Now.ToString("yyyyMMdd");
             DataTable dt = new DataTable();
             DataColumn dc = new DataColumn("流水号");
@@ -227,7 +229,7 @@ namespace bms.Web.InventoryMGT
                 dataRow["流水号"] = id;
                 dt.Rows.Add(id);
             }
-            return UniteDataTable(excelToDt(), dt);
+            return UniteDataTable(excel, dt);
         }
 
         /// <summary>

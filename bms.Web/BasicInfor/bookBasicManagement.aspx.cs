@@ -26,6 +26,7 @@ namespace bms.Web.BasicInfor
         UserBll userBll = new UserBll();
         SaleHeadBll saleBll = new SaleHeadBll();
         SaleHead single = new SaleHead();
+        DataTable excel = new DataTable();
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
@@ -225,7 +226,8 @@ namespace bms.Web.BasicInfor
         //书号算法并生成datatable列
         private DataTable addBookId()
         {
-            int row = excelToDt().Rows.Count;
+            excel = excelToDt();
+            int row = excel.Rows.Count;
             long a;
             if (ViewState["i"].ToString().Length>=18)
             {
@@ -245,7 +247,7 @@ namespace bms.Web.BasicInfor
                 a++;
                 ViewState["i"] = a;
                 string ss = a.ToString().PadLeft(8, '0');
-                string isbn = excelToDt().Rows[i]["ISBN"].ToString();
+                string isbn = excel.Rows[i]["ISBN"].ToString();
                 int count = isbn.Length;
                 if (count >= 13) //大于13位书号
                 {
@@ -263,7 +265,7 @@ namespace bms.Web.BasicInfor
     
             DataRow dr_last = dataRow;
             last = dr_last["书号"].ToString();
-            return UniteDataTable(dt, excelToDt());
+            return UniteDataTable(dt, excel);
         }
 
         //合并两个table方法,合并书号列
@@ -521,7 +523,7 @@ namespace bms.Web.BasicInfor
                 //except.Columns.Add("进货折扣", typeof(string));
                 //except.Columns.Add("销售折扣", typeof(string));
                 //except.Columns.Add("备注", typeof(string));
-
+                BookBasicData bookId = bookbll.getBookNum();
                 DataRowCollection count = addBookId().Rows;
                 int counts = 0;
                 DataTable dataTable = bookBasicBll.Select();
@@ -556,14 +558,13 @@ namespace bms.Web.BasicInfor
                             }
                             else
                             {
-                                BookBasicData bookId = bookbll.getBookNum();
-                                string bookNo = row[0].ToString();
-                                bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
-                                row[0] = row[0].ToString().Substring(row[0].ToString().Length - 8);
-                                if (Convert.ToInt64(bookId.NewBookNum)<Convert.ToInt64(row[0]))
-                                {
-                                    Result reg = bookbll.updateBookNum(bookNo); //更新书号
-                                }
+                                //string bookNo = row[0].ToString();
+                                //bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
+                                //row[0] = row[0].ToString().Substring(row[0].ToString().Length - 8);
+                                //if (Convert.ToInt64(bookId.NewBookNum)<Convert.ToInt64(row[0]))
+                                //{
+                                //    Result reg = bookbll.updateBookNum(bookNo); //更新书号
+                                //}
                                 counts++;
                             }
                         }
@@ -682,7 +683,8 @@ namespace bms.Web.BasicInfor
 
         private void check()
         {
-            GetDistinctTable(excelToDt());
+            excel = excelToDt();
+            GetDistinctTable(excel);
         }
 
         #region  记录Excel中的重复列
@@ -723,8 +725,9 @@ namespace bms.Web.BasicInfor
 
         private void excelNo()
         {
+            DataTable dataTable = addBookId();
             int counts = 0;
-            DataRowCollection count = addBookId().Rows;
+            DataRowCollection count = dataTable.Rows;
             foreach (DataRow row in count)//遍历excel数据集
             {
                 try
@@ -752,7 +755,6 @@ namespace bms.Web.BasicInfor
                         }
                         else
                         {
-                            
                             Result reg = bookbll.updateBookNum(row[0].ToString()); //更新书号
                             counts++;
                         }
