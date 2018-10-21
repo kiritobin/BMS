@@ -22,8 +22,8 @@
         } else if (discount < 10 && discount > 1) {
             discount = discount * 0.1;
         }
-        var totalPrice = parseFloat(num * price);
-        var realPrice = parseFloat(totalPrice * discount);
+        var totalPrice = parseFloat(num * price).toFixed(2);
+        var realPrice = parseFloat(totalPrice * discount).toFixed(2);
         //计算合计内容
         sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) + 1);
         var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + price;
@@ -52,8 +52,8 @@
         } else if (discount < 10 && discount > 1) {
             discount = discount * 0.1;
         }
-        var totalPrice = parseFloat(num * price);
-        var realPrice = parseFloat(totalPrice * discount);
+        var totalPrice = parseFloat(num * price).toFixed(2);
+        var realPrice = parseFloat(totalPrice * discount).toFixed(2);
         //计算合计内容
         sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) - 1);
         var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) - price;
@@ -70,6 +70,13 @@
         $(this).parent().parent().prev().text($(this).next().val());
     });
 })
+//点击tr勾选此书
+$("#table2").delegate("tr", "click", function (e) {
+    if (!$(this).is(":checked")) {
+        //$("input[type='radio']").attr("checked", true);
+        $(this).find("input[type='radio']").prop("checked", true);
+    }
+})
 //获取当前时间
 function showTime() {
     var time = new Date();
@@ -80,7 +87,7 @@ function showTime() {
 function endTime() {
     var time = new Date();
     var m = time.getMonth() + 1;
-    var t = time.getFullYear() + "-" + pad(m, 2) + "-" + pad(time.getDate(), 2) + " " + pad(time.getHours(), 2) + ":" + pad(time.getMinutes(), 2) + ":" + pad(time.getSeconds(),2);
+    var t = time.getFullYear() + "-" + pad(m, 2) + "-" + pad(time.getDate(), 2) + " " + pad(time.getHours(), 2) + ":" + pad(time.getMinutes(), 2) + ":" + pad(time.getSeconds(), 2);
     $("#timeEnd").text(t);
 }
 function pad(num, n) {
@@ -91,6 +98,7 @@ $("#search").keypress(function (e) {
     sessionStorage.setItem("ISBN", $("#search").val())
     //回车事件触发
     if (e.keyCode == 13) {
+        $("#table2").empty();
         var kind = $("#kind").text().trim();
         var isbn = $("#search").val();
         if (isbn == "" || isbn == null) {
@@ -137,7 +145,7 @@ $("#search").keypress(function (e) {
                             type: "warning"
                         }).catch(swal.noop);
                         $("#search").val("");
-                    }else if (data == "一号多书") {
+                    } else if (data == "一号多书") {
                         $.ajax({
                             type: 'Post',
                             url: 'retail.aspx',
@@ -158,7 +166,7 @@ $("#search").keypress(function (e) {
                             $(".first").remove();
                         }
                         $("#table").prepend(data);
-                    //计算合计内容
+                        //计算合计内容
                         var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
                         var numbers = parseInt(sessionStorage.getItem("number")) + 1;
                         var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());

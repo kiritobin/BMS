@@ -57,29 +57,35 @@
                             <div style="height: 600px; display: block; overflow-y: auto;">
                                 <table class="table mostTable retailTable table-bordered text-center test" id="table">
                                     <thead>
-                                        <tr>
-                                            <td>
+                                         <tr>
+                                            <td style="width:10%">
                                                 <nobr>ISBN</nobr>
                                             </td>
-                                            <td>
+                                            <td style="width:25%">
                                                 <nobr>书名</nobr>
                                             </td>
-                                            <td>
+                                            <td style="width:5%">
                                                 <nobr>单价</nobr>
                                             </td>
-                                            <td style="display: none">
+                                             <td style="display: none">
                                                 <nobr>数量</nobr>
                                             </td>
-                                            <td>
+                                            <td style="width:20%">
                                                 <nobr>商品数量</nobr>
                                             </td>
-                                            <td>
+                                            <td style="width:10%">
+                                                <nobr>折扣</nobr>
+                                            </td>
+                                            <td style="width:10%">
                                                 <nobr>码洋</nobr>
                                             </td>
-                                            <td style="display: none">
+                                            <td style="width:10%">
+                                                <nobr>实洋</nobr>
+                                            </td>
+                                             <td style="display: none">
                                                 <nobr>书号</nobr>
                                             </td>
-                                            <td>
+                                            <td style="width:10%">
                                                 <nobr>操作</nobr>
                                             </td>
                                         </tr>
@@ -104,10 +110,10 @@
                             </div>
                             <div class="row">
                                 <div class="text-white col-sm-6 text-right" id="insert">
-                                    <button class="btn btn-success btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px">确认购买</p></button>
+                                    <button class="btn btn-success btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px;margin-left:-17px;">确认购买</p></button>
                                 </div>
                                 <div class="text-white col-sm-6 text-left" id="giveup">
-                                    <button class="btn btn-danger btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px">放弃购买</p></button>
+                                    <button class="btn btn-danger btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px;margin-left:-17px;">放弃购买</p></button>
                                 </div>
                             </div>
                         </div>
@@ -179,7 +185,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-bordered mostTable text-center" id="table2">
+                    <table class="table" id="table2">
                         <thead>
                             <tr>
                                 <th>
@@ -190,6 +196,9 @@
                                 </th>
                                 <th>
                                     <nobr>ISBN</nobr>
+                                </th>
+                                <th>
+                                    <nobr>书号</nobr>
                                 </th>
                                 <th>
                                     <nobr>书名</nobr>

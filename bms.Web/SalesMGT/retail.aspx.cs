@@ -39,7 +39,15 @@ namespace bms.Web.SalesMGT
                 if (userID != null && userID != "")
                 {
                     user = loginBll.getPwdByUserId(userID);
-                    Session["user"] = user;
+                    if (user.UserName == null)
+                    {
+                        Response.Write("无此用户信息，请检查！！！");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Session["user"] = user;
+                    }
                 }
                 else
                 {
@@ -121,6 +129,7 @@ namespace bms.Web.SalesMGT
                                 //sb.Append("<tr><td><input type='radio' name='radio' class='radio' value='" + dr["bookNum"].ToString() + "' /></td>");
                                 sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
                                 sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
                                 sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                                 sb.Append("<td>" + dr["price"].ToString() + "</td>");
                                 sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
@@ -200,9 +209,11 @@ namespace bms.Web.SalesMGT
                 sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
                 sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
-                sb.Append("<td><div class='gw_num'><em class='jian' style='height:100%;width:40%;'>-</em><input type = 'text' min='1' value='" + dr["number"].ToString() + "' class='num' style='width:20%;height:100%'/><em class='add' style='height:100%;width:40%;'>+</em></div></td>");
+                sb.Append("<td><div class='gw_num' style='width:100%'><em class='jian' style='height:100%;width:40%;'>-</em><input type = 'text' min='1' value='" + dr["number"].ToString() + "' class='num' style='width:20%;height:100%'/><em class='add' style='height:100%;width:40%;'>+</em></div></td>");
                 //sb.Append("<td><input class='number' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
                 sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
+                sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
                 sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
                 sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></td></tr>");
             }
