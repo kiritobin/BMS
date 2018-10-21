@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.SalesMGT
 {
+    using System.Web.Security;
     using Result = Enums.OpResult;
 
     public partial class salesManagement : System.Web.UI.Page
@@ -45,6 +46,15 @@ namespace bms.Web.SalesMGT
                     Response.Write("成功");
                     Response.End();
                 }
+            }
+            if (op == "logout")
+            {
+                //删除身份凭证
+                FormsAuthentication.SignOut();
+                //设置Cookie的值为空
+                Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                //设置Cookie的过期时间为上个月今天
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
             //查看
             if (op == "look")
