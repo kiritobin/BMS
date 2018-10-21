@@ -556,7 +556,11 @@ namespace bms.Web.BasicInfor
                             }
                             else
                             {
-                                Result reg = bookbll.updateBookNum(row[0].ToString()); //更新书号
+                                BookBasicData bookId = bookbll.getBookNum();
+                                if (Convert.ToInt64(bookId.NewBookNum)<Convert.ToInt64(row[0]))
+                                {
+                                    Result reg = bookbll.updateBookNum(row[0].ToString()); //更新书号
+                                }
                                 counts++;
                             }
                         }
@@ -745,6 +749,7 @@ namespace bms.Web.BasicInfor
                         }
                         else
                         {
+                            
                             Result reg = bookbll.updateBookNum(row[0].ToString()); //更新书号
                             counts++;
                         }
