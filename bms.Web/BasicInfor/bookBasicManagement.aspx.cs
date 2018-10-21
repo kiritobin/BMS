@@ -70,6 +70,10 @@ namespace bms.Web.BasicInfor
                     Response.End();
                 }
             }
+            if (op=="check")
+            {
+                check();
+            }
             string action = Request["action"];
             if (action == "import")
             {
@@ -500,25 +504,27 @@ namespace bms.Web.BasicInfor
             if (j <= 0)
             {
                 //except = addBookId();
-                except= GetDistinctSelf(addBookId(), "ISBN", "书名", "单价"); 
-                //excelNo();
+                //except= GetDistinctSelf(addBookId(), "ISBN", "书名", "单价"); 
+                excelNo();
+                
             }
             else
             {
-                except.Columns.Add("书号", typeof(string));
-                except.Columns.Add("id", typeof(string));
-                except.Columns.Add("ISBN", typeof(string));
-                except.Columns.Add("书名", typeof(string));
-                except.Columns.Add("供应商", typeof(string));
-                except.Columns.Add("出版日期", typeof(string));
-                except.Columns.Add("单价", typeof(double));
-                except.Columns.Add("预收数量", typeof(string));
-                except.Columns.Add("进货折扣", typeof(string));
-                except.Columns.Add("销售折扣", typeof(string));
-                except.Columns.Add("备注", typeof(string));
+                //except.Columns.Add("书号", typeof(string));
+                //except.Columns.Add("id", typeof(string));
+                //except.Columns.Add("ISBN", typeof(string));
+                //except.Columns.Add("书名", typeof(string));
+                //except.Columns.Add("供应商", typeof(string));
+                //except.Columns.Add("出版日期", typeof(string));
+                //except.Columns.Add("单价", typeof(double));
+                //except.Columns.Add("预收数量", typeof(string));
+                //except.Columns.Add("进货折扣", typeof(string));
+                //except.Columns.Add("销售折扣", typeof(string));
+                //except.Columns.Add("备注", typeof(string));
 
                 DataRowCollection count = addBookId().Rows;
                 int counts = 0;
+                DataTable dataTable = bookBasicBll.Select();
                 foreach (DataRow row in count)//遍历excel数据集
                 {
                     try
@@ -526,7 +532,7 @@ namespace bms.Web.BasicInfor
                         string isbn = row[2].ToString().Trim();
                         string bookName = ToSBC(row[3].ToString().Trim());
                         double price = Convert.ToDouble(row[6]);
-                        DataRow[] rows = bookBasicBll.Select().Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, price));
+                        DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, price));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
                             //except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
@@ -550,6 +556,11 @@ namespace bms.Web.BasicInfor
                             }
                             else
                             {
+                                BookBasicData bookId = bookbll.getBookNum();
+                                if (Convert.ToInt64(bookId.NewBookNum)<Convert.ToInt64(row[0]))
+                                {
+                                    Result reg = bookbll.updateBookNum(row[0].ToString()); //更新书号
+                                }
                                 counts++;
                             }
                         }
@@ -561,8 +572,16 @@ namespace bms.Web.BasicInfor
                     }
                 }
                 int cf = row - counts;
-                Response.Write("导入成功，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
-                Response.End();
+                if (counts==0)
+                {
+                    Response.Write("导入失败，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("导入成功，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
+                    Response.End();
+                }
             }
         }
 
@@ -657,5 +676,102 @@ namespace bms.Web.BasicInfor
                 }
             }
         }
+
+        private void check()
+        {
+            GetDistinctTable(excelToDt());
+        }
+
+        #region  记录Excel中的重复列
+        /// <summary>
+        /// 记录Excel中的重复列
+        /// </summary>
+        /// <param name="dt">需要获取重复列的表</param>
+        /// <returns>提示重复信息</returns>
+        private string GetDistinctTable(DataTable dt)
+        {
+            DataTable dtClone = dt.Copy(); 
+            string isbn = string.Empty;
+            string bookName = string.Empty;
+            string price = string.Empty;
+            string repeatExcel = string.Empty;
+            for (int i = dtClone.Rows.Count - 1; i >= 0; i--)
+            {
+                isbn = dtClone.Rows[i][1].ToString().Trim();
+                bookName = dtClone.Rows[i][2].ToString().Trim();
+                price = dtClone.Rows[i][5].ToString().Trim();
+                dtClone.Rows[i].Delete();
+                dtClone.AcceptChanges();
+                for (int j = dtClone.Rows.Count - 1; j >= 0; j--)
+                {
+                    if (isbn == dtClone.Rows[j][1].ToString().Trim() && bookName == dtClone.Rows[j][2].ToString().Trim() && price == dtClone.Rows[j][5].ToString().Trim())
+                    {
+                        //如果重复了，进行记录
+                        repeatExcel += "Excel中第" + (i + 1).ToString() + "行有重复\r\n";
+                        break;
+                    }
+                }
+            }
+            Response.Write(repeatExcel);
+            Response.End();
+            return repeatExcel;
+        }
+        #endregion
+
+        private void excelNo()
+        {
+            int counts = 0;
+            DataRowCollection count = addBookId().Rows;
+            foreach (DataRow row in count)//遍历excel数据集
+            {
+                try
+                {
+                    string isbn = row[2].ToString().Trim();
+                    string bookName = ToSBC(row[3].ToString().Trim());
+                    double price = Convert.ToDouble(row[6]);
+                        BookBasicData basicData = new BookBasicData();
+                        basicData.BookNum = row[0].ToString();
+                        basicData.Isbn = isbn;
+                        basicData.BookName = bookName;
+                        basicData.Publisher = row[4].ToString();
+                        basicData.Time = row[5].ToString();
+                        //basicData.PublishTime = Convert.ToDateTime(row[5]);
+                        basicData.Price = Convert.ToDouble(row[6]);
+                        basicData.Catalog = row[7].ToString();
+                        basicData.Author = row[8].ToString();
+                        basicData.Remarks = row[9].ToString();
+                        basicData.Dentification = row[10].ToString();
+                        Result result = bookbll.Insert(basicData);
+                        if (result == Result.添加失败)
+                        {
+                            Response.Write("导入失败，可能重复导入");
+                            Response.End();
+                        }
+                        else
+                        {
+                            
+                            Result reg = bookbll.updateBookNum(row[0].ToString()); //更新书号
+                            counts++;
+                        }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write(ex);
+                    Response.End();
+                }
+            }
+            int cf = row - counts;
+            if (counts == 0)
+            {
+                Response.Write("导入失败，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
+                Response.End();
+            }
+            else
+            {
+                Response.Write("导入成功，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
+                Response.End();
+            }
+        }
+
     }
 }

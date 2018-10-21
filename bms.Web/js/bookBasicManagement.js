@@ -16,6 +16,7 @@
         }
         else if (type == ".xls" || type == ".xlsx") {
             ajaxFileUpload();
+
         }
         else {
             swal({
@@ -31,6 +32,16 @@
 
     $("#btnImport").click(function () {
         var file = $("#file").val();
+        if (sessionStorage.getItem("cf") == "重复") {
+            swal({
+                title: "温馨提示:)",
+                text: "Excel有重复数据，请修改后上传",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-success",
+                type: "warning",
+                allowOutsideClick: false
+            })
+        }
         if (file == "" || file == null) {
             swal({
                 title: "温馨提示:)",
@@ -45,6 +56,16 @@
             swal({
                 title: "温馨提示:)",
                 text: "文件未上传成功",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-success",
+                type: "warning",
+                allowOutsideClick: false
+            })
+        }
+        if (sessionStorage.getItem("cf") == "重复") {
+            swal({
+                title: "温馨提示:)",
+                text: "Excel有重复数据，请修改后上传",
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-success",
                 type: "warning",
@@ -126,15 +147,39 @@
                                 allowOutsideClick: false
                             })
                         } else {
-                            swal({
-                                title: "温馨提示:)",
-                                text: data.msg,
-                                buttonsStyling: false,
-                                confirmButtonClass: "btn btn-success",
-                                type: "warning",
-                                allowOutsideClick: false
-                            })
-                            sessionStorage.setItem("succ", data.msg);
+                            $.ajax({
+                                type: 'Post',
+                                url: 'bookBasicManagement.aspx',
+                                data: {
+                                    op:"check"
+                                },
+                                dataType: 'text',
+                                success: function (succ) {
+                                    if (succ.indexOf("重复") > 0) {
+                                        swal({
+                                            title: "温馨提示:)",
+                                            text: succ,
+                                            buttonsStyling: false,
+                                            confirmButtonClass: "btn btn-success",
+                                            type: "warning",
+                                            allowOutsideClick: false
+                                        })
+                                        sessionStorage.setItem("cf", "重复");
+                                    }
+                                    else {
+                                        swal({
+                                            title: "温馨提示:)",
+                                            text: data.msg,
+                                            buttonsStyling: false,
+                                            confirmButtonClass: "btn btn-success",
+                                            type: "success",
+                                            allowOutsideClick: false
+                                        })
+                                        sessionStorage.removeItem("cf");
+                                        sessionStorage.setItem("succ", data.msg);
+                                    }
+                                }
+                            });
                         }
                     }
                 },

@@ -39,7 +39,15 @@ namespace bms.Web.SalesMGT
                 if (userID != null && userID != "")
                 {
                     user = loginBll.getPwdByUserId(userID);
-                    Session["user"] = user;
+                    if (user.UserName == null)
+                    {
+                        Response.Write("无此用户信息，请检查！！！");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Session["user"] = user;
+                    }
                 }
                 else
                 {
