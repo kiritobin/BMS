@@ -557,9 +557,12 @@ namespace bms.Web.BasicInfor
                             else
                             {
                                 BookBasicData bookId = bookbll.getBookNum();
+                                string bookNo = row[0].ToString();
+                                bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
+                                row[0] = row[0].ToString().Substring(row[0].ToString().Length - 8);
                                 if (Convert.ToInt64(bookId.NewBookNum)<Convert.ToInt64(row[0]))
                                 {
-                                    Result reg = bookbll.updateBookNum(row[0].ToString()); //更新书号
+                                    Result reg = bookbll.updateBookNum(bookNo); //更新书号
                                 }
                                 counts++;
                             }
