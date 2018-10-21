@@ -110,10 +110,10 @@
                             </div>
                             <div class="row">
                                 <div class="text-white col-sm-6 text-right" id="insert">
-                                    <button class="btn btn-success btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px">确认购买</p></button>
+                                    <button class="btn btn-success btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px;margin-left:-17px;">确认购买</p></button>
                                 </div>
                                 <div class="text-white col-sm-6 text-left" id="giveup">
-                                    <button class="btn btn-danger btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px">放弃购买</p></button>
+                                    <button class="btn btn-danger btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px;margin-left:-17px;">放弃购买</p></button>
                                 </div>
                             </div>
                         </div>

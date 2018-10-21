@@ -22,8 +22,8 @@
         } else if (discount < 10 && discount > 1) {
             discount = discount * 0.1;
         }
-        var totalPrice = parseFloat(num * price);
-        var realPrice = parseFloat(totalPrice * discount);
+        var totalPrice = parseFloat(num * price).toFixed(2);
+        var realPrice = parseFloat(totalPrice * discount).toFixed(2);
         //计算合计内容
         sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) + 1);
         var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + price;
@@ -52,8 +52,8 @@
         } else if (discount < 10 && discount > 1) {
             discount = discount * 0.1;
         }
-        var totalPrice = parseFloat(num * price);
-        var realPrice = parseFloat(totalPrice * discount);
+        var totalPrice = parseFloat(num * price).toFixed(2);
+        var realPrice = parseFloat(totalPrice * discount).toFixed(2);
         //计算合计内容
         sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) - 1);
         var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) - price;
