@@ -332,14 +332,14 @@ namespace bms.Web.BasicInfor
                 except.Columns.Add("id", typeof(string));
                 except.Columns.Add("货架名称", typeof(string));
                 except.Columns.Add("地区ID", typeof(string));
-
+                DataSet dataSet = shelvesbll.isGoodsShelves(regId);
                 DataRowCollection count = excelToDt().Rows;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
                     try
                     {
                         string goodsName = ToSBC(row[1].ToString());
-                        DataRow[] rows = shelvesbll.isGoodsShelves(regId).Tables[0].Select(string.Format("shelvesName='{0}'", goodsName));
+                        DataRow[] rows = dataSet.Tables[0].Select(string.Format("shelvesName='{0}'", goodsName));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
                             except.Rows.Add(row[0], row[1], row[2]);
