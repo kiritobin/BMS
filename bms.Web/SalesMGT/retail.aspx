@@ -67,6 +67,9 @@
                                             <td style="width:5%">
                                                 <nobr>单价</nobr>
                                             </td>
+                                             <td style="display: none">
+                                                <nobr>数量</nobr>
+                                            </td>
                                             <td style="width:20%">
                                                 <nobr>商品数量</nobr>
                                             </td>
@@ -78,6 +81,9 @@
                                             </td>
                                             <td style="width:10%">
                                                 <nobr>实洋</nobr>
+                                            </td>
+                                             <td style="display: none">
+                                                <nobr>书号</nobr>
                                             </td>
                                             <td style="width:10%">
                                                 <nobr>操作</nobr>
