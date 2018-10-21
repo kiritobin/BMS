@@ -279,7 +279,7 @@
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="input-group">
-                                            <div class="btn-group" role="group">
+                                            <%--<div class="btn-group" role="group">
                                                 <select class="modal_select" id="cusSearch">
                                                     <option value="0">请选择客户</option>
                                                     <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
@@ -287,6 +287,10 @@
                                                     <option value="<%=dsCustom.Tables[0].Rows[i]["customerID"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
                                                     <%} %>
                                                 </select>
+                                            </div>--%>
+                                             <div class="btn-group" role="group">
+                                                <input type="text" id="customer" class="searchOne" placeholder="请输入客户名称">
+                                                <button class="btn btn-info btn-sm" id="btn_search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="print">打印</button>

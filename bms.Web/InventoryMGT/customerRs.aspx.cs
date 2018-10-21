@@ -21,7 +21,7 @@ namespace bms.Web.InventoryMGT
         SaleTaskBll saleBll = new SaleTaskBll();
         replenishMentBll repBll = new replenishMentBll();
         LibraryCollectionBll libraryCollectionBll = new LibraryCollectionBll();
-        public int totalCount, intPageCount, pageSize = 15, kinds,counts, customerId;
+        public int totalCount, intPageCount, pageSize = 15, kinds, counts, customerId;
         public string saleTaskId, customerName, userNamemsg, kingdsNum, number, allTotalPrice, allRealPrice, dateTime, state, customer;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
@@ -40,7 +40,7 @@ namespace bms.Web.InventoryMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
-            if (op=="print")
+            if (op == "print")
             {
                 print();
             }
@@ -54,16 +54,18 @@ namespace bms.Web.InventoryMGT
         {
             string search = "";
             StringBuilder strb = new StringBuilder();
-            customerId = Convert.ToInt32(Request["cusId"]);
+            string customerName = Request["cusId"];
             string op = Request["op"];
-            if (customerId > 0)
+            if (customerName != null || customerName != "")
             {
-                search = " and customerId=" + customerId;
+                
+                search = " and customerName like '%" + customerName + "%'";
                 CustomerBll customerBll = new CustomerBll();
-                Customer cus = customerBll.getCustomer(customerId);
+                Customer cus = customerBll.getCustomerBuName(customerName);
+                customerId = cus.CustomerId;
                 customer = cus.CustomerName;
-                kinds = repBll.getMonkinds(customerId,1);
-                counts = repBll.getTotalMon(customerId,1);
+                kinds = repBll.getMonkinds(customerId, 1);
+                counts = repBll.getTotalMon(customerId, 1);
             }
             else
             {
