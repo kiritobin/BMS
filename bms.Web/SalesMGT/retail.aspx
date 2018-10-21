@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-
-<body style="overflow:hidden;">
+  <%--  style="overflow:hidden;"--%>
+<body>
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -35,7 +35,7 @@
             </div>
             <div class="card">
                 <div class="card-header card-header-danger">
-                    <h1 class="card-title text-center">自助扫码开单</h1>
+                    <h1 class="card-title text-center">自助购书开单</h1>
                 </div>
                 <div class="card-body">
                     <%--<div class="row">
@@ -110,10 +110,10 @@
                             </div>
                             <div class="row">
                                 <div class="text-white col-sm-6 text-right" id="insert">
-                                    <button class="btn btn-success btn-lg col-sm-12 btnText">打  印</button>
+                                    <button class="btn btn-success btn-lg col-sm-12 btnText">确认购买</button>
                                 </div>
                                 <div class="text-white col-sm-6 text-left" id="giveup">
-                                    <button class="btn btn-danger btn-lg col-sm-12 btnText">放  弃</button>
+                                    <button class="btn btn-danger btn-lg col-sm-12 btnText">放弃购买</button>
                                 </div>
                             </div>
                         </div>
@@ -138,6 +138,9 @@
                                         <div class="col-md-6">
                                             <label>应收：￥&nbsp&nbsp<span id="real"></span></label>
                                         </div>
+                                    </div>
+                                    <div class="row pull-right">
+                                         <p style="color:red;float:right">*实际收款以POS结算为准，此处应收金额仅供参考！</p>
                                     </div>
                                 </div>
                             </fieldset>
