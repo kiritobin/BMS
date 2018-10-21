@@ -47,7 +47,7 @@
     var defaults = {
         totalData: 0, //数据总条数
         showData: 0, //每页显示的条数
-        pageCount: 10, //总页数,默认为9
+        pageCount: 9, //总页数,默认为9
         current: 1, //当前第几页
         prevCls: 'prev', //上一页class
         nextCls: 'next', //下一页class
@@ -118,13 +118,26 @@
             var pageCount = this.getPageCount(); //获取的总页数
             switch (opts.mode) { //配置模式
                 case 'fixed': //固定按钮模式
+                    //html += '<a href="javascript:;" class="' + opts.prevCls + '">' + opts.prevContent + '</a>';
+                    //if (opts.coping) {
+                    //    var home = opts.coping && opts.homePage ? opts.homePage : '1';
+                    //    html += '<a href="javascript:;" data-page="1">' + home + '</a>';
+                    //}
+                    //var start = current > opts.count - 1 ? current + opts.count - 1 > pageCount ? current - (opts.count - (pageCount - current)) : current - 2 : 1;
+                    //var end = current + opts.count - 1 > pageCount ? pageCount : start + opts.count;
                     html += '<a href="javascript:;" class="' + opts.prevCls + '">' + opts.prevContent + '</a>';
                     if (opts.coping) {
                         var home = opts.coping && opts.homePage ? opts.homePage : '1';
                         html += '<a href="javascript:;" data-page="1">' + home + '</a>';
                     }
                     var start = current > opts.count - 1 ? current + opts.count - 1 > pageCount ? current - (opts.count - (pageCount - current)) : current - 2 : 1;
+                    if (start < 1) {
+                        start = 1;
+                    }
                     var end = current + opts.count - 1 > pageCount ? pageCount : start + opts.count;
+                    if (end > pageCount) {
+                        end = pageCount;
+                    }
                     for (; start <= end; start++) {
                         if (start != current) {
                             html += '<a href="javascript:;" data-page="' + start + '">' + start + '</a>';
