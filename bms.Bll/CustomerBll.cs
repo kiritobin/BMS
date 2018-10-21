@@ -117,7 +117,7 @@ namespace bms.Bll
         {
             DataSet ds = customerDao.getCustomer(customerID);
             Customer cust = new Customer();
-            if(ds != null && ds.Tables[0].Rows.Count > 0)
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
                 int i = ds.Tables[0].Rows.Count - 1;
                 cust.CustomerId = Convert.ToInt32(ds.Tables[0].Rows[i]["customerID"].ToString());
@@ -129,6 +129,28 @@ namespace bms.Bll
                 return null;
             }
         }
+        /// <summary>
+        /// 根据客户名称获取客户实体
+        /// </summary>
+        /// <param name="customerName">客户姓名</param>
+        /// <returns></returns>
+        public Customer getCustomerBuName(string customerName)
+        {
+            DataSet ds = customerDao.getCustomerBuName(customerName);
+            Customer cust = new Customer();
+            if (ds != null)
+            {
+                int i = ds.Tables[0].Rows.Count - 1;
+                cust.CustomerId = Convert.ToInt32(ds.Tables[0].Rows[0]["customerID"].ToString());
+                cust.CustomerName = ds.Tables[0].Rows[0]["customerName"].ToString();
+                return cust;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// 判断在另外一张表中是否有数据
         /// </summary>
