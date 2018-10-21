@@ -202,9 +202,7 @@ namespace bms.Web.SalesMGT
                 sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
                 sb.Append("<td><div class='gw_num'><em class='jian' style='height:100%;width:40%;'>-</em><input type = 'text' min='1' value='" + dr["number"].ToString() + "' class='num' style='width:20%;height:100%'/><em class='add' style='height:100%;width:40%;'>+</em></div></td>");
                 //sb.Append("<td><input class='number' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
-                sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
                 sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
-                sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
                 sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
                 sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></td></tr>");
             }
