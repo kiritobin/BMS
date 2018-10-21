@@ -54,8 +54,6 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(cmdText, param, values);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
-                string aa = ds.Tables[0].Rows[0]["goodsShelvesId"].ToString();
-                string vv = ds.Tables[0].Rows[0]["stockNum"].ToString();
                 return ds;
             }
             else
