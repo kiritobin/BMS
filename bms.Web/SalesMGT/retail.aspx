@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 <%--  style="overflow:hidden;"--%>
-<body>
+<body style="overflow:hidden;">
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -74,13 +74,7 @@
                                                 <nobr>商品数量</nobr>
                                             </td>
                                             <td>
-                                                <nobr>折扣</nobr>
-                                            </td>
-                                            <td>
                                                 <nobr>码洋</nobr>
-                                            </td>
-                                            <td>
-                                                <nobr>实洋</nobr>
                                             </td>
                                             <td style="display: none">
                                                 <nobr>书号</nobr>
@@ -110,10 +104,10 @@
                             </div>
                             <div class="row">
                                 <div class="text-white col-sm-6 text-right" id="insert">
-                                    <button class="btn btn-success btn-lg col-sm-12" value=""><p style="font-size:36px;margin-bottom:0px">确认购买</p></button>
+                                    <button class="btn btn-success btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px">确认购买</p></button>
                                 </div>
                                 <div class="text-white col-sm-6 text-left" id="giveup">
-                                    <button class="btn btn-danger btn-lg col-sm-12" value=""><p style="font-size:36px;margin-bottom:0px">放弃购买</p></button>
+                                    <button class="btn btn-danger btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px">放弃购买</p></button>
                                 </div>
                             </div>
                         </div>
