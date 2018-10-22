@@ -528,6 +528,7 @@ namespace bms.Web.BasicInfor
                 int counts = 0;
                 DataTable dataTable = bookBasicBll.Select();
                 bool isNull=false;
+                int rowls =0;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
                     try
@@ -568,6 +569,7 @@ namespace bms.Web.BasicInfor
                                 counts++;
                             }
                         }
+                        rowls++;
                     }
                     catch (Exception ex)
                     {
@@ -588,7 +590,7 @@ namespace bms.Web.BasicInfor
                 {
                     if (isNull)
                     {
-                        Response.Write("数据中有空行");
+                        Response.Write("数据中有空行！导入失败，第" + rowls.ToString() + "为空行！");
                         Response.End();
                     }
                     else
