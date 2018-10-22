@@ -24,9 +24,9 @@ namespace bms.Web.SalesMGT
         public StringBuilder strbook = new StringBuilder();
         public int allkinds, allnumber, numberLimit;
         public double alltotalprice, allreadprice, defaultCopy, priceLimit;
-        string bookISBN, SaleHeadId, saleId, rsHead;
+        string bookISBN, SaleHeadId, saleId;
         double disCount;
-        int number, d_Value, saleIdmonomerId;
+        int number, saleIdmonomerId;
         string bookNum;
         msg msg = new msg();
         User user = new User();
@@ -71,29 +71,47 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
-            //一书多好选择后执行
+            //一书多号选择后执行
             if (op == "add")
             {
                 showBook();
             }
-            //添加销售单体
+            //添加销售
             if (op == "addsale")
             {
+                SaleHeadBll saleheadbll = new SaleHeadBll();
+                string saletaskId = saleheadbll.SelectTaskByheadId(SaleHeadId);
+                string customerId = saletaskbll.getCustomerId(saletaskId);
+                int AlreadyBought = user.ReginId.RegionId;
+                //判断馆藏
+                LibraryCollectionBll library = new LibraryCollectionBll();
                 bookISBN = Request["bookISBN"];
-                disCount = double.Parse(Request["discount"]);
-                number = Convert.ToInt32(Request["number"]);
-                bookNum = Request["bookNum"].ToString();
-                addsalemon();
+                Result libresult = library.Selectbook(customerId, bookISBN);
+                if (libresult == Result.记录不存在)
+                {
+                    bookISBN = Request["bookISBN"];
+                    disCount = double.Parse(Request["discount"]);
+                    number = Convert.ToInt32(Request["number"]);
+                    bookNum = Request["bookNum"].ToString();
+                    addsalemon();
+                }
+                else
+                {
+                    msg.Messege = "客户馆藏已存在";
+                    Response.Write(ObjectToJson(msg));
+                    Response.End();
+                }
             }
+            //客户馆藏已存在，继续录入
             if (op == "addRsMon")
             {
                 bookISBN = Request["bookISBN"];
                 disCount = double.Parse(Request["discount"]);
-                d_Value = Convert.ToInt32(Request["count"]);
                 number = Convert.ToInt32(Request["number"]);
                 bookNum = Request["bookNum"].ToString();
                 addsalemon();
             }
+            //完成单据
             if (op == "success")
             {
                 //判断是否有单体
@@ -126,10 +144,10 @@ namespace bms.Web.SalesMGT
                 int row = salemonbll.SelectBySaleHeadId(SaleHeadId);
                 if (row > 0)
                 {
-                    string state = salemonbll.getsaleHeadState(SaleHeadId);
+                    string state = salemonbll.getsaleHeadState(SaleHeadId,saleId);
                     if (state == "0")
                     {
-                        Result res = salemonbll.updateHeadstate(saleId, SaleHeadId, 1);
+                        Result res = salemonbll.updateHeadstate(saleId, SaleHeadId, 3);
                         if (res == Result.更新成功)
                         {
                             Response.Write("更新成功");
@@ -177,6 +195,13 @@ namespace bms.Web.SalesMGT
             {
                 remarks = defaultdiscount;
             }
+            else
+            {
+                if (double.Parse(remarks) < 1)
+                {
+                    remarks = (double.Parse(remarks) * 100).ToString();
+                }
+            }
             string ISBN = Request["isbn"];
             string bookname = Request["bookname"];
             string price = Request["price"];
@@ -194,20 +219,6 @@ namespace bms.Web.SalesMGT
             sb.Append("</tbody>");
             Response.Write(sb.ToString());
             Response.End();
-        }
-        /// <summary>
-        /// 添加补货单头
-        /// </summary>
-        public Result addrsHead()
-        {
-            replenishMentHead rsHead = new replenishMentHead();
-            replenishMentBll replenBll = new replenishMentBll();
-            rsHead.KindsNum = 0;
-            rsHead.Number = 0;
-            rsHead.SaleTaskId = saleId;
-            rsHead.UserId = user.UserId;
-            rsHead.Time = DateTime.Now.ToLocalTime();
-            return replenBll.InsertRsHead(rsHead);
         }
         /// <summary>
         /// 获取销售任务码洋限制
@@ -252,6 +263,13 @@ namespace bms.Web.SalesMGT
                 remarks = defaultdiscount;
 
             }
+            else
+            {
+                if (double.Parse(remarks) < 1)
+                {
+                    remarks = (double.Parse(remarks) * 100).ToString();
+                }
+            }
             StringBuilder sb = new StringBuilder();
             sb.Append("<tbody>");
             for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
@@ -276,7 +294,7 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public void addsalemon()
         {
-            string headState = salemonbll.getsaleHeadState(SaleHeadId);
+            string headState = salemonbll.getsaleHeadState(SaleHeadId,saleId);
             if (headState == "2")
             {
                 msg.Messege = "该单据已完成，不能再添加数据！";
@@ -285,331 +303,61 @@ namespace bms.Web.SalesMGT
             }
             else
             {
-                int RegionId = user.ReginId.RegionId;
-                stockbook = stockbll.SelectByBookNum(bookNum, RegionId);
-                if (stockbook != null)
+                BookBasicBll Bookbll = new BookBasicBll();
+                BookBasicData book = new BookBasicData();
+                book = Bookbll.SelectById(bookNum);
+                string saleHeadId = SaleHeadId;
+                //Session["saleheadId"].ToString();
+                int count = salemonbll.SelectBySaleHeadId(saleHeadId);
+                if (count == 0)
                 {
-                    for (int i = 0; i < stockbook.Tables[0].Rows.Count; i++)
-                    {
-                        allstockNum += Convert.ToInt32(stockbook.Tables[0].Rows[i]["stockNum"]);
-                    }
-                    string tips = Request["tips"].ToString();
-                    if (tips == "addsale")
-                    {
-                        //库存不足，生成询问是否生成补货单
-                        if (number > allstockNum && number > 0)
-                        {
-                            d_Value = number - allstockNum;
-                            msg.Count = d_Value.ToString();
-                            msg.Count1 = allstockNum.ToString();
-                            msg.Messege = "库存不足";
-                            Response.Write(ObjectToJson(msg));
-                            Response.End();
-                        }
-                        else if (allstockNum == 0 && number > 0)
-                        {
-                            d_Value = number;
-                            msg.Count = d_Value.ToString();
-                            msg.Count1 = allstockNum.ToString();
-                            msg.Messege = "库存不足";
-                            Response.Write(ObjectToJson(msg));
-                            Response.End();
-                        }
-                    }
-                    if (tips == "addMon")
-                    {
-                        //添加销售单体
-                        addSaleMon();
-                    }
-                    else
-                    {
-                        addSaleMon();
-                    }
+                    saleIdmonomerId = 1;
+                    salemonbll.updateHeadstate(saleId, SaleHeadId, saleIdmonomerId);
                 }
                 else
                 {
-                    msg.Messege = "无库存";
+                    saleIdmonomerId = count + 1;
+                }
+                int price = Convert.ToInt32(book.Price);
+                int totalPrice = price * number;
+                double realPrice = totalPrice * (disCount / 100);
+                DateTime Time = DateTime.Now.ToLocalTime();
+                SaleMonomer newSalemon = new SaleMonomer()
+                {
+                    AlreadyBought = 0,
+                    SaleIdMonomerId = saleIdmonomerId,
+                    BookNum = bookNum,
+                    ISBN1 = bookISBN,
+                    SaleHeadId = saleHeadId,
+                    Number = number,
+                    UnitPrice = price,
+                    TotalPrice = totalPrice,
+                    RealPrice = realPrice,
+                    RealDiscount = disCount,
+                    Datetime = Time,
+                    SaleTaskId = saleId
+                };
+                Result res = salemonbll.Insert(newSalemon);
+                if (res == Result.添加成功)
+                {
+                    msg.DataTable = getData();
+                    msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' type='number'/></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
+                    msg.AllKinds = allkinds.ToString();
+                    msg.Number = allnumber.ToString();
+                    msg.AlltotalPrice = alltotalprice.ToString();
+                    msg.AllrealPrice = allreadprice.ToString();
+                    msg.Messege = "添加成功";
+                    Response.Write(ObjectToJson(msg));
+                    Response.End();
+                }
+                else
+                {
+                    msg.Messege = "添加失败";
                     Response.Write(ObjectToJson(msg));
                     Response.End();
                 }
             }
         }
-        /// <summary>
-        /// 添加补货单体
-        /// </summary>
-        public void addRsmon()
-        {
-            //添加补货单体
-            int rsMonomerId;
-            int count = replenBll.countMon(saleId);
-            if (count > 0)
-            {
-                rsMonomerId = count + 1;
-            }
-            else
-            {
-                rsMonomerId = 1;
-            }
-            BookBasicData book = bookbll.SelectById(bookNum);
-            replenishMentMonomer replenMon = new replenishMentMonomer()
-            {
-                RsMonomerID = rsMonomerId,
-                BookNum = bookNum,
-                Isbn = book.Isbn,
-                Author = book.Author,
-                Supplier = book.Publisher,
-                Count = d_Value,
-                DateTime = DateTime.Now.ToLocalTime(),
-                SaleTaskId = saleId,
-                SaleHeadId = SaleHeadId,
-                SaleIdMonomerId = saleIdmonomerId
-            };
-            Result addmonRes = replenBll.Insert(replenMon);
-            if (addmonRes == Result.添加成功)
-            {
-                //更新补货单头
-                int rskinds = replenBll.getkinds(rsHead);
-                int rsnumber = replenBll.getsBookNumberSum(rsHead);
-                replenishMentHead upRsHead = new replenishMentHead()
-                {
-                    SaleTaskId = rsHead,
-                    KindsNum = rskinds,
-                    Number = rsnumber,
-                };
-                replenBll.updateRsHead(upRsHead);
-            }
-            else
-            {
-                msg.Messege = "添加补货单体失败";
-                Response.Write(ObjectToJson(msg));
-                Response.End();
-            }
-        }
-
-        /// <summary>
-        /// 判断库存后添加销售单
-        /// </summary>
-        public void addSaleMon()
-        {
-            SaleHeadBll saleheadbll = new SaleHeadBll();
-            string saletaskId = saleheadbll.SelectTaskByheadId(SaleHeadId);
-            string customerId = saletaskbll.getCustomerId(saletaskId);
-            int AlreadyBought = 0;
-
-            //判断馆藏
-            LibraryCollectionBll library = new LibraryCollectionBll();
-            Result libresult = library.Selectbook(customerId, bookISBN);
-            if (libresult == Result.记录不存在)
-            {
-                int countnumber;
-                if (number > allstockNum)
-                {
-                    countnumber = allstockNum;
-                }
-                else
-                {
-                    countnumber = number;
-                }
-                for (int i = 0; i < stockbook.Tables[0].Rows.Count; i++)
-                {
-                    int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[i]["stockNum"]);
-                    int goodsId = Convert.ToInt32(stockbook.Tables[0].Rows[i]["goodsShelvesId"]);
-
-                    if (countnumber <= stockNum)
-                    {
-                        int stockcount = 0;
-                        if (number < 0)
-                        {
-                            //如果输入负数，判断库存是否为零，如果不为零则加库存，为零则添加负数的补货单
-                            if (allstockNum >= 0 && number < 0)
-                            {
-                                int addnum = Math.Abs(number);
-                                stockcount = stockNum + addnum;
-                            }
-                        }
-                        else
-                        {
-                            stockcount = stockNum - countnumber;
-                        }
-                        Result upresult = stockbll.update(stockcount, goodsId, bookNum);
-                        if (upresult == Result.更新成功)
-                        {
-                            //添加销售单体明细
-                            Result result = addSalemonDetail();
-                            if (result == Result.添加成功)
-                            {
-                                //单体添加成功，生成补货单
-                                if (d_Value > 0)
-                                {
-                                    //判断是否已有该销售任务的补货单头
-                                    rsHead = replenBll.getRsHeadID(saleId);
-                                    //已有补货单头,直接添加补货单体
-                                    if (rsHead != "none")
-                                    {
-                                        addRsmon();
-                                    }
-                                    //没有补货单头，先生成补货单头，在添加补货单体
-                                    else
-                                    {
-                                        Result resultrsHead = addrsHead();
-                                        if (resultrsHead == Result.添加成功)
-                                        {
-                                            addRsmon();
-                                        }
-                                        else
-                                        {
-                                            msg.Messege = "添加补货单头失败";
-                                            Response.Write(ObjectToJson(msg));
-                                            Response.End();
-                                        }
-                                    }
-                                }
-
-                                ///更新销售单头
-                                Result res = updateSalehead();
-                                if (res == Result.更新成功)
-                                {
-                                    msg.DataTable = getData();
-                                    msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' type='number'/></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
-                                    msg.AllKinds = allkinds.ToString();
-                                    msg.Number = allnumber.ToString();
-                                    msg.AlltotalPrice = alltotalprice.ToString();
-                                    msg.AllrealPrice = allreadprice.ToString();
-                                    msg.Messege = "添加成功";
-
-                                    Response.Write(ObjectToJson(msg));
-                                    Response.End();
-                                }
-                            }
-                            else
-                            {
-                                msg.Messege = "添加失败";
-                                Response.Write(ObjectToJson(msg));
-                                Response.End();
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        countnumber = countnumber - stockNum;
-                        Result upre = stockbll.update(0, goodsId, bookNum);
-                        if (number == 0)
-                        {
-                            msg.Messege = "添加成功";
-                            Response.Write(ObjectToJson(msg));
-                            Response.End();
-                        }
-                        if (upre == Result.更新失败)
-                        {
-                            msg.Messege = "添加失败";
-                            Response.Write(ObjectToJson(msg));
-                            Response.End();
-                        }
-                        if (stockbook.Tables[0].Rows.Count == 1 && upre == Result.更新成功)
-                        {
-                            Result addSalemonres = addSalemonDetail();
-                            if (addSalemonres == Result.添加成功)
-                            {
-                                //单体添加成功，生成补货单
-                                //判断是否已有该销售任务的补货单头
-                                rsHead = replenBll.getRsHeadID(saleId);
-                                //已有补货单头,直接添加补货单体
-                                if (rsHead != "none")
-                                {
-                                    addRsmon();
-                                }
-                                //没有补货单头，先生成补货单头，在添加补货单体
-                                else
-                                {
-                                    Result resultrsHead = addrsHead();
-                                    if (resultrsHead == Result.添加成功)
-                                    {
-                                        addRsmon();
-                                    }
-                                    else
-                                    {
-                                        msg.Messege = "添加补货单头失败";
-                                        Response.Write(ObjectToJson(msg));
-                                        Response.End();
-                                    }
-                                }
-                                Result res = updateSalehead();
-                                if (res == Result.更新成功)
-                                {
-                                    msg.DataTable = getData();
-                                    msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' type='number'/></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
-                                    msg.AllKinds = allkinds.ToString();
-                                    msg.Number = allnumber.ToString();
-                                    msg.AlltotalPrice = alltotalprice.ToString();
-                                    msg.AllrealPrice = allreadprice.ToString();
-                                    msg.Messege = "添加成功";
-
-                                    Response.Write(ObjectToJson(msg));
-                                    Response.End();
-                                }
-                            }
-                            else
-                            {
-                                msg.Messege = "添加失败";
-                                Response.Write(ObjectToJson(msg));
-                                Response.End();
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                msg.Messege = "客户馆藏已存在";
-                Response.Write(ObjectToJson(msg));
-                Response.End();
-            }
-        }
-
-        /// <summary>
-        /// 添加单体详细信息
-        /// </summary>
-        /// <returns></returns>
-        public Result addSalemonDetail()
-        {
-            BookBasicBll Bookbll = new BookBasicBll();
-            BookBasicData book = new BookBasicData();
-            book = Bookbll.SelectById(bookNum);
-            string saleHeadId = SaleHeadId;
-            //Session["saleheadId"].ToString();
-            int count = salemonbll.SelectBySaleHeadId(saleHeadId);
-            if (count == 0)
-            {
-                saleIdmonomerId = 1;
-                salemonbll.updateHeadstate(saleId, SaleHeadId, saleIdmonomerId);
-            }
-            else
-            {
-                saleIdmonomerId = count + 1;
-            }
-            int price = Convert.ToInt32(book.Price);
-            int totalPrice = price * number;
-            double realPrice = totalPrice * (disCount / 100);
-            DateTime Time = DateTime.Now.ToLocalTime();
-            SaleMonomer newSalemon = new SaleMonomer()
-            {
-                AlreadyBought = 0,
-                SaleIdMonomerId = saleIdmonomerId,
-                BookNum = bookNum,
-                ISBN1 = bookISBN,
-                SaleHeadId = saleHeadId,
-                Number = number,
-                UnitPrice = price,
-                TotalPrice = totalPrice,
-                RealPrice = realPrice,
-                RealDiscount = disCount,
-                Datetime = Time,
-                SaleTaskId = saleId
-            };
-            return salemonbll.Insert(newSalemon);
-        }
-
         /// <summary>
         /// 对象转json
         /// </summary>
@@ -732,6 +480,11 @@ namespace bms.Web.SalesMGT
             strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
+                string discount = ds.Tables[0].Rows[i]["realDiscount"].ToString();
+                if (double.Parse(discount) < 1)
+                {
+                    discount = (double.Parse(discount) * 100).ToString();
+                }
                 string bookNum = ds.Tables[0].Rows[i]["bookNum"].ToString();
                 int alreadyBought = salemonbll.getBookNumberSumByBookNum(bookNum, saleId);
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
@@ -740,7 +493,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
+                strb.Append("<td>" + discount + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
                 strb.Append("<td>" + alreadyBought + "</td></tr>");
             }

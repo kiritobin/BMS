@@ -291,9 +291,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="saleHeadId">销售单头</param>
         /// <returns>返回销售单头状态</returns>
-        public string getsaleHeadState(string saleHeadId)
+        public string getsaleHeadState(string saleHeadId, string saleTaskId)
         {
-            return SaleMonomerdao.getsaleHeadState(saleHeadId);
+            return SaleMonomerdao.getsaleHeadState(saleHeadId, saleTaskId);
         }
         /// <summary>
         /// 获取该单头id下的书本数量
@@ -367,6 +367,17 @@ namespace bms.Bll
         public int getBookNumberSumByBookNum(string bookNum, string saleTaskId)
         {
             return SaleMonomerdao.getBookNumberSumByBookNum(bookNum, saleTaskId);
+        }
+        /// <summary>
+        /// 根据销售任务id，销售单头ID，和书号，查询该销售单的已购数
+        /// </summary>
+        /// /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头ID</param>
+        /// /// <param name="bookNum">书号</param>
+        /// <returns>数据集</returns>
+        public int getSaleNumber(string saleTaskId, string saleHeadId, string bookNum)
+        {
+            return SaleMonomerdao.getSaleNumber(saleTaskId, saleHeadId, bookNum);
         }
     }
 }
