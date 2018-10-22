@@ -563,13 +563,6 @@ namespace bms.Web.BasicInfor
                             }
                             else
                             {
-                                string bookNo = row[0].ToString();
-                                bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
-                                row[0] = row[0].ToString().Substring(row[0].ToString().Length - 8);
-                                if (Convert.ToInt64(bookId.NewBookNum) < Convert.ToInt64(row[0]))
-                                {
-                                    Result reg = bookbll.updateBookNum(bookNo); //更新书号
-                                }
                                 counts++;
                             }
                         }
@@ -580,6 +573,12 @@ namespace bms.Web.BasicInfor
                         Response.End();
                     }
                 }
+
+                if (Convert.ToInt64(bookId.NewBookNum) < Convert.ToInt64(last))
+                {
+                    Result reg = bookbll.updateBookNum(last); //更新书号
+                }
+
                 int cf = row - counts;
                 if (counts==0)
                 {
