@@ -26,6 +26,7 @@ namespace bms.Web.BasicInfor
         UserBll userBll = new UserBll();
         SaleHeadBll saleBll = new SaleHeadBll();
         SaleHead single = new SaleHead();
+        DataTable excel = new DataTable();
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
@@ -72,7 +73,7 @@ namespace bms.Web.BasicInfor
             }
             if (op=="check")
             {
-                check();
+                test();
             }
             string action = Request["action"];
             if (action == "import")
@@ -225,7 +226,8 @@ namespace bms.Web.BasicInfor
         //书号算法并生成datatable列
         private DataTable addBookId()
         {
-            int row = excelToDt().Rows.Count;
+            excel = excelToDt();
+            int row = excel.Rows.Count;
             long a;
             if (ViewState["i"].ToString().Length>=18)
             {
@@ -245,7 +247,7 @@ namespace bms.Web.BasicInfor
                 a++;
                 ViewState["i"] = a;
                 string ss = a.ToString().PadLeft(8, '0');
-                string isbn = excelToDt().Rows[i]["ISBN"].ToString();
+                string isbn = excel.Rows[i]["ISBN"].ToString();
                 int count = isbn.Length;
                 if (count >= 13) //大于13位书号
                 {
@@ -263,7 +265,7 @@ namespace bms.Web.BasicInfor
     
             DataRow dr_last = dataRow;
             last = dr_last["书号"].ToString();
-            return UniteDataTable(dt, excelToDt());
+            return UniteDataTable(dt, excel);
         }
 
         //合并两个table方法,合并书号列
@@ -521,7 +523,7 @@ namespace bms.Web.BasicInfor
                 //except.Columns.Add("进货折扣", typeof(string));
                 //except.Columns.Add("销售折扣", typeof(string));
                 //except.Columns.Add("备注", typeof(string));
-
+                BookBasicData bookId = bookbll.getBookNum();
                 DataRowCollection count = addBookId().Rows;
                 int counts = 0;
                 DataTable dataTable = bookBasicBll.Select();
@@ -531,8 +533,13 @@ namespace bms.Web.BasicInfor
                     {
                         string isbn = row[2].ToString().Trim();
                         string bookName = ToSBC(row[3].ToString().Trim());
-                        double price = Convert.ToDouble(row[6]);
-                        DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, price));
+                        string price = row[6].ToString().Trim();
+                        if (price==""||isbn==""||bookName=="")
+                        {
+                            price = "0";
+                            break;
+                        }
+                        DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, Convert.ToDouble(price)));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
                             //except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
@@ -543,7 +550,7 @@ namespace bms.Web.BasicInfor
                             basicData.Publisher = row[4].ToString();
                             basicData.Time = row[5].ToString();
                             //basicData.PublishTime = Convert.ToDateTime(row[5]);
-                            basicData.Price = Convert.ToDouble(row[6]);
+                            basicData.Price = Convert.ToDouble(price);
                             basicData.Catalog = row[7].ToString();
                             basicData.Author = row[8].ToString();
                             basicData.Remarks = row[9].ToString();
@@ -556,16 +563,18 @@ namespace bms.Web.BasicInfor
                             }
                             else
                             {
-                                BookBasicData bookId = bookbll.getBookNum();
-                                if (Convert.ToInt64(bookId.NewBookNum)<Convert.ToInt64(row[0]))
+                                string bookNo = row[0].ToString();
+                                bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
+                                row[0] = row[0].ToString().Substring(row[0].ToString().Length - 8);
+                                if (Convert.ToInt64(bookId.NewBookNum) < Convert.ToInt64(row[0]))
                                 {
-                                    Result reg = bookbll.updateBookNum(row[0].ToString()); //更新书号
+                                    Result reg = bookbll.updateBookNum(bookNo); //更新书号
                                 }
                                 counts++;
                             }
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Response.Write(ex);
                         Response.End();
@@ -679,7 +688,8 @@ namespace bms.Web.BasicInfor
 
         private void check()
         {
-            GetDistinctTable(excelToDt());
+            excel = excelToDt();
+            GetDistinctTable(excel);
         }
 
         #region  记录Excel中的重复列
@@ -695,33 +705,54 @@ namespace bms.Web.BasicInfor
             string bookName = string.Empty;
             string price = string.Empty;
             string repeatExcel = string.Empty;
-            for (int i = dtClone.Rows.Count - 1; i >= 0; i--)
+            //for (int i = dtClone.Rows.Count - 1; i >= 0; i--)
+            int i = dtClone.Rows.Count;
+            while (dtClone.Rows.Count > 0)
             {
-                isbn = dtClone.Rows[i][1].ToString().Trim();
-                bookName = dtClone.Rows[i][2].ToString().Trim();
-                price = dtClone.Rows[i][5].ToString().Trim();
-                dtClone.Rows[i].Delete();
+                isbn = dtClone.Rows[dtClone.Rows.Count][1].ToString().Trim();
+                bookName = dtClone.Rows[dtClone.Rows.Count][2].ToString().Trim();
+                price = dtClone.Rows[dtClone.Rows.Count][5].ToString().Trim();
+                dtClone.Rows[dtClone.Rows.Count].Delete();
                 dtClone.AcceptChanges();
-                for (int j = dtClone.Rows.Count - 1; j >= 0; j--)
+                for (int j = 1; j < dtClone.Rows.Count; j++)
                 {
                     if (isbn == dtClone.Rows[j][1].ToString().Trim() && bookName == dtClone.Rows[j][2].ToString().Trim() && price == dtClone.Rows[j][5].ToString().Trim())
                     {
                         //如果重复了，进行记录
-                        repeatExcel += "Excel中第" + (i + 1).ToString() + "行有重复\r\n";
+                        repeatExcel += "Excel中第" + (i).ToString() + "行有重复\r\n";
                         break;
                     }
                 }
             }
+            dtClone.Clear();
             Response.Write(repeatExcel);
             Response.End();
             return repeatExcel;
         }
         #endregion
 
+        private string test()
+        {
+            excel = excelToDt();
+            string s="";
+            DataView myDataView = new DataView(excel);
+            string[] strComuns = { "ISBN","书名","单价" };
+            int i = myDataView.ToTable(true, strComuns).Rows.Count;
+            int j = excel.Rows.Count;
+            if (i < j)
+            {
+                s = "存在重复记录";
+                Response.Write(s);
+                Response.End();
+            }
+            return s;
+        }
+
         private void excelNo()
         {
+            DataTable dataTable = addBookId();
             int counts = 0;
-            DataRowCollection count = addBookId().Rows;
+            DataRowCollection count = dataTable.Rows;
             foreach (DataRow row in count)//遍历excel数据集
             {
                 try
@@ -749,7 +780,6 @@ namespace bms.Web.BasicInfor
                         }
                         else
                         {
-                            
                             Result reg = bookbll.updateBookNum(row[0].ToString()); //更新书号
                             counts++;
                         }

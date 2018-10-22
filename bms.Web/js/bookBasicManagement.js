@@ -104,7 +104,7 @@
                             text: data,
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-success",
-                            type: "success",
+                            type: "warning",
                             allowOutsideClick: false
                         })
                         sessionStorage.setItem("import", "导入失败");
