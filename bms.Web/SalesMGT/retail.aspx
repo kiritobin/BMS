@@ -30,7 +30,8 @@
                     <input type="text" id="search" class="topSearch">
                 </div>
                 <div class="col-sm-6 text-right">
-                    <button class="col-sm-6 btnText" style="background-color:#eee;border:0;color:#eee;" id="preRecord">123</button>
+                    
+                    <button class="col-sm-6 btnText" style="background-color:#eee;border:0;color:#eee;" id="preRecord"></button>
                 </div>
             </div>
             <div class="card">
@@ -38,16 +39,6 @@
                     <h1 class="card-title text-center">自助扫码开单</h1>
                 </div>
                 <div class="card-body">
-                    <%--<div class="row">
-                        <div class="input-group col-md-12">
-                            <div class="btn-group" role="group">
-                                <input type="text" placeholder="请输入ISBN" id="search" class="searchOne">
-                                <button class="btn btn-info btn-sm" id="btnSearch" data-toggle="modal">扫描</button>
-                                <button class="btn btn-info btn-sm" id="save" data-toggle="modal">save</button>
-                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">添加</button>
-                            </div>
-                        </div>
-                    </div>--%>
                     <div class="row">
                         <div class="col-md-8 text-right">
                             <div class="text-right retailTime">时间：<span id="time"></span></div>
@@ -148,12 +139,9 @@
                                 <br />
                                 <table class="table">
                                     <tr>
-                                        <td style="width:50%;text-align:left;">品种：<span id="kindEnd"></span>&nbsp&nbsp</td>
-                                        <td style="width:50%;text-align:left;">码洋：￥&nbsp&nbsp<span id="totalEnd"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width:50%;text-align:left;">数量：<span id="numberEnd"></span>&nbsp&nbsp</td>
-                                        <td style="width:50%;text-align:left;">应收：￥&nbsp&nbsp<span id="realEnd"></span></td>
+                                        <td style="width:33%;text-align:left;">品种：<span id="kindEnd"></span>&nbsp&nbsp</td>
+                                        <td style="width:33%;text-align:left;">数量：<span id="numberEnd"></span>&nbsp&nbsp</td>
+                                        <td style="width:33%;text-align:left;">金额：￥&nbsp&nbsp<span id="totalEnd"></span></td>
                                     </tr>
                                 </table>
                                 <div style="margin-top: 10px;">

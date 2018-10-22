@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-<body style="overflow:hidden;">
+     <%-- style="overflow:hidden;"--%>
+<body>
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -174,7 +175,7 @@
                                 <table class="other_fee" style="width: 300px;height:100px; font-size:14px;">
                                     <thead>
                                         <tr>
-                                            <td style="width: 50%">码洋:￥<span id="alltotal"></span></td>
+                                            <td style="width: 50%">金额:￥<span id="alltotal"></span></td>
                                             <td style="width: 50%">折扣:<span id="alldiscount"></span></td>
                                         </tr>
                                         <tr>
@@ -184,7 +185,7 @@
                                             <td colspan="3"><hr /></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 50%">实付:￥<span id="allcope"></span></td>
+                                            <td style="width: 50%"><span id="paytype"></span>实付:￥<span id="allcope"></span></td>
                                             <td style="width: 50%">找零:￥<span id="allchange"></span></td>
                                         </tr>
                                     </thead>
@@ -266,6 +267,7 @@
                         <li>实洋合计：<span id="realEnd"></span></li>
                         <li>实付金额：<input id="copeEnd" /></li>
                         <li>找补金额：<span id="change"></span></li>
+                        <li id="payType">付款方式：<input type="radio" name="paytype" value="现金" checked /><span>现金</span>&nbsp&nbsp&nbsp&nbsp<input type="radio" name="paytype" value="第三方" /><span>第三方</span></li>
                     </ul>
                 </div>
                 <div class="modal-footer">
