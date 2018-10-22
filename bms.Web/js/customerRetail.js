@@ -5,7 +5,7 @@
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
     setInterval("showTime()", 1000);
-    //$("#sale").hide();
+    $("#sale").hide();
     $("#btnSettle").hide();
     $("#preRecord").hide();
     $("#btnClose").hide();
