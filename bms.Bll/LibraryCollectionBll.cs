@@ -97,7 +97,7 @@ namespace bms.Bll
         public Result Selectbook(string customerId, string ISBN)
         {
             int row = libraryDao.Selectbook(customerId, ISBN);
-            if (row != 0)
+            if (row > 0)
             {
                 return Result.记录存在;
             }

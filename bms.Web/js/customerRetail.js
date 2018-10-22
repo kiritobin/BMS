@@ -5,7 +5,7 @@
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
     setInterval("showTime()", 1000);
-    $("#sale").hide();
+    //$("#sale").hide();
     $("#btnSettle").hide();
     $("#preRecord").hide();
     $("#btnClose").hide();
@@ -289,20 +289,29 @@ $("#Settlement").click(function () {
 //收银折扣
 $("#discountEnd").keypress(function (e) {
     if (e.keyCode == 13) {
-        var discount = parseFloat($("#discountEnd").val());
+        var discount = parseFloat($("#discountEnd").val().trim());
         sessionStorage.setItem("discount", discount);
         var retailId = sessionStorage.getItem("retailId");
-        if (discount == 100) {
-            $("#copeEnd").focus();
-        }
-        else if (discount == 0) {
+        if (discount > 100) {
             swal({
-                title: "请输入折扣",
-                text: "折扣不能为0",
+                title: "折扣不能为大于100",
+                text: "",
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"
             }).catch(swal.noop);
+        }
+        else if (discount <= 0) {
+            swal({
+                title: "折扣不能为0",
+                text: "",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else if (discount == "" || discount == 100) {
+            $("#copeEnd").focus();
         }
         else {
             $.ajax({
@@ -385,7 +394,7 @@ $("table").delegate(".delete", "click", function () {
         })
     })
 })
-//收银计算找零
+//收银输入实收计算找零
 $("#copeEnd").keypress(function (e) {
     if (e.keyCode == 13) {
         sessionStorage.setItem("give", $("#copeEnd").val());
@@ -408,11 +417,12 @@ $("#copeEnd").keypress(function (e) {
         }
     }
 })
+//首次打印
 $("#btnSettle").click(function () {
-    if ($("#discountEnd").val().trim() == "" || $("#discountEnd").val().trim() == 0 || $("#discountEnd").val().trim() == "0") {
+    if ($("#discountEnd").val().trim() == 0 || $("#discountEnd").val().trim() == "0") {
         swal({
-            title: "请输入折扣",
-            text: "折扣不能为空或0",
+            title: "折扣不能为0",
+            text: "",
             buttonsStyling: false,
             confirmButtonClass: "btn btn-warning",
             type: "warning"
@@ -472,6 +482,8 @@ $("#btnSettle").click(function () {
                     }).catch(swal.noop);
                 } else if (data == "更新成功") {
                     var discount = parseFloat($("#discountEnd").val());
+                    var payType = $("#payType").find("input[name='paytype']:checked").val();
+                    $("#paytype").text(payType);
                     $("#id").text(sessionStorage.getItem("retailId"));
                     $("#alltotal").text(sessionStorage.getItem("total"));
                     $("#alldiscount").text(discount + "%");
@@ -525,12 +537,12 @@ $("#btnSettle").click(function () {
                     $("#settleClose").hide();
                     $("#preRecord").show();
                     $("#btnClose").show();
-                    $("#btnClose").focus();
                 }
             }
         })
     }
 })
+//右上角按钮关闭结算模态框
 $("#settleClose").click(function () {
     $("#totalEnd").text("");
     $("#discountEnd").val("100");
