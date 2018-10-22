@@ -126,9 +126,9 @@ $("#print").click(function () {
                 LODOP.ADD_PRINT_TEXT(50, 440, 40, 20, "数量");
                 LODOP.ADD_PRINT_TEXT(50, 480, 50, 20, "单价");
                 LODOP.ADD_PRINT_TEXT(50, 530, 50, 20, "折扣");
-                LODOP.ADD_PRINT_TEXT(50, 580, 60, 20, "码洋");
-                LODOP.ADD_PRINT_TEXT(50, 640, 60, 20, "实洋");
-                LODOP.ADD_PRINT_TEXT(50, 700, 80, 20, "货架");
+                LODOP.ADD_PRINT_TEXT(50, 570, 60, 20, "码洋");
+                LODOP.ADD_PRINT_TEXT(50, 630, 60, 20, "实洋");
+                LODOP.ADD_PRINT_TEXT(50, 690, 80, 20, "货架");
                 //表头表格
                 LODOP.ADD_PRINT_LINE(44, 14, 44, 730, 0, 1);//一线(行)
                 LODOP.ADD_PRINT_LINE(76, 14, 44, 14, 0, 1);//1
@@ -153,9 +153,9 @@ $("#print").click(function () {
                     LODOP.ADD_PRINT_TEXT(81 + 25 * i, 440, 50, 20, row.eq(3).text().trim());
                     LODOP.ADD_PRINT_TEXT(81 + 25 * i, 480, 50, 20, row.eq(4).text().trim());
                     LODOP.ADD_PRINT_TEXT(81 + 25 * i, 530, 50, 20, row.eq(5).text().trim());
-                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 580, 60, 20, row.eq(6).text().trim());
-                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 640, 60, 20, row.eq(7).text().trim());
-                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 700, 80, 20, row.eq(8).text().trim());
+                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 570, 60, 20, row.eq(6).text().trim());
+                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 630, 60, 20, row.eq(7).text().trim());
+                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 690, 80, 20, row.eq(8).text().trim());
                     //--格子画线		
                     LODOP.ADD_PRINT_LINE(101 + 25 * i, 14, 76 + 25 * i, 15, 0, 1);
                     LODOP.ADD_PRINT_LINE(101 + 25 * i, 65, 76 + 25 * i, 65, 0, 1);
