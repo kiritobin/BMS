@@ -305,7 +305,7 @@
                                                     <span>单据编号:</span>
                                                 </td>
                                                 <td>
-                                                    <input value="<%=putId %>" class="form-control" disabled>
+                                                    <input value="<%=putId %>" class="form-control" disabled id="RKId">
                                                 </td>
                                                 <td></td>
                                                 <td></td>
@@ -381,19 +381,19 @@
                                                         <span>单据总数:</span>
                                                     </td>
                                                     <td>
-                                                        <input type="text" value="<%=putCount %>" class="form-control" disabled>
+                                                        <input type="text" value="<%=putCount %>" class="form-control" disabled id="allCount">
                                                     </td>
                                                     <td>
                                                         <span>总码洋:</span>
                                                     </td>
                                                     <td>
-                                                        <input type="text" value="<%=putTotalPrice %>" class="form-control" disabled>
+                                                        <input type="text" value="<%=putTotalPrice %>" class="form-control" disabled id="allToatlPrice">
                                                     </td>
                                                     <td>
                                                         <span>总实洋:</span>
                                                     </td>
                                                     <td>
-                                                        <input type="text" value="<%=putRealPrice %>" class="form-control" disabled>
+                                                        <input type="text" value="<%=putRealPrice %>" class="form-control" disabled id="allRealPrice">
                                                     </td>
                                                 </tr>
                                             </table>
