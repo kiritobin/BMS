@@ -527,6 +527,7 @@ namespace bms.Web.BasicInfor
                 DataRowCollection count = addBookId().Rows;
                 int counts = 0;
                 DataTable dataTable = bookBasicBll.Select();
+                bool isNull=false;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
                     try
@@ -537,6 +538,7 @@ namespace bms.Web.BasicInfor
                         if (price==""||isbn==""||bookName=="")
                         {
                             price = "0";
+                            isNull = true;
                             break;
                         }
                         DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, Convert.ToDouble(price)));
@@ -558,7 +560,7 @@ namespace bms.Web.BasicInfor
                             Result result = bookBasicBll.Insert(basicData);
                             if(result == Result.添加失败)
                             {
-                                Response.Write("导入失败，可能重复导入");
+                                Response.Write("远程服务器未响应");
                                 Response.End();
                             }
                             else
@@ -584,8 +586,16 @@ namespace bms.Web.BasicInfor
                 int cf = row - counts;
                 if (counts==0)
                 {
-                    Response.Write("导入失败，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
-                    Response.End();
+                    if (isNull)
+                    {
+                        Response.Write("数据中有空行");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("导入失败，共导入数据" + counts + "条数据，共有重复数据" + cf + "条");
+                        Response.End();
+                    }
                 }
                 else
                 {
