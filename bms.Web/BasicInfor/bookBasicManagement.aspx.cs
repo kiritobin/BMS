@@ -540,7 +540,7 @@ namespace bms.Web.BasicInfor
                         {
                             price = "0";
                             isNull = true;
-                            break;
+                            continue;
                         }
                         DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, Convert.ToDouble(price)));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
