@@ -59,6 +59,10 @@ namespace bms.Web.SalesMGT
             {
                 Settlement();
             }
+            if (op == "SettlementAll")
+            {
+                SettlementAll();
+            }
             if (op == "logout")
             {
                 //删除身份凭证
@@ -79,7 +83,7 @@ namespace bms.Web.SalesMGT
             //完成此销售任务
             if (op == "finish")
             {
-                //判断该销售任务下是否还有未完成单据 0 1未完成，2完成
+                //判断该销售任务下是否还有未完成单据0新建单据 1未完成，2完成，3未结算
                 SaleTaskBll salebll = new SaleTaskBll();
                 DataSet saleHeadStateds = salebll.SelectHeadStateBySaleId(saleTaskid);
                 int count = saleHeadStateds.Tables[0].Rows.Count;
@@ -200,7 +204,15 @@ namespace bms.Web.SalesMGT
             }
         }
         /// <summary>
-        /// 
+        /// 结算整个销售任务
+        /// </summary>
+        public void SettlementAll()
+        {
+
+        }
+
+        /// <summary>
+        /// 单个销售单结算
         /// </summary>
         public void Settlement()
         {
@@ -214,9 +226,10 @@ namespace bms.Web.SalesMGT
             int allstockNum = 0;//总库存
             int bhnum = 0;
             BookBasicData book = new BookBasicData();
+            saleHeadId = dt.Rows[0]["saleHeadId"].ToString();
+            saleTaskId = dt.Rows[0]["saleTaskId"].ToString();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-
                 bookNum = dt.Rows[i]["bookNum"].ToString();
                 DataSet stockbook = stockbll.SelectByBookNum(bookNum, RegionId);
                 for (int h = 0; h < stockbook.Tables[0].Rows.Count; h++)
@@ -224,8 +237,6 @@ namespace bms.Web.SalesMGT
                     allstockNum += Convert.ToInt32(stockbook.Tables[0].Rows[i]["stockNum"]);
                 }
                 number = int.Parse(dt.Rows[i]["number"].ToString());
-                saleHeadId = dt.Rows[i]["saleHeadId"].ToString();
-                saleTaskId = dt.Rows[i]["saleTaskId"].ToString();
                 //库存小于数量时生成补货单
                 if (allstockNum < number)
                 {
@@ -275,17 +286,7 @@ namespace bms.Web.SalesMGT
                                     KindsNum = rskinds,
                                     Number = rsnumber,
                                 };
-                                Result upresHead = replenBll.updateRsHead(upRsHead);
-                                if (upresHead == Result.更新成功)
-                                {
-                                    Response.Write("添加成功");
-                                    Response.End();
-                                }
-                                else
-                                {
-                                    Response.Write("添加失败");
-                                    Response.End();
-                                }
+                                replenBll.updateRsHead(upRsHead);
                             }
                             else
                             {
@@ -326,17 +327,7 @@ namespace bms.Web.SalesMGT
                                     KindsNum = rskinds,
                                     Number = rsnumber,
                                 };
-                                Result upresHead = replenBll.updateRsHead(upRsHead);
-                                if (upresHead == Result.更新成功)
-                                {
-                                    Response.Write("添加成功");
-                                    Response.End();
-                                }
-                                else
-                                {
-                                    Response.Write("添加失败");
-                                    Response.End();
-                                }
+                                replenBll.updateRsHead(upRsHead);
                             }
                             else
                             {
@@ -356,32 +347,26 @@ namespace bms.Web.SalesMGT
                         if (number <= stockNum)
                         {
                             int stockcount = stockNum - number;
-                            Result upresult = stockbll.update(stockcount, goodsId, bookNum);
-                            if (upresult == Result.更新成功)
-                            {
-                                salemonbll.updateHeadstate(saleTaskId, saleHeadId, 3);
-                                Response.Write("添加成功");
-                                Response.End();
-
-                            }
+                            stockbll.update(stockcount, goodsId, bookNum);
                         }
                         else
                         {
                             number = number - stockNum;
-                            Result upre = stockbll.update(0, goodsId, bookNum);
-                            if (number == 0)
-                            {
-                                Response.Write("添加成功");
-                                Response.End();
-                            }
-                            if (upre == Result.更新失败)
-                            {
-                                Response.Write("添加失败");
-                                Response.End();
-                            }
+                            stockbll.update(0, goodsId, bookNum);
                         }
                     }
                 }
+            }
+            //循环完后更新销售单的状态
+            Result res = salemonbll.updateHeadstate(saleTaskId, saleHeadId, 2);
+            if (res==Result.更新成功)
+            {
+                Response.Write("添加成功");
+                Response.End();
+            } else
+            {
+                Response.Write("添加失败");
+                Response.End();
             }
         }
 
