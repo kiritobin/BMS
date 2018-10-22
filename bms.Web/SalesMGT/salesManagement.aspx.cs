@@ -259,6 +259,10 @@ namespace bms.Web.SalesMGT
                 {
                     state = "单据已完成";
                 }
+                else if (state == "3")
+                {
+                    state = "未结算";
+                }
                 strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["saleHeadId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
                 strb.Append("<td>" + state + "</td>");
@@ -268,7 +272,12 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allTotalPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allRealPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
-                strb.Append("<td>" + "<button class='btn btn-success btn-sm add'><i class='fa fa-plus fa-lg'></i></button>");
+                strb.Append("<td>");
+                if (state == "未结算")
+                {
+                    strb.Append("<button class='btn btn-success btn-sm btn_succ'>结算</button>");
+                }
+                strb.Append("<button class='btn btn-success btn-sm add'><i class='fa fa-plus fa-lg'></i></button>");
                 strb.Append("<button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + "</td></tr>");
 

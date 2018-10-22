@@ -334,11 +334,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleHeadId">销售单头</param>
         /// <returns>返回销售单头状态</returns>
-        public string getsaleHeadState(string saleHeadId)
+        public string getsaleHeadState(string saleHeadId, string saleTaskId)
         {
-            string cmdtext = "select state from T_SaleHead where saleHeadId=@saleHeadId";
-            string[] param = { "@saleHeadId" };
-            object[] values = { saleHeadId };
+            string cmdtext = "select state from T_SaleHead where saleHeadId=@saleHeadId and saleTaskId=@saleTaskId";
+            string[] param = { "@saleHeadId", "@saleTaskId" };
+            object[] values = { saleHeadId, saleTaskId };
             DataSet ds = db.FillDataSet(cmdtext, param, values);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -507,6 +507,30 @@ namespace bms.Dao
             else
             {
                 return sum = Convert.ToInt32(sumstring);
+            }
+        }
+        /// <summary>
+        /// 根据销售任务id，销售单头ID，和书号，查询该销售单的已购数
+        /// </summary>
+        /// /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头ID</param>
+        /// /// <param name="bookNum">书号</param>
+        /// <returns>数据集</returns>
+        public int getSaleNumber(string saleTaskId, string saleHeadId, string bookNum)
+        {
+            string cmdText = "select sum(number) from T_SaleMonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId and bookNum=@bookNum";
+            string[] param = { "@saleTaskId", "@saleHeadId", "@bookNum" };
+            object[] values = { saleTaskId, saleHeadId, bookNum };
+            string ds = db.ExecuteScalar(cmdText, param, values).ToString();
+            int sum;
+            if (ds != null || ds != "")
+            {
+
+                return sum = int.Parse(ds);
+            }
+            else
+            {
+                return sum = 0;
             }
         }
     }
