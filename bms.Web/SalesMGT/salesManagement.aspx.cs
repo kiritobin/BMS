@@ -358,8 +358,8 @@ namespace bms.Web.SalesMGT
                 }
             }
             //循环完后更新销售单的状态
-            Result res = salemonbll.updateHeadstate(saleTaskId, saleHeadId, 2);
-            if (res==Result.更新成功)
+            Result upHeadstate = salemonbll.updateHeadstate(saleTaskId, saleHeadId, 2);
+            if (upHeadstate == Result.更新成功)
             {
                 Response.Write("添加成功");
                 Response.End();
