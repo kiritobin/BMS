@@ -5,7 +5,7 @@
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
     setInterval("showTime()", 1000);
-    $("#ticket").hide();
+    //$("#ticket").hide();
     $("#preRecord").text(sessionStorage.getItem("preRecord"));
     //加的效果
     $("#table").delegate(".add", "click", function () {

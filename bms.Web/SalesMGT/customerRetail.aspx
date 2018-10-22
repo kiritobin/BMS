@@ -30,7 +30,7 @@
                     <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" id="search" class="topSearch">
+                    <input type="text" id="search" style="height:100px;" class="topSearch">
                 </div>
             </div>
             <div class="card">
@@ -38,16 +38,6 @@
                     <h1 class="card-title text-center">收  银</h1>
                 </div>
                 <div class="card-body">
-                    <%--<div class="row">
-                        <div class="input-group col-md-12">
-                            <div class="btn-group" role="group">
-                                <input type="text" placeholder="请输入ISBN" id="search" class="searchOne">
-                                <button class="btn btn-info btn-sm" id="btnSearch" data-toggle="modal">扫描</button>
-                                <button class="btn btn-info btn-sm" id="save" data-toggle="modal">save</button>
-                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">添加</button>
-                            </div>
-                        </div>
-                    </div>--%>
                     <div class="row">
                         <div class="col-md-8 text-right">
                             <div class="text-right retailTime">时间：<span id="time"></span></div>
@@ -184,7 +174,7 @@
                                             <td colspan="3"><hr /></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 50%"><span id="paytype"></span>实付:￥<span id="allcope"></span></td>
+                                            <td style="width: 50%"><span id="paytype">现金</span>实付:￥<span id="allcope"></span></td>
                                             <td style="width: 50%">找零:￥<span id="allchange"></span></td>
                                         </tr>
                                     </thead>
@@ -262,11 +252,16 @@
                     <hr />
                     <ul class="list-unstyled">
                         <li>码洋合计：<span id="totalEnd"></span></li>
-                        <li>码洋折扣：<input id="discountEnd" value="100" /></li>
+                        <li>码洋折扣：<input id="discountEnd" value=""/></li>
                         <li>实洋合计：<span id="realEnd"></span></li>
                         <li>实付金额：<input id="copeEnd" /></li>
                         <li>找补金额：<span id="change"></span></li>
-                        <li id="payType">付款方式：<input type="radio" name="paytype" value="现金" checked /><span>现金</span>&nbsp&nbsp&nbsp&nbsp<input type="radio" name="paytype" value="第三方" /><span>第三方</span></li>
+                        <li id="payType">付款方式：
+                            <input type="radio" name="paytype" id="moneyPay" value="现金" checked />
+                            <span>现金</span>&nbsp&nbsp&nbsp&nbsp
+                            <input type="radio" name="paytype" id="threePay" value="第三方"/>
+                            <span>第三方</span>
+                        </li>
                     </ul>
                 </div>
                 <div class="modal-footer">

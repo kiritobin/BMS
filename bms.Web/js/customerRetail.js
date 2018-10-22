@@ -202,7 +202,7 @@ $("#scannSea").keypress(function (e) {
                         confirmButtonClass: "btn btn-warning",
                         type: "warning"
                     }).catch(swal.noop);
-                }else {
+                } else {
                     var datas = data.split("|:");
                     var math = datas[0].split(",");
                     var total = math[0].split(":");
@@ -255,7 +255,7 @@ $("#table").delegate(".numberEnd", "keypress", function (e) {
                         $("#real").text(math[2]);
                         total.text(datas[2]);
                         real.text(datas[3]);
-                    } else if(succ == "更新失败"){
+                    } else if (succ == "更新失败") {
                         swal({
                             title: "修改数量失败",
                             text: "修改数量失败",
@@ -263,81 +263,6 @@ $("#table").delegate(".numberEnd", "keypress", function (e) {
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
                         }).catch(swal.noop);
-                    }
-                }
-            })
-        }
-    }
-})
-//收银结算
-$("#Settlement").click(function () {
-    if (sessionStorage.getItem("retailId") == null || sessionStorage.getItem("retailId") == undefined) {
-        swal({
-            title: "请先扫描小票",
-            text: "请先扫描小票",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else {
-        $("#totalEnd").text($("#total").text().trim());
-        $("#realEnd").text($("#real").text().trim());
-        sessionStorage.setItem("total", $("#total").text().trim());
-        sessionStorage.setItem("real", $("#real").text().trim());
-    }
-})
-//收银折扣
-$("#discountEnd").keypress(function (e) {
-    if (e.keyCode == 13) {
-        var discount = parseFloat($("#discountEnd").val().trim());
-        sessionStorage.setItem("discount", discount);
-        var retailId = sessionStorage.getItem("retailId");
-        if (discount > 100) {
-            swal({
-                title: "折扣不能为大于100",
-                text: "",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (discount <= 0) {
-            swal({
-                title: "折扣不能为0",
-                text: "",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (discount == "" || discount == 100) {
-            $("#copeEnd").focus();
-        }
-        else {
-            $.ajax({
-                type: 'Post',
-                url: 'customerRetail.aspx',
-                data: {
-                    discount: discount,
-                    retailId: retailId,
-                    op: 'discount'
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "更新成功") {
-                        var total = $("#totalEnd").text().trim();
-                        var real = total * discount * 0.01;
-                        $("#realEnd").text((real).toFixed(2))
-                        $("#copeEnd").focus();
-                    } else if (data == "更新失败") {
-                        swal({
-                            title: "错误提示",
-                            text: "修改失败",
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                        $("#discountEnd").val("100");
                     }
                 }
             })
@@ -394,6 +319,98 @@ $("table").delegate(".delete", "click", function () {
         })
     })
 })
+
+//收银结算
+$("#Settlement").click(function () {
+    if (sessionStorage.getItem("retailId") == null || sessionStorage.getItem("retailId") == undefined) {
+        swal({
+            title: "请先扫描小票",
+            text: "请先扫描小票",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+    } else {
+        $("#totalEnd").text($("#total").text().trim());
+        $("#realEnd").text($("#real").text().trim());
+        sessionStorage.setItem("total", $("#total").text().trim());
+        sessionStorage.setItem("real", $("#real").text().trim());
+    }
+})
+//收银折扣
+$("#discountEnd").keypress(function (e) {
+    if (e.keyCode == 13) {
+        var discount = $("#discountEnd").val().trim();
+        sessionStorage.setItem("discount", discount);
+        var retailId = sessionStorage.getItem("retailId");
+        if (parseFloat(discount > 100)) {
+            swal({
+                title: "折扣不能为大于100",
+                text: "",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else if (parseFloat(discount) <= 0) {
+            swal({
+                title: "折扣不能为0",
+                text: "",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else if (discount == "" || discount == "100") {
+            $("#copeEnd").focus();
+        }
+        else {
+            $.ajax({
+                type: 'Post',
+                url: 'customerRetail.aspx',
+                data: {
+                    discount: discount,
+                    retailId: retailId,
+                    op: 'discount'
+                },
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "更新成功") {
+                        var paytype = $("#payType").find("input[name='paytype']:checked").val();
+                        var total = $("#totalEnd").text().trim();
+                        var real = total * discount * 0.01;
+                        $("#realEnd").text((real).toFixed(2))
+                        if (paytype == "第三方") {
+                            $("#copeEnd").val((real).toFixed(2));
+                        }
+                        $("#copeEnd").focus();
+                    } else if (data == "更新失败") {
+                        swal({
+                            title: "错误提示",
+                            text: "修改失败",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning",
+                            type: "warning"
+                        }).catch(swal.noop);
+                        $("#discountEnd").val("");
+                    }
+                }
+            })
+        }
+    }
+})
+//选择第三方付款
+$("#threePay").click(function () {
+    $("#copeEnd").val($("#realEnd").text().trim());
+    $("#copeEnd").focus();
+    $("#paytype").html("第三方");
+})
+//选择现金付款
+$("#moneyPay").click(function () {
+    $("#copeEnd").val($("#realEnd").text().trim());
+    $("#copeEnd").focus();
+    $("#paytype").html("现金");
+})
 //收银输入实收计算找零
 $("#copeEnd").keypress(function (e) {
     if (e.keyCode == 13) {
@@ -419,7 +436,17 @@ $("#copeEnd").keypress(function (e) {
 })
 //首次打印
 $("#btnSettle").click(function () {
-    if ($("#discountEnd").val().trim() == 0 || $("#discountEnd").val().trim() == "0") {
+    var discount = $("#discountEnd").val().trim();
+    if (parseFloat(discount > 100)) {
+        swal({
+            title: "折扣不能为大于100",
+            text: "",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+    }
+    else if (parseFloat(discount) <= 0) {
         swal({
             title: "折扣不能为0",
             text: "",
@@ -429,8 +456,8 @@ $("#btnSettle").click(function () {
         }).catch(swal.noop);
     } else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
         swal({
-            title: "请输入实付金额",
-            text: "实付金额不能为空或0",
+            title: "实付金额不能为空或0",
+            text: "",
             buttonsStyling: false,
             confirmButtonClass: "btn btn-warning",
             type: "warning"
@@ -482,12 +509,10 @@ $("#btnSettle").click(function () {
                     }).catch(swal.noop);
                 } else if (data == "更新成功") {
                     var discount = parseFloat($("#discountEnd").val());
-                    var payType = $("#payType").find("input[name='paytype']:checked").val();
-                    $("#paytype").text(payType);
                     $("#id").text(sessionStorage.getItem("retailId"));
                     $("#alltotal").text(sessionStorage.getItem("total"));
                     $("#alldiscount").text(discount + "%");
-                    $("#allreal").text((parseFloat(sessionStorage.getItem("total")) * parseFloat(discount * 0.01)).toFixed(2));
+                    $("#allreal").text(($("#realEnd").text().trim()).toFixed(2));
                     $("#allcope").text(sessionStorage.getItem("give"));
                     $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
                     $("#tablePay tr:not(:first)").empty()

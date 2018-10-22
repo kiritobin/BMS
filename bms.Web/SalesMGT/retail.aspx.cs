@@ -164,18 +164,18 @@ namespace bms.Web.SalesMGT
             BookBasicData bookBasicData = basicBll.SelectById(bookNum);
             string isbn = bookBasicData.Isbn;
             string bookName = bookBasicData.BookName;
-            double discount=1;
+            double discount=100;
             if (bookBasicData.Remarks == "")
             {
-                discount = 1;
+                discount = 100;
             }
-            if (discount > 1 && discount <= 10)
+            else
             {
-                discount = discount * 0.1;
-            }
-            else if (discount > 10)
-            {
-                discount = discount * 0.01;
+                discount = Convert.ToInt32(bookBasicData.Remarks);
+                if (discount <= 1)
+                {
+                    discount = discount * 100;
+                }
             }
             int row = monTable.Rows.Count;
             double uPrice = bookBasicData.Price;
@@ -193,10 +193,10 @@ namespace bms.Web.SalesMGT
             monRow["unitPrice"] = uPrice;
             monRow["bookNum"] = bookNum;
             monRow["bookName"] = bookName;
-            monRow["realDiscount"] = discount * 100;
+            monRow["realDiscount"] = discount;
             monRow["number"] = 1;
             monRow["totalPrice"] = uPrice;
-            monRow["realPrice"] = uPrice * discount;
+            monRow["realPrice"] = uPrice * discount * 0.01;
             monTable.Rows.Add(monRow);
             StringBuilder sb = new StringBuilder();
             int counts = monTable.Rows.Count;

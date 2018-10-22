@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-<%--  style="overflow:hidden;"--%>
+<%-- style="overflow:hidden;"--%>
 <body>
     <div class="retail-content">
         <div class="container-fluid">
@@ -27,10 +27,10 @@
                     <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" id="search" class="topSearch">
+                    <input type="text" id="search" style="height:100px;" class="topSearch">
                 </div>
                 <div class="col-sm-6 text-right">
-                    <button class="col-sm-6 btnText" style="background-color: #eee; border: 0; color: #eee;" id="preRecord">123</button>
+                    <button class="col-sm-6 btnText" style="background-color: #eee; border: 0; color: #eee;" id="preRecord"></button>
                 </div>
             </div>
             <div class="card">
@@ -38,16 +38,6 @@
                     <h1 class="card-title text-center">自助购书开单</h1>
                 </div>
                 <div class="card-body">
-                    <%--<div class="row">
-                        <div class="input-group col-md-12">
-                            <div class="btn-group" role="group">
-                                <input type="text" placeholder="请输入ISBN" id="search" class="searchOne">
-                                <button class="btn btn-info btn-sm" id="btnSearch" data-toggle="modal">扫描</button>
-                                <button class="btn btn-info btn-sm" id="save" data-toggle="modal">save</button>
-                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">添加</button>
-                            </div>
-                        </div>
-                    </div>--%>
                     <div class="row">
                         <div class="col-md-8 text-right">
                             <div class="text-right retailTime">时间：<span id="time"></span></div>
@@ -144,8 +134,8 @@
                                 </div>
                             </fieldset>
                         </div>
-                        <!--startprint-->
-                        <div class="border content" style="position: relative; top: 100px; height: 500px;" id="ticket">
+                        <!--小票样式-->
+                        <div class="border content" style="position: relative; top: 300px; height: 500px;" id="ticket">
                             <div style="margin: 0 auto; color: black; font-weight: 400">
                                 <br />
                                 <table class="table">
@@ -159,7 +149,7 @@
                                 </table>
                                 <div style="margin-top: 10px;">
                                     <div id="output" style="width: 200px; height: 200px; display: none"></div>
-                                    <img src="#" style="width: 200px; height: 200px; margin-left: 10px;" id="img" />
+                                    <img src="#" style="width: 150px; height: 150px; margin-left: 30px;" id="img" />
                                 </div>
                                 <div style="width: 260px; margin-left: 10px;">
                                     <hr style="color: lightseagreen" />
@@ -167,7 +157,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--endprint-->
                     </div>
                 </div>
             </div>
