@@ -24,6 +24,7 @@ namespace bms.Web.BasicInfor
         RegionBll rbll = new RegionBll();
         UserBll userBll = new UserBll();
         DataTable except = new DataTable();//接受差集
+        DataTable excel = new DataTable();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -311,6 +312,7 @@ namespace bms.Web.BasicInfor
         //取差集
         private void differentDt()
         {
+            excel = excelToDt();
             int regId;
             if (user.RoleId.RoleName == "超级管理员")
             {
@@ -325,21 +327,21 @@ namespace bms.Web.BasicInfor
             if (j <= 0)
             {
                 //except = excelToDt();
-                except=GetDistinctSelf(excelToDt(), "货架名称");
+                except=GetDistinctSelf(excel, "货架名称");
             }
             else
             {
                 except.Columns.Add("id", typeof(string));
                 except.Columns.Add("货架名称", typeof(string));
                 except.Columns.Add("地区ID", typeof(string));
-
-                DataRowCollection count = excelToDt().Rows;
+                DataSet dataSet = shelvesbll.isGoodsShelves(regId);
+                DataRowCollection count = excel.Rows;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
                     try
                     {
                         string goodsName = ToSBC(row[1].ToString());
-                        DataRow[] rows = shelvesbll.isGoodsShelves(regId).Tables[0].Select(string.Format("shelvesName='{0}'", goodsName));
+                        DataRow[] rows = dataSet.Tables[0].Select(string.Format("shelvesName='{0}'", goodsName));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
                             except.Rows.Add(row[0], row[1], row[2]);

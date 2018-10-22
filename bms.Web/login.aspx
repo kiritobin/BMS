@@ -31,7 +31,7 @@
             <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
             <div class="container">
                 <div class="row">
-                    <h1 class="col-12 text-center">综合管理系统</h1>
+                    <h1 class="col-12 text-center">项目综合管理系统</h1>
                 </div>
                 <br />
                 <br />

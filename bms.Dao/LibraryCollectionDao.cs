@@ -38,10 +38,10 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Selectbook(string customerId, string ISBN)
         {
-            string comText = "select ISBN,bookName,price,collectionNum,customerId from T_LibraryCollection where customerId=@customerId and ISBN=@ISBN ";
+            string comText = "select count(ISBN) from T_LibraryCollection where customerId=@customerId and ISBN=@ISBN";
             string[] param = { "@customerId", "@ISBN" };
             string[] values = { customerId, ISBN };
-            int rows = db.ExecuteNoneQuery(comText, param, values);
+            int rows = int.Parse(db.ExecuteScalar(comText, param, values).ToString());
             return rows;
         }
 

@@ -88,6 +88,19 @@ namespace bms.Dao
             return ds;
         }
         /// <summary>
+        /// 根据客户名称获取客户实体
+        /// </summary>
+        /// <param name="customerName">客户姓名</param>
+        /// <returns></returns>
+        public DataSet getCustomerBuName(string customerName)
+        {
+            string cmdText = "select customerID,customerName from T_Customer where customerName like '%"+ customerName + "%'";
+            //String[] param = { "@customerName" };
+           // object[] values = { customerName };
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            return ds;
+        }
+        /// <summary>
         /// 查看客户的删除状态
         /// </summary>
         /// <param name="customerId">客户ID</param>

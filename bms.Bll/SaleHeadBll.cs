@@ -131,5 +131,16 @@ namespace bms.Bll
         {
             return saleHeaddao.getSaleHeadBasic(saleTaskId, saleHeadId);
         }
+
+        /// <summary>
+        /// 根据销售任务id，销售单头，获取该书在该销售单头下的基础信息
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <returns>基础数据表</returns>
+        public DataTable getSaleAllbyHeadIdAndStaskId(string saleTaskId, string saleHeadId)
+        {
+            return saleHeaddao.getSaleAllbyHeadIdandStaskId(saleTaskId, saleHeadId);
+        }
     }
 }

@@ -58,8 +58,8 @@ function logout() {
 }
 
 //地区下拉框查询
-$("#cusSearch").change(function () {
-    var cusId = $("#cusSearch").val();
+$("#btn_search").click(function () {
+    var cusId = $("#customer").val();
     if (cusId != null || cusId != "") {
         $.ajax({
             type: 'post',

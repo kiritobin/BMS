@@ -94,7 +94,7 @@ $(document).ready(function () {
                     callback: function (api) {
                         $.ajax({
                             type: 'Post',
-                            url: 'bookBasicManagement.aspx',
+                            url: 'inventoryManagement.aspx',
                             data: {
                                 page: api.getCurrent(), //页码
                                 bookName: bookName,

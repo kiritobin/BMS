@@ -1,4 +1,32 @@
-﻿$(document).ready(function () {
+﻿//退出系统
+function logout() {
+    swal({
+        title: "温馨提示:)",
+        text: "您确定要退出系统吗？",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+    }).then(function () {
+        $.ajax({
+            type: 'get',
+            url: 'salesManagement.aspx?op=logout',
+            datatype: 'text',
+            data: {},
+            success: function (data) {
+                window.location.href = "../login.aspx";
+            }
+        });
+    })
+}
+
+$(document).ready(function () {
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -51,39 +79,97 @@
                 $("#table tr:not(:first)").empty(); //清空table处首行
                 $("#sss").val(data);
                 $("#table").append(data); //加载table
-                //$(".paging").empty();
-                //$(".paging").pagination({
-                //    pageCount: $("#intPageCount").val(), //总页数
-                //    jump: true,
-                //    mode: 'fixed',//固定页码数量
-                //    coping: true,
-                //    homePage: '首页',
-                //    endPage: '尾页',
-                //    prevContent: '上页',
-                //    nextContent: '下页',
-                //    callback: function (api) {
-                //        $.ajax({
-                //            type: 'Post',
-                //            url: 'salesManagement.aspx',
-                //            data: {
-                //                page: api.getCurrent(), //页码
-                //                saleTaskId: saleTaskId,
-                //                regionName: regionName,
-                //                userName: userName,
-                //                op: "paging"
-                //            },
-                //            dataType: 'text',
-                //            success: function (data) {
-                //                $("#table tr:not(:first)").remove(); //清空table处首行
-                //                $("#table").append(data); //加载table
-                //                $("#intPageCount").remove();
-                //            }
-                //        });
-                //    }
-                //});
+                $(".paging").empty();
+                $(".paging").pagination({
+                    pageCount: $("#intPageCount").val(), //总页数
+                    jump: true,
+                    mode: 'fixed',//固定页码数量
+                    coping: true,
+                    homePage: '首页',
+                    endPage: '尾页',
+                    prevContent: '上页',
+                    nextContent: '下页',
+                    callback: function (api) {
+                        $.ajax({
+                            type: 'Post',
+                            url: 'salesManagement.aspx',
+                            data: {
+                                page: api.getCurrent(), //页码
+                                saleTaskId: saleTaskId,
+                                regionName: regionName,
+                                userName: userName,
+                                op: "paging"
+                            },
+                            dataType: 'text',
+                            success: function (data) {
+                                $("#table tr:not(:first)").remove(); //清空table处首行
+                                $("#table").append(data); //加载table
+                                $("#intPageCount").remove();
+                            }
+                        });
+                    }
+                });
             }
         });
     });
+    //点击销售单结算
+    $("#table").delegate(".btn_succ", "click", function () {
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        var taskId = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        swal({
+            title: "温馨提示:)",
+            text: "是否结算该销售单？",
+            type: "question",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+        }).then(function () {
+            $.ajax({
+                type: 'Post',
+                url: 'salesManagement.aspx',
+                data: {
+                    ID: ID,
+                    taskId: taskId,
+                    op: 'Settlement'
+                },
+                dataType: 'text',
+                success: function (succ) {
+                    if (succ == "添加成功") {
+                        swal({
+                            title: "温馨提示:)",
+                            text: "结算成功。",
+                            type: "success",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                            window.location.reload();
+                        })
+                    } else {
+                        swal({
+                            title: "温馨提示:)",
+                            text: "结算失败。",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+                        })
+                    }
+                }
+            })
+        })
+    })
     //完成
     $("#finish").click(function () {
         swal({
@@ -271,7 +357,7 @@
         else if (state == "采集中") {
             swal({
                 title: "温馨提示:)",
-                text: "单据采集中，现在不能删除。",
+                text: "单据采集中，现在不能删除",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
@@ -284,7 +370,7 @@
         else if (state == "单据已完成") {
             swal({
                 title: "温馨提示:)",
-                text: "单据已完成不能删除。",
+                text: "单据已完成不能删除",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',

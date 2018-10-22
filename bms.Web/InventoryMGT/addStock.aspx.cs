@@ -30,6 +30,7 @@ namespace bms.Web.InventoryMGT
         GoodsShelvesBll goodsShelvesBll = new GoodsShelvesBll();
         BookBasicBll bookBasicBll = new BookBasicBll();
         StockBll stockBll = new StockBll();
+        DataTable excel = new DataTable();
         public List<string> bookNumList = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -213,8 +214,9 @@ namespace bms.Web.InventoryMGT
         /// <returns></returns>
         private DataTable serialNumber()
         {
+            excel = excelToDt();
             WarehousingBll warehousingBll = new WarehousingBll();
-            int row = excelToDt().Rows.Count;
+            int row = excel.Rows.Count;
             string now = DateTime.Now.ToString("yyyyMMdd");
             DataTable dt = new DataTable();
             DataColumn dc = new DataColumn("流水号");
@@ -227,7 +229,7 @@ namespace bms.Web.InventoryMGT
                 dataRow["流水号"] = id;
                 dt.Rows.Add(id);
             }
-            return UniteDataTable(excelToDt(), dt);
+            return UniteDataTable(excel, dt);
         }
 
         /// <summary>
@@ -310,12 +312,13 @@ namespace bms.Web.InventoryMGT
                 intersect.Columns.Add("流水号", typeof(string));
                 try
                 {
+                    DataTable dataTable = warehousingBll.getISBNbook();
                     DataRowCollection count = serialNumber().Rows;
                     foreach (DataRow row in count)//遍历excel数据集
                     {
                         string bookName = row[2].ToString().Trim();
                         string isbn = row[4].ToString().Trim();
-                        DataRow[] rows = warehousingBll.getISBNbook().Select(string.Format("ISBN='{0}' and bookName='{1}'", isbn, ToSBC(bookName)));
+                        DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}'", isbn, ToSBC(bookName)));
                         if (rows.Length != 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
                             intersect.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]);

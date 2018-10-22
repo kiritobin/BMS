@@ -38,11 +38,11 @@ namespace bms.Bll
             }
         }
 
-            /// <summary>
-            /// 通过地区获取客户姓名和ID
-            /// </summary>
-            /// <returns></returns>
-            public DataSet getCustomerByReg(int regionId)
+        /// <summary>
+        /// 通过地区获取客户姓名和ID
+        /// </summary>
+        /// <returns></returns>
+        public DataSet getCustomerByReg(int regionId)
         {
             return libraryDao.getCustomerByReg(regionId);
         }
@@ -62,7 +62,7 @@ namespace bms.Bll
         public Result Delete(int libraryId)
         {
             int count = libraryDao.Delete(libraryId);
-            if (count>0)
+            if (count > 0)
             {
                 return Result.删除成功;
             }
@@ -97,7 +97,7 @@ namespace bms.Bll
         public Result Selectbook(string customerId, string ISBN)
         {
             int row = libraryDao.Selectbook(customerId, ISBN);
-            if (row>0)
+            if (row > 0)
             {
                 return Result.记录存在;
             }
