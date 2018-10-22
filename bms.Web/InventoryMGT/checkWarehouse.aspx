@@ -304,7 +304,7 @@
                                                     <span>单据编号:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" disabled value="<%=shId %>">
+                                                    <input type="text" class="form-control" disabled value="<%=shId %>" id="CKId">
                                                 </td>
                                                 <td></td>
                                                 <td></td>
@@ -377,19 +377,19 @@
                                                     <span>单据总数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" disabled value="<%=shCount %>">
+                                                    <input type="text" class="form-control" disabled value="<%=shCount %>" id="allCount">
                                                 </td>
                                                 <td>
                                                     <span>总码洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" disabled value="<%=shTotalPrice %>">
+                                                    <input type="text" class="form-control" disabled value="<%=shTotalPrice %>" id="allToatlPrice">
                                                 </td>
                                                 <td>
                                                     <span>总实洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" disabled value="<%=shRealPrice %>">
+                                                    <input type="text" class="form-control" disabled value="<%=shRealPrice %>" id="allRealPrice">
                                                 </td>
                                             </tr>
                                         </table>
