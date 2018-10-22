@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
 <%--  style="overflow:hidden;"--%>
-<body style="overflow:hidden;">
+<body>
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -54,7 +54,7 @@
                         </div>
                         <!-- 左侧数据表 -->
                         <div class="table-responsive col-md-8">
-                            <div style="height: 600px; display: block; overflow-y: auto;">
+                            <div style="height: 550px; display: block; overflow-y: auto;">
                                 <table class="table mostTable retailTable table-bordered text-center test" id="table">
                                     <thead>
                                          <tr>
