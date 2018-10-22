@@ -110,7 +110,11 @@ namespace bms.Dao
                     return rsHeadId;
                 }
             }
-            return rsHeadId = "none";
+            else
+            {
+                return rsHeadId = "none";
+            }
+
         }
         /// <summary>
         /// 获取该补货单头下的单体数量

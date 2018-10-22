@@ -144,8 +144,8 @@ namespace bms.Web.SalesMGT
                 int row = salemonbll.SelectBySaleHeadId(SaleHeadId);
                 if (row > 0)
                 {
-                    string state = salemonbll.getsaleHeadState(SaleHeadId,saleId);
-                    if (state == "0")
+                    string state = salemonbll.getsaleHeadState(SaleHeadId, saleId);
+                    if (state == "0" || state == "1")
                     {
                         Result res = salemonbll.updateHeadstate(saleId, SaleHeadId, 3);
                         if (res == Result.更新成功)
@@ -294,7 +294,7 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public void addsalemon()
         {
-            string headState = salemonbll.getsaleHeadState(SaleHeadId,saleId);
+            string headState = salemonbll.getsaleHeadState(SaleHeadId, saleId);
             if (headState == "2")
             {
                 msg.Messege = "该单据已完成，不能再添加数据！";
