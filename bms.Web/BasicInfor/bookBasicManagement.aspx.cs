@@ -533,8 +533,13 @@ namespace bms.Web.BasicInfor
                     {
                         string isbn = row[2].ToString().Trim();
                         string bookName = ToSBC(row[3].ToString().Trim());
-                        double price = Convert.ToDouble(row[6]);
-                        DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, price));
+                        string price = row[6].ToString().Trim();
+                        if (price==""||isbn==""||bookName=="")
+                        {
+                            price = "0";
+                            break;
+                        }
+                        DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, Convert.ToDouble(price)));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
                             //except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
@@ -545,7 +550,7 @@ namespace bms.Web.BasicInfor
                             basicData.Publisher = row[4].ToString();
                             basicData.Time = row[5].ToString();
                             //basicData.PublishTime = Convert.ToDateTime(row[5]);
-                            basicData.Price = Convert.ToDouble(row[6]);
+                            basicData.Price = Convert.ToDouble(price);
                             basicData.Catalog = row[7].ToString();
                             basicData.Author = row[8].ToString();
                             basicData.Remarks = row[9].ToString();
@@ -558,18 +563,18 @@ namespace bms.Web.BasicInfor
                             }
                             else
                             {
-                                //string bookNo = row[0].ToString();
-                                //bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
-                                //row[0] = row[0].ToString().Substring(row[0].ToString().Length - 8);
-                                //if (Convert.ToInt64(bookId.NewBookNum)<Convert.ToInt64(row[0]))
-                                //{
-                                //    Result reg = bookbll.updateBookNum(bookNo); //更新书号
-                                //}
+                                string bookNo = row[0].ToString();
+                                bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
+                                row[0] = row[0].ToString().Substring(row[0].ToString().Length - 8);
+                                if (Convert.ToInt64(bookId.NewBookNum) < Convert.ToInt64(row[0]))
+                                {
+                                    Result reg = bookbll.updateBookNum(bookNo); //更新书号
+                                }
                                 counts++;
                             }
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Response.Write(ex);
                         Response.End();
@@ -732,7 +737,9 @@ namespace bms.Web.BasicInfor
             string s="";
             DataView myDataView = new DataView(excel);
             string[] strComuns = { "ISBN","书名","单价" };
-            if (myDataView.ToTable(true, strComuns).Rows.Count < excel.Rows.Count)
+            int i = myDataView.ToTable(true, strComuns).Rows.Count;
+            int j = excel.Rows.Count;
+            if (i < j)
             {
                 s = "存在重复记录";
                 Response.Write(s);
