@@ -122,20 +122,20 @@ $("#print").click(function () {
                 //---------表格明细--------
                 LODOP.ADD_PRINT_TEXT(50, 20, 50, 20, "序号");
                 LODOP.ADD_PRINT_TEXT(50, 70, 100, 20, "ISBN号");
-                LODOP.ADD_PRINT_TEXT(50, 170, 250, 20, "书名");
-                LODOP.ADD_PRINT_TEXT(50, 420, 50, 20, "数量");
-                LODOP.ADD_PRINT_TEXT(50, 470, 50, 20, "单价");
-                LODOP.ADD_PRINT_TEXT(50, 520, 50, 20, "折扣");
-                LODOP.ADD_PRINT_TEXT(50, 570, 60, 20, "码洋");
-                LODOP.ADD_PRINT_TEXT(50, 630, 60, 20, "实洋");
-                LODOP.ADD_PRINT_TEXT(50, 690, 80, 20, "货架");
+                LODOP.ADD_PRINT_TEXT(50, 170, 300, 20, "书名");
+                LODOP.ADD_PRINT_TEXT(50, 440, 40, 20, "数量");
+                LODOP.ADD_PRINT_TEXT(50, 480, 50, 20, "单价");
+                LODOP.ADD_PRINT_TEXT(50, 530, 50, 20, "折扣");
+                LODOP.ADD_PRINT_TEXT(50, 580, 60, 20, "码洋");
+                LODOP.ADD_PRINT_TEXT(50, 640, 60, 20, "实洋");
+                LODOP.ADD_PRINT_TEXT(50, 700, 80, 20, "货架");
                 //表头表格
                 LODOP.ADD_PRINT_LINE(44, 14, 44, 730, 0, 1);//一线(行)
                 LODOP.ADD_PRINT_LINE(76, 14, 44, 14, 0, 1);//1
                 LODOP.ADD_PRINT_LINE(76, 65, 44, 65, 0, 1);//2
                 LODOP.ADD_PRINT_LINE(76, 165, 44, 165, 0, 1);//3
-                LODOP.ADD_PRINT_LINE(76, 415, 44, 415, 0, 1);//4
-                LODOP.ADD_PRINT_LINE(76, 465, 44, 465, 0, 1);//5
+                LODOP.ADD_PRINT_LINE(76, 435, 44, 435, 0, 1);//4
+                LODOP.ADD_PRINT_LINE(76, 475, 44, 475, 0, 1);//5
                 LODOP.ADD_PRINT_LINE(76, 515, 44, 515, 0, 1);//6
                 LODOP.ADD_PRINT_LINE(76, 565, 44, 565, 0, 1);//7
                 LODOP.ADD_PRINT_LINE(76, 625, 44, 625, 0, 1);//8
@@ -149,19 +149,19 @@ $("#print").click(function () {
                     var row = $("#table").find('tr').eq(i+1).find('td');
                     LODOP.ADD_PRINT_TEXT(81 + 25 * i, 20, 50, 20, (i+1));
                     LODOP.ADD_PRINT_TEXT(81 + 25 * i, 70, 100, 20, row.eq(1).text().trim());
-                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 170, 250, 20, row.eq(2).text().trim());
-                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 420, 50, 20, row.eq(3).text().trim());
-                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 470, 50, 20, row.eq(4).text().trim());
-                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 520, 50, 20, row.eq(5).text().trim());
-                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 570, 60, 20, row.eq(6).text().trim());
-                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 630, 60, 20, row.eq(7).text().trim());
-                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 690, 80, 20, row.eq(8).text().trim());
+                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 170, 300, 20, row.eq(2).text().trim());
+                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 440, 50, 20, row.eq(3).text().trim());
+                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 480, 50, 20, row.eq(4).text().trim());
+                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 530, 50, 20, row.eq(5).text().trim());
+                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 580, 60, 20, row.eq(6).text().trim());
+                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 640, 60, 20, row.eq(7).text().trim());
+                    LODOP.ADD_PRINT_TEXT(81 + 25 * i, 700, 80, 20, row.eq(8).text().trim());
                     //--格子画线		
                     LODOP.ADD_PRINT_LINE(101 + 25 * i, 14, 76 + 25 * i, 15, 0, 1);
                     LODOP.ADD_PRINT_LINE(101 + 25 * i, 65, 76 + 25 * i, 65, 0, 1);
                     LODOP.ADD_PRINT_LINE(101 + 25 * i, 165, 76 + 25 * i, 165, 0, 1);
-                    LODOP.ADD_PRINT_LINE(101 + 25 * i, 415, 76 + 25 * i, 415, 0, 1);
-                    LODOP.ADD_PRINT_LINE(101 + 25 * i, 465, 76 + 25 * i, 465, 0, 1);
+                    LODOP.ADD_PRINT_LINE(101 + 25 * i, 435, 76 + 25 * i, 435, 0, 1);
+                    LODOP.ADD_PRINT_LINE(101 + 25 * i, 475, 76 + 25 * i, 475, 0, 1);
                     LODOP.ADD_PRINT_LINE(101 + 25 * i, 515, 76 + 25 * i, 515, 0, 1);
                     LODOP.ADD_PRINT_LINE(101 + 25 * i, 565, 76 + 25 * i, 565, 0, 1);
                     LODOP.ADD_PRINT_LINE(101 + 25 * i, 625, 76 + 25 * i, 625, 0, 1);
@@ -169,9 +169,6 @@ $("#print").click(function () {
                     LODOP.ADD_PRINT_LINE(101 + 25 * i, 730, 76 + 25 * i, 730, 0, 1);
                     LODOP.ADD_PRINT_LINE(102 + 25 * i, 14, 101 + 25 * i, 730, 0, 1);
                 }
-                LODOP.ADD_PRINT_LINE(101 + 25 * j, 14, 102 + 25 * j, 510, 0, 1);
-                LODOP.ADD_PRINT_TEXT(105 + 25 * j, 20, 300, 20, "打印时间：‎2015‎-‎12‎-‎15 ‎12‎:‎19‎");
-                LODOP.ADD_PRINT_TEXT(105 + 25 * j, 346, 150, 20, "合计金额：" + 10 * j);
                 //------------end-------------
                 LODOP.PREVIEW();//打印预览	
             }
