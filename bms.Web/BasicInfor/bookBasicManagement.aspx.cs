@@ -529,6 +529,7 @@ namespace bms.Web.BasicInfor
                 DataTable dataTable = bookBasicBll.Select();
                 bool isNull=false;
                 int rowls =0;
+                int kz = 0;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
                     try
@@ -540,6 +541,7 @@ namespace bms.Web.BasicInfor
                         {
                             price = "0";
                             isNull = true;
+                            kz++;
                             continue;
                         }
                         DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, Convert.ToDouble(price)));
@@ -590,7 +592,7 @@ namespace bms.Web.BasicInfor
                 {
                     if (isNull)
                     {
-                        Response.Write("数据中有空行！导入失败，第" + rowls.ToString() + "为空行！");
+                        Response.Write("导入成功，共导入数据" + counts + "条数据，共有重复数据" + cf + "条，共有错误数据"+kz.ToString());
                         Response.End();
                     }
                     else

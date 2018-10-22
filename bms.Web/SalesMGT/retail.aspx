@@ -150,9 +150,11 @@
                                 <br />
                                 <table class="table">
                                     <tr>
-                                        <td style="width: 30%; text-align: left;">品种：<span id="kindEnd"></span>&nbsp&nbsp</td>
-                                        <td style="width: 30%; text-align: left;">数量：<span id="numberEnd"></span>&nbsp&nbsp</td>
-                                        <td style="width: 40%; text-align: left;">金额：￥&nbsp&nbsp<span id="totalEnd"></span></td>
+                                        <td style="width: 50%; text-align: left;">品种：<span id="kindEnd"></span>&nbsp&nbsp</td>
+                                        <td style="width: 50%; text-align: left;">数量：<span id="numberEnd"></span>&nbsp&nbsp</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 50%; text-align: left;">金额：￥&nbsp&nbsp<span id="totalEnd"></span></td>
                                     </tr>
                                 </table>
                                 <div style="margin-top: 10px;">
