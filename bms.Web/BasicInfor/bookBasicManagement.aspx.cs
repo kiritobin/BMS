@@ -73,7 +73,7 @@ namespace bms.Web.BasicInfor
             }
             if (op=="check")
             {
-                check();
+                test();
             }
             string action = Request["action"];
             if (action == "import")
@@ -700,28 +700,46 @@ namespace bms.Web.BasicInfor
             string bookName = string.Empty;
             string price = string.Empty;
             string repeatExcel = string.Empty;
-            for (int i = dtClone.Rows.Count - 1; i >= 0; i--)
+            //for (int i = dtClone.Rows.Count - 1; i >= 0; i--)
+            int i = dtClone.Rows.Count;
+            while (dtClone.Rows.Count > 0)
             {
-                isbn = dtClone.Rows[i][1].ToString().Trim();
-                bookName = dtClone.Rows[i][2].ToString().Trim();
-                price = dtClone.Rows[i][5].ToString().Trim();
-                dtClone.Rows[i].Delete();
+                isbn = dtClone.Rows[dtClone.Rows.Count][1].ToString().Trim();
+                bookName = dtClone.Rows[dtClone.Rows.Count][2].ToString().Trim();
+                price = dtClone.Rows[dtClone.Rows.Count][5].ToString().Trim();
+                dtClone.Rows[dtClone.Rows.Count].Delete();
                 dtClone.AcceptChanges();
-                for (int j = dtClone.Rows.Count - 1; j >= 0; j--)
+                for (int j = 1; j < dtClone.Rows.Count; j++)
                 {
                     if (isbn == dtClone.Rows[j][1].ToString().Trim() && bookName == dtClone.Rows[j][2].ToString().Trim() && price == dtClone.Rows[j][5].ToString().Trim())
                     {
                         //如果重复了，进行记录
-                        repeatExcel += "Excel中第" + (i + 1).ToString() + "行有重复\r\n";
+                        repeatExcel += "Excel中第" + (i).ToString() + "行有重复\r\n";
                         break;
                     }
                 }
             }
+            dtClone.Clear();
             Response.Write(repeatExcel);
             Response.End();
             return repeatExcel;
         }
         #endregion
+
+        private string test()
+        {
+            excel = excelToDt();
+            string s="";
+            DataView myDataView = new DataView(excel);
+            string[] strComuns = { "ISBN","书名","单价" };
+            if (myDataView.ToTable(true, strComuns).Rows.Count < excel.Rows.Count)
+            {
+                s = "存在重复记录";
+                Response.Write(s);
+                Response.End();
+            }
+            return s;
+        }
 
         private void excelNo()
         {
