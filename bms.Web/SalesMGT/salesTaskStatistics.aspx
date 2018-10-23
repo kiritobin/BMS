@@ -60,19 +60,19 @@
                                                     <span>销售任务编号:</span>
                                                 </td>
                                                 <td>
-                                                    <input value="<%=saletaskId.ToString() %>" class="form-control" disabled>
+                                                    <input value="<%=saletaskId.ToString() %>" class="form-control" disabled id="XSRWnum">
                                                 </td>
                                                 <td>
                                                     <span>所属客户:</span>
                                                 </td>
                                                 <td>
-                                                    <input value="<%=customerName %>" class="form-control" disabled>
+                                                    <input value="<%=customerName %>" class="form-control" disabled id="customer">
                                                 </td>
                                                 <td>
                                                     <span>操作员:</span>
                                                 </td>
                                                 <td>
-                                                    <input value="<%=userName %>" class="form-control" disabled>
+                                                    <input value="<%=userName %>" class="form-control" disabled id="operator">
                                                 </td>
                                             </tr>
                                             <tr class="text-nowrap">
@@ -81,7 +81,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="jeinpbox">
-                                                        <input type="text" value="<%=startTime %>" class="form-control" disabled>
+                                                        <input type="text" value="<%=startTime %>" class="form-control" disabled id="startTime">
                                                     </div>
                                                 </td>
                                                 <td>
@@ -89,7 +89,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="jeinpbox">
-                                                        <input type="text" value="<%=finishTime %>" class="form-control" disabled>
+                                                        <input type="text" value="<%=finishTime %>" class="form-control" disabled id="endTime">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -130,24 +130,24 @@
                                                     <span>书籍种数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allkinds %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=allkinds %>" class="form-control" disabled id="bookKinds">
                                                 </td>
                                                 <td>
                                                     <span>书本总数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
+                                                    <input type="text" value="<%=allnumber %>" class="form-control" disabled id="allBookCount"></td>
                                                 <td>
                                                     <span>总码洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=alltotalprice %>" class="form-control" disabled id="alltotalprice">
                                                 </td>
                                                 <td>
                                                     <span>总实洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=allreadprice %>" class="form-control" disabled id="allreadprice">
                                                 </td>
                                             </tr>
                                         </table>

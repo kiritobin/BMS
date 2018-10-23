@@ -71,6 +71,7 @@ namespace bms.Web
                 {
                     if (user.UserId.ToString() == account && userPwd == pwd)
                     {
+                        Session.Timeout = 1440;
                         Session["user"] = user;
                         Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
                         FormsAuthenticationTicket Ticket = new FormsAuthenticationTicket(1, account, DateTime.Now, DateTime.Now.AddDays(1), true, "staff"); //建立身份验证票对象 

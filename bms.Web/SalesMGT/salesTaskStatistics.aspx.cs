@@ -52,8 +52,10 @@ namespace bms.Web.SalesMGT
             {
                 userName = userds.Tables[0].Rows[0]["userName"].ToString();
                 customerName = userds.Tables[0].Rows[0]["customerName"].ToString();
-                startTime = userds.Tables[0].Rows[0]["startTime"].ToString();
-                finishTime = userds.Tables[0].Rows[0]["finishTime"].ToString();
+                //startTime = userds.Tables[0].Rows[0]["startTime"].ToString();
+                startTime = Convert.ToDateTime(userds.Tables[0].Rows[0]["startTime"].ToString()).ToString("yyyy年MM月dd日");
+                //finishTime = userds.Tables[0].Rows[0]["finishTime"].ToString();
+                finishTime = Convert.ToDateTime(userds.Tables[0].Rows[0]["finishTime"].ToString()).ToString("yyyy年MM月dd日");
                 if (finishTime == "" || finishTime == null)
                 {
                     finishTime = "此销售任务还未结束";
@@ -71,7 +73,7 @@ namespace bms.Web.SalesMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleMonomer";
             tb.OrderBy = "dateTime";
-            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice";
+            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,regionName";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = "saleTaskId='" + saletaskId + "' group by bookNum,bookName,ISBN,unitPrice";
@@ -95,6 +97,7 @@ namespace bms.Web.SalesMGT
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
+            strb.Append("<input type='hidden' value=' " + ds.Tables[0].Rows[0]["regionName"] + " ' id='region' />");
             string op = Request["op"];
             if (op == "paging")
             {
@@ -117,8 +120,8 @@ namespace bms.Web.SalesMGT
                     if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
                     {
                         strb.Append("<tr><td>" + (i + 1) + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
                         strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
                         strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
                         strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
                         strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");

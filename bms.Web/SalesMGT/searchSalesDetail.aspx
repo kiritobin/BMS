@@ -63,13 +63,13 @@
                                                     <span>单据编号:</span>
                                                 </td>
                                                 <td>
-                                                    <input value="<%=saleheadId.ToString() %>" class="form-control" disabled>
+                                                    <input value="<%=saleheadId.ToString() %>" class="form-control" disabled id="XSnum">
                                                 </td>
                                                 <td>
                                                     <span>操作员:</span>
                                                 </td>
                                                 <td>
-                                                    <input value="<%=userName %>" class="form-control" disabled>
+                                                    <input value="<%=userName %>" class="form-control" disabled id="operator">
                                                 </td>
                                                 <td>
                                                     <span>制单日期:</span>
@@ -119,24 +119,24 @@
                                                     <span>书籍种数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allkinds %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=allkinds %>" class="form-control" disabled id="bookKinds">
                                                 </td>
                                                 <td>
                                                     <span>书本总数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
+                                                    <input type="text" value="<%=allnumber %>" class="form-control" disabled id="allBookCount"></td>
                                                 <td>
                                                     <span>总码洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=alltotalprice %>" class="form-control" disabled id="alltotalprice">
                                                 </td>
                                                 <td>
                                                     <span>总实洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=allreadprice %>" class="form-control" disabled id="allreadprice">
                                                 </td>
                                             </tr>
                                         </table>

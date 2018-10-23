@@ -67,6 +67,7 @@ namespace bms.Web
                     Customer custom = loginBll.getPwdByCustomId(account);
                     if (custom.CustomerId.ToString() == account)
                     {
+                        Session.Timeout = 1440;
                         Session["custom"] = custom;
                         Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
                         FormsAuthenticationTicket Ticket = new FormsAuthenticationTicket(1, account, DateTime.Now, DateTime.Now.AddMinutes(60), true, "customer"); //建立身份验证票对象 
