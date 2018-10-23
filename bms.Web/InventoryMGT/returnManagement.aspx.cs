@@ -172,7 +172,6 @@ namespace bms.Web.BasicInfor
             else
             {
                 superRole = "and regionId=" + user.ReginId.RegionId;
-                search = "regionId=" + user.ReginId.RegionId;
                 if ((singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
                 {
                     search = "deleteState=0 and type=2" + superRole;
