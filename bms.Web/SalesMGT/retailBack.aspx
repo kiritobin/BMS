@@ -112,7 +112,7 @@
                             <div class="retailList">
                                 <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
                             </div>
-                            <div class="container">
+                            <div class="container" style="margin-left:-30px">
                                 <div class="row">
                                     <div class="text-white col-sm-4 text-right" id="scanning" data-toggle="modal" data-target="#myModal1">
                                         <button class="btn btn-info btn-lg btnText">扫  描</button>
@@ -120,8 +120,8 @@
                                     <div class="text-white col-sm-4 text-right" id="insert">
                                         <button class="btn btn-success btn-lg btnText">提  交</button>
                                     </div>
-                                    <div class="text-white col-sm-4 text-left" id="giveup">
-                                        <button class="btn btn-danger btn-lg btnText">放  弃</button>
+                                    <div class="text-white col-sm-4 text-left" onclick="javascript:history.back(-1);">
+                                        <button class="btn btn-danger btn-lg btnText">返  回</button>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                     </button>
                 </div>
                 <div class="modal-body" style="margin: 0 auto;">
-                    单头ID:<input type="text" placeholder="请输入单头ID" id="scannSea" class="searchOne">
+                    单头ID：<input type="text" placeholder="请输入单头ID" id="scannSea" class="searchOne">
                 </div>
                 <div class="modal-footer"></div>
             </div>

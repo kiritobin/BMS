@@ -98,7 +98,7 @@ $("#search").keypress(function (e) {
     sessionStorage.setItem("ISBN", $("#search").val())
     //回车事件触发
     if (e.keyCode == 13) {
-        $("#table2").empty();
+        $("#table2 tr:not(:first)").remove();
         var kind = $("#kind").text().trim();
         var isbn = $("#search").val();
         if (isbn == "" || isbn == null) {
@@ -156,7 +156,7 @@ $("#search").keypress(function (e) {
                             dataType: 'text',
                             success: function (succ) {
                                 $("#myModal").modal("show");
-                                $("#table2 tr:not(:first)").empty(); //清空table处首行
+                                $("#table2 tr:not(:first)").remove(); //清空table处首行
                                 $("#table2").prepend(succ); //加载table
                             }
                         })
