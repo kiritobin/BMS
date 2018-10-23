@@ -4,8 +4,11 @@
     sessionStorage.setItem("number", 0);
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
+    sessionStorage.setItem("content", "show");
+    sessionStorage.removeItem("numberEnd");
     setInterval("showTime()", 1000);
     $("#sale").hide();
+    $(".noneDiscount").hide();
     $("#btnSettle").hide();
     $("#preRecord").hide();
     $("#btnClose").hide();
@@ -335,6 +338,7 @@ $("#Settlement").click(function () {
         $("#realEnd").text($("#real").text().trim());
         sessionStorage.setItem("total", $("#total").text().trim());
         sessionStorage.setItem("real", $("#real").text().trim());
+        sessionStorage.setItem("numberEnd", $("#number").text().trim())
     }
 })
 //收银折扣
@@ -363,6 +367,9 @@ $("#discountEnd").keypress(function (e) {
         }
         else if (discount == "") {
             $("#copeEnd").focus();
+            $(".discount").hide();
+            $(".noneDiscount").show();
+            sessionStorage.setItem("content", "none");
         }
         else {
             $.ajax({
@@ -466,6 +473,11 @@ $("#btnSettle").click(function () {
         }).catch(swal.noop);
     }
     else {
+        if (discount == "") {
+            $(".discount").hide();
+            $(".noneDiscount").show();
+            sessionStorage.setItem("content", "none");
+        }
         $.ajax({
             type: 'Post',
             url: 'customerRetail.aspx',
@@ -510,11 +522,17 @@ $("#btnSettle").click(function () {
                         type: "warning"
                     }).catch(swal.noop);
                 } else if (data == "更新成功") {
-                    var discount = parseFloat($("#discountEnd").val());
+                    var discount = parseFloat(sessionStorage.getItem("discount"));
                     $("#id").text(sessionStorage.getItem("retailId"));
-                    $("#alltotal").text(sessionStorage.getItem("total"));
-                    $("#alldiscount").text(discount + "%");
-                    $("#allreal").text(sessionStorage.getItem("realPrice"));
+                    if (sessionStorage.getItem("content") == "show") {
+                        $("#allnumber").text(sessionStorage.getItem("numberEnd"));
+                        $("#alltotal").text(sessionStorage.getItem("total"));
+                        $("#alldiscount").text(discount + "%");
+                        $("#allreal").text(sessionStorage.getItem("realPrice"));
+                    } else {
+                        $("#noneNumber").text(sessionStorage.getItem("numberEnd"));
+                        $("#noneTotal").text(sessionStorage.getItem("total"));
+                    }
                     $("#allcope").text(sessionStorage.getItem("give"));
                     $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
                     $("#tablePay tr:not(:first)").empty()
@@ -572,7 +590,7 @@ $("#btnSettle").click(function () {
 //右上角按钮关闭结算模态框
 $("#settleClose").click(function () {
     $("#totalEnd").text("");
-    $("#discountEnd").val("100");
+    $("#discountEnd").val("");
     $("#realEnd").text("");
     $("#copeEnd").val("");
     $("#change").text("");
