@@ -19,8 +19,8 @@
                 },
                 dataType: 'text',
                 success: function (data) {
-                    $("#table tbody").empty(); //清空table处首行
-                    $("#table tbody").append(data); //加载table
+                    $("#table tr:not(:first)").remove();
+                    $("#table").append(data); //加载table
                 }
             });
         }
@@ -90,8 +90,8 @@ $("#regionSearch").change(function (){
                     prevContent: '上页',
                     nextContent: '下页',
                     callback: function (api) {
-                        var book = $("#bookSearch").val().trim();
-                        var isbn = $("#isbnSearch").val().trim();
+                        var book = $("#bookSearch").val();
+                        var isbn = $("#isbnSearch").val();
                         $.ajax({
                             type: 'Post',
                             url: 'regionRs.aspx',
