@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
+
 <body style="overflow:hidden;">
     <div class="retail-content">
         <div class="container-fluid">
@@ -30,7 +31,7 @@
                     <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" id="search" style="height:100px;" class="topSearch">
+                    <input type="text" id="search" style="height:100px;font-size:30px;" class="topSearch">
                 </div>
             </div>
             <div class="card">
