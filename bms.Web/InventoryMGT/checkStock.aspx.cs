@@ -94,7 +94,7 @@ namespace bms.Web.InventoryMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_Monomer";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName,bookName";
+            tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName,bookName,regionName";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "deleteState=0 and singleHeadId='" + HeadId + "'";
             tbd.IntPageNum = currentPage;
@@ -118,6 +118,7 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<td>" + drc[i]["shelvesName"].ToString() + "</td ></tr >");
             }
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
+            sb.Append("<input type='hidden' value='" + drc[0]["regionName"].ToString() + "' id='sourceRegin' />");
             string op = Request["op"];
             if (op == "paging")
             {

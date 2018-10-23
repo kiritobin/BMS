@@ -313,7 +313,7 @@
                                                     <span>操作员:</span>
                                                 </td>
                                                 <td>
-                                                    <input value="<%=putOperator %>" class="form-control" disabled>
+                                                    <input value="<%=putOperator %>" class="form-control" disabled id="operator">
                                                 </td>
                                             </tr>
                                             <tr class="text-nowrap">
@@ -321,7 +321,7 @@
                                                     <span>入库来源:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=putRegionName %>" class="form-control" disabled></td>
+                                                    <input type="text" value="<%=putRegionName %>" class="form-control" disabled id="source"></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>
