@@ -26,7 +26,7 @@
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4 col-lg-3">
+                <div class="col-sm-4 col-lg-3" onclick="javascript:history.back(-1);">
                     <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
                 </div>
                 <div class="col-sm-2">
@@ -156,17 +156,17 @@
                                         <tr>
                                             <td style="width: 40%">名称</td>
                                             <td style="width: 20%">数量</td>
-                                            <td style="width: 30%">金额</td>
+                                            <td style="width: 40%">金额</td>
                                         </tr>
                                     </thead>
                                 </table>
                                 <hr />
-                                <table class="other_fee" style="width: 300px;height:100px; font-size:14px;">
+                                <table class="other_fee table table-bordered" style="width: 300px;height:100px; font-size:14px;">
                                     <thead>
                                         <tr class="noneDiscount">
-                                            <td style="width: 20%">合计：</td>
-                                            <td style="width: 10%"><span id="noneNumber"></span></td>
-                                            <td style="width: 30%;margin-left:50px;">￥<span id="noneTotal"></span></td>
+                                            <td style="width: 40%">合计：</td>
+                                            <td style="width: 20%"><span id="noneNumber" style="margin-left:-25px"></span></td>
+                                            <td style="width: 40%;">￥<span style="margin-left:-130px;" id="noneTotal"></span></td>
                                         </tr>
                                         <tr class="discount">
                                             <td style="width: 50%">数量:<span id="allnumber"></span></td>

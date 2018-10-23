@@ -81,6 +81,7 @@ $("#export").click(function () {
 
 $("#print").click(function () {
     //$("#content").jqprint();
+    
     $.ajax({
         type: 'Post',
         url: 'checkStock.aspx',
@@ -105,28 +106,28 @@ $("#print").click(function () {
                 //link = "<link rel='stylesheet' type='text/css' href='../css/zgz.css'><link rel='stylesheet' href='../css/material-dashboard.min.css'>";
                 //style = "<style>body{background-color:white !important;}#table tr td{border: 1px solid black !important;padding:5px 5px;font-size:13px;}</style>";
                 //LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", link + style + "<body>" + document.getElementById("content").innerHTML + "</body>");
-                ////LODOP.SET_PRINTER_INDEX("Send To OneNote 2016");
+                //LODOP.SET_PRINTER_INDEX("Send To OneNote 2016");
                 //LODOP.SET_SHOW_MODE("NP_NO_RESULT", true);
                 //LODOP.PREVIEW();
                 //window.location.reload();
                 LODOP = getLodop();
                 LODOP.PRINT_INITA(0, 0, 577, 10000, "打印控件功能演示_Lodop功能_不同高度幅面");
-                LODOP.ADD_PRINT_TEXT(25, 100, 600, 30, $("#sourceRegin").val() + "新华书店有限公司   入库单");
+                LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#sourceRegin").val() + "新华书店有限公司   入库单");
                 LODOP.SET_PRINT_PAGESIZE(3, 2000, 50, "");
                 LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
                 LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
                 //------统计-----
-                LODOP.ADD_PRINT_TEXT(50, 80, 200, 20, "单据编号：" + $("#RKId").val());
-                LODOP.ADD_PRINT_TEXT(50, 280, 200, 20, "操作员：" + $("#operator").val());
-                LODOP.ADD_PRINT_TEXT(50, 480, 200, 20, "入库来源：" + $("#source").val());
-                LODOP.ADD_PRINT_TEXT(100, 80, 300, 20, "制单时间：" + $("#test2").val());
-                LODOP.ADD_PRINT_TEXT(150, 800, 150, 20, "单据总数：" + $("#allCount").val());
-                LODOP.ADD_PRINT_TEXT(150, 280, 150, 20, "总码洋：" + $("#allToatlPrice").val());
-                LODOP.ADD_PRINT_TEXT(150, 480, 150, 20, "总实洋：" + $("#allRealPrice").val());
+                LODOP.ADD_PRINT_TEXT(80, 20, 200, 20, "单据编号：" + $("#RKId").val());
+                LODOP.ADD_PRINT_TEXT(80, 300, 200, 20, "入库来源：" + $("#source").val());
+                LODOP.ADD_PRINT_TEXT(120, 20, 200, 20, "操作员：" + $("#operator").val());
+                LODOP.ADD_PRINT_TEXT(120, 300, 200, 20, "制单时间：" + $("#test2").val());
+                LODOP.ADD_PRINT_TEXT(160, 20, 150, 20, "单据总数：" + $("#allCount").val());
+                LODOP.ADD_PRINT_TEXT(160, 300, 150, 20, "总码洋：" + $("#allToatlPrice").val());
+                LODOP.ADD_PRINT_TEXT(160, 580, 150, 20, "总实洋：" + $("#allRealPrice").val());
 
                 //划线
-                LODOP.ADD_PRINT_LINE(20, 14, 20, 730, 0, 1);
-                LODOP.ADD_PRINT_LINE(180, 14, 180, 730, 0, 1);
+                //LODOP.ADD_PRINT_LINE(20, 14, 20, 730, 0, 1);
+                //LODOP.ADD_PRINT_LINE(180, 14, 180, 730, 0, 1);
 
                 //---------表格明细--------
                 LODOP.ADD_PRINT_TEXT(210, 20, 50, 20, "序号");
@@ -180,6 +181,7 @@ $("#print").click(function () {
                 }
                 //------------end-------------
                 LODOP.PREVIEW();//打印预览	
+                window.location.reload();
             }
         }
     })

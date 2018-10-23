@@ -7,7 +7,7 @@
     sessionStorage.setItem("content", "show");
     sessionStorage.removeItem("numberEnd");
     setInterval("showTime()", 1000);
-    $("#sale").hide();
+    //$("#sale").hide();
     $(".noneDiscount").hide();
     $("#btnSettle").hide();
     $("#preRecord").hide();
@@ -537,7 +537,7 @@ $("#btnSettle").click(function () {
                     $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
                     $("#tablePay tr:not(:first)").empty()
                     $("#tablePay").append(datas[1]);
-                    $("#sale").show();
+                    //$("#sale").show();
                     //$("#myModal2").modal("hide");
                     //一维码
                     //JsBarcode("#img", sessionStorage.getItem("retailId"), {

@@ -304,7 +304,7 @@
                                                     <span>单据编号:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" disabled value="<%=shId %>" id="CKId">
+                                                    <input type="text" class="form-control" disabled value="<%=shId %>" id="CKId"/>
                                                 </td>
                                                 <td></td>
                                                 <td></td>
@@ -312,7 +312,7 @@
                                                     <span>操作员:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" disabled value="<%=shOperator %>">
+                                                    <input type="text" class="form-control" disabled value="<%=shOperator %>" id="operator"/>
                                                 </td>
                                             </tr>
                                             <tr class="text-nowrap">
@@ -320,7 +320,7 @@
                                                     <span>接收组织:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" disabled value="<%=shRegionName %>">
+                                                    <input type="text" class="form-control" disabled value="<%=shRegionName %>" id="region"/>
                                                 </td>
                                                 <td></td>
                                                 <td></td>
@@ -329,7 +329,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="jeinpbox">
-                                                        <input type="text" class="jeinput form-control" disabled value="<%=shTime %>" />
+                                                        <input type="text" class="jeinput form-control" disabled value="<%=shTime %>" id="makeTime"  />
                                                     </div>
                                                 </td>
                                             </tr>

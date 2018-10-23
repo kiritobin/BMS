@@ -117,6 +117,7 @@
     <Content Include="InventoryMGT\checkStock.aspx" />
     <Content Include="InventoryMGT\customerRs.aspx" />
     <Content Include="InventoryMGT\inventoryManagement.aspx" />
+    <Content Include="InventoryMGT\inventoryStatistics.aspx" />
     <Content Include="InventoryMGT\regionRs.aspx" />
     <Content Include="InventoryMGT\replenishMent.aspx" />
     <Content Include="js\checkRs.js" />
@@ -231,6 +232,7 @@
     <Content Include="SalesMGT\salesManagement.aspx" />
     <Content Include="SalesMGT\salesRanking.aspx" />
     <Content Include="SalesMGT\salesTaskStatistics.aspx" />
+    <Content Include="SalesMGT\salesTaskStatisticsAll.aspx" />
     <Content Include="SalesMGT\searchSalesDetail.aspx" />
     <Content Include="SalesMGT\tradeManagement.aspx" />
     <Content Include="Web.config">
@@ -398,6 +400,13 @@
     </Compile>
     <Compile Include="InventoryMGT\inventoryManagement.aspx.designer.cs">
       <DependentUpon>inventoryManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryMGT\inventoryStatistics.aspx.cs">
+      <DependentUpon>inventoryStatistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InventoryMGT\inventoryStatistics.aspx.designer.cs">
+      <DependentUpon>inventoryStatistics.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\regionRs.aspx.cs">
       <DependentUpon>regionRs.aspx</DependentUpon>
@@ -591,6 +600,13 @@
     </Compile>
     <Compile Include="SalesMGT\salesTaskStatistics.aspx.designer.cs">
       <DependentUpon>salesTaskStatistics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesMGT\salesTaskStatisticsAll.aspx.cs">
+      <DependentUpon>salesTaskStatisticsAll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesMGT\salesTaskStatisticsAll.aspx.designer.cs">
+      <DependentUpon>salesTaskStatisticsAll.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesMGT\searchSalesDetail.aspx.cs">
       <DependentUpon>searchSalesDetail.aspx</DependentUpon>

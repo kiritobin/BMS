@@ -88,13 +88,26 @@ $("#print").click(function () {
                 LODOP = getLodop();
                 LODOP.PRINT_INITA(0, 0, 577, 10000, "打印控件功能演示_Lodop功能_不同高度幅面");
                 //LODOP.ADD_PRINT_TEXT(5, 136, 275, 30, $("#RKId").val() + "入库单据");
-                LODOP.SET_PRINT_PAGESIZE(3, 1900, 50, "");
+                LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#sourceRegin").val() + "新华书店有限公司   出库单");
+                LODOP.SET_PRINT_PAGESIZE(3, 1850, 50, "");
                 LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
                 LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
-                LODOP.ADD_PRINT_TEXT(20, 20, 200, 20, "单据号：" + $("#CKId").val());
-                LODOP.ADD_PRINT_TEXT(20, 220, 150, 20, "单据总数：" + $("#allCount").val());
-                LODOP.ADD_PRINT_TEXT(20, 380, 150, 20, "总码洋：" + $("#allToatlPrice").val());
-                LODOP.ADD_PRINT_TEXT(20, 540, 150, 20, "总实洋：" + $("#allRealPrice").val());
+                //LODOP.ADD_PRINT_TEXT(20, 20, 200, 20, "单据号：" + $("#CKId").val());
+                //LODOP.ADD_PRINT_TEXT(20, 220, 150, 20, "单据总数：" + $("#allCount").val());
+                //LODOP.ADD_PRINT_TEXT(20, 380, 150, 20, "总码洋：" + $("#allToatlPrice").val());
+                //LODOP.ADD_PRINT_TEXT(20, 540, 150, 20, "总实洋：" + $("#allRealPrice").val());
+                //------统计-----
+                LODOP.ADD_PRINT_TEXT(80, 20, 200, 20, "单据编号：" + $("#CKId").val());
+                LODOP.ADD_PRINT_TEXT(80, 300, 200, 20, "收货组织：" + $("#region").val());
+                LODOP.ADD_PRINT_TEXT(120, 20, 200, 20, "操作员：" + $("#operator").val());
+                LODOP.ADD_PRINT_TEXT(120, 300, 300, 20, "制单时间：" + $("#makeTime").val());
+                LODOP.ADD_PRINT_TEXT(160, 20, 150, 20, "单据总数：" + $("#allCount").val());
+                LODOP.ADD_PRINT_TEXT(160, 300, 150, 20, "总码洋：" + $("#allToatlPrice").val());
+                LODOP.ADD_PRINT_TEXT(160, 580, 150, 20, "总实洋：" + $("#allRealPrice").val());
+
+                //划线
+                //LODOP.ADD_PRINT_LINE(20, 14, 20, 685, 0, 1);
+                //LODOP.ADD_PRINT_LINE(180, 14, 180, 685, 0, 1);
                 //---------表格明细--------
                 LODOP.ADD_PRINT_TEXT(210, 20, 50, 20, "序号");
                 LODOP.ADD_PRINT_TEXT(210, 70, 100, 20, "ISBN号");
