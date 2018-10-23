@@ -73,7 +73,7 @@ namespace bms.Dao
         {
             string cmdText = "insert into T_SaleHead(saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,userId,regionId,dateTime,state) values(@saleHeadId,@saleTaskId,@kindsNum,@number,@allTotalPrice,@allRealPrice,@userId,@regionId,@dateTime,@state)";
             string[] param = { "@saleHeadId", "@saleTaskId", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@userId", "@regionId", "@dateTime", "@state" };
-            object[] values = { salehead.SaleHeadId, salehead.SaleTaskId, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.UserId, salehead.RegionId, salehead.DateTime,salehead.State };
+            object[] values = { salehead.SaleHeadId, salehead.SaleTaskId, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.UserId, salehead.RegionId, salehead.DateTime, salehead.State };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -130,7 +130,7 @@ namespace bms.Dao
             }
         }
         /// <summary>
-        /// 根据销售任务id，销售单头，获取该书在该销售单头下的基础信息
+        /// 根据销售任务id，销售单头,该销售单头下的所有销售单体
         /// </summary>
         /// <param name="saleTaskId">销售任务id</param>
         /// <param name="saleHeadId">销售单头id</param>
@@ -140,6 +140,26 @@ namespace bms.Dao
             string comText = "select saleIdMonomerId,bookNum,bookName,saleHeadId,saleTaskId, sum(number) as number from V_SaleMonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId group by bookNum,bookName,saleHeadId,saleTaskId,number";
             String[] param = { "@saleTaskId", "@saleHeadId" };
             String[] values = { saleTaskId, saleHeadId };
+            DataSet ds = db.FillDataSet(comText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds.Tables[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// 根据销售任务id获取该销售计划下所有销售单头
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns></returns>
+        public DataTable getSaleHeadIdbyStaskId(string saleTaskId)
+        {
+            string comText = "select saleHeadId from T_SaleHead where saleTaskId=@saleTaskId and (state=1 or state=3) and deleteState=0";
+            String[] param = { "@saleTaskId" };
+            String[] values = { saleTaskId };
             DataSet ds = db.FillDataSet(comText, param, values);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
