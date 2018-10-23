@@ -107,6 +107,7 @@
                             type: "warning",
                             allowOutsideClick: false
                         })
+                        sessionStorage.removeItem("succ");
                         sessionStorage.setItem("import", "导入失败");
                     }
                 }
