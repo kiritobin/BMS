@@ -48,7 +48,7 @@ namespace bms.Web.InventoryMGT
                 shRegionName = shDt.Rows[i]["regionName"].ToString();
                 shTotalPrice = shDt.Rows[i]["allTotalPrice"].ToString();
                 shRealPrice = shDt.Rows[i]["allRealPrice"].ToString();
-                shTime = Convert.ToDateTime(shDt.Rows[i]["time"]).ToString("yyyy年MM月dd日 HH:mm:ss");
+                shTime = Convert.ToDateTime(shDt.Rows[i]["time"]).ToString("yyyy年MM月dd日");
             }
             string op = Request["op"];
             if (op == "logout")
@@ -98,7 +98,7 @@ namespace bms.Web.InventoryMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_Monomer";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,monId,ISBN,number,uPrice,totalPrice,realPrice,discount,shelvesId,shelvesName,type,deleteState,bookName";
+            tbd.StrColumnlist = "singleHeadId,monId,ISBN,number,uPrice,totalPrice,realPrice,discount,shelvesId,shelvesName,type,deleteState,bookName,regionName";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "deleteState=0 and singleHeadId='" + singleHeadId + "'";
             tbd.IntPageNum = currentPage;
@@ -122,6 +122,7 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<td>" + dr["shelvesName"].ToString() + "</td></tr>");
             }
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
+            sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[0]["regionName"].ToString() + "' id='sourceRegin' />");
             if (op == "paging")
             {
                 Response.Write(sb.ToString());

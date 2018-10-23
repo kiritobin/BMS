@@ -56,7 +56,7 @@ namespace bms.Web.InventoryMGT
                 putRegionName = putDt.Rows[i]["regionName"].ToString();
                 putTotalPrice = putDt.Rows[i]["allTotalPrice"].ToString();
                 putRealPrice = putDt.Rows[i]["allRealPrice"].ToString();
-                putTime = Convert.ToDateTime(putDt.Rows[i]["time"]).ToString("yyyy年MM月dd日 HH:mm:ss");
+                putTime = Convert.ToDateTime(putDt.Rows[i]["time"]).ToString("yyyy年MM月dd日");
             }
             if (op== "print")
             {
