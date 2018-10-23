@@ -14,19 +14,22 @@ namespace bms.Web.BasicInfor
     using Result = Enums.OpResult;
     public partial class replenishList : System.Web.UI.Page
     {
-        public string userName, regionName;
+        public string userName, regionName, roleName;
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
         public DataSet ds, dsRegion, dsPer;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         UserBll userBll = new UserBll();
         RegionBll regionBll = new RegionBll();
         WarehousingBll wareBll = new WarehousingBll();
+        FunctionBll functionBll = new FunctionBll();
+        User user = new User();
         protected void Page_Load(object sender, EventArgs e)
         {
+            user = (User)Session["user"];
+            roleName = user.RoleId.RoleName;
             permission();
             getData();
             dsRegion = regionBll.select();
-            User user = (User)Session["user"];
             string op = Request["op"];
             if (op == "add")
             {
@@ -127,41 +130,65 @@ namespace bms.Web.BasicInfor
                 currentPage = 1;
             }
             string op = Request["op"];
-            string search = "";
+            string search = "", superRole = "";
             string singleHeadId = Request["ID"];
             string regionName = Request["region"];
             string userName = Request["user"];
-            if ((singleHeadId == "" || singleHeadId == null) && (regionName == "" || regionName == null) && (userName == "" || userName == null))
+            if (user.RoleId.RoleName == "超级管理员")
             {
-                search = "deleteState=0 and type=2";
-            }
-            else if (singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null) && (userName == "" || userName == null))
-            {
-                search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "'";
-            }
-            else if (regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
-            {
-                search = "deleteState=0 and type=2 and regionName='" + regionName + "'";
-            }
-            else if (userName != "" && userName != null && (regionName == "" || regionName == null) && (singleHeadId == "" || singleHeadId == null))
-            {
-                search = "deleteState=0 and type=2 and userName='" + userName + "'";
-            }
-            else if (userName != "" && userName != null && regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null))
-            {
-                search = "deleteState=0 and type=2 and userName='" + userName + "' and regionName='" + regionName + "'";
-            }
-            else if (userName != "" && userName != null && singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null))
-            {
-                search = "deleteState=0 and type=2 and userName='" + userName + "' and singleHeadId='" + singleHeadId + "'";
-            }
-            else if (singleHeadId != "" && singleHeadId != null && regionName != "" && regionName != null && (userName == "" || userName == null))
-            {
-                search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "'";
+                if ((singleHeadId == "" || singleHeadId == null) && (regionName == "" || regionName == null) && (userName == "" || userName == null))
+                {
+                    search = "deleteState=0 and type=2";
+                }
+                else if (singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null) && (userName == "" || userName == null))
+                {
+                    search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "'";
+                }
+                else if (regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
+                {
+                    search = "deleteState=0 and type=2 and regionName='" + regionName + "'";
+                }
+                else if (userName != "" && userName != null && (regionName == "" || regionName == null) && (singleHeadId == "" || singleHeadId == null))
+                {
+                    search = "deleteState=0 and type=2 and userName='" + userName + "'";
+                }
+                else if (userName != "" && userName != null && regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null))
+                {
+                    search = "deleteState=0 and type=2 and userName='" + userName + "' and regionName='" + regionName + "'";
+                }
+                else if (userName != "" && userName != null && singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null))
+                {
+                    search = "deleteState=0 and type=2 and userName='" + userName + "' and singleHeadId='" + singleHeadId + "'";
+                }
+                else if (singleHeadId != "" && singleHeadId != null && regionName != "" && regionName != null && (userName == "" || userName == null))
+                {
+                    search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "'";
+                }
+                else
+                {
+                    search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "' and userName='" + userName + "'";
+                }
             }
             else
             {
-                search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "' and userName='" + userName + "'";
+                superRole = "and regionId=" + user.ReginId.RegionId;
+                search = "regionId=" + user.ReginId.RegionId;
+                if ((singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
+                {
+                    search = "deleteState=0 and type=2" + superRole;
+                }
+                else if (singleHeadId != "" && singleHeadId != null && (userName == "" || userName == null))
+                {
+                    search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "'" + superRole;
+                }
+                else if (userName != "" && userName != null && (singleHeadId == "" || singleHeadId == null))
+                {
+                    search = "deleteState=0 and type=2 and userName='" + userName + "'" + superRole;
+                }
+                else
+                {
+                    search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "' and userName='" + userName + "'" + superRole;
+                }
             }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
@@ -210,8 +237,6 @@ namespace bms.Web.BasicInfor
         }
         protected void permission()
         {
-            FunctionBll functionBll = new FunctionBll();
-            User user = (User)Session["user"];
             userName = user.UserName;
             regionName = user.ReginId.RegionName;
             Role role = new Role();
