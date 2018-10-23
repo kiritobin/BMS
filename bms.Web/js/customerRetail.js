@@ -473,6 +473,11 @@ $("#btnSettle").click(function () {
         }).catch(swal.noop);
     }
     else {
+        if (discount == "") {
+            $(".discount").hide();
+            $(".noneDiscount").show();
+            sessionStorage.setItem("content", "none");
+        }
         $.ajax({
             type: 'Post',
             url: 'customerRetail.aspx',
@@ -517,11 +522,6 @@ $("#btnSettle").click(function () {
                         type: "warning"
                     }).catch(swal.noop);
                 } else if (data == "更新成功") {
-                    if (discount == "") {
-                        $(".discount").hide();
-                        $(".noneDiscount").show();
-                        sessionStorage.setItem("content", "none");
-                    }
                     var discount = parseFloat(sessionStorage.getItem("discount"));
                     $("#id").text(sessionStorage.getItem("retailId"));
                     if (sessionStorage.getItem("content") == "show") {
