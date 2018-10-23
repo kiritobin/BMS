@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-
-<body style="overflow:hidden;">
+<%-- style="overflow:hidden;"--%>
+<body>
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -164,11 +164,17 @@
                                 <hr />
                                 <table class="other_fee" style="width: 300px;height:100px; font-size:14px;">
                                     <thead>
-                                        <tr>
-                                            <td style="width: 50%">金额:￥<span id="alltotal"></span></td>
+                                        <tr class="noneDiscount">
+                                            <td style="width: 20%">合计：</td>
+                                            <td style="width: 10%"><span id="noneNumber"></span></td>
+                                            <td style="width: 30%">￥<span id="noneTotal"></span></td>
+                                        </tr>
+                                        <tr class="discount">
+                                            <td style="width: 50%">数量:<span id="allnumber"></span></td>
                                             <td style="width: 50%">折扣:<span id="alldiscount"></span></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="discount">
+                                            <td style="width: 50%">金额:￥<span id="alltotal"></span></td>
                                             <td style="width: 50%">合计:￥<span id="allreal"></span></td>
                                         </tr>
                                         <tr>
