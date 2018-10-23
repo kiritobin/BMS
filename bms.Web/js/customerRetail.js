@@ -7,7 +7,7 @@
     sessionStorage.setItem("content", "show");
     sessionStorage.removeItem("numberEnd");
     setInterval("showTime()", 1000);
-    //$("#sale").hide();
+    $("#sale").hide();
     $(".noneDiscount").hide();
     $("#btnSettle").hide();
     $("#preRecord").hide();

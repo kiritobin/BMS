@@ -22,8 +22,7 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-<%-- style="overflow:hidden;"--%>
-<body>
+<body style="overflow:hidden;">
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -167,7 +166,7 @@
                                         <tr class="noneDiscount">
                                             <td style="width: 20%">合计：</td>
                                             <td style="width: 10%"><span id="noneNumber"></span></td>
-                                            <td style="width: 30%">￥<span id="noneTotal"></span></td>
+                                            <td style="width: 30%;margin-left:50px;">￥<span id="noneTotal"></span></td>
                                         </tr>
                                         <tr class="discount">
                                             <td style="width: 50%">数量:<span id="allnumber"></span></td>

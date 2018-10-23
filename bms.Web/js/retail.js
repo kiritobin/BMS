@@ -120,6 +120,7 @@ $("#search").keypress(function (e) {
                 },
                 dataType: 'text',
                 success: function (data) {
+                    $("#search").val("");
                     if (data == "添加失败") {
                         swal({
                             title: data,
@@ -144,7 +145,6 @@ $("#search").keypress(function (e) {
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
                         }).catch(swal.noop);
-                        $("#search").val("");
                     } else if (data == "一号多书") {
                         $.ajax({
                             type: 'Post',
