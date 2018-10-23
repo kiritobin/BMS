@@ -193,8 +193,8 @@ $(document).ready(function () {
                         })
                     } else {
                         swal({
-                            title: "温馨提示:)",
-                            text: "结算失败。",
+                            title: "提示:结算失败",
+                            text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',

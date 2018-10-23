@@ -142,5 +142,15 @@ namespace bms.Bll
         {
             return saleHeaddao.getSaleAllbyHeadIdandStaskId(saleTaskId, saleHeadId);
         }
+
+        /// <summary>
+        /// 根据销售任务id获取该销售计划下所有销售单头
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <returns></returns>
+        public DataTable getSaleHeadIdbyStaskId(string saleTaskId)
+        {
+            return saleHeaddao.getSaleHeadIdbyStaskId(saleTaskId);
+        }
     }
 }

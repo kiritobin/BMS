@@ -427,7 +427,7 @@ namespace bms.Web.SalesMGT
                     allReal = allReal + real;
                     reals = total* discount * 0.01;
                     allReals = allReals + reals;
-                    Result change = retailBll.UpdateDiscount(discount, real, retailId);
+                    Result change = retailBll.UpdateDiscount(discount, reals, retailId);
                     if (change == Result.更新失败)
                     {
                         Response.Write("更新失败");
