@@ -62,7 +62,7 @@
                 allowOutsideClick: false
             })
         }
-        if (sessionStorage.getItem("cf") == "重复") {
+        if (sessionStorage.getItem("cf") == "重复" || sessionStorage.getItem("cf") == "不属于") {
             swal({
                 title: "温馨提示:)",
                 text: "Excel有重复数据，请修改后上传",
@@ -176,7 +176,7 @@
                                             type: "warning",
                                             allowOutsideClick: false
                                         })
-                                        sessionStorage.setItem("cf", "重复");
+                                        sessionStorage.setItem("cf", "不属于");
                                     }
                                     else {
                                         swal({
