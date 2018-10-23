@@ -167,6 +167,17 @@
                                         })
                                         sessionStorage.setItem("cf", "重复");
                                     }
+                                    else if (succ.indexOf("不属于") > 0) {
+                                        swal({
+                                            title: "温馨提示:)",
+                                            text: succ,
+                                            buttonsStyling: false,
+                                            confirmButtonClass: "btn btn-success",
+                                            type: "warning",
+                                            allowOutsideClick: false
+                                        })
+                                        sessionStorage.setItem("cf", "重复");
+                                    }
                                     else {
                                         swal({
                                             title: "温馨提示:)",
