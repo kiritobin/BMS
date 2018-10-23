@@ -361,7 +361,7 @@ $("#discountEnd").keypress(function (e) {
                 type: "warning"
             }).catch(swal.noop);
         }
-        else if (discount == "" || discount == "100") {
+        else if (discount == "") {
             $("#copeEnd").focus();
         }
         else {
@@ -378,7 +378,7 @@ $("#discountEnd").keypress(function (e) {
                     if (data == "更新成功") {
                         var paytype = $("#payType").find("input[name='paytype']:checked").val();
                         var total = $("#totalEnd").text().trim();
-                        var real = total * discount * 0.01;
+                        var real = total * parseFloat(discount) * 0.01;
                         $("#realEnd").text((real).toFixed(2))
                         if (paytype == "第三方") {
                             $("#copeEnd").val((real).toFixed(2));
@@ -402,6 +402,7 @@ $("#discountEnd").keypress(function (e) {
 //选择第三方付款
 $("#threePay").click(function () {
     $("#copeEnd").val($("#realEnd").text().trim());
+    sessionStorage.setItem("realPrice", $("#realEnd").text().trim());
     $("#copeEnd").focus();
     $("#paytype").html("第三方");
 })
@@ -417,6 +418,7 @@ $("#copeEnd").keypress(function (e) {
         sessionStorage.setItem("give", $("#copeEnd").val());
         var give = parseFloat($("#copeEnd").val());
         var cope = parseFloat($("#realEnd").text().trim());
+        sessionStorage.setItem("realPrice", cope);
         if (give < cope) {
             swal({
                 title: "实付金额不能小于实洋金额",
@@ -512,7 +514,7 @@ $("#btnSettle").click(function () {
                     $("#id").text(sessionStorage.getItem("retailId"));
                     $("#alltotal").text(sessionStorage.getItem("total"));
                     $("#alldiscount").text(discount + "%");
-                    $("#allreal").text(($("#realEnd").text().trim()).toFixed(2));
+                    $("#allreal").text(sessionStorage.getItem("realPrice"));
                     $("#allcope").text(sessionStorage.getItem("give"));
                     $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
                     $("#tablePay tr:not(:first)").empty()

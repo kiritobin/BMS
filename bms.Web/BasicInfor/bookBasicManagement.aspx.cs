@@ -227,6 +227,7 @@ namespace bms.Web.BasicInfor
         private DataTable addBookId()
         {
             excel = excelToDt();
+            //excel = npoi();
             int row = excel.Rows.Count;
             long a;
             if (ViewState["i"].ToString().Length>=18)
@@ -704,6 +705,7 @@ namespace bms.Web.BasicInfor
         private void check()
         {
             excel = excelToDt();
+            //excel = npoi();
             GetDistinctTable(excel);
         }
 
@@ -749,15 +751,24 @@ namespace bms.Web.BasicInfor
         private string test()
         {
             excel = excelToDt();
+            //excel = npoi();
             string s="";
-            DataView myDataView = new DataView(excel);
-            string[] strComuns = { "ISBN","书名","单价" };
-            int i = myDataView.ToTable(true, strComuns).Rows.Count;
-            int j = excel.Rows.Count;
-            if (i < j)
+            try
             {
-                s = "存在重复记录";
-                Response.Write(s);
+                DataView myDataView = new DataView(excel);
+                string[] strComuns = { "ISBN", "书名", "单价" };
+                int i = myDataView.ToTable(true, strComuns).Rows.Count;
+                int j = excel.Rows.Count;
+                if (i < j)
+                {
+                    s = "存在重复记录";
+                    Response.Write(s);
+                    Response.End();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex);
                 Response.End();
             }
             return s;
@@ -818,5 +829,21 @@ namespace bms.Web.BasicInfor
             }
         }
 
+        private DataTable npoi()
+        {
+            string path = Session["path"].ToString();
+            DataTable dtNpoi=new DataTable();
+            try
+            {
+                dtNpoi = ExcelHelper.GetDataTable(path);
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex);
+                Response.End();
+            }
+            row = dtNpoi.Rows.Count;
+            return dtNpoi;
+        }
     }
 }
