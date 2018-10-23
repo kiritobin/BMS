@@ -753,14 +753,22 @@ namespace bms.Web.BasicInfor
             excel = excelToDt();
             //excel = npoi();
             string s="";
-            DataView myDataView = new DataView(excel);
-            string[] strComuns = { "ISBN","书名","单价" };
-            int i = myDataView.ToTable(true, strComuns).Rows.Count;
-            int j = excel.Rows.Count;
-            if (i < j)
+            try
             {
-                s = "存在重复记录";
-                Response.Write(s);
+                DataView myDataView = new DataView(excel);
+                string[] strComuns = { "ISBN", "书名", "单价" };
+                int i = myDataView.ToTable(true, strComuns).Rows.Count;
+                int j = excel.Rows.Count;
+                if (i < j)
+                {
+                    s = "存在重复记录";
+                    Response.Write(s);
+                    Response.End();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex);
                 Response.End();
             }
             return s;
