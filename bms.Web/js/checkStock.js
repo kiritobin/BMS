@@ -120,7 +120,7 @@ $("#print").click(function () {
                 LODOP.ADD_PRINT_TEXT(80, 20, 200, 20, "单据编号：" + $("#RKId").val());
                 LODOP.ADD_PRINT_TEXT(80, 300, 200, 20, "入库来源：" + $("#source").val());
                 LODOP.ADD_PRINT_TEXT(120, 20, 200, 20, "操作员：" + $("#operator").val());
-                LODOP.ADD_PRINT_TEXT(120, 300, 300, 20, "制单时间：" + $("#test2").val());
+                LODOP.ADD_PRINT_TEXT(120, 300, 200, 20, "制单时间：" + $("#test2").val());
                 LODOP.ADD_PRINT_TEXT(160, 20, 150, 20, "单据总数：" + $("#allCount").val());
                 LODOP.ADD_PRINT_TEXT(160, 300, 150, 20, "总码洋：" + $("#allToatlPrice").val());
                 LODOP.ADD_PRINT_TEXT(160, 580, 150, 20, "总实洋：" + $("#allRealPrice").val());
