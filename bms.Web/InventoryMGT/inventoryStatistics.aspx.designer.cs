@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace bms.Web.SalesMGT {
+namespace bms.Web.InventoryMGT {
     
     
-    public partial class salesTaskStatisticsAll {
+    public partial class inventoryStatistics {
     }
 }

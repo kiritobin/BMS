@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="salesTaskStatisticsAll.aspx.cs" Inherits="bms.Web.SalesMGT.salesTaskStatisticsAll" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="inventoryStatistics.aspx.cs" Inherits="bms.Web.InventoryMGT.inventoryStatistics" %>
 
 <!DOCTYPE html>
 
@@ -30,22 +30,33 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="container-fluid">
-                            <h3 class="text-center"><strong>销&nbsp;售&nbsp;计&nbsp;划&nbsp;统&nbsp;计</strong></h3>
+                            <h3 class="text-center"><strong>入&nbsp;库&nbsp;统&nbsp;计</strong></h3>
                             <hr />
                         </div>
                         <div class="card-body">
                             <div class="card-header from-group">
                                 <div class="input-group">
-                                    <%--<div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="sales_bookName" placeholder="请输入书名">
+                                    <div class="btn-group" role="group">
+                                        <input type="text" value="" class="" id="bookNum" placeholder="请输入书号">
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="sales_ISBN" placeholder="请输入ISBN">
+                                         <input type="text" value="" class="" id="bookName" placeholder="请输入书名">
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <input type="text" value="" class="" id="supplier" placeholder="请输入供应商">
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <input type="text" value="" class="" id="time" placeholder="请输入时间">
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <input type="text" value="" class="" id="userName" placeholder="请输入制单员">
+                                    </div>
+                                    <div class="btn-group" role="group">
                                         <button class="btn btn-info" id="btn_search">查询</button>
-                                    </div>--%>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="print">打印</button>
                                     </div>
+<%--                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-info btn-sm" id="print">打印</button>
+                                    </div>--%>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-warning btn-sm" onclick="window.location.href='searchSalesDetail.aspx'" id="back">返回</button>
                                     </div>
@@ -54,7 +65,7 @@
                             <div class="row">
                                 <div class="content_tab col-md-12">
                                     <div class="table-responsive" style="" id="content">
-                                        <table class="table table_stock text-center">
+                                        <%--  <table class="table table_stock text-center">
                                             <tr class="text-nowrap">
                                                 <td>
                                                     <span>销售任务编号:</span>
@@ -93,7 +104,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        </table>
+                                        </table>--%>
 
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
@@ -121,10 +132,10 @@
                                                     </td>
                                                 </tr>
                                             </thead>
-                                            <%=getData() %>
+                                            <%--  <%=getData() %>--%>
                                         </table>
 
-                                        <table class="table table_stock text-center">
+                                        <%--                                        <table class="table table_stock text-center">
                                             <tr class="text-nowrap">
                                                 <td>
                                                     <span>书籍种数:</span>
@@ -150,7 +161,7 @@
                                                     <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
                                                 </td>
                                             </tr>
-                                        </table>
+                                        </table>--%>
                                     </div>
 
                                     <div class="copyright float-right page-box">
@@ -204,4 +215,3 @@
 </body>
 
 </html>
-
