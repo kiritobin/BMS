@@ -35,7 +35,6 @@ namespace bms.Web.SalesMGT
             User user = (User)Session["user"];
             single = retailbll.GetHead(Session["retailHeadId"].ToString());
             int regionId = user.ReginId.RegionId;
-            string roleName = user.RoleId.RoleName;
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
