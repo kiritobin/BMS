@@ -22,6 +22,11 @@ namespace bms.Bll
             return roleDao.select();
         }
 
+        public DataSet selectRole(int userId)
+        {
+            return roleDao.selectRole(userId);
+        }
+
         /// <summary>
         /// 根据角色名获取角色id
         /// </summary>
