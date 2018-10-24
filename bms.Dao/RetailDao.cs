@@ -330,5 +330,15 @@ namespace bms.Dao
                 }
             }
         }
+        /// <summary>
+        /// 零售统计
+        /// </summary>
+        /// <returns></returns>
+        public  DataSet GroupRetail()
+        {
+            string cmdText = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from t_retailmonomer GROUP BY bookNum";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            return ds;
+        }
     }
 }

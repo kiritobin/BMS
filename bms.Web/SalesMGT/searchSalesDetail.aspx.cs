@@ -85,7 +85,10 @@ namespace bms.Web.SalesMGT
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
             strb.Append("<input type='hidden' value=' " + customerName + " ' id='customer' />");
-            strb.Append("<input type='hidden' value=' " + ds.Tables[0].Rows[0]["regionName"] + " ' id='region' />");
+            if (ds.Tables[0].Rows.Count > 0 && ds != null)
+            {
+                strb.Append("<input type='hidden' value=' " + ds.Tables[0].Rows[0]["regionName"] + " ' id='region' />");
+            }
             string op = Request["op"];
             if (op == "paging")
             {

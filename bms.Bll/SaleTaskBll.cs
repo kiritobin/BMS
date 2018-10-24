@@ -314,5 +314,6 @@ namespace bms.Bll
         {
             return saleDao.getcustomermsg(CustmerId, regionId);
         }
+        
     }
 }

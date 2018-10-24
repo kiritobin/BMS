@@ -533,5 +533,15 @@ namespace bms.Dao
                 return sum = 0;
             }
         }
+        /// <summary>
+        /// 团采统计
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GroupCount()
+        {
+            string sql = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from T_SaleMonomer GROUP BY bookNum ORDER BY sum(number) desc";
+            DataSet ds = db.FillDataSet(sql, null, null);
+            return ds;
+        }
     }
 }
