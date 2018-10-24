@@ -95,7 +95,7 @@
                         <!-- 右侧功能区 -->
                         <div class="col-md-4">
                             <div class="retailList">
-                                <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
+                                <img src="../imgs/书市指引.gif" alt="img" class="img-fluid" />
                             </div>
                             <div class="row">
                                 <div class="text-white col-sm-6 text-right" id="insert">
