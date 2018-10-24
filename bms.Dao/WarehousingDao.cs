@@ -357,6 +357,22 @@ namespace bms.Dao
             }
         }
 
+        public DataSet getKinds(string time,int type)
+        {
+            string cmdText = "SELECT count(DISTINCT(a.bookNum)) as pz,sum(a.totalPrice) as my,sum(a.number) as sl,sum(a.realPrice) as sy from t_monomers as a,t_singlehead as b where a.singleHeadId=b.singleHeadId and a.type=@type and b.time like '"+time+"%'";
+            string[] param = { "@type" };
+            object[] values = { type };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         ///根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋
         /// </summary>
