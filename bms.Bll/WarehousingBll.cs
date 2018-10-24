@@ -251,5 +251,21 @@ namespace bms.Bll
         {
             return monoDao.customerRs(customerId);
         }
+        public DataSet getAllprice(string dateTime, int type)
+        {
+            return monoDao.getAllprice(dateTime,type);
+        }
+        public int getAllkinds(string dateTime, int type)
+        {
+            return monoDao.getAllkinds(dateTime,type);
+        }
+        public DataSet getAllpriceRegion(string dateTime, int regionId, int type)
+        {
+            return monoDao.getAllpriceRegion(dateTime,regionId,type);
+        }
+        public int getAllkindsRegion(string dateTime, int regionId, int type)
+        {
+            return monoDao.getAllkindsRegion(dateTime,regionId,type);
+        }
     }
 }
