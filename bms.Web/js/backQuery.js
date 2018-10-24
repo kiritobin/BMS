@@ -21,19 +21,17 @@
             //window.location.reload();
             LODOP = getLodop();
             //LODOP.PRINT_INITA(0, 0, 577, 10000, "打印控件功能演示_Lodop功能_不同高度幅面");
-            LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#region").val() + "新华书店有限公司   销售单");
+            LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#XSRW").val() + "销退单");
             LODOP.SET_PRINT_PAGESIZE(3, 2200, 0, "");
             LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
             LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
             //------统计-----
-            LODOP.ADD_PRINT_TEXT(80, 20, 200, 20, "单据编号：" + $("#XSnum").val());
-            LODOP.ADD_PRINT_TEXT(80, 300, 200, 20, "客户名称：" + $("#customer").val());
-            LODOP.ADD_PRINT_TEXT(80, 580, 200, 20, "操作员：" + $("#operator").val());
-            LODOP.ADD_PRINT_TEXT(120, 20, 200, 20, "销售日期：" + $("#test2").val());
-            LODOP.ADD_PRINT_TEXT(120, 300, 150, 20, "书籍种类：" + $("#bookKinds").val());
-            LODOP.ADD_PRINT_TEXT(120, 580, 150, 20, "书本总数：" + $("#allBookCount").val());
-            LODOP.ADD_PRINT_TEXT(160, 20, 150, 20, "总码洋：" + $("#alltotalprice").val());
-            LODOP.ADD_PRINT_TEXT(160, 300, 150, 20, "总实洋：" + $("#allreadprice").val());
+            LODOP.ADD_PRINT_TEXT(80, 20, 200, 20, "单据编号：" + $("#XT").val());
+            LODOP.ADD_PRINT_TEXT(80, 300, 200, 20, "制单时间：" + $("#makeTime").val());
+            LODOP.ADD_PRINT_TEXT(80, 580, 200, 20, "品种数：" + $("#allKinds").val());
+            LODOP.ADD_PRINT_TEXT(120, 20, 200, 20, "总数量：" + $("#allCount").val());
+            LODOP.ADD_PRINT_TEXT(120, 300, 150, 20, "总码洋：" + $("#allTotalPrice").val());
+            LODOP.ADD_PRINT_TEXT(120, 580, 150, 20, "总实洋：" + $("#allRealPrice").val());
             //LODOP.ADD_PRINT_TEXT(160, 580, 150, 20, "：" + $("#allRealPrice").val());
             //划线
             //LODOP.ADD_PRINT_LINE(20, 14, 20, 730, 0, 1);
@@ -295,7 +293,7 @@
         var isbn = $("input[type='radio']:checked").parents('tr').find('td').eq(1).text();
         var bookNum = $("input[type='radio']:checked").val();
         var price = $("input[type='radio']:checked").parents('tr').find('td').eq(4).text();
-        var discount = $("input[type='radio']:checked").parents('tr').find('td').eq(4).text();
+        var bookName = $("input[type='radio']:checked").parents('tr').find('td').eq(3).text();
         $.ajax({
             type: 'Post',
             url: 'backQuery.aspx',
@@ -303,6 +301,7 @@
                 ISBN: isbn,
                 bookNO: bookNum,
                 price: price,
+                bookName:bookName,
                 op: "search"
             },
             dataType: 'text',
@@ -325,8 +324,8 @@
                     $("#myModa2").modal("hide");
                     $("#table").empty();
                     $("#table").append(data); //加载table
-                    $("#table tr:first").find("td").eq(5).children().focus();
-                    $("#table").find('tr').eq(1).find('td').eq(4).find('input').focus();
+                    //$("#table tr:first").find("td").eq(5).children().focus();
+                    $("#table").find('tr').eq(1).find('td').eq(5).find('input').focus();
                 }
             }
         })
@@ -335,7 +334,7 @@
     $("#table").delegate("#inputCount", "keypress", function (e) {
         if (e.keyCode == 13) {
             var isbn = $("#table").find('tr').eq(1).find('td').eq(1).find('input').val();
-            var num = $("#table").find('tr').eq(1).find('td').eq(4).find('input').val();
+            var num = $("#table").find('tr').eq(1).find('td').eq(5).find('input').val();
             var bookNO = $("#table").find('tr').eq(1).find('td').eq(2).text();
             if (num == "") {
                 swal({

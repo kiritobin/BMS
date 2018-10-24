@@ -132,6 +132,7 @@ namespace bms.Web.SalesMGT
             double unitPrice = 0;
             string isbn = Request["ISBN"];
             bookNum = Request["bookNO"];
+            string bookName = Request["bookName"];
             if (isbn != "" || isbn != null)
             {
                 ISBN = isbn;
@@ -155,6 +156,7 @@ namespace bms.Web.SalesMGT
             sb.Append("<td>" + "</td>");
             sb.Append("<td>" + "<input type='text' id='inputISBN' class='textareaISBN' autofocus='autofocus' value='" + ISBN + "' />" + "</td>");
             sb.Append("<td>" + bookNum + "</td>");
+            sb.Append("<td>" + bookName + "</td>");
             sb.Append("<td>" + unitPrice + "</td>");
             sb.Append("<td>" + "<input type='text' id='inputCount' class='textareaCount' />" + "</td>");
             sb.Append("<td>" + "</td>");
@@ -345,7 +347,7 @@ namespace bms.Web.SalesMGT
             sb.Append("<td>" + "序号" + "</td>");
             sb.Append("<td>" + "ISBN号" + "</td>");
             sb.Append("<td>" + "书号" + "</td>");
-            sb.Append("<td>" + "书号" + "</td>");
+            sb.Append("<td>" + "书名" + "</td>");
             sb.Append("<td>" + "单价" + "</td>");
             sb.Append("<td>" + "数量" + "</td>");
             sb.Append("<td>" + "实际折扣" + "</td>");
