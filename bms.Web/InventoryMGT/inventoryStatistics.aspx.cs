@@ -40,25 +40,30 @@ namespace bms.Web.InventoryMGT
             DataSet ds = roleBll.selectRole(userId);
             string roleName = ds.Tables[0].Rows[0]["roleName"].ToString();
             string time = DateTime.Now.ToString("yyyy-MM-dd");
+            DataSet dataSet = warehousingBll.getKinds(time, type);
+            sjNum = dataSet.Tables[0].Rows[0]["pz"].ToString();
+            sbNum = dataSet.Tables[0].Rows[0]["sl"].ToString();
+            total = dataSet.Tables[0].Rows[0]["my"].ToString();
+            real = dataSet.Tables[0].Rows[0]["sy"].ToString();
             //string time = "2018-10-10";
-            int region = user.ReginId.RegionId;
-            if (roleName != "超级管理员")
-            {
-                isNotAdmin = true;
-                DataSet dsSum = warehousingBll.getAllpriceRegion(time, region,type);
-                sbNum = dsSum.Tables[0].Rows[0]["number"].ToString();
-                total = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
-                real = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
-                sjNum = warehousingBll.getAllkindsRegion(time, region,type).ToString();
-            }
-            else
-            {
-                DataSet dsSum = warehousingBll.getAllprice(time,type);
-                sbNum = dsSum.Tables[0].Rows[0]["number"].ToString();
-                total = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
-                real = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
-                sjNum = warehousingBll.getAllkinds(time,type).ToString();
-            }
+            //int region = user.ReginId.RegionId;
+            //if (roleName != "超级管理员")
+            //{
+            //    isNotAdmin = true;
+            //    DataSet dsSum = warehousingBll.getAllpriceRegion(time, region,type);
+            //    sbNum = dsSum.Tables[0].Rows[0]["number"].ToString();
+            //    total = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
+            //    real = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
+            //    sjNum = warehousingBll.getAllkindsRegion(time, region,type).ToString();
+            //}
+            //else
+            //{
+            //    DataSet dsSum = warehousingBll.getAllprice(time,type);
+            //    sbNum = dsSum.Tables[0].Rows[0]["number"].ToString();
+            //    total = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
+            //    real = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
+            //    sjNum = warehousingBll.getAllkinds(time,type).ToString();
+            //}
             //getData();
             //string op = Request["op"];
             //if (op == "search")
