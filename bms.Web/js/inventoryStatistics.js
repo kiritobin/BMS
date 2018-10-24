@@ -63,6 +63,7 @@ $(document).ready(function () {
         $("#tjType").html("退&nbsp;货&nbsp;统&nbsp;计");
         $('#resource').attr('placeholder', "请输入收货组织");
     }
+
     $("#btn_search").click(function () {
         var bookNum = $("#bookNum").val();
         var bookName = $("#bookName").val();

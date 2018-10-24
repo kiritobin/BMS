@@ -18,12 +18,14 @@
     <link rel="stylesheet" href="../css/lgd.css" />
     <link rel="stylesheet" href="../css/qc.css" />
     <style>
-        #table {
+        table {
             font-size: 24px;
+            font-weight: bold;
         }
 
         #fontHead th {
             font-size: 24px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -45,9 +47,9 @@
     <!-- 主界面内容 -->
     <div class="content">
         <div class="container-fluid">
-            <div class="col-sm-4 col-lg-3">
-                <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre" />
-            </div>
+            <%--<div class="col-sm-4 col-lg-3">--%>
+            <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-responsive" alt="Cinque Terre" style="width: 450px; height: 80px" />
+            <%--</div>--%>
             <div class="row3">
                 <div class="col-md-12">
                     <div class="card">
@@ -76,7 +78,16 @@
                                 <button id="Next" class="btn btn-default">>></button>
                             </div>--%>
                         </div>
-                        <div class="col-lg-3"></div>
+                        <div class="container-fluid">
+                            <table class="table">
+                                <tr>
+                                    <td>本次会展零售统计：</td>
+                                    <td>总品种：<%=kindsNum %>种</td>
+                                    <td>总数量：<%=allCount %>册</td>
+                                    <td>总码洋：<%=allPrice.ToString("F2") %>元</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

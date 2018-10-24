@@ -264,5 +264,14 @@ namespace bms.Bll
                 return null;
             }
         }
+        /// <summary>
+        /// 零售统计
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GroupRetail()
+        {
+            DataSet ds = dao.GroupRetail();
+            return ds;
+        }
     }
 }

@@ -442,5 +442,49 @@ namespace bms.Dao
             }
             return zl;
         }
+
+        /// <summary>
+        ///根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋 地区
+        /// </summary>
+        /// <returns>数据集</returns>
+        public DataSet getAllpriceRegion(string dateTime ,int regionId)
+        {
+            string cmdText = "select sum(number) as number, sum(realPrice) as realPrice, sum(totalPrice) as totalPrice from V_SaleMonomer where dateTime like '" + dateTime + "%' and regionId=@regionId";
+            string[] param = { "@regionId" };
+            object[] values = { regionId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
+        }
+        /// <summary>
+        /// 统计当天种数
+        /// </summary>
+        /// <returns></returns>
+        public int getAllkindsRegion(string dateTime,int regionId)
+        {
+            string cmdText = "select bookNum,number from V_SaleMonomer where dateTime like '" + dateTime + "%' and regionId=@regionId";
+            string[] param = { "@regionId" };
+            object[] values = { regionId };
+            float sltemp = 0;
+            int zl = 0;
+            DataTable dtcount = db.getkinds(cmdText, param, values);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    float count = float.Parse(dr[j]["number"].ToString().Trim());
+                    sltemp += float.Parse(dr[j]["number"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                    sltemp = 0;
+                }
+            }
+            return zl;
+        }
     }
 }

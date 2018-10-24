@@ -533,5 +533,62 @@ namespace bms.Dao
                 return sum = 0;
             }
         }
+        /// <summary>
+        /// 团采统计
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GroupCount()
+        {
+            string sql = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from T_SaleMonomer GROUP BY bookNum ORDER BY sum(number) desc";
+            DataSet ds = db.FillDataSet(sql, null, null);
+            return ds;
+        }
+        /// <summary>
+        /// 客户采购统计
+        /// </summary>
+        /// <returns></returns>
+        public DataSet groupCustomer()
+        {
+            string sql = "select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice from v_salemonomer GROUP BY customerID ORDER BY allPrice desc";
+            DataSet ds = db.FillDataSet(sql, null, null);
+            return ds;
+        }
+        /// <summary>
+        /// 客户所购品种数
+        /// </summary>
+        /// <returns></returns>
+        //public DataSet customerKinds()
+        //{
+        //    string sql = "select bookNum,customerName from v_salemonomer GROUP BY bookNum";
+        //    DataSet ds = db.FillDataSet(sql, null, null);
+        //    return ds;
+        //}
+        public int customerKinds(string customerName)
+        {
+            string cmdText = "select bookNum,number,customerName from v_salemonomer where customerName=@customerName";
+            string[] param = { "@customerName" };
+            object[] values = { customerName };
+            float sltemp = 0;
+            int zl = 0;
+            DataTable dtcount = db.getkinds(cmdText, param, values);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    float count = float.Parse(dr[j]["number"].ToString().Trim());
+                    sltemp += float.Parse(dr[j]["number"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                    sltemp = 0;
+                }
+            }
+            return zl;
+        }
     }
 }
