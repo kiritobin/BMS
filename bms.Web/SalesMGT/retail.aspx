@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-
+    <%-- --%>
 <body style="overflow:hidden;">
-    <div class="retail-content">
+    <div class="retail-content" >
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4 col-lg-3">
@@ -45,7 +45,7 @@
                         </div>
                         <!-- 左侧数据表 -->
                         <div class="table-responsive col-md-8">
-                            <div style="height: 550px; display: block; overflow-y: auto;">
+                            <div style="height: 450px; display: block; overflow-y: auto;">
                                 <table class="table mostTable retailTable table-bordered text-center test" id="table">
                                     <thead>
                                          <tr>
@@ -99,15 +99,15 @@
                             </div>
                             <div class="row">
                                 <div class="text-white col-sm-6 text-right" id="insert">
-                                    <button class="btn btn-success btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px;margin-left:-17px;">确认购买</p></button>
+                                    <button class="btn btn-success btn-lg col-sm-12" style="height:130px" value=""><p style="font-size:30px;margin-bottom:0px;margin-left:-17px;">确认购买</p></button>
                                 </div>
                                 <div class="text-white col-sm-6 text-left" id="giveup">
-                                    <button class="btn btn-danger btn-lg col-sm-12" value=""><p style="font-size:30px;margin-bottom:0px;margin-left:-17px;">放弃购买</p></button>
+                                    <button class="btn btn-danger btn-lg col-sm-12" style="height:130px" value=""><p style="font-size:30px;margin-bottom:0px;margin-left:-17px;">放弃购买</p></button>
                                 </div>
                             </div>
                         </div>
                         <!-- 合计模块 -->
-                        <div class="col-md-8">
+                        <div class="col-md-8" style="margin-top:-150px">
                             <fieldset>
                                 <legend>
                                     <b>合计</b>
