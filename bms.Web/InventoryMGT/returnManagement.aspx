@@ -298,6 +298,9 @@
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
                                             </div>
+                                            <div class="btn-group" role="group">
+                                                <a href="/InventoryMGT/inventoryStatistics.aspx?type=TH"><button class="btn btn-info btn-sm" style="height:37px" id="tjbb">统计报表</button></a>
+                                            </div>
                                         </div>
                                     </div>
 

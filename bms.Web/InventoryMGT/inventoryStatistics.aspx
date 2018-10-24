@@ -30,7 +30,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="container-fluid">
-                            <h3 class="text-center"><strong>入&nbsp;库&nbsp;统&nbsp;计</strong></h3>
+                            <h3 class="text-center"><strong id="tjType">入&nbsp;库&nbsp;统&nbsp;计</strong></h3>
                             <hr />
                         </div>
                         <div class="card-body">
@@ -40,7 +40,7 @@
                                         <input type="text" value="" class="" id="bookNum" placeholder="请输入书号">
                                     </div>
                                     <div class="btn-group" role="group">
-                                         <input type="text" value="" class="" id="bookName" placeholder="请输入书名">
+                                        <input type="text" value="" class="" id="bookName" placeholder="请输入书名">
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="supplier" placeholder="请输入供应商">
@@ -52,60 +52,25 @@
                                         <input type="text" value="" class="" id="userName" placeholder="请输入制单员">
                                     </div>
                                     <div class="btn-group" role="group">
+                                        <input type="text" value="" class="" id="resource" placeholder="请输入来源组织">
+                                    </div>
+                                    <%if (isNotAdmin)
+                                        { %>
+                                    <div class="btn-group" role="group">
+                                        <input type="text" value="" class="" id="region" placeholder="请输入自身组织">
+                                    </div>
+                                    <%} %>
+                                    <div class="btn-group" role="group">
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>
-<%--                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="print">打印</button>
-                                    </div>--%>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-warning btn-sm" onclick="window.location.href='searchSalesDetail.aspx'" id="back">返回</button>
+                                        <button class="btn btn-warning btn-sm" onclick="window.history.go(-1);" id="back">返回</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="content_tab col-md-12">
                                     <div class="table-responsive" style="" id="content">
-                                        <%--  <table class="table table_stock text-center">
-                                            <tr class="text-nowrap">
-                                                <td>
-                                                    <span>销售任务编号:</span>
-                                                </td>
-                                                <td>
-                                                    <input value="<%=saletaskId.ToString() %>" class="form-control" disabled>
-                                                </td>
-                                                <td>
-                                                    <span>所属客户:</span>
-                                                </td>
-                                                <td>
-                                                    <input value="<%=customerName %>" class="form-control" disabled>
-                                                </td>
-                                                <td>
-                                                    <span>操作员:</span>
-                                                </td>
-                                                <td>
-                                                    <input value="<%=userName %>" class="form-control" disabled>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-nowrap">
-                                                <td>
-                                                    <span>开始日期:</span>
-                                                </td>
-                                                <td>
-                                                    <div class="jeinpbox">
-                                                        <input type="text" value="<%=startTime %>" class="form-control" disabled>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span>结束日期:</span>
-                                                </td>
-                                                <td>
-                                                    <div class="jeinpbox">
-                                                        <input type="text" value="<%=finishTime %>" class="form-control" disabled>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>--%>
-
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
@@ -132,38 +97,36 @@
                                                     </td>
                                                 </tr>
                                             </thead>
-                                            <%--  <%=getData() %>--%>
+                                            <%=getData() %>
                                         </table>
-
-                                        <%--                                        <table class="table table_stock text-center">
+                                        <table class="table table_stock text-center" id="table2">
                                             <tr class="text-nowrap">
                                                 <td>
                                                     <span>书籍种数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allkinds %>" class="form-control" disabled>
+                                                    <input type="text" value="" class="form-control" disabled>
                                                 </td>
                                                 <td>
                                                     <span>书本总数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
+                                                    <input type="text" value="" class="form-control" disabled></td>
                                                 <td>
                                                     <span>总码洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
+                                                    <input type="text" value="" class="form-control" disabled>
                                                 </td>
                                                 <td>
                                                     <span>总实洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
+                                                    <input type="text" value="" class="form-control" disabled>
                                                 </td>
                                             </tr>
-                                        </table>--%>
+                                        </table>
                                     </div>
-
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
@@ -206,7 +169,7 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="../js/jquery.jqprint.js"></script>
+    <script src="../js/inventoryStatistics.js"></script>
     <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
         <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
     </object>

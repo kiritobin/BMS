@@ -123,6 +123,7 @@
     <Content Include="js\checkRs.js" />
     <Content Include="js\customerRetail.js" />
     <Content Include="js\customerRs.js" />
+    <Content Include="js\inventoryStatistics.js" />
     <Content Include="js\jquery-migrate-1.2.1.min.js" />
     <Content Include="js\jquery.jqprint.js" />
     <Content Include="js\jquery.qrcode.min.js" />
@@ -139,6 +140,7 @@
     <Content Include="js\retailManagement.js" />
     <Content Include="js\retailQuery.js" />
     <Content Include="js\salesTaskStatistics.js" />
+    <Content Include="js\salesTaskStatisticsAll.js" />
     <Content Include="js\searchSalesDetail.js" />
     <Content Include="QRCode.aspx" />
     <Content Include="SalesMGT\booksOut.aspx" />
