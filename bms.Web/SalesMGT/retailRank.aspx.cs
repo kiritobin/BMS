@@ -12,8 +12,13 @@ namespace bms.Web.SalesMGT
 {
     public partial class retailRank : System.Web.UI.Page
     {
+        protected DataSet ds;
+        protected int kindsNum, allCount;
+        protected double allPrice;
+        RetailBll rtBll = new RetailBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            groupRetail();
             GetData();
         }
         public String GetData()
@@ -35,6 +40,16 @@ namespace bms.Web.SalesMGT
             }
             sb.Append("</tbody>");
             return sb.ToString();
+        }
+        public void groupRetail()
+        {
+            ds = rtBll.GroupRetail();
+            kindsNum = ds.Tables[0].Rows.Count;
+            for (int i = 0; i < kindsNum; i++)
+            {
+                allCount += Convert.ToInt32(ds.Tables[0].Rows[i]["allCount"].ToString());
+                allPrice += Convert.ToDouble(ds.Tables[0].Rows[i]["allPrice"].ToString());
+            }
         }
     }
 }

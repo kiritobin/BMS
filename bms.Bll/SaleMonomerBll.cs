@@ -379,5 +379,14 @@ namespace bms.Bll
         {
             return SaleMonomerdao.getSaleNumber(saleTaskId, saleHeadId, bookNum);
         }
+        /// <summary>
+        /// 团采排行
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GroupCount()
+        {
+            DataSet ds = SaleMonomerdao.GroupCount();
+            return ds;
+        }
     }
 }

@@ -21,11 +21,13 @@
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
     <style>
-        #table{
+        table{
             font-size:24px;
+            font-weight:bold;
         }
         #fontHead th{
             font-size:24px;
+            font-weight:bold;
         }
     </style>
 </head>
@@ -77,7 +79,15 @@
                                 <button id="Next" class="btn btn-default">>></button>
                             </div>-->
                         </div>
-                        <div class="col-lg-3"></div>
+                        <div class="container-fluid">
+                            <table class="table">
+                                <tr>
+                                    <td>总品种：<%=kindsNum %></td>
+                                    <td>总数量：<%=allCount %></td>
+                                    <td>总码洋：<%=allPrice %></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

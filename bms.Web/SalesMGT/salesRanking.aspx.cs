@@ -1,4 +1,4 @@
-﻿using bms.Bll;
+﻿ using bms.Bll;
 using bms.Model;
 using System;
 using System.Collections.Generic;
@@ -14,11 +14,14 @@ namespace bms.Web.SalesMGT
     using Result = Enums.OpResult;
     public partial class seniority : System.Web.UI.Page
     {
-        public int totalCount, intPageCount, pageSize = 10;
-        public DataSet ds;
+        public int totalCount, intPageCount, pageSize = 10, kindsNum, allCount;
+        public double allPrice;
+        public DataSet ds,groupDs;
         SaleTaskBll salebll = new SaleTaskBll();
+        SaleMonomerBll smBll = new SaleMonomerBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            groupCount();
             add();
             getData();
         }
@@ -41,7 +44,7 @@ namespace bms.Web.SalesMGT
                         for (int j = 0; j < monds.Tables[0].Rows.Count; j++)
                         {
                             allNumber += int.Parse(monds.Tables[0].Rows[j]["number"].ToString());
-                            allPrice += int.Parse(monds.Tables[0].Rows[j]["totalPrice"].ToString());
+                            allPrice += double.Parse(monds.Tables[0].Rows[j]["totalPrice"].ToString());
                             allKinds = salebll.getkinds(customerId);
                         }
                         salebll.insertSaleStatistics(customerId, allNumber, allPrice, allKinds);
@@ -71,10 +74,20 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allKinds"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allNumber"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allPrice"].ToString() + ".00" + "</td></tr>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["allPrice"].ToString() + "</td></tr>");
             }
             strb.Append("</tbody>");
             return strb.ToString();
+        }
+        public void groupCount()
+        {
+            groupDs = smBll.GroupCount();
+            kindsNum = groupDs.Tables[0].Rows.Count;
+            for (int i = 0; i < kindsNum; i++)
+            {
+                allCount += Convert.ToInt32(groupDs.Tables[0].Rows[i]["allCount"].ToString());
+                allPrice += Convert.ToDouble(groupDs.Tables[0].Rows[i]["allPrice"].ToString());
+            }
         }
     }
 }
