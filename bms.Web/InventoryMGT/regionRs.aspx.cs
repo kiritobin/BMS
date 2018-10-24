@@ -110,7 +110,7 @@ namespace bms.Web.InventoryMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
-                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</nobr></td></tr>");
+                strb.Append("<td><nobr>" + Convert.ToDateTime(ds.Tables[0].Rows[i]["dateTime"].ToString()).ToString("yyyy/MM/dd") + "</nobr></td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             strb.Append("</tbody>");
@@ -214,7 +214,7 @@ namespace bms.Web.InventoryMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
-                strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</nobr></td></tr>");
+                strb.Append("<td><nobr>" + Convert.ToDateTime(ds.Tables[0].Rows[i]["dateTime"].ToString()).ToString("yyyy/MM/dd") + "</nobr></td></tr>");
             }
             strb.Append("</tbody>");
             Response.Write(strb.ToString() + ":|" + kinds + ":|" + counts + ":|" + region);

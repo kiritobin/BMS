@@ -294,15 +294,15 @@
                                                 <tr>
                                                     <td class="td_text"><span class="span-text">单据编号:</span></td>
                                                     <td class="td_width">
-                                                        <input type="text" value="<%=shId %>" class="form-control" disabled></td>
+                                                        <input type="text" value="<%=shId %>" class="form-control" disabled id="shId"></td>
                                                     <td class="td_text"><span class="span-text">操作员:</span></td>
                                                     <td class="td_width">
-                                                        <input type="text" value="<%=shOperator %>" class="form-control" disabled></td>
+                                                        <input type="text" value="<%=shOperator %>" class="form-control" disabled id="operator"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="td_text"><span class="span-text">退货组织:</span></td>
                                                     <td class="td_width">
-                                                        <input type="text" value="<%=shRegionName %>" class="form-control" disabled></td>
+                                                        <input type="text" value="<%=shRegionName %>" class="form-control" disabled id="shRegion"></td>
                                                     <td class="td_text"><span class="span-text">制单日期:</span></td>
                                                     <td class="td_width">
                                                         <div class="jeinpbox">
@@ -334,13 +334,13 @@
                                                     <td>总合计：</td>
                                                     <td class="td_text"><span class="span-text">单据总数:</span></td>
                                                     <td class="td_width">
-                                                        <input type="text" value="<%=shCount %>" class="form-control" disabled></td>
+                                                        <input type="text" value="<%=shCount %>" class="form-control" disabled id="allCount"></td>
                                                     <td class="td_text"><span class="span-text">总码洋:</span></td>
                                                     <td class="td_width">
-                                                        <input type="text" value="<%=shTotalPrice %>" class="form-control" disabled></td>
+                                                        <input type="text" value="<%=shTotalPrice %>" class="form-control" disabled id="allToatlPrice"></td>
                                                     <td class="td_text"><span class="span-text">总实洋:</span></td>
                                                     <td class="td_width">
-                                                        <input type="text" value="<%=shRealPrice %>" class="form-control" disabled></td>
+                                                        <input type="text" value="<%=shRealPrice %>" class="form-control" disabled id="allRealPrice"></td>
                                                 </tr>
                                             </table>
                                         </div>
