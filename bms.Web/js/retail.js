@@ -28,10 +28,10 @@
         sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) + 1);
         var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + price;
         var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + price * discount;
-        sessionStorage.setItem("totalPrice", parseFloat(totalPrices));
-        sessionStorage.setItem("realPrice", parseFloat(realPrices));
-        $(this).parent().parent().next().next().text(parseFloat(totalPrice));
-        $(this).parent().parent().next().next().next().text(parseFloat(realPrice));
+        sessionStorage.setItem("totalPrice", parseFloat(totalPrices).toFixed(2));
+        sessionStorage.setItem("realPrice", parseFloat(realPrices).toFixed(2));
+        $(this).parent().parent().next().next().text(parseFloat(totalPrice).toFixed(2));
+        $(this).parent().parent().next().next().next().text(parseFloat(realPrice).toFixed(2));
         //展示合计内容
         $("#number").text(sessionStorage.getItem("number"));
         $("#total").text(parseFloat(totalPrices).toFixed(2));
@@ -173,8 +173,8 @@ $("#search").keypress(function (e) {
                         //计算合计内容
                         var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
                         var numbers = parseInt(sessionStorage.getItem("number")) + 1;
-                        var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")).toFixed(2) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim()).toFixed(2);
-                        var realPrices = parseFloat(sessionStorage.getItem("realPrice")).toFixed(2) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim()).toFixed(2);
+                        var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
+                        var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
                         sessionStorage.setItem("kind", kinds);
                         sessionStorage.setItem("number", numbers);
                         sessionStorage.setItem("totalPrice", totalPrices);
@@ -223,12 +223,12 @@ $("#btnAdd").click(function () {
             $("#table").prepend(data);
             var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
             var numbers = parseInt(sessionStorage.getItem("number")) + 1;
-            var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")).toFixed(2) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim()).toFixed(2);
-            var realPrices = parseFloat(sessionStorage.getItem("realPrice")).toFixed(2) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim()).toFixed(2);
+            var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
+            var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
             sessionStorage.setItem("kind", kinds);
             sessionStorage.setItem("number", numbers);
-            sessionStorage.setItem("totalPrice", totalPrices);
-            sessionStorage.setItem("realPrice", realPrices);
+            sessionStorage.setItem("totalPrice", parseFloat(totalPrices).toFixed(2));
+            sessionStorage.setItem("realPrice", parseFloat(realPrices).toFixed(2));
             //展示合计内容
             $("#number").text(numbers);
             $("#total").text(totalPrices);
@@ -278,8 +278,8 @@ $("#insert").click(function () {
                     sessionStorage.setItem("preRecord", headId);
                     $("#kindEnd").text(sessionStorage.getItem("kind"));
                     $("#numberEnd").text(sessionStorage.getItem("number"));
-                    $("#totalEnd").text(sessionStorage.getItem("totalPrice"));
-                    $("#realEnd").text(sessionStorage.getItem("realPrice"));
+                    $("#totalEnd").text(parseFloat(sessionStorage.getItem("totalPrice")).toFixed(2));
+                    $("#realEnd").text(parseFloat(sessionStorage.getItem("realPrice")).toFixed(2));
                     $("#timeEnd").text(endTime())
                     //二维码
                     jQuery('#output').qrcode({
@@ -427,8 +427,8 @@ $("#table").delegate(".btn-delete", "click", function () {
         dataType: 'text',
         success: function (data) {
             sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind") - 1));
-            sessionStorage.setItem("number", parseFloat(sessionStorage.getItem("number") - parseInt(number)));
-            sessionStorage.setItem("totalPrice", parseFloat(sessionStorage.getItem("totalPrice") - parseFloat(totalPrice)));
+            sessionStorage.setItem("number", parseFloat(sessionStorage.getItem("number") - parseInt(number)).toFixed(2));
+            sessionStorage.setItem("totalPrice", parseFloat(sessionStorage.getItem("totalPrice") - parseFloat(totalPrice)).toFixed(2));
             sessionStorage.setItem("realPrice", parseInt(sessionStorage.getItem("realPrice") - parseFloat(realPrice)));
             //展示合计内容
             $("#number").text(sessionStorage.getItem("number"));
