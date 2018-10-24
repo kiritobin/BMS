@@ -181,8 +181,8 @@ $("#search").keypress(function (e) {
                         sessionStorage.setItem("realPrice", realPrices);
                         //展示合计内容
                         $("#number").text(numbers);
-                        $("#total").text(totalPrices);
-                        $("#real").text(realPrices);
+                        $("#total").text(parseFloat(totalPrices).toFixed(2));
+                        $("#real").text(parseFloat(realPrices).toFixed(2));
                         $("#kind").text(kinds);
                         //清空输入框并获取焦点
                         $("#search").val("");
@@ -231,8 +231,8 @@ $("#btnAdd").click(function () {
             sessionStorage.setItem("realPrice", parseFloat(realPrices).toFixed(2));
             //展示合计内容
             $("#number").text(numbers);
-            $("#total").text(totalPrices);
-            $("#real").text(realPrices);
+            $("#total").text(parseFloat(totalPrices).toFixed(2));
+            $("#real").text(parseFloat(realPrices).toFixed(2));
             $("#kind").text(kinds);
             //清空输入框并获取焦点
             $("#search").val("");
@@ -360,8 +360,8 @@ $("#preRecord").click(function () {
                 $("#ticket").show();
                 $("#kindEnd").text(kinds);
                 $("#numberEnd").text(number);
-                $("#totalEnd").text(total);
-                $("#realEnd").text(real);
+                $("#totalEnd").text(parseFloat(total).toFixed(2));
+                $("#realEnd").text(parseFloat(real).toFixed(2));
                 $("#timeEnd").text(endTime())
                 //二维码
                 jQuery('#output').qrcode({
