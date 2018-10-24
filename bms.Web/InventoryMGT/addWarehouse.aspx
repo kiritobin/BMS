@@ -29,7 +29,7 @@
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!-- 平台字体logo -->
             <div class="logo">
-                <a href="javascript:;" class="simple-text text-center logo-normal">图书综合管理平台
+                <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统
                 </a>
                 <span style="margin-left: 90px; color: red;"><%=userName %></span><br />
                 <span style="margin-left: 90px; color: red;"><%=regionName %></span>
@@ -402,7 +402,7 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                        &nbsp;版权所有
+                        &nbsp;版权归云南新华书店图书有限公司所有
                         <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                     </div>
                 </div>
