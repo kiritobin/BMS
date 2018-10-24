@@ -283,11 +283,15 @@ namespace bms.Dao
             string cmdtext;
             if (type == 0)
             {
-                cmdtext = "select sum(count) as number,regionName from V_ReplenishMentMononer where regionId=@ID";
+                cmdtext = "select sum(count) as number,regionName from V_ReplenishMentMononer where ISNULL(finishTime) and deleteState=0 and regionId=@ID";
+            }
+            else if(type ==1)
+            {
+                cmdtext = "select sum(count) as number,regionName from V_ReplenishMentMononer where ISNULL(finishTime) and deleteState=0 and customerId=@ID";
             }
             else
             {
-                cmdtext = "select sum(count) as number,regionName from V_ReplenishMentMononer where customerId=@ID";
+                cmdtext = "select sum(count) as number,regionName from V_ReplenishMentMononer where ISNULL(finishTime) and deleteState=0";
             }
             string[] param = { "@ID" };
             object[] values = { ID };
@@ -322,35 +326,27 @@ namespace bms.Dao
             string cmdText;
             if (type == 0)
             {
-                cmdText = "select bookNum,count from V_ReplenishMentMononer where regionId=@ID";
+                cmdText = "select bookNum from V_ReplenishMentMononer where ISNULL(finishTime) and deleteState=0 and regionId=@ID group by regionName,customerName,bookNum,ISBN,bookName";
+            }
+            else if(type == 1)
+            {
+                cmdText = "select bookNum from V_ReplenishMentMononer where ISNULL(finishTime) and deleteState=0 and customerId=@ID group by regionName,customerName,bookNum,ISBN,bookName";
             }
             else
             {
-                cmdText = "select bookNum,count from V_ReplenishMentMononer where customerId=@ID";
+                cmdText = "select bookNum from V_ReplenishMentMononer where ISNULL(finishTime) and deleteState=0 group by regionName,customerName,bookNum,ISBN,bookName";
             }
             string[] param = { "@ID" };
             object[] values = { ID };
-            float sltemp = 0;
-            int zl = 0;
-            DataTable dtcount = db.getkinds(cmdText, param, values);
-            DataView dv = new DataView(dtcount);
-            DataTable dttemp = dv.ToTable(true, "bookNum");
-            for (int i = 0; i < dttemp.Rows.Count; i++)
+            DataSet dtcount = db.FillDataSet(cmdText, param, values);
+            if(dtcount == null || dtcount.Tables[0].Rows.Count <= 0)
             {
-                string bn = dttemp.Rows[i]["bookNum"].ToString();
-                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
-                for (int j = 0; j < dr.Length; j++)
-                {
-                    float count = float.Parse(dr[j]["count"].ToString().Trim());
-                    sltemp += float.Parse(dr[j]["count"].ToString().Trim());
-                }
-                if (sltemp > 0)
-                {
-                    zl++;
-                    sltemp = 0;
-                }
+                return 0;
             }
-            return zl;
+            else
+            {
+                return dtcount.Tables[0].Rows.Count;
+            }
         }
     }
 }
