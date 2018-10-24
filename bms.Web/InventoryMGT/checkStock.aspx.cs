@@ -118,7 +118,10 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<td>" + drc[i]["shelvesName"].ToString() + "</td ></tr >");
             }
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
-            sb.Append("<input type='hidden' value='" + drc[0]["regionName"].ToString() + "' id='sourceRegin' />");
+            if (count > 0)
+            {
+                sb.Append("<input type='hidden' value='" + drc[0]["regionName"].ToString() + "' id='sourceRegin' />");
+            }
             string op = Request["op"];
             if (op == "paging")
             {

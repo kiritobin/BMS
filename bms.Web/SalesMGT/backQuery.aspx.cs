@@ -345,6 +345,7 @@ namespace bms.Web.SalesMGT
             sb.Append("<td>" + "序号" + "</td>");
             sb.Append("<td>" + "ISBN号" + "</td>");
             sb.Append("<td>" + "书号" + "</td>");
+            sb.Append("<td>" + "书号" + "</td>");
             sb.Append("<td>" + "单价" + "</td>");
             sb.Append("<td>" + "数量" + "</td>");
             sb.Append("<td>" + "实际折扣" + "</td>");
@@ -367,6 +368,7 @@ namespace bms.Web.SalesMGT
                     sb.Append("<tr><td>" + (i + 1)/*ds.Tables[0].Rows[i]["sellOffMonomerId"].ToString()*/ + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["isbn"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
+                    sb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
                     sb.Append("<td>" + double.Parse(realCount) + "</td>");
