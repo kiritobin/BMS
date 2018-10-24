@@ -368,11 +368,10 @@ namespace bms.Web.InventoryMGT
             string isbn = Request["isbn"];
             DataTable monTable = new DataTable();
             DataRow dr = monTable.NewRow();
-
             if (action == "isbn")
             {
-                long monId = Convert.ToInt64(Request["sid"]);
                 DataSet dsBook = basicBll.SelectByIsbn(isbn);
+                long monId = Convert.ToInt64(Request["sid"]);
                 if (dsBook == null || dsBook.Tables[0].Rows.Count <= 0)
                 {
                     Response.Write("ISBN不存在");
@@ -518,7 +517,11 @@ namespace bms.Web.InventoryMGT
                 string publisher = bookBasicData.Publisher;
                 double price = bookBasicData.Price;
                 string _isbn = bookBasicData.Isbn;
-
+                string discount = bookBasicData.Author;
+                if (discount==""||discount==null)
+                {
+                    discount = "100";
+                }
                 bookNumList = (List<string>)Session["List"];
                 foreach (string bookNums in bookNumList)
                 {
@@ -541,6 +544,7 @@ namespace bms.Web.InventoryMGT
                 dr["singleHeadId"] = singleHeadId;
                 dr["supplier"] = supplier;
                 monTable.Rows.Add(dr);
+
                 for (int k = 0; k < monTable.Rows.Count; k++)
                 {
                     StringBuilder sbGoods = new StringBuilder();
