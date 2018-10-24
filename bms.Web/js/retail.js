@@ -247,7 +247,7 @@ $("#insert").click(function () {
             title: "无记录",
             text: "未输入过记录",
             buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
+            confirmButtonClass: "btn btn-warning btnStyle",
             type: "warning"
         }).catch(swal.noop);
     } else {
@@ -451,8 +451,8 @@ $("#giveup").click(function () {
         cancelButtonColor: '#d33',
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        confirmButtonClass: 'btn btn-success',
-        cancelButtonClass: 'btn btn-danger',
+        confirmButtonClass: 'btn btn-success btnStyle',
+        cancelButtonClass: 'btn btn-danger btnStyle',
         buttonsStyling: false,
         allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
     }).then(function () {

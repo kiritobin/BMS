@@ -995,7 +995,7 @@ namespace bms.Web.InventoryMGT
                     int j = bookDt.Rows.Count;
                     if (j == 0)
                     {
-                        Response.Write("基础数据中不存在");
+                        Response.Write("Excel中第"+(i+1)+"行基础数据中不存在");
                         Response.End();
                     }
                     string bookNum = bookDt.Rows[0]["bookNum"].ToString();
