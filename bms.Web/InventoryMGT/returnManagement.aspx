@@ -286,9 +286,11 @@
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
                                             </div>
+                                            <%if(roleName == "超级管理员"){ %>
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
                                             </div>
+                                            <%} %>
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>

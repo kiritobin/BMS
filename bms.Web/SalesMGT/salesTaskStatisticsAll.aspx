@@ -4,7 +4,6 @@
 
 <html class="no-js">
 <!--<![endif]-->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,25 +35,31 @@
                         <div class="card-body">
                             <div class="card-header from-group">
                                 <div class="input-group">
-                                    <%--<div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="sales_bookName" placeholder="请输入书名">
+                                    <div class="btn-group" role="group">
+                                        <input type="text" value="" class="" id="" placeholder="请输入书号">
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="sales_ISBN" placeholder="请输入ISBN">
+                                        <input type="text" value="" class="" id="" placeholder="请输入书名">
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <input type="text" value="" class="" id="" placeholder="请输入组织">
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                         <input type="text" value="" class="" id="" placeholder="销售日期">
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <input type="text" value="" class="" id="" placeholder="请输入客户名称">
                                         <button class="btn btn-info" id="btn_search">查询</button>
-                                    </div>--%>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="print">打印</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-warning btn-sm" onclick="window.location.href='searchSalesDetail.aspx'" id="back">返回</button>
+                                        <button class="btn btn-warning btn-sm" onclick="window.location.href='tradeManagement.aspx'" id="back">返回</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="content_tab col-md-12">
                                     <div class="table-responsive" style="" id="content">
-                                        <table class="table table_stock text-center">
+                                        <%--<table class="table table_stock text-center">
                                             <tr class="text-nowrap">
                                                 <td>
                                                     <span>销售任务编号:</span>
@@ -93,8 +98,47 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                        </table>--%>
+                                        <table class="table table_stock text-center">
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>销售任务编号:</span>
+                                                </td>
+                                                <td>
+                                                    <input value="" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>所属客户:</span>
+                                                </td>
+                                                <td>
+                                                    <input value="" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>操作员:</span>
+                                                </td>
+                                                <td>
+                                                    <input value="" class="form-control" disabled>
+                                                </td>
+                                            </tr>
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>开始日期:</span>
+                                                </td>
+                                                <td>
+                                                    <div class="jeinpbox">
+                                                        <input type="text" value="" class="form-control" disabled>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span>结束日期:</span>
+                                                </td>
+                                                <td>
+                                                    <div class="jeinpbox">
+                                                        <input type="text" value="" class="form-control" disabled>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </table>
-
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
@@ -123,7 +167,6 @@
                                             </thead>
                                             <%=getData() %>
                                         </table>
-
                                         <table class="table table_stock text-center">
                                             <tr class="text-nowrap">
                                                 <td>

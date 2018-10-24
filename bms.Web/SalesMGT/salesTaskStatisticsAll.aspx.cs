@@ -19,47 +19,50 @@ namespace bms.Web.SalesMGT
         public double alltotalprice, allreadprice;
         SaleTaskBll saletaskbll = new SaleTaskBll();
         SaleMonomerBll salemonbll = new SaleMonomerBll();
+        User user = new User();
         DataSet ds;
         protected void Page_Load(object sender, EventArgs e)
         {
+            user = (User)Session["user"];
+            getData();
             ///saletaskId = Session["saleId"].ToString();
-            getBasic();
-            print();
+            //getBasic();
+            //print();
         }
-        public void getBasic()
-        {
-            DataSet ds = saletaskbll.getSaleTaskStatistics(saletaskId);
-            if (ds != null)
-            {
-                string number = ds.Tables[0].Rows[0]["number"].ToString();
-                if (number == "" || number == null)
-                {
-                    allnumber = 0;
-                    alltotalprice = 0;
-                    allreadprice = 0;
-                }
-                else
-                {
-                    allnumber = int.Parse(ds.Tables[0].Rows[0]["number"].ToString());
-                    alltotalprice = double.Parse(ds.Tables[0].Rows[0]["totalPrice"].ToString());
-                    allreadprice = double.Parse(ds.Tables[0].Rows[0]["realPrice"].ToString());
-                }
-            }
-            //统计种数
-            allkinds = saletaskbll.getkindsBySaleTaskId(saletaskId);
-            DataSet userds = saletaskbll.getcustomerName(saletaskId);
-            if (userds != null)
-            {
-                userName = userds.Tables[0].Rows[0]["userName"].ToString();
-                customerName = userds.Tables[0].Rows[0]["customerName"].ToString();
-                startTime = userds.Tables[0].Rows[0]["startTime"].ToString();
-                finishTime = userds.Tables[0].Rows[0]["finishTime"].ToString();
-                if (finishTime == "" || finishTime == null)
-                {
-                    finishTime = "此销售任务还未结束";
-                }
-            }
-        }
+        //public void getBasic()
+        //{
+        //    DataSet ds = saletaskbll.getSaleTaskStatistics(saletaskId);
+        //    if (ds != null)
+        //    {
+        //        string number = ds.Tables[0].Rows[0]["number"].ToString();
+        //        if (number == "" || number == null)
+        //        {
+        //            allnumber = 0;
+        //            alltotalprice = 0;
+        //            allreadprice = 0;
+        //        }
+        //        else
+        //        {
+        //            allnumber = int.Parse(ds.Tables[0].Rows[0]["number"].ToString());
+        //            alltotalprice = double.Parse(ds.Tables[0].Rows[0]["totalPrice"].ToString());
+        //            allreadprice = double.Parse(ds.Tables[0].Rows[0]["realPrice"].ToString());
+        //        }
+        //    }
+        //    //统计种数
+        //    allkinds = saletaskbll.getkindsBySaleTaskId(saletaskId);
+        //    DataSet userds = saletaskbll.getcustomerName(saletaskId);
+        //    if (userds != null)
+        //    {
+        //        userName = userds.Tables[0].Rows[0]["userName"].ToString();
+        //        customerName = userds.Tables[0].Rows[0]["customerName"].ToString();
+        //        startTime = userds.Tables[0].Rows[0]["startTime"].ToString();
+        //        finishTime = userds.Tables[0].Rows[0]["finishTime"].ToString();
+        //        if (finishTime == "" || finishTime == null)
+        //        {
+        //            finishTime = "此销售任务还未结束";
+        //        }
+        //    }
+        //}
         //获取基础数据
         public string getData()
         {
@@ -103,32 +106,32 @@ namespace bms.Web.SalesMGT
             }
             return strb.ToString();
         }
-        private void print()
-        {
-            string op = Request["op"];
-            if (op == "print")
-            {
-                SaleTaskBll saleTaskBll = new SaleTaskBll();
-                DataSet ds = saleTaskBll.salesTaskStatistics(Session["saleId"].ToString());
-                StringBuilder strb = new StringBuilder();
-                strb.Append("<tbody>");
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                {
-                    if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
-                    {
-                        strb.Append("<tr><td>" + (i + 1) + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td></tr>");
-                    }
-                }
-                strb.Append("</tbody>");
-                Response.Write(strb.ToString());
-                Response.End();
-            }
-        }
+        //private void print()
+        //{
+        //    string op = Request["op"];
+        //    if (op == "print")
+        //    {
+        //        SaleTaskBll saleTaskBll = new SaleTaskBll();
+        //        DataSet ds = saleTaskBll.salesTaskStatistics(Session["saleId"].ToString());
+        //        StringBuilder strb = new StringBuilder();
+        //        strb.Append("<tbody>");
+        //        for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+        //        {
+        //            if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
+        //            {
+        //                strb.Append("<tr><td>" + (i + 1) + "</td>");
+        //                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
+        //                strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+        //                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
+        //                strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
+        //                strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
+        //                strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td></tr>");
+        //            }
+        //        }
+        //        strb.Append("</tbody>");
+        //        Response.Write(strb.ToString());
+        //        Response.End();
+        //    }
+        //}
     }
 }

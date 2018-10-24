@@ -283,6 +283,9 @@
                                             <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                         </div>
                                         <div class="btn-group" role="group">
+                                            <button class="btn btn-info" onclick="window.location.href='salesTaskStatisticsAll.aspx'" style="height:35px">销售统计</button>
+                                        </div>
+                                        <div class="btn-group" role="group">
                                             <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-addSale">添加</button>
                                         </div>
                                     </div>
