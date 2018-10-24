@@ -356,5 +356,93 @@ namespace bms.Dao
                 return null;
             }
         }
+
+        /// <summary>
+        ///根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋
+        /// </summary>
+        /// <returns>数据集</returns>
+        public DataSet getAllprice(string dateTime,int type)
+        {
+            string cmdText = "SELECT sum(a.number) as number,sum(a.totalPrice) as totalPrice,sum(a.realPrice) as realPrice from T_Monomers as a,T_SingleHead as b where a.singleHeadId=b.singleHeadId and b.time like '" + dateTime + "%' and a.type=@type";
+            string[] param = { "@type" };
+            object[] values = { type };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
+        }
+        /// <summary>
+        /// 统计当天种数
+        /// </summary>
+        /// <returns></returns>
+        public int getAllkinds(string dateTime,int type)
+        {
+            string cmdText = "select booknum,number from V_Monomer as m,T_SingleHead as s where m.type=@type  and s.time like '" + dateTime+"%'";
+            float sltemp = 0;
+            int zl = 0;
+            string[] param = { "@type" };
+            object[] values = { type };
+            DataTable dtcount = db.getkinds(cmdText, param, values);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    float count = float.Parse(dr[j]["number"].ToString().Trim());
+                    sltemp += float.Parse(dr[j]["number"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                    sltemp = 0;
+                }
+            }
+            return zl;
+        }
+
+        /// <summary>
+        ///根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋 地区
+        /// </summary>
+        /// <returns>数据集</returns>
+        public DataSet getAllpriceRegion(string dateTime, int regionId,int type)
+        {
+            string cmdText = "SELECT sum(a.number) as number,sum(a.totalPrice) as totalPrice,sum(a.realPrice) as realPrice from T_Monomers as a,T_SingleHead as b where a.singleHeadId=b.singleHeadId and b.time like '" + dateTime+"%' and b.regionId=@regionId and a.type=@type";
+            string[] param = { "@regionId" ,"@type"};
+            object[] values = { regionId ,type};
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
+        }
+        /// <summary>
+        /// 统计当天种数
+        /// </summary>
+        /// <returns></returns>
+        public int getAllkindsRegion(string dateTime, int regionId,int type)
+        {
+            string cmdText = "select bookNum,number from V_Monomer as m,T_SingleHead as s where m.type=@type  and m.regionId=@regionId and s.time like '" + dateTime+"%'";
+            string[] param = { "@regionId","@type" };
+            object[] values = { regionId, type };
+            float sltemp = 0;
+            int zl = 0;
+            DataTable dtcount = db.getkinds(cmdText, param, values);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    float count = float.Parse(dr[j]["number"].ToString().Trim());
+                    sltemp += float.Parse(dr[j]["number"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                    sltemp = 0;
+                }
+            }
+            return zl;
+        }
     }
 }

@@ -16,18 +16,48 @@ namespace bms.Web.InventoryMGT
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount, row, funCount;
         RoleBll roleBll = new RoleBll();
         BookBasicBll bookbll = new BookBasicBll();
+        WarehousingBll warehousingBll = new WarehousingBll();
         public bool isNotAdmin;
         protected string sbNum, sjNum, total, real;
         protected void Page_Load(object sender, EventArgs e)
         {
             string tjType = Request.QueryString["type"];
+            int type=0;
+            if (tjType=="CK")
+            {
+                type = 0;
+            }
+            if (tjType=="RK")
+            {
+                type = 1;
+            }
+            if (tjType=="TH")
+            {
+                type = 2;
+            }
             User user = (User)Session["user"];
             int userId = user.UserId;
             DataSet ds = roleBll.selectRole(userId);
             string roleName = ds.Tables[0].Rows[0]["roleName"].ToString();
+            string time = DateTime.Now.ToString("yyyy-MM-dd");
+            //string time = "2018-10-10";
+            int region = user.ReginId.RegionId;
             if (roleName != "超级管理员")
             {
                 isNotAdmin = true;
+                DataSet dsSum = warehousingBll.getAllpriceRegion(time, region,type);
+                sbNum = dsSum.Tables[0].Rows[0]["number"].ToString();
+                total = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
+                real = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
+                sjNum = warehousingBll.getAllkindsRegion(time, region,type).ToString();
+            }
+            else
+            {
+                DataSet dsSum = warehousingBll.getAllprice(time,type);
+                sbNum = dsSum.Tables[0].Rows[0]["number"].ToString();
+                total = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
+                real = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
+                sjNum = warehousingBll.getAllkinds(time,type).ToString();
             }
             //getData();
             //string op = Request["op"];
@@ -53,7 +83,7 @@ namespace bms.Web.InventoryMGT
         //    tbd.OrderBy = "ISBN";
         //    tbd.StrColumnlist = "C.userName,D.bookName,A.ISBN,A.bookNum,sum(A.number) as number,sum(A.totalPrice) as totalPrice ,sum(A.realPrice) as realPrice";
         //    tbd.IntPageSize = pageSize;
-        //    tbd.StrWhere = "C.userID="+userId+ " and B.userId=C.userID and A.bookNum=D.bookNum group by C.userName,D.bookName,A.ISBN,A.bookNum";
+        //    tbd.StrWhere = "C.userID=" + userId + " and B.userId=C.userID and A.bookNum=D.bookNum group by C.userName,D.bookName,A.ISBN,A.bookNum";
         //    tbd.IntPageNum = currentPage;
         //    //获取展示的用户数据
         //    DataSet ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
