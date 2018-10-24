@@ -58,10 +58,10 @@
         sessionStorage.setItem("number", parseInt(sessionStorage.getItem("number")) - 1);
         var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) - price;
         var realPrices = parseFloat(sessionStorage.getItem("realPrice")) - (price * discount);
-        sessionStorage.setItem("totalPrice", parseFloat(totalPrices));
-        sessionStorage.setItem("realPrice", parseFloat(realPrices));
-        $(this).parent().parent().next().next().text(parseFloat(totalPrice));
-        $(this).parent().parent().next().next().next().text(parseFloat(realPrice));
+        sessionStorage.setItem("totalPrice", parseFloat(totalPrices).toFixed(2));
+        sessionStorage.setItem("realPrice", parseFloat(realPrices).toFixed(2));
+        $(this).parent().parent().next().next().text(parseFloat(totalPrice).toFixed(2));
+        $(this).parent().parent().next().next().next().text(parseFloat(realPrice).toFixed(2));
         //展示合计内容
         $("#number").text(sessionStorage.getItem("number"));
         $("#total").text(parseFloat(totalPrices).toFixed(2));
@@ -177,11 +177,11 @@ $("#search").keypress(function (e) {
                         var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
                         sessionStorage.setItem("kind", kinds);
                         sessionStorage.setItem("number", numbers);
-                        sessionStorage.setItem("totalPrice", totalPrices);
-                        sessionStorage.setItem("realPrice", realPrices);
+                        sessionStorage.setItem("totalPrice", parseFloat(totalPrices).toFixed(2));
+                        sessionStorage.setItem("realPrice", parseFloat(realPrices).toFixed(2));
                         //展示合计内容
                         $("#number").text(numbers);
-                        $("#total").text(totalPrices);
+                        $("#total").text(parseFloat(totalPrices).toFixed(2));
                         //$("#real").text(realPrices);
                         $("#real").text(parseFloat(realPrices).toFixed(2));
                         $("#kind").text(kinds);
@@ -232,7 +232,7 @@ $("#btnAdd").click(function () {
             sessionStorage.setItem("realPrice", parseFloat(realPrices).toFixed(2));
             //展示合计内容
             $("#number").text(numbers);
-            $("#total").text(totalPrices);
+            $("#total").text(parseFloat(totalPrices).toFixed(2));
             //$("#real").text(realPrices);
             $("#real").text(parseFloat(realPrices).toFixed(2));
             $("#kind").text(kinds);
