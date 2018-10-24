@@ -182,7 +182,8 @@ $("#search").keypress(function (e) {
                         //展示合计内容
                         $("#number").text(numbers);
                         $("#total").text(totalPrices);
-                        $("#real").text(realPrices);
+                        //$("#real").text(realPrices);
+                        $("#real").text(parseFloat(realPrices).toFixed(2));
                         $("#kind").text(kinds);
                         //清空输入框并获取焦点
                         $("#search").val("");
@@ -232,7 +233,8 @@ $("#btnAdd").click(function () {
             //展示合计内容
             $("#number").text(numbers);
             $("#total").text(totalPrices);
-            $("#real").text(realPrices);
+            //$("#real").text(realPrices);
+            $("#real").text(parseFloat(realPrices).toFixed(2));
             $("#kind").text(kinds);
             //清空输入框并获取焦点
             $("#search").val("");
