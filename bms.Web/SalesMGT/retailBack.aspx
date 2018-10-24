@@ -29,8 +29,8 @@
                 <div class="col-sm-4 col-lg-3">
                     <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
                 </div>
-                <div class="col-sm-2">
-                    <input type="text" id="search" class="topSearch">
+                 <div class="col-sm-2">
+                    <input type="text" id="search" style="height:100px;font-size:30px;" class="topSearch">
                 </div>
             </div>
             <div class="card">

@@ -58,7 +58,6 @@ $("#print").click(function () {
                 //LODOP.PREVIEW();
                 //window.location.reload();
                 LODOP = getLodop();
-                //LODOP.PRINT_INIT("");
                 //LODOP.PRINT_INITA(0, 0, 577, 10000, "打印控件功能演示_Lodop功能_不同高度幅面");
                 LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#region").val() + "新华书店有限公司   销售单");
                 LODOP.SET_PRINT_PAGESIZE(3, 2200, 0, "");

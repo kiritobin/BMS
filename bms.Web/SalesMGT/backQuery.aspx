@@ -69,19 +69,19 @@
                                                 <span>任务单据编号:</span>
                                             </td>
                                             <td>
-                                                <input value="<%=Session["saleId"].ToString() %>" class="form-control" disabled>
+                                                <input value="<%=Session["saleId"].ToString() %>" class="form-control" disabled id="XSRW">
                                             </td>
                                             <td>
                                                 <span>单头编号:</span>
                                             </td>
                                             <td>
-                                                <input value="<%=Session["sellId"].ToString() %>" class="form-control" disabled>
+                                                <input value="<%=Session["sellId"].ToString() %>" class="form-control" disabled id="XT">
                                             </td>
                                             <td>
                                                 <span>制单时间:</span>
                                             </td>
                                             <td>
-                                                <input value="<%=staticsTime %>" class="form-control" disabled>
+                                                <input value="<%=staticsTime %>" class="form-control" disabled id="makeTime">
                                             </td>
                                         </tr>
                                     </table>
@@ -97,24 +97,24 @@
                                                     <span>总品种:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=staticsKinds %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=staticsKinds %>" class="form-control" disabled id="allKinds">
                                                 </td>
                                                 <td>
                                                     <span>总数量:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=staticsNumber %>" class="form-control" disabled></td>
+                                                    <input type="text" value="<%=staticsNumber %>" class="form-control" disabled id="allCount"></td>
                                                 <td>
                                                     <span>总码洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=staticsTotalPrice %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=staticsTotalPrice %>" class="form-control" disabled id="allTotalPrice">
                                                 </td>
                                                 <td>
                                                     <span>总实洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=staticsRealPrice %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=staticsRealPrice %>" class="form-control" disabled id="allRealPrice">
                                                 </td>
                                             </tr>
                                         </table>
@@ -135,7 +135,7 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                    &nbsp;版权归云南新华书店图书有限公司信息部所有
+                    &nbsp;版权归云南新华书店图书有限公司所有
                         <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                 </div>
             </div>
