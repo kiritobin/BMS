@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
+    <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
@@ -129,7 +130,7 @@
                                     </div>
                                 </div>
                                 <div class="pull-right">
-                                    <p style="color: red; font-size:12px;margin-bottom:0px;">*实际收款以POS结算为准，此处应收金额仅供参考！</p>
+                                    <p style="color: red; font-size:16px;margin-bottom:0px;">*实际收款以POS结算为准，此处应收金额仅供参考！</p>
                                 </div>
                             </fieldset>
                         </div>
