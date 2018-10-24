@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
+
 <body style="overflow:hidden;">
     <div class="retail-content">
         <div class="container-fluid">
@@ -63,13 +64,13 @@
                                             <td style="width:20%">
                                                 <nobr>商品数量</nobr>
                                             </td>
-                                            <td style="width:10%">
+                                            <td style="display: none">
                                                 <nobr>折扣</nobr>
                                             </td>
                                             <td style="width:10%">
                                                 <nobr>码洋</nobr>
                                             </td>
-                                            <td style="width:10%">
+                                            <td style="display: none">
                                                 <nobr>实洋</nobr>
                                             </td>
                                              <td style="display: none">
@@ -81,8 +82,6 @@
                                         </tr>
                                     </thead>
                                     <tr class="first">
-                                        <td></td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
