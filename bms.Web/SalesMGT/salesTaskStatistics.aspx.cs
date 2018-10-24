@@ -25,6 +25,7 @@ namespace bms.Web.SalesMGT
             saletaskId = Session["saleId"].ToString();
             getBasic();
             print();
+            getData();
         }
         public void getBasic()
         {
@@ -99,8 +100,8 @@ namespace bms.Web.SalesMGT
                 }
             }
             strb.Append("</tbody>");
-            strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
-            strb.Append("<input type='hidden' value=' " + ds.Tables[0].Rows[0]["regionName"] + " ' id='region' />");
+            strb.Append("<input type='hidden' value='" + intPageCount + " ' id='intPageCount' />");
+            strb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[0]["regionName"] + " ' id='region' />");
             string op = Request["op"];
             if (op == "paging")
             {

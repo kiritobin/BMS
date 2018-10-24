@@ -206,6 +206,11 @@ namespace bms.Web.InventoryMGT
                 string publisher = bookBasicData.Publisher;
                 double price = bookBasicData.Price;
                 string _isbn = bookBasicData.Isbn;
+                string discount = bookBasicData.Author;
+                if (discount == "" || discount == null)
+                {
+                    discount = "100";
+                }
 
                 bookNumList = (List<string>)Session["List"];
                 foreach (string bookNums in bookNumList)

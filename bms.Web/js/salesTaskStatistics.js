@@ -11,7 +11,7 @@
         callback: function (api) {
             $.ajax({
                 type: 'Post',
-                url: 'searchSalesDetail.aspx',
+                url: 'salesTaskStatistics.aspx',
                 data: {
                     page: api.getCurrent(), //页码
                     op: "paging"
