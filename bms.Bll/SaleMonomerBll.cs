@@ -388,5 +388,24 @@ namespace bms.Bll
             DataSet ds = SaleMonomerdao.GroupCount();
             return ds;
         }
+
+        /// <summary>
+        /// 客户采购统计
+        /// </summary>
+        /// <returns></returns>
+        public DataSet groupCustomer()
+        {
+            DataSet ds = SaleMonomerdao.groupCustomer();
+            return ds;
+        }
+        /// <summary>
+        /// 客户所购品种数
+        /// </summary>
+        /// <returns></returns>
+        public int customerKinds(string customerName)
+        {
+            int kinds = SaleMonomerdao.customerKinds(customerName);
+            return kinds;
+        }
     }
 }

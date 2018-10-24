@@ -20,12 +20,12 @@
     <style>
         table {
             font-size: 24px;
-            font-weight:bold;
+            font-weight: bold;
         }
 
         #fontHead th {
             font-size: 24px;
-            font-weight:bold;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -47,9 +47,9 @@
     <!-- 主界面内容 -->
     <div class="content">
         <div class="container-fluid">
-            <div class="col-sm-4 col-lg-3">
-                <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre" />
-            </div>
+            <%--<div class="col-sm-4 col-lg-3">--%>
+            <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-responsive" alt="Cinque Terre" style="width: 450px; height: 80px" />
+            <%--</div>--%>
             <div class="row3">
                 <div class="col-md-12">
                     <div class="card">
