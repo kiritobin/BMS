@@ -334,6 +334,7 @@
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/retailManagement.js"></script>
+    <script src="../js/sweetalert2.js"></script>
 </body>
 
 </html>

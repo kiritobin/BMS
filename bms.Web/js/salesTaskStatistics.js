@@ -55,11 +55,12 @@ $("#print").click(function () {
                 ////LODOP.SET_PRINTER_INDEX("Send To OneNote 2016");
                 //LODOP.SET_PRINT_PAGESIZE(3, "100%", "", "");
                 LODOP = getLodop();
-                LODOP.PRINT_INITA(0, 0, 577, 10000, "打印控件功能演示_Lodop功能_不同高度幅面");
+                //LODOP.PRINT_INITA(0, 0, 577, 10000, "打印控件功能演示_Lodop功能_不同高度幅面");
                 LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#region").val() + "新华书店有限公司   销售任务单");
-                LODOP.SET_PRINT_PAGESIZE(3, 2100, 50, "");
+                LODOP.SET_PRINT_PAGESIZE(3, 2100, 0, "");
                 LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
                 LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
+                LODOP.SET_SHOW_MODE("BKIMG_IN_PREVIEW", 1);
                 //------统计-----
                 LODOP.ADD_PRINT_TEXT(80, 20, 200, 20, "单据编号：" + $("#XSRWnum").val());
                 LODOP.ADD_PRINT_TEXT(80, 300, 200, 20, "客户名称：" + $("#customer").val());
@@ -83,7 +84,7 @@ $("#print").click(function () {
                 LODOP.ADD_PRINT_TEXT(210, 600, 50, 20, "单价");
                 LODOP.ADD_PRINT_TEXT(210, 650, 50, 20, "数量");
                 LODOP.ADD_PRINT_TEXT(210, 700, 60, 20, "实洋");
-                //LODOP.ADD_PRINT_TEXT(210, 760, 70, 20, "");
+                LODOP.ADD_PRINT_TEXT(210, 760, 70, 20, "");
                 //表头表格
                 LODOP.ADD_PRINT_LINE(200, 14, 200, 755, 0, 1);//一线(行)
                 LODOP.ADD_PRINT_LINE(225, 14, 200, 14, 0, 1);//1
@@ -94,18 +95,25 @@ $("#print").click(function () {
                 LODOP.ADD_PRINT_LINE(225, 645, 200, 645, 0, 1);
                 LODOP.ADD_PRINT_LINE(225, 695, 200, 695, 0, 1);//7
                 LODOP.ADD_PRINT_LINE(225, 755, 200, 755, 0, 1);//8
-                //LODOP.ADD_PRINT_LINE(225, 800, 200, 800, 0, 1);//9
+                LODOP.ADD_PRINT_LINE(225, 800, 200, 800, 0, 1);//9
                 //LODOP.ADD_PRINT_LINE(225, 730, 200, 730, 0, 1);//10
                 LODOP.ADD_PRINT_LINE(225, 14, 225, 755, 0, 1);//二线(行)
 
                 //--行内容
                 var j = $("#table").find("tr").length;
-                for (i = 0; i < j - 1; i++) {
-                    var row = $("#table").find('tr').eq(i + 1).find('td');
+                for (i = 0; i < j; i++) {
+                    var row = $("#table").find('tr').eq(i+1).find('td');
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 20, 50, 20, (i + 1));
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 70, 100, 20, row.eq(1).text().trim());
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 170, 120, 20, row.eq(2).text().trim());
-                    LODOP.ADD_PRINT_TEXT(235 + 25 * i, 300, 300, 20, row.eq(3).text().trim());
+                    if (row.eq(3).text().trim().length > 20) {
+                        LODOP.ADD_PRINT_TEXT(235 + 25 * i, 300, 300, 20, row.eq(3).text().trim());
+                        LODOP.SET_PRINT_STYLEA(0, "FontSize", 7);
+                        LODOP.SET_PRINT_STYLEA(0, "Bold", 0);
+                    }
+                    else {
+                        LODOP.ADD_PRINT_TEXT(235 + 25 * i, 300, 300, 20, row.eq(3).text().trim());
+                    }
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 600, 50, 20, row.eq(4).text().trim());
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 650, 50, 20, row.eq(5).text().trim());
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 700, 60, 20, row.eq(6).text().trim());
@@ -123,8 +131,10 @@ $("#print").click(function () {
                     LODOP.ADD_PRINT_LINE(250 + 25 * i, 14, 250 + 25 * i, 755, 0, 1);
                 }
                 //------------end-------------
+                LODOP.SET_PRINT_MODE("POS_BASEON_PAPER", true);
                 LODOP.PREVIEW();//打印预览	
-                window.location.reload();
+                //LODOP.PRINT();
+                //window.location.reload();
             }
         }
     })

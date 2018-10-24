@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css">
 </head>
 
-<body>
+<body style="page-break-before:always;">
     <div class="content">
         <div class="container-fluid">
             <div class="row">

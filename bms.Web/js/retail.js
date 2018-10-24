@@ -136,7 +136,9 @@ $("#search").keypress(function (e) {
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
-                        }).catch(swal.noop);
+                        }).then(function () {
+                            $("#search").val("");
+                            });
                     } else if (data == "已添加过此图书") {
                         swal({
                             title: "已添加过ISBN：" + sessionStorage.getItem("ISBN") + "的图书",
@@ -144,7 +146,9 @@ $("#search").keypress(function (e) {
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
-                        }).catch(swal.noop);
+                        }).then(function () {
+                            $("#search").val("");
+                            });
                     } else if (data == "一号多书") {
                         $.ajax({
                             type: 'Post',
