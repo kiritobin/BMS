@@ -173,8 +173,8 @@ $("#search").keypress(function (e) {
                         //计算合计内容
                         var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
                         var numbers = parseInt(sessionStorage.getItem("number")) + 1;
-                        var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
-                        var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
+                        var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")).toFixed(2) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim()).toFixed(2);
+                        var realPrices = parseFloat(sessionStorage.getItem("realPrice")).toFixed(2) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim()).toFixed(2);
                         sessionStorage.setItem("kind", kinds);
                         sessionStorage.setItem("number", numbers);
                         sessionStorage.setItem("totalPrice", totalPrices);
@@ -223,8 +223,8 @@ $("#btnAdd").click(function () {
             $("#table").prepend(data);
             var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
             var numbers = parseInt(sessionStorage.getItem("number")) + 1;
-            var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
-            var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
+            var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")).toFixed(2) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim()).toFixed(2);
+            var realPrices = parseFloat(sessionStorage.getItem("realPrice")).toFixed(2) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim()).toFixed(2);
             sessionStorage.setItem("kind", kinds);
             sessionStorage.setItem("number", numbers);
             sessionStorage.setItem("totalPrice", totalPrices);
