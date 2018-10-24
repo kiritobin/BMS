@@ -375,7 +375,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="CustmerId">客户id</param>
         /// <returns>0该客户还没有销售任务,1该客户已有销售任务但未完成,2已完成，可以添加</returns>
-        public string getcustomermsg(int CustmerId ,int regionId)
+        public string getcustomermsg(int CustmerId, int regionId)
         {
             string cmdText = "select startTime,finishTime from V_SaleTask where customerId=@CustmerId and regionId=@regionId ";
             string[] param = { "@CustmerId", "@regionId" };
@@ -402,6 +402,89 @@ namespace bms.Dao
                 state = "0";
             }
             return state;
+        }
+        /// <summary>
+        ///根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋
+        /// </summary>
+        /// <returns>数据集</returns>
+        public DataSet getAllprice(string dateTime)
+        {
+            string cmdText = "select sum(number) as number, sum(realPrice) as realPrice, sum(totalPrice) as totalPrice from T_SaleMonomer where dateTime like '" + dateTime + "%'";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            return ds;
+        }
+        /// <summary>
+        /// 统计当天种数
+        /// </summary>
+        /// <returns></returns>
+        public int getAllkinds(string dateTime)
+        {
+            string cmdText = "select bookNum,number from T_SaleMonomer where dateTime like '" + dateTime + "%'";
+            float sltemp = 0;
+            int zl = 0;
+            DataTable dtcount = db.getkinds(cmdText, null, null);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    float count = float.Parse(dr[j]["number"].ToString().Trim());
+                    sltemp += float.Parse(dr[j]["number"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                    sltemp = 0;
+                }
+            }
+            return zl;
+        }
+
+        /// <summary>
+        ///根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋 地区
+        /// </summary>
+        /// <returns>数据集</returns>
+        public DataSet getAllpriceRegion(string dateTime ,int regionId)
+        {
+            string cmdText = "select sum(number) as number, sum(realPrice) as realPrice, sum(totalPrice) as totalPrice from V_SaleMonomer where dateTime like '" + dateTime + "%' and regionId=@regionId";
+            string[] param = { "@regionId" };
+            object[] values = { regionId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
+        }
+        /// <summary>
+        /// 统计当天种数
+        /// </summary>
+        /// <returns></returns>
+        public int getAllkindsRegion(string dateTime,int regionId)
+        {
+            string cmdText = "select bookNum,number from V_SaleMonomer where dateTime like '" + dateTime + "%' and regionId=@regionId";
+            string[] param = { "@regionId" };
+            object[] values = { regionId };
+            float sltemp = 0;
+            int zl = 0;
+            DataTable dtcount = db.getkinds(cmdText, param, values);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    float count = float.Parse(dr[j]["number"].ToString().Trim());
+                    sltemp += float.Parse(dr[j]["number"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                    sltemp = 0;
+                }
+            }
+            return zl;
         }
     }
 }

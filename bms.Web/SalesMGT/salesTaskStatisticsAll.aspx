@@ -33,29 +33,29 @@
                             <hr />
                         </div>
                         <div class="card-body">
-                            <div class="card-header from-group">
+                            <%-- <div class="card-header from-group">
                                 <div class="input-group">
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="" placeholder="请输入书号">
+                                        <input type="text" value="" id="bookNum" placeholder="请输入书号">
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="" placeholder="请输入书名">
+                                        <input type="text" value="" id="bookName" placeholder="请输入书名">
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="" placeholder="请输入组织">
+                                        <input type="text" value="" id="regionName" placeholder="请输入组织">
                                     </div>
                                     <div class="btn-group" role="group">
-                                         <input type="text" value="" class="" id="" placeholder="销售日期">
+                                        <input type="text" value="" id="time" placeholder="销售日期">
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="" placeholder="请输入客户名称">
+                                        <input type="text" value="" id="customerName" placeholder="请输入客户名称">
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-warning btn-sm" onclick="window.location.href='tradeManagement.aspx'" id="back">返回</button>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--%>
                             <div class="row">
                                 <div class="content_tab col-md-12">
                                     <div class="table-responsive" style="" id="content">
@@ -100,7 +100,7 @@
                                             </tr>
                                         </table>--%>
                                         <table class="table table_stock text-center">
-                                            <tr class="text-nowrap">
+                                            <%--<tr class="text-nowrap">
                                                 <td>
                                                     <span>销售任务编号:</span>
                                                 </td>
@@ -119,55 +119,7 @@
                                                 <td>
                                                     <input value="" class="form-control" disabled>
                                                 </td>
-                                            </tr>
-                                            <tr class="text-nowrap">
-                                                <td>
-                                                    <span>开始日期:</span>
-                                                </td>
-                                                <td>
-                                                    <div class="jeinpbox">
-                                                        <input type="text" value="" class="form-control" disabled>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span>结束日期:</span>
-                                                </td>
-                                                <td>
-                                                    <div class="jeinpbox">
-                                                        <input type="text" value="" class="form-control" disabled>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <table class="table mostTable table-bordered text-center" id="table">
-                                            <thead>
-                                                <tr>
-                                                    <td class="bbb">
-                                                        <nobr>序号</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>ISBN号</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>书号</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>书名</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>单价</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>数量</nobr>
-                                                    </td>
-                                                    <td>
-                                                        <nobr>实洋</nobr>
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                            <%=getData() %>
-                                        </table>
-                                        <table class="table table_stock text-center">
+                                            </tr>--%>
                                             <tr class="text-nowrap">
                                                 <td>
                                                     <span>书籍种数:</span>
@@ -193,14 +145,65 @@
                                                     <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
                                                 </td>
                                             </tr>
+                                            <%-- <tr class="text-nowrap">
+                                                <td>
+                                                    <span>总实洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>开始日期:</span>
+                                                </td>
+                                                <td>
+                                                    <div class="jeinpbox">
+                                                        <input type="text" value="<%=startTime %>" class="form-control" disabled id="startTime">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span>结束日期:</span>
+                                                </td>
+                                                <td>
+                                                    <div class="jeinpbox">
+                                                        <input type="text" value="<%=finishTime %>" class="form-control" disabled id="endTime">
+                                                    </div>
+                                                </td>
+                                            </tr>--%>
                                         </table>
+                                        <%-- <table class="table mostTable table-bordered text-center" id="table">
+                                            <thead>
+                                                <tr>
+                                                    <td class="bbb">
+                                                        <nobr>序号</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>ISBN号</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>书号</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>书名</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>单价</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>数量</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>实洋</nobr>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <%=getData()%>
+                                        </table>--%>
                                     </div>
-
-                                    <div class="copyright float-right page-box">
+                                    <%--<div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
                                         </div>
-                                    </div>
+                                    </div>--%>
                                 </div>
                             </div>
                         </div>
@@ -244,6 +247,7 @@
     </object>
     <script src="../js/LodopFuncs.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/salesTaskStatisticsAll.js"></script>
 </body>
 
 </html>

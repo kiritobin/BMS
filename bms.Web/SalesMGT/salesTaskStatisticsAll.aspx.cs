@@ -15,16 +15,41 @@ namespace bms.Web.SalesMGT
     {
         public int totalCount, intPageCount, pageSize = 20;
         public string saletaskId, userName, customerName, startTime, finishTime;
-        public int allkinds, allnumber;
-        public double alltotalprice, allreadprice;
+        public string allkinds, allnumber = "0";
+        public string alltotalprice = "0", allreadprice = "0";
         SaleTaskBll saletaskbll = new SaleTaskBll();
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         User user = new User();
+        bool isNotAdmin;
+        RoleBll robll = new RoleBll();
         DataSet ds;
         protected void Page_Load(object sender, EventArgs e)
         {
             user = (User)Session["user"];
-            getData();
+            int userId = user.UserId;
+            DataSet ds = robll.selectRole(userId);
+            string roleName = ds.Tables[0].Rows[0]["roleName"].ToString();
+            string time = DateTime.Now.ToString("yyyy-MM-dd");
+            int region = user.ReginId.RegionId;
+            if (roleName != "超级管理员")
+            {
+                isNotAdmin = true;
+                DataSet dsSum = saletaskbll.getAllpriceRegion(time, region);
+                allnumber = dsSum.Tables[0].Rows[0]["number"].ToString();
+                alltotalprice = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
+                allreadprice = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
+                allkinds = saletaskbll.getAllkindsRegion(time, region).ToString();
+            }
+            else
+            {
+                DataSet dsSum = saletaskbll.getAllprice(time);
+                allnumber = dsSum.Tables[0].Rows[0]["number"].ToString();
+                alltotalprice = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
+                allreadprice = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
+                allkinds = saletaskbll.getAllkinds(time).ToString();
+            }
+            //user = (User)Session["user"];
+            //getData();
             ///saletaskId = Session["saleId"].ToString();
             //getBasic();
             //print();
@@ -66,6 +91,40 @@ namespace bms.Web.SalesMGT
         //获取基础数据
         public string getData()
         {
+
+            string bookNum = Request["bookNum"];
+            string bookName = Request["bookName"];
+            string regionName = Request["regionName"];
+            string time = Request["time"];
+            string customerName = Request["customerName"];
+            string search = "";
+            if (bookNum != null && bookNum != "")
+            {
+                search = "bookNum=" + bookNum + "'";
+            }
+            if (bookName != null && bookName != "")
+            {
+                if (search != null && search != "")
+                {
+                    search = search + " and bookName='" + "'";
+                }
+                else
+                {
+                    search = "bookName='" + bookNum + "'";
+                }
+            }
+            if (regionName != null && regionName != "")
+            {
+                if (search != null && search != "")
+                {
+                    search = search + " and regionName='" + "'";
+                }
+                else
+                {
+                    search = "regionName=" + regionName + "'";
+                }
+            }
+
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
@@ -77,7 +136,7 @@ namespace bms.Web.SalesMGT
             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = "saleTaskId='" + "XSRW20181023000001" + "' group by bookNum,bookName,ISBN,unitPrice";
+            tb.StrWhere = search == "" ? search : search + " group by bookNum,bookName,ISBN,unitPrice";
             //获取展示的客户数据
             ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table

@@ -42,7 +42,6 @@ $(document).ready(function () {
                 },
                 dataType: 'text',
                 success: function (data) {
-                    alert(data);
                     $("#table tr:not(:first)").remove(); //清空table处首行
                     $("#table").append(data); //加载table
                     $("#intPageCount").remove();
@@ -64,6 +63,7 @@ $(document).ready(function () {
         $("#tjType").html("退&nbsp;货&nbsp;统&nbsp;计");
         $('#resource').attr('placeholder', "请输入收货组织");
     }
+
     $("#btn_search").click(function () {
         var bookNum = $("#bookNum").val();
         var bookName = $("#bookName").val();

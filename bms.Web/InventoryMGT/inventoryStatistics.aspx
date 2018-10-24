@@ -34,13 +34,13 @@
                             <hr />
                         </div>
                         <div class="card-body">
-                            <div class="card-header from-group">
+                           <%-- <div class="card-header from-group">
                                 <div class="input-group">
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="bookNum" placeholder="请输入书号">
                                     </div>
                                     <div class="btn-group" role="group">
-                                         <input type="text" value="" class="" id="bookName" placeholder="请输入书名">
+                                        <input type="text" value="" class="" id="bookName" placeholder="请输入书名">
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="supplier" placeholder="请输入供应商">
@@ -58,19 +58,20 @@
                                         { %>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="region" placeholder="请输入自身组织">
-                                    </div><%} %>
+                                    </div>
+                                    <%} %>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-warning btn-sm" onclick="window.location.href='searchSalesDetail.aspx'" id="back">返回</button>
+                                        <button class="btn btn-warning btn-sm" onclick="window.history.go(-1);" id="back">返回</button>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--%>
                             <div class="row">
                                 <div class="content_tab col-md-12">
                                     <div class="table-responsive" style="" id="content">
-                                        <table class="table mostTable table-bordered text-center" id="table">
+                                        <%--<table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
                                                     <td class="bbb">
@@ -97,11 +98,38 @@
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
+                                        </table>--%>
+                                        <table class="table table_stock text-center" id="table2">
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>书籍种数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=sjNum %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>书本总数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=sbNum %>" class="form-control" disabled></td>
+                                                <td>
+                                                    <span>总码洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=total %>" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>总实洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=real %>" class="form-control" disabled>
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div>
+                                            <%--<div class="m-style paging"></div>--%> <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
