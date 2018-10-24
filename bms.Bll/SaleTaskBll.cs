@@ -326,5 +326,22 @@ namespace bms.Bll
         {
             return saleDao.getAllkinds(dateTime);
         }
+
+        /// <summary>
+        ///根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋 地区
+        /// </summary>
+        /// <returns>数据集</returns>
+        public DataSet getAllpriceRegion(string dateTime, int regionId)
+        {
+            return saleDao.getAllpriceRegion(dateTime, regionId);
+        }
+        /// <summary>
+        /// 统计当天种数
+        /// </summary>
+        /// <returns></returns>
+        public int getAllkindsRegion(string dateTime, int regionId)
+        {
+            return saleDao.getAllkindsRegion(dateTime, regionId);
+        }
     }
 }

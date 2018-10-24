@@ -20,19 +20,34 @@ namespace bms.Web.SalesMGT
         SaleTaskBll saletaskbll = new SaleTaskBll();
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         User user = new User();
+        bool isNotAdmin;
         RoleBll robll = new RoleBll();
         DataSet ds;
         protected void Page_Load(object sender, EventArgs e)
         {
             user = (User)Session["user"];
-            
+            int userId = user.UserId;
+            DataSet ds = robll.selectRole(userId);
+            string roleName = ds.Tables[0].Rows[0]["roleName"].ToString();
             string time = DateTime.Now.ToString("yyyy-MM-dd");
-            DataSet dsSum = saletaskbll.getAllprice(time);
-            allnumber = dsSum.Tables[0].Rows[0]["number"].ToString();
-            alltotalprice = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
-            allreadprice = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
-
-            allkinds = saletaskbll.getAllkinds(time).ToString();
+            int region = user.ReginId.RegionId;
+            if (roleName != "超级管理员")
+            {
+                isNotAdmin = true;
+                DataSet dsSum = saletaskbll.getAllpriceRegion(time, region);
+                allnumber = dsSum.Tables[0].Rows[0]["number"].ToString();
+                alltotalprice = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
+                allreadprice = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
+                allkinds = saletaskbll.getAllkindsRegion(time, region).ToString();
+            }
+            else
+            {
+                DataSet dsSum = saletaskbll.getAllprice(time);
+                allnumber = dsSum.Tables[0].Rows[0]["number"].ToString();
+                alltotalprice = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
+                allreadprice = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
+                allkinds = saletaskbll.getAllkinds(time).ToString();
+            }
             //user = (User)Session["user"];
             //getData();
             ///saletaskId = Session["saleId"].ToString();
