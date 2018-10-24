@@ -359,7 +359,8 @@ namespace bms.Dao
 
         public DataSet getKinds(string time,int type)
         {
-            string cmdText = "SELECT count(DISTINCT(a.bookNum)) as pz,sum(a.totalPrice) as my,sum(a.number) as sl,sum(a.realPrice) as sy from t_monomers as a,t_singlehead as b where a.singleHeadId=b.singleHeadId and a.type=@type and b.time like '"+time+"%'";
+            string cmdText = "SELECT SUM(NUMBER) AS sl,COUNT(DISTINCT bookNum) as pz,sum(realPrice) as sy,sum(totalPrice) as my FROM t_monomers WHERE SINGLEHEADID IN (SELECT singleHeadId FROM t_singlehead WHERE TIME LIKE '" + time+ "%' AND TYPE=@type)";
+            //string cmdText = "SELECT count(DISTINCT(a.bookNum)) as pz,sum(a.totalPrice) as my,sum(a.number) as sl,sum(a.realPrice) as sy from t_monomers as a,t_singlehead as b where a.singleHeadId=b.singleHeadId and a.type=@type and b.time like '"+time+"%'";
             string[] param = { "@type" };
             object[] values = { type };
             DataSet ds = db.FillDataSet(cmdText, param, values);
