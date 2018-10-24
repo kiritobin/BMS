@@ -314,5 +314,17 @@ namespace bms.Bll
         {
             return saleDao.getcustomermsg(CustmerId, regionId);
         }
+        /// <summary>
+        /// 获取当天时间的所有销售计划的总实洋，码洋，数量
+        /// </summary>
+        /// <returns></returns>
+        public DataSet getAllprice(string dateTime)
+        {
+            return saleDao.getAllprice(dateTime);
+        }
+        public int getAllkinds(string dateTime)
+        {
+            return saleDao.getAllkinds(dateTime);
+        }
     }
 }

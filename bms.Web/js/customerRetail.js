@@ -474,9 +474,12 @@ $("#btnSettle").click(function () {
     }
     else {
         if (discount == "") {
-            $(".discount").hide();
+            $(".discount").remove();
             $(".noneDiscount").show();
             sessionStorage.setItem("content", "none");
+        } else {
+            $(".noneDiscount").remove();
+            sessionStorage.setItem("content", "show");
         }
         $.ajax({
             type: 'Post',
@@ -531,7 +534,7 @@ $("#btnSettle").click(function () {
                         $("#allreal").text(sessionStorage.getItem("realPrice"));
                     } else {
                         $("#noneNumber").text(sessionStorage.getItem("numberEnd"));
-                        $("#noneTotal").text(sessionStorage.getItem("total"));
+                        $("#noneTotal").text("￥ "+sessionStorage.getItem("total"));
                     }
                     $("#allcope").text(sessionStorage.getItem("give"));
                     $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
