@@ -138,7 +138,14 @@ $("#print").click(function () {
                     var row = $("#table").find('tr').eq(i + 1).find('td');
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 20, 50, 20, (i + 1));
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 70, 100, 20, row.eq(1).text().trim());
-                    LODOP.ADD_PRINT_TEXT(235 + 25 * i, 170, 300, 20, row.eq(2).text().trim());
+                    if (row.eq(2).text().trim().length > 20) {
+                        LODOP.ADD_PRINT_TEXT(235 + 25 * i, 170, 300, 20, row.eq(2).text().trim());
+                        LODOP.SET_PRINT_STYLEA(0, "FontSize", 7);
+                        LODOP.SET_PRINT_STYLEA(0, "Bold", 0);
+                    }
+                    else {
+                        LODOP.ADD_PRINT_TEXT(235 + 25 * i, 170, 300, 20, row.eq(2).text().trim());
+                    }
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 440, 50, 20, row.eq(3).text().trim());
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 480, 50, 20, row.eq(4).text().trim());
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 530, 50, 20, row.eq(5).text().trim());

@@ -66,7 +66,7 @@ namespace bms.Web.SalesMGT
                 kinds = smBll.customerKinds(custName);
                 strb.Append("<td>" + kinds + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allCount"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allPrice"].ToString() + "</td></tr>");
+                strb.Append("<td>" + double.Parse(ds.Tables[0].Rows[i]["allPrice"].ToString()).ToString("F2") + "</td></tr>");
             }
             strb.Append("</tbody>");
             return strb.ToString();

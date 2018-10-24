@@ -81,9 +81,10 @@
                         <div class="container-fluid">
                             <table class="table">
                                 <tr>
-                                    <td>总品种：<%=kindsNum %></td>
-                                    <td>总数量：<%=allCount %></td>
-                                    <td>总码洋：<%=Math.Round(allPrice,2) %></td>
+                                    <td>本次会展零售统计：</td>
+                                    <td>总品种：<%=kindsNum %>种</td>
+                                    <td>总数量：<%=allCount %>册</td>
+                                    <td>总码洋：<%=allPrice.ToString("F2") %>元</td>
                                 </tr>
                             </table>
                         </div>
