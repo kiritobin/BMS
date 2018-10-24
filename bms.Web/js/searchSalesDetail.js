@@ -53,14 +53,15 @@ $("#print").click(function () {
                 //link = "<link rel='stylesheet' type='text/css' href='../css/zgz.css'><link rel='stylesheet' href='../css/material-dashboard.min.css'>";
                 //style = "<style>body{background-color:white !important;}#table tr td{border: 1px solid black !important;padding:5px 5px;font-size:13px;}</style>";
                 //LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", link + style + "<body>" + document.getElementById("content").innerHTML + "</body>");
-                ////LODOP.SET_PRINTER_INDEX("Send To OneNote 2016");
+                //LODOP.SET_PRINTER_INDEX("Send To OneNote 2016");
                 //LODOP.SET_PRINT_PAGESIZE(3, "100%", "", "");
                 //LODOP.PREVIEW();
                 //window.location.reload();
                 LODOP = getLodop();
-                LODOP.PRINT_INITA(0, 0, 577, 10000, "打印控件功能演示_Lodop功能_不同高度幅面");
-                LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#regin").val() + "新华书店有限公司   销售单");
-                LODOP.SET_PRINT_PAGESIZE(3, 2200, 50, "");
+                //LODOP.PRINT_INIT("");
+                //LODOP.PRINT_INITA(0, 0, 577, 10000, "打印控件功能演示_Lodop功能_不同高度幅面");
+                LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#region").val() + "新华书店有限公司   销售单");
+                LODOP.SET_PRINT_PAGESIZE(3, 2200, 0, "");
                 LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
                 LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
                 //------统计-----
@@ -102,12 +103,20 @@ $("#print").click(function () {
 
                 //--行内容
                 var j = $("#table").find("tr").length;
-                for (i = 0; i < j - 1; i++) {
-                    var row = $("#table").find('tr').eq(i + 1).find('td');
+                for (i = 0; i < j; i++) {
+                    var row = $("#table").find('tr').eq(i+1).find('td');
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 20, 50, 20, (i + 1));
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 70, 100, 20, row.eq(1).text().trim());
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 170, 120, 20, row.eq(2).text().trim());
-                    LODOP.ADD_PRINT_TEXT(235 + 25 * i, 300, 300, 20, row.eq(3).text().trim());
+                    if (row.eq(3).text().trim().length > 20) {
+                        LODOP.ADD_PRINT_TEXT(235 + 25 * i, 300, 300, 20, row.eq(3).text().trim());
+                        LODOP.SET_PRINT_STYLEA(0, "FontSize", 7);
+                        LODOP.SET_PRINT_STYLEA(0, "Bold", 0);
+                    }
+                    else {
+                        LODOP.ADD_PRINT_TEXT(235 + 25 * i, 300, 300, 20, row.eq(3).text().trim());
+                    }
+                    //LODOP.ADD_PRINT_TEXT(235 + 25 * i, 300, 300, 20, row.eq(3).text().trim());
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 600, 50, 20, row.eq(4).text().trim());
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 650, 50, 20, row.eq(5).text().trim());
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 700, 60, 20, row.eq(6).text().trim());
@@ -123,10 +132,12 @@ $("#print").click(function () {
                     LODOP.ADD_PRINT_LINE(250 + 25 * i, 755, 225 + 25 * i, 755, 0, 1);
                     LODOP.ADD_PRINT_LINE(250 + 25 * i, 800, 225 + 25 * i, 800, 0, 1);
                     LODOP.ADD_PRINT_LINE(250 + 25 * i, 14, 250 + 25 * i, 800, 0, 1);
+                    
                 }
                 //------------end-------------
+                LODOP.SET_SHOW_MODE("HIDE_PAPER_BOARD", true);
                 LODOP.PREVIEW();//打印预览	
-                window.location.reload();
+                //window.location.reload();
             }
         }
     })

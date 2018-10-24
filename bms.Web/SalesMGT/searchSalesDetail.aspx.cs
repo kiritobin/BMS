@@ -17,11 +17,15 @@ namespace bms.Web.SalesMGT
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         SaleHeadBll saleHeadbll = new SaleHeadBll();
         public DataSet ds, headBasicds;
-        public string saleheadId, saletaskId, time,userName;
+        public string saleheadId, saletaskId, time,userName,customerName;
         public int allkinds, allnumber;
         public double alltotalprice, allreadprice;
         protected void Page_Load(object sender, EventArgs e)
         {
+            SaleTaskBll saletaskBll = new SaleTaskBll();
+            saletaskId = Session["saleId"].ToString();
+            DataSet userds = saletaskBll.getcustomerName(saletaskId);
+            customerName = userds.Tables[0].Rows[0]["customerName"].ToString();
             getData();
             getSaleHeadBasic();
             print();
@@ -80,7 +84,7 @@ namespace bms.Web.SalesMGT
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
-            strb.Append("<input type='hidden' value=' " + ds.Tables[0].Rows[0]["customerName"].ToString() + " ' id='customer' />");
+            strb.Append("<input type='hidden' value=' " + customerName + " ' id='customer' />");
             strb.Append("<input type='hidden' value=' " + ds.Tables[0].Rows[0]["regionName"] + " ' id='region' />");
             string op = Request["op"];
             if (op == "paging")

@@ -54,11 +54,14 @@ namespace bms.Web.SalesMGT
                 customerName = userds.Tables[0].Rows[0]["customerName"].ToString();
                 //startTime = userds.Tables[0].Rows[0]["startTime"].ToString();
                 startTime = Convert.ToDateTime(userds.Tables[0].Rows[0]["startTime"].ToString()).ToString("yyyy年MM月dd日");
-                //finishTime = userds.Tables[0].Rows[0]["finishTime"].ToString();
-                finishTime = Convert.ToDateTime(userds.Tables[0].Rows[0]["finishTime"].ToString()).ToString("yyyy年MM月dd日");
+                finishTime = userds.Tables[0].Rows[0]["finishTime"].ToString();
                 if (finishTime == "" || finishTime == null)
                 {
                     finishTime = "此销售任务还未结束";
+                }
+                else
+                {
+                    finishTime =  Convert.ToDateTime(finishTime).ToString("yyyy年MM月dd日");
                 }
             }
         }
