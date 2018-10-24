@@ -33,6 +33,22 @@ namespace bms.Dao
             }
         }
 
+        public DataSet selectRole(int userId)
+        {
+            string comText = "select roleId,roleName from V_User where userId=@userId";
+            string[] param = { "@userId" };
+            object[] values = { userId };
+            DataSet ds = db.FillDataSet(comText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// 根据角色名获取角色id
         /// </summary>
