@@ -251,6 +251,10 @@ namespace bms.Bll
         {
             return monoDao.customerRs(customerId);
         }
+        public DataSet getKinds(string time, int type)
+        {
+            return monoDao.getKinds(time,type);
+        }
         public DataSet getAllprice(string dateTime, int type)
         {
             return monoDao.getAllprice(dateTime,type);
