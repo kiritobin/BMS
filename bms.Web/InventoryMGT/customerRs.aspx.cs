@@ -56,9 +56,8 @@ namespace bms.Web.InventoryMGT
             StringBuilder strb = new StringBuilder();
             string customerName = Request["cusId"];
             string op = Request["op"];
-            if (customerName != null || customerName != "")
+            if (customerName != null && customerName != "")
             {
-                
                 search = " and customerName like '%" + customerName + "%'";
                 CustomerBll customerBll = new CustomerBll();
                 Customer cus = customerBll.getCustomerBuName(customerName);
@@ -70,8 +69,8 @@ namespace bms.Web.InventoryMGT
             else
             {
                 search = "";
-                counts = 0;
-                kinds = 0;
+                kinds = repBll.getMonkinds(0, 2);
+                counts = repBll.getTotalMon(0, 2);
                 customer = "";
             }
             //获取分页数据
@@ -86,7 +85,7 @@ namespace bms.Web.InventoryMGT
             tb.StrColumnlist = "regionName,customerName,rsMononerID,bookNum,ISBN,bookName,sum(count) as count,dateTime";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = "ISNULL(finishTime) and deleteState=0" + search + " group by regionName,customerName,rsMononerID,bookNum,ISBN,bookName";
+            tb.StrWhere = "ISNULL(finishTime) and deleteState=0" + search + " group by regionName,customerName,bookNum,ISBN,bookName";
             //获取展示的客户数据
             ds = saleBll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table

@@ -83,13 +83,13 @@
                         <div class="container-fluid">
                             <table class="table">
                                 <tr>
-                                    <td>
+                                    <%--<td>
                                         <p style="font-size: 35px">本次书展团采统计&nbsp;&nbsp;&nbsp;总品种：<%=kindsNum %>种 &nbsp;&nbsp;总数量：<%=allCount %>册&nbsp;&nbsp;总码洋：<%=allPrice.ToString("F2") %>元</p>
-                                    </td>
-                                    <%-- <td style="width:25%"><p style="font-size:24px">本次书展团采统计：</td>
+                                    </td>--%>
+                                     <td style="width:25%"><p style="font-size:24px">本次书展团采统计：</td>
                                     <td style="width:25%"><p style="font-size:24px">总品种：<%=kindsNum %>种</p></td>
                                     <td style="width:15%"><p style="font-size:24px">总数量：<%=allCount %>册</p></td>
-                                    <td style="width:35%"><p style="font-size:24px">总码洋：<%=allPrice.ToString("F2") %>元</p></td>--%>
+                                    <td style="width:35%"><p style="font-size:24px">总码洋：<%=allPrice.ToString("F2") %>元</p></td>
                                 </tr>
                             </table>
                         </div>
