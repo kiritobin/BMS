@@ -28,10 +28,11 @@ namespace bms.Web.InventoryMGT
             {
                 isNotAdmin = true;
             }
+            getData();
             string op = Request["op"];
             if (op == "search")
             {
-                getData();
+                
             }
         }
 

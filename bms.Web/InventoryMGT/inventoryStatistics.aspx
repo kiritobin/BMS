@@ -40,7 +40,7 @@
                                         <input type="text" value="" class="" id="bookNum" placeholder="请输入书号">
                                     </div>
                                     <div class="btn-group" role="group">
-                                         <input type="text" value="" class="" id="bookName" placeholder="请输入书名">
+                                        <input type="text" value="" class="" id="bookName" placeholder="请输入书名">
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="supplier" placeholder="请输入供应商">
@@ -58,12 +58,13 @@
                                         { %>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="region" placeholder="请输入自身组织">
-                                    </div><%} %>
+                                    </div>
+                                    <%} %>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-warning btn-sm" onclick="window.location.href='searchSalesDetail.aspx'" id="back">返回</button>
+                                        <button class="btn btn-warning btn-sm" onclick="window.history.go(-1);" id="back">返回</button>
                                     </div>
                                 </div>
                             </div>
@@ -97,6 +98,33 @@
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
+                                        </table>
+                                        <table class="table table_stock text-center" id="table2">
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>书籍种数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>书本总数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="" class="form-control" disabled></td>
+                                                <td>
+                                                    <span>总码洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="" class="form-control" disabled>
+                                                </td>
+                                                <td>
+                                                    <span>总实洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="" class="form-control" disabled>
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">

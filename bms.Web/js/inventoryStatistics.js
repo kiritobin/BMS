@@ -42,7 +42,6 @@ $(document).ready(function () {
                 },
                 dataType: 'text',
                 success: function (data) {
-                    alert(data);
                     $("#table tr:not(:first)").remove(); //清空table处首行
                     $("#table").append(data); //加载table
                     $("#intPageCount").remove();
