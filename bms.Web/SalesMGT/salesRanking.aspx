@@ -21,13 +21,14 @@
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
     <style>
-        table{
-            font-size:24px;
-            font-weight:bold;
+        table {
+            font-size: 24px;
+            font-weight: bold;
         }
-        #fontHead th{
-            font-size:24px;
-            font-weight:bold;
+
+        #fontHead th {
+            font-size: 24px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -49,14 +50,14 @@
     <!-- 主界面内容 -->
     <div class="content">
         <div class="container-fluid">
-              <div class="col-sm-4 col-lg-3">
-                    <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
-                </div>
+            <%--<div class="col-sm-4 col-lg-3">--%>
+            <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-responsive" alt="Cinque Terre" style="width: 450px; height: 80px">
+            <%--</div>--%>
             <div class="row3">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-primary">
-                            <label id="time" class="pull-right" style="color:white"></label>
+                            <label id="time" class="pull-right" style="color: white"></label>
                             <h2 class="card-title">客户采购排行TOP10</h2>
                         </div>
                         <div class="card-body">
@@ -95,8 +96,7 @@
     </div>
     <script src="../js/public.js"></script>
     <script>
-        function reload()
-        {
+        function reload() {
             window.location.reload();
         }
         window.onload = function () {
