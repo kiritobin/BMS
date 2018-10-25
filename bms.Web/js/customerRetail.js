@@ -223,16 +223,16 @@ $("#scannSea").keypress(function (e) {
     }
 })
 //收银修改数量
-$("#table").delegate(".numberEnd", "keypress", function (e) {
-    if (e.keyCode == 13) {
+$("#table").delegate(".numberEnd", "change", function (e) {
+    //if (e.keyCode == 13) {
         var id = $(this).parent().prev().prev().prev().prev().prev().text().trim();
         var number = parseInt($(this).val());
         var total = $(this).parent().next().next();
         var real = $(this).parent().next().next().next();
-        if (number == 0) {
+        if (number <= 0) {
             swal({
-                title: "请输入商品数量",
-                text: "数量不能为0",
+                title: "数量不能小于1",
+                text: "",
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"
@@ -270,7 +270,6 @@ $("#table").delegate(".numberEnd", "keypress", function (e) {
                 }
             })
         }
-    }
 })
 //收银删除
 $("table").delegate(".delete", "click", function () {

@@ -233,7 +233,7 @@ namespace bms.Dao
         /// <returns></returns>
         public int delete(int retailMonomerId,string retailHeadId)
         {
-            string cmdText = "delete from T_RetailMonomer where retailMonomerId=@retailMonomerId where retailHeadId=@retailHeadId";
+            string cmdText = "delete from T_RetailMonomer where retailMonomerId=@retailMonomerId and retailHeadId=@retailHeadId";
             string[] param = { "@retailMonomerId", "@retailHeadId" };
             object[] values = { retailMonomerId, retailHeadId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
