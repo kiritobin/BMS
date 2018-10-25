@@ -579,8 +579,8 @@ $("#btnSettle").click(function () {
                     $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
                     $("#tablePay tr:not(:first)").empty()
                     $("#tablePay").append(datas[1]);
-                    //$("#sale").show();
-                    //$("#myModal2").modal("hide");
+                    $("#sale").show();
+                    $("#myModal2").modal("hide");
                     //一维码
                     //JsBarcode("#img", sessionStorage.getItem("retailId"), {
                     //    displayValue: false, //是否在条形码下方显示文字
