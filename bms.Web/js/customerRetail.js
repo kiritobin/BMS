@@ -224,52 +224,51 @@ $("#scannSea").keypress(function (e) {
 })
 //收银修改数量
 $("#table").delegate(".numberEnd", "change", function (e) {
-    //if (e.keyCode == 13) {
-        var id = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        var number = parseInt($(this).val());
-        var total = $(this).parent().next().next();
-        var real = $(this).parent().next().next().next();
-        if (number <= 0) {
-            swal({
-                title: "数量不能小于1",
-                text: "",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else {
-            $.ajax({
-                type: 'Post',
-                url: 'customerRetail.aspx',
-                data: {
-                    retailId: id,
-                    headId: sessionStorage.getItem("retailId"),
-                    number: number,
-                    op: 'change'
-                },
-                dataType: 'text',
-                success: function (data) {
-                    var datas = data.split("|:");
-                    var succ = datas[0];
-                    if (succ == "更新成功") {
-                        var math = datas[1].split(",");
-                        $("#number").text(math[0]);
-                        $("#total").text(math[1]);
-                        $("#real").text(math[2]);
-                        total.text(datas[2]);
-                        real.text(datas[3]);
-                    } else if (succ == "更新失败") {
-                        swal({
-                            title: "修改数量失败",
-                            text: "修改数量失败",
-                            buttonsStyling: false,
-                            confirmButtonClass: "btn btn-warning",
-                            type: "warning"
-                        }).catch(swal.noop);
-                    }
+    var id = $(this).parent().prev().prev().prev().prev().prev().text().trim();
+    var number = parseInt($(this).val());
+    var total = $(this).parent().next().next();
+    var real = $(this).parent().next().next().next();
+    if (number <= 0) {
+        swal({
+            title: "数量不能小于1",
+            text: "",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+    } else {
+        $.ajax({
+            type: 'Post',
+            url: 'customerRetail.aspx',
+            data: {
+                retailId: id,
+                headId: sessionStorage.getItem("retailId"),
+                number: number,
+                op: 'change'
+            },
+            dataType: 'text',
+            success: function (data) {
+                var datas = data.split("|:");
+                var succ = datas[0];
+                if (succ == "更新成功") {
+                    var math = datas[1].split(",");
+                    $("#number").text(math[0]);
+                    $("#total").text(math[1]);
+                    $("#real").text(math[2]);
+                    total.text(datas[2]);
+                    real.text(datas[3]);
+                } else if (succ == "更新失败") {
+                    swal({
+                        title: "修改数量失败",
+                        text: "修改数量失败",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
                 }
-            })
-        }
+            }
+        })
+    }
 })
 //收银删除
 $("table").delegate(".delete", "click", function () {

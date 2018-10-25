@@ -246,8 +246,8 @@ $("#btnAdd").click(function () {
 $("#insert").click(function () {
     if (sessionStorage.getItem("kind") == "0") {
         swal({
-            title: "无记录",
-            text: "未输入过记录",
+            title: "请先输入书籍信息",
+            text: "",
             buttonsStyling: false,
             confirmButtonClass: "btn btn-warning btnStyle",
             type: "warning"
@@ -268,8 +268,8 @@ $("#insert").click(function () {
                 var data = datas[0];
                 if (data == "添加失败") {
                     swal({
-                        title: "打印失败",
-                        text: "请联系管理员",
+                        title: "建议再次点击打印一次",
+                        text: "",
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-warning",
                         type: "warning"
