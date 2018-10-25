@@ -499,15 +499,16 @@ $("#btnSettle").click(function () {
             type: "warning"
         }).catch(swal.noop);
     }
-    else if (parseFloat(discount) <= 0) {
-        swal({
-            title: "折扣不能为0",
-            text: "",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
+    //else if (parseFloat(discount) <= 0) {
+    //    swal({
+    //        title: "折扣不能为0",
+    //        text: "",
+    //        buttonsStyling: false,
+    //        confirmButtonClass: "btn btn-warning",
+    //        type: "warning"
+    //    }).catch(swal.noop);
+        //}
+    else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
         swal({
             title: "实付金额不能为空或0",
             text: "",
