@@ -450,7 +450,7 @@ $("#threePay").click(function () {
     var discount = $("#discountEnd").val();
     if (discount == "0" || discount == 0) {
         discount = $("#discountEnd").val("");
-        discount.focus();
+        $("#discountEnd").focus();
     }
     $("#copeEnd").val($("#realEnd").text().trim());
     sessionStorage.setItem("realPrice", $("#realEnd").text().trim());
