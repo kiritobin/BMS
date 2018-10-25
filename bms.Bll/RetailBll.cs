@@ -200,13 +200,13 @@ namespace bms.Bll
         }
 
         /// <summary>
-        /// 更新零售数量
+        /// 单据完成，修改type
         /// </summary>
-        /// <param name="sale">零售实体对象</param>
+        /// <param name="headId">单头Id</param>
         /// <returns>受影响行数</returns>
-        public Result updateType(string headId)
+        public Result updateType(string headId,User user)
         {
-            int row = dao.updateType(headId);
+            int row = dao.updateType(headId,user);
             if (row > 0)
             {
                 return Result.更新成功;

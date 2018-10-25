@@ -132,7 +132,7 @@ namespace bms.Web.SalesMGT
                             }
                             else
                             {
-                                Result end = retailBll.updateType(headId);
+                                Result end = retailBll.updateType(headId,user);
                                 if(end == Result.更新失败)
                                 {
                                     Response.Write("更新失败:|");
@@ -152,7 +152,7 @@ namespace bms.Web.SalesMGT
                             }
                             if (count == 0)
                             {
-                                Result end = retailBll.updateType(headId);
+                                Result end = retailBll.updateType(headId, user);
                                 if (end == Result.更新失败)
                                 {
                                     Response.Write("更新失败:|");
