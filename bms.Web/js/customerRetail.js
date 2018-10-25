@@ -395,15 +395,15 @@ $("#discountEnd").keypress(function (e) {
                 type: "warning"
             }).catch(swal.noop);
         }
-        else if (parseFloat(discount) <= 0) {
-            swal({
-                title: "折扣不能为0",
-                text: "",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
+            //else if (parseFloat(discount) <= 0) {
+            //    swal({
+            //        title: "折扣不能为0",
+            //        text: "",
+            //        buttonsStyling: false,
+            //        confirmButtonClass: "btn btn-warning",
+            //        type: "warning"
+            //    }).catch(swal.noop);
+            //}
         else if (discount == "") {
             $("#copeEnd").focus();
             $(".discount").hide();
@@ -447,6 +447,11 @@ $("#discountEnd").keypress(function (e) {
 })
 //选择第三方付款
 $("#threePay").click(function () {
+    var discount = $("#discountEnd").val();
+    if (discount == "0" || discount == 0) {
+        discount = $("#discountEnd").val("");
+        discount.focus();
+    }
     $("#copeEnd").val($("#realEnd").text().trim());
     sessionStorage.setItem("realPrice", $("#realEnd").text().trim());
     $("#copeEnd").focus();
@@ -573,7 +578,7 @@ $("#btnSettle").click(function () {
                         $("#allreal").text(sessionStorage.getItem("realPrice"));
                     } else {
                         $("#noneNumber").text(sessionStorage.getItem("numberEnd"));
-                        $("#noneTotal").text("￥ "+sessionStorage.getItem("total"));
+                        $("#noneTotal").text("￥ " + sessionStorage.getItem("total"));
                     }
                     $("#allcope").text(sessionStorage.getItem("give"));
                     $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
