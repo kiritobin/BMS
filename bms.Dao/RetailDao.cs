@@ -336,7 +336,7 @@ namespace bms.Dao
         /// <returns></returns>
         public  DataSet GroupRetail()
         {
-            string cmdText = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from t_retailmonomer GROUP BY bookNum";
+            string cmdText = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from v_retailmonomer where state=1 GROUP BY bookNum;";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             return ds;
         }
