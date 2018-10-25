@@ -30,7 +30,7 @@
                     else {
                         swal({
                             title: "温馨提示:)",
-                            text: succ,
+                            text: "登录失败",
                             buttonsStyling: false,
                             confirmButtonClass: "btn btn-success",
                             type: "warning",
@@ -72,7 +72,7 @@
                         else {
                             swal({
                                 title: "温馨提示:)",
-                                text: succ,
+                                text: "登录失败",
                                 buttonsStyling: false,
                                 confirmButtonClass: "btn btn-success",
                                 type: "warning",
