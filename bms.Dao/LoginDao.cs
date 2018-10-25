@@ -27,7 +27,7 @@ namespace bms.Dao
             Region region = new Region();
             while (reader.Read())
             {
-                user.UserId = reader.GetInt32(0);
+                user.UserId = reader.GetString(0);
                 user.UserName = reader.GetString(1);
                 role.RoleId = reader.GetInt32(2);
                 role.RoleName = reader.GetString(3);

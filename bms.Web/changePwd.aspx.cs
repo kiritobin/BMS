@@ -22,7 +22,7 @@ namespace bms.Web
             if (op == "change")
             {
                 User user = (User)Session["user"];
-                int userId = user.UserId;
+                string userId = user.UserId;
                 string Oldpwd = rsa.Decrypt(user.Pwd);
 
                 string oldpwd = Request["oldpwd"];

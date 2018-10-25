@@ -19,7 +19,7 @@ namespace bms.Dao
         public int Insert(User user)
         {
             int row;
-            int userId = user.UserId;
+            string userId = user.UserId;
             string cmd = "select count(userId) from T_User where userId=@userId";
             string[] param1 = { "@userId" };
             object[] values1 = { userId };
@@ -72,7 +72,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="userID">用户id</param>
         /// <returns></returns>
-        public int Delete(int userID)
+        public int Delete(string userID)
         {
             string comText = "update T_User set deleteState=1 where userID = @userID";
             string[] param = { "@userID" };
@@ -124,7 +124,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <returns>返回受影响的行数</returns>
-        public DataSet SelectDeleteState(int userId)
+        public DataSet SelectDeleteState(string userId)
         {
             string cmdText = "select deleteState=1 from T_User where userID=@userId";
             string[] param = { "@userId" };
@@ -138,7 +138,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public int isUser(int userId)
+        public int isUser(string userId)
         {
             string cmdText = "select count(userID) from T_User where userID=@userId and deleteState=0";
             string[] param = { "@userId" };
@@ -151,7 +151,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public int isCustomer(int userId)
+        public int isCustomer(string userId)
         {
             string cmdText = "select count(customerID) from T_Customer where customerID=@userId and deleteState=0";
             string[] param = { "@userId" };

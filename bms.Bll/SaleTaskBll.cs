@@ -213,7 +213,7 @@ namespace bms.Bll
                 {
                     DefaultDiscount = discount,
                     NumberLimit = numberlimit,
-                    UserId = Convert.ToInt32(userId)
+                    UserId = userId
                 };
                 return st;
             }

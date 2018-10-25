@@ -22,7 +22,7 @@ namespace bms.Bll
             return roleDao.select();
         }
 
-        public DataSet selectRole(int userId)
+        public DataSet selectRole(string userId)
         {
             return roleDao.selectRole(userId);
         }

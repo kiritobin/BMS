@@ -81,7 +81,7 @@ namespace bms.Web.SalesMGT
                     int totalPriceLimit = Convert.ToInt32(Request["totalPriceLimit"]);
                     double defaultDiscount = double.Parse(Request["defaultDiscount"]);
                     string defaultCopy = Request["defaultCopy"].ToString();
-                    int userId = user.UserId;
+                    string userId = user.UserId;
                     DateTime StartTime = DateTime.Now.ToLocalTime();
                     SaleTask saleTask = new SaleTask()
                     {

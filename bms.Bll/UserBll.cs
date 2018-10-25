@@ -78,7 +78,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="userID">用户id</param>
         /// <returns></returns>
-        public Result Delete(int userID)
+        public Result Delete(string userID)
         {
             int row = userDao.Delete(userID);
             if (row > 0)
@@ -165,7 +165,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public Result SelectDeleteState(int userId)
+        public Result SelectDeleteState(string userId)
         {
             DataSet ds = userDao.SelectDeleteState(userId);
             int row = Convert.ToInt32(ds.Tables[0].Rows[0]["deleteState=1"].ToString());
@@ -183,7 +183,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public Result isUser(int userId)
+        public Result isUser(string userId)
         {
             int row = userDao.isUser(userId);
             if (row > 0)
@@ -200,7 +200,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public Result isCustomer(int userId)
+        public Result isCustomer(string userId)
         {
             int row = userDao.isCustomer(userId);
             if (row > 0)

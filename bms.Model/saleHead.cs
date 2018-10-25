@@ -37,7 +37,7 @@ namespace bms.Model
         /// <summary>
         /// 操作员Id
         /// </summary>
-        private int userId;
+        private string userId;
         /// <summary>
         /// 操作员名称
         /// </summary>
@@ -152,7 +152,7 @@ namespace bms.Model
         /// <summary>
         /// 操作员ID
         /// </summary>
-        public int UserId
+        public string UserId
         {
             get
             {
@@ -260,7 +260,7 @@ namespace bms.Model
         /// <param name="regionId">地区Id</param>
         /// <param name="regionName">地区名称</param>
         /// <param name="dateTime">制单时间</param>
-        public SaleHead(string saleHeadId, string saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, int userId,string userName, int state, int regionId, string regionName, DateTime dateTime)
+        public SaleHead(string saleHeadId, string saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, string userId,string userName, int state, int regionId, string regionName, DateTime dateTime)
         {
             SaleHeadId = saleHeadId;
             SaleTaskId = saleTaskId;
