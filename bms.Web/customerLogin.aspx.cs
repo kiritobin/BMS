@@ -56,7 +56,7 @@ namespace bms.Web
             if (op=="login")
             {
                 string account = Request["userName"];
-                Result row = userBll.isCustomer(int.Parse(account));
+                Result row = userBll.isCustomer(account);
                 if (row == Result.记录不存在)
                 {
                     Response.Write("该账号不存在");

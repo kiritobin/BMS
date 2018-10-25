@@ -40,7 +40,7 @@ namespace bms.Web.AccessMGT
                 string roleID = Request["role"];
                 region.RegionId = Convert.ToInt32(regionID);
                 role.RoleId = Convert.ToInt32(roleID);
-                user.UserId = Convert.ToInt32(account);
+                user.UserId = account;
                 user.UserName = name;
                 user.Pwd = rsa.Encrypt("000000");
                 user.ReginId = region;
@@ -66,7 +66,7 @@ namespace bms.Web.AccessMGT
             else if (op == "edit")
             {
                 string name = Request["name"];
-                int account = Convert.ToInt32(Request["account"]);
+                string account = Request["account"];
                 string regionID = Request["region"];
                 string roleID = Request["role"];
                 region.RegionId = Convert.ToInt32(regionID);
@@ -90,7 +90,7 @@ namespace bms.Web.AccessMGT
             else if (op == "reset")
             {
                 string account = Request["account"];
-                user.UserId = Convert.ToInt32(account);
+                user.UserId = account;
                 user.Pwd = rsa.Encrypt("000000");
                 Result row = userBll.UpdatePwd(user);
                 if (row == Result.更新成功)
@@ -106,7 +106,7 @@ namespace bms.Web.AccessMGT
             }
             else if (op == "del")
             {
-                int account = Convert.ToInt32(Request["account"]);
+                string account = Request["account"];
                 Result row = IsdeleteAdmin();
                 if (row == Result.记录不存在)
                 {

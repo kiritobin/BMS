@@ -229,14 +229,14 @@ namespace bms.Web.BasicInfor
             excel = excelToDt();
             //excel = npoi();
             int row = excel.Rows.Count;
-            long a;
+            string a;
             if (ViewState["i"].ToString().Length>=18)
             {
-                a = Convert.ToInt64(ViewState["i"].ToString().Substring(10, 8));
+                a = ViewState["i"].ToString().Substring(10, 8);
             }
             else
             {
-                a = 0;
+                a = "0";
             }
             DataTable dt = new DataTable();
             DataColumn dc = new DataColumn("书号");
@@ -245,9 +245,9 @@ namespace bms.Web.BasicInfor
             string bookId;
             for (int i = 0; i < row; i++)
             {
-                a++;
+                a=(Convert.ToInt32(a)+1).ToString();
                 ViewState["i"] = a;
-                string ss = a.ToString().PadLeft(8, '0');
+                string ss = a.PadLeft(8, '0');
                 string isbn = excel.Rows[i]["ISBN"].ToString();
                 int count = isbn.Length;
                 if (count >= 13) //大于13位书号

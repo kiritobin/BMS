@@ -7,7 +7,7 @@ namespace bms.Model
 {
     public class User
     {
-        private int userId;
+        private string userId;
         private string userName;
         private string pwd;
         private Region reginId;
@@ -15,7 +15,7 @@ namespace bms.Model
         /// <summary>
         /// 用户id
         /// </summary>
-        public int UserId
+        public string UserId
         {
             get
             {
@@ -101,7 +101,7 @@ namespace bms.Model
         /// <param name="pwd">密码</param>
         /// <param name="reginId">地区id</param>
         /// <param name="roleId">角色id</param>
-        public User(int userId, string userName, string pwd, Region reginId, Role roleId)
+        public User(string userId, string userName, string pwd, Region reginId, Role roleId)
         {
             this.UserId = userId;
             this.UserName = userName;
