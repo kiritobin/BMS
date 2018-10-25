@@ -43,7 +43,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet getMakeTime(string saleTaskId)
         {
-            string cmdText = "select sellOffHeadID,makingTime from T_SellOffHead where saleTaskId=@saleTaskId ORDER BY makingTime desc";
+            string cmdText = "select sellOffHeadID,makingTime from T_SellOffHead where saleTaskId=@saleTaskId ORDER BY sellOffHeadID desc";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
