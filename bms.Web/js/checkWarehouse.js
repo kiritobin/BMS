@@ -71,6 +71,7 @@ $("#print").click(function () {
             $("#table").append(data);
             var status = "";
             var LODOP = getLodop();
+            //LODOP.SET_LICENSES("", "3C5743518A25D4EEFBB1CCB8C6FF9A49", "C94CEE276DB2187AE6B65D56B3FC2848", "");
             var link = "";
             var style = "";
             LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);

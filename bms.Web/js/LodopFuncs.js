@@ -131,7 +131,7 @@ function getLodop(oOBJECT, oEMBED) {
             return LODOP;
         }
         //===如下空白位置适合调用统一功能(如注册语句、语言选择等):===
-
+        LODOP.SET_LICENSES("", "3C5743518A25D4EEFBB1CCB8C6FF9A49", "C94CEE276DB2187AE6B65D56B3FC2848", "");
         //=======================================================
         return LODOP;
     } catch (err) {
