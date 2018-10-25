@@ -61,7 +61,7 @@ namespace bms.Web.SalesMGT
             {
                 Discount();
             }
-            if(op == "end")
+            if(op == "stock")
             {
                 string headId = Request["headId"];
                 DataSet dsEnd = retailBll.GetRetail(headId);
@@ -94,62 +94,75 @@ namespace bms.Web.SalesMGT
                                 int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
                                 if (stockNum == 0)
                                 {
-                                    Response.Write("此书籍库存不足:|");
+                                    Response.Write("此书籍库存不足:|" + dr["bookName"]);
                                     Response.End();
-                                }
-                                else
-                                {
-                                    int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[j]["goodsShelvesId"]);
-                                    if (stockNum > number)
-                                    {
-                                        Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
-                                        if (stock == Result.更新失败)
-                                        {
-                                            Response.Write("更新失败:|");
-                                            Response.End();
-                                        }
-                                        else
-                                        {
-                                            Result end = retailBll.updateType(headId);
-                                            if (end == Result.更新成功)
-                                            {
-                                                Pay(headId);
-                                            }
-                                            else
-                                            {
-                                                Response.Write("更新失败:|");
-                                                Response.End();
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        count = number - stockNum;
-                                        Result stock = stockBll.update(0, goodsId, bookNum);
-                                        if (stock == Result.更新失败)
-                                        {
-                                            Response.Write("更新失败:|");
-                                            Response.End();
-                                        }
-                                        if (count == 0)
-                                        {
-                                            Result end = retailBll.updateType(headId);
-                                            if (end == Result.更新成功)
-                                            {
-                                                Pay(headId);
-                                            }
-                                            else
-                                            {
-                                                Response.Write("更新失败:|");
-                                                Response.End();
-                                            }
-                                        }
-                                    }
                                 }
                             }
                         }
                     }
                 }
+            }
+            if(op == "end")
+            {
+                string headId = Request["headId"];
+                DataSet dsEnd = retailBll.GetRetail(headId);
+                int row = dsEnd.Tables[0].Rows.Count;
+                for (int i = 0; i < row; i++)
+                {
+                    DataRow dr = dsEnd.Tables[0].Rows[i];
+                    string bookNum = dr["bookNum"].ToString();
+                    int number = Convert.ToInt32(dr["number"]);
+                    count = number;
+                    User user = (User)Session["user"];
+                    DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
+                    int rows = dsStock.Tables[0].Rows.Count;
+                    for (int j = 0; j < rows; j++)
+                    {
+                        number = count;
+                        int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
+                        int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[j]["goodsShelvesId"]);
+                        if (stockNum > number)
+                        {
+                            Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
+                            if (stock == Result.更新失败)
+                            {
+                                Response.Write("更新失败:|");
+                                Response.End();
+                            }
+                            else
+                            {
+                                Result end = retailBll.updateType(headId);
+                                if(end == Result.更新失败)
+                                {
+                                    Response.Write("更新失败:|");
+                                    Response.End();
+                                }
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            count = number - stockNum;
+                            Result stock = stockBll.update(0, goodsId, bookNum);
+                            if (stock == Result.更新失败)
+                            {
+                                Response.Write("更新失败:|");
+                                Response.End();
+                            }
+                            if (count == 0)
+                            {
+                                Result end = retailBll.updateType(headId);
+                                if (end == Result.更新失败)
+                                {
+                                    Response.Write("更新失败:|");
+                                    Response.End();
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                Pay(headId);
             }
         }
 
