@@ -351,9 +351,10 @@ $("#Settlement").click(function () {
                 var datas = succ.split(":|");
                 var data = datas[0];
                 if (data == "此书籍库存不足") {
+                    var succs = datas[1].split("|,");
                     swal({
-                        title: "此书籍库存不足",
-                        text: "书名:" + datas[1] + "库存不足",
+                        title: "书名:" + succs[0] + ",库存不足",
+                        text: "最大库存数量:" + succs[1],
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-warning",
                         type: "warning"
@@ -374,6 +375,8 @@ $("#Settlement").click(function () {
                         confirmButtonClass: "btn btn-warning",
                         type: "warning"
                     }).catch(swal.noop);
+                } else {
+                    $("#myModal2").modal("show");
                 }
             }
         });

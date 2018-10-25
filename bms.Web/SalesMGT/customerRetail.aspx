@@ -105,7 +105,7 @@
                                     <div class="text-white col-sm-6 text-right" id="scanning" data-toggle="modal" data-target="#myModal1">
                                         <button class="btn btn-success btn-lg btnText">扫  描</button>
                                     </div>
-                                    <div class="text-white col-sm-6 text-left" id="Settlement" data-toggle="modal" data-target="#myModal2">
+                                    <div class="text-white col-sm-6 text-left" id="Settlement" data-toggle="modal">
                                         <button class="btn btn-danger btn-lg btnText">收  银</button>
                                     </div>
                                 </div>
