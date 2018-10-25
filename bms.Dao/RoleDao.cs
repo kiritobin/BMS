@@ -33,7 +33,7 @@ namespace bms.Dao
             }
         }
 
-        public DataSet selectRole(int userId)
+        public DataSet selectRole(string userId)
         {
             string comText = "select roleId,roleName from V_User where userId=@userId";
             string[] param = { "@userId" };

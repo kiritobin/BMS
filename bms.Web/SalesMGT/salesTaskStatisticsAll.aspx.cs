@@ -26,7 +26,7 @@ namespace bms.Web.SalesMGT
         protected void Page_Load(object sender, EventArgs e)
         {
             user = (User)Session["user"];
-            int userId = user.UserId;
+            string userId = user.UserId;
             DataSet ds = robll.selectRole(userId);
             string roleName = ds.Tables[0].Rows[0]["roleName"].ToString();
             string time = DateTime.Now.ToString("yyyy-MM-dd");

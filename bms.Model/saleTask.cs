@@ -11,7 +11,7 @@ namespace bms.Model
     public class SaleTask
     {
         private string saleTaskId;
-        private int userId;
+        private string userId;
         private double defaultDiscount;
         private string defaultCopy;
         private int numberLimit;
@@ -32,7 +32,7 @@ namespace bms.Model
         /// <param name="totalPiceLimit">码洋上限</param>
         /// <param name="startTime">开始时间</param>
         /// <param name="finishTime">结束时间</param>
-        public SaleTask(string saleTaskId, int userId, double defaultDiscount, string defaultCopy, int numberLimit, double priceLimit, double totalPiceLimit, DateTime startTime, DateTime finishTime, Customer customer)
+        public SaleTask(string saleTaskId, string userId, double defaultDiscount, string defaultCopy, int numberLimit, double priceLimit, double totalPiceLimit, DateTime startTime, DateTime finishTime, Customer customer)
         {
             this.saleTaskId = saleTaskId;
             this.userId = userId;
@@ -63,7 +63,7 @@ namespace bms.Model
         /// <summary>
         /// 操作员Id
         /// </summary>
-        public int UserId
+        public string UserId
         {
             get
             {

@@ -36,7 +36,7 @@ namespace bms.Web.InventoryMGT
                 type = 2;
             }
             User user = (User)Session["user"];
-            int userId = user.UserId;
+            string userId = user.UserId;
             DataSet ds = roleBll.selectRole(userId);
             string roleName = ds.Tables[0].Rows[0]["roleName"].ToString();
             string time = DateTime.Now.ToString("yyyy-MM-dd");
