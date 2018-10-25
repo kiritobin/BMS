@@ -88,15 +88,16 @@ namespace bms.Web.SalesMGT
                         }
                         else
                         {
+                            int stockNum = 0, stockNums=0;
                             for (int j = 0; j < rows; j++)
                             {
-                                int count = number;
-                                int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
-                                if (stockNum == 0)
-                                {
-                                    Response.Write("此书籍库存不足:|" + dr["bookName"]);
-                                    Response.End();
-                                }
+                                stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
+                                stockNums = stockNums + stockNum;
+                            }
+                            if (stockNums < number)
+                            {
+                                Response.Write("此书籍库存不足:|" + dr["bookName"]+"|,"+ stockNums);
+                                Response.End();
                             }
                         }
                     }
