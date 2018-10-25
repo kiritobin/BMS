@@ -338,7 +338,45 @@ $("#Settlement").click(function () {
         $("#realEnd").text($("#real").text().trim());
         sessionStorage.setItem("total", $("#total").text().trim());
         sessionStorage.setItem("real", $("#real").text().trim());
-        sessionStorage.setItem("numberEnd", $("#number").text().trim())
+        sessionStorage.setItem("numberEnd", $("#number").text().trim());
+        $.ajax({
+            type: 'Post',
+            url: 'customerRetail.aspx',
+            data: {
+                headId: sessionStorage.getItem("retailId"),
+                op: 'stock'
+            },
+            dataType: 'text',
+            success: function (succ) {
+                var datas = succ.split(":|");
+                var data = datas[0];
+                if (data == "此书籍库存不足") {
+                    swal({
+                        title: "此书籍库存不足",
+                        text: "书名:" + datas[1] + "库存不足",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                } else if (data == "此书籍无库存") {
+                    swal({
+                        title: "书籍不存在",
+                        text: "书名:" + datas[1] + "不存在",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                } else if (data == "此单据不存在") {
+                    swal({
+                        title: "此单据不存在",
+                        text: "",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                }
+            }
+        });
     }
 })
 //收银折扣
