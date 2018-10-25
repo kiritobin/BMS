@@ -20,11 +20,11 @@ namespace bms.Dao
             string cmdText;
             if (state == 2)
             {
-                cmdText = "select retailHeadId,dateTime from T_RetailHead where state=2 ORDER BY dateTime desc";
+                cmdText = "select retailHeadId,dateTime from T_RetailHead where state=2 ORDER BY retailHeadId desc";
             }
             else
             {
-                cmdText = "select retailHeadId,dateTime from T_RetailHead where state=0 or state=1 ORDER BY dateTime desc";
+                cmdText = "select retailHeadId,dateTime from T_RetailHead where state=0 or state=1 ORDER BY retailHeadId desc";
             }
             string[] param = { "@state" };
             object[] values = { state };
