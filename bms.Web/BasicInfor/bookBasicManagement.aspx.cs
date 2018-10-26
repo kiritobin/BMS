@@ -587,7 +587,7 @@ namespace bms.Web.BasicInfor
                 {
                     Result reg = bookbll.updateBookNum(s); //更新书号
                 }
-
+                Session["path"] = null; //清除路径session
                 int cf = row - counts;
                 if (counts==0)
                 {

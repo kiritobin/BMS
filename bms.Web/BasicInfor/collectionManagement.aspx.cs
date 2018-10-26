@@ -34,7 +34,7 @@ namespace bms.Web.CustomerMGT
             custom = Request["custom"];
             string action = Request["action"];
             string op = Request["op"];
-            if (op== "change"||op=="paging")
+            if (op == "change" || op == "paging")
             {
                 getData();
             }
@@ -250,8 +250,6 @@ namespace bms.Web.CustomerMGT
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
-            
-            
             //生成table
             StringBuilder sb = new StringBuilder();
             int count = ds.Tables[0].Rows.Count;

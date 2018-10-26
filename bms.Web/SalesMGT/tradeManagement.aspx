@@ -403,7 +403,7 @@
                                 <tr>
                                     <td class="text-right"><span>请选择客户:</span></td>
                                     <td>
-                                        <select id="saleCustmer">
+                                        <select id="saleCustmer" class="selectpicker" data-live-search="true" title="请选择客户">
                                             <option value="">请选择客户</option>
                                             <%for (int i = 0; i < customerds.Tables[0].Rows.Count; i++)
                                                 {%>
@@ -477,6 +477,13 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/tradeManagement.js"></script>
     <script src="../js/public.js"></script>
+    <script>
+        saleCustmer
+        $("#saleCustmer").selectpicker({
+            width: 180,
+            height:25
+        })
+    </script>
 </body>
 
 </html>

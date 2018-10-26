@@ -202,6 +202,37 @@ namespace bms.Dao
             return row;
         }
         /// <summary>
+        /// 根据销售单头ID真删除销售单头包括单体
+        /// </summary>
+        /// <param name="saleHeadId">销售单头ID</param>
+        /// <returns>0不成功</returns>
+        public int realDeleteHeadAndMon(string saleTaskId, string saleHeadId)
+        {
+            string cmdMon = "delete from t_salemonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            String[] param1 = { "@saleTaskId", "@saleHeadId" };
+            String[] values2 = { saleTaskId, saleHeadId };
+            int monrow = db.ExecuteNoneQuery(cmdMon, param1, values2);
+            if (monrow != 0)
+            {
+                string cmdText = "delete from T_SaleHead where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+                String[] param = { "@saleTaskId", "@saleHeadId" };
+                String[] values = { saleTaskId, saleHeadId };
+                int headrow = db.ExecuteNoneQuery(cmdText, param, values);
+                if (monrow != 0)
+                {
+                    return headrow;
+                }
+                else
+                {
+                    return headrow = 0;
+                }
+            }
+            else
+            {
+                return monrow = 0;
+            }
+        }
+        /// <summary>
         /// 更新单头 总数量 品种数，码洋，实洋
         /// </summary>
         /// <param name="salehead">单头实体</param>

@@ -145,9 +145,9 @@ namespace bms.Web.SalesMGT
                 if (row > 0)
                 {
                     string state = salemonbll.getsaleHeadState(SaleHeadId, saleId);
-                    if (state == "0" || state == "1")
+                    if (state == "0")
                     {
-                        Result res = salemonbll.updateHeadstate(saleId, SaleHeadId, 3);
+                        Result res = salemonbll.updateHeadstate(saleId, SaleHeadId, 1);
                         if (res == Result.更新成功)
                         {
                             Response.Write("更新成功");
@@ -303,60 +303,97 @@ namespace bms.Web.SalesMGT
             }
             else
             {
-                BookBasicBll Bookbll = new BookBasicBll();
-                BookBasicData book = new BookBasicData();
-                book = Bookbll.SelectById(bookNum);
-                string saleHeadId = SaleHeadId;
-                //Session["saleheadId"].ToString();
-                int count = salemonbll.SelectBySaleHeadId(saleHeadId);
-                if (count == 0)
+                int RegionId = user.ReginId.RegionId;
+                DataSet stockbook = stockbll.SelectByBookNum(bookNum, RegionId);
+                allstockNum = 0;
+                for (int h = 0; h < stockbook.Tables[0].Rows.Count; h++)
                 {
-                    saleIdmonomerId = 1;
-                    salemonbll.updateHeadstate(saleId, SaleHeadId, saleIdmonomerId);
+                    allstockNum += Convert.ToInt32(stockbook.Tables[0].Rows[h]["stockNum"]);
                 }
-                else
+                if (number > allstockNum)
                 {
-                    saleIdmonomerId = count + 1;
-                }
-                int price = Convert.ToInt32(book.Price);
-                int totalPrice = price * number;
-                double realPrice = totalPrice * (disCount / 100);
-                DateTime Time = DateTime.Now.ToLocalTime();
-                SaleMonomer newSalemon = new SaleMonomer()
-                {
-                    AlreadyBought = 0,
-                    SaleIdMonomerId = saleIdmonomerId,
-                    BookNum = bookNum,
-                    ISBN1 = bookISBN,
-                    SaleHeadId = saleHeadId,
-                    Number = number,
-                    UnitPrice = price,
-                    TotalPrice = totalPrice,
-                    RealPrice = realPrice,
-                    RealDiscount = disCount,
-                    Datetime = Time,
-                    SaleTaskId = saleId
-                };
-                Result res = salemonbll.Insert(newSalemon);
-                if (res == Result.添加成功)
-                {
-                    msg.DataTable = getData();
-                    msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' type='number'/></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
-                    msg.AllKinds = allkinds.ToString();
-                    msg.Number = allnumber.ToString();
-                    msg.AlltotalPrice = alltotalprice.ToString();
-                    msg.AllrealPrice = allreadprice.ToString();
-                    msg.Messege = "添加成功";
+                    msg.Messege = "库存不足，当前最大库存为：" + allstockNum;
                     Response.Write(ObjectToJson(msg));
                     Response.End();
                 }
                 else
                 {
-                    msg.Messege = "添加失败";
-                    Response.Write(ObjectToJson(msg));
-                    Response.End();
+                    BookBasicBll Bookbll = new BookBasicBll();
+                    BookBasicData book = new BookBasicData();
+                    book = Bookbll.SelectById(bookNum);
+                    string saleHeadId = SaleHeadId;
+                    int count = salemonbll.SelectBySaleHeadId(saleHeadId);
+                    if (count == 0)
+                    {
+                        saleIdmonomerId = 1;
+                        salemonbll.updateHeadstate(saleId, SaleHeadId, saleIdmonomerId);
+                    }
+                    else
+                    {
+                        saleIdmonomerId = count + 1;
+                    }
+                    int price = Convert.ToInt32(book.Price);
+                    int totalPrice = price * number;
+                    double realPrice = totalPrice * (disCount / 100);
+                    DateTime Time = DateTime.Now.ToLocalTime();
+                    SaleMonomer newSalemon = new SaleMonomer()
+                    {
+                        AlreadyBought = 0,
+                        SaleIdMonomerId = saleIdmonomerId,
+                        BookNum = bookNum,
+                        ISBN1 = bookISBN,
+                        SaleHeadId = saleHeadId,
+                        Number = number,
+                        UnitPrice = price,
+                        TotalPrice = totalPrice,
+                        RealPrice = realPrice,
+                        RealDiscount = disCount,
+                        Datetime = Time,
+                        SaleTaskId = saleId
+                    };
+
+                    for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
+                    {
+                        int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
+                        int goodsId = Convert.ToInt32(stockbook.Tables[0].Rows[j]["goodsShelvesId"]);
+                        if (number <= stockNum)
+                        {
+                            int stockcount = stockNum - number;
+                            stockbll.update(stockcount, goodsId, bookNum);
+
+                        }
+                        else
+                        {
+                            number = number - stockNum;
+                            stockbll.update(0, goodsId, bookNum);
+                            if (number == 0)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    Result res = salemonbll.Insert(newSalemon);
+                    if (res == Result.添加成功)
+                    {
+                        msg.DataTable = getData();
+                        msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' type='number'/></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
+                        msg.AllKinds = allkinds.ToString();
+                        msg.Number = allnumber.ToString();
+                        msg.AlltotalPrice = alltotalprice.ToString();
+                        msg.AllrealPrice = allreadprice.ToString();
+                        msg.Messege = "添加成功";
+                        Response.Write(ObjectToJson(msg));
+                        Response.End();
+                    }
+                    else
+                    {
+                        msg.Messege = "添加失败";
+                        Response.Write(ObjectToJson(msg));
+                        Response.End();
+                    }
                 }
             }
+
         }
         /// <summary>
         /// 对象转json
