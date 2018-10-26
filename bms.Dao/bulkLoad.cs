@@ -45,7 +45,11 @@ namespace bms.Dao
                 if (tran != null) tran.Rollback();
                 throw ex;
             }
-            conn.Close();
+            finally
+            {
+                conn.Dispose();
+                conn.Close();
+            }
             File.Delete(tmpPath);
             return insertCount;
         }
