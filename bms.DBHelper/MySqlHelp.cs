@@ -27,9 +27,16 @@ namespace bms.DBHelper
         /// </summary>
         private void OpenConn()
         {
-            if (sqlConn != null && sqlConn.State == ConnectionState.Closed)
+            try
             {
-                sqlConn.Open();
+                if (sqlConn != null && sqlConn.State == ConnectionState.Closed)
+                {
+                    sqlConn.Open();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
