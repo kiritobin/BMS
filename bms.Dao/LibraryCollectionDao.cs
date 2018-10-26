@@ -85,7 +85,7 @@ namespace bms.Dao
         public DataSet getCustomer()
         {
             MySqlHelp db = new MySqlHelp();
-            string comText = "select customerName,customerID from T_Customer";
+            string comText = "select customerName,customerID from T_Customer order by customerName";
             DataSet ds = db.FillDataSet(comText, null, null);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {

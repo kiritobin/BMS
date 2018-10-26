@@ -632,6 +632,7 @@ $("#btnSettle").click(function () {
                     $("#settleClose").hide();
                     $("#preRecord").show();
                     $("#btnClose").show();
+                    //window.location.reload();
                 }
             }
         })
