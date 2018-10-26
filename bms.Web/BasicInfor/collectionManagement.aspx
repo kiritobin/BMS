@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
+     <link rel="stylesheet" href="../css/bootstrap-select.css" />
     <link rel="stylesheet" href="../css/pagination.css" />
 </head>
 
@@ -359,7 +360,7 @@
                             </table>
                             <div class="text-center">
                                 <span>请选择客户:</span>
-                                <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="model-select-custom" style="float: left;">
+                                <select class="selectpicker" data-live-search="true" title="请选择客户" data-style="btn-sm" id="model-select-custom" style="float: left;">
                                     <option value="">请选择客户</option>
                                     <%for (int j = 0; j < dsCustom.Tables[0].Rows.Count; j++)
                                         { %>
@@ -435,6 +436,12 @@
             </footer>
         </div>
     </div>
+    <script>
+
+        $('.selectpicker').selectpicker({
+            'selectedText': 'cat'
+        });
+    </script>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>

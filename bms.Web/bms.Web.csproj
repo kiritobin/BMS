@@ -92,6 +92,7 @@
     <Content Include="chrome\69.0.3497.92_chrome_installer.exe" />
     <Content Include="chrome\chromedev_x86-v71.0.3573.0.exe" />
     <Content Include="chrome\ChromeDownload.html" />
+    <Content Include="css\bootstrap-select.css" />
     <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.min.css" />
