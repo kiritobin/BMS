@@ -539,7 +539,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet GroupCount()
         {
-            string sql = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from T_SaleMonomer GROUP BY bookNum ORDER BY sum(number) desc LIMIT 0,10";
+            string sql = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from T_SaleMonomer GROUP BY bookNum ORDER BY sum(number) desc";
             DataSet ds = db.FillDataSet(sql, null, null);
             return ds;
         }
@@ -549,7 +549,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet groupCustomer()
         {
-            string sql = "select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice from v_salemonomer GROUP BY customerID ORDER BY allPrice desc";
+            string sql = "select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice from v_salemonomer GROUP BY customerID ORDER BY allPrice desc LIMIT 0,10";
             DataSet ds = db.FillDataSet(sql, null, null);
             return ds;
         }
