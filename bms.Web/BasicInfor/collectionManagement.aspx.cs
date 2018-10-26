@@ -27,10 +27,17 @@ namespace bms.Web.CustomerMGT
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
-            getData();
+            //获取地区下拉框数据
+            dsCustom = libraryCollectionBll.getCustomer();
+            
+            //getData();
             custom = Request["custom"];
             string action = Request["action"];
             string op = Request["op"];
+            if (op== "change"||op=="paging")
+            {
+                getData();
+            }
             if (action=="import")
             {
                 DataTable dtInsert = new DataTable();
@@ -243,8 +250,7 @@ namespace bms.Web.CustomerMGT
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
-            //获取地区下拉框数据
-            dsCustom = libraryCollectionBll.getCustomer();
+            
             
             //生成table
             StringBuilder sb = new StringBuilder();
@@ -262,7 +268,7 @@ namespace bms.Web.CustomerMGT
             }
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
-            if (op == "paging")
+            if (op == "paging"||op=="change")
             {
                 Response.Write(sb.ToString());
                 Response.End();
