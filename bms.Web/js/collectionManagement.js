@@ -49,7 +49,7 @@
                 book: book,
                 isbn: isbn,
                 custom: custom,
-                op: "paging"
+                op: "change"
             },
             dataType: 'text',
             success: function (data) {
