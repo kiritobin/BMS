@@ -281,14 +281,14 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookSearch" placeholder="书名查询">
+                                                <input type="text" value=""  id="bookSearch" placeholder="书名查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="isbnSearch" placeholder="ISBN号查询">
+                                                <input type="text" value=""  id="isbnSearch" placeholder="ISBN号查询">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <%--<input type="text" value="" class="searchOne" id="cusSearch" placeholder="客户查询">--%>
-                                                <select class="modal_select" id="cusSearch">
+                                                <select class="modal_select selectpicker" data-live-search="true" id="cusSearch">
                                                     <option value="">请选择客户</option>
                                                     <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
                                                         {%>
@@ -297,7 +297,7 @@
                                                 </select>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" id="btn-search">查询</button>
+                                                <button class="btn btn-info" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="" data-toggle="modal" data-target="#myModal">导入</button>
