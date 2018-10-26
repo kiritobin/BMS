@@ -55,6 +55,10 @@ namespace bms.Web.SalesMGT
                     Response.End();
                 }
             }
+            //if (op == "saleback")
+            //{
+            //    saleback();
+            //}
             if (op == "Settlement")
             {
                 string salehead = Request["ID"];
@@ -187,6 +191,11 @@ namespace bms.Web.SalesMGT
                         Response.Write("删除成功");
                         Response.End();
                     }
+                    else
+                    {
+                        Response.Write("删除失败");
+                        Response.End();
+                    }
                 }
                 else if (state == 1)
                 {
@@ -198,6 +207,20 @@ namespace bms.Web.SalesMGT
                     Response.Write("单据完成");
                     Response.End();
                 }
+                else if (state == 3)
+                {
+                    Result result = salemonbll.realDeleteHeadAndMon(saleTaskid, salehead);
+                    if (result == Result.删除成功)
+                    {
+                        Response.Write("删除成功");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("删除失败");
+                        Response.End();
+                    }
+                }
                 else
                 {
                     Response.Write("删除失败");
@@ -205,6 +228,29 @@ namespace bms.Web.SalesMGT
                 }
             }
         }
+        /// <summary>
+        /// 单据销退
+        /// </summary>
+        //public void saleback()
+        //{
+        //    string saleHeadId = Request["ID"];
+        //    string saleTaskId = Request["taskId"];
+        //    string saleHeadstate = salemonbll.getsaleHeadState(saleHeadId, saleTaskId);
+        //    if (saleHeadstate == "3")
+        //    {
+        //        Result res = salemonbll.updateHeadstate(saleTaskId, saleHeadId, 2);
+        //        if(res==Result.更新成功)
+        //        {
+
+
+        //        }
+        //    }
+        //    else
+        //    {
+
+        //    }
+        //}
+
         /// <summary>
         /// 结算整个销售任务
         /// </summary>
@@ -495,10 +541,13 @@ namespace bms.Web.SalesMGT
                 {
                     state = "单据已完成";
                 }
-                else if (state == "3")
-                {
-                    state = "未结算";
+                else {
+                    state = "采集中";
                 }
+                //else if (state == "3")
+                //{
+                //    state = "未结算";
+                //}
                 strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["saleHeadId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
                 strb.Append("<td>" + state + "</td>");
@@ -509,17 +558,17 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allRealPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
                 strb.Append("<td>");
-                if (state == "未结算")
-                {
-                    strb.Append("<button class='btn btn-success btn-sm btn_succ'>结算</button>");
-                }
+                //if (state == "未结算")
+                //{
+                //    strb.Append("<button class='btn btn-success btn-sm btn_succ'>结算</button>");
+                //    //strb.Append("<button class='btn btn-success btn-sm btn_back'>销退</button>");
+                //}
                 if (state == "新建单据" || state == "采集中")
                 {
                     strb.Append("<button class='btn btn-success btn-sm add'><i class='fa fa-plus fa-lg'></i></button>");
                 }
                 strb.Append("<button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button>");
                 strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + "</td></tr>");
-
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];

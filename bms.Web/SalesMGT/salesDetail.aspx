@@ -48,12 +48,12 @@
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-warning btn-sm" id="back">返回</button>
                                     </div>
-                                    <%--<div class="btn-group" role="group">
+                                    <div class="btn-group" role="group">
                                         <%if (type == "addsale")
                                             {%>
                                         <button class="btn btn-info btn-sm" id="success">单据完成</button>
                                         <%} %>
-                                    </div>--%>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
