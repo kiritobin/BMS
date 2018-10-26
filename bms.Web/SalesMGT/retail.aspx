@@ -64,7 +64,7 @@
                                             <td style="width:20%">
                                                 <nobr>商品数量</nobr>
                                             </td>
-                                            <td style="display: none">
+                                            <td>
                                                 <nobr>折扣</nobr>
                                             </td>
                                             <td style="width:10%">

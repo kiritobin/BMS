@@ -452,6 +452,7 @@ $("#threePay").click(function () {
         discount = $("#discountEnd").val("");
         $("#discountEnd").focus();
     }
+    $("#change").text("");
     $("#copeEnd").val($("#realEnd").text().trim());
     sessionStorage.setItem("realPrice", $("#realEnd").text().trim());
     $("#copeEnd").focus();
@@ -499,23 +500,24 @@ $("#btnSettle").click(function () {
             type: "warning"
         }).catch(swal.noop);
     }
-    else if (parseFloat(discount) <= 0) {
-        swal({
-            title: "折扣不能为0",
-            text: "",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    } else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
-        swal({
-            title: "实付金额不能为空或0",
-            text: "",
-            buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
-            type: "warning"
-        }).catch(swal.noop);
-    }
+    //else if (parseFloat(discount) <= 0) {
+    //    swal({
+    //        title: "折扣不能为0",
+    //        text: "",
+    //        buttonsStyling: false,
+    //        confirmButtonClass: "btn btn-warning",
+    //        type: "warning"
+    //    }).catch(swal.noop);
+        //}
+    //else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
+    //    swal({
+    //        title: "实付金额不能为空或0",
+    //        text: "",
+    //        buttonsStyling: false,
+    //        confirmButtonClass: "btn btn-warning",
+    //        type: "warning"
+    //    }).catch(swal.noop);
+    //}
     else {
         if (discount == "") {
             $(".discount").remove();
@@ -630,6 +632,7 @@ $("#btnSettle").click(function () {
                     $("#settleClose").hide();
                     $("#preRecord").show();
                     $("#btnClose").show();
+                    //window.location.reload();
                 }
             }
         })
