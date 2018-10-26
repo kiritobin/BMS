@@ -14,8 +14,8 @@ namespace bms.Dao
     {
         public int BulkInsert(DataTable table)
         {
-            //string connectionString = ConfigurationManager.ConnectionStrings["sqlConn"].ConnectionString;
-            string connectionString = "server=localhost;database=bms;uid=bms;pwd=bms123;Convert Zero Datetime=True;Allow Zero Datetime=True;CharSet=utf8";
+            string connectionString = ConfigurationManager.ConnectionStrings["sqlConn"].ConnectionString;
+            //string connectionString = "server=localhost;database=bms;uid=bms;pwd=bms123;Convert Zero Datetime=True;Allow Zero Datetime=True;CharSet=utf8";
             if (string.IsNullOrEmpty(table.TableName)) throw new Exception("请给DataTable的TableName属性附上表名称");
             if (table.Rows.Count == 0) return 0;
             int insertCount = 0;
