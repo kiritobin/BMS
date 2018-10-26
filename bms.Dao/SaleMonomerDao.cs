@@ -287,7 +287,7 @@ namespace bms.Dao
         /// <returns>返回数据集</returns>
         public DataSet SelectBookRanking()
         {
-            string sql = "select bookNum1,bookName,unitPrice,allNum,allTotalPrice from V_BookRanking limit 0,10";
+            string sql = "select bookNum1,bookName,unitPrice,allNum,allTotalPrice,state from V_BookRanking ORDER BY allTotalPrice desc";
             DataSet ds = db.FillDataSet(sql, null, null);
             return ds;
         }
@@ -537,9 +537,38 @@ namespace bms.Dao
         /// 团采统计
         /// </summary>
         /// <returns></returns>
-        public DataSet GroupCount()
+        public int GroupCount()
         {
-            string sql = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from T_SaleMonomer GROUP BY bookNum ORDER BY allPrice desc";
+            //string sql = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from T_SaleMonomer GROUP BY bookNum ORDER BY allPrice desc";
+            //DataSet ds = db.FillDataSet(sql, null, null);
+            //return ds;
+            string cmdText = "SELECT A.number as number,a.bookNum  from t_salemonomer as A,t_salehead as B where a.saleHeadId = b.saleHeadId and  (b.state=1 or b.state=2)";
+            float sltemp = 0;
+            int zl = 0;
+            DataTable dtcount = db.getkinds(cmdText, null, null);
+            DataView dv = new DataView(dtcount);
+            DataTable dttemp = dv.ToTable(true, "bookNum");
+            for (int i = 0; i < dttemp.Rows.Count; i++)
+            {
+                string bn = dttemp.Rows[i]["bookNum"].ToString();
+                DataRow[] dr = dtcount.Select("bookNum='" + bn + "'");
+                for (int j = 0; j < dr.Length; j++)
+                {
+                    float count = float.Parse(dr[j]["number"].ToString().Trim());
+                    sltemp += float.Parse(dr[j]["number"].ToString().Trim());
+                }
+                if (sltemp > 0)
+                {
+                    zl++;
+                    sltemp = 0;
+                }
+            }
+            return zl;
+        }
+
+        public DataSet msg()
+        {
+            string sql = "SELECT sum(A.totalPrice) as totalPrice,SUm(A.number) as number from t_salemonomer as A,t_salehead as b where a.saleHeadId=b.saleHeadId and (state=1 or state=2)";
             DataSet ds = db.FillDataSet(sql, null, null);
             return ds;
         }
@@ -549,7 +578,8 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet groupCustomer()
         {
-            string sql = "select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice from v_salemonomer GROUP BY customerID ORDER BY allPrice desc LIMIT 0,10";
+            //string sql = "select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice from v_salemonomer GROUP BY customerID ORDER BY allPrice desc LIMIT 0,10";
+            string sql = "SELECT sum(A.totalPrice) as totalPrice,D.customerName as customerName,sum(A.number) as number from t_salemonomer as A,t_salehead as B,t_saletask as C,t_customer as D where a.saleHeadId = b.saleHeadId and b.saleTaskId=c.saleTaskId and c.customerID=d.customerID and (b.state=1 or b.state=2) group by D.customerName ORDER BY totalPrice desc LIMIT 0,10";
             DataSet ds = db.FillDataSet(sql, null, null);
             return ds;
         }
@@ -565,7 +595,7 @@ namespace bms.Dao
         //}
         public int customerKinds(string customerName)
         {
-            string cmdText = "select bookNum,number,customerName from v_salemonomer where customerName=@customerName";
+            string cmdText = "SELECT A.number as number,a.bookNum  from t_salemonomer as A,t_salehead as B,t_saletask as C,t_customer as D where a.saleHeadId = b.saleHeadId and b.saleTaskId=c.saleTaskId and c.customerID=d.customerID and (b.state=1 or b.state=2) and D.customerName=@customerName";
             string[] param = { "@customerName" };
             object[] values = { customerName };
             float sltemp = 0;

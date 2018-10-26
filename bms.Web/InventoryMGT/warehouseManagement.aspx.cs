@@ -162,7 +162,7 @@ namespace bms.Web.BasicInfor
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,regionName,userName,allBillCount,allTotalPrice,allRealPrice,time";
+            tbd.StrColumnlist = "singleHeadId,regionName,userName,allBillCount,allTotalPrice,allRealPrice,time,jsRegionId";
             tbd.IntPageSize = pageSize;
             if (roleName == "超级管理员")
             {
@@ -196,7 +196,7 @@ namespace bms.Web.BasicInfor
                 }
                 else
                 {
-                    sb.Append("<a href='addWarehouse.aspx?sId=" + dr["singleHeadId"].ToString() + "'><button class='btn btn-success btn-sm'><i class='fa fa-plus fa-lg'></i></button></a>");
+                    sb.Append("<a href='addWarehouse.aspx?sId=" + dr["singleHeadId"].ToString() + "&&jsRegionId=" + dr["jsRegionId"].ToString() + "'><button class='btn btn-success btn-sm'><i class='fa fa-plus fa-lg'></i></button></a>");
                     sb.Append("<input type='hidden' value='" + dr["singleHeadId"].ToString() + "'/>");
                     sb.Append("<button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button>");
                 }

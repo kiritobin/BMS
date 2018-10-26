@@ -383,10 +383,15 @@ namespace bms.Bll
         /// 团采排行
         /// </summary>
         /// <returns></returns>
-        public DataSet GroupCount()
+        public int GroupCount()
         {
-            DataSet ds = SaleMonomerdao.GroupCount();
+            int ds = SaleMonomerdao.GroupCount();
             return ds;
+        }
+
+        public DataSet msg()
+        {
+            return SaleMonomerdao.msg();
         }
 
         /// <summary>

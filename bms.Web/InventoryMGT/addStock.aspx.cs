@@ -614,7 +614,7 @@ namespace bms.Web.InventoryMGT
                             }
                             else
                             {
-                                int rows = stockBll.getStockNum(drow["书号"].ToString(), goodsShelf, user.ReginId.RegionId);
+                                //int rows = stockBll.getStockNum(drow["书号"].ToString(), goodsShelf, user.ReginId.RegionId);
                                 //result = stockBll.update(Convert.ToInt32(drow["商品数量"]) + rows, goodsShelf, drow["书号"].ToString());
                                 //if (result == Result.更新失败)
                                 //{

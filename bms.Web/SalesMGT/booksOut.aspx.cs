@@ -42,13 +42,21 @@ namespace bms.Web.SalesMGT
         }
         public void groupCount()
         {
-            groupDs = smBll.GroupCount();
-            kindsNum = groupDs.Tables[0].Rows.Count;
-            for(int i = 0; i < kindsNum; i++)
+            kindsNum = smBll.GroupCount();
+
+            DataSet msgds = smBll.msg();
+            if (msgds.Tables[0].Rows.Count > 0)
             {
-                allCount += Convert.ToInt32(groupDs.Tables[0].Rows[i]["allCount"].ToString());
-                allPrice += Convert.ToDouble(groupDs.Tables[0].Rows[i]["allPrice"].ToString());
+                allCount = int.Parse(msgds.Tables[0].Rows[0]["number"].ToString());
+                allPrice = Convert.ToDouble(msgds.Tables[0].Rows[0]["totalPrice"].ToString());
             }
+            //kindsNum = smBll.GroupCount();
+            // = groupDs.Tables[0].Rows.Count;
+            //for(int i = 0; i < kindsNum; i++)
+            //{
+            //    allCount += Convert.ToInt32(groupDs.Tables[0].Rows[i]["allCount"].ToString());
+            //    allPrice += Convert.ToDouble(groupDs.Tables[0].Rows[i]["allPrice"].ToString());
+            //}
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿ using bms.Bll;
+﻿using bms.Bll;
 using bms.Model;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace bms.Web.SalesMGT
     {
         public int totalCount, intPageCount, pageSize = 10, kindsNum, allCount;
         public double allPrice;
-        public DataSet ds,groupDs;
+        public DataSet ds, groupDs;
         SaleTaskBll salebll = new SaleTaskBll();
         SaleMonomerBll smBll = new SaleMonomerBll();
         protected void Page_Load(object sender, EventArgs e)
@@ -65,21 +65,28 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + custName + "</td>");
                 kinds = smBll.customerKinds(custName);
                 strb.Append("<td>" + kinds + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allCount"].ToString() + "</td>");
-                strb.Append("<td>" + double.Parse(ds.Tables[0].Rows[i]["allPrice"].ToString()).ToString("F2") + "</td></tr>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");
+                strb.Append("<td>" + double.Parse(ds.Tables[0].Rows[i]["totalPrice"].ToString()).ToString("F2") + "</td></tr>");
             }
             strb.Append("</tbody>");
             return strb.ToString();
         }
         public void groupCount()
         {
-            groupDs = smBll.GroupCount();
-            kindsNum = groupDs.Tables[0].Rows.Count;
-            for (int i = 0; i < kindsNum; i++)
+            kindsNum = smBll.GroupCount();
+
+            DataSet msgds = smBll.msg();
+            if (msgds.Tables[0].Rows.Count > 0)
             {
-                allCount += Convert.ToInt32(groupDs.Tables[0].Rows[i]["allCount"].ToString());
-                allPrice += Convert.ToDouble(groupDs.Tables[0].Rows[i]["allPrice"].ToString());
+                allCount = int.Parse(msgds.Tables[0].Rows[0]["number"].ToString());
+                allPrice = Convert.ToDouble(msgds.Tables[0].Rows[0]["totalPrice"].ToString());
             }
+            //kindsNum = groupDs.Tables[0].Rows.Count;
+            //for (int i = 0; i < kindsNum; i++)
+            //{
+            //    allCount += Convert.ToInt32(groupDs.Tables[0].Rows[i]["allCount"].ToString());
+            //    allPrice += Convert.ToDouble(groupDs.Tables[0].Rows[i]["allPrice"].ToString());
+            //}
         }
     }
 }
