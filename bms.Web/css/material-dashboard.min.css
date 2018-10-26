@@ -10697,8 +10697,9 @@ textarea {
             background-color: #ff9800;
             border-color: #ff9800;
             box-shadow: 0 2px 2px 0 rgba(255,152,0,.14), 0 3px 1px -2px rgba(255,152,0,.2), 0 1px 5px 0 rgba(255,152,0,.12);
-            color:white;
+            color: white;
         }
+
 .pagination.pagination-info > .page-item.active > a, .pagination.pagination-info > .page-item.active > a:focus, .pagination.pagination-info > .page-item.active > a:hover, .pagination.pagination-info > .page-item.active > span, .pagination.pagination-info > .page-item.active > span:focus, .pagination.pagination-info > .page-item.active > span:hover {
     background-color: #00bcd4;
     border-color: #00bcd4;
@@ -21471,7 +21472,6 @@ select.bs-select-hidden, select.selectpicker {
     width: 100%;
     text-align: left;
     font-size: 14px;
-    height: 35px !important;
 }
 
 .bootstrap-select .dropdown-toggle .filter-option-inner {
