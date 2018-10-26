@@ -297,7 +297,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet getSaleTaskStatistics(string saleTaskId)
         {
-            string comText = "select sum(number) as number,sum(totalPrice) as totalPrice,sum(realPrice) as realPrice from T_SaleMonomer where saleTaskId=@saleTaskId";
+            string comText = "SELECT sum(c.number) as number,sum(c.totalPrice) as totalPrice,sum(c.realPrice) as realPrice from t_saletask as A ,t_salehead as B, t_salemonomer as C where a.saleTaskId=b.saleTaskId and b.saleHeadId=c.saleHeadId and a.saleTaskId=c.saleTaskId and c.saleTaskId=@saleTaskId";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             DataSet ds = db.FillDataSet(comText, param, values);
@@ -345,7 +345,7 @@ namespace bms.Dao
         /// <returns></returns>
         public int getkindsBySaleTaskId(string saleTaskId)
         {
-            string cmdText = "select bookNum,number from V_SaleMonomer where saleTaskId=@saleTaskId";
+            string cmdText = "SELECT c.bookNum,c.number from t_saletask as A ,t_salehead as B, t_salemonomer as C where a.saleTaskId=b.saleTaskId and b.saleHeadId=c.saleHeadId and a.saleTaskId=c.saleTaskId and c.saleTaskId=@saleTaskId";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             float sltemp = 0;
@@ -447,7 +447,7 @@ namespace bms.Dao
         ///根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋 地区
         /// </summary>
         /// <returns>数据集</returns>
-        public DataSet getAllpriceRegion(string dateTime ,int regionId)
+        public DataSet getAllpriceRegion(string dateTime, int regionId)
         {
             string cmdText = "select sum(number) as number, sum(realPrice) as realPrice, sum(totalPrice) as totalPrice from V_SaleMonomer where dateTime like '" + dateTime + "%' and regionId=@regionId";
             string[] param = { "@regionId" };
@@ -459,7 +459,7 @@ namespace bms.Dao
         /// 统计当天种数
         /// </summary>
         /// <returns></returns>
-        public int getAllkindsRegion(string dateTime,int regionId)
+        public int getAllkindsRegion(string dateTime, int regionId)
         {
             string cmdText = "select bookNum,number from V_SaleMonomer where dateTime like '" + dateTime + "%' and regionId=@regionId";
             string[] param = { "@regionId" };

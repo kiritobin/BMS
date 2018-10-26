@@ -411,7 +411,7 @@ namespace bms.Dao
             }
             else
             {
-                return sum = Convert.ToInt32(sumstring);
+                return sum = double.Parse(sumstring);
             }
         }
         /// <summary>
