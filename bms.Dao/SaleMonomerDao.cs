@@ -539,7 +539,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet GroupCount()
         {
-            string sql = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from T_SaleMonomer GROUP BY bookNum ORDER BY sum(number) desc";
+            string sql = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from T_SaleMonomer GROUP BY bookNum ORDER BY allPrice desc";
             DataSet ds = db.FillDataSet(sql, null, null);
             return ds;
         }
