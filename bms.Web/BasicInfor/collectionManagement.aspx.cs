@@ -45,16 +45,16 @@ namespace bms.Web.CustomerMGT
                 string m = minute.ToString("0.00");
                 if (a > 0)
                 {
-                    int cf = row - a;
+                    //int cf = row - a;
                     Session["path"] = null; //清除路径session
                     //Response.Write("导入成功，总数据有" + row+"条，共导入"+a+"条数据"+"，共用时："+ m+"分钟");
-                    Response.Write("导入成功，共导入数据" + a + "条数据，共有重复数据" + cf + "条");
+                    Response.Write("导入成功，共导入数据" + a + "条数据");
                     Response.End();
                 }
                 else
                 {
                     //Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据");
-                    Response.Write("导入失败，可能重复导入");
+                    Response.Write("导入失败，远程服务器未响应");
                     Response.End();
                 }
             }

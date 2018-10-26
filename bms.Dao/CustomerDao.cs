@@ -14,7 +14,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet select()
         {
-            string cmdText = "select customerID,customerName from T_Customer";
+            string cmdText = "select customerID,customerName from T_Customer order by customerName";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if(ds != null || ds.Tables[0].Rows.Count > 0)
             {
