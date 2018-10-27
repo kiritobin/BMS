@@ -22,6 +22,7 @@ namespace bms.Web.SalesMGT
         protected void Page_Load(object sender, EventArgs e)
         {
             groupCount();
+            string op = Request["op"];
             getData();
         }
 
@@ -56,37 +57,31 @@ namespace bms.Web.SalesMGT
         {
             ds = smBll.groupCustomer();
             StringBuilder strb = new StringBuilder();
-            int kinds = 0;
             strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 string custName = ds.Tables[0].Rows[i]["customerName"].ToString();
                 strb.Append("<tr><td>" + (i + 1).ToString() + "</td>");
                 strb.Append("<td>" + custName + "</td>");
-                kinds = smBll.customerKinds(custName);
-                strb.Append("<td>" + kinds + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");
-                strb.Append("<td>" + double.Parse(ds.Tables[0].Rows[i]["totalPrice"].ToString()).ToString("F2") + "</td></tr>");
+                strb.Append("<td>" + smBll.customerKinds(custName) + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["allCount"].ToString() + "</td>");
+                strb.Append("<td>" + double.Parse(ds.Tables[0].Rows[i]["allPrice"].ToString()).ToString("F2") + "</td></tr>");
             }
             strb.Append("</tbody>");
+            //Response.Write(strb.ToString());
+            //Response.End();
             return strb.ToString();
         }
         public void groupCount()
         {
-            kindsNum = smBll.GroupCount();
-
-            DataSet msgds = smBll.msg();
-            if (msgds.Tables[0].Rows.Count > 0)
+            DataSet groupds = smBll.GroupCount();
+            int count = groupds.Tables[0].Rows.Count;
+            if (count > 0)
             {
-                allCount = int.Parse(msgds.Tables[0].Rows[0]["number"].ToString());
-                allPrice = Convert.ToDouble(msgds.Tables[0].Rows[0]["totalPrice"].ToString());
+                kindsNum = int.Parse(groupds.Tables[0].Rows[0]["totalBooks"].ToString());
+                allCount = int.Parse(groupds.Tables[0].Rows[0]["allCount"].ToString());
+                allPrice = double.Parse(groupds.Tables[0].Rows[0]["allPrice"].ToString());
             }
-            //kindsNum = groupDs.Tables[0].Rows.Count;
-            //for (int i = 0; i < kindsNum; i++)
-            //{
-            //    allCount += Convert.ToInt32(groupDs.Tables[0].Rows[i]["allCount"].ToString());
-            //    allPrice += Convert.ToDouble(groupDs.Tables[0].Rows[i]["allPrice"].ToString());
-            //}
         }
     }
 }

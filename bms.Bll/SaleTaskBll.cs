@@ -343,5 +343,19 @@ namespace bms.Bll
         {
             return saleDao.getAllkindsRegion(dateTime, regionId);
         }
+        /// <summary>
+        /// 导出表格
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <returns></returns>
+        public DataTable ExportExcel(string strWhere)
+        {
+            DataTable dt = saleDao.ExportExcel(strWhere);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                return dt;
+            }
+            return null;
+        }
     }
 }

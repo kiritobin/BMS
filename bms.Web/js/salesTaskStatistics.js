@@ -26,7 +26,9 @@
         }
     });
 })
-
+$("#excel").click(function () {
+    window.location.href="salesTaskStatistics.aspx?op=excel";
+})
 //打印
 $("#print").click(function () {
     //$("#content").jqprint();
@@ -104,7 +106,7 @@ $("#print").click(function () {
                 //--行内容
                 var j = $("#table").find("tr").length;
                 for (i = 0; i < j; i++) {
-                    var row = $("#table").find('tr').eq(i+1).find('td');
+                    var row = $("#table").find('tr').eq(i + 1).find('td');
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 20, 50, 20, (i + 1));
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 70, 100, 20, row.eq(1).text().trim());
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 170, 120, 20, row.eq(2).text().trim());
