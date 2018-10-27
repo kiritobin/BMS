@@ -689,6 +689,7 @@
     <Folder Include="download\销售明细导出\" />
     <Folder Include="download\销退明细导出\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="uploads\export\SaleTaskExport\" />
     <Folder Include="uploads\muban\基础数据\" />
   </ItemGroup>
   <ItemGroup>

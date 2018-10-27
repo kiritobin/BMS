@@ -24,8 +24,13 @@ namespace bms.Web.SalesMGT
         {
             saletaskId = Session["saleId"].ToString();
             getBasic();
-            print();
+            //print();
             getData();
+            string op = Request["op"];
+            if (op == "excel")
+            {
+                export();
+            }
         }
         public void getBasic()
         {
@@ -62,12 +67,44 @@ namespace bms.Web.SalesMGT
                 }
                 else
                 {
-                    finishTime =  Convert.ToDateTime(finishTime).ToString("yyyy年MM月dd日");
+                    finishTime = Convert.ToDateTime(finishTime).ToString("yyyy年MM月dd日");
                 }
             }
         }
+        /// <summary>
+        /// 导出
+        /// </summary>
+        public void export()
+        {
+            DataTable dt = saletaskbll.ExportExcel(saletaskId);
+            string name = "销售任务" + saletaskId;
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                var path = Server.MapPath("../uploads/export/SaleTaskExport/" + name + ".xls");
+                ExcelHelper.x2003.TableToExcelForXLS(dt, path);
+                downloadfile(path);
+            }
+            else
+            {
+                Response.Write("<script language='javascript'>alert('查询不到数据，不能执行导出操作!')</script>");
+            }
+        }
+        public void downloadfile(string s_path)
+        {
+            System.IO.FileInfo file = new System.IO.FileInfo(s_path);
+            HttpContext.Current.Response.ContentType = "application/ms-download";
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.AddHeader("Content-Type", "application/octet-stream");
+            HttpContext.Current.Response.Charset = "utf-8";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(file.Name, System.Text.Encoding.UTF8));
+            HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
+            HttpContext.Current.Response.WriteFile(file.FullName);
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.End();
+        }
         //获取基础数据
-        public string getData()
+        public string print()
         {
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -77,10 +114,10 @@ namespace bms.Web.SalesMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleMonomer";
             tb.OrderBy = "dateTime";
-            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,regionName";
+            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,sum(totalPrice) as totalPrice,regionName,supplier,author";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = "saleTaskId='" + saletaskId + "' group by bookNum,bookName,ISBN,unitPrice";
+            tb.StrWhere = " saleTaskId='" + saletaskId + "' group by bookNum,bookName,ISBN,unitPrice";
             //获取展示的客户数据
             ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table
@@ -96,7 +133,9 @@ namespace bms.Web.SalesMGT
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td></tr>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["author"] + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"] + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["supplier"] + "</td></tr>");
                 }
             }
             strb.Append("</tbody>");
@@ -110,32 +149,48 @@ namespace bms.Web.SalesMGT
             }
             return strb.ToString();
         }
-        private void print()
+        public string getData()
         {
-            string op = Request["op"];
-            if (op=="print")
+            int currentPage = Convert.ToInt32(Request["page"]);
+            if (currentPage == 0)
             {
-                SaleTaskBll saleTaskBll = new SaleTaskBll();
-                DataSet ds = saleTaskBll.salesTaskStatistics(Session["saleId"].ToString());
-                StringBuilder strb = new StringBuilder();
-                strb.Append("<tbody>");
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                currentPage = 1;
+            }
+            TableBuilder tb = new TableBuilder();
+            tb.StrTable = "V_SaleMonomer";
+            tb.OrderBy = "dateTime";
+            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,sum(totalPrice) as totalPrice,regionName,supplier,author";
+            tb.IntPageSize = pageSize;
+            tb.IntPageNum = currentPage;
+            tb.StrWhere = " saleTaskId='" + saletaskId + "' group by bookNum,bookName,ISBN,unitPrice";
+            //获取展示的客户数据
+            ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
+            //生成table
+            StringBuilder strb = new StringBuilder();
+            strb.Append("<tbody>");
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
                 {
-                    if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
-                    {
-                        strb.Append("<tr><td>" + (i + 1) + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
-                        strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td></tr>");
-                    }
+                    strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
+                    strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"] + "</td></tr>");
                 }
-                strb.Append("</tbody>");
+            }
+            strb.Append("</tbody>");
+            strb.Append("<input type='hidden' value='" + intPageCount + " ' id='intPageCount' />");
+            strb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[0]["regionName"] + " ' id='region' />");
+            string op = Request["op"];
+            if (op == "paging")
+            {
                 Response.Write(strb.ToString());
                 Response.End();
             }
+            return strb.ToString();
         }
     }
 }

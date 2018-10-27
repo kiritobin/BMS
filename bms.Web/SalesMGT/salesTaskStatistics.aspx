@@ -47,6 +47,9 @@
                                         <button class="btn btn-info btn-sm" id="print">打印</button>
                                     </div>
                                     <div class="btn-group" role="group">
+                                        <button class="btn btn-info btn-sm" id="excel">导出</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
                                         <button class="btn btn-warning btn-sm" onclick="window.location.href='searchSalesDetail.aspx'" id="back">返回</button>
                                     </div>
                                 </div>
@@ -102,10 +105,10 @@
                                                         <nobr>序号</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>ISBN号</nobr>
+                                                        <nobr>书号</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>书号</nobr>
+                                                        <nobr>ISBN</nobr>
                                                     </td>
                                                     <td>
                                                         <nobr>书名</nobr>
@@ -117,8 +120,17 @@
                                                         <nobr>数量</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>实洋</nobr>
+                                                        <nobr>码洋</nobr>
                                                     </td>
+                                                    <%--<td>
+                                                        <nobr>销折</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>码洋</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>供应商</nobr>
+                                                    </td>--%>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>

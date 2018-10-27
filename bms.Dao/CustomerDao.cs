@@ -14,7 +14,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet select()
         {
-            string cmdText = "select customerID,customerName from T_Customer order by convert(customerName using gbk) collate gbk_chinese_ci";
+            string cmdText = "select customerID,customerName from T_Customer where deleteState=0 order by convert(customerName using gbk) collate gbk_chinese_ci";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if(ds != null || ds.Tables[0].Rows.Count > 0)
             {
