@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    var custom = $("#cusSearch").find("option:selected").text();
     $("#datatables_paginate").hide();
     $('.paging').pagination({
         //totalData: $("#countPage").val(), //数据总数
@@ -12,6 +13,8 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
+            var custom = $("#cusSearch").find("option:selected").text();
+            alert(custom);
             var book = $("#bookSearch").val().trim();
             var isbn = $("#isbnSearch").val().trim();
             $.ajax({
@@ -19,12 +22,14 @@
                 url: 'collectionManagement.aspx',
                 data: {
                     page: api.getCurrent(), //页码
+                    custom: custom,
                     book: book,
                     isbn: isbn,
                     op: "paging"
                 },
                 dataType: 'text',
                 success: function (data) {
+                    alert(custom);
                     $("#table tr:not(:first)").remove(); //清空table处首行
                     $("#table").append(data); //加载table
                     $("#intPageCount").remove();
@@ -69,6 +74,7 @@
                     prevContent: '上页',
                     nextContent: '下页',
                     callback: function (api) {
+                        var custom = $("#cusSearch").find("option:selected").text();
                         var book = $("#bookSearch").val().trim();
                         var isbn = $("#isbnSearch").val().trim();
                         $.ajax({
@@ -78,6 +84,7 @@
                                 page: api.getCurrent(), //页码
                                 book: book,
                                 isbn: isbn,
+                                custom: custom,
                                 op: "paging"
                             },
                             dataType: 'text',
