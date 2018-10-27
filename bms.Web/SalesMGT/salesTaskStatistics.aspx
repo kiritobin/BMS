@@ -120,6 +120,9 @@
                                                         <nobr>数量</nobr>
                                                     </td>
                                                     <td>
+                                                        <nobr>码洋</nobr>
+                                                    </td>
+                                                    <%--<td>
                                                         <nobr>销折</nobr>
                                                     </td>
                                                     <td>
@@ -127,7 +130,7 @@
                                                     </td>
                                                     <td>
                                                         <nobr>供应商</nobr>
-                                                    </td>
+                                                    </td>--%>
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
