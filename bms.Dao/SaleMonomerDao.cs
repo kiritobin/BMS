@@ -376,10 +376,29 @@ namespace bms.Dao
                 string state = ds.Tables[0].Rows[0]["state"].ToString();
                 return state;
             }
+            return null;
+        }
+        /// <summary>
+        ///根据销售任务id
+        /// </summary>
+        /// <param name="saleTaskId">销售任务ID</param>
+        /// <returns>返回销售单头状态</returns>
+        public string getsaleHeadStatesBysaleTaskId(string saleTaskId)
+        {
+            string cmdtext = "select state from T_SaleHead where saleTaskId=@saleTaskId and state=3";
+            string[] param = { "@saleTaskId" };
+            object[] values = { saleTaskId };
+            string state;
+            int row = db.ExecuteNoneQuery(cmdtext, param, values);
+            if (row == 0)
+            {
+                state = "1";
+            }
             else
             {
-                return null;
+                state = "3";
             }
+            return state;
         }
         //SELECT SUM(number) FROM T_SaleMonomer WHERE saleHeadId='XS20181012000005'
         /// <summary>

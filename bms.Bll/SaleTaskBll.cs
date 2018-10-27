@@ -274,9 +274,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="saleTaskId">销售任务ID</param>
         /// <returns>数据集</returns>
-        public DataSet getSaleTaskStatistics(string saleTaskId)
+        public DataSet getSaleTaskStatistics(string saleTaskId,string state)
         {
-            return saleDao.getSaleTaskStatistics(saleTaskId);
+            return saleDao.getSaleTaskStatistics(saleTaskId, state);
         }
         /// <summary>
         /// 根据销售任务id获取操作员
@@ -301,9 +301,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="saleTaskId">销售任务id</param>
         /// <returns></returns>
-        public int getkindsBySaleTaskId(string saleTaskId)
+        public int getkindsBySaleTaskId(string saleTaskId, string state)
         {
-            return saleDao.getkindsBySaleTaskId(saleTaskId);
+            return saleDao.getkindsBySaleTaskId(saleTaskId, state);
         }
         /// <summary>
         /// 根据客户id获取他是否有过销售任务
@@ -348,9 +348,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="strWhere">查询条件</param>
         /// <returns></returns>
-        public DataTable ExportExcel(string strWhere)
+        public DataTable ExportExcel(string strWhere, string state)
         {
-            DataTable dt = saleDao.ExportExcel(strWhere);
+            DataTable dt = saleDao.ExportExcel(strWhere, state);
             if (dt != null && dt.Rows.Count > 0)
             {
                 return dt;

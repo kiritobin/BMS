@@ -20,21 +20,35 @@ namespace bms.Web.SalesMGT
         SaleTaskBll saletaskbll = new SaleTaskBll();
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         DataSet ds;
+        string state;
         protected void Page_Load(object sender, EventArgs e)
         {
             saletaskId = Session["saleId"].ToString();
-            getBasic();
-            //print();
+            state = salemonbll.getsaleHeadStatesBysaleTaskId(saletaskId);
             getData();
-            string op = Request["op"];
-            if (op == "excel")
+            if (state == "3")
             {
-                export();
+                getBasic("3");
+            }
+            else
+            {
+                getBasic("1");
+            }
+            //print();
+
+            string op = Request["op"];
+            if (op == "excel" && state == "3")
+            {
+                export("3");
+            }
+            else if(op=="excel")
+            {
+                export("1");
             }
         }
-        public void getBasic()
+        public void getBasic(string state)
         {
-            DataSet ds = saletaskbll.getSaleTaskStatistics(saletaskId);
+            DataSet ds = saletaskbll.getSaleTaskStatistics(saletaskId, state);
             if (ds != null)
             {
                 string number = ds.Tables[0].Rows[0]["number"].ToString();
@@ -52,7 +66,7 @@ namespace bms.Web.SalesMGT
                 }
             }
             //统计种数
-            allkinds = saletaskbll.getkindsBySaleTaskId(saletaskId);
+            allkinds = saletaskbll.getkindsBySaleTaskId(saletaskId,state);
             DataSet userds = saletaskbll.getcustomerName(saletaskId);
             if (userds != null)
             {
@@ -74,9 +88,9 @@ namespace bms.Web.SalesMGT
         /// <summary>
         /// 导出
         /// </summary>
-        public void export()
+        public void export(string state)
         {
-            DataTable dt = saletaskbll.ExportExcel(saletaskId);
+            DataTable dt = saletaskbll.ExportExcel(saletaskId, state);
             string name = "销售任务" + saletaskId;
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -103,7 +117,7 @@ namespace bms.Web.SalesMGT
             HttpContext.Current.Response.Clear();
             HttpContext.Current.Response.End();
         }
-        //获取基础数据
+
         public string print()
         {
             int currentPage = Convert.ToInt32(Request["page"]);
@@ -149,6 +163,8 @@ namespace bms.Web.SalesMGT
             }
             return strb.ToString();
         }
+
+        //获取基础数据
         public string getData()
         {
             int currentPage = Convert.ToInt32(Request["page"]);
@@ -157,12 +173,20 @@ namespace bms.Web.SalesMGT
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "V_SaleMonomer";
+            tb.StrTable = "v_test";
             tb.OrderBy = "dateTime";
             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,sum(totalPrice) as totalPrice,regionName,supplier,author";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = " saleTaskId='" + saletaskId + "' group by bookNum,bookName,ISBN,unitPrice";
+            if (state == "3")
+            {
+                tb.StrWhere = " saleTaskId='" + saletaskId + "' and state=3 group by bookNum,bookName,ISBN,unitPrice";
+            }
+            else
+            {
+                tb.StrWhere = " saleTaskId='" + saletaskId + "' and state !=3 group by bookNum,bookName,ISBN,unitPrice";
+            }
+
             //获取展示的客户数据
             ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table
