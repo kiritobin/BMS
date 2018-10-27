@@ -53,6 +53,25 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+
+        /// <summary>
+        /// 根据销售单头ID真删除销售单头包括单体
+        /// </summary>
+        /// <param name="saleHeadId">销售单头ID</param>
+        /// <returns>0不成功</returns>
+        public Result realDeleteHeadAndMon(string saleTaskId, string saleHeadId)
+        {
+            int row = SaleMonomerdao.realDeleteHeadAndMon(saleTaskId, saleHeadId);
+            if (row == 0)
+            {
+                return Result.删除失败;
+            }
+            else
+            {
+                return Result.删除成功;
+            }
+        }
+
         /// <summary>
         /// 统计品种数
         /// </summary>
@@ -383,10 +402,15 @@ namespace bms.Bll
         /// 团采排行
         /// </summary>
         /// <returns></returns>
-        public DataSet GroupCount()
+        public int GroupCount()
         {
-            DataSet ds = SaleMonomerdao.GroupCount();
+            int ds = SaleMonomerdao.GroupCount();
             return ds;
+        }
+
+        public DataSet msg()
+        {
+            return SaleMonomerdao.msg();
         }
 
         /// <summary>

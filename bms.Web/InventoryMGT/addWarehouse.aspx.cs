@@ -17,7 +17,7 @@ namespace bms.Web.InventoryMGT
     using Result = Enums.OpResult;
     public partial class addWarehouse : System.Web.UI.Page
     {
-        public string userName, regionName;
+        public string userName, regionName, jsRegionId;
         protected DataSet ds, dsGoods, dsPer;
         protected int pageSize = 20, totalCount, intPageCount;
         public double discount;
@@ -50,6 +50,15 @@ namespace bms.Web.InventoryMGT
                 else
                 {
                     singleHeadId = Session["singleHeadId"].ToString();
+                }
+                jsRegionId = Request.QueryString["jsRegionId"];
+                if (jsRegionId != "" && jsRegionId != null)//请求接收组织ID
+                {
+                    Session["jsRegionId"] = jsRegionId;
+                }
+                else
+                {
+                    jsRegionId = Session["jsRegionId"].ToString();
                 }
             }
             string op = Request["op"];
@@ -276,11 +285,14 @@ namespace bms.Web.InventoryMGT
                     count = Convert.ToInt32(drow["商品数量"]);
                     int billCount = Convert.ToInt32(drow["商品数量"]);
                     int goodsId = 0;//货架ID
-                    DataSet dsGoods = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
+                    DataSet dsGoods = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);//出库组织库存量
+                    int rgId = int.Parse(Session["jsRegionId"].ToString());//接收组织ID
+                    DataSet jsGoods = stockBll.SelectByBookNum(bookNum, rgId);//接收组织库存量
                     for (int j = 0; j < dsGoods.Tables[0].Rows.Count; j++)
                     {
                         billCount = count;
-                        int stockNum = Convert.ToInt32(dsGoods.Tables[0].Rows[j]["stockNum"]);
+                        int stockNum = Convert.ToInt32(dsGoods.Tables[0].Rows[j]["stockNum"]);//原库存量
+
                         goodsId = Convert.ToInt32(dsGoods.Tables[0].Rows[j]["goodsShelvesId"]);//获取货架ID
                         if (billCount <= stockNum)
                         {
@@ -291,6 +303,44 @@ namespace bms.Web.InventoryMGT
                                 Response.Write("添加失败");
                                 Response.End();
                             }
+                            //if (jsGoods.Tables[0].Rows.Count > 0)//判断库存中是否有数据
+                            //{
+                            //    int jsstockNum = Convert.ToInt32(jsGoods.Tables[0].Rows[0]["stockNum"]);//接收组织原库存量
+                            //    int jsgoodsId = Convert.ToInt32(jsGoods.Tables[0].Rows[0]["goodsShelvesId"]);//接收组织库存Id
+                            //    int jsNewStock = jsstockNum + billCount;//获取接收组织新的库存
+                            //    result = stockBll.update(jsNewStock, jsgoodsId, bookNum);//更新入库库存
+                            //    if (result == Result.更新失败)
+                            //    {
+                            //        Response.Write("更新失败");
+                            //        Response.End();
+                            //    }
+                            //}
+                            //else//没有数据时，直接添加
+                            //{
+                            //    //int jsgoodsId = Convert.ToInt32(jsGoods.Tables[0].Rows[0]["goodsShelvesId"]);//接收组织库存Id
+                            //    int jsstockNum = billCount;//库存量
+                            //    Region reg = new Region();
+                            //    reg.RegionId = rgId;
+                            //    DataSet gds = goodsShelvesBll.Select(rgId);
+                            //    int gid = int.Parse(gds.Tables[0].Rows[0]["goodsShelvesId"].ToString());
+                            //    GoodsShelves goods = new GoodsShelves();
+                            //    goods.GoodsShelvesId = gid;
+                            //    BookBasicData jsbook = new BookBasicData();
+                            //    jsbook.BookNum = bookNum;
+                            //    jsbook.Isbn = drow["ISBN号"].ToString();
+                            //    Stock stock = new Stock();//库存实体
+                            //    stock.BookNum = jsbook;
+                            //    stock.ISBN = jsbook;
+                            //    stock.RegionId = reg;
+                            //    stock.StockNum = billCount;
+                            //    stock.GoodsShelvesId = goods;
+                            //    result = stockBll.insert(stock);//写入库存
+                            //    if (result == Result.添加失败)
+                            //    {
+                            //        Response.Write("添加失败");
+                            //        Response.End();
+                            //    }
+                            //}
                             Session["List"] = null;
                             break;
                         }
@@ -302,7 +352,7 @@ namespace bms.Web.InventoryMGT
                                 count = billCount - stockNum;
                                 if (count > 0)
                                 {
-                                    result = stockBll.update(0, goodsId, bookNum);
+                                    result = stockBll.update(0, goodsId, bookNum);//记录存在且库存不为0
                                     if (result == Result.更新失败)
                                     {
                                         Response.Write("添加失败");
@@ -317,6 +367,8 @@ namespace bms.Web.InventoryMGT
                                     break;
                                 }
                             }
+                            //Response.Write("库存不足");
+                            //Response.End();
                         }
                     }
                     //添加出库单体
