@@ -412,16 +412,16 @@ namespace bms.Bll
         /// 团采排行
         /// </summary>
         /// <returns></returns>
-        public int GroupCount()
+        public DataSet GroupCount()
         {
-            int ds = SaleMonomerdao.GroupCount();
+            DataSet ds = SaleMonomerdao.GroupCount();
             return ds;
         }
 
-        public DataSet msg()
-        {
-            return SaleMonomerdao.msg();
-        }
+        //public DataSet msg()
+        //{
+        //    return SaleMonomerdao.msg();
+        //}
 
         /// <summary>
         /// 客户采购统计
@@ -438,8 +438,8 @@ namespace bms.Bll
         /// <returns></returns>
         public int customerKinds(string customerName)
         {
-            int kinds = SaleMonomerdao.customerKinds(customerName);
-            return kinds;
+            int ds = SaleMonomerdao.customerKinds(customerName);
+            return ds;
         }
     }
 }
