@@ -296,10 +296,10 @@
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">添加</button>
+                                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add" style="height:35px">添加</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <a href="/InventoryMGT/inventoryStatistics.aspx?type=TH"><button class="btn btn-info btn-sm" style="height:37px" id="tjbb">统计报表</button></a>
+                                                <a href="/InventoryMGT/inventoryStatistics.aspx?type=TH"><button class="btn btn-info btn-sm" style="height:35px" id="tjbb">统计报表</button></a>
                                             </div>
                                         </div>
                                     </div>

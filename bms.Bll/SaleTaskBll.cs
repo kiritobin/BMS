@@ -329,9 +329,9 @@ namespace bms.Bll
         /// 获取当天时间的所有销售计划的总实洋，码洋，数量
         /// </summary>
         /// <returns></returns>
-        public DataSet getAllprice(string dateTime)
+        public DataSet getAllprice()
         {
-            return saleDao.getAllprice(dateTime);
+            return saleDao.getAllprice();
         }
         public int getAllkinds(string dateTime)
         {
@@ -342,9 +342,9 @@ namespace bms.Bll
         ///根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋 地区
         /// </summary>
         /// <returns>数据集</returns>
-        public DataSet getAllpriceRegion(string dateTime, int regionId)
+        public DataSet getAllpriceRegion(int regionId)
         {
-            return saleDao.getAllpriceRegion(dateTime, regionId);
+            return saleDao.getAllpriceRegion(regionId);
         }
         /// <summary>
         /// 统计当天种数
