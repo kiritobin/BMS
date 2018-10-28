@@ -54,10 +54,10 @@
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="resource" placeholder="请输入来源组织">
                                     </div>
-                                    <%if (isNotAdmin)
+                                    <%if (isAdmin)
                                         { %>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="region" placeholder="请输入自身组织">
+                                        <input type="text" value="" class="" id="region" placeholder="请输入组织名称">
                                     </div>
                                     <%} %>
                                     <div class="btn-group" role="group">
@@ -78,25 +78,39 @@
                                                         <nobr>序号</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>ISBN号</nobr>
+                                                        <nobr>书号</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>书号</nobr>
+                                                        <nobr>ISBN</nobr>
                                                     </td>
                                                     <td>
                                                         <nobr>书名</nobr>
                                                     </td>
-                                                    <%--<td>
-                                                        <nobr>供应商</nobr>
-                                                    </td>--%>
                                                     <td>
-                                                        <nobr>单价</nobr>
+                                                        <nobr>供应商</nobr>
                                                     </td>
                                                     <td>
                                                         <nobr>数量</nobr>
                                                     </td>
                                                     <td>
+                                                        <nobr>码洋</nobr>
+                                                    </td>
+                                                    <td>
                                                         <nobr>实洋</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr id="diff">来源组织</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>制单员</nobr>
+                                                    </td>
+                                                    <%if (isAdmin){ %>
+                                                    <td>
+                                                        <nobr>组织名称</nobr>
+                                                    </td>
+                                                    <%} %>
+                                                    <td>
+                                                        <nobr>制单时间</nobr>
                                                     </td>
                                                 </tr>
                                             </thead>

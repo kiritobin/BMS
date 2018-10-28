@@ -17,7 +17,7 @@ namespace bms.Web.InventoryMGT
         RoleBll roleBll = new RoleBll();
         BookBasicBll bookbll = new BookBasicBll();
         WarehousingBll warehousingBll = new WarehousingBll();
-        public bool isNotAdmin;
+        public bool isAdmin;
         protected string sbNum, sjNum, total, real;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -47,9 +47,9 @@ namespace bms.Web.InventoryMGT
             real = dataSet.Tables[0].Rows[0]["sy"].ToString();
             //string time = "2018-10-10";
             int region = user.ReginId.RegionId;
-            if (roleName != "超级管理员")
+            if (roleName == "超级管理员")
             {
-                isNotAdmin = true;
+                isAdmin = true;
             }
             getData();
         }
@@ -57,30 +57,6 @@ namespace bms.Web.InventoryMGT
         //获取数据
         protected string getData()
         {
-            currentPage = Convert.ToInt32(Request["page"]);
-            if (currentPage == 0)
-            {
-                currentPage = 1;
-            }
-            User user = (User)Session["user"];
-            string userId = user.UserId;
-            string search = "";
-            TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "T_Monomers AS A,T_SingleHead AS B,T_User AS C ,T_BookBasicData AS D";
-            tbd.OrderBy = "A.bookNum";
-            tbd.StrColumnlist = "C.userName,D.bookName,A.ISBN,A.bookNum,sum(A.number) as number,sum(A.totalPrice) as totalPrice ,sum(A.realPrice) as realPrice";
-            tbd.IntPageSize = pageSize;
-            if (isNotAdmin)
-            {
-                tbd.StrWhere = "C.userID=" + userId + " and B.userId=C.userID and A.bookNum=D.bookNum group by C.userName,D.bookName,A.ISBN,A.bookNum";
-            }
-            else
-            {
-                tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum group by C.userName,D.bookName,A.ISBN,A.bookNum";
-            }
-            tbd.IntPageNum = currentPage;
-            //获取展示的用户数据
-            DataSet ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
 
             string bookNum = Request["bookNum"];
             string bookName = Request["bookName"];
@@ -88,18 +64,69 @@ namespace bms.Web.InventoryMGT
             string time = Request["time"];
             string userName = Request["userName"];
             string region = Request["region"];
+            string resource = Request["resource"];
+
+            User user = (User)Session["user"];
+            int regionId = user.ReginId.RegionId;
+            string tjType = Request["type"];
+            int type = 0;
+            if (tjType == "CK")
+            {
+                type = 0;
+            }
+            if (tjType == "RK")
+            {
+                type = 1;
+            }
+            if (tjType == "TH")
+            {
+                type = 2;
+            }
+
+            currentPage = Convert.ToInt32(Request["page"]);
+            if (currentPage == 0)
+            {
+                currentPage = 1;
+            }
+            string userId = user.UserId;
+            TableBuilder tbd = new TableBuilder();
+            tbd.StrTable = "T_Monomers AS A,T_SingleHead AS B,T_User AS C ,T_BookBasicData AS D,t_region as E,t_region as F";
+            tbd.OrderBy = "A.bookNum";
+            if (isAdmin)
+            {
+                tbd.StrColumnlist = "C.userName,D.bookName,A.ISBN,A.bookNum,sum(A.number) as number,sum(A.totalPrice) as totalPrice ,sum(A.realPrice) as realPrice,E.regionName,D.supplier,B.time,F.regionName as userRegionName";
+                tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and F.regionId=C.regionId and A.type="+type+" group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
+            }
+            else
+            {
+                tbd.StrColumnlist = "C.userName,D.bookName,A.ISBN,A.bookNum,sum(A.number) as number,sum(A.totalPrice) as totalPrice ,sum(A.realPrice) as realPrice,E.regionName,D.supplier,B.time";
+                tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and C.regionId=F.regionId and C.regionId="+ regionId + " and A.type="+type+" group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
+            }
+            tbd.IntPageSize = pageSize;
+            tbd.IntPageNum = currentPage;
+            //获取展示的用户数据
+            DataSet ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
+
             StringBuilder sb = new StringBuilder();
             int j = ds.Tables[0].Rows.Count;
             for (int i = 0; i < j; i++)
             {
                 DataRow dr = ds.Tables[0].Rows[i];
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                sb.Append("<td>" + dr["userName"].ToString() + "</td>");
-                sb.Append("<td>" + dr["ISBN"].ToString() + "</td >");
                 sb.Append("<td>" + dr["bookNum"].ToString() + "</td >");
+                sb.Append("<td>" + dr["ISBN"].ToString() + "</td >");
+                sb.Append("<td>" + dr["bookName"].ToString() + "</td >");
+                sb.Append("<td>" + dr["supplier"].ToString() + "</td >");
                 sb.Append("<td>" + dr["number"].ToString() + "</td >");
                 sb.Append("<td>" + dr["totalPrice"].ToString() + "</td >");
-                sb.Append("<td>" + dr["realPrice"].ToString() + "</td></tr>");
+                sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
+                sb.Append("<td>" + dr["regionName"].ToString() + "</td>");
+                sb.Append("<td>" + dr["userName"].ToString() + "</td>");
+                if (isAdmin)
+                {
+                    sb.Append("<td>" + dr["userRegionName"].ToString() + "</td>");
+                }
+                sb.Append("<td>" + dr["time"].ToString() + "</td></tr>");
             }
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
