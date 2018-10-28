@@ -34,20 +34,23 @@ namespace bms.Web.SalesMGT
             if (roleName != "超级管理员")
             {
                 isNotAdmin = true;
-                DataSet dsSum = saletaskbll.getAllpriceRegion();
+                //time = "2018";
+                DataSet dsSum = saletaskbll.getAllpriceRegion(region);
                 allnumber = dsSum.Tables[0].Rows[0]["allNum"].ToString();
-                alltotalprice = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
-                allreadprice = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
-                allkinds = saletaskbll.getAllkindsRegion(time, region).ToString();
+                alltotalprice = dsSum.Tables[0].Rows[0]["allPrice"].ToString();
+                allreadprice = dsSum.Tables[0].Rows[0]["allRealPrice"].ToString();
+                allkinds = dsSum.Tables[0].Rows[0]["allKinds"].ToString();
+                //allkinds = saletaskbll.getAllkindsRegion(time, region).ToString();
             }
             else
             {
-                DataSet dsSum = saletaskbll.getAllprice(time);
-                allnumber = dsSum.Tables[0].Rows[0]["number"].ToString();
-                alltotalprice = dsSum.Tables[0].Rows[0]["realPrice"].ToString();
-                allreadprice = dsSum.Tables[0].Rows[0]["totalPrice"].ToString();
-                allkinds = saletaskbll.getAllkinds(time).ToString();
-                //allkinds = dsSum.Tables[0].Rows[0]["allKinds"].ToString();
+                //time = "2018";
+                DataSet dsSum = saletaskbll.getAllprice();
+                allnumber = dsSum.Tables[0].Rows[0]["allNum"].ToString();
+                alltotalprice = dsSum.Tables[0].Rows[0]["allRealPrice"].ToString();
+                allreadprice = dsSum.Tables[0].Rows[0]["allPrice"].ToString();
+                //allkinds = saletaskbll.getAllkinds(time).ToString();
+                allkinds = dsSum.Tables[0].Rows[0]["allKinds"].ToString();
             }
             user = (User)Session["user"];
             getData();
@@ -137,9 +140,15 @@ namespace bms.Web.SalesMGT
             tb.StrColumnlist = @" sm.ISBN,sm.bookNum,book.bookName,sm.unitPrice,sum(sm.number) as allNum,sum(sm.totalPrice) as allPrice,head.state,sm.dateTime,us.userID,us.userName,ct.customerID,ct.customerName,rg.regionName";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            //tb.StrWhere = search == "" ? search : search + " group by bookNum,bookName,ISBN,unitPrice";
-            tb.StrWhere = @"(head.state=1 or head.state=2) 
-and sm.saleTaskId = task.saleTaskId and task.userId = us.userID and sm.bookNum = book.bookNum AND sm.ISBN = book.ISBN and task.customerId = ct.customerID and us.regionId = rg.regionId and head.userId = us.userID AND head.regionId = rg.regionId AND head.saleTaskId = task.saleTaskId AND sm.saleHeadId = head.saleHeadId group by sm.bookNum";
+            tb.StrWhere = search == "" ? search : search + " group by bookNum,bookName,ISBN,unitPrice";
+            if (!isNotAdmin)
+            {
+                tb.StrWhere = @"(head.state=1 or head.state=2) and sm.saleTaskId = task.saleTaskId and task.userId = us.userID and sm.bookNum = book.bookNum AND sm.ISBN = book.ISBN and task.customerId = ct.customerID and us.regionId = rg.regionId and head.userId = us.userID AND head.regionId = rg.regionId AND head.saleTaskId = task.saleTaskId AND sm.saleHeadId = head.saleHeadId group by sm.bookNum";
+            }
+            else
+            {
+                tb.StrWhere = @"(head.state=1 or head.state=2) and rg.regionId=" + user.ReginId.RegionId + " and sm.saleTaskId = task.saleTaskId and task.userId = us.userID and sm.bookNum = book.bookNum AND sm.ISBN = book.ISBN and task.customerId = ct.customerID and us.regionId = rg.regionId and head.userId = us.userID AND head.regionId = rg.regionId AND head.saleTaskId = task.saleTaskId AND sm.saleHeadId = head.saleHeadId group by sm.bookNum";
+            }
             //获取展示的客户数据
             ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table
