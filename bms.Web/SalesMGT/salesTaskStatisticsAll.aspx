@@ -50,7 +50,7 @@
                                         <input type="text" value="" id="regionName" placeholder="请输入组织">
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" id="time" placeholder="销售日期,例如:2018-10-27">
+                                        <input type="text" value="" id="time" placeholder="销售日期,例:2018-10-27">
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" id="customerName" placeholder="请输入客户名称">
