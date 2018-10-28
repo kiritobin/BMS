@@ -131,7 +131,7 @@ namespace bms.Web.SalesMGT
                 SaleHead salehead = new SaleHead();
                 string saleId = Session["saleId"].ToString();
                 string SaleHeadId;
-                int count = saleheadbll.getCount(saleId);
+                int count = saleheadbll.getCount();
                 if (count > 0)
                 {
                     string time = saleheadbll.getSaleHeadTime();
@@ -139,8 +139,20 @@ namespace bms.Web.SalesMGT
                     string equalsTime = nowTime.Substring(0, 10);
                     if (time.Equals(equalsTime))
                     {
-                        count += 1;
-                        SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        nowTime = DateTime.Now.ToString("yyyy-MM-dd");
+                        string getheadId = saleheadbll.getSaleHeadIdByTime(nowTime);
+                        if (getheadId == "" || getheadId == null)
+                        {
+                            count = 1;
+                            SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        }
+                        else
+                        {
+                            string js = getheadId.Remove(0, getheadId.Length - 6);
+                            count = Convert.ToInt32(js) + 1;
+                            SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        }
+                       
                     }
                     else
                     {
@@ -541,7 +553,8 @@ namespace bms.Web.SalesMGT
                 {
                     state = "单据已完成";
                 }
-                else {
+                else
+                {
                     state = "采集中";
                 }
                 //else if (state == "3")
