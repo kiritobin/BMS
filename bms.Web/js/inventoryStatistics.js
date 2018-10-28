@@ -5,12 +5,31 @@
 }
 
 $(document).ready(function () {
+    //出入退
+    var type = GetQueryString("type");
+    if (type == "RK") {
+        $("#tjType").html("入&nbsp;库&nbsp;统&nbsp;计");
+        $("#diff").text("来源组织");
+        $('#resource').attr('placeholder', "请输入来源组织");
+    }
+    else if (type == "CK") {
+        $("#tjType").html("出&nbsp;库&nbsp;统&nbsp;计");
+        $("#diff").text("收货组织");
+        $('#resource').attr('placeholder', "请输入收货组织");
+    }
+    else if (type == "TH") {
+        $("#tjType").html("退&nbsp;货&nbsp;统&nbsp;计");
+        $("#diff").text("收货组织");
+        $('#resource').attr('placeholder', "请输入收货组织");
+    }
+
     var bookNum = $("#bookNum").val();
     var bookName = $("#bookName").val();
     var supplier = $("#supplier").val();
     var time = $("#time").val();
     var userName = $("#userName").val();
     var region = $("#region").val();
+    var resource = $("#resource").val();
 
     $('.paging').pagination({
         //totalData: $("#totalCount").val(),
@@ -32,12 +51,14 @@ $(document).ready(function () {
                 url: 'inventoryStatistics.aspx',
                 data: {
                     page: api.getCurrent(), //页码
+                    type: type,
                     bookNum: bookNum,
                     bookName: bookName,
                     supplier: supplier,
                     time: time,
                     userName: userName,
                     region: region,
+                    resource: resource,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -50,20 +71,6 @@ $(document).ready(function () {
         }
     });
 
-    var type = GetQueryString("type");
-    if (type == "RK") {
-        $("#tjType").html("入&nbsp;库&nbsp;统&nbsp;计");
-        $('#resource').attr('placeholder', "请输入来源组织");
-    }
-    else if (type == "CK") {
-        $("#tjType").html("出&nbsp;库&nbsp;统&nbsp;计");
-        $('#resource').attr('placeholder', "请输入收货组织");
-    }
-    else if (type == "TH") {
-        $("#tjType").html("退&nbsp;货&nbsp;统&nbsp;计");
-        $('#resource').attr('placeholder', "请输入收货组织");
-    }
-
     $("#btn_search").click(function () {
         var bookNum = $("#bookNum").val();
         var bookName = $("#bookName").val();
@@ -71,17 +78,20 @@ $(document).ready(function () {
         var time = $("#time").val();
         var userName = $("#userName").val();
         var region = $("#region").val();
+        var resource = $("#resource").val();
 
         $.ajax({
             type: 'Post',
             url: 'inventoryStatistics.aspx',
             data: {
+                type: type,
                 bookNum: bookNum,
                 bookName: bookName,
                 supplier: supplier,
                 time: time,
                 userName: userName,
                 region: region,
+                resource: resource,
                 op: "paging"
             },
             dataType: 'text',
@@ -91,6 +101,5 @@ $(document).ready(function () {
                 $("#intPageCount").remove();
             }
         });
-
     });
 });
