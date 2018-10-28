@@ -30,6 +30,11 @@
             font-size: 24px;
             font-weight:bold;
         }
+        td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     </style>
 </head>
 <body>
@@ -60,15 +65,15 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table" id="table">
+                                <table class="table" style="table-layout: fixed;width:100%" id="table">
                                     <thead>
                                         <tr id="fontHead">
-                                            <th>排名</th>
-                                            <th>书名</th>
+                                            <td style="width:5%">排名</td>
+                                            <td style="width:60%">书名</td>
                                             <!--<th>数量</th>-->
-                                            <th>单价</th>
-                                            <th>销售总数</th>
-                                            <th>总码洋</th>
+                                            <td style="width:10%">单价</td>
+                                            <td style="width:10%">销售总数</td>
+                                            <td style="width:15%">总码洋</td>
                                         </tr>
                                     </thead>
                                     <%=GetData() %>

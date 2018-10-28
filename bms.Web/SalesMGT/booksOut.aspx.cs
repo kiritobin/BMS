@@ -31,7 +31,7 @@ namespace bms.Web.SalesMGT
             {
                 sb.Append("<tr>");
                 sb.Append("<td>" + (i+1) + "</td>");
-                sb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
+                sb.Append("<td title='"+ ds.Tables[0].Rows[i]["bookName"].ToString() + "'>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"].ToString() + "</td>");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["allNum"].ToString() + "</td>");
                 sb.Append("<td>" + Convert.ToDouble(ds.Tables[0].Rows[i]["allPrice"].ToString()).ToString("F2") + "</td>");
