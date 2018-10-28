@@ -104,28 +104,58 @@ namespace bms.Web.SalesMGT
             string search = "";
             if (bookNum != null && bookNum != "")
             {
-                search = "bookNum=" + bookNum + "'";
+                if (search != null && search != "")
+                {
+                    search = search + " and sm.bookNum='" + bookNum + "'";
+                }
+                else
+                {
+                    search = " sm.bookNum='" + bookNum + "'";
+                }
+               
             }
             if (bookName != null && bookName != "")
             {
                 if (search != null && search != "")
                 {
-                    search = search + " and bookName='" + "'";
+                    search = search + " and book.bookName like '" + bookName + "%'";
                 }
                 else
                 {
-                    search = "bookName='" + bookNum + "'";
+                    search = " book.bookName like '" + bookName + "%'";
                 }
             }
             if (regionName != null && regionName != "")
             {
                 if (search != null && search != "")
                 {
-                    search = search + " and regionName='" + "'";
+                    search = search + " and rg.regionName='" + regionName + "'";
                 }
                 else
                 {
-                    search = "regionName=" + regionName + "'";
+                    search = " rg.regionName='" + regionName + "'";
+                }
+            }
+            if (customerName != null && customerName != "")
+            {
+                if (search != null && search != "")
+                {
+                    search = search + " and ct.customerName='" + customerName + "'";
+                }
+                else
+                {
+                    search = " ct.customerName='" + customerName + "'";
+                }
+            }
+            if (time != null && time != "")
+            {
+                if (search != null && search != "")
+                {
+                    search = search + " and sm.dateTime like '" + time + "%'";
+                }
+                else
+                {
+                    search = " sm.dateTime like '" + time + "%'";
                 }
             }
 
@@ -140,14 +170,29 @@ namespace bms.Web.SalesMGT
             tb.StrColumnlist = @" sm.ISBN,sm.bookNum,book.bookName,sm.unitPrice,sum(sm.number) as allNum,sum(sm.totalPrice) as allPrice,head.state,sm.dateTime,us.userID,us.userName,ct.customerID,ct.customerName,rg.regionName";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = search == "" ? search : search + " group by bookNum,bookName,ISBN,unitPrice";
+            //tb.StrWhere = search == "" ? search : search + " group by bookNum,bookName,ISBN,unitPrice";
             if (!isNotAdmin)
             {
-                tb.StrWhere = @"(head.state=1 or head.state=2) and sm.saleTaskId = task.saleTaskId and task.userId = us.userID and sm.bookNum = book.bookNum AND sm.ISBN = book.ISBN and task.customerId = ct.customerID and us.regionId = rg.regionId and head.userId = us.userID AND head.regionId = rg.regionId AND head.saleTaskId = task.saleTaskId AND sm.saleHeadId = head.saleHeadId group by sm.bookNum";
+                if (search != null && search != "")
+                {
+                    tb.StrWhere = @"(head.state=1 or head.state=2) and sm.saleTaskId = task.saleTaskId and task.userId = us.userID and sm.bookNum = book.bookNum AND sm.ISBN = book.ISBN and task.customerId = ct.customerID and us.regionId = rg.regionId and head.userId = us.userID AND head.regionId = rg.regionId AND head.saleTaskId = task.saleTaskId AND sm.saleHeadId = head.saleHeadId and " + search + " group by sm.bookNum";
+                }
+                else
+                {
+                    tb.StrWhere = @"(head.state=1 or head.state=2) and sm.saleTaskId = task.saleTaskId and task.userId = us.userID and sm.bookNum = book.bookNum AND sm.ISBN = book.ISBN and task.customerId = ct.customerID and us.regionId = rg.regionId and head.userId = us.userID AND head.regionId = rg.regionId AND head.saleTaskId = task.saleTaskId AND sm.saleHeadId = head.saleHeadId group by sm.bookNum";
+                }
+
             }
             else
             {
-                tb.StrWhere = @"(head.state=1 or head.state=2) and rg.regionId=" + user.ReginId.RegionId + " and sm.saleTaskId = task.saleTaskId and task.userId = us.userID and sm.bookNum = book.bookNum AND sm.ISBN = book.ISBN and task.customerId = ct.customerID and us.regionId = rg.regionId and head.userId = us.userID AND head.regionId = rg.regionId AND head.saleTaskId = task.saleTaskId AND sm.saleHeadId = head.saleHeadId group by sm.bookNum";
+                if (search != null && search != "")
+                {
+                    tb.StrWhere = @"(head.state=1 or head.state=2) and rg.regionId=" + user.ReginId.RegionId + " and sm.saleTaskId = task.saleTaskId and task.userId = us.userID and sm.bookNum = book.bookNum AND sm.ISBN = book.ISBN and task.customerId = ct.customerID and us.regionId = rg.regionId and head.userId = us.userID AND head.regionId = rg.regionId AND head.saleTaskId = task.saleTaskId AND sm.saleHeadId = head.saleHeadId and " + search + " group by sm.bookNum";
+                }
+                else
+                {
+                    tb.StrWhere = @"(head.state=1 or head.state=2) and rg.regionId=" + user.ReginId.RegionId + " and sm.saleTaskId = task.saleTaskId and task.userId = us.userID and sm.bookNum = book.bookNum AND sm.ISBN = book.ISBN and task.customerId = ct.customerID and us.regionId = rg.regionId and head.userId = us.userID AND head.regionId = rg.regionId AND head.saleTaskId = task.saleTaskId AND sm.saleHeadId = head.saleHeadId group by sm.bookNum";
+                }
             }
             //获取展示的客户数据
             ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
