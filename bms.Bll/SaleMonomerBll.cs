@@ -315,6 +315,16 @@ namespace bms.Bll
             return SaleMonomerdao.getsaleHeadState(saleHeadId, saleTaskId);
         }
         /// <summary>
+        ///根据销售任务id 获取销售单头的状态
+        /// </summary>
+        /// <param name="saleTaskId">销售任务ID</param>
+        /// <returns>返回销售单头状态</returns>
+        public string getsaleHeadStatesBysaleTaskId(string saleTaskId)
+        {
+            return SaleMonomerdao.getsaleHeadStatesBysaleTaskId(saleTaskId);
+        }
+
+        /// <summary>
         /// 获取该单头id下的书本数量
         /// </summary>
         /// <param name="saleHeadId">单头id</param>

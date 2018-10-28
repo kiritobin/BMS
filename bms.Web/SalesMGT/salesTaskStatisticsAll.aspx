@@ -20,12 +20,17 @@
     <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
     <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css">
+    <style>
+        .statics{
+            width:100%;
+        }
+    </style>
 </head>
 
 <body>
     <div class="content">
         <div class="container-fluid">
-            <div class="row">
+            <div class="row">   
                 <div class="col-md-12">
                     <div class="card">
                         <div class="container-fluid">
@@ -33,7 +38,7 @@
                             <hr />
                         </div>
                         <div class="card-body">
-                            <%-- <div class="card-header from-group">
+                             <div class="card-header from-group">
                                 <div class="input-group">
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" id="bookNum" placeholder="请输入书号">
@@ -55,7 +60,7 @@
                                         <button class="btn btn-warning btn-sm" onclick="window.location.href='tradeManagement.aspx'" id="back">返回</button>
                                     </div>
                                 </div>
-                            </div>--%>
+                            </div>
                             <div class="row">
                                 <div class="content_tab col-md-12">
                                     <div class="table-responsive" style="" id="content">
@@ -122,55 +127,33 @@
                                             </tr>--%>
                                             <tr class="text-nowrap">
                                                 <td>
-                                                    <span>书籍种数:</span>
+                                                    <span>书籍种类:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allkinds %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=allkinds %>" class="form-control statics" disabled>
                                                 </td>
                                                 <td>
                                                     <span>书本总数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
+                                                    <input type="text" value="<%=allnumber %>" class="form-control statics" disabled></td>
+                                            </tr>
+                                             <tr class="text-nowrap">
                                                 <td>
                                                     <span>总码洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=alltotalprice %>" class="form-control statics" disabled>
                                                 </td>
                                                 <td>
                                                     <span>总实洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=allreadprice %>" class="form-control statics" disabled>
                                                 </td>
                                             </tr>
-                                            <%-- <tr class="text-nowrap">
-                                                <td>
-                                                    <span>总实洋:</span>
-                                                </td>
-                                                <td>
-                                                    <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
-                                                </td>
-                                                <td>
-                                                    <span>开始日期:</span>
-                                                </td>
-                                                <td>
-                                                    <div class="jeinpbox">
-                                                        <input type="text" value="<%=startTime %>" class="form-control" disabled id="startTime">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span>结束日期:</span>
-                                                </td>
-                                                <td>
-                                                    <div class="jeinpbox">
-                                                        <input type="text" value="<%=finishTime %>" class="form-control" disabled id="endTime">
-                                                    </div>
-                                                </td>
-                                            </tr>--%>
                                         </table>
-                                        <%-- <table class="table mostTable table-bordered text-center" id="table">
+                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
                                                     <td class="bbb">
@@ -194,10 +177,22 @@
                                                     <td>
                                                         <nobr>实洋</nobr>
                                                     </td>
+                                                    <td>
+                                                        <nobr>销售日期</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>操作员</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>客户</nobr>
+                                                    </td>
+                                                    <td>
+                                                        <nobr>组织</nobr>
+                                                    </td>
                                                 </tr>
                                             </thead>
                                             <%=getData()%>
-                                        </table>--%>
+                                        </table>
                                     </div>
                                     <%--<div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">

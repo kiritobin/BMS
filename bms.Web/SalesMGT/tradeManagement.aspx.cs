@@ -59,8 +59,19 @@ namespace bms.Web.SalesMGT
                         string equalsTime = nowTime.Substring(0, 10);
                         if (time.Equals(equalsTime))
                         {
-                            count += 1;
-                            saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                            nowTime = DateTime.Now.ToString("yyyy-MM-dd");
+                            string getsaleId = saleBll.getSaleTaskIdByTimedesc(nowTime);
+                            if (getsaleId == "" || getsaleId == null)
+                            {
+                                count = 1;
+                                saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                            }
+                            else
+                            {
+                                string js = getsaleId.Remove(0, getsaleId.Length-5);
+                                count = Convert.ToInt32(js) + 1;
+                                saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                            }
                         }
                         else
                         {
