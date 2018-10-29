@@ -55,12 +55,10 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleHeadId">销售任务ID</param>
         /// <returns></returns>
-        public int countHead(string saleTaskId)
+        public int countHead()
         {
-            string cmdText = "select count(saleHeadId) from T_SaleHead where saleTaskId=@saleTaskId";
-            string[] param = { "@saleTaskId" };
-            object[] values = { saleTaskId };
-            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            string cmdText = "select count(saleHeadId) from T_SaleHead";
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, null, null));
             return row;
         }
 
@@ -104,6 +102,23 @@ namespace bms.Dao
             {
                 string time = ds.Tables[0].Rows[0]["dateTime"].ToString();
                 return time.Substring(0, 10);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 根据当天时间获取单头编号
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getSaleHeadIdByTime(string nowtime)
+        {
+            //SELECT saleTaskId from t_saletask where startTime like  ORDER BY startTime desc
+            string comText = "select saleHeadId from T_SaleHead where dateTime like '" + nowtime + "%' order by saleHeadId desc";
+            DataSet ds = db.FillDataSet(comText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                string saleHeadId = ds.Tables[0].Rows[0]["saleHeadId"].ToString();
+                return saleHeadId;
             }
             return null;
         }

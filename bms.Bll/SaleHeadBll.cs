@@ -42,9 +42,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="saleTaskId">销售任务ID</param>
         /// <returns>行数</returns>
-        public int getCount(string saleTaskId)
+        public int getCount()
         {
-            int count = saleHeaddao.countHead(saleTaskId);
+            int count = saleHeaddao.countHead();
             if (count > 0)
             {
                 return count;
@@ -121,6 +121,16 @@ namespace bms.Bll
         {
             return saleHeaddao.getSaleHeadTime();
         }
+
+        /// <summary>
+        /// 根据当天时间获取单头编号
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getSaleHeadIdByTime(string nowtime)
+        {
+            return saleHeaddao.getSaleHeadIdByTime(nowtime);
+        }
+
         /// <summary>
         /// 根据单头id 销售任务id获取销售单头信息
         /// </summary>

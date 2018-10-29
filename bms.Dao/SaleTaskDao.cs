@@ -270,6 +270,22 @@ namespace bms.Dao
             }
             return null;
         }
+        /// <summary>
+        /// 获取当天最后一单
+        /// </summary>
+        /// <param name="time">时间</param>
+        /// <returns></returns>
+        public string getSaleTaskIdByTimedesc(string time)
+        {
+            string comText = "SELECT saleTaskId from t_saletask where startTime like '" + time + "%' ORDER BY saleTaskId desc";
+            DataSet ds = db.FillDataSet(comText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                string saleTaskId = ds.Tables[0].Rows[0]["saleTaskId"].ToString();
+                return saleTaskId;
+            }
+            return null;
+        }
         // <summary>
         /// 完成日期
         /// </summary>
