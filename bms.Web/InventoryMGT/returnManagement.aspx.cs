@@ -139,8 +139,7 @@ namespace bms.Web.BasicInfor
             string singleHeadId = Request["ID"];
             string regionName = Request["region"];
             string userName = Request["user"];
-            if (user.RoleId.RoleName == "超级管理员")
-            {
+            
                 if (singleHeadId != "" && singleHeadId != null)
                 {
                     search += " and singleHeadId='" + singleHeadId + "'";
@@ -153,25 +152,19 @@ namespace bms.Web.BasicInfor
                 {
                     search += " and userName='" + userName + "'";
                 }
-            }
-            else
-            {
-                search = "and regionId=" + user.ReginId.RegionId;
-                if (singleHeadId != "" && singleHeadId != null)
-                {
-                    search += " and singleHeadId='" + singleHeadId + "'";
-                }
-                if (userName != "" && userName != null)
-                {
-                    search += " and userName='" + userName + "'";
-                }
-            }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
             tbd.OrderBy = "singleHeadId";
             tbd.StrColumnlist = "singleHeadId,regionName,userName,allBillCount,allTotalPrice,allRealPrice,time";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = "deleteState=0 and type=2"+search;
+            if (user.RoleId.RoleName == "超级管理员")
+            {
+                tbd.StrWhere = "deleteState=0 and type=2" + search;
+            }
+            else
+            {
+                tbd.StrWhere = "deleteState=0 and type=2" + search + " and regionId=" + user.ReginId.RegionId;
+            }
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
