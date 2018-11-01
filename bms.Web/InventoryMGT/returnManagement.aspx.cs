@@ -135,63 +135,35 @@ namespace bms.Web.BasicInfor
                 currentPage = 1;
             }
             string op = Request["op"];
-            string search = "", superRole = "";
+            string search = "";
             string singleHeadId = Request["ID"];
             string regionName = Request["region"];
             string userName = Request["user"];
             if (user.RoleId.RoleName == "超级管理员")
             {
-                if ((singleHeadId == "" || singleHeadId == null) && (regionName == "" || regionName == null) && (userName == "" || userName == null))
+                if (singleHeadId != "" && singleHeadId != null)
                 {
-                    search = "deleteState=0 and type=2";
+                    search += " and singleHeadId='" + singleHeadId + "'";
                 }
-                else if (singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null) && (userName == "" || userName == null))
+                if (regionName != "" && regionName != null)
                 {
-                    search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "'";
+                    search += " and regionName='" + regionName + "'";
                 }
-                else if (regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
+                if (userName != "" && userName != null)
                 {
-                    search = "deleteState=0 and type=2 and regionName='" + regionName + "'";
-                }
-                else if (userName != "" && userName != null && (regionName == "" || regionName == null) && (singleHeadId == "" || singleHeadId == null))
-                {
-                    search = "deleteState=0 and type=2 and userName='" + userName + "'";
-                }
-                else if (userName != "" && userName != null && regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null))
-                {
-                    search = "deleteState=0 and type=2 and userName='" + userName + "' and regionName='" + regionName + "'";
-                }
-                else if (userName != "" && userName != null && singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null))
-                {
-                    search = "deleteState=0 and type=2 and userName='" + userName + "' and singleHeadId='" + singleHeadId + "'";
-                }
-                else if (singleHeadId != "" && singleHeadId != null && regionName != "" && regionName != null && (userName == "" || userName == null))
-                {
-                    search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "'";
-                }
-                else
-                {
-                    search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "' and userName='" + userName + "'";
+                    search += " and userName='" + userName + "'";
                 }
             }
             else
             {
-                superRole = "and regionId=" + user.ReginId.RegionId;
-                if ((singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
+                search = "and regionId=" + user.ReginId.RegionId;
+                if (singleHeadId != "" && singleHeadId != null)
                 {
-                    search = "deleteState=0 and type=2" + superRole;
+                    search += " and singleHeadId='" + singleHeadId + "'";
                 }
-                else if (singleHeadId != "" && singleHeadId != null && (userName == "" || userName == null))
+                if (userName != "" && userName != null)
                 {
-                    search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "'" + superRole;
-                }
-                else if (userName != "" && userName != null && (singleHeadId == "" || singleHeadId == null))
-                {
-                    search = "deleteState=0 and type=2 and userName='" + userName + "'" + superRole;
-                }
-                else
-                {
-                    search = "deleteState=0 and type=2 and singleHeadId='" + singleHeadId + "' and userName='" + userName + "'" + superRole;
+                    search += " and userName='" + userName + "'";
                 }
             }
             TableBuilder tbd = new TableBuilder();
@@ -199,7 +171,7 @@ namespace bms.Web.BasicInfor
             tbd.OrderBy = "singleHeadId";
             tbd.StrColumnlist = "singleHeadId,regionName,userName,allBillCount,allTotalPrice,allRealPrice,time";
             tbd.IntPageSize = pageSize;
-            tbd.StrWhere = search;
+            tbd.StrWhere = "deleteState=0 and type=2"+search;
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);

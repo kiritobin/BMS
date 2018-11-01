@@ -132,37 +132,17 @@ namespace bms.Web.BasicInfor
             string singleHeadId = Request["ID"];
             string regionName = Request["region"];
             string userName = Request["user"];
-            if ((singleHeadId == "" || singleHeadId == null) && (regionName == "" || regionName == null) && (userName == "" || userName == null))
+            if (singleHeadId != "" && singleHeadId != null)
             {
-                search = "";
+                search += " and singleHeadId='" + singleHeadId + "'";
             }
-            else if (singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null) && (userName == "" || userName == null))
+            if (regionName != "" && regionName != null)
             {
-                search = " and singleHeadId='" + singleHeadId + "'";
+                search += " and regionName='" + regionName + "'";
             }
-            else if (regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null) && (userName == "" || userName == null))
+            if (userName != "" && userName != null)
             {
-                search = " and regionName='" + regionName + "'";
-            }
-            else if (userName != "" && userName != null && (regionName == "" || regionName == null) && (singleHeadId == "" || singleHeadId == null))
-            {
-                search = " and userName='" + userName + "'";
-            }
-            else if (userName != "" && userName != null && regionName != "" && regionName != null && (singleHeadId == "" || singleHeadId == null))
-            {
-                search = " and userName='" + userName + "' and regionName='" + regionName + "'";
-            }
-            else if (userName != "" && userName != null && singleHeadId != "" && singleHeadId != null && (regionName == "" || regionName == null))
-            {
-                search = " and userName='" + userName + "' and singleHeadId='" + singleHeadId + "'";
-            }
-            else if (singleHeadId != "" && singleHeadId != null && regionName != "" && regionName != null && (userName == "" || userName == null))
-            {
-                search = " and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "'";
-            }
-            else
-            {
-                search = " and singleHeadId='" + singleHeadId + "' and regionName='" + regionName + "' and userName='" + userName + "'";
+                search += " and userName='" + userName + "'";
             }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
