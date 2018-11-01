@@ -69,6 +69,7 @@ namespace bms.Web.InventoryMGT
             User user = (User)Session["user"];
             int regionId = user.ReginId.RegionId;
             string tjType = Request["type"];
+            string where = "";
             int type = 0;
             if (tjType == "CK")
             {
@@ -82,7 +83,34 @@ namespace bms.Web.InventoryMGT
             {
                 type = 2;
             }
-
+            if(bookNum != null && bookNum != "")
+            {
+                where += " and A.bookNum='" + bookNum + "'";
+            }
+            if (bookName != null && bookName != "")
+            {
+                where += " and D.bookName like '%" + bookName + "%'";
+            }
+            if (supplier != null && supplier != "")
+            {
+                where += " and D.supplier='" + supplier + "'";
+            }
+            if (time != null && time != "")
+            {
+                where += " and B.time='" + time + "'";
+            }
+            if (userName != null && userName != "")
+            {
+                where += " and C.userName='" + userName + "'";
+            }
+            if (region != null && region != "")
+            {
+                where += " and F.regionName='" + region + "'";
+            }
+            if (resource != null && resource != "")
+            {
+                where += " and E.regionName='" + resource + "'";
+            }
             currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
@@ -95,12 +123,12 @@ namespace bms.Web.InventoryMGT
             if (isAdmin)
             {
                 tbd.StrColumnlist = "C.userName,D.bookName,A.ISBN,A.bookNum,sum(A.number) as number,sum(A.totalPrice) as totalPrice ,sum(A.realPrice) as realPrice,E.regionName,D.supplier,B.time,F.regionName as userRegionName";
-                tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and F.regionId=C.regionId and A.type="+type+" group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
+                tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and F.regionId=C.regionId and A.type="+ type + where + " group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
             }
             else
             {
                 tbd.StrColumnlist = "C.userName,D.bookName,A.ISBN,A.bookNum,sum(A.number) as number,sum(A.totalPrice) as totalPrice ,sum(A.realPrice) as realPrice,E.regionName,D.supplier,B.time";
-                tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and C.regionId=F.regionId and C.regionId="+ regionId + " and A.type="+type+" group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
+                tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and C.regionId=F.regionId and C.regionId="+ regionId + where + " and A.type="+type+" group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
             }
             tbd.IntPageSize = pageSize;
             tbd.IntPageNum = currentPage;

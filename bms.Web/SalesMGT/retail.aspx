@@ -88,6 +88,7 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td></td>
                                     </tr>
                                 </table>
                             </div>
@@ -160,6 +161,20 @@
                 </div>
             </div>
         </div>
+        <!-- footer -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <!-- 版权内容 -->
+                <div class="copyright text-center">
+                    &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>
+                    &nbsp;版权归云南新华书店图书有限公司所有
+                    <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
+                </div>
+            </div>
+        </footer>
     </div>
     <!--选择图书模态框-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">

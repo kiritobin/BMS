@@ -60,6 +60,11 @@ namespace bms.Web.InventoryMGT
                             count = rowes;
                             break;
                         }
+                        else
+                        {
+                            count = 1;
+                            break;
+                        }
                     }
                     if (count == 0)
                     {
@@ -125,37 +130,17 @@ namespace bms.Web.InventoryMGT
             string userName = Request["userName"];
             string region = Request["regionName"];
             string singHeadId = Request["singHeadId"];
-            if ((userName == "" || userName == null) && (region == null || region == "") && (singHeadId == null || singHeadId == ""))
+            if (userName != "" && userName != null)
             {
-                search = "";
+                search += " and userName= '"+ userName + "'";
             }
-            else if ((userName != "" && userName != null) && (region == null || region == "") && (singHeadId == null || singHeadId == ""))
+            if (region != "" && region != null)
             {
-                search = String.Format(" and userName= '{0}'", userName);
+                search += " and regionName='" + region + "'";
             }
-            else if ((userName == "" || userName == null) && (region != "" && region != null) && (singHeadId == null || singHeadId == ""))
+            if (singHeadId != "" && singHeadId != null)
             {
-                search = " and regionName='" + region + "'";
-            }
-            else if ((userName == "" || userName == null) && (singHeadId != "" && singHeadId != null) && (region == null || region == ""))
-            {
-                search = " and singleHeadId='" + singHeadId + "'";
-            }
-            else if ((userName == "" || userName == null) && (singHeadId != "" && singHeadId != null) && (region != null && region != ""))
-            {
-                search = " and regionName='" + region + "' and singleHeadId='" + singHeadId + "'";
-            }
-            else if ((userName != "" && userName != null) && (region != null && region != "") && (singHeadId == null || singHeadId == ""))
-            {
-                search = String.Format(" and userName= '{0}' and regionName = '{1}'", userName, region);
-            }
-            else if ((userName != "" && userName != null) && (region == null || region == "") && (singHeadId != null && singHeadId != ""))
-            {
-                search = String.Format(" and userName= '{0}' and singleHeadId='{1}'", userName, singHeadId);
-            }
-            else
-            {
-                search = String.Format(" and userName= '{0}' and regionName = '{1}' and singleHeadId='{2}'  and deleteState=0", userName, region, singHeadId);
+                search += " and singleHeadId='" + singHeadId + "'";
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
