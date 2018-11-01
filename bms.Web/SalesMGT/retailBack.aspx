@@ -100,8 +100,6 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
                                     </tr>
                                 </table>
                             </div>
@@ -112,17 +110,15 @@
                             <div class="retailList">
                                 <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
                             </div>
-                            <div class="container" style="margin-left:-30px">
-                                <div class="row">
-                                    <div class="text-white col-sm-4 text-right" id="scanning" data-toggle="modal" data-target="#myModal1">
-                                        <button class="btn btn-info btn-lg btnText">扫  描</button>
-                                    </div>
-                                    <div class="text-white col-sm-4 text-right" id="insert">
-                                        <button class="btn btn-success btn-lg btnText">提  交</button>
-                                    </div>
-                                    <div class="text-white col-sm-4 text-left" onclick="javascript:history.back(-1);">
-                                        <button class="btn btn-danger btn-lg btnText">返  回</button>
-                                    </div>
+                            <div class="row" id="retailBtn">
+                                <div class="text-white" id="scanning" data-toggle="modal" data-target="#myModal1">
+                                    <button class="btn btn-info btnText">扫  描</button>
+                                </div>
+                                <div class="text-white" id="insert">
+                                    <button class="btn btn-success btnText">提  交</button>
+                                </div>
+                                <div class="text-white" onclick="javascript:history.back(-1);">
+                                    <button class="btn btn-danger btnText">返  回</button>
                                 </div>
                             </div>
                         </div>
@@ -155,6 +151,20 @@
                 </div>
             </div>
         </div>
+        <!-- footer -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <!-- 版权内容 -->
+                <div class="copyright text-center">
+                    &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>
+                    &nbsp;版权归云南新华书店图书有限公司所有
+                    <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
+                </div>
+            </div>
+        </footer>
     </div>
     <!--选择图书模态框-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
