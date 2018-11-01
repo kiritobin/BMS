@@ -35,7 +35,7 @@ namespace bms.Web.SalesMGT
             {
                 isNotAdmin = true;
                 //time = "2018";
-                DataSet dsSum = saletaskbll.getAllpriceRegion(region);
+                DataSet dsSum = saletaskbll.getAllpriceRegion(region,time);
                 allnumber = dsSum.Tables[0].Rows[0]["allNum"].ToString();
                 alltotalprice = dsSum.Tables[0].Rows[0]["allPrice"].ToString();
                 allreadprice = dsSum.Tables[0].Rows[0]["allRealPrice"].ToString();
@@ -45,7 +45,7 @@ namespace bms.Web.SalesMGT
             else
             {
                 //time = "2018";
-                DataSet dsSum = saletaskbll.getAllprice();
+                DataSet dsSum = saletaskbll.getAllprice(time);
                 allnumber = dsSum.Tables[0].Rows[0]["allNum"].ToString();
                 alltotalprice = dsSum.Tables[0].Rows[0]["allRealPrice"].ToString();
                 allreadprice = dsSum.Tables[0].Rows[0]["allPrice"].ToString();
