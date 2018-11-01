@@ -173,9 +173,11 @@ namespace bms.Web.SalesMGT
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "v_test";
+            tb.StrTable = "v_salemonomer";
             tb.OrderBy = "dateTime";
-            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,sum(totalPrice) as totalPrice,regionName,supplier,author";
+            //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number ,realPrice ,totalPrice,regionName,supplier,author";
+
+             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,sum(totalPrice) as totalPrice,regionName,supplier,author";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             if (state == "3")
@@ -204,6 +206,16 @@ namespace bms.Web.SalesMGT
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
                     strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"] + "</td></tr>");
                 }
+                //if (int.Parse(ds.Tables[0].Rows[i]["number"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["number"].ToString()) != 0)
+                //{
+                //    strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
+                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
+                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
+                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["number"] + "</td>");
+                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"] + "</td></tr>");
+                //}
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value='" + intPageCount + " ' id='intPageCount' />");

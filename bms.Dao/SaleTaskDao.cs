@@ -538,11 +538,11 @@ namespace bms.Dao
             String cmdText;
             if (state == "3")
             {
-                cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_test where saleTaskId='" + strWhere + "' and state=3 group by bookNum,bookName,ISBN,unitPrice";
+                cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer where saleTaskId='" + strWhere + "' and state=3 group by bookNum,bookName,ISBN,unitPrice";
             }
             else
             {
-                cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_test where saleTaskId='" + strWhere + "' and state <>3 group by bookNum,bookName,ISBN,unitPrice";
+                cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer where saleTaskId='" + strWhere + "' and state <>3 group by bookNum,bookName,ISBN,unitPrice";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;

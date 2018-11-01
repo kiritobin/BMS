@@ -390,7 +390,7 @@ namespace bms.Dao
             object[] values = { saleTaskId };
             string state;
             int row = db.ExecuteNoneQuery(cmdtext, param, values);
-            if (row == 0)
+            if (row <= 0)
             {
                 state = "1";
             }
