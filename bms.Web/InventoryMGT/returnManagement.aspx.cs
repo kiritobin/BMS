@@ -54,6 +54,11 @@ namespace bms.Web.BasicInfor
                             count = rowes;
                             break;
                         }
+                        else
+                        {
+                            count = 1;
+                            break;
+                        }
                     }
                     if (count == 0)
                     {
