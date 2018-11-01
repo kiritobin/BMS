@@ -106,14 +106,12 @@ namespace bms.Web.SalesMGT
             DataTable tRows = headDs.Tables[0];
             if (tRows.Rows.Count > 0 && headDs != null)
             {
-                for(int i = 0; i < tRows.Rows.Count; i++)
-                {
-                    staticsKinds = Convert.ToInt32(tRows.Rows[0]["kinds"].ToString());
-                    staticsNumber = Convert.ToInt32(tRows.Rows[0]["count"].ToString());
-                    staticsTotalPrice = Convert.ToDouble(tRows.Rows[0]["totalPrice"].ToString());
-                    staticsRealPrice = Convert.ToDouble(tRows.Rows[0]["realPrice"]);
-                    staticsTime = Convert.ToDateTime(tRows.Rows[0]["makingTime"]);
-                }
+                DataRow dr = tRows.Rows[0];
+                staticsKinds = Convert.ToInt32(dr["kinds"].ToString());
+                staticsNumber = Convert.ToInt32(dr["count"].ToString());
+                staticsTotalPrice = Convert.ToDouble(dr["totalPrice"].ToString());
+                staticsRealPrice = Convert.ToDouble(dr["realPrice"]);
+                staticsTime = Convert.ToDateTime(dr["makingTime"]);
             }
             else
             {
