@@ -227,6 +227,7 @@
                                     </div>
                                 </th>
                                 <th><nobr>ISBN</nobr></th>
+                                <th><nobr>书号</nobr></th>
                                 <th><nobr>书名</nobr></th>
                                 <th><nobr>单价</nobr></th>
                                 <th><nobr>出版社</nobr></th>
