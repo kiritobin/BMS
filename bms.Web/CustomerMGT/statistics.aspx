@@ -17,9 +17,10 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
-     <link rel="stylesheet" href="../css/bootstrap-select.css" />
+    <link rel="stylesheet" href="../css/bootstrap-select.css" />
     <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/jedate.css" />
+    <script src="../js/jedate.min.js"></script>
 </head>
 
 <body>
@@ -29,7 +30,8 @@
             <!-- 平台字体logo -->
             <div class="logo text-center">
                 <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统</a>
-                <span class="text-danger"></span><br />
+                <span class="text-danger"></span>
+                <br />
                 <span class="text-danger"></span>
             </div>
             <div class="sidebar-wrapper">
@@ -164,7 +166,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="fa fa-file-archive-o"></i>
-                            <p>基础信息<b class="caret"></b>
+                            <p>
+                                基础信息<b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="baseManage">
@@ -229,76 +232,106 @@
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title ">大屏统计设置</h4>
                                 </div>
-                                <div class="card-body">
-                                    <div class="card-header from-group">
-                                        <div class="input-group">
-                                            <div class="btn-group" role="group">
-                                                <select class="modal_select selectpicker" data-live-search="true" id="startTime">
-                                                    <option value="">开始时间</option>                                                  
-                                                </select>
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <%--<select class="modal_select selectpicker" data-live-search="true" id="endTime">
-                                                    <option value="">结束时间</option>                                                  
-                                                </select>--%>
-                                                <input id="datepicker" placeholder="请选择时间" type="text" readonly/>
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <select class="modal_select selectpicker" data-live-search="true" id="cusSearch">
-                                                    <option value="">选择组织</option>                                                  
-                                                </select>
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-success btn-sm" id="" data-toggle="modal" data-target="#myModal2">确定</button>
-                                            </div>
-                                        </div>
+                                <div class="card-body text-center" style="height:500px;">
+                                    <table class="timetable">
+                                        <tr>
+                                            <td>开始时间：</td>
+                                            <td>
+                                                <div class="jeinpbox">
+                                                    <input type="text" class="jeinput text-center" id="startTime" placeholder="年--月--日">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>结束时间：</td>
+                                            <td>
+                                                <div class="jeinpbox">
+                                                    <input type="text" class="jeinput text-center" id="endTime" placeholder="年--月--日">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>请选择组织：</td>
+                                            <td class="">
+                                                <select class="selectpicker text-center" data-live-search="true" id="cusSearch">
+                                                    <option value="">选择组织</option>
+                                                </select></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td class="">
+                                                <button class="btn btn-success pull-right" id="">确定</button></td>
+                                        </tr>
+                                    </table>
+                                    <%--<div class="jeinpbox">
+                                        <input type="text" class="jeinput" id="startTime" placeholder="YYYY-MM-DD">
                                     </div>
-                                    <div class="copyright float-right page-box">
-                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div>
-                                        </div>
+
+                                    <div class="jeinpbox">
+                                        <input type="text" class="jeinput" id="endTime" placeholder="YYYY-MM-DD">
                                     </div>
+
+                                    <select class="modal_select selectpicker" data-live-search="true" id="cusSearch">
+                                        <option value="">选择组织</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-success btn-sm" id="">确定</button>--%>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- 主界面页脚部分 -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <!-- 版权内容 -->
-                    <div class="copyright text-center">
-                        &copy;
+                <!-- 主界面页脚部分 -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <!-- 版权内容 -->
+                        <div class="copyright text-center">
+                            &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        &nbsp;版权归云南新华书店图书有限公司所有
+                            &nbsp;版权归云南新华书店图书有限公司所有
                         <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
+                        </div>
                     </div>
-                </div>
-            </footer>
+                </footer>
+            </div>
         </div>
-    </div>
-    <%--<script>
+        <%--<script>
 
         $('.selectpicker').selectpicker({
             'selectedText': 'cat'
         });
     </script>--%>
-
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <!-- 左侧导航栏所需js -->
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/bootstrap-material-design.min.js"></script>
-    <!-- 移动端手机菜单所需js -->
-    <script src="../js/perfect-scrollbar.jquery.min.js"></script>
-    <script src="../js/material-dashboard.min.js"></script>
-    <script src="../js/bootstrap-selectpicker.js"></script>
-    <script src="../js/sweetalert2.js"></script>
-    <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/ajaxfileupload.js"></script>
-    <script src="../js/public.js"></script>
-    <script src="../js/jedate.min.js"></script>
+        <script>
+            jeDate("#startTime", {
+                theme: {
+                    bgcolor: "#D91600",
+                    pnColor: "#FF6653"
+                },
+                multiPane: true,
+                format: "YYYY-MM-DD"
+            });
+            jeDate("#endTime", {
+                theme: {
+                    bgcolor: "#D91600",
+                    pnColor: "#FF6653"
+                },
+                multiPane: true,
+                format: "YYYY-MM-DD"
+            });
+        </script>
+        <script src="../js/jquery-3.3.1.min.js"></script>
+        <!-- 左侧导航栏所需js -->
+        <script src="../js/popper.min.js"></script>
+        <script src="../js/bootstrap-material-design.min.js"></script>
+        <!-- 移动端手机菜单所需js -->
+        <script src="../js/perfect-scrollbar.jquery.min.js"></script>
+        <script src="../js/material-dashboard.min.js"></script>
+        <script src="../js/bootstrap-selectpicker.js"></script>
+        <script src="../js/sweetalert2.js"></script>
+        <script src="../js/jquery.pagination.js"></script>
+        <script src="../js/ajaxfileupload.js"></script>
+        <script src="../js/public.js"></script>
 </body>
 </html>
