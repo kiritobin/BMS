@@ -590,7 +590,7 @@ namespace bms.Dao
         public DataSet GroupCount()
         {
             //string sql = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from v_test where (state=1 or state=2) GROUP BY bookNum ORDER BY allPrice desc";
-            string sql = "select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from v_test where (state=1 or state=2) GROUP BY bookNum ORDER BY allCount desc) as temp)";
+            string sql = "select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from v_salemonomer where (state=1 or state=2) GROUP BY bookNum ORDER BY allCount desc) as temp)";
             DataSet ds = db.FillDataSet(sql, null, null);
             return ds;
         }
@@ -600,7 +600,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet groupCustomer()
         {
-            string sql = "select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice from v_test  where (state=1 or state=2) GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
+            string sql = "select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice from v_salemonomer  where (state=1 or state=2) GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
             //string sql = "SELECT sum(A.totalPrice) as totalPrice,D.customerName as customerName,sum(A.number) as number from t_salemonomer as A,t_salehead as B,t_saletask as C,t_customer as D where a.saleHeadId = b.saleHeadId and b.saleTaskId=c.saleTaskId and c.customerID=d.customerID and (b.state=1 or b.state=2) group by D.customerName ORDER BY totalPrice desc LIMIT 0,10";
             DataSet ds = db.FillDataSet(sql, null, null);
             return ds;
@@ -618,7 +618,7 @@ namespace bms.Dao
         public int customerKinds(string customerName)
         {
             string cmdText = @"select count(bookNum) as customerKinds from (
-(select customerName, bookNum, SUM(number) as allCount, SUM(totalPrice) as allPrice from v_test  where (state = 1 or state = 2) and customerName = @customerName GROUP BY bookNum) as temp)";
+(select customerName, bookNum, SUM(number) as allCount, SUM(totalPrice) as allPrice from v_salemonomer  where (state = 1 or state = 2) and customerName = @customerName GROUP BY bookNum) as temp)";
             string[] param = { "@customerName" };
             object[] values = { customerName };
             int kinds = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
