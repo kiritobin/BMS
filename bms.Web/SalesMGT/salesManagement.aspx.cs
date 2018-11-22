@@ -26,33 +26,44 @@ namespace bms.Web.SalesMGT
         replenishMentBll replenBll = new replenishMentBll();
         replenishMentHead rsHead = new replenishMentHead();
         SaleMonomerBll salemonbll = new SaleMonomerBll();
-        public string type, userName, regionName, saleTaskid;
+        public string type, userName, regionName, saleTaskid, finishTime = "";
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
         protected void Page_Load(object sender, EventArgs e)
         {
             user = (User)Session["user"];
             permission();
-            getData();
+
             string op = Request["op"];
-            saleTaskid = Session["saleId"].ToString(); ;
+            saleTaskid = Session["saleId"].ToString();
+            SaleTaskBll saleBll = new SaleTaskBll();
+            finishTime = saleBll.getSaleTaskFinishTime(saleTaskid);
+            getData();
             string saleheadId = Request["ID"];
             type = Session["type"].ToString();
             //添加销售单体
             if (op == "addDetail")
             {
-                SaleMonomerBll salemonbll = new SaleMonomerBll();
-                int state = salemonbll.saleheadstate(saleTaskid, saleheadId);
-                if (state == 2)
+                if (finishTime != null && finishTime != "")
                 {
-                    Response.Write("失败");
+                    Response.Write("该销售计划已完成");
                     Response.End();
                 }
                 else
                 {
-                    Session["saleheadId"] = saleheadId;
-                    Session["saleType"] = "addsale";
-                    Response.Write("成功");
-                    Response.End();
+                    SaleMonomerBll salemonbll = new SaleMonomerBll();
+                    int state = salemonbll.saleheadstate(saleTaskid, saleheadId);
+                    if (state == 2)
+                    {
+                        Response.Write("失败");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Session["saleheadId"] = saleheadId;
+                        Session["saleType"] = "addsale";
+                        Response.Write("成功");
+                        Response.End();
+                    }
                 }
             }
             //if (op == "saleback")
@@ -93,21 +104,26 @@ namespace bms.Web.SalesMGT
                 SaleTaskBll salebll = new SaleTaskBll();
                 DataSet saleHeadStateds = salebll.SelectHeadStateBySaleId(saleTaskid);
                 int count = saleHeadStateds.Tables[0].Rows.Count;
-                int state = 3;
+                int state = 4;
                 for (int i = 0; i < count; i++)
                 {
                     state = Convert.ToInt32(saleHeadStateds.Tables[0].Rows[i]["state"]);
-                    if (state < 2)
+                    if (state == 0 || state == 1)
                     {
                         break;
                     }
                 }
-                if (state < 2)
+                if (state == 0)
                 {
-                    Response.Write("未完成失败");
+                    Response.Write("失败,有新建的单据");
                     Response.End();
                 }
-                else if (state == 2)
+                if (state == 1)
+                {
+                    Response.Write("失败,有采集中的单据");
+                    Response.End();
+                }
+                else
                 {
                     DateTime finishTime = DateTime.Now.ToLocalTime();
                     int row = salebll.updatefinishTime(finishTime, saleTaskid);
@@ -122,6 +138,26 @@ namespace bms.Web.SalesMGT
                         Response.End();
                     }
                 }
+                //if (state < 2)
+                //{
+                //    Response.Write("未完成失败");
+                //    Response.End();
+                //}
+                //else if (state == 2)
+                //{
+                //    DateTime finishTime = DateTime.Now.ToLocalTime();
+                //    int row = salebll.updatefinishTime(finishTime, saleTaskid);
+                //    if (row > 0)
+                //    {
+                //        Response.Write("成功");
+                //        Response.End();
+                //    }
+                //    else
+                //    {
+                //        Response.Write("失败");
+                //        Response.End();
+                //    }
+                //}
             }
             //添加
             if (op == "add")
@@ -152,14 +188,12 @@ namespace bms.Web.SalesMGT
                             count = Convert.ToInt32(js) + 1;
                             SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                         }
-                       
                     }
                     else
                     {
                         count = 1;
                         SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                     }
-
                 }
                 else
                 {
@@ -538,7 +572,8 @@ namespace bms.Web.SalesMGT
             //customerds = custBll.select();
             //生成table
             StringBuilder strb = new StringBuilder();
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            int dscount = ds.Tables[0].Rows.Count;
+            for (int i = 0; i < dscount; i++)
             {
                 string state = ds.Tables[0].Rows[i]["state"].ToString();
                 if (state == "0")
@@ -555,7 +590,7 @@ namespace bms.Web.SalesMGT
                 }
                 else
                 {
-                    state = "采集中";
+                    state = "预采";
                 }
                 //else if (state == "3")
                 //{
@@ -576,7 +611,7 @@ namespace bms.Web.SalesMGT
                 //    strb.Append("<button class='btn btn-success btn-sm btn_succ'>结算</button>");
                 //    //strb.Append("<button class='btn btn-success btn-sm btn_back'>销退</button>");
                 //}
-                if (state == "新建单据" || state == "采集中")
+                if ((state == "新建单据" || state == "采集中") && (finishTime == null || finishTime == ""))
                 {
                     strb.Append("<button class='btn btn-success btn-sm add'><i class='fa fa-plus fa-lg'></i></button>");
                 }

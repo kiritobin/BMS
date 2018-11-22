@@ -302,6 +302,9 @@
                                                 <button class="btn btn-info btn-sm" id="finish">完成</button>
                                             </div>
                                             <% } %>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-info" onclick="window.location.href='salesTaskStatistics.aspx'" style="height: 35px">销售统计</button>
+                                            </div>
                                             <%--<div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" id="btn_succAll">结算</button>
                                             </div>--%>

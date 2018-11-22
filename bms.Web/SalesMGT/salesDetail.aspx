@@ -87,7 +87,7 @@
                                                         <nobr>实洋</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>采购数</nobr>
+                                                        <nobr>已采购数</nobr>
                                                     </td>
                                                 </tr>
                                             </thead>

@@ -35,10 +35,11 @@ namespace bms.Web.SalesMGT
         replenishMentBll replenBll = new replenishMentBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            getData();
+            
             user = (User)Session["user"];
             type = Session["saleType"].ToString();
             saleId = Session["saleId"].ToString();
+            getData();
             getlimt();
             SaleTask task = saletaskbll.selectById(saleId);
             defaultdiscount = task.DefaultDiscount.ToString();
@@ -188,8 +189,11 @@ namespace bms.Web.SalesMGT
                 count += 1;
             }
             string booknum = Request["bookNum"];
+            int alreadyBought = salemonbll.getBookNumberSumByBookNum(booknum, saleId);
+
             BookBasicBll bookbll = new BookBasicBll();
             BookBasicData book = bookbll.SelectById(booknum);
+
             string remarks = book.Remarks;
             if (remarks == "" || remarks == null)
             {
@@ -212,10 +216,10 @@ namespace bms.Web.SalesMGT
             sb.Append("<td>" + booknum + "</td>");
             sb.Append("<td>" + bookname + "</td>");
             sb.Append("<td>" + price + "</td>");
-            sb.Append("<td><input class='count textareaCount' type='number'/></td>");
+            sb.Append("<td><input class='count textareaCount' type='number' value='" + defaultCopy.ToString() + "'/></td>");
             sb.Append("<td><input class='discount textareaDiscount' value='" + remarks + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
             sb.Append("<td>" + "" + "</td>");
-            sb.Append("<td>" + "" + "</td></tr>");
+            sb.Append("<td>" + alreadyBought + "</td></tr>");
             sb.Append("</tbody>");
             Response.Write(sb.ToString());
             Response.End();
@@ -261,7 +265,6 @@ namespace bms.Web.SalesMGT
             if (remarks == "" || remarks == null)
             {
                 remarks = defaultdiscount;
-
             }
             else
             {
@@ -272,22 +275,25 @@ namespace bms.Web.SalesMGT
             }
             StringBuilder sb = new StringBuilder();
             sb.Append("<tbody>");
+            int alreadyBought;
+            string addbooknum;
             for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
             {
+                addbooknum = bookds.Tables[0].Rows[i]["bookNum"].ToString();
+                alreadyBought = salemonbll.getBookNumberSumByBookNum(addbooknum, saleId);
                 sb.Append("<tr class='first'><td>" + count + "</td>");
                 sb.Append("<td>" + "<input type='text' class='isbn textareaISBN' value='" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
                 sb.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
                 sb.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + bookds.Tables[0].Rows[i]["price"].ToString() + "</td>");
-                sb.Append("<td><input class='count textareaCount' type='number'/></td>");
+                sb.Append("<td><input class='count textareaCount' type='number' value='" + defaultCopy.ToString() + "'/></td>");
                 sb.Append("<td><input class='discount textareaDiscount' value='" + remarks + "' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td>");
                 sb.Append("<td>" + "" + "</td>");
-                sb.Append("<td>" + "" + "</td></tr>");
+                sb.Append("<td>" + alreadyBought + "</td></tr>");
             }
             sb.Append("</tbody>");
             Response.Write(sb.ToString());
             Response.End();
-
         }
         /// <summary>
         /// 添加销售
@@ -447,6 +453,9 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public void getbook()
         {
+            string booknum;
+            int booknumber = 0;
+            int isnull = 0;
             strbook.Append("<thead>");
             strbook.Append("<tr>");
             strbook.Append("<th>" + "<div class='pretty inline much'><input type = 'radio' disabled='disabled' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
@@ -458,8 +467,24 @@ namespace bms.Web.SalesMGT
             strbook.Append("</tr>");
             strbook.Append("</thead>");
             strbook.Append("<tbody>");
+            int count = bookds.Tables[0].Rows.Count;
             for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
             {
+                booknum = bookds.Tables[0].Rows[i]["bookNum"].ToString();
+                DataSet stockbook = stockbll.SelectByBookNum(booknum, user.ReginId.RegionId);
+                for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
+                {
+                    booknumber += Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
+                }
+                if (booknumber == 0)
+                {
+                    isnull++;
+                    if (isnull == count)
+                    {
+                        strbook.Append("<tr><td colspan='6'>该书无库存</td></tr>");
+                    }
+                    continue;
+                }
                 strbook.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
                 strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");

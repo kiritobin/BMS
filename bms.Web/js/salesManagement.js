@@ -322,10 +322,10 @@ $(document).ready(function () {
                             window, location.reload();
                         })
                     }
-                    else if (succ == "未完成失败") {
+                    else if (succ == "失败,有新建的单据" || succ == "失败,有采集中的单据") {
                         swal({
                             title: "温馨提示:)",
-                            text: "有未完成单据，请检查后再次操作。",
+                            text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',
                             confirmButtonText: '确定',
@@ -388,6 +388,20 @@ $(document).ready(function () {
                             allowOutsideClick: false
                         }).then(function () {
                             window, location.reload();
+                        })
+                    }
+                    else if (succ == "该销售计划已完成") {
+                        swal({
+                            title: "温馨提示:)",
+                            text: "该销售计划已完成,不能添加!",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        }).then(function () {
+
                         })
                     }
                     else {
