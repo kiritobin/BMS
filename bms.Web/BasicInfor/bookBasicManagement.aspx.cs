@@ -412,19 +412,27 @@ namespace bms.Web.BasicInfor
         {
             string bookNum = Request["bookNum"];
             Result row = Result.记录不存在;
-            if (bookbll.IsDelete("T_ReplenishmentMonomer", "bookNum", bookNum) == Result.关联引用)
+            if (bookbll.IsDelete("t_salemonomer", "bookNum", bookNum) == Result.关联引用)
             {
                 row = Result.关联引用;
             }
-            if (bookbll.IsDelete("T_SellOffMonomer", "bookNum", bookNum) == Result.关联引用)
+            if (bookbll.IsDelete("t_stock", "bookNum", bookNum) == Result.关联引用)
             {
                 row = Result.关联引用;
             }
-            if (bookbll.IsDelete("T_SaleMonomer", "bookNo", bookNum) == Result.关联引用)
+            if (bookbll.IsDelete("t_replenishmentmonomer", "bookNum", bookNum) == Result.关联引用)
             {
                 row = Result.关联引用;
             }
-            if (bookbll.IsDelete("T_Monomers", "bookNum", bookNum) == Result.关联引用)
+            if (bookbll.IsDelete("t_selloffmonomer", "bookNum", bookNum) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            if (bookbll.IsDelete("t_retailmonomer", "bookNum", bookNum) == Result.关联引用)
+            {
+                row = Result.关联引用;
+            }
+            if (bookbll.IsDelete("t_monomers", "bookNum", bookNum) == Result.关联引用)
             {
                 row = Result.关联引用;
             }
