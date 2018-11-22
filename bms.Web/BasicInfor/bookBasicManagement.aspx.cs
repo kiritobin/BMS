@@ -536,7 +536,6 @@ namespace bms.Web.BasicInfor
                 DataRowCollection count = addBookId().Rows;
                 int counts = 0;
                 DataTable dataTable = bookBasicBll.Select();
-                string a = dataTable.Rows[0]["remarks"].ToString();
                 bool isNull=false;
                 int rowls =0;
                 int kz = 0;
