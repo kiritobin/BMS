@@ -97,9 +97,45 @@ $("#search").keypress(function (e) {
                             },
                             dataType: 'text',
                             success: function (succ) {
-                                $("#myModal").modal("show");
-                                $("#table2 tr:not(:first)").remove(); //清空table处首行
-                                $("#table2").prepend(succ); //加载table
+                                var datas = succ.split("|:");
+                                var data = datas[1];
+                                if (datas[0] == "无库存") {
+                                    swal({
+                                        title: "书籍库存不足",
+                                        buttonsStyling: false,
+                                        confirmButtonClass: "btn btn-warning",
+                                        type: "warning"
+                                    }).catch(swal.noop);
+                                } else if (datas[0] == "other") {
+                                    if (sessionStorage.getItem("kind") == "0") {
+                                        //$("#table tr:eq(1)").empty();
+                                        $(".first").remove();
+                                    }
+                                    $("#table").prepend(data);
+                                    //计算合计内容
+                                    var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
+                                    var numbers = parseInt(sessionStorage.getItem("number")) + 1;
+                                    var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
+                                    var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
+                                    sessionStorage.setItem("kind", kinds);
+                                    sessionStorage.setItem("number", numbers);
+                                    sessionStorage.setItem("totalPrice", parseFloat(totalPrices).toFixed(2));
+                                    sessionStorage.setItem("realPrice", parseFloat(realPrices).toFixed(2));
+                                    //展示合计内容
+                                    $("#number").text(numbers);
+                                    $("#total").text(parseFloat(totalPrices).toFixed(2));
+                                    //$("#real").text(realPrices);
+                                    $("#real").text(parseFloat(realPrices).toFixed(2));
+                                    $("#kind").text(kinds);
+                                    //清空输入框并获取焦点
+                                    $("#search").val("");
+                                    $("#search").focus();
+                                }
+                                else {
+                                    $("#myModal").modal("show");
+                                    $("#table2 tr:not(:first)").remove(); //清空table处首行
+                                    $("#table2").prepend(data); //加载table
+                                }
                             }
                         })
                     } else {

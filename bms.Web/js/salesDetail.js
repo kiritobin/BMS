@@ -81,7 +81,7 @@
             }
         }
     })
-    // var defaultCopy = $("#defaultCopy").val();
+     var defaultCopy = $("#defaultCopy").val();
     // var numberLimit = $("#numberLimit").val();
     var priceLimit = $("#priceLimit").val();
 
@@ -236,7 +236,7 @@
         var isbn = $(tb).parent().parent().next().text();
         var bookname = $(tb).parent().parent().next().next().next().text();
         var price = $(tb).parent().parent().next().next().next().next().text();
-        if (bookNum == "") {
+        if (bookNum == "" || bookNum == null) {
             swal({
                 title: "温馨提示:)",
                 text: "请勾选书籍！",

@@ -42,9 +42,10 @@ namespace bms.Dao
 
 
         /// <summary>
-        /// 根据ISBN查询货架id，库存数量
+        /// 根据书号，组织Id查询货架id，库存数量
         /// </summary>
-        /// <param name="ISBN">ISBN</param>
+        /// <param name="bookNum">书号</param>
+        /// <param name="regionId">组织Id</param>
         /// <returns></returns>
         public DataSet SelectByBookNum(string bookNum, int regionId)
         {
@@ -100,30 +101,18 @@ namespace bms.Dao
             return row;
         }
         /// <summary>
-        /// 通过书号获取库存
+        /// 通过书号,组织Id获取库存
         /// </summary>
-        /// <param name="bookNum"></param>
+        /// <param name="bookNum">书号</param>
+        /// <param name="regionId">组织Id</param>
         /// <returns></returns>
-        public int selectStockNum(string bookNum)
+        public int selectStockNum(string bookNum,int regionId)
         {
-            string cmdText = "select stockNum from T_Stock where bookNum=@bookNum";
-            String[] param = { "@bookNum" };
-            String[] values = { bookNum.ToString() };
-            DataSet ds = db.FillDataSet(cmdText, param, values);
-            int count, counts = 0;
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                {
-                    count = Convert.ToInt32(ds.Tables[0].Rows[i]["stockNum"]);
-                    counts = counts + count;
-                }
-                return counts;
-            }
-            else
-            {
-                return 0;
-            }
+            string cmdText = "select sum(stockNum) as stockNum from T_Stock where bookNum=@bookNum and regionId=@regionId";
+            String[] param = { "@bookNum" ,"@regionId" };
+            String[] values = { bookNum, regionId.ToString() };
+            int count = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            return count;
         }
     }
 }

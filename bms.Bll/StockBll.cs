@@ -50,9 +50,10 @@ namespace bms.Bll
         }
 
         /// <summary>
-        /// 根据ISBN查询货架id，库存数量
+        /// 根据书号，组织Id查询货架id，库存数量
         /// </summary>
         /// <param name="bookNum">书号</param>
+        /// <param name="regionId">组织Id</param>
         /// <returns></returns>
         public DataSet SelectByBookNum(string bookNum, int regionId)
         {
@@ -93,9 +94,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="bookNum"></param>
         /// <returns></returns>
-        public int selectStockNum(string bookNum)
+        public int selectStockNum(string bookNum, int regionId)
         {
-            return stockDao.selectStockNum(bookNum);
+            return stockDao.selectStockNum(bookNum,regionId);
         }
     }
 }

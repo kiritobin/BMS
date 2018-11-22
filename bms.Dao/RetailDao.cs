@@ -53,9 +53,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int InsertRetail(SaleHead salehead)
         {
-            string cmdText = "insert into T_RetailHead(state,retailHeadId,userId,regionId,dateTime,kindsNum,number,allTotalPrice,allRealPrice) values(@state,@retailHeadId,@userId,@regionId,@dateTime,@kindsNum,@number,@allTotalPrice,@allRealPrice)";
-            string[] param = { "@state", "@retailHeadId", "@userId", "@regionId", "@dateTime", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice" };
-            object[] values = { salehead.State ,salehead.SaleHeadId, salehead.UserId, salehead.RegionId, salehead.DateTime, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice };
+            string cmdText = "insert into T_RetailHead(state,retailHeadId,userId,regionId,dateTime,kindsNum,number,allTotalPrice,allRealPrice,payment) values(@state,@retailHeadId,@userId,@regionId,@dateTime,@kindsNum,@number,@allTotalPrice,@allRealPrice,@payment)";
+            string[] param = { "@state", "@retailHeadId", "@userId", "@regionId", "@dateTime", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@payment" };
+            object[] values = { salehead.State ,salehead.SaleHeadId, salehead.UserId, salehead.RegionId, salehead.DateTime, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice,salehead.PayType };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -245,11 +245,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="headId"></param>
         /// <returns></returns>
-        public int updateType(string headId, User user)
+        public int updateType(string headId, User user,string payType)
         {
-            string cmdText = "update T_RetailHead set state=1,dateTime=@dateTime,userId=@userId where retailHeadId=@retailHeadId";
-            string[] param = { "@retailHeadId", "@dateTime", "@userId" };
-            object[] values = { headId, DateTime.Now,user.UserId };
+            string cmdText = "update T_RetailHead set state=1,dateTime=@dateTime,userId=@userId,payment=@payType where retailHeadId=@retailHeadId";
+            string[] param = { "@retailHeadId", "@dateTime", "@userId", "@payType" };
+            object[] values = { headId, DateTime.Now, user.UserId, payType };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }

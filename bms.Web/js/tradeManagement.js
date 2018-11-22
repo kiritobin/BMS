@@ -77,7 +77,19 @@
         var pricelimited = $("#pricelimited").val();
         var defaultDiscounted = $("#defaultDiscount").val();
         var defaultCopyed = $("#defaultCopyed").val();
-        if (allpricemlimited == "" || numberlimited == "" || pricelimited == "" || defaultDiscounted == "") {
+        if (defaultDiscounted == "" || defaultDiscounted == null) {
+            defaultDiscounted = 100;
+        }
+        if (defaultDiscounted > 100) {
+            swal({
+                title: "温馨提示:)",
+                text: "默认折扣不能大于100！",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else if (allpricemlimited == "" || numberlimited == "" || pricelimited == "") {
             swal({
                 title: "温馨提示:)",
                 text: "不能含有未填项",
@@ -188,7 +200,19 @@
         var realPrice = $("#realPrice").val().trim();//码洋上限
         var Price = $("#Price").val().trim();//默认折扣
         var defaultCopy = $("#defaultCopy").val().trim();//默认复本
-        if (saleCustmer == "") {
+        if (Price == "" || Price == null) {
+            Price = 100;
+        }
+        if (Price > 100) {
+            swal({
+                title: "温馨提示:)",
+                text: "默认折扣不能大于100！",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else if (saleCustmer == "") {
             swal({
                 title: "温馨提示:)",
                 text: "客户未选择，请您选择客户。",
@@ -219,15 +243,6 @@
             swal({
                 title: "温馨提示:)",
                 text: "码洋上限不能为空!请您确认后再次提交。",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        }
-        else if (Price == "") {
-            swal({
-                title: "温馨提示:)",
-                text: "默认折扣不能为空!请您确认后再次提交。",
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"

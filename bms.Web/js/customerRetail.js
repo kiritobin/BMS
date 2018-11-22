@@ -5,6 +5,8 @@
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
     sessionStorage.setItem("content", "show");
+    sessionStorage.setItem("payType", "现金");
+    sessionStorage.removeItem("retailId");
     sessionStorage.removeItem("numberEnd");
     setInterval("showTime()", 1000);
     $("#sale").hide();
@@ -26,28 +28,90 @@ function pad(num, n) {
 //输入isbn后回车
 $("#search").keypress(function (e) {
     if (e.keyCode == 13) {
-        if (sessionStorage.getItem("retailId") == null || sessionStorage.getItem("retailId") == undefined) {
-            swal({
-                title: "请先扫描小票",
-                text: "请先扫描小票",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
-        } else {
-            sessionStorage.setItem("ISBN", $("#search").val())
             //回车事件触发
-            if (e.keyCode == 13) {
-                var kind = $("#kind").text().trim();
-                var isbn = $("#search").val();
-                if (isbn == "" || isbn == null) {
-                    swal({
-                        title: "ISBN不能为空",
-                        text: "ISBN不能为空，请您重新输入",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-warning",
-                        type: "warning"
-                    }).catch(swal.noop);
+        if (e.keyCode == 13) {
+            sessionStorage.setItem("ISBN", $("#search").val())
+            var kind = $("#kind").text().trim();
+            var isbn = $("#search").val();
+            if (isbn == "" || isbn == null) {
+                swal({
+                    title: "ISBN不能为空",
+                    text: "ISBN不能为空，请您重新输入",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            } else {
+                if (sessionStorage.getItem("retailId") == null || sessionStorage.getItem("retailId") == undefined) {
+                    $.ajax({
+                        type: 'Post',
+                        url: 'customerRetail.aspx',
+                        data: {
+                            isbn: isbn,
+                            op: 'newRetail'
+                        },
+                        dataType: 'text',
+                        success: function (succ) {
+                            var datas = succ.split("|:");
+                            var data = datas[0];
+                            $("#search").val("");
+                            if (data == "添加失败") {
+                                swal({
+                                    title: data,
+                                    text: data,
+                                    buttonsStyling: false,
+                                    confirmButtonClass: "btn btn-warning",
+                                    type: "warning"
+                                }).catch(swal.noop);
+                            } else if (data == "ISBN不存在") {
+                                swal({
+                                    title: "ISBN:" + isbn,
+                                    text: "不存在",
+                                    buttonsStyling: false,
+                                    confirmButtonClass: "btn btn-warning",
+                                    type: "warning"
+                                }).catch(swal.noop);
+                            } else if (data == "已添加过此图书") {
+                                swal({
+                                    title: "已添加过ISBN：" + sessionStorage.getItem("ISBN") + "的图书",
+                                    text: "需要继续添加可前往修改数量",
+                                    buttonsStyling: false,
+                                    confirmButtonClass: "btn btn-warning",
+                                    type: "warning"
+                                }).catch(swal.noop);
+                            } else if (data == "一号多书") {
+                                $.ajax({
+                                    type: 'Post',
+                                    url: 'customerRetail.aspx',
+                                    data: {
+                                        isbn: isbn,
+                                        op: 'choose'
+                                    },
+                                    dataType: 'text',
+                                    success: function (succ) {
+                                        $("#myModal").modal("show");
+                                        $("#table2 tr:not(:first)").empty(); //清空table处首行
+                                        $("#table2").append(succ); //加载table
+                                    }
+                                })
+                            } else {
+                                var math = datas[1].split(",");
+                                if (sessionStorage.getItem("kind") == "0" || sessionStorage.getItem("kind") == 0) {
+                                    $(".first").remove();
+                                    sessionStorage.setItem("kind", 1)
+                                }
+                                sessionStorage.setItem("retailId", datas[2]);
+                                $("#table tr:not(:first)").empty();//清空除第一行以外的信息
+                                $("#table").append(data);
+                                $("#kind").text(math[0]);
+                                $("#number").text(math[1]);
+                                $("#total").text(math[2]);
+                                $("#real").text(math[3]);
+                                //获取焦点
+                                $("#search").focus();
+                            }
+                        }
+                    })
                 } else {
                     $.ajax({
                         type: 'Post',
@@ -457,12 +521,14 @@ $("#threePay").click(function () {
     sessionStorage.setItem("realPrice", $("#realEnd").text().trim());
     $("#copeEnd").focus();
     $("#paytype").html("第三方");
+    sessionStorage.setItem("payType", "第三方");
 })
 //选择现金付款
 $("#moneyPay").click(function () {
     $("#copeEnd").val($("#realEnd").text().trim());
     $("#copeEnd").focus();
     $("#paytype").html("现金");
+    sessionStorage.setItem("payType", "现金");
 })
 //收银输入实收计算找零
 $("#copeEnd").keypress(function (e) {
@@ -500,24 +566,24 @@ $("#btnSettle").click(function () {
             type: "warning"
         }).catch(swal.noop);
     }
-    //else if (parseFloat(discount) <= 0) {
-    //    swal({
-    //        title: "折扣不能为0",
-    //        text: "",
-    //        buttonsStyling: false,
-    //        confirmButtonClass: "btn btn-warning",
-    //        type: "warning"
-    //    }).catch(swal.noop);
-        //}
-    //else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
-    //    swal({
-    //        title: "实付金额不能为空或0",
-    //        text: "",
-    //        buttonsStyling: false,
-    //        confirmButtonClass: "btn btn-warning",
-    //        type: "warning"
-    //    }).catch(swal.noop);
-    //}
+    else if (parseFloat(discount) <= 0) {
+        swal({
+            title: "折扣不能为0",
+            text: "",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+        }
+    else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
+        swal({
+            title: "实付金额不能为空或0",
+            text: "",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-warning",
+            type: "warning"
+        }).catch(swal.noop);
+    }
     else {
         if (discount == "") {
             $(".discount").remove();
@@ -532,6 +598,7 @@ $("#btnSettle").click(function () {
             url: 'customerRetail.aspx',
             data: {
                 headId: sessionStorage.getItem("retailId"),
+                payType: sessionStorage.getItem("payType"),
                 op: 'end'
             },
             dataType: 'text',

@@ -262,6 +262,7 @@ namespace bms.Web.SalesMGT
             single.UserId = user.UserId;
             single.DateTime = DateTime.Now;
             single.State = 2;
+            single.PayType = "退款";
             Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)
             {//添加单体

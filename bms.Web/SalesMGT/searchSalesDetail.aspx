@@ -49,9 +49,9 @@
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-info btn-sm" id="print">打印</button>
                                     </div>
-                                    <div class="btn-group" role="group">
+                                    <%--<div class="btn-group" role="group">
                                         <button class="btn btn-info btn-sm" onclick="window.location.href='salesTaskStatistics.aspx'">统计销售任务</button>
-                                    </div>
+                                    </div>--%>
                                 </div>
                             </div>
                             <div class="row">

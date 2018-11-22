@@ -107,9 +107,10 @@
     <script src="../js/public.js"></script>
     <script>
         function reload() {
-            window.location.reload();
+            //window.location.reload();
+            window.location.href = "booksOut.aspx";
         }
-        setTimeout("reload()", 600000);
+        setTimeout("reload()", 10000);
         window.onload = function () {
             function nowTime(ev, type) {
                 /*
