@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
     <%-- style="overflow:hidden;"--%>
-<body style="overflow:hidden;">
+<body>
     <div class="retail-content" >
         <div class="container-fluid">
             <div class="row">

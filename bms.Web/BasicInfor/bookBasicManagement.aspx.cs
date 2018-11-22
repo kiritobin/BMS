@@ -835,14 +835,15 @@ namespace bms.Web.BasicInfor
             DataTable dtNpoi=new DataTable();
             try
             {
+                dtNpoi.Columns.Add("id");
                 dtNpoi = ExcelHelper.GetDataTable(path);
+                row = dtNpoi.Rows.Count;
             }
             catch (Exception ex)
             {
                 Response.Write(ex);
                 Response.End();
             }
-            row = dtNpoi.Rows.Count;
             return dtNpoi;
         }
     }
