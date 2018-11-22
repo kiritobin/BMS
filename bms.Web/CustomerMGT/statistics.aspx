@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../css/lgd.css">
      <link rel="stylesheet" href="../css/bootstrap-select.css" />
     <link rel="stylesheet" href="../css/pagination.css" />
+    <link rel="stylesheet" href="../css/jedate.css" />
 </head>
 
 <body>
@@ -66,7 +67,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="fa fa-user fa-lg"></i>
                             <p>
@@ -74,7 +75,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="userManage">
+                        <div class="collapse" id="userManage">
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
@@ -82,7 +83,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../BasicInfor/collectionManagement.aspx">
+                                    <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
@@ -122,7 +123,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
@@ -130,7 +131,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="saleManage">
+                        <div class="collapse show" id="saleManage">
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
@@ -150,6 +151,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/retailBackManagement.aspx" id="retailBack">
                                         <span class="sidebar-normal">零退管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="statistics.aspx">
+                                        <span class="sidebar-normal">大屏统计</span>
                                     </a>
                                 </li>
                             </ul>
@@ -221,7 +227,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">统计</h4>
+                                    <h4 class="card-title ">大屏统计设置</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">
@@ -232,9 +238,10 @@
                                                 </select>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <select class="modal_select selectpicker" data-live-search="true" id="endTime">
+                                                <%--<select class="modal_select selectpicker" data-live-search="true" id="endTime">
                                                     <option value="">结束时间</option>                                                  
-                                                </select>
+                                                </select>--%>
+                                                <input id="datepicker" placeholder="请选择时间" type="text" readonly/>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <select class="modal_select selectpicker" data-live-search="true" id="cusSearch">
@@ -273,12 +280,13 @@
             </footer>
         </div>
     </div>
-    <script>
+    <%--<script>
 
         $('.selectpicker').selectpicker({
             'selectedText': 'cat'
         });
-    </script>
+    </script>--%>
+
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
@@ -288,9 +296,9 @@
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/sweetalert2.js"></script>
-    <script src="../js/collectionManagement.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/ajaxfileupload.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/jedate.min.js"></script>
 </body>
 </html>
