@@ -20,7 +20,6 @@ namespace bms.Web.SalesMGT
         protected int pageSize = 20, totalCount, intPageCount,kind,count;
         public double discount,allTotal,allReal;
         SaleHead single = new SaleHead();
-        UserBll userBll = new UserBll();
         StockBll stockBll = new StockBll();
         BookBasicBll basicBll = new BookBasicBll();
         GoodsShelvesBll goods = new GoodsShelvesBll();
@@ -29,13 +28,20 @@ namespace bms.Web.SalesMGT
         public List<long> bookNumList = new List<long>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            User user = (User)Session["user"];
             getIsbn();
             string op = Request["op"];
             if (op == "add")
             {
                 string headId = Request["headId"];
                 string bookNum = Request["bookNum"].ToString();
-                add(bookNum, headId);
+                add(bookNum, headId,"one");
+            }
+            if (op == "newAdd")
+            {
+                string headId = insertHead();
+                string bookNum = Request["bookNum"].ToString();
+                add(bookNum, headId, "one");
             }
             if (op == "delete")
             {
@@ -78,7 +84,6 @@ namespace bms.Web.SalesMGT
                         DataRow dr = dsEnd.Tables[0].Rows[i];
                         string bookNum = dr["bookNum"].ToString();
                         int number = Convert.ToInt32(dr["number"]);
-                        User user = (User)Session["user"];
                         DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
                         int rows = dsStock.Tables[0].Rows.Count;
                         if (rows == 0)
@@ -106,6 +111,7 @@ namespace bms.Web.SalesMGT
             if(op == "end")
             {
                 string headId = Request["headId"];
+                string payType = Request["payType"];
                 DataSet dsEnd = retailBll.GetRetail(headId);
                 int row = dsEnd.Tables[0].Rows.Count;
                 for (int i = 0; i < row; i++)
@@ -114,7 +120,6 @@ namespace bms.Web.SalesMGT
                     string bookNum = dr["bookNum"].ToString();
                     int number = Convert.ToInt32(dr["number"]);
                     count = number;
-                    User user = (User)Session["user"];
                     DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
                     int rows = dsStock.Tables[0].Rows.Count;
                     for (int j = 0; j < rows; j++)
@@ -130,16 +135,6 @@ namespace bms.Web.SalesMGT
                                 Response.Write("更新失败:|");
                                 Response.End();
                             }
-                            else
-                            {
-                                Result end = retailBll.updateType(headId,user);
-                                if(end == Result.更新失败)
-                                {
-                                    Response.Write("更新失败:|");
-                                    Response.End();
-                                }
-                                break;
-                            }
                         }
                         else
                         {
@@ -152,15 +147,15 @@ namespace bms.Web.SalesMGT
                             }
                             if (count == 0)
                             {
-                                Result end = retailBll.updateType(headId, user);
-                                if (end == Result.更新失败)
-                                {
-                                    Response.Write("更新失败:|");
-                                    Response.End();
-                                }
                                 break;
                             }
                         }
+                    }
+                    Result end = retailBll.updateType(headId, user, payType);
+                    if (end == Result.更新失败)
+                    {
+                        Response.Write("更新失败:|");
+                        Response.End();
                     }
                 }
                 Pay(headId);
@@ -186,25 +181,74 @@ namespace bms.Web.SalesMGT
                 {
                     if (count == 1)
                     {
-                        string headId = Request["headId"];
-                        string bookNum = bookDs.Tables[0].Rows[0]["bookNum"].ToString();
-                        add(bookNum, headId);
+                        string headId = "", bookNum = "";
+                        if (op == "isbn")
+                        {
+                            headId = Request["headId"];
+                            bookNum = bookDs.Tables[0].Rows[0]["bookNum"].ToString();
+                        }
+                        else if(op == "newRetail")
+                        {
+                            headId = insertHead();
+                            bookNum = bookDs.Tables[0].Rows[0]["bookNum"].ToString();
+                        }
+                        add(bookNum, headId, "one");
                     }
-                    if (op == "choose")
+                    if (op == "choose" || op == "newChoose")
                     {
                         int counts = bookDs.Tables[0].Rows.Count;
                         StringBuilder sb = new StringBuilder();
-                        for (int i = 0; i < counts; i++)
+                        int i = 0;
+                        while (i < counts)
                         {
                             DataRow dr = bookDs.Tables[0].Rows[i];
-                            sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
-                            sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["price"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
+                            User user = (User)Session["user"];
+                            string bookNum = dr["bookNum"].ToString();
+                            int stockNum = stockBll.selectStockNum(dr["bookNum"].ToString(), user.ReginId.RegionId);
+                            if (stockNum <= 0)
+                            {
+                                bookDs.Tables[0].Rows.RemoveAt(i);
+                                counts--;
+                            }
+                            else
+                            {
+                                i++;
+                            }
                         }
-                        Response.Write(sb.ToString());
-                        Response.End();
+                        if (counts == 0)
+                        {
+                            Response.Write("无库存|:");
+                            Response.End();
+                        }
+                        else if (counts == 1)
+                        {
+                            string headId = "";
+                            if (op == "choose")
+                            {
+                                headId = Request["headId"];
+                            }
+                            else if (op == "newChoose")
+                            {
+                                headId = insertHead();
+                            }
+                            add(bookDs.Tables[0].Rows[0]["bookNum"].ToString(), headId, "other");
+                        }
+                        else
+                        {
+                            counts = bookDs.Tables[0].Rows.Count;
+                            for (int j = 0; j < counts; j++)
+                            {
+                                DataRow dr = bookDs.Tables[0].Rows[j];
+                                sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
+                                sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["price"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
+                            }
+                            Response.Write("|:" + sb.ToString());
+                            Response.End();
+                        }
                     }
                     Response.Write("一号多书");
                     Response.End();
@@ -221,7 +265,7 @@ namespace bms.Web.SalesMGT
         /// 客户添加图书
         /// </summary>
         /// <param name="bookNum"></param>
-        public void add(string bookNum,string headId)
+        public void add(string bookNum,string headId,string addType)
         {
             Result record = retailBll.selectByBookNum(bookNum, headId);
             if (record == Result.记录不存在)
@@ -229,21 +273,29 @@ namespace bms.Web.SalesMGT
                 BookBasicData bookBasicData = basicBll.SelectById(bookNum);
                 string isbn = bookBasicData.Isbn;
                 string bookName = bookBasicData.BookName;
-                int billCount = Convert.ToInt32(Request["billCount"]);
                 double discount = 100;
-                if (bookBasicData.Remarks == "")
+                if (bookBasicData.Remarks != "")
                 {
-                    discount = 100;
+                    discount = Convert.ToDouble(bookBasicData.Remarks);
                 }
                 discount = discount * 0.01;
+                int billCount = Convert.ToInt32(Request["billCount"]);
+                if(billCount <= 0)
+                {
+                    billCount = 1;
+                }
                 int row = monTable.Rows.Count;
                 double uPrice = bookBasicData.Price;
                 SaleMonomer monomers = new SaleMonomer();
                 double totalPrice = Convert.ToDouble((billCount * uPrice).ToString("0.00"));
                 double realPrice = Convert.ToDouble((totalPrice * discount).ToString("0.00"));
                 DataSet ds = retailBll.GetRetail(headId);
-                int k = ds.Tables[0].Rows.Count-1;
-                int monId = Convert.ToInt32(ds.Tables[0].Rows[k]["retailMonomerId"]);
+                int monId = 0;
+                if (ds != null && ds.Tables[0].Rows.Count <= 0)
+                {
+                    int k = ds.Tables[0].Rows.Count - 1;
+                    monId = Convert.ToInt32(ds.Tables[0].Rows[k]["retailMonomerId"]);
+                }
                 monomers.ISBN1 = isbn;
                 monomers.UnitPrice = uPrice;
                 monomers.BookNum = bookNum;
@@ -285,8 +337,16 @@ namespace bms.Web.SalesMGT
                             sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
                             sb.Append("<td><button class='btn btn-danger btn-sm delete'><i class='fa fa-trash'></i></button></td></tr>");
                         }
-                        Response.Write(sb.ToString() + "|:" + newSale.KindsNum + "," + newSale.Number + "," + newSale.AllTotalPrice + "," + newSale.AllRealPrice);
-                        Response.End();
+                        if (addType == "other")
+                        {
+                            Response.Write(addType +"|:" + sb.ToString() + "|:" + newSale.KindsNum + "," + newSale.Number + "," + newSale.AllTotalPrice + "," + newSale.AllRealPrice + "|:" + headId);
+                            Response.End();
+                        }
+                        else
+                        {
+                            Response.Write(sb.ToString() + "|:" + newSale.KindsNum + "," + newSale.Number + "," + newSale.AllTotalPrice + "," + newSale.AllRealPrice + "|:" + headId);
+                            Response.End();
+                        }
                     }
                     else
                     {
@@ -547,6 +607,11 @@ namespace bms.Web.SalesMGT
             return result;
         }
 
+        /// <summary>
+        /// 支付，打印小票
+        /// </summary>
+        /// <param name="headId">单头Id</param>
+        /// <returns></returns>
         public string Pay(string headId)
         {
             DataSet dsPay = retailBll.GetRetail(headId);
@@ -566,6 +631,70 @@ namespace bms.Web.SalesMGT
             Response.Write("更新成功:|"+sb.ToString());
             Response.End();
             return sb.ToString();
+        }
+        /// <summary>
+        /// 添加零售单头
+        /// </summary>
+        public string insertHead()
+        {
+            DateTime nowTime = DateTime.Now;
+            string nowDt = nowTime.ToString("yyyy-MM-dd");
+            long counts = 0;
+            //判断数据库中是否已经有记录
+            DataSet backds = retailBll.getAllTime(0);
+            if (backds != null && backds.Tables[0].Rows.Count > 0)
+            {
+                for (int i = 0; i < backds.Tables[0].Rows.Count; i++)
+                {
+                    string time = backds.Tables[0].Rows[i]["dateTime"].ToString();
+                    DateTime dt = Convert.ToDateTime(time);
+                    string sqlTime = dt.ToString("yyyy-MM-dd");
+                    if (sqlTime == nowDt)
+                    {
+                        //count += 1;
+                        string id = backds.Tables[0].Rows[i]["retailHeadId"].ToString();
+                        int st1 = Convert.ToInt32(id.Substring(10));
+                        if (st1 <= 0)
+                        {
+                            st1 = 0;
+                        }
+                        counts = st1 + 1;
+                        break;
+                    }
+                    else
+                    {
+                        counts = 1;
+                        break;
+                    }
+                }
+                if (counts == 0)
+                {
+                    counts = 1;
+                }
+            }
+            else
+            {
+                counts = 1;
+            }
+            User user = (User)Session["user"];
+            string retailHeadId = "LS" + DateTime.Now.ToString("yyyyMMdd") + counts.ToString().PadLeft(6, '0');
+            single.AllRealPrice = 0;
+            single.AllTotalPrice = 0;
+            single.KindsNum = 0;
+            single.Number = 0;
+            single.RegionId = user.ReginId.RegionId;
+            single.SaleHeadId = retailHeadId;
+            single.UserId = user.UserId;
+            single.DateTime = DateTime.Now;
+            single.State = 0;
+            single.PayType = "未支付";
+            Result result = retailBll.InsertRetail(single);
+            if(result== Result.添加失败)
+            {
+                Response.Write("添加失败");
+                Response.End();
+            }
+            return retailHeadId;
         }
     }
 }

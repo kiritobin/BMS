@@ -70,7 +70,7 @@ namespace bms.Web.SalesMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "T_RetailHead";
             tb.OrderBy = "retailHeadId";
-            tb.StrColumnlist = "retailHeadId,kindsNum,number,allTotalPrice,allRealPrice,dateTime";
+            tb.StrColumnlist = "retailHeadId,kindsNum,number,allTotalPrice,allRealPrice,dateTime,payment";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
@@ -86,6 +86,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");
                 strb.Append("<td>" + Double.Parse(ds.Tables[0].Rows[i]["allTotalPrice"].ToString()) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allRealPrice"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["payment"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
                 strb.Append("<td style='width:150px;'><button class='btn btn-success btn-sm btn_search'><span class='fa fa-search'></span></button></td></tr>");
             }

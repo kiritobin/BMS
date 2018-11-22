@@ -32,7 +32,7 @@ namespace bms.Dao
         public DataTable Select()
         {
             MySqlHelp db = new MySqlHelp();
-            string comText = "select ISBN,price,bookName from T_BookBasicData";
+            string comText = "select ISBN,price,bookName,supplier,author,remarks from T_BookBasicData";
             DataSet ds = db.FillDataSet(comText, null, null);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {

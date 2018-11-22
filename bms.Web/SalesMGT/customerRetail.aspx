@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-<body style="overflow:hidden;">
+<body>
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -227,6 +227,7 @@
                                     </div>
                                 </th>
                                 <th><nobr>ISBN</nobr></th>
+                                <th><nobr>书号</nobr></th>
                                 <th><nobr>书名</nobr></th>
                                 <th><nobr>单价</nobr></th>
                                 <th><nobr>出版社</nobr></th>

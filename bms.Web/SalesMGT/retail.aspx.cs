@@ -58,7 +58,7 @@ namespace bms.Web.SalesMGT
             if (op == "add")
             {
                 string bookNum = Request["bookNum"].ToString();
-                add(bookNum);
+                add(bookNum,"one");
             }
             if(op == "insert")
             {
@@ -116,26 +116,54 @@ namespace bms.Web.SalesMGT
                         if (count == 1)
                         {
                             string bookNum = bookDs.Tables[0].Rows[0]["bookNum"].ToString();
-                            add(bookNum);
+                            add(bookNum,"one");
                         }
                         if (op == "choose")
                         {
                             int counts = bookDs.Tables[0].Rows.Count;
                             StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < counts; i++)
+                            int i = 0;
+                            while (i < counts)
                             {
                                 DataRow dr = bookDs.Tables[0].Rows[i];
-                                //sb.Append("<tr><td><input type='checkbox' name='checkbox' class='check' value='" + dr["bookNum"].ToString() + "' /></td>");
-                                //sb.Append("<tr><td><input type='radio' name='radio' class='radio' value='" + dr["bookNum"].ToString() + "' /></td>");
-                                sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
-                                sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                                sb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
-                                sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-                                sb.Append("<td>" + dr["price"].ToString() + "</td>");
-                                sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
+                                user = (User)Session["user"];
+                                string bookNum = dr["bookNum"].ToString();
+                                int stockNum = stockBll.selectStockNum(dr["bookNum"].ToString(), user.ReginId.RegionId);
+                                if (stockNum <= 0)
+                                {
+                                    bookDs.Tables[0].Rows.RemoveAt(i);
+                                    counts--;
+                                }
+                                else
+                                {
+                                    i++;
+                                }
                             }
-                            Response.Write(sb.ToString());
-                            Response.End();
+                            if (counts == 0)
+                            {
+                                Response.Write("无库存|:");
+                                Response.End();
+                            }
+                            else if (counts == 1)
+                            {
+                                add(bookDs.Tables[0].Rows[0]["bookNum"].ToString(),"other");
+                            }
+                            else
+                            {
+                                counts = bookDs.Tables[0].Rows.Count;
+                                for (int j = 0; j < counts; j++)
+                                {
+                                    DataRow dr = bookDs.Tables[0].Rows[j];
+                                    sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
+                                    sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                                    sb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
+                                    sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
+                                    sb.Append("<td>" + dr["price"].ToString() + "</td>");
+                                    sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
+                                }
+                                Response.Write("|:"+sb.ToString());
+                                Response.End();
+                            }
                         }
                         Response.Write("一号多书");
                         Response.End();
@@ -150,15 +178,23 @@ namespace bms.Web.SalesMGT
             return null;
         }
 
-        public void add(string bookNum)
+        public void add(string bookNum,string addType)
         {
             bookNumList = (List<string>)Session["List"];
             foreach (string bookNums in bookNumList)
             {
                 if(bookNums == bookNum)
                 {
-                    Response.Write("已添加过此图书");
-                    Response.End();
+                    if (addType == "other")
+                    {
+                        Response.Write("已添加过此图书|:");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("已添加过此图书");
+                        Response.End();
+                    }
                 }
             }
             BookBasicData bookBasicData = basicBll.SelectById(bookNum);
@@ -218,8 +254,16 @@ namespace bms.Web.SalesMGT
                 sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
                 sb.Append("<td><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash'></i></button></td></tr>");
             }
-            Response.Write(sb.ToString());
-            Response.End();
+            if (addType == "other")
+            {
+                Response.Write(addType + "|:" + sb.ToString());
+                Response.End();
+            }
+            else
+            {
+                Response.Write(sb.ToString());
+                Response.End();
+            }
             
         }
 
@@ -289,6 +333,7 @@ namespace bms.Web.SalesMGT
             single.UserId = user.UserId;
             single.DateTime = DateTime.Now;
             single.State = 0;
+            single.PayType = "未支付";
             headID = retailHeadId;
             Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)

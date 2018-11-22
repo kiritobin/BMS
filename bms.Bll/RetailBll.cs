@@ -204,9 +204,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="headId">单头Id</param>
         /// <returns>受影响行数</returns>
-        public Result updateType(string headId,User user)
+        public Result updateType(string headId,User user, string payType)
         {
-            int row = dao.updateType(headId,user);
+            int row = dao.updateType(headId,user,payType);
             if (row > 0)
             {
                 return Result.更新成功;
