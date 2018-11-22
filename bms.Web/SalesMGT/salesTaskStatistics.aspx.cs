@@ -94,8 +94,8 @@ namespace bms.Web.SalesMGT
             string name = "销售任务" + saletaskId;
             if (dt != null && dt.Rows.Count > 0)
             {
-                var path = Server.MapPath("../uploads/export/SaleTaskExport/" + name + ".xls");
-                ExcelHelper.x2003.TableToExcelForXLS(dt, path);
+                var path = Server.MapPath("../uploads/export/SaleTaskExport/" + name + ".xlsx");
+                ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
                 downloadfile(path);
             }
             else
