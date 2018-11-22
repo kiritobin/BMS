@@ -50,7 +50,7 @@
                                         <button class="btn btn-info btn-sm" id="excel">导出</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-warning btn-sm" onclick="window.location.href='searchSalesDetail.aspx'" id="back">返回</button>
+                                        <button class="btn btn-warning btn-sm" onclick="window.history.back(-1)" id="back">返回</button>
                                     </div>
                                 </div>
                             </div>

@@ -21,6 +21,22 @@
     width: 200px;
 }
 
+.jeinpbox {
+    margin: 10px;
+}
+
+.timetable {
+    margin-top: 5% !important;
+    margin: auto;
+    font-size: 16px;
+}
+
+.jeinput {
+    border: 1px solid #dcdcdc;
+    border-radius: 3px;
+    width: 220px;
+    height: 40px;
+}
 /*模态框样式*/
 .model-tab-td-span {
     float: right;
@@ -139,8 +155,9 @@
 #source {
     width: 180px;
 }
-.btnStyle{
-    width:110px;
-    height:60px;
-    font-size:24px;
+
+.btnStyle {
+    width: 110px;
+    height: 60px;
+    font-size: 24px;
 }

@@ -99,6 +99,7 @@
     <Content Include="css\pretty.min.css" />
     <Content Include="customerLogin.aspx" />
     <Content Include="CustomerMGT\customerPurchase.aspx" />
+    <Content Include="CustomerMGT\statistics.aspx" />
     <Content Include="CustomerMGT\upload.aspx" />
     <Content Include="CustomerMGT\WebForm1.aspx" />
     <Content Include="CustomerMGT\WebForm2.aspx" />
@@ -315,6 +316,13 @@
     </Compile>
     <Compile Include="CustomerMGT\customerPurchase.aspx.designer.cs">
       <DependentUpon>customerPurchase.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerMGT\statistics.aspx.cs">
+      <DependentUpon>statistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerMGT\statistics.aspx.designer.cs">
+      <DependentUpon>statistics.aspx</DependentUpon>
     </Compile>
     <Compile Include="CustomerMGT\upload.aspx.cs">
       <DependentUpon>upload.aspx</DependentUpon>

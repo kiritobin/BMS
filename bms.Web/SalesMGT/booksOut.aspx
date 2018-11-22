@@ -105,7 +105,8 @@
     <script src="../js/public.js"></script>
     <script>
         function reload() {
-            window.location.reload();
+            //window.location.reload();
+            window.location.href = "retailRank.aspx";
         }
         window.onload = function () {
             function nowTime(ev, type) {
@@ -135,7 +136,7 @@
             }
             nowTime(document.getElementById('time'));
         }
-        setTimeout("reload()", 600000);
+        setTimeout("reload()", 10000);
     </script>
 </body>
 </html>
