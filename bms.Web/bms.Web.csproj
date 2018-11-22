@@ -152,6 +152,7 @@
     <Content Include="js\salesTaskStatistics.js" />
     <Content Include="js\salesTaskStatisticsAll.js" />
     <Content Include="js\searchSalesDetail.js" />
+    <Content Include="js\statistics.js" />
     <Content Include="QRCode.aspx" />
     <Content Include="SalesMGT\booksOut.aspx" />
     <Content Include="SalesMGT\CLodop_Setup_for_Win32NT.exe" />

@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookBasicBll.cs" />
+    <Compile Include="ConfigurationBll.cs" />
     <Compile Include="CustomerBll.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="FunctionBll.cs" />

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="BookBasicDao.cs" />
     <Compile Include="bulkLoad.cs" />
+    <Compile Include="ConfigurationDao.cs" />
     <Compile Include="CustomerDao.cs" />
     <Compile Include="FunctionDao.cs" />
     <Compile Include="GoodsShelvesDao.cs" />
