@@ -545,6 +545,9 @@ namespace bms.Web.BasicInfor
                     {
                         string isbn = row[2].ToString().Trim();
                         string bookName = ToSBC(row[3].ToString().Trim());
+                        string supplier = row[4].ToString().Trim();
+                        string accept = row[8].ToString().Trim();
+                        string sale = row[9].ToString().Trim();
                         string price = row[6].ToString().Trim();
                         if (price==""||isbn==""||bookName=="")
                         {
@@ -553,7 +556,8 @@ namespace bms.Web.BasicInfor
                             kz++;
                             continue;
                         }
-                        DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, Convert.ToDouble(price)));
+                        DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}'  and supplier='{2}' and price={3} and author={4} and remarks={5}", isbn,bookName,supplier, Convert.ToDouble(price), Convert.ToDouble(accept), Convert.ToDouble(sale)));
+                        //DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, Convert.ToDouble(price)));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
                             //except.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
@@ -764,7 +768,7 @@ namespace bms.Web.BasicInfor
             try
             {
                 DataView myDataView = new DataView(excel);
-                string[] strComuns = { "ISBN", "书名", "单价" };
+                string[] strComuns = { "ISBN", "书名", "单价","进货折扣" ,"销售折扣","供应商"};
                 int i = myDataView.ToTable(true, strComuns).Rows.Count;
                 int j = excel.Rows.Count;
                 if (i < j)
