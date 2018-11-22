@@ -35,7 +35,7 @@ namespace bms.Web.SalesMGT
         replenishMentBll replenBll = new replenishMentBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             user = (User)Session["user"];
             type = Session["saleType"].ToString();
             saleId = Session["saleId"].ToString();
@@ -193,18 +193,21 @@ namespace bms.Web.SalesMGT
 
             BookBasicBll bookbll = new BookBasicBll();
             BookBasicData book = bookbll.SelectById(booknum);
-
             string remarks = book.Remarks;
-            if (remarks == "" || remarks == null)
-            {
-                remarks = defaultdiscount;
-            }
-            else
+            if (defaultdiscount == "100")
             {
                 if (double.Parse(remarks) < 1)
                 {
                     remarks = (double.Parse(remarks) * 100).ToString();
                 }
+            }
+            //if (remarks == "" || remarks == null)
+            //{
+            //    remarks = defaultdiscount;
+            //}
+            else
+            {
+                remarks = defaultdiscount;
             }
             string ISBN = Request["isbn"];
             string bookname = Request["bookname"];
@@ -262,17 +265,28 @@ namespace bms.Web.SalesMGT
             string booknum = bookds.Tables[0].Rows[0]["bookNum"].ToString();
             BookBasicData book = bookbll.SelectById(booknum);
             string remarks = book.Remarks;
-            if (remarks == "" || remarks == null)
-            {
-                remarks = defaultdiscount;
-            }
-            else
+            if (defaultdiscount == "100")
             {
                 if (double.Parse(remarks) < 1)
                 {
                     remarks = (double.Parse(remarks) * 100).ToString();
                 }
             }
+            else
+            {
+                remarks = defaultdiscount;
+            }
+            //if (remarks == "" || remarks == null)
+            //{
+            //    remarks = defaultdiscount;
+            //}
+            //else
+            //{
+            //    if (double.Parse(remarks) < 1)
+            //    {
+            //        remarks = (double.Parse(remarks) * 100).ToString();
+            //    }
+            //}
             StringBuilder sb = new StringBuilder();
             sb.Append("<tbody>");
             int alreadyBought;
