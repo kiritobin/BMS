@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailManagement.aspx.cs" Inherits="bms.Web.SalesMGT.retailManagement" %>
+﻿补货<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailManagement.aspx.cs" Inherits="bms.Web.SalesMGT.retailManagement" %>
 
 <!DOCTYPE html>
 <html lang="zh">
@@ -147,11 +147,11 @@
                                 <%} %>
                                 <%if (funcSupply)
                                     { %>
-                                <li class="nav-item">
+                                <%--<li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
                                 <%} %>
                             </ul>
                         </div>

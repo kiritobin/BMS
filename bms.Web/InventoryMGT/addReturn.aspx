@@ -144,11 +144,11 @@
                                 </li>
                                 <%} %>
                                 <%if (funcSupply) { %>
-                                <li class="nav-item">
+                                <%--<li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
                                 <%} %>
                             </ul>
                         </div>
