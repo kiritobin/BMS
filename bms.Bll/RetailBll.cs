@@ -118,6 +118,7 @@ namespace bms.Bll
         /// 查询零售单体
         /// </summary>
         /// <param name="retailMonomerId">零售单体ID</param>
+        /// <param name="retailHeadId">零售单头ID</param>
         /// <returns>受影响行数</returns>
         public SaleMonomer GetMonomer(int retailMonomerId, string retailHeadId)
         {

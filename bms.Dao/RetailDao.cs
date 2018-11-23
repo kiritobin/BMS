@@ -140,6 +140,7 @@ namespace bms.Dao
         /// 查询零售单体
         /// </summary>
         /// <param name="retailMonomerId">零售单体ID</param>
+        /// <param name="retailHeadId">零售单头ID</param>
         /// <returns>数据集</returns>
         public SaleMonomer GetMonomer(int retailMonomerId,string retailHeadId)
         {
@@ -205,9 +206,9 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int UpdateNumber(SaleMonomer sale)
         {
-            string cmdText = "update T_RetailMonomer set number=@number,totalPrice=@totalPrice,realPrice=@realPrice where retailMonomerId=@retailMonomerId";
-            string[] param = { "@number", "totalPrice", "@realPrice", "@retailMonomerId" };
-            object[] values = { sale.Number,sale.TotalPrice, sale.RealPrice, sale.SaleIdMonomerId };
+            string cmdText = "update T_RetailMonomer set number=@number,totalPrice=@totalPrice,realPrice=@realPrice where retailMonomerId=@retailMonomerId and retailHeadId=@retailHeadId";
+            string[] param = { "@number", "totalPrice", "@realPrice", "@retailMonomerId", "@retailHeadId" };
+            object[] values = { sale.Number,sale.TotalPrice, sale.RealPrice, sale.SaleIdMonomerId, sale.SaleHeadId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
