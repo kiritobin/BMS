@@ -189,6 +189,11 @@
                                     </a>
                                 </li>
                                 <%} %>
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="../CustomerMGT/statistics.aspx">
+                                        <span class="sidebar-normal">大屏配置</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
