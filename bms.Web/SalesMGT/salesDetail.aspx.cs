@@ -468,7 +468,6 @@ namespace bms.Web.SalesMGT
         public void getbook()
         {
             string booknum;
-            int booknumber = 0;
             int isnull = 0;
             strbook.Append("<thead>");
             strbook.Append("<tr>");
@@ -484,6 +483,7 @@ namespace bms.Web.SalesMGT
             int count = bookds.Tables[0].Rows.Count;
             for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
             {
+                int booknumber = 0;
                 booknum = bookds.Tables[0].Rows[i]["bookNum"].ToString();
                 DataSet stockbook = stockbll.SelectByBookNum(booknum, user.ReginId.RegionId);
                 for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
