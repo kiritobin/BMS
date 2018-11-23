@@ -81,4 +81,31 @@ $(document).ready(function () {
             })
         }
     })
+    $("#goScreen").click(function () {
+        var rName = $("#cusSearch").find('option:selected').text();
+        $.ajax({
+            type: "Post",
+            url: "statistics.aspx",
+            data: {
+                regName: rName,
+                op:"goScreen"
+            },
+            dateType: "text",
+            success: function (data) {
+                if (data == "记录不存在") {
+                    swal({
+                        title: "温馨提示:)",
+                        text: "你还未做过任何配置",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                }
+                else {
+                    var hh = "../SalesMGT/salesRanking.aspx?userId=" + $("#userId").val();
+                    window.location.href = hh;
+                }
+            }
+        })
+    })
 })

@@ -335,10 +335,13 @@ namespace bms.Dao
         /// 零售统计
         /// </summary>
         /// <returns></returns>
-        public  DataSet GroupRetail()
+        public  DataSet GroupRetail(DateTime startTime,DateTime endTime,string regionName)
         {
-            string cmdText = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from v_retailmonomer where state=1 GROUP BY bookNum;";
-            DataSet ds = db.FillDataSet(cmdText, null, null);
+            //string cmdText = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from v_retailmonomer where state=1 GROUP BY bookNum;";
+            string cmdText = @"select count(bookNum) as retailKinds,sum(allCount) as allNum,sum(allPrice) as allPrice from ((select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,dateTime from v_retailmonomer where state=1 and dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum) as temp)";
+            string[] param = { "@startTime", "@endTime","@regionName" };
+            object[] values = { startTime, endTime, regionName };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
             return ds;
         }
     }
