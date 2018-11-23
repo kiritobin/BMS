@@ -159,6 +159,7 @@
     });
 
     $("#btnImport").click(function () {
+        $("#fisbn").focus();
         var custom = $("#model-select-custom").val();
         var file = $("#file").val();
         var point = file.lastIndexOf("."); 
@@ -241,7 +242,8 @@
                 });
             }
         }
-        else if (type=="iso") {
+        else if (type == "iso") {
+            $("#fisbn").focus();
             if (custom == "" || custom == null) {
                 swal({
                     title: "提示",
@@ -323,7 +325,7 @@
                         if (data == "删除成功") {
                             swal({
                                 title: "温馨提示:)",
-                                text: "用户删除成功",
+                                text: "用户数据删除成功",
                                 buttonsStyling: false,
                                 confirmButtonClass: "btn btn-success",
                                 type: "success",
@@ -405,52 +407,78 @@
         var sprice = $("#sprice").val();
         var fnum = $("#fnum").val();
         var snum = $("#snum").val();
-        $("#myModal1").modal("show");
-        $("#close").hide();
-        $.ajax({
-            type: 'Post',
-            url: 'collectionManagement.aspx',
-            data: {
-                custom: custom,
-                fisbn: fisbn,
-                sisbn: sisbn,
-                fbookName: fbookName,
-                sbookName: sbookName,
-                fprice: fprice,
-                sprice: sprice,
-                fnum: fnum,
-                snum: snum,
-                action: "import"
-            },
-            dataType: 'text',
-            success: function (data) {
-                if (data.indexOf("导入成功") >= 0) {
-                    $("#myModalLabe1").html(data);
-                    $("#close").show();
-                    $("#img").attr("src", "../imgs/success.png");
-                    sessionStorage.setItem("import", "导入成功");
-                } else if (data.indexOf("导入失败") >= 0) {
-                    $("#myModalLabe1").html(data);
-                    $("#close").show();
-                    $("#img").attr("src", "../imgs/lose.png");
-                    sessionStorage.setItem("import", "导入失败");
+        if (fisbn == "" || sisbn == "" || fbookName == "" || sbookName == "" || fprice == "" || sprice == "" || fnum == "" || snum == "") {
+            swal({
+                title: "提示",
+                text: "不能含有未填项",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            })
+        }
+        else if (fisbn.length != 3 || fbookName.length != 3 || fprice.length != 3 || fnum.length != 3) {
+            swal({
+                title: "提示",
+                text: "字段号不能小于3位数",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            })
+        }
+        else {
+            $("#myModal1").modal("show");
+            $("#close").hide();
+            $.ajax({
+                type: 'Post',
+                url: 'collectionManagement.aspx',
+                data: {
+                    custom: custom,
+                    fisbn: fisbn,
+                    sisbn: sisbn,
+                    fbookName: fbookName,
+                    sbookName: sbookName,
+                    fprice: fprice,
+                    sprice: sprice,
+                    fnum: fnum,
+                    snum: snum,
+                    action: "import"
+                },
+                dataType: 'text',
+                success: function (data) {
+                    if (data.indexOf("导入成功") >= 0) {
+                        $("#myModalLabe1").html(data);
+                        $("#close").show();
+                        $("#img").attr("src", "../imgs/success.png");
+                        sessionStorage.setItem("import", "导入成功");
+                    } else if (data.indexOf("导入失败") >= 0) {
+                        $("#myModalLabe1").html(data);
+                        $("#close").show();
+                        $("#img").attr("src", "../imgs/lose.png");
+                        sessionStorage.setItem("import", "导入失败");
+                    }
+                    else {
+                        sessionStorage.setItem("import", "导入失败");
+                        $("#close").show();
+                        swal({
+                            title: "提示",
+                            text: data,
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        })
+                    }
                 }
-                else {
-                    sessionStorage.setItem("import", "导入失败");
-                    $("#close").show();
-                    swal({
-                        title: "提示",
-                        text: data,
-                        type: "warning",
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: '确定',
-                        confirmButtonClass: 'btn btn-success',
-                        buttonsStyling: false,
-                        allowOutsideClick: false
-                    })
-                }
-            }
-        });
+            });
+        }
     });
 
     function ajaxFileUpload() {

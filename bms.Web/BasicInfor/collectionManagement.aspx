@@ -417,46 +417,46 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <table border="1">
+                            <table class="bing">
                                 <tr>
-                                    <th style="text-align: center;">字段名称</th>
-                                    <th style="text-align: center;">字段号</th>
-                                    <th style="text-align: center;">子字段号</th>
+                                    <td style="text-align: center;">字段名称</td>
+                                    <td style="text-align: center;">字段号</td>
+                                    <td style="text-align: center;">子字段号</td>
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;">ISBN</td>
                                     <td>
-                                        <input type="text" id="fisbn" value="" placeholder="例：010" class="inputNoBorder" /></td>
+                                        <input type="text" id="fisbn" value="" maxlength="3"  class="inputNoBorder" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" /></td>
                                     <td>
-                                        <input type="text" id="sisbn" value="" placeholder="例：a" class="inputNoBorder" /></td>
+                                        <input type="text" id="sisbn" value="" maxlength="1"  class="inputNoBorder" onkeyup="this.value=this.value.replace(/[^a-z]/ig,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;">书名</td>
                                     <td>
-                                        <input type="text" id="fbookName" value="" placeholder="例：200" class="inputNoBorder" />
+                                        <input type="text" id="fbookName" maxlength="3" value="" class="inputNoBorder" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
                                     <td>
-                                        <input type="text" id="sbookName" value="" placeholder="例：a" class="inputNoBorder" /></td>
+                                        <input type="text" id="sbookName" maxlength="1" value="" class="inputNoBorder" onkeyup="this.value=this.value.replace(/[^a-z]/ig,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;">单价</td>
                                     <td>
-                                        <input type="text" id="fprice" value="" placeholder="例：010" class="inputNoBorder" />
+                                        <input type="text" id="fprice" value="" maxlength="3" class="inputNoBorder" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
                                     <td>
-                                        <input type="text" id="sprice" value="" placeholder="例：d" class="inputNoBorder" /></td>
+                                        <input type="text" id="sprice" value="" maxlength="1" class="inputNoBorder" onkeyup="this.value=this.value.replace(/[^a-z]/ig,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;">
                                         <nobr>馆藏数量</nobr>
                                     </td>
                                     <td>
-                                        <input type="text" id="fnum" value="" placeholder="" class="inputNoBorder" />
+                                        <input type="text" id="fnum" maxlength="3" value="" class="inputNoBorder" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
                                     <td>
-                                        <input type="text" id="snum" value="" placeholder="" class="inputNoBorder" /></td>
+                                        <input type="text" id="snum" maxlength="1" value="" class="inputNoBorder" onkeyup="this.value=this.value.replace(/[^a-z]/ig,'')" /></td>
                                 </tr>
                             </table>
                         </div>
                         <p style="text-align: center">
-                            注意：若无馆藏数量字段或者不为正整数，则输入的字段值将默认为0
+                            例：ISBN的字段号为010，子字段号为a
                         </p>
                         <div>
                             <button class="btn btn-info btn-sm" style="float: right; height: 40px;" id="confirmImport">确认导入</button>

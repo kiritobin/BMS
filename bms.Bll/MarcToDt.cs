@@ -125,7 +125,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="strSrc"></param>
         /// <returns></returns>
-        private bool IsNum(string str)
+        private bool isInt(string str)
         {
             bool blResult = true;//默认状态下是数字 
             if (str == "")
@@ -147,6 +147,24 @@ namespace bms.Bll
                 }
             }
             return blResult;
+        }
+
+        /// <summary>
+        /// 判断是否为数字
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        private bool isNum(string str)
+        {
+            Regex reg1 = new Regex(@"^[-]?\d+[.]?\d*$");
+            if (reg1.IsMatch(str)&&Convert.ToDouble(str)>0)
+            {
+                return true;
+            }
+            else
+            {
+                return false; //非数字
+            }
         }
 
         /// <summary>
@@ -208,14 +226,14 @@ namespace bms.Bll
             isbn = GetRecord(Buff, fisbn, sisbn, IndexRecord, Data_Address).Trim().Replace("-", "");
             bookName = GetRecord(Buff, fbookName, sbookName, IndexRecord, Data_Address).Trim();
             price = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
-            num = GetRecord(Buff, fnum, snum, IndexRecord, Data_Address).Trim();
-            if (!IsNum(num))
+            string num2 = GetRecord(Buff, fnum, snum, IndexRecord, Data_Address).Trim();
+            if (!isInt(num2))
             {
                 num = "0";
             }
             else
             {
-                num = GetRecord(Buff, fnum, snum, IndexRecord, Data_Address).Trim();
+                num = num2;
             }
             string[] ret = { id,isbn, bookName, price, num };
             return ret;

@@ -36,6 +36,19 @@ namespace bms.Web.CustomerMGT
             GridView1.DataBind();
         }
 
+        private bool isNum(string str)
+        {
+            Regex reg1 = new Regex(@"^[-]?\d+[.]?\d*$");
+            if (reg1.IsMatch(str))
+            {
+                return true;
+            }
+            else
+            {
+                return false; //非数字
+            }
+        }
+
         private static StreamReader FileReadStream;
         private static System.IO.FileStream CheckStream;
         private static string FilePath;
@@ -117,9 +130,24 @@ namespace bms.Web.CustomerMGT
             int Data_Address = int.Parse(Buff.Substring(12, 5)); //数据区地址
             isbn = GetRecord(Buff, fisbn, sisbn, IndexRecord, Data_Address).Trim().Replace("-", "");
             bookName = GetRecord(Buff, fbookName, sbookName, IndexRecord, Data_Address).Trim();
-            price = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
-            //num = GetRecord(Buff, fnum, snum, IndexRecord, Data_Address).Trim();
-            num = "123";
+            //price = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
+            price = "-3";
+            num = GetRecord(Buff, fnum, snum, IndexRecord, Data_Address).Trim();
+            if (!isNum(price))
+            {
+                price = "0";
+            }
+            else
+            {
+                if (Convert.ToDouble(price)<0)
+                {
+                    price = "0";
+                }
+                else
+                {
+                    price = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
+                }
+            }
             if (!IsNum(num))
             {
                 num = "0";
