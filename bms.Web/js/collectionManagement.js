@@ -161,82 +161,126 @@
     $("#btnImport").click(function () {
         var custom = $("#model-select-custom").val();
         var file = $("#file").val();
-
-        if (custom == "" || custom == null) {
-            swal({
-                title: "提示",
-                text: "请选择客户",
-                type: "warning",
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: '确定',
-                confirmButtonClass: 'btn btn-success',
-                buttonsStyling: false,
-                allowOutsideClick: false
-            })
-        }
-        else if (file == "" || file == null) {
-            swal({
-                title: "提示",
-                text: "请上传文件",
-                type: "warning",
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: '确定',
-                confirmButtonClass: 'btn btn-success',
-                buttonsStyling: false,
-                allowOutsideClick: false
-            })
-        }
-        else if (sessionStorage.getItem("succ") != "上传成功") {
-            swal({
-                title: "提示",
-                text: "文件未上传成功",
-                type: "warning",
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: '确定',
-                confirmButtonClass: 'btn btn-success',
-                buttonsStyling: false,
-                allowOutsideClick: false
-            })
-        }
-        else {
-            $("#myModal1").modal("show");
-            $("#close").hide();
-            $.ajax({
-                type: 'Post',
-                url: 'collectionManagement.aspx',
-                data: {
-                    custom: custom,
-                    action: "import"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (data.indexOf("导入成功") >= 0) {
-                        $("#myModalLabe1").html(data);
-                        $("#close").show();
-                        $("#img").attr("src", "../imgs/success.png");
-                        sessionStorage.setItem("import", "导入成功");
-                    } else if (data.indexOf("导入失败") >= 0) {
-                        $("#myModalLabe1").html(data);
-                        $("#close").show();
-                        $("#img").attr("src", "../imgs/lose.png");
-                        sessionStorage.setItem("import", "导入失败");
+        var point = file.lastIndexOf("."); 
+        var type = file.substr(point).replace(".", "").toLowerCase();
+        if (type == "xls" || type == "xlsx") {
+            if (custom == "" || custom == null) {
+                swal({
+                    title: "提示",
+                    text: "请选择客户",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                })
+            }
+            else if (file == "" || file == null) {
+                swal({
+                    title: "提示",
+                    text: "请上传文件",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                })
+            }
+            else if (sessionStorage.getItem("succ") != "上传成功") {
+                swal({
+                    title: "提示",
+                    text: "文件未上传成功",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                })
+            }
+            else {
+                $("#myModal1").modal("show");
+                $("#close").hide();
+                $.ajax({
+                    type: 'Post',
+                    url: 'collectionManagement.aspx',
+                    data: {
+                        custom: custom,
+                        action: "import"
+                    },
+                    dataType: 'text',
+                    success: function (data) {
+                        if (data.indexOf("导入成功") >= 0) {
+                            $("#myModalLabe1").html(data);
+                            $("#close").show();
+                            $("#img").attr("src", "../imgs/success.png");
+                            sessionStorage.setItem("import", "导入成功");
+                        } else if (data.indexOf("导入失败") >= 0) {
+                            $("#myModalLabe1").html(data);
+                            $("#close").show();
+                            $("#img").attr("src", "../imgs/lose.png");
+                            sessionStorage.setItem("import", "导入失败");
+                        }
+                        else {
+                            sessionStorage.setItem("import", "导入失败");
+                            $("#close").show();
+                            swal({
+                                title: "提示",
+                                text: data,
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            })
+                        }
                     }
-                    else {
-                        sessionStorage.setItem("import", "导入失败");
-                        $("#close").show();
-                        swal({
-                            title: "提示",
-                            text: data,
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        })
-                    }
-                }
-            });
+                });
+            }
+        }
+        else if (type=="iso") {
+            if (custom == "" || custom == null) {
+                swal({
+                    title: "提示",
+                    text: "请选择客户",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                })
+            }
+            else if (file == "" || file == null) {
+                swal({
+                    title: "提示",
+                    text: "请上传文件",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                })
+            }
+            else if (sessionStorage.getItem("succ") != "上传成功") {
+                swal({
+                    title: "提示",
+                    text: "文件未上传成功",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                })
+            }
+            else {
+                $("#marcModal").modal("show");
+            }
         }
     });
 
@@ -321,13 +365,13 @@
                 allowOutsideClick: false
             })
         }
-        else if (type == ".xls" || type == ".xlsx") {
+        else if (type == ".xls" || type == ".xlsx" || type==".iso") {
             ajaxFileUpload();
         }
         else {
             swal({
                 title: "提示",
-                text: "只允许上传.xls或者.xlsx格式的文件",
+                text: "只允许上传.xls、.xlsx或者.iso格式的文件",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
@@ -349,6 +393,64 @@
             sessionStorage.removeItem("import");
             sessionStorage.removeItem("succ");
         }
+    });
+
+    $("#confirmImport").click(function () {
+        var custom = $("#model-select-custom").val();
+        var fisbn = $("#fisbn").val();
+        var sisbn = $("#sisbn").val();
+        var fbookName = $("#fbookName").val();
+        var sbookName = $("#sbookName").val();
+        var fprice = $("#fprice").val();
+        var sprice = $("#sprice").val();
+        var fnum = $("#fnum").val();
+        var snum = $("#snum").val();
+        $("#myModal1").modal("show");
+        $("#close").hide();
+        $.ajax({
+            type: 'Post',
+            url: 'collectionManagement.aspx',
+            data: {
+                custom: custom,
+                fisbn: fisbn,
+                sisbn: sisbn,
+                fbookName: fbookName,
+                sbookName: sbookName,
+                fprice: fprice,
+                sprice: sprice,
+                fnum: fnum,
+                snum: snum,
+                action: "import"
+            },
+            dataType: 'text',
+            success: function (data) {
+                if (data.indexOf("导入成功") >= 0) {
+                    $("#myModalLabe1").html(data);
+                    $("#close").show();
+                    $("#img").attr("src", "../imgs/success.png");
+                    sessionStorage.setItem("import", "导入成功");
+                } else if (data.indexOf("导入失败") >= 0) {
+                    $("#myModalLabe1").html(data);
+                    $("#close").show();
+                    $("#img").attr("src", "../imgs/lose.png");
+                    sessionStorage.setItem("import", "导入失败");
+                }
+                else {
+                    sessionStorage.setItem("import", "导入失败");
+                    $("#close").show();
+                    swal({
+                        title: "提示",
+                        text: data,
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    })
+                }
+            }
+        });
     });
 
     function ajaxFileUpload() {
