@@ -19,7 +19,7 @@ namespace bms.Web.CustomerMGT
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string path = @"C:\Users\daobin\Desktop\marc\L云南省店20180911处理.iso";
+            string path = @"C:\Users\daobin\Desktop\marc\新华书店订单.iso";
             DataTable dt = new DataTable();
             string fisbn = "010";
             string sisbn = "a";
@@ -39,7 +39,7 @@ namespace bms.Web.CustomerMGT
         private bool isNum(string str)
         {
             Regex reg1 = new Regex(@"^[-]?\d+[.]?\d*$");
-            if (reg1.IsMatch(str))
+            if (reg1.IsMatch(str)&&Convert.ToDouble(str)>=0)
             {
                 return true;
             }
@@ -90,7 +90,7 @@ namespace bms.Web.CustomerMGT
             return dt;
         }
 
-        private bool IsNum(string str)
+        private bool isInt(string str)
         {
             bool blResult = true;//默认状态下是数字 
             if (str == "")
@@ -131,30 +131,23 @@ namespace bms.Web.CustomerMGT
             isbn = GetRecord(Buff, fisbn, sisbn, IndexRecord, Data_Address).Trim().Replace("-", "");
             bookName = GetRecord(Buff, fbookName, sbookName, IndexRecord, Data_Address).Trim();
             //price = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
-            price = "-3";
-            num = GetRecord(Buff, fnum, snum, IndexRecord, Data_Address).Trim();
-            if (!isNum(price))
-            {
-                price = "0";
-            }
-            else
-            {
-                if (Convert.ToDouble(price)<0)
-                {
-                    price = "0";
-                }
-                else
-                {
-                    price = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
-                }
-            }
-            if (!IsNum(num))
+            price = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
+            string num2 = GetRecord(Buff, fnum, snum, IndexRecord, Data_Address).Trim();
+            //if (!isNum(price2))
+            //{
+            //    price = "0";
+            //}
+            //else
+            //{
+            //    price = price2;
+            //}
+            if (!isInt(num2))
             {
                 num = "0";
             }
             else
             {
-                num = GetRecord(Buff, fnum, snum, IndexRecord, Data_Address).Trim();
+                num = num2;
             }
             string[] ret = { id,isbn, bookName, price, num };
             return ret;

@@ -150,14 +150,14 @@ namespace bms.Bll
         }
 
         /// <summary>
-        /// 判断是否为数字
+        /// 判断是否为>0数字
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
         private bool isNum(string str)
         {
             Regex reg1 = new Regex(@"^[-]?\d+[.]?\d*$");
-            if (reg1.IsMatch(str)&&Convert.ToDouble(str)>0)
+            if (reg1.IsMatch(str) && Convert.ToDouble(str) >= 0)
             {
                 return true;
             }
@@ -225,8 +225,16 @@ namespace bms.Bll
             int Data_Address = int.Parse(Buff.Substring(12, 5)); //数据区地址
             isbn = GetRecord(Buff, fisbn, sisbn, IndexRecord, Data_Address).Trim().Replace("-", "");
             bookName = GetRecord(Buff, fbookName, sbookName, IndexRecord, Data_Address).Trim();
-            price = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
+            string price2 = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
             string num2 = GetRecord(Buff, fnum, snum, IndexRecord, Data_Address).Trim();
+            if (!isNum(price2))
+            {
+                price = "0";
+            }
+            else
+            {
+                price = price2;
+            }
             if (!isInt(num2))
             {
                 num = "0";

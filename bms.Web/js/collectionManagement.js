@@ -159,7 +159,6 @@
     });
 
     $("#btnImport").click(function () {
-        $("#fisbn").focus();
         var custom = $("#model-select-custom").val();
         var file = $("#file").val();
         var point = file.lastIndexOf("."); 
@@ -243,7 +242,6 @@
             }
         }
         else if (type == "iso") {
-            $("#fisbn").focus();
             if (custom == "" || custom == null) {
                 swal({
                     title: "提示",
@@ -563,3 +561,7 @@ function logout() {
         });
     })
 }
+
+$('#marcModal').on('shown.bs.modal', function (e) {
+    $('#fisbn').focus();
+});
