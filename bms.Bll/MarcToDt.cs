@@ -225,16 +225,16 @@ namespace bms.Bll
             int Data_Address = int.Parse(Buff.Substring(12, 5)); //数据区地址
             isbn = GetRecord(Buff, fisbn, sisbn, IndexRecord, Data_Address).Trim().Replace("-", "");
             bookName = GetRecord(Buff, fbookName, sbookName, IndexRecord, Data_Address).Trim();
-            string price2 = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
+            price = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
             string num2 = GetRecord(Buff, fnum, snum, IndexRecord, Data_Address).Trim();
-            if (!isNum(price2))
-            {
-                price = "0";
-            }
-            else
-            {
-                price = price2;
-            }
+            //if (!isNum(price2))
+            //{
+            //    price = "0";
+            //}
+            //else
+            //{
+            //    price = price2;
+            //}
             if (!isInt(num2))
             {
                 num = "0";
