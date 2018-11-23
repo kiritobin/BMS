@@ -235,24 +235,6 @@
                         </div>
                     </li>
                     <%} %>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#baseManage" data-toggle="collapse">
-                            <i class="fa fa-file-archive-o"></i>
-                            <p>
-                                基础信息
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse show">
-                            <ul class="nav">
-                                <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../CustomerMGT/statistics.aspx">
-                                        <span class="sidebar-normal">ddddd</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
                 </ul>
             </div>
 
