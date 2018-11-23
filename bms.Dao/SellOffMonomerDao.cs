@@ -132,10 +132,12 @@ namespace bms.Dao
         /// 获取零售排行
         /// </summary>
         /// <returns></returns>
-        public DataSet getRetailRank()
+        public DataSet getRetailRank(DateTime startTime,DateTime endTime,string regionName)
         {
-            string sql = "select bookName,unitPrice,allNum,allTotalPrice from V_RetailRank LIMIT 0,10";
-            DataSet ds = db.FillDataSet(sql, null, null);
+            string sql = "select bookNum,bookName,unitPrice,sum(number) as num,sum(totalPrice) as allPrice,dateTime from v_retailmonomer where state=1 and dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY num desc limit 0,10";
+            string[] param = { "@startTime", "@endTime", "@regionName" };
+            object[] values = { startTime, endTime, regionName };
+            DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
         

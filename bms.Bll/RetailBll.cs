@@ -268,9 +268,9 @@ namespace bms.Bll
         /// 零售统计
         /// </summary>
         /// <returns></returns>
-        public DataSet GroupRetail()
+        public DataSet GroupRetail(DateTime startTime,DateTime endTime,string regionName)
         {
-            DataSet ds = dao.GroupRetail();
+            DataSet ds = dao.GroupRetail(startTime,endTime,regionName);
             return ds;
         }
     }

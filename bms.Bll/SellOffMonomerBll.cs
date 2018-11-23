@@ -153,9 +153,9 @@ namespace bms.Bll
         /// 获取零售排行
         /// </summary>
         /// <returns></returns>
-        public DataSet getRetailRank()
+        public DataSet getRetailRank(DateTime startTime,DateTime endTime,string regionName)
         {
-            DataSet ds = dao.getRetailRank();
+            DataSet ds = dao.getRetailRank(startTime,endTime,regionName);
             return ds;
         }
         public DataSet searchSalesDetail(string saletaskId, string saleheadId)

@@ -104,11 +104,12 @@
             </div>
         </div>
     </div>
+    <script src="../js/jquery.min.js"></script>
     <script src="../js/public.js"></script>
     <script>
         function reload() {
             //window.location.reload();
-            window.location.href = "booksOut.aspx";
+            window.location.href = "booksOut.aspx?regionName=" + $("#rName").val();
         }
         setTimeout("reload()", 10000);
         window.onload = function () {

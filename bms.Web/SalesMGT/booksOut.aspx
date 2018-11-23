@@ -102,11 +102,12 @@
             </div>
         </div>
     </div>
+    <script src="../js/jquery.min.js"></script>
     <script src="../js/public.js"></script>
     <script>
         function reload() {
             //window.location.reload();
-            window.location.href = "retailRank.aspx";
+            window.location.href = "retailRank.aspx?regionName=" + $("#rName").val();
         }
         window.onload = function () {
             function nowTime(ev, type) {
