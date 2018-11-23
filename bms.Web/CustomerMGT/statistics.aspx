@@ -157,7 +157,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="statistics.aspx">
-                                        <span class="sidebar-normal">大屏统计</span>
+                                        <span class="sidebar-normal">大屏配置</span>
                                     </a>
                                 </li>
                             </ul>
@@ -232,7 +232,7 @@
                                 <div class="card-header card-header-danger">
                                     <h4 class="card-title ">大屏统计设置</h4>
                                 </div>
-                                <div class="card-body text-center" style="height:500px;">
+                                <div class="card-body text-center" style="height: 500px;">
                                     <table class="timetable">
                                         <tr>
                                             <td>开始时间：</td>
@@ -255,12 +255,23 @@
                                             <td class="">
                                                 <select class="selectpicker text-center" data-live-search="true" id="cusSearch">
                                                     <option value="">选择组织</option>
+                                                    <%
+                                                    if (regionds.Tables[0].Rows.Count > 0)
+                                                    {
+                                                        for (int i = 0; i < regionds.Tables[0].Rows.Count; i++)
+                                                        { %>
+                                                    <option value="<%=regionds.Tables[0].Rows[i]["regionId"] %>" id="regionName"><%=regionds.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%}
+                                                    } %>
                                                 </select></td>
                                         </tr>
                                         <tr>
-                                            <td></td>
+                                            <td>
+                                                <button class="btn btn-success pull-right" id="goScreen">进入大屏显示</button>
+                                            </td>
                                             <td class="">
-                                                <button class="btn btn-success pull-right" id="">确定</button></td>
+                                                <button class="btn btn-success pull-right" id="sure">确定</button>
+                                            </td>
                                         </tr>
                                     </table>
                                     <%--<div class="jeinpbox">
@@ -303,24 +314,6 @@
             'selectedText': 'cat'
         });
     </script>--%>
-        <script>
-            jeDate("#startTime", {
-                theme: {
-                    bgcolor: "#D91600",
-                    pnColor: "#FF6653"
-                },
-                multiPane: true,
-                format: "YYYY-MM-DD"
-            });
-            jeDate("#endTime", {
-                theme: {
-                    bgcolor: "#D91600",
-                    pnColor: "#FF6653"
-                },
-                multiPane: true,
-                format: "YYYY-MM-DD"
-            });
-        </script>
         <script src="../js/jquery-3.3.1.min.js"></script>
         <!-- 左侧导航栏所需js -->
         <script src="../js/popper.min.js"></script>
@@ -333,5 +326,6 @@
         <script src="../js/jquery.pagination.js"></script>
         <script src="../js/ajaxfileupload.js"></script>
         <script src="../js/public.js"></script>
+        <script src="../js/statistics.js"></script>
 </body>
 </html>

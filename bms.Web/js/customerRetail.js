@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
     $("#search").focus();
     sessionStorage.setItem("kind", 0);
-    sessionStorage.setItem("number", 0);
     sessionStorage.setItem("totalPrice", 0);
     sessionStorage.setItem("realPrice", 0);
     sessionStorage.setItem("content", "show");
@@ -85,13 +84,49 @@ $("#search").keypress(function (e) {
                                     url: 'customerRetail.aspx',
                                     data: {
                                         isbn: isbn,
-                                        op: 'choose'
+                                        op: 'newChoose'
                                     },
                                     dataType: 'text',
                                     success: function (succ) {
-                                        $("#myModal").modal("show");
-                                        $("#table2 tr:not(:first)").empty(); //清空table处首行
-                                        $("#table2").append(succ); //加载table
+                                        var datas = succ.split("|:");
+                                        var data = datas[1];
+                                        if (datas[0] == "无库存") {
+                                            swal({
+                                                title: "书籍库存不足",
+                                                buttonsStyling: false,
+                                                confirmButtonClass: "btn btn-warning",
+                                                type: "warning"
+                                            }).catch(swal.noop);
+                                        } else if (datas[0] == "other") {
+                                            sessionStorage.setItem("retailId", datas[3])
+                                            if (sessionStorage.getItem("kind") == "0") {
+                                                $(".first").remove();
+                                            }
+                                            $("#table").prepend(data);
+                                            //计算合计内容
+                                            var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
+                                            //var numbers = parseInt(sessionStorage.getItem("number")) + 1;
+                                            //var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
+                                            //var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
+                                            //sessionStorage.setItem("kind", kinds);
+                                            //sessionStorage.setItem("number", numbers);
+                                            //sessionStorage.setItem("totalPrice", parseFloat(totalPrices).toFixed(2));
+                                            //sessionStorage.setItem("realPrice", parseFloat(realPrices).toFixed(2));
+                                            var math = datas[2].split(",");
+                                            //展示合计内容
+                                            $("#kind").text(math[0]);
+                                            $("#number").text(math[1]);
+                                            $("#total").text(parseFloat(math[2]).toFixed(2));
+                                            $("#real").text(parseFloat(math[3]).toFixed(2));
+                                            //清空输入框并获取焦点
+                                            $("#search").val("");
+                                            $("#search").focus();
+                                        }
+                                        else {
+                                            $("#myModal").modal("show");
+                                            $("#table2 tr:not(:first)").empty(); //清空table处首行
+                                            $("#table2").append(succ); //加载table
+                                        }
                                     }
                                 })
                             } else {
@@ -102,7 +137,7 @@ $("#search").keypress(function (e) {
                                 }
                                 sessionStorage.setItem("retailId", datas[2]);
                                 $("#table tr:not(:first)").empty();//清空除第一行以外的信息
-                                $("#table").append(data);
+                                $("#table").prepend(data);
                                 $("#kind").text(math[0]);
                                 $("#number").text(math[1]);
                                 $("#total").text(math[2]);
@@ -156,13 +191,62 @@ $("#search").keypress(function (e) {
                                     url: 'customerRetail.aspx',
                                     data: {
                                         isbn: isbn,
+                                        headId: sessionStorage.getItem("retailId"),
                                         op: 'choose'
                                     },
                                     dataType: 'text',
                                     success: function (succ) {
-                                        $("#myModal").modal("show");
-                                        $("#table2 tr:not(:first)").empty(); //清空table处首行
-                                        $("#table2").append(succ); //加载table
+                                        var datas = succ.split("|:");
+                                        var data = datas[1];
+                                        if (datas[0] == "无库存") {
+                                            swal({
+                                                title: "书籍库存不足",
+                                                buttonsStyling: false,
+                                                confirmButtonClass: "btn btn-warning",
+                                                type: "warning"
+                                            }).catch(swal.noop);
+                                        } else if (datas[0] == "已添加过此图书") {
+                                            swal({
+                                                title: "已添加过此图书",
+                                                buttonsStyling: false,
+                                                confirmButtonClass: "btn btn-warning",
+                                                type: "warning"
+                                            }).catch(swal.noop);
+                                        } else if (datas[0] == "other") {
+                                            if (sessionStorage.getItem("kind") == "0") {
+                                                $(".first").remove();
+                                            }
+                                            $("#table tr:not(:first)").empty();//清空除第一行以外的信息
+                                            $("#table").prepend(data);
+                                            //计算合计内容
+                                            var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
+                                            //var numbers = parseInt(sessionStorage.getItem("number")) + 1;
+                                            //var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
+                                            //var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
+                                            //sessionStorage.setItem("kind", kinds);
+                                            //sessionStorage.setItem("number", numbers);
+                                            //sessionStorage.setItem("totalPrice", parseFloat(totalPrices).toFixed(2));
+                                            //sessionStorage.setItem("realPrice", parseFloat(realPrices).toFixed(2));
+                                            //展示合计内容
+                                            //$("#number").text(numbers);
+                                            //$("#total").text(parseFloat(totalPrices).toFixed(2));
+                                            //$("#real").text(parseFloat(realPrices).toFixed(2));
+                                            //$("#kind").text(kinds);
+                                            var math = datas[2].split(",");
+                                            //展示合计内容
+                                            $("#kind").text(math[0]);
+                                            $("#number").text(math[1]);
+                                            $("#total").text(parseFloat(math[2]).toFixed(2));
+                                            $("#real").text(parseFloat(math[3]).toFixed(2));
+                                            //清空输入框并获取焦点
+                                            $("#search").val("");
+                                            $("#search").focus();
+                                        }
+                                        else {
+                                            $("#myModal").modal("show");
+                                            $("#table2 tr:not(:first)").empty(); //清空table处首行
+                                            $("#table2").append(succ); //加载table
+                                        }
                                     }
                                 })
                             } else {
@@ -172,7 +256,7 @@ $("#search").keypress(function (e) {
                                     sessionStorage.setItem("kind", 1)
                                 }
                                 $("#table tr:not(:first)").empty();//清空除第一行以外的信息
-                                $("#table").append(data);
+                                $("#table").prepend(data);
                                 $("#kind").text(math[0]);
                                 $("#number").text(math[1]);
                                 $("#total").text(math[2]);
@@ -190,45 +274,122 @@ $("#search").keypress(function (e) {
 //选择一号多书中需要的图书
 $("#btnAdd").click(function () {
     var bookNum = $("input[type='radio']:checked").val();
-    $.ajax({
-        type: 'Post',
-        url: 'customerRetail.aspx',
-        data: {
-            bookNum: bookNum,
-            headId: sessionStorage.getItem("retailId"),
-            op: 'add'
-        },
-        dataType: 'text',
-        success: function (succ) {
-            var datas = succ.split("|:");
-            var data = datas[0];
-            $("#search").val("");
-            if (data == "已添加过此图书") {
-                swal({
-                    title: "已添加过ISBN：" + sessionStorage.getItem("ISBN") + "的图书",
-                    text: "需要继续添加可前往修改数量",
-                    buttonsStyling: false,
-                    confirmButtonClass: "btn btn-warning",
-                    type: "warning"
-                }).catch(swal.noop);
-            } else {
-                var math = datas[1].split(",");
-                if (sessionStorage.getItem("kind") == "0" || sessionStorage.getItem("kind") == 0) {
-                    $(".first").remove();
-                    sessionStorage.setItem("kind", 1)
+    if (sessionStorage.getItem("retailId") == "" || sessionStorage.getItem("retailId") == null) {
+        $.ajax({
+            type: 'Post',
+            url: 'customerRetail.aspx',
+            data: {
+                bookNum: bookNum,
+                op: 'newAdd'
+            },
+            dataType: 'text',
+            success: function (succ) {
+                var datas = succ.split("|:");
+                var data = datas[0];
+                $("#search").val("");
+                if (data == "已添加过此图书") {
+                    swal({
+                        title: "已添加过ISBN：" + sessionStorage.getItem("ISBN") + "的图书",
+                        text: "需要继续添加可前往修改数量",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
                 }
-                $("#table tr:not(:first)").empty();//清空除第一行以外的信息
-                $("#table").append(data);
-                $("#kind").text(math[0]);
-                $("#number").text(math[1]);
-                $("#total").text(math[2]);
-                $("#real").text(math[3]);
-                //获取焦点
-                $("#search").focus();
-                $("#myModal").modal("hide")
+                else if (data == "other") {
+                    var math = datas[2].split(",");
+                    sessionStorage.setItem("retailId", datas[3])
+                    if (sessionStorage.getItem("kind") == "0" || sessionStorage.getItem("kind") == 0) {
+                        $(".first").remove();
+                        sessionStorage.setItem("kind", 1)
+                    }
+                    $("#table tr:not(:first)").empty();//清空除第一行以外的信息
+                    $("#table").prepend(datas[1]);
+                    $("#kind").text(math[0]);
+                    $("#number").text(math[1]);
+                    $("#total").text(math[2]);
+                    $("#real").text(math[3]);
+                    //获取焦点
+                    $("#search").focus();
+                    $("#myModal").modal("hide")
+                }
+                else {
+                    var math = datas[1].split(",");
+                    sessionStorage.setItem("retailId", datas[2])
+                    if (sessionStorage.getItem("kind") == "0" || sessionStorage.getItem("kind") == 0) {
+                        $(".first").remove();
+                        sessionStorage.setItem("kind", 1)
+                    }
+                    $("#table tr:not(:first)").empty();//清空除第一行以外的信息
+                    $("#table").prepend(data);
+                    $("#kind").text(math[0]);
+                    $("#number").text(math[1]);
+                    $("#total").text(math[2]);
+                    $("#real").text(math[3]);
+                    //获取焦点
+                    $("#search").focus();
+                    $("#myModal").modal("hide")
+                }
             }
-        }
-    })
+        })
+    } else {
+        $.ajax({
+            type: 'Post',
+            url: 'customerRetail.aspx',
+            data: {
+                bookNum: bookNum,
+                headId: sessionStorage.getItem("retailId"),
+                op: 'add'
+            },
+            dataType: 'text',
+            success: function (succ) {
+                var datas = succ.split("|:");
+                var data = datas[0];
+                $("#search").val("");
+                if (data == "已添加过此图书") {
+                    swal({
+                        title: "已添加过ISBN：" + sessionStorage.getItem("ISBN") + "的图书",
+                        text: "需要继续添加可前往修改数量",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning",
+                        type: "warning"
+                    }).catch(swal.noop);
+                }
+                else if (data == "other") {
+                    var math = datas[2].split(",");
+                    if (sessionStorage.getItem("kind") == "0" || sessionStorage.getItem("kind") == 0) {
+                        $(".first").remove();
+                        sessionStorage.setItem("kind", 1)
+                    }
+                    $("#table tr:not(:first)").empty();//清空除第一行以外的信息
+                    $("#table").prepend(datas[1]);
+                    $("#kind").text(math[0]);
+                    $("#number").text(math[1]);
+                    $("#total").text(math[2]);
+                    $("#real").text(math[3]);
+                    //获取焦点
+                    $("#search").focus();
+                    $("#myModal").modal("hide")
+                }
+                else {
+                    var math = datas[1].split(",");
+                    if (sessionStorage.getItem("kind") == "0" || sessionStorage.getItem("kind") == 0) {
+                        $(".first").remove();
+                        sessionStorage.setItem("kind", 1)
+                    }
+                    $("#table tr:not(:first)").empty();//清空除第一行以外的信息
+                    $("#table").prepend(data);
+                    $("#kind").text(math[0]);
+                    $("#number").text(math[1]);
+                    $("#total").text(math[2]);
+                    $("#real").text(math[3]);
+                    //获取焦点
+                    $("#search").focus();
+                    $("#myModal").modal("hide")
+                }
+            }
+        })
+    }
 })
 
 //扫描单头id，显示单据明细
@@ -278,7 +439,7 @@ $("#scannSea").keypress(function (e) {
                     $("#number").text(math[2]);
                     $("#kind").text(math[3]);
                     $("#table tr:not(:first)").empty();//清空除第一行以外的信息
-                    $("#table").append(datas[1]);
+                    $("#table").prepend(datas[1]);
                     $("#scannSea").val("");
                     $("#myModal1").modal("hide");
                 }
@@ -286,28 +447,89 @@ $("#scannSea").keypress(function (e) {
         })
     }
 })
-//收银修改数量
-$("#table").delegate(".numberEnd", "change", function (e) {
-    var id = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-    var number = parseInt($(this).val());
-    var total = $(this).parent().next().next();
-    var real = $(this).parent().next().next().next();
-    if (number <= 0) {
+
+//加的效果
+$("#table").delegate(".add", "click", function () {
+    var id = $(this).parent().parent().prev().prev().prev().prev().prev().text().trim();
+    var n = $(this).prev().val();
+    var num = parseInt(n) + 1;
+    if (num == 0) { return; }
+    var price = parseFloat($(this).parent().parent().prev().prev().text().trim());
+    var discount = parseFloat($(this).parent().parent().next().text().trim());
+    if (discount > 1) {
+        discount = discount * 0.01;
+    }
+    //修改表格内容
+    $(this).prev().val(num);//数量
+    $(this).parent().parent().next().next().text(parseFloat(price * num).toFixed(2))//码洋
+    $(this).parent().parent().next().next().next().text(parseFloat(price * num * discount).toFixed(2))//实洋
+    $.ajax({
+        type: 'Post',
+        url: 'customerRetail.aspx',
+        data: {
+            retailId: id,
+            headId: sessionStorage.getItem("retailId"),
+            number: num,
+            type: 'jia',
+            op: 'change'
+        },
+        dataType: 'text',
+        success: function (data) {
+            var datas = data.split("|:");
+            var succ = datas[0];
+            if (succ == "更新成功") {
+                var math = datas[1].split(",");
+                $("#number").text(math[0]);
+                $("#total").text(math[1]);
+                $("#real").text(math[2]);
+                total.text(datas[2]);
+                real.text(datas[3]);
+            } else if (succ == "更新失败") {
+                swal({
+                    title: "修改数量失败",
+                    text: "修改数量失败",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
+            }
+        }
+    })
+});
+//减的效果
+$("#table").delegate(".jian", "click", function () {
+    var id = $(this).parent().parent().prev().prev().prev().prev().prev().text().trim();
+    var n = $(this).next().val();
+    var num = parseInt(n) - 1;
+    if (num <= 0) {
         swal({
-            title: "数量不能小于1",
+            title: "数量至少为1",
             text: "",
             buttonsStyling: false,
-            confirmButtonClass: "btn btn-warning",
+            confirmButtonClass: "btn btn-warning btnStyle",
             type: "warning"
         }).catch(swal.noop);
-    } else {
+    }
+    else {
+        var price = parseFloat($(this).parent().parent().prev().prev().text().trim());
+        var discount = parseFloat($(this).parent().parent().next().text().trim());
+        if (discount > 10) {
+            discount = discount * 0.01;
+        } else if (discount < 10 && discount > 1) {
+            discount = discount * 0.1;
+        }
+        //修改表格内容
+        $(this).next().val(num);//数量
+        $(this).parent().parent().next().next().text(parseFloat(price * num).toFixed(2))//码洋
+        $(this).parent().parent().next().next().next().text(parseFloat(price * num * discount).toFixed(2))//实洋
         $.ajax({
             type: 'Post',
             url: 'customerRetail.aspx',
             data: {
                 retailId: id,
                 headId: sessionStorage.getItem("retailId"),
-                number: number,
+                number: num,
+                type: 'jian',
                 op: 'change'
             },
             dataType: 'text',
@@ -333,7 +555,7 @@ $("#table").delegate(".numberEnd", "change", function (e) {
             }
         })
     }
-})
+});
 //收银删除
 $("table").delegate(".delete", "click", function () {
     var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
