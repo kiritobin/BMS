@@ -29,6 +29,12 @@
     //})
 })
 
+//导出
+$("#export").click(function () {
+    window.location.href = "searchSalesDetail.aspx?op=export";
+})
+
+//打印
 $("#print").click(function () {
     //$("#content").jqprint();
     $.ajax({

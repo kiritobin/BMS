@@ -494,7 +494,7 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public void export()
         {
-            string name = Session["sellId"].ToString() + "明细" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            string name = "销退明细" + Session["sellId"].ToString() + "-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
             DataTable dt = shBll.ExportExcel(Session["sellId"].ToString());
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -504,7 +504,7 @@ namespace bms.Web.SalesMGT
             }
             else
             {
-                Response.Write("没有数据，不能执行导出操作!");
+                Response.Write("<script>alert('没有数据，不能执行导出操作!');</script>");
                 Response.End();
             }
         }
