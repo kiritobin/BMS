@@ -47,5 +47,10 @@ namespace bms.Bll
                 return Result.记录不存在;
             }
         }
+        public DataSet getDateTime(string regionName)
+        {
+            DataSet ds = dao.getDateTime(regionName);
+            return ds;
+        }
     }
 }

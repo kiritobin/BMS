@@ -55,7 +55,7 @@ namespace bms.Web.SalesMGT
             {
                 scann();
             }
-            if(op== "change")
+            if(op == "change")
             {
                 change();
             }
@@ -291,7 +291,7 @@ namespace bms.Web.SalesMGT
                 double realPrice = Convert.ToDouble((totalPrice * discount).ToString("0.00"));
                 DataSet ds = retailBll.GetRetail(headId);
                 int monId = 0;
-                if (ds != null && ds.Tables[0].Rows.Count <= 0)
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
                     int k = ds.Tables[0].Rows.Count - 1;
                     monId = Convert.ToInt32(ds.Tables[0].Rows[k]["retailMonomerId"]);
@@ -330,7 +330,10 @@ namespace bms.Web.SalesMGT
                             sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                             sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
                             sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
-                            sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                            //sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                            sb.Append("<td><div class='gw_num' style='width:100%'><em class='jian' style='height:100%;width:40%;'>-</em>");
+                            sb.Append("<input type = 'text' min='1' value='" + dr["number"].ToString() + "' class='num' readonly='readonly' style='width:20%;height:100%'/>");
+                            sb.Append("<em class='add' style='height:100%;width:40%;'>+</em></div></td>");
                             sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
                             sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
                             sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
@@ -431,6 +434,7 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public void change()
         {
+            string type = Request["type"];
             int number = Convert.ToInt32(Request["number"]);
             int retailId = Convert.ToInt32(Request["retailId"]);
             string headId = Request["headId"];
@@ -440,21 +444,42 @@ namespace bms.Web.SalesMGT
             double oldReal = monomer.RealPrice;
             double price = monomer.UnitPrice;
             double realDiscount = monomer.RealDiscount;
-            double total = number * price;
-            double real = total * realDiscount * 0.01;
+            double total=0, real=0;
+            if (type == "jia")
+            {
+                total = oldTotal + price;
+                real = oldReal + (price * realDiscount * 0.01);
+            }
+            else if(type == "jian")
+            {
+                total = oldTotal - price;
+                real = oldReal - (price * realDiscount * 0.01);
+            }
             SaleMonomer sale = new SaleMonomer();
             sale.SaleIdMonomerId = retailId;
             sale.Number = number;
             sale.TotalPrice = total;
             sale.RealPrice = real;
+            sale.SaleHeadId = headId;
             Result change = retailBll.UpdateNumber(sale);
             if (change == Result.更新成功)
             {
                 SaleHead head = retailBll.GetHead(headId);
                 SaleHead newHead = new SaleHead();
-                int newNumber = head.Number - oldNumber + number;
-                double newTotal = head.AllTotalPrice - oldTotal + total;
-                double newReal = head.AllRealPrice - oldReal + real;
+                int newNumber = 0;
+                double newTotal = 0, newReal = 0;
+                if (type == "jia")
+                {
+                    newNumber = head.Number + 1;
+                    newTotal = head.AllTotalPrice + price;
+                    newReal = head.AllRealPrice + (price * realDiscount * 0.01);
+                }
+                else if (type == "jian")
+                {
+                    newNumber = head.Number - 1;
+                    newTotal = head.AllTotalPrice - price;
+                    newReal = head.AllRealPrice - (price * realDiscount * 0.01);
+                }
                 newHead.SaleHeadId = headId;
                 newHead.Number = newNumber;
                 newHead.AllTotalPrice = newTotal;

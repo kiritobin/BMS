@@ -117,11 +117,11 @@
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <%--<li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
                             </ul>
                         </div>
                     </li>
@@ -267,13 +267,15 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button class="btn btn-success pull-right" id="goScreen">进入大屏显示</button>
+                                                <button class="btn btn-success pull-right" id="goScreen">进入大屏</button>
                                             </td>
                                             <td class="">
                                                 <button class="btn btn-success pull-right" id="sure">确定</button>
                                             </td>
                                         </tr>
                                     </table>
+                                    <% %>
+                                    <input type="hidden" value="<%=operatorId %>" id="userId" />
                                     <%--<div class="jeinpbox">
                                         <input type="text" class="jeinput" id="startTime" placeholder="YYYY-MM-DD">
                                     </div>

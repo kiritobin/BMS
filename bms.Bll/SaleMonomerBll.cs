@@ -287,9 +287,9 @@ namespace bms.Bll
         /// 查询销售单体中的数据统计
         /// </summary>
         /// <returns></returns>
-        public DataSet SelectBookRanking()
+        public DataSet SelectBookRanking(DateTime startTime,DateTime endTime,string regionName)
         {
-            DataSet ds = SaleMonomerdao.SelectBookRanking();
+            DataSet ds = SaleMonomerdao.SelectBookRanking(startTime,endTime,regionName);
             return ds;
         }
 
@@ -412,9 +412,9 @@ namespace bms.Bll
         /// 团采排行
         /// </summary>
         /// <returns></returns>
-        public DataSet GroupCount()
+        public DataSet GroupCount(DateTime startTime, DateTime endTime, string regionName)
         {
-            DataSet ds = SaleMonomerdao.GroupCount();
+            DataSet ds = SaleMonomerdao.GroupCount(startTime, endTime, regionName);
             return ds;
         }
 
@@ -427,18 +427,18 @@ namespace bms.Bll
         /// 客户采购统计
         /// </summary>
         /// <returns></returns>
-        public DataSet groupCustomer()
+        public DataSet groupCustomer(DateTime startTime, DateTime endTime, string regionName)
         {
-            DataSet ds = SaleMonomerdao.groupCustomer();
+            DataSet ds = SaleMonomerdao.groupCustomer(startTime,endTime,regionName);
             return ds;
         }
         /// <summary>
         /// 客户所购品种数
         /// </summary>
         /// <returns></returns>
-        public int customerKinds(string customerName)
+        public int customerKinds(DateTime startTime, DateTime endTime, string regionName, string customerName)
         {
-            int ds = SaleMonomerdao.customerKinds(customerName);
+            int ds = SaleMonomerdao.customerKinds(startTime,endTime,regionName,customerName);
             return ds;
         }
     }

@@ -107,7 +107,7 @@
     <script>
         function reload() {
             //window.location.reload();
-            window.location.href = "booksOut.aspx";
+            window.location.href = "booksOut.aspx?regionName="+$("#rName").val();
         }
         window.onload = function () {
             function nowTime(ev, type) {

@@ -118,6 +118,7 @@ namespace bms.Bll
         /// 查询零售单体
         /// </summary>
         /// <param name="retailMonomerId">零售单体ID</param>
+        /// <param name="retailHeadId">零售单头ID</param>
         /// <returns>受影响行数</returns>
         public SaleMonomer GetMonomer(int retailMonomerId, string retailHeadId)
         {
@@ -268,9 +269,9 @@ namespace bms.Bll
         /// 零售统计
         /// </summary>
         /// <returns></returns>
-        public DataSet GroupRetail()
+        public DataSet GroupRetail(DateTime startTime,DateTime endTime,string regionName)
         {
-            DataSet ds = dao.GroupRetail();
+            DataSet ds = dao.GroupRetail(startTime,endTime,regionName);
             return ds;
         }
     }

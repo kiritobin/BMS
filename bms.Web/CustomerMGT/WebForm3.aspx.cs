@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -18,35 +19,49 @@ namespace bms.Web.CustomerMGT
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            //姐姐
-            string path = @"C:\Users\daobin\Desktop\di.iso";
-            DataTable dt = MarcTodt(path);
+            string path = @"C:\Users\daobin\Desktop\marc\新华书店订单.iso";
+            DataTable dt = new DataTable();
+            string fisbn = "010";
+            string sisbn = "a";
+            string fbookName = "200";
+            string sbookName = "a";
+            string fprice = "010";
+            string sprice = "d";
+            string fnum = "010";
+            string snum = "d";
+            dt = MarcTodt(path, fisbn, sisbn, fbookName, sbookName, fprice, sprice, fnum, snum);
+            int c = dt.Rows.Count;
+            Response.Write(c);
             GridView1.DataSource = dt;
             GridView1.DataBind();
+        }
+
+        private bool isNum(string str)
+        {
+            Regex reg1 = new Regex(@"^[-]?\d+[.]?\d*$");
+            if (reg1.IsMatch(str)&&Convert.ToDouble(str)>=0)
+            {
+                return true;
+            }
+            else
+            {
+                return false; //非数字
+            }
         }
 
         private static StreamReader FileReadStream;
         private static System.IO.FileStream CheckStream;
         private static string FilePath;
 
-        public DataTable MarcTodt(string Path)
+        public DataTable MarcTodt(string Path, string fisbn, string sisbn, string fbookName, string sbookName, string fprice, string sprice, string fnum, string snum)
         {
             DataTable dt = new DataTable();
-            DataColumn ISBN = new DataColumn("ISBN", System.Type.GetType("System.String"));
-            dt.Columns.Add(ISBN);
-            dt.Columns.Add("ID", System.Type.GetType("System.String"));
-            DataColumn ID = new DataColumn("ID", System.Type.GetType("System.String"));
-
-            dt.Columns.Add("BookName", System.Type.GetType("System.String"));
-            dt.Columns.Add("Author", System.Type.GetType("System.String"));
-
-            dt.Columns.Add("Price", System.Type.GetType("System.String"));
-            dt.Columns.Add("Press", System.Type.GetType("System.String"));
-            dt.Columns.Add("PressYear", System.Type.GetType("System.String"));
-            dt.Columns.Add("Abstract", System.Type.GetType("System.String"));
-            //dt.Columns.Add("Number",
+            dt.Columns.Add("id", System.Type.GetType("System.String"));
+            dt.Columns.Add("ISBN", System.Type.GetType("System.String"));
+            dt.Columns.Add("书名", System.Type.GetType("System.String"));
+            dt.Columns.Add("定价", System.Type.GetType("System.String"));
+            dt.Columns.Add("馆藏数量", System.Type.GetType("System.String"));
             DataColumn[] pris = new DataColumn[1];
-
             CheckStream = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read);
             FileReadStream = new StreamReader(Path, System.Text.Encoding.Default);
             FilePath = Path;
@@ -59,7 +74,7 @@ namespace bms.Web.CustomerMGT
                     BuffStr = FileReadStream.ReadLine();//读取FileReadStream中一行字符，并赋值给BuffStr
                     if (BuffStr.Length > 0)
                     {
-                        dt.Rows.Add(GetData(BuffStr)); //加入到dt中
+                        dt.Rows.Add(GetData(BuffStr, fisbn, sisbn, fbookName, sbookName, fprice, sprice, fnum, snum)); //加入到dt中
                         CurrLine++;
 
                     }
@@ -75,41 +90,66 @@ namespace bms.Web.CustomerMGT
             return dt;
         }
 
-        private string[] GetData(string Buff)
+        private bool isInt(string str)
+        {
+            bool blResult = true;//默认状态下是数字 
+            if (str == "")
+                blResult = false;
+            else
+            {
+                foreach (char Char in str)
+                {
+                    if (!char.IsNumber(Char))
+                    {
+                        blResult = false;
+                        break;
+                    }
+                }
+                if (blResult)
+                {
+                    if (int.Parse(str) == 0)
+                        blResult = false;
+                }
+            }
+            return blResult;
+        }
+
+        private string[] GetData(string Buff, string fisbn, string sisbn, string fbookName, string sbookName, string fprice, string sprice, string fnum, string snum)
         {
             if (Buff.Length == 0)
             {
                 return new string[8];
             }
-            string ID = "无"; //识别码
-            string BookName = "无"; //书名
-            string Author = "无"; //作者
-            string ISBN = "无";  //ISBN
-            string Price = "无"; //价格
-            string Press = "无"; //出版社
-            string PressYear = "无"; //出版年
-            string Abstract = "无"; //摘要
+            string id = "";
+            string isbn = "";
+            string bookName = "";
+            string price = "";
+            string num = "0";
             int IndexLen = int.Parse(Buff.Substring(12, 5)) - 25;
             string IndexRecord = Buff.Substring(24, IndexLen); //目次区内容
             int Data_Address = int.Parse(Buff.Substring(12, 5)); //数据区地址
-                                                                 //ISBN
-            ISBN = GetRecord(Buff, "010", "a", IndexRecord, Data_Address).Trim();
-            //识别码
-            ID = GetRecord(Buff, "001", "", IndexRecord, Data_Address).Trim();
-            //书名
-            BookName = GetRecord(Buff, "200", "a", IndexRecord, Data_Address).Trim();
-            //作者
-            Author = GetRecord(Buff, "200", "f", IndexRecord, Data_Address).Trim();
-
-            //价格
-            Price = GetRecord(Buff, "010", "d", IndexRecord, Data_Address).Trim();
-            //出版社
-            Press = GetRecord(Buff, "210", "c", IndexRecord, Data_Address).Trim();
-            //出版年
-            PressYear = GetRecord(Buff, "210", "d", IndexRecord, Data_Address).Trim();
-            //摘要
-            Abstract = GetRecord(Buff, "330", "a", IndexRecord, Data_Address).Trim();
-            string[] ret = { ISBN, ID, BookName, Author, Price, Press, PressYear, Abstract };
+            isbn = GetRecord(Buff, fisbn, sisbn, IndexRecord, Data_Address).Trim().Replace("-", "");
+            bookName = GetRecord(Buff, fbookName, sbookName, IndexRecord, Data_Address).Trim();
+            //price = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
+            price = GetRecord(Buff, fprice, sprice, IndexRecord, Data_Address).Trim().Replace("CNY", "");
+            string num2 = GetRecord(Buff, fnum, snum, IndexRecord, Data_Address).Trim();
+            //if (!isNum(price2))
+            //{
+            //    price = "0";
+            //}
+            //else
+            //{
+            //    price = price2;
+            //}
+            if (!isInt(num2))
+            {
+                num = "0";
+            }
+            else
+            {
+                num = num2;
+            }
+            string[] ret = { id,isbn, bookName, price, num };
             return ret;
         }
         /// <summary>
@@ -120,7 +160,7 @@ namespace bms.Web.CustomerMGT
         /// <param name="SubMember">子字段号</param>
         /// <param name="Data_Addr">地址区基地址</param>
         /// <returns></returns>
-        public string GetRecord(string Buff, string Member, string SubMember, string IndexRecord, int Data_Addr)
+        private string GetRecord(string Buff, string Member, string SubMember, string IndexRecord, int Data_Addr)
         {
             string temp1 = ((char)30).ToString(); //子记录分隔符
             string temp2 = ((char)31).ToString(); //子字段分隔符
@@ -195,7 +235,7 @@ namespace bms.Web.CustomerMGT
         ///<param name="StartIndex">开始位置</param>
         ///<param name="EndIndex">截至位置</param>
         /// <returns></returns>
-        public int GetOffSet(string Buff, int StartIndex, int EndIndex)
+        private int GetOffSet(string Buff, int StartIndex, int EndIndex)
         {
             char[] temp = Buff.ToCharArray();
             int LetterCount = 0, HanZiCount = 0;

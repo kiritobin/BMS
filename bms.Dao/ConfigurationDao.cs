@@ -52,5 +52,13 @@ namespace bms.Dao
             int count = int.Parse(db.ExecuteScalar(cmdText, param, values).ToString());
             return count;
         }
+        public DataSet getDateTime(string regionName)
+        {
+            string cmdText = "select startTime,endTime from t_configuration where regionName=@regionName";
+            string[] param = { "@regionName" };
+            object[] values = { regionName };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
+        }
     }
 }
