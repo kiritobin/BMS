@@ -20,7 +20,7 @@
     .m-style span {
         float: left;
         margin: 0 5px;
-        width: 38px;
+        width: 55px;
         height: 38px;
         line-height: 38px;
         color: #bdbdbd;
@@ -30,7 +30,7 @@
     .m-style .active {
         float: left;
         margin: 0 5px;
-        width: 38px;
+        width: 55px;
         height: 38px;
         line-height: 38px;
         background: #f44336;
@@ -42,7 +42,7 @@
     .m-style a {
         float: left;
         margin: 0 5px;
-        width: 38px;
+        width: 55px;
         height: 38px;
         line-height: 38px;
         background: #fff;
@@ -75,7 +75,7 @@
 .copyright input {
     float: left;
     margin: 0 5px;
-    width: 38px;
+    width: 55px;
     height: 38px;
     line-height: 38px;
     text-align: center;
