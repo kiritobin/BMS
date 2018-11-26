@@ -118,17 +118,17 @@ namespace bms.Web.InventoryMGT
             }
             string userId = user.UserId;
             TableBuilder tbd = new TableBuilder();
-            tbd.StrTable = "T_Monomers AS A,T_SingleHead AS B,T_User AS C ,T_BookBasicData AS D,t_region as E,t_region as F";
-            tbd.OrderBy = "A.bookNum";
+            tbd.StrTable = "T_Monomers AS A,T_SingleHead AS B,T_User AS C ,T_BookBasicData AS D,t_region as E";
+            tbd.OrderBy = "A.ID";
             if (isAdmin)
             {
-                tbd.StrColumnlist = "C.userName,D.bookName,A.ISBN,A.bookNum,sum(A.number) as number,sum(A.totalPrice) as totalPrice ,sum(A.realPrice) as realPrice,E.regionName,D.supplier,B.time,F.regionName as userRegionName";
-                tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and F.regionId=C.regionId and A.type="+ type + where + " group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
+                tbd.StrColumnlist = "C.userName,D.bookName,A.ISBN,A.bookNum,sum(A.number) as number,sum(A.totalPrice) as totalPrice ,sum(A.realPrice) as realPrice,E.regionName,D.supplier,B.time,E.regionName as userRegionName";
+                tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and E.regionId=C.regionId and A.type="+ type + where + " group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
             }
             else
             {
                 tbd.StrColumnlist = "C.userName,D.bookName,A.ISBN,A.bookNum,sum(A.number) as number,sum(A.totalPrice) as totalPrice ,sum(A.realPrice) as realPrice,E.regionName,D.supplier,B.time";
-                tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and C.regionId=F.regionId and C.regionId="+ regionId + where + " and A.type="+type+" group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
+                tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and C.regionId=E.regionId and C.regionId="+ regionId + where + " and A.type="+type+" group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
             }
             tbd.IntPageSize = pageSize;
             tbd.IntPageNum = currentPage;
