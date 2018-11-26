@@ -156,7 +156,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="statistics.aspx">
+                                    <a class="nav-link" href="statistics.aspx">
                                         <span class="sidebar-normal">大屏配置</span>
                                     </a>
                                 </li>

@@ -81,6 +81,11 @@ namespace bms.Web.InventoryMGT
                 Response.Write(sb);
                 Response.End();
             }
+            string exportOp = Request.QueryString["op"];
+            if (exportOp == "export")
+            {
+                export();
+            }
         }
         /// <summary>
         /// 获取分页数据
@@ -130,6 +135,9 @@ namespace bms.Web.InventoryMGT
             }
             return sb.ToString();
         }
+        /// <summary>
+        /// 权限控制
+        /// </summary>
         protected void permission()
         {
             FunctionBll functionBll = new FunctionBll();
@@ -198,6 +206,43 @@ namespace bms.Web.InventoryMGT
                 {
                     funcRetail = true;
                 }
+            }
+        }
+        /// <summary>
+        /// //导出列表方法
+        /// </summary>
+        /// <param name="s_path">文件路径</param>
+        public void downloadfile(string s_path)
+        {
+            System.IO.FileInfo file = new System.IO.FileInfo(s_path);
+            HttpContext.Current.Response.ContentType = "application/ms-download";
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.AddHeader("Content-Type", "application/octet-stream");
+            HttpContext.Current.Response.Charset = "utf-8";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(file.Name, System.Text.Encoding.UTF8));
+            HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
+            HttpContext.Current.Response.WriteFile(file.FullName);
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.End();
+        }
+        /// <summary>
+        /// 导出
+        /// </summary>
+        public void export()
+        {
+            string name = singleHeadId + "明细" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            DataTable dt = warehousingBll.ExportExcel(singleHeadId);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                var path = Server.MapPath("~/download/出库明细导出/" + name + ".xls");
+                ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
+                downloadfile(path);
+            }
+            else
+            {
+                Response.Write("没有数据，不能执行导出操作!");
+                Response.End();
             }
         }
     }

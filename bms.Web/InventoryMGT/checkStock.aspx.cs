@@ -46,6 +46,11 @@ namespace bms.Web.InventoryMGT
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
+            string exportOp = Request.QueryString["op"];
+            if (exportOp == "export")
+            {
+                export();
+            }
             putDt = warehousingBll.SelectSingleHead(HeadId);
             int count = putDt.Rows.Count;
             for (int i = 0; i < count; i++)
@@ -130,6 +135,9 @@ namespace bms.Web.InventoryMGT
             }
             return sb.ToString();
         }
+        /// <summary>
+        /// 权限控制
+        /// </summary>
         protected void permission()
         {
             FunctionBll functionBll = new FunctionBll();
@@ -205,36 +213,38 @@ namespace bms.Web.InventoryMGT
         /// //导出列表方法
         /// </summary>
         /// <param name="s_path">文件路径</param>
-        //public void downloadfile(string s_path)
-        //{
-        //    System.IO.FileInfo file = new System.IO.FileInfo(s_path);
-        //    HttpContext.Current.Response.ContentType = "application/ms-download";
-        //    HttpContext.Current.Response.Clear();
-        //    HttpContext.Current.Response.AddHeader("Content-Type", "application/octet-stream");
-        //    HttpContext.Current.Response.Charset = "utf-8";
-        //    HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(file.Name, System.Text.Encoding.UTF8));
-        //    HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
-        //    HttpContext.Current.Response.WriteFile(file.FullName);
-        //    HttpContext.Current.Response.Flush();
-        //    HttpContext.Current.Response.Clear();
-        //    HttpContext.Current.Response.End();
-        //}
-
-        //public void export()
-        //{
-        //    var name = putId + "明细" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-        //    DataTable dt = warehousingBll.ExportExcel(putId);
-        //    if (dt != null && dt.Rows.Count > 0)
-        //    {
-        //        var path = Server.MapPath("~/download/入库明细导出/" + name + ".xls");
-        //        ExcelHelper.x2003.TableToExcelForXLS(dt, path);
-        //        downloadfile(path);
-        //    }
-        //    else
-        //    {
-        //        Response.Write("没有数据，不能执行导出操作!");
-        //        Response.End();
-        //    }
-        //}
+        public void downloadfile(string s_path)
+        {
+            System.IO.FileInfo file = new System.IO.FileInfo(s_path);
+            HttpContext.Current.Response.ContentType = "application/ms-download";
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.AddHeader("Content-Type", "application/octet-stream");
+            HttpContext.Current.Response.Charset = "utf-8";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(file.Name, System.Text.Encoding.UTF8));
+            HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
+            HttpContext.Current.Response.WriteFile(file.FullName);
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.End();
+        }
+        /// <summary>
+        /// 导出
+        /// </summary>
+        public void export()
+        {
+            string name = HeadId + "明细" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            DataTable dt = warehousingBll.ExportExcel(HeadId);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                var path = Server.MapPath("~/download/入库明细导出/" + name + ".xls");
+                ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
+                downloadfile(path);
+            }
+            else
+            {
+                Response.Write("没有数据，不能执行导出操作!");
+                Response.End();
+            }
+        }
     }
 }

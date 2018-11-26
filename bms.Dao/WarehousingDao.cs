@@ -264,8 +264,10 @@ namespace bms.Dao
         /// <returns>返回一个DataTable的选题记录集合</returns>
         public DataTable ExportExcel(string strWhere)
         {
-            String cmdText = string.Format("select singleHeadId as 单据编号,ISBN as ISBN号,number as 商品数量,uPrice as 单价,discount as 折扣,realPrice as 实洋,totalPrice as 码洋,shelvesName as 货架 from V_Monomer where singleHeadId='{0}' and type=1", strWhere);
-            DataSet ds = db.FillDataSet(cmdText, null, null);
+            String cmdText = "select singleHeadId as 单据编号,ISBN as ISBN号,number as 商品数量,uPrice as 单价,discount as 折扣,realPrice as 实洋,totalPrice as 码洋,shelvesName as 货架 from V_Monomer where singleHeadId=@strWhere";
+            string[] param = { "@strWhere"};
+            object[] values = { strWhere};
+            DataSet ds = db.FillDataSet(cmdText, param, values);
             DataTable dt = null;
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {

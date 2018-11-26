@@ -57,6 +57,12 @@ $(document).ready(function () {
     });
 })
 
+//导出
+$("#export").click(function () {
+    window.location.href = "checkWarehouse.aspx?op=export";
+})
+
+//打印
 $("#print").click(function () {
     //$("#table").jqprint();
     $.ajax({
