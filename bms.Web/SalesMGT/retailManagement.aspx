@@ -1,4 +1,4 @@
-﻿补货<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailManagement.aspx.cs" Inherits="bms.Web.SalesMGT.retailManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailManagement.aspx.cs" Inherits="bms.Web.SalesMGT.retailManagement" %>
 
 <!DOCTYPE html>
 <html lang="zh">

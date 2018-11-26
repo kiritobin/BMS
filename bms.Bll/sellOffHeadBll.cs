@@ -118,5 +118,15 @@ namespace bms.Bll
                 return Result.更新失败;
             }
         }
+
+        /// <summary>
+        /// 导出表格
+        /// </summary>
+        /// <param name="strWhere">销退单头Id</param>
+        /// <returns></returns>
+        public DataTable ExportExcel(string strWhere)
+        {
+            return dao.ExportExcel(strWhere);
+        }
     }
 }

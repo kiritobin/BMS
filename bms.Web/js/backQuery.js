@@ -1,5 +1,9 @@
 ﻿$(document).ready(function () {
     //sessionStorage.removeItem("save");
+    //导出
+    $("#export").click(function () {
+        window.location.href = "backQuery.aspx?op=export";
+    })
     //打印
     $("#print").click(function () {
         //$("#print_content").jqprint();
