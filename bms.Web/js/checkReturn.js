@@ -57,6 +57,11 @@ $(document).ready(function () {
     });
 });
 
+//导出
+$("#export").click(function () {
+    window.location.href = "checkReturn.aspx?op=export";
+})
+
 //打印
 $("#print").click(function () {
     //$("#content").jqprint();

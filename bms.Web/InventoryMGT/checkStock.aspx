@@ -201,7 +201,7 @@
                                 </li>
                                 <%} %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../CustomerMGT/statistics.aspx">
+                                    <a class="nav-link" href="../CustomerMGT/statistics.aspx">
                                         <span class="sidebar-normal">大屏配置</span>
                                     </a>
                                 </li>
@@ -289,9 +289,9 @@
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-warning btn-sm" id="back" onclick="javascript:history.back(-1);">返回</button>
                                             </div>
-                                            <%--<div class="btn-group" role="group">
+                                            <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="export">导出</button>
-                                            </div>--%>
+                                            </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="print">打印</button>
                                             </div>
