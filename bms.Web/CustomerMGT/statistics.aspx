@@ -256,13 +256,13 @@
                                                 <select class="selectpicker text-center" data-live-search="true" id="cusSearch">
                                                     <option value="">选择组织</option>
                                                     <%
-                                                    if (regionds.Tables[0].Rows.Count > 0)
-                                                    {
-                                                        for (int i = 0; i < regionds.Tables[0].Rows.Count; i++)
-                                                        { %>
+                                                        if (regionds.Tables[0].Rows.Count > 0)
+                                                        {
+                                                            for (int i = 0; i < regionds.Tables[0].Rows.Count; i++)
+                                                            { %>
                                                     <option value="<%=regionds.Tables[0].Rows[i]["regionId"] %>" id="regionName"><%=regionds.Tables[0].Rows[i]["regionName"] %></option>
                                                     <%}
-                                                    } %>
+                                                        } %>
                                                 </select></td>
                                         </tr>
                                         <tr>
@@ -294,23 +294,24 @@
                         </div>
                     </div>
                 </div>
-                <!-- 主界面页脚部分 -->
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <!-- 版权内容 -->
-                        <div class="copyright text-center">
-                            &copy;
+            </div>
+            <!-- 主界面页脚部分 -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <!-- 版权内容 -->
+                    <div class="copyright text-center">
+                        &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                            &nbsp;版权归云南新华书店图书有限公司所有
+                        &nbsp;版权归云南新华书店图书有限公司所有
                         <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
-                        </div>
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
-        <%--<script>
+    </div>
+    <%--<script>
 
         $('.selectpicker').selectpicker({
             'selectedText': 'cat'
