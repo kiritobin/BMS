@@ -154,6 +154,8 @@
     <Content Include="js\searchSalesDetail.js" />
     <Content Include="js\statistics.js" />
     <Content Include="QRCode.aspx" />
+    <Content Include="ReportStatistics\salesDetails.aspx" />
+    <Content Include="ReportStatistics\salesStatistics.aspx" />
     <Content Include="SalesMGT\booksOut.aspx" />
     <Content Include="SalesMGT\CLodop_Setup_for_Win32NT.exe" />
     <Content Include="SalesMGT\customerRetail.aspx" />
@@ -450,6 +452,20 @@
     </Compile>
     <Compile Include="QRCode.aspx.designer.cs">
       <DependentUpon>QRCode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistics\salesDetails.aspx.cs">
+      <DependentUpon>salesDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\salesDetails.aspx.designer.cs">
+      <DependentUpon>salesDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistics\salesStatistics.aspx.cs">
+      <DependentUpon>salesStatistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\salesStatistics.aspx.designer.cs">
+      <DependentUpon>salesStatistics.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesMGT\booksOut.aspx.cs">
       <DependentUpon>booksOut.aspx</DependentUpon>

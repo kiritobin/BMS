@@ -56,6 +56,7 @@
     <Compile Include="RSACryptoService.cs" />
     <Compile Include="SaleHeadBll.cs" />
     <Compile Include="SaleMonomerBll.cs" />
+    <Compile Include="salesStatisticsBll.cs" />
     <Compile Include="SaleTaskBll.cs" />
     <Compile Include="sellOffHeadBll.cs" />
     <Compile Include="SellOffMonomerBll.cs" />
