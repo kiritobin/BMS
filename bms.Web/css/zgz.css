@@ -62,10 +62,10 @@
     padding-bottom: 0px;
 }
 
-.mostTable > tbody > tr > td > button,
-.mostTable > tbody > tr > td > a > button {
-    padding: 5px !important;
-}
+    .mostTable > tbody > tr > td > button,
+    .mostTable > tbody > tr > td > a > button {
+        padding: 5px !important;
+    }
 
 /* 查询统一样式表 */
 .search {
@@ -111,7 +111,7 @@
 .sales_search, .statistics, .retailList {
     border: 1px solid #ddd;
 }
-   
+
 /*.content_tab div {
     float: left;
 }*/
@@ -129,9 +129,9 @@
     margin-right: 0px;
 }*/
 
-.btnText{
-    height:100px;
-    font-size:40px !important;
+.btnText {
+    height: 100px;
+    font-size: 40px !important;
 }
 
 .list-unstyled li {
@@ -162,20 +162,20 @@ legend {
     border: 1px solid #ccc;
     width: auto;
     margin-bottom: 0px;
-    font-size:36px;
+    font-size: 36px;
 }
 
-.retailTime, .retailTable{
+.retailTime, .retailTable {
     font-size: 18px;
 }
 
-.retailLabel label{
-    font-size:18px;
-    color:black;
+.retailLabel label {
+    font-size: 18px;
+    color: black;
 }
 
 /* 零售页面图片下方操作按钮 */
-#retailBtn{
+#retailBtn {
     margin-left: 4px;
 }
 
@@ -194,7 +194,7 @@ legend {
     height: 30px !important;
     overflow: hidden;
     width: 100%;
-    margin:2px;
+    margin: 2px;
     line-height: 30px !important;
     border: 1px solid #ddd;
 }
@@ -263,5 +263,17 @@ legend {
     cursor: pointer;
 }
 
+.bootstrap-select .dropdown-toggle .filter-option {
+    border: 0;
+    border-radius: 0;
+}
 
+.collectionStatus .dropdown-toggle {
+    height: 34px;
+}
+
+    .collectionStatus .dropdown-toggle .filter-option {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
 
