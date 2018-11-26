@@ -254,5 +254,14 @@ legend {
         border-left: 1px solid #dbdbdb;
     }
 
+/* ReportStatistics css */
+.report-select {
+    width: 100px;
+    height: 30px;
+    color: gray;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
 
 
