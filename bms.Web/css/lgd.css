@@ -161,3 +161,11 @@
     height: 60px;
     font-size: 24px;
 }
+.inputNoBorder {
+    border-width: 0;
+    text-align:center;
+}
+bing, .bing tr, .bing td, bing th {
+    border: 1px solid #DDDDDD;
+    border-color: #DDDDDD;
+}

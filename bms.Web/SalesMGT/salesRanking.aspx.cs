@@ -17,10 +17,22 @@ namespace bms.Web.SalesMGT
         public int totalCount, intPageCount, pageSize = 10, kindsNum, allCount;
         public double allPrice;
         public DataSet ds, groupDs;
+        public DateTime startTime, endTime;
+        public string regionName;
         SaleTaskBll salebll = new SaleTaskBll();
         SaleMonomerBll smBll = new SaleMonomerBll();
+        ConfigurationBll cBll = new ConfigurationBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            regionName = Session["regionName"].ToString();
+            DataSet timeDs = cBll.getDateTime(regionName);
+            if (timeDs.Tables[0].Rows.Count > 0)
+            {
+                string st = timeDs.Tables[0].Rows[0]["startTime"].ToString();
+                startTime = DateTime.Parse(st);
+                string et = timeDs.Tables[0].Rows[0]["endTime"].ToString();
+                endTime = DateTime.Parse(et);
+            }
             groupCount();
             string op = Request["op"];
             getData();
@@ -55,7 +67,7 @@ namespace bms.Web.SalesMGT
 
         public string getData()
         {
-            ds = smBll.groupCustomer();
+            ds = smBll.groupCustomer(startTime,endTime,regionName);
             StringBuilder strb = new StringBuilder();
             strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -63,24 +75,28 @@ namespace bms.Web.SalesMGT
                 string custName = ds.Tables[0].Rows[i]["customerName"].ToString();
                 strb.Append("<tr><td>" + (i + 1).ToString() + "</td>");
                 strb.Append("<td>" + custName + "</td>");
-                strb.Append("<td>" + smBll.customerKinds(custName) + "</td>");
+                strb.Append("<td>" + smBll.customerKinds(startTime, endTime, regionName,custName) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allCount"].ToString() + "</td>");
                 strb.Append("<td>" + double.Parse(ds.Tables[0].Rows[i]["allPrice"].ToString()).ToString("F2") + "</td></tr>");
             }
             strb.Append("</tbody>");
+            strb.Append("<input type='hidden' value='" + regionName + "' id='rName'/>");
             //Response.Write(strb.ToString());
             //Response.End();
             return strb.ToString();
         }
         public void groupCount()
         {
-            DataSet groupds = smBll.GroupCount();
+            DataSet groupds = smBll.GroupCount(startTime, endTime, regionName);
             int count = groupds.Tables[0].Rows.Count;
             if (count > 0)
             {
                 kindsNum = int.Parse(groupds.Tables[0].Rows[0]["totalBooks"].ToString());
-                allCount = int.Parse(groupds.Tables[0].Rows[0]["allCount"].ToString());
-                allPrice = double.Parse(groupds.Tables[0].Rows[0]["allPrice"].ToString());
+                if (kindsNum > 0)
+                {
+                    allCount = int.Parse(groupds.Tables[0].Rows[0]["allCount"].ToString());
+                    allPrice = double.Parse(groupds.Tables[0].Rows[0]["allPrice"].ToString());
+                }
             }
         }
     }

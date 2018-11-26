@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
-     <link rel="stylesheet" href="../css/bootstrap-select.css" />
+    <link rel="stylesheet" href="../css/bootstrap-select.css" />
     <link rel="stylesheet" href="../css/pagination.css" />
 </head>
 
@@ -152,11 +152,11 @@
                                 <%} %>
                                 <%if (funcSupply)
                                     { %>
-                                <li class="nav-item">
+                                <%--<li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
                                 <%} %>
                             </ul>
                         </div>
@@ -200,6 +200,11 @@
                                     </a>
                                 </li>
                                 <%} %>
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="../CustomerMGT/statistics.aspx">
+                                        <span class="sidebar-normal">大屏配置</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -233,6 +238,7 @@
                 </ul>
             </div>
         </div>
+
         <div class="main-panel">
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -281,10 +287,10 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value=""  id="bookSearch" placeholder="书名查询">
+                                                <input type="text" value="" id="bookSearch" placeholder="书名查询">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value=""  id="isbnSearch" placeholder="ISBN号查询">
+                                                <input type="text" value="" id="isbnSearch" placeholder="ISBN号查询">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <%--<input type="text" value="" class="searchOne" id="cusSearch" placeholder="客户查询">--%>
@@ -405,12 +411,71 @@
                 </div>
             </div>
 
+            <%-- marc数据弹窗 --%>
+            <div class="modal fade" id="marcModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="width: 1050px; max-height: 920px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title float-left" id="marcModalLabe">Marc数据导入</h3>
+                            <button type="button" class="close" id="marcclose" data-dismiss="modal" aria-hidden="true" style="z-index: 200;">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="bing">
+                                <tr>
+                                    <td style="text-align: center;">字段名称</td>
+                                    <td style="text-align: center;">字段号</td>
+                                    <td style="text-align: center;">子字段号</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">ISBN</td>
+                                    <td>
+                                        <input type="text" id="fisbn" value="" maxlength="3"  class="inputNoBorder" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" /></td>
+                                    <td>
+                                        <input type="text" id="sisbn" value="" maxlength="1"  class="inputNoBorder" onkeyup="this.value=this.value.replace(/[^a-z]/ig,'')" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">书名</td>
+                                    <td>
+                                        <input type="text" id="fbookName" maxlength="3" value="" class="inputNoBorder" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+                                    <td>
+                                        <input type="text" id="sbookName" maxlength="1" value="" class="inputNoBorder" onkeyup="this.value=this.value.replace(/[^a-z]/ig,'')" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">单价</td>
+                                    <td>
+                                        <input type="text" id="fprice" value="" maxlength="3" class="inputNoBorder" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+                                    <td>
+                                        <input type="text" id="sprice" value="" maxlength="1" class="inputNoBorder" onkeyup="this.value=this.value.replace(/[^a-z]/ig,'')" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <nobr>馆藏数量</nobr>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="fnum" maxlength="3" value="" class="inputNoBorder" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+                                    <td>
+                                        <input type="text" id="snum" maxlength="1" value="" class="inputNoBorder" onkeyup="this.value=this.value.replace(/[^a-z]/ig,'')" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <p style="text-align: center">
+                            例：ISBN的字段号为010，子字段号为a
+                        </p>
+                        <div>
+                            <button class="btn btn-info btn-sm" style="float: right; height: 40px;" id="confirmImport">确认导入</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="width: 500px; height: 500px">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
-                            <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
+                            <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 300;">
                                 <i class="fa fa-close"></i>
                             </button>
                         </div>
@@ -420,6 +485,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -436,12 +502,6 @@
             </footer>
         </div>
     </div>
-    <script>
-
-        $('.selectpicker').selectpicker({
-            'selectedText': 'cat'
-        });
-    </script>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>

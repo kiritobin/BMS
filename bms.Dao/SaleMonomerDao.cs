@@ -316,10 +316,12 @@ namespace bms.Dao
         /// 获取销售单体中的数据统计
         /// </summary>
         /// <returns>返回数据集</returns>
-        public DataSet SelectBookRanking()
+        public DataSet SelectBookRanking(DateTime startTime,DateTime endTime,string regionName)
         {
-            string sql = @"select sm.bookNum,sm.unitPrice,SUM(sm.number) as allNum,sum(sm.totalPrice) as allPrice,book.bookName from t_salemonomer as sm,t_bookbasicdata as book,t_salehead as head where sm.ISBN = book.ISBN and sm.saleHeadId = head.saleHeadId AND (head.state = 1 OR head.state = 2) GROUP BY sm.bookNum ORDER BY allNum desc LIMIT 0,10";
-            DataSet ds = db.FillDataSet(sql, null, null);
+            string sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_salemonomer where (state=1 or state=2) and dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
+            string[] param = { "@startTime", "@endTime", "@regionName" };
+            object[] values = { startTime, endTime, regionName };
+            DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
         /// <summary>
@@ -587,22 +589,27 @@ namespace bms.Dao
         /// 团采统计
         /// </summary>
         /// <returns></returns>
-        public DataSet GroupCount()
+        public DataSet GroupCount(DateTime startTime,DateTime endTime,string regionName)
         {
-            //string sql = "select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from v_test where (state=1 or state=2) GROUP BY bookNum ORDER BY allPrice desc";
-            string sql = "select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from v_salemonomer where (state=1 or state=2) GROUP BY bookNum ORDER BY allCount desc) as temp)";
-            DataSet ds = db.FillDataSet(sql, null, null);
+            //string sql = "select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from v_salemonomer where (state=1 or state=2) GROUP BY bookNum ORDER BY allCount desc) as temp)";
+            string sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_salemonomer where (state=1 or state=2) and dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
+            string[] param = { "@startTime", "@endTime", "@regionName" };
+            object[] values = { startTime, endTime, regionName };
+            DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
         /// <summary>
         /// 客户采购统计
         /// </summary>
         /// <returns></returns>
-        public DataSet groupCustomer()
+        public DataSet groupCustomer(DateTime startTime, DateTime endTime, string regionName)
         {
-            string sql = "select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice from v_salemonomer  where (state=1 or state=2) GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
+            //string sql = "select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice from v_salemonomer  where (state=1 or state=2) GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
             //string sql = "SELECT sum(A.totalPrice) as totalPrice,D.customerName as customerName,sum(A.number) as number from t_salemonomer as A,t_salehead as B,t_saletask as C,t_customer as D where a.saleHeadId = b.saleHeadId and b.saleTaskId=c.saleTaskId and c.customerID=d.customerID and (b.state=1 or b.state=2) group by D.customerName ORDER BY totalPrice desc LIMIT 0,10";
-            DataSet ds = db.FillDataSet(sql, null, null);
+            string sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_salemonomer  where (state=1 or state=2) and dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
+            string[] param = { "@startTime", "@endTime", "@regionName" };
+            object[] values = { startTime, endTime, regionName };
+            DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
         /// <summary>
@@ -615,12 +622,12 @@ namespace bms.Dao
         //    DataSet ds = db.FillDataSet(sql, null, null);
         //    return ds;
         //}
-        public int customerKinds(string customerName)
+        public int customerKinds(DateTime startTime, DateTime endTime, string regionName, string customerName)
         {
-            string cmdText = @"select count(bookNum) as customerKinds from (
-(select customerName, bookNum, SUM(number) as allCount, SUM(totalPrice) as allPrice from v_salemonomer  where (state = 1 or state = 2) and customerName = @customerName GROUP BY bookNum) as temp)";
-            string[] param = { "@customerName" };
-            object[] values = { customerName };
+            //string cmdText = @"select count(bookNum) as customerKinds from ((select customerName, bookNum, SUM(number) as allCount, SUM(totalPrice) as allPrice from v_salemonomer  where (state = 1 or state = 2) and customerName = @customerName GROUP BY bookNum) as temp)";
+            string cmdText = @"select count(bookNum) as customerKinds from ((select customerName, bookNum, SUM(number) as allCount, SUM(totalPrice) as allPrice from v_salemonomer  where (state = 1 or state = 2) and dateTime BETWEEN @startTime and @endTime and regionName=@regionName and customerName = @customerName GROUP BY bookNum) as temp)";
+            string[] param = { "@startTime","@endTime","@regionName","@customerName" };
+            object[] values = { startTime, endTime, regionName, customerName };
             int kinds = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
             return kinds;
         }

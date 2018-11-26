@@ -151,11 +151,11 @@
                                 </li>
                                 <%} %>
                                 <%if (funcSupply) { %>
-                                <li class="nav-item">
+                                <%--<li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
                                 <%} %>
                             </ul>
                         </div>
@@ -198,6 +198,11 @@
                                     </a>
                                 </li>
                                 <%} %>
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="../CustomerMGT/statistics.aspx">
+                                        <span class="sidebar-normal">大屏配置</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>

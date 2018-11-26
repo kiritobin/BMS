@@ -44,6 +44,7 @@ namespace bms.Web.CustomerMGT
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
                 dtInsert = excelToDt();
+
                 TimeSpan ts = watch.Elapsed;
                 dtInsert.TableName = "T_LibraryCollection"; //导入的表名
                 int a = userBll.BulkInsert(dtInsert);
@@ -135,36 +136,57 @@ namespace bms.Web.CustomerMGT
             //文件类型判断
             string[] sArray = path.Split('.');
             int count = sArray.Length - 1;
-            if (sArray[count] == "xls")
+            if (sArray[count] == "xls"|| sArray[count] == "xls")
             {
-                strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                if (sArray[count] == "xls")
+                {
+                    strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                }
+                else if (sArray[count] == "xlsx")
+                {
+                    strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                }
+                OleDbConnection conn = new OleDbConnection(strConn);
+                try
+                {
+                    conn.Open();
+                    string strExcel1 = "select * from [Sheet1$]";
+                    OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
+                    dt1.Columns.Add("id"); //id自增列
+                    oda1.Fill(dt1);
+                    row = dt1.Rows.Count; //获取总数
+                    DataColumn dc = new DataColumn("客户ID", typeof(string));
+                    dc.DefaultValue = custom; //默认客户值值列
+                    dt1.Columns.Add(dc);
+                    //GetDistinctSelf(dt1, "ISBN", "客户ID"); //去重字段
+                }
+                catch (Exception ex)
+                {
+                    Response.Write(ex.Message);
+                    Response.End();
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
-            else if (sArray[count] == "xlsx")
+            else if (sArray[count] == "iso")
             {
-                strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-            }
-            OleDbConnection conn = new OleDbConnection(strConn);
-            try
-            {
-                conn.Open();
-                string strExcel1 = "select * from [Sheet1$]";
-                OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
-                dt1.Columns.Add("id"); //id自增列
-                oda1.Fill(dt1);
-                row = dt1.Rows.Count; //获取总数
+                string fisbn = Request["fisbn"];
+                string sisbn = Request["sisbn"];
+                string fbookName = Request["fbookName"];
+                string sbookName = Request["sbookName"];
+                string fprice = Request["fprice"];
+                string sprice = Request["sprice"];
+                string fnum = Request["fnum"];
+                string snum = Request["snum"];
+                int fcustom = Convert.ToInt32(Request["custom"]);
+                MarcToDt marcToDt = new MarcToDt();
+                dt1 = marcToDt.MarcTodt(path, fisbn, sisbn, fbookName, sbookName, fprice, sprice, fnum, snum);
                 DataColumn dc = new DataColumn("客户ID", typeof(string));
-                dc.DefaultValue = custom; //默认客户值值列
+                dc.DefaultValue = fcustom; //默认客户值值列
                 dt1.Columns.Add(dc);
-                //GetDistinctSelf(dt1, "ISBN", "客户ID"); //去重字段
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-                Response.End();
-            }
-            finally
-            {
-                conn.Close();
+
             }
             return dt1;
         }

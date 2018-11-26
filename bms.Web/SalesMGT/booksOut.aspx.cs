@@ -16,15 +16,27 @@ namespace bms.Web.SalesMGT
         SaleMonomerBll smBll = new SaleMonomerBll();
         DataSet ds,groupDs;
         protected int kindsNum=0,allCount=0;
+        public DateTime startTime, endTime;
+        public string regionName;
         protected double allPrice;
+        ConfigurationBll cBll = new ConfigurationBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            regionName = Session["regionName"].ToString();
+            DataSet timeDs = cBll.getDateTime(regionName);
+            if (timeDs.Tables[0].Rows.Count > 0)
+            {
+                string st = timeDs.Tables[0].Rows[0]["startTime"].ToString();
+                startTime = DateTime.Parse(st);
+                string et = timeDs.Tables[0].Rows[0]["endTime"].ToString();
+                endTime = DateTime.Parse(et);
+            }
             groupCount();
             GetData();
         }
         public String GetData()
         {
-            ds = smBll.SelectBookRanking();
+            ds = smBll.SelectBookRanking(startTime,endTime,regionName);
             StringBuilder sb = new StringBuilder();
             sb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -38,17 +50,21 @@ namespace bms.Web.SalesMGT
                 sb.Append("</tr>");
             }
             sb.Append("</tbody>");
+            sb.Append("<input type='hidden' value='" + regionName + "' id='rName'/>");
             return sb.ToString();
         }
         public void groupCount()
         {
-            DataSet groupds = smBll.GroupCount();
+            DataSet groupds = smBll.GroupCount(startTime, endTime, regionName);
             int count = groupds.Tables[0].Rows.Count;
             if (count > 0)
             {
                 kindsNum = int.Parse(groupds.Tables[0].Rows[0]["totalBooks"].ToString());
-                allCount = int.Parse(groupds.Tables[0].Rows[0]["allCount"].ToString());
-                allPrice = double.Parse(groupds.Tables[0].Rows[0]["allPrice"].ToString());
+                if (kindsNum > 0)
+                {
+                    allCount = int.Parse(groupds.Tables[0].Rows[0]["allCount"].ToString());
+                    allPrice = double.Parse(groupds.Tables[0].Rows[0]["allPrice"].ToString());
+                }
             }
         }
     }
