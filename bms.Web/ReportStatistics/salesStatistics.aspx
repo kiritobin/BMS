@@ -13,6 +13,8 @@
     <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/material-dashboard.min.css" rel="stylesheet">
     <link href="../css/zgz.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/bootstrap-select.css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -245,89 +247,60 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header" style="padding-right: 0px;">
-                                        <form class="form-inline">
-                                            <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>时间段</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                        <div class="btn-group" role="group">
+                                            <div class="btn-group" role="group">
+                                                <select class="modal_select selectpicker">
+                                                    <option value="">分组方式</option>
+                                                    <option value="">供应商</option>
+                                                    <option value="">组织</option>
+                                                    <option value="">客户</option>
+                                                    <option value="">零售结算</option>
                                                 </select>
                                             </div>
-                                            &nbsp;
-                                            <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>定价</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-                                            &nbsp;
-                                            <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>销折</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-                                            &nbsp;
-                                            <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>进折</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-                                            &nbsp;
-                                            <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>采集人用户名</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-                                            &nbsp;
-                                            <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>采集状态</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-                                            &nbsp;
-                                            <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>ISBN</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-                                            &nbsp;
-                                            <div class="form-group form-group-sm">
-                                                <button type="submit" class="btn btn-sm btn-info">查询</button>
-                                                <button type="submit" class="btn btn-sm btn-info">导出报表</button>
-                                                <button type="submit" class="btn btn-sm btn-info">导出明细</button>
-                                                <button type="submit" class="btn btn-sm btn-info">打印报表</button>
-                                            </div>
-                                        </form>
+                                        </div>
                                     </div>
                                     <div class="pull-left">
-                                        <div class="btn-group">
-                                            <input type="text" class="searchOne" placeholder="请输入查询条件">
-                                            <button type="submit" class="btn btn-sm btn-info">查询</button>
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-group" role="group">
+                                                    <select class="modal_select selectpicker collectionStatus">
+                                                        <option value="">采集状态</option>
+                                                        <option value="">空</option>
+                                                        <option value="">销售</option>
+                                                        <option value="">预采</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="btn-group">
+                                                <input type="text" class="search" placeholder="请输入时间段">
+                                            </div>
+                                            <div class="btn-group">
+                                                <input type="text" class="search" placeholder="请输入定价">
+                                            </div>
+                                            <div class="btn-group">
+                                                <input type="text" class="search" placeholder="请输入销折">
+                                            </div>
+                                            <div class="btn-group">
+                                                <input type="text" class="search" placeholder="请输入进折">
+                                            </div>
+                                            <div class="btn-group">
+                                                <input type="text" class="search" placeholder="请输入采集人用户名">
+                                            </div>
+                                            <div class="btn-group">
+                                                <input type="text" class="search" placeholder="请输入ISBN">
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="submit" class="btn btn-sm btn-info">查询</button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="submit" class="btn btn-sm btn-info">导出报表</button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="submit" class="btn btn-sm btn-info">导出明细</button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="submit" class="btn btn-sm btn-info">打印报表</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -365,52 +338,6 @@
                     </div>
                 </div>
             </div>
-            <!--添加书籍模态框-->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">基础数据导入</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body" style="max-height: 500px; overflow: auto;">
-                            <table class="table text-center model-table">
-                                <tr>
-                                    <td>
-                                        <a class="btn btn-info" id="downEx" style="color: white" href="/uploads/muban/基础数据表.zip">下载模板</a>
-                                        <a class="btn btn-info text-white fileinput-button">
-                                            <span>选择文件</span>
-                                            <input type="file" name="file" id="file">
-                                        </a>
-                                        <a class="btn btn-info text-white" id="upload">上传文件</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-info" id="btnImport">导入</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="width: 500px; max-height: 500px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
-                            <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -437,6 +364,7 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <script src="../js/bootstrap-selectpicker.js"></script>
 </body>
 </html>
 
