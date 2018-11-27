@@ -712,6 +712,7 @@
     <Folder Include="Customer\" />
     <Folder Include="download\入库明细导出\" />
     <Folder Include="download\出库明细导出\" />
+    <Folder Include="download\报表导出\销售报表导出\" />
     <Folder Include="download\退货明细导出\" />
     <Folder Include="download\销售明细导出\" />
     <Folder Include="download\销退明细导出\" />

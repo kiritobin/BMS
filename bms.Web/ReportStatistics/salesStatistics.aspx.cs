@@ -16,19 +16,76 @@ namespace bms.Web.reportStatistics
         DataSet ds;
         SaleMonomerBll salemonBll = new SaleMonomerBll();
         public int totalCount, intPageCount, pageSize = 20;
+        string exportAllStrWhere, exportgroupbyType, kinds, type, condition, state, Time;
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
 
-            //string op = Request["op"].ToString();
-            //if (op == "exportAll")
-            //{
-
-            //}
-            //if (op == "exportDe")
-            //{
-
-            //}
+            string op = Request["op"];
+            if (op == "exportAll")
+            {
+                exportAll();
+            }
+            if (op == "exportDe")
+            {
+                exportDetail();
+            }
+        }
+        public void exportAll()
+        {
+            exportAllStrWhere = Session["exportAllStrWhere"].ToString();
+            DataTable dt = salemonBll.exportAll(exportAllStrWhere, type, state, Time);
+            //var name = DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
+            string name = "销售报表导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                var path = Server.MapPath("../download/报表导出/销售报表导出/" + name + ".xlsx");
+                ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
+                downloadfile(path);
+            }
+            else
+            {
+                Response.Write("<script language='javascript'>alert('查询不到数据，不能执行导出操作!')</script>");
+            }
+        }
+        /// <summary>
+        /// 导出所有明细
+        /// </summary>
+        public void exportDetail()
+        {
+            exportgroupbyType= Session["exportgroupbyType"].ToString();
+            exportAllStrWhere= Session["exportAllStrWhere"].ToString();
+            DataTable dt = salemonBll.exportDel(exportgroupbyType, exportAllStrWhere);
+            string name = "销售报表明细导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                var path = Server.MapPath("../download/报表导出/销售报表导出/" + name + ".xlsx");
+                ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
+                downloadfile(path);
+            }
+            else
+            {
+                Response.Write("<script language='javascript'>alert('查询不到数据，不能执行导出操作!')</script>");
+            }
+            
+        }
+        /// <summary>
+        /// 下载导出文件
+        /// </summary>
+        /// <param name="s_path">文件路径</param>
+        public void downloadfile(string s_path)
+        {
+            System.IO.FileInfo file = new System.IO.FileInfo(s_path);
+            HttpContext.Current.Response.ContentType = "application/ms-download";
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.AddHeader("Content-Type", "application/octet-stream");
+            HttpContext.Current.Response.Charset = "utf-8";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(file.Name, System.Text.Encoding.UTF8));
+            HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
+            HttpContext.Current.Response.WriteFile(file.FullName);
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.End();
         }
         /// <summary>
         /// 获取基础数据
@@ -48,7 +105,8 @@ namespace bms.Web.reportStatistics
 
             string saleHeadState = Request["saleHeadState"];
             string time = Request["time"];
-           
+
+            Time = time;
 
             if (groupbyType == "state" || groupbyType == null)
             {
@@ -178,15 +236,15 @@ namespace bms.Web.reportStatistics
             {
                 tb.StrWhere = strWhere + search + " GROUP BY " + groupbyType;
             }
+            Session["exportgroupbyType"]  = groupbyType;
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
             //获取展示的客户数据
             ds = salemonBll.selectBypage(tb, out totalCount, out intPageCount);
+            //获取查询条件
+            Session["exportAllStrWhere"]  = tb.StrWhere;
             StringBuilder strb = new StringBuilder();
             int dscount = ds.Tables[0].Rows.Count;
-            string kinds;
-            string type;
-            string condition;
-            string state = "";
+
             if (saleHeadState != null && saleHeadState != "")
             {
                 state = saleHeadState;
@@ -214,7 +272,7 @@ namespace bms.Web.reportStatistics
                     type = "customerName";
                     condition = ds.Tables[0].Rows[i]["customerName"].ToString();
                 }
-                kinds = salemonBll.getkindsGroupBy(condition, type, state,time).ToString();
+                kinds = salemonBll.getkindsGroupBy(condition, type, state, time).ToString();
                 strb.Append("<td>" + kinds + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allNumber"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allTotalPrice"].ToString() + "</td>");
