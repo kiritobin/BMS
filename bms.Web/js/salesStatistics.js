@@ -91,11 +91,92 @@ $(document).ready(function () {
 
     //导出报表
     $("#exportAll").click(function () {
-        window.location.href = "salesStatistics.aspx?op=exportAll";
+        var groupby = $("#groupby").find("option:selected").text();
+        var groupbyType;
+        if (groupby == "供应商") {
+            groupbyType = "supplier";
+        }
+        else if (groupby == "组织") {
+            groupbyType = "regionName";
+        } else if (groupby == "客户") {
+            groupbyType = "customerName";
+        } else {
+            groupbyType = "state";
+        }
+        if (groupbyType == "state") {
+            swal({
+                title: "提示",
+                text: "请选择分组方式",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else {
+            var salestate = $("#state").find("option:selected").text();
+            var saleHeadState;
+            if (salestate == "空") {
+                saleHeadState = "0";
+            } else if (salestate == "销售") {
+                saleHeadState = "1";
+            } else if (salestate == "预采") {
+                saleHeadState = "3";
+            } else {
+                saleHeadState = "";
+            }
+            var supplier = $("#supplier").val();
+            var regionName = $("#region").val();
+            var time = $("#time").val();
+            var customerName = $("#customer").val();
+            window.location.href = "salesStatistics.aspx?op=exportAll&&saleHeadState=" + saleHeadState + "&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time + "&&customerName=" + customerName;
+        }
+
     })
     //导出报表明细
     $("#exportDe").click(function () {
-        window.location.href = "salesStatistics.aspx?op=exportDe";
+        var groupby = $("#groupby").find("option:selected").text();
+        var groupbyType;
+        if (groupby == "供应商") {
+            groupbyType = "supplier";
+        }
+        else if (groupby == "组织") {
+            groupbyType = "regionName";
+        } else if (groupby == "客户") {
+            groupbyType = "customerName";
+        } else {
+            groupbyType = "state";
+        }
+        if (groupbyType == "state") {
+            swal({
+                title: "提示",
+                text: "请选择分组方式",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else {
+            var salestate = $("#state").find("option:selected").text();
+            var saleHeadState;
+            if (salestate == "空") {
+                saleHeadState = "0";
+            } else if (salestate == "销售") {
+                saleHeadState = "1";
+            } else if (salestate == "预采") {
+                saleHeadState = "3";
+            } else {
+                saleHeadState = "";
+            }
+            var supplier = $("#supplier").val();
+            var regionName = $("#region").val();
+            var time = $("#time").val();
+            var customerName = $("#customer").val();
+            window.location.href = "salesStatistics.aspx?op=exportDe&&saleHeadState=" + saleHeadState + "&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time + "&&customerName=" + customerName;
+        }
     })
     //清空时间
     $("#modalClose").click(function () {

@@ -89,9 +89,9 @@ namespace bms.Bll
         /// <param name="strWhere">条件</param>
         /// <param name="type">类型</param>
         /// <returns></returns>
-        public int getkindsGroupBy(string strWhere, string type,string state,string time)
+        public int getkindsGroupBy(string strWhere, string type, string state, string time)
         {
-            return SaleMonomerdao.getkindsGroupBy(strWhere, type, state,time);
+            return SaleMonomerdao.getkindsGroupBy(strWhere, type, state, time);
         }
         /// <summary>
         /// 根据销售单头ID查询该销售单的状态
@@ -460,6 +460,28 @@ namespace bms.Bll
         public DataTable ExportExcel(string strWhere)
         {
             return SaleMonomerdao.ExportExcel(strWhere);
+        }
+        /// <summary>
+        /// 导出页面上查询到的结果
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <param name="groupbyType">groupby条件</param>
+        /// <param name="state">状态</param>
+        /// <param name="time">时间</param>
+        /// <returns></returns>
+        public DataTable exportAll(string strWhere, string groupbyType, string state, string time)
+        {
+            return SaleMonomerdao.exportAll(strWhere, groupbyType, state, time);
+        }
+        /// <summary>
+        /// 导出明细
+        /// </summary>
+        /// <param name="groupbyType">groupby方式</param>
+        /// <param name="strWhere">条件</param>
+        /// <returns></returns>
+        public DataTable exportDel(string groupbyType, string strWhere)
+        {
+            return SaleMonomerdao.exportDel(groupbyType, strWhere);
         }
     }
 }
