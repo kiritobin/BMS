@@ -236,7 +236,7 @@ namespace bms.Web.InventoryMGT
             DataTable dt = warehousingBll.ExportExcel(HeadId);
             if (dt != null && dt.Rows.Count > 0)
             {
-                var path = Server.MapPath("~/download/入库明细导出/" + name + ".xls");
+                var path = Server.MapPath("~/download/入库明细导出/" + name + ".xlsx");
                 ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
                 downloadfile(path);
             }
