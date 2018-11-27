@@ -229,7 +229,7 @@ namespace bms.Web.InventoryMGT
             DataTable dt = warehousingBll.ExportExcel(headId);
             if (dt != null && dt.Rows.Count > 0)
             {
-                var path = Server.MapPath("~/download/退货明细导出/" + name + ".xls");
+                var path = Server.MapPath("~/download/退货明细导出/" + name + ".xlsx");
                 ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
                 downloadfile(path);
             }
