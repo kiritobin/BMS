@@ -13,8 +13,12 @@ namespace bms.Web.reportStatistics
 {
     public partial class salesStatistics : System.Web.UI.Page
     {
-        DataSet ds;
+        public DataSet ds,dsRegion,dsCustom;
+        public DataTable dsSupplier;
         SaleMonomerBll salemonBll = new SaleMonomerBll();
+        BookBasicBll bookBll = new BookBasicBll();
+        RegionBll regionBll = new RegionBll();
+        CustomerBll customBll = new CustomerBll();
         public int totalCount, intPageCount, pageSize = 20;
         string exportAllStrWhere, exportgroupbyType, kinds, type, condition, state, Time;
         protected void Page_Load(object sender, EventArgs e)
@@ -240,6 +244,12 @@ namespace bms.Web.reportStatistics
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
             //获取展示的客户数据
             ds = salemonBll.selectBypage(tb, out totalCount, out intPageCount);
+            //获取供应商
+            dsSupplier = bookBll.Select();
+            //获取组织
+            dsRegion = regionBll.select();
+            //获取客户
+            dsCustom = customBll.select();
             //获取查询条件
             Session["exportAllStrWhere"]  = tb.StrWhere;
             StringBuilder strb = new StringBuilder();
