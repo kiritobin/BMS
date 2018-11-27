@@ -1,4 +1,5 @@
-﻿jeDate("#startTime", {
+﻿//时间选择器
+jeDate("#startTime", {
     theme: {
         bgcolor: "#D91600",
         pnColor: "#FF6653"
@@ -16,7 +17,7 @@ jeDate("#endTime", {
 });
 
 $(document).ready(function () {
-    $('.paging').pagination({
+    $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
         mode: 'fixed',//固定页码数量
@@ -26,70 +27,39 @@ $(document).ready(function () {
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var groupby = $("#groupby").find("option:selected").text();
-            var groupbyType;
-            if (groupby == "供应商") {
-                groupbyType = "supplier";
-            }
-            else if (groupby == "组织") {
-                groupbyType = "regionName";
-            } else if (groupby == "客户") {
-                groupbyType = "customerName";
-            } else {
-                groupbyType = "state";
-            }
-            var supplier = $("#supplier").val();
-            var regionName = $("#region").val();
+            var isbn = $("#isbn").val();
+            var price = $("#price").val();
+            var discount = $("#discount").val();
+            var user = $("#user").val();
             var time = $("#time").val();
-            var customerName = $("#customer").val();
-            var salestate = $("#state").find("option:selected").text();
-            var saleHeadState;
-            if (salestate == "空") {
-                saleHeadState = "0";
-            } else if (salestate == "销售") {
-                saleHeadState = "1";
-            } else if (salestate == "预采") {
-                saleHeadState = "3";
-            }
-            var page = api.getCurrent();
+            var state = $("#state").val();
             $.ajax({
                 type: 'Post',
-                url: 'salesStatistics.aspx',
+                url: 'salesDetails.aspx',
                 data: {
                     page: api.getCurrent(), //页码
-                    saleHeadState: saleHeadState,
-                    groupbyType: groupbyType,
-                    supplier: supplier,
-                    regionName: regionName,
+                    isbn: isbn,
+                    price: price,
+                    discount: discount,
+                    user: user,
                     time: time,
-                    customerName: customerName,
+                    state: state,
                     op: "paging"
                 },
                 dataType: 'text',
                 success: function (data) {
-                    if (groupby == "供应商") {
-                        $("#showType").text("供应商");
-                    }
-                    else if (groupby == "组织") {
-                        $("#showType").text("组织");
-                    } else if (groupby == "客户") {
-                        $("#showType").text("客户");
-                    } else {
-                        $("#showType").text("客户");
-                    }
                     $("#table tr:not(:first)").remove(); //清空table处首行
                     $("#table").append(data); //加载table
                     $("#intPageCount").remove();
                 }
             });
-
         }
     });
     //清空时间
     $("#modalClose").click(function () {
         $("#time").val("");
         $("#myModal").modal('hide');
-    })
+    });
     //选择时间后确定
     $("#btnOK").click(function () {
         var startTime = $("#startTime").val();
@@ -120,65 +90,66 @@ $(document).ready(function () {
             $("#time").val(startTime + "至" + endTime);
             $("#myModal").modal('hide');
         }
-    })
+    });
+    //点击查询按钮
+    $("#search").click(function () {
+        var isbn = $("#isbn").val();
+        var price = $("#price").val();
+        var discount = $("#discount").val();
+        var user = $("#user").val();
+        var time = $("#time").val();
+        var state = $("#state").val();
+        $.ajax({
+            type: 'Post',
+            url: 'salesDetails.aspx',
+            data: {
+                isbn: isbn,
+                price: price,
+                discount: discount,
+                user: user,
+                time: time,
+                state: state,
+                op: "paging"
+            },
+            dataType: 'text',
+            success: function (data) {
+                $("#intPageCount").remove();
+                $("#table tr:not(:first)").empty(); //清空table处首行
+                $("#table").append(data); //加载table
+                $(".paging").empty();
+                $(".paging").pagination({
+                    pageCount: $("#intPageCount").val(), //总页数
+                    jump: true,
+                    mode: 'fixed',//固定页码数量
+                    coping: true,
+                    homePage: '首页',
+                    endPage: '尾页',
+                    prevContent: '上页',
+                    nextContent: '下页',
+                    callback: function (api) {
+                        $.ajax({
+                            type: 'Post',
+                            url: 'salesDetails.aspx',
+                            data: {
+                                page: api.getCurrent(), //页码
+                                isbn: isbn,
+                                price: price,
+                                discount: discount,
+                                user: user,
+                                time: time,
+                                state: state,
+                                op: "paging"
+                            },
+                            dataType: 'text',
+                            success: function (data) {
+                                $("#table tr:not(:first)").remove(); //清空table处首行
+                                $("#table").append(data); //加载table
+                                $("#intPageCount").remove();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
 });
-
-$("#search").click(function () {
-    var isbn = $("#isbn").val();
-    var price = $("#price").val();
-    var discount = $("#discount").val();
-    var user = $("#user").val();
-    var time = $("#time").val();
-    var state = $("#state").val();
-    $.ajax({
-        type: 'Post',
-        url: 'salesStatistics.aspx',
-        data: {
-            isbn: isbn,
-            price: price,
-            discount: discount,
-            user: user,
-            time: time,
-            state: state,
-            op: "paging"
-        },
-        dataType: 'text',
-        success: function (data) {
-            $("#intPageCount").remove();
-            $("#table tr:not(:first)").empty(); //清空table处首行
-            $("#table").append(data); //加载table
-            $(".paging").empty();
-            $('.paging').pagination({
-                pageCount: $("#intPageCount").val(), //总页数
-                jump: true,
-                mode: 'fixed',//固定页码数量
-                coping: true,
-                homePage: '首页',
-                endPage: '尾页',
-                prevContent: '上页',
-                nextContent: '下页',
-                callback: function (api) {
-                    $.ajax({
-                        type: 'Post',
-                        url: 'salesStatistics.aspx',
-                        data: {
-                            isbn: isbn,
-                            price: price,
-                            discount: discount,
-                            user: user,
-                            time: time,
-                            state: state,
-                            op: "paging"
-                        },
-                        dataType: 'text',
-                        success: function (data) {
-                            $("#table tr:not(:first)").remove(); //清空table处首行
-                            $("#table").append(data); //加载table
-                            $("#intPageCount").remove();
-                        }
-                    });
-                }
-            });
-        }
-    })
-})
