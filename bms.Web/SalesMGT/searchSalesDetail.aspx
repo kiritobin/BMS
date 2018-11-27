@@ -47,6 +47,9 @@
                                         <button class="btn btn-warning btn-sm" id="back" onclick="window.location.href = 'salesManagement.aspx'">返回</button>
                                     </div>
                                     <div class="btn-group" role="group">
+                                        <button class="btn btn-info btn-sm" id="export">导出</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
                                         <button class="btn btn-info btn-sm" id="print">打印</button>
                                     </div>
                                     <%--<div class="btn-group" role="group">

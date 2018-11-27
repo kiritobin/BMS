@@ -53,7 +53,7 @@ $(document).ready(function () {
         }
     });
     $("#table").delegate(".btn_search", "click", function () {
-        var retailHeadId = $(this).parent().prev().prev().prev().prev().prev().prev().text().trim();
+        var retailHeadId = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
         $.ajax({
             type: 'Post',
             url: 'retailManagement.aspx',

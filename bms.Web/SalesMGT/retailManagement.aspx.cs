@@ -88,7 +88,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allRealPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["payment"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
-                strb.Append("<td style='width:150px;'><button class='btn btn-success btn-sm btn_search'><span class='fa fa-search'></span></button></td></tr>");
+                strb.Append("<td style='width:150px;'><button class='btn btn-info btn-sm btn_search'><i class='fa fa-search'></i></button></td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];

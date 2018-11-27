@@ -451,5 +451,15 @@ namespace bms.Bll
             int ds = SaleMonomerdao.customerKinds(startTime, endTime, regionName, customerName);
             return ds;
         }
+
+        /// <summary>
+        /// 导出表格
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <returns></returns>
+        public DataTable ExportExcel(string strWhere)
+        {
+            return SaleMonomerdao.ExportExcel(strWhere);
+        }
     }
 }
