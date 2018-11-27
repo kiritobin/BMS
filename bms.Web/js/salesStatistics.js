@@ -215,6 +215,24 @@ $(document).ready(function () {
         }
     })
 
+    //查看详情
+    $("#table").delegate(".look", "click", function (e) {
+        var groupby = $("#groupby").find("option:selected").text();
+        var groupbyType;
+        if (groupby == "供应商") {
+            groupbyType = "supplier";
+        }
+        else if (groupby == "组织") {
+            groupbyType = "regionName";
+        } else if (groupby == "客户") {
+            groupbyType = "customerName";
+        } else {
+            groupbyType = "customerName";
+        }
+        var name = $(this).parent().prev().prev().prev().prev().prev().text();
+        window.location.href = "salesDetails.aspx?type=" + groupbyType + "&&name=" + name;
+    })
+
     //点击查询按钮时
     $("#btn_search").click(function () {
         var groupby = $("#groupby").find("option:selected").text();
