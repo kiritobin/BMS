@@ -17,7 +17,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet select()
         {
-            string cmdText = "select regionId,regionName from T_Region where deleteState=0";
+            string cmdText = "select regionId,regionName from T_Region where deleteState=0 order by convert(regionName using gbk) collate gbk_chinese_ci";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if(ds != null || ds.Tables[0].Rows.Count > 0)
             {

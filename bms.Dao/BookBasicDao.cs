@@ -32,7 +32,7 @@ namespace bms.Dao
         public DataTable Select()
         {
             MySqlHelp db = new MySqlHelp();
-            string comText = "select ISBN,price,bookName,supplier,author,remarks from T_BookBasicData";
+            string comText = "select ISBN,price,bookName,supplier,author,remarks from T_BookBasicData order by convert(supplier using gbk) collate gbk_chinese_ci";
             DataSet ds = db.FillDataSet(comText, null, null);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -53,7 +53,7 @@ namespace bms.Dao
         public DataTable getBookNum(string ISBN,string bookName)
         {
             MySqlHelp db = new MySqlHelp();
-            string comText = "select bookNum,price,author from T_BookBasicData where ISBN=@ISBN and bookName=@bookName";
+            string comText = "select bookNum,price,author from T_BookBasicData where ISBN=@ISBN and bookName=@bookName ";
             string[] parames = { "@ISBN" , "@bookName" };
             object[] value = { ISBN,bookName };
             DataSet ds = db.FillDataSet(comText, parames, value);
@@ -177,5 +177,7 @@ namespace bms.Dao
             String[] values = { bookNum };
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
+
+        
     }
 }

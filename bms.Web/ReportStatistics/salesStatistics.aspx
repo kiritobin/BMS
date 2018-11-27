@@ -262,13 +262,34 @@
                                             </div>
 
                                             <div class="btn-group">
-                                                <input type="text" class="" placeholder="请输入供应商" id="supplier">
+                                                <%--<input type="text" class="" placeholder="请输入供应商" id="supplier">--%>
+                                                <select class="modal_select selectpicker" data-live-search="true" id="supplier">
+                                                    <option value="">请选择供应商</option>
+                                                    <%for (int i = 0; i < dsSupplier.Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsSupplier.Rows[i]["supplier"] %>"><%=dsSupplier.Rows[i]["supplier"] %></option>
+                                                    <%} %>
+                                                </select>
                                             </div>
                                             <div class="btn-group">
-                                                <input type="text" class="" placeholder="请输入组织" id="region">
+                                                <%--<input type="text" class="" placeholder="请输入组织" id="region">--%>
+                                                <select class="modal_select selectpicker" data-live-search="true" id="region">
+                                                    <option value="">请选择组织</option>
+                                                    <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%} %>
+                                                </select>
                                             </div>
                                             <div class="btn-group">
-                                                <input type="text" class="" placeholder="请输入客户" id="customer">
+                                                <%--<input type="text" class="" placeholder="请输入客户" id="customer">--%>
+                                                <select class="modal_select selectpicker" data-live-search="true" id="customer">
+                                                    <option value="">请选择客户</option>
+                                                    <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsCustom.Tables[0].Rows[i]["customerID"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
+                                                    <%} %>
+                                                </select>
                                             </div>
                                             <div class="btn-group">
                                                 <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal">

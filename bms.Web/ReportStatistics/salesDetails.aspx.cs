@@ -16,32 +16,91 @@ namespace bms.Web.ReportStatistics
         DataSet ds;
         SaleMonomerBll salemonBll = new SaleMonomerBll();
         public int totalCount, intPageCount, pageSize = 20;
+        string type = "", name = "";
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                type = Request.QueryString["type"];
+                name = Request.QueryString["name"];
+                if(type == null || type== "" || name == "" || name == null)
+                {
+                    type = Session["type"].ToString();
+                    name = Session["name"].ToString();
+                }
+                else
+                {
+                    Session["type"] = type;
+                    Session["name"] = name;
+                }
+            }
             getData();
         }
         public string getData()
         {
-            //string saleId = Session["saleId"].ToString();
+            string strWhere="";
+            if(type == "supplier")
+            {
+                strWhere = "supplier = '"+ name + "' and deleteState=0";
+            }
+            else if(type == "regionName")
+            {
+                strWhere = "regionName = '" + name + "' and deleteState=0";
+            }
+            else if (type == "customerName")
+            {
+                strWhere = "customerName = '" + name + "' and deleteState=0";
+            }
+            if (strWhere != "")
+            {
+                string isbn = Request["isbn"];
+                string price = Request["price"];
+                string discount = Request["discount"];
+                string user = Request["user"];
+                string time = Request["time"];
+                string state = Request["state"];
+                if (isbn != null && isbn != "")
+                {
+                    strWhere += " and isbn='" + isbn + "'";
+                }
+                if (price != null && price != "")
+                {
+                    strWhere += " and price='" + price + "'";
+                }
+                if (discount != null && discount != "")
+                {
+                    strWhere += " and realDiscount='" + discount + "'";
+                }
+                if (user != null && user != "")
+                {
+                    strWhere += " and userName='" + user + "'";
+                }
+                if (time != null && time != "")
+                {
+                    string[] sArray = time.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
+                if (state != null && state != "")
+                {
+                    strWhere += " and state='" + state + "'";
+                }
+            }
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
                 currentPage = 1;
             }
-            //string saleHeadId = Request["saleTaskId"];
-            //string regionName = Request["regionName"];
-            //string userName = Request["userName"];
-            //string search = "";
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_salemonomer";
-            tb.OrderBy = "allTotalPrice desc";
-            tb.StrColumnlist = "customerName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
+            tb.OrderBy = "id";
+            tb.StrColumnlist = "id,isbn,bookNum,bookName,price,sum(number) as number, sum(totalPrice) as totalPrice,sum(realPrice) as realPrice,realDiscount,dateTime,userName,state,supplier";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = "customerName like '云南%' GROUP BY customerName";
-            //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
+            tb.StrWhere = strWhere;
             //获取展示的客户数据
             ds = salemonBll.selectBypage(tb, out totalCount, out intPageCount);
             StringBuilder strb = new StringBuilder();
@@ -50,12 +109,18 @@ namespace bms.Web.ReportStatistics
             {
                 //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allNumber"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allNumber"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allTotalPrice"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allRealPrice"].ToString() + "</td>");
-                strb.Append("<td><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["isbn"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["price"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["number"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["state"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["supplier"].ToString() + "</td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];

@@ -18,6 +18,11 @@ jeDate("#endTime", {
 $("#supplier").hide();
 $("#region").hide();
 $("#customer").hide();
+$("p").css("color", "red");
+alert($("button[title='请选择供应商']").text());
+$("button[title='请选择组织']").hide();
+$("button[title='请选择客户']").hide();
+
 $(document).ready(function () {
     $('.paging').pagination({
         pageCount: $("#intPageCount").val(), //总页数
@@ -357,6 +362,8 @@ $(document).ready(function () {
             $("#supplier").show();
             $("#region").hide();
             $("#customer").hide();
+            $("button[title='请选择组织']").hide();
+            $("button[title='请选择客户']").hide();
         }
         else if (groupby == "组织") {
             $("#supplier").hide();
