@@ -12,14 +12,9 @@
     <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/material-dashboard.min.css" rel="stylesheet">
     <link href="../css/zgz.css" rel="stylesheet">
-     <link rel="stylesheet" href="../css/pagination.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" href="../css/pagination.css">
+    <link rel="stylesheet" href="../css/jedate.css">
+    <script src="../js/jedate.min.js"></script>
 </head>
 <body>
     <div class="wrapper ">
@@ -247,100 +242,53 @@
                                     <div class="card-header" style="padding-right: 0px;">
                                         <form class="form-inline">
                                             <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>时间段</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
+                                                <input type="text" class="" placeholder="请输入ISBN" id="isbn" data-toggle="modal" data-target="#myModal">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>定价</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
+                                                <input type="text" class="" placeholder="请输入定价" id="price" data-toggle="modal" data-target="#myModal">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>销折</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
+                                                <input type="text" class="" placeholder="请输入销售折扣" id="discount" data-toggle="modal" data-target="#myModal">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>进折</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
+                                                <input type="text" class="" placeholder="请输入采集人" id="user" data-toggle="modal" data-target="#myModal">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>采集人用户名</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
+                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>采集状态</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
+                                                <input type="text" class="" placeholder="请输入采集状态" id="state" data-toggle="modal" data-target="#myModal">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <select class="report-select">
-                                                    <option>ISBN</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-                                            &nbsp;
-                                            <div class="form-group form-group-sm">
-                                                <button type="submit" class="btn btn-sm btn-info">查询</button>
-                                                <button type="submit" class="btn btn-sm btn-info">导出报表</button>
-                                                <button type="submit" class="btn btn-sm btn-info">导出明细</button>
-                                                <button type="submit" class="btn btn-sm btn-info">打印报表</button>
+                                                <button type="submit" class="btn btn-sm btn-info" id="search">查询</button>
+                                                <button type="submit" class="btn btn-sm btn-info" id="export">导出</button>
+                                                <button type="submit" class="btn btn-sm btn-info">打印</button>
                                             </div>
                                         </form>
-                                    </div>
-                                    <div class="pull-left">
-                                        <div class="btn-group">
-                                            <input type="text" class="searchOne" placeholder="请输入查询条件">
-                                            <button type="submit" class="btn btn-sm btn-info">查询</button>
-                                        </div>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
-                                                    <th>序号</th>
-                                                    <th>客户名称</th>
-                                                    <th>品种</th>
-                                                    <th>数量</th>
-                                                    <th>码洋</th>
-                                                    <th>实洋</th>
-                                                    <th>查看详情</th>
+                                                    <th><nobr>序号</nobr></th>
+                                                    <th><nobr>ISBN</nobr></th>
+                                                    <th><nobr>书号</nobr></th>
+                                                    <th><nobr>书名</nobr></th>
+                                                    <th><nobr>定价</nobr></th>
+                                                    <th><nobr>数量</nobr></th>
+                                                    <th><nobr>码洋</nobr></th>
+                                                    <th><nobr>实洋</nobr></th>
+                                                    <th><nobr>销售折扣</nobr></th>
+                                                    <th><nobr>采集日期</nobr></th>
+                                                    <th><nobr>采集人</nobr></th>
+                                                    <th><nobr>采集状态</nobr></th>
+                                                    <th><nobr>供应商</nobr></th>
                                                 </tr>
                                             </thead>
                                              <%=getData()%>
@@ -357,47 +305,45 @@
                     </div>
                 </div>
             </div>
-            <!--添加书籍模态框-->
+            <!--选择时间模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">基础数据导入</h4>
+                            <h4 class="modal-title float-left" id="myModalLabel">请选择查询时间段</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                 <i class="fa fa-close"></i>
                             </button>
                         </div>
-                        <div class="modal-body" style="max-height: 500px; overflow: auto;">
+                        <div class="modal-body" style="max-height: 400px; overflow: auto;">
                             <table class="table text-center model-table">
                                 <tr>
-                                    <td>
-                                        <a class="btn btn-info" id="downEx" style="color: white" href="/uploads/muban/基础数据表.zip">下载模板</a>
-                                        <a class="btn btn-info text-white fileinput-button">
-                                            <span>选择文件</span>
-                                            <input type="file" name="file" id="file">
-                                        </a>
-                                        <a class="btn btn-info text-white" id="upload">上传文件</a>
+                                    <td class="text-right" style="width: 40%">开始时间:
                                     </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" id="startTime" placeholder="年--月--日">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 40%">结束时间:
+                                    </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" id="endTime" placeholder="年--月--日">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;只统计26,27,28;29不统计</td>
                                 </tr>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-info" id="btnImport">导入</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabe1" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="width: 500px; max-height: 500px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title float-left" id="myModalLabe1">正在导入，请保持网络畅通，导入过程中请勿关闭页面</h3>
-                            <button type="button" class="close" id="close" data-dismiss="modal" aria-hidden="true" style="z-index: 100;">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <img style="width: 450px; height: 300px;" src="../imgs/loading.gif" id="img" />
+                            <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            <button type="button" class="btn btn-info" id="btnOK">确认</button>
                         </div>
                     </div>
                 </div>
@@ -429,8 +375,8 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
-
-    <!-- js-->
+    
+    <script src="../js/salesDetails.js"></script>
     <script src="../js/jquery.pagination.js"></script>
 </body>
 </html>
