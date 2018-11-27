@@ -15,7 +15,9 @@
     <link href="../css/zgz.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/bootstrap-select.css" />
-
+    <link rel="stylesheet" href="../css/pagination.css">
+    <link rel="stylesheet" href="../css/jedate.css" />
+    <script src="../js/jedate.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -247,34 +249,31 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header" style="padding-right: 0px;">
-                                        <div class="btn-group" role="group">
-                                            <div class="btn-group" role="group">
-                                                <select class="modal_select selectpicker">
-                                                    <option value="">分组方式</option>
-                                                    <option value="">供应商</option>
-                                                    <option value="">组织</option>
-                                                    <option value="">客户</option>
-                                                    <option value="">零售结算</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pull-left">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
                                                 <div class="btn-group" role="group">
-                                                    <select class="modal_select selectpicker collectionStatus">
-                                                        <option value="">采集状态</option>
-                                                        <option value="">空</option>
-                                                        <option value="">销售</option>
-                                                        <option value="">预采</option>
+                                                    <select class="modal_select selectpicker collectionStatus" id="groupby">
+                                                        <option value="">分组方式</option>
+                                                        <option value="supplier">供应商</option>
+                                                        <option value="region">组织</option>
+                                                        <option value="customer">客户</option>
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="btn-group">
-                                                <input type="text" class="search" placeholder="请输入时间段">
+                                                <input type="text" class="" placeholder="请输入供应商" id="supplier">
                                             </div>
                                             <div class="btn-group">
+                                                <input type="text" class="" placeholder="请输入组织" id="region">
+                                            </div>
+                                            <div class="btn-group">
+                                                <input type="text" class="" placeholder="请输入客户" id="customer">
+                                            </div>
+                                            <div class="btn-group">
+                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal">
+                                            </div>
+                                            <%-- <div class="btn-group">
                                                 <input type="text" class="search" placeholder="请输入定价">
                                             </div>
                                             <div class="btn-group">
@@ -288,18 +287,28 @@
                                             </div>
                                             <div class="btn-group">
                                                 <input type="text" class="search" placeholder="请输入ISBN">
+                                            </div>--%>
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-group" role="group">
+                                                    <select class="modal_select selectpicker collectionStatus" id="state">
+                                                        <option value="">采集状态</option>
+                                                        <option value="">空</option>
+                                                        <option value="">销售</option>
+                                                        <option value="">预采</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="btn-group">
-                                                <button type="submit" class="btn btn-sm btn-info">查询</button>
+                                                <button class="btn btn-sm btn-info" id="btn_search">查询</button>
                                             </div>
                                             <div class="btn-group">
-                                                <button type="submit" class="btn btn-sm btn-info">导出报表</button>
+                                                <button class="btn btn-sm btn-info" id="exportAll">导出报表</button>
                                             </div>
                                             <div class="btn-group">
-                                                <button type="submit" class="btn btn-sm btn-info">导出明细</button>
+                                                <button class="btn btn-sm btn-info" id="exportDe">导出明细</button>
                                             </div>
                                             <div class="btn-group">
-                                                <button type="submit" class="btn btn-sm btn-info">打印报表</button>
+                                                <button class="btn btn-sm btn-info" id="print">打印报表</button>
                                             </div>
                                         </div>
                                     </div>
@@ -308,6 +317,7 @@
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
                                                     <th>序号</th>
+                                                    <th id="showType">客户</th>
                                                     <th>品种</th>
                                                     <th>数量</th>
                                                     <th>码洋</th>
@@ -315,16 +325,7 @@
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr class="book-tab-tr text-nowrap">
-                                                    <td>1</td>
-                                                    <td>book</td>
-                                                    <td>20</td>
-                                                    <td>20</td>
-                                                    <td>20</td>
-                                                    <td><a href="salesDetails.aspx" class="btn btn-sm btn-info">明细</a></td>
-                                                </tr>
-                                            </tbody>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -334,6 +335,48 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel">请选择查询时间段</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="max-height: 400px; overflow: auto;">
+                            <table class="table text-center model-table">
+                                <tr>
+                                    <td class="text-right" style="width: 40%">开始时间:
+                                    </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" id="startTime" placeholder="年--月--日">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 40%">结束时间:
+                                    </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" id="endTime" placeholder="年--月--日">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;只统计26,27,28;29不统计</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            <button type="button" class="btn btn-info" id="btnOK">确认</button>
                         </div>
                     </div>
                 </div>
@@ -365,6 +408,10 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
+
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/salesStatistics.js"></script>
 </body>
 </html>
 

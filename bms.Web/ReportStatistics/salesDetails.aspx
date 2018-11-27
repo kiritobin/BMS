@@ -12,6 +12,7 @@
     <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/material-dashboard.min.css" rel="stylesheet">
     <link href="../css/zgz.css" rel="stylesheet">
+     <link rel="stylesheet" href="../css/pagination.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -334,35 +335,15 @@
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
                                                     <th>序号</th>
-                                                    <th>ISBN</th>
-                                                    <th>书号</th>
-                                                    <th>书名</th>
-                                                    <th>定价</th>
+                                                    <th>客户名称</th>
+                                                    <th>品种</th>
                                                     <th>数量</th>
                                                     <th>码洋</th>
                                                     <th>实洋</th>
-                                                    <th>销折</th>
-                                                    <th>采集日期</th>
-                                                    <th>采集人用户名</th>
-                                                    <th>采集状态</th>
+                                                    <th>查看详情</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr class="book-tab-tr text-nowrap">
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                </tr>
-                                            </tbody>
+                                             <%=getData()%>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -448,6 +429,9 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+
+    <!-- js-->
+    <script src="../js/jquery.pagination.js"></script>
 </body>
 </html>
 

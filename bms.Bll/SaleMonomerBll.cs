@@ -84,6 +84,16 @@ namespace bms.Bll
 
         }
         /// <summary>
+        /// 获取书籍种类
+        /// </summary>
+        /// <param name="strWhere">条件</param>
+        /// <param name="type">类型</param>
+        /// <returns></returns>
+        public int getkindsGroupBy(string strWhere, string type,string state,string time)
+        {
+            return SaleMonomerdao.getkindsGroupBy(strWhere, type, state,time);
+        }
+        /// <summary>
         /// 根据销售单头ID查询该销售单的状态
         /// </summary>
         /// <param name="saleHeadId">销售单头ID</param>
@@ -287,9 +297,9 @@ namespace bms.Bll
         /// 查询销售单体中的数据统计
         /// </summary>
         /// <returns></returns>
-        public DataSet SelectBookRanking(DateTime startTime,DateTime endTime,string regionName)
+        public DataSet SelectBookRanking(DateTime startTime, DateTime endTime, string regionName)
         {
-            DataSet ds = SaleMonomerdao.SelectBookRanking(startTime,endTime,regionName);
+            DataSet ds = SaleMonomerdao.SelectBookRanking(startTime, endTime, regionName);
             return ds;
         }
 
@@ -429,7 +439,7 @@ namespace bms.Bll
         /// <returns></returns>
         public DataSet groupCustomer(DateTime startTime, DateTime endTime, string regionName)
         {
-            DataSet ds = SaleMonomerdao.groupCustomer(startTime,endTime,regionName);
+            DataSet ds = SaleMonomerdao.groupCustomer(startTime, endTime, regionName);
             return ds;
         }
         /// <summary>
@@ -438,7 +448,7 @@ namespace bms.Bll
         /// <returns></returns>
         public int customerKinds(DateTime startTime, DateTime endTime, string regionName, string customerName)
         {
-            int ds = SaleMonomerdao.customerKinds(startTime,endTime,regionName,customerName);
+            int ds = SaleMonomerdao.customerKinds(startTime, endTime, regionName, customerName);
             return ds;
         }
     }
