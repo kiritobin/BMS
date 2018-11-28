@@ -261,7 +261,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="btn-group">
+                                            <div class="btn-group" id="groupsupplier">
                                                 <%--<input type="text" class="" placeholder="请输入供应商" id="supplier">--%>
                                                 <select class="modal_select selectpicker" data-live-search="true" id="supplier">
                                                     <option value="">请选择供应商</option>
@@ -271,7 +271,7 @@
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <div class="btn-group">
+                                            <div class="btn-group" id="groupregion">
                                                 <%--<input type="text" class="" placeholder="请输入组织" id="region">--%>
                                                 <select class="modal_select selectpicker" data-live-search="true" id="region">
                                                     <option value="">请选择组织</option>
@@ -281,7 +281,7 @@
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <div class="btn-group">
+                                            <div class="btn-group" id="groupcustom">
                                                 <%--<input type="text" class="" placeholder="请输入客户" id="customer">--%>
                                                 <select class="modal_select selectpicker" data-live-search="true" id="customer">
                                                     <option value="">请选择客户</option>

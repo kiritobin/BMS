@@ -205,7 +205,7 @@ namespace bms.Web.reportStatistics
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_salemonomer";
-            tb.OrderBy = "allTotalPrice desc";
+            tb.OrderBy = "bookNum";
             if (groupbyType == "supplier")
             {
                 tb.StrColumnlist = "supplier, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
@@ -245,7 +245,7 @@ namespace bms.Web.reportStatistics
             //获取展示的客户数据
             ds = salemonBll.selectBypage(tb, out totalCount, out intPageCount);
             //获取供应商
-            dsSupplier = bookBll.Select();
+            dsSupplier = bookBll.selectSupplier();
             //获取组织
             dsRegion = regionBll.select();
             //获取客户

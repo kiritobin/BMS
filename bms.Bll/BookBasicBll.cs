@@ -148,5 +148,13 @@ namespace bms.Bll
                 return Result.更新失败;
             }
         }
+        /// <summary>
+        /// 查询供应商
+        /// </summary>
+        /// <returns></returns>
+        public DataTable selectSupplier()
+        {
+            return basicDao.selectSupplier();
+        }
     }
 }
