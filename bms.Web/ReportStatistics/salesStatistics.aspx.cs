@@ -23,9 +23,11 @@ namespace bms.Web.reportStatistics
         string exportAllStrWhere, exportgroupbyType, condition, state, Time;
         protected void Page_Load(object sender, EventArgs e)
         {
-            getData();
-
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "exportAll")
             {
                 exportAll();
@@ -33,6 +35,15 @@ namespace bms.Web.reportStatistics
             if (op == "exportDe")
             {
                 exportDetail();
+            }
+            else
+            {
+                //获取供应商
+                dsSupplier = bookBll.selectSupplier();
+                //获取组织
+                dsRegion = regionBll.select();
+                //获取客户
+                dsCustom = customBll.select();
             }
         }
         public void exportAll()
@@ -204,7 +215,7 @@ namespace bms.Web.reportStatistics
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_salemonomer";
-            tb.OrderBy = "bookNum";
+            tb.OrderBy = "id";
             tb.StrColumnlist = groupbyType + ", sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
@@ -220,12 +231,6 @@ namespace bms.Web.reportStatistics
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
             //获取展示的客户数据
             ds = salemonBll.selectBypage(tb, out totalCount, out intPageCount);
-            //获取供应商
-            dsSupplier = bookBll.selectSupplier();
-            //获取组织
-            dsRegion = regionBll.select();
-            //获取客户
-            dsCustom = customBll.select();
             //获取查询条件
             Session["exportAllStrWhere"] = tb.StrWhere;
             StringBuilder strb = new StringBuilder();
@@ -237,24 +242,22 @@ namespace bms.Web.reportStatistics
             }
             for (int i = 0; i < dscount; i++)
             {
+                DataRow dr = ds.Tables[0].Rows[i];
                 //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString() + "</td>");
-                condition = ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString();
+                strb.Append("<td>" + dr["" + groupbyType + ""].ToString() + "</td>");
+                condition = dr["" + groupbyType + ""].ToString();
                 kinds = salemonBll.getkindsGroupBy(condition, groupbyType, state, time).ToString();
                 strb.Append("<td>" + kinds + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allNumber"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allTotalPrice"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["allRealPrice"].ToString() + "</td>");
+                strb.Append("<td>" + dr["allNumber"].ToString() + "</td>");
+                strb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
+                strb.Append("<td>" + dr["allRealPrice"].ToString() + "</td>");
                 strb.Append("<td><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
-            string op = Request["op"];
-            if (op == "paging")
-            {
-                Response.Write(strb.ToString());
-                Response.End();
-            }
+
+            Response.Write(strb.ToString());
+            Response.End();
             return strb.ToString();
         }
     }
