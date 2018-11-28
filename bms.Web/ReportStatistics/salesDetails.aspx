@@ -256,7 +256,7 @@
                                             </div>
                                             &nbsp;
                                             <div class="btn-group" role="group">
-                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" id="user">
+                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" data-live-search="true" id="user">
                                                     <option value="0">请选择采集人</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
                                                         for (int i = 0; i < count; i++)
