@@ -15,10 +15,41 @@ jeDate("#endTime", {
     format: "YYYY-MM-DD"
 });
 
-$(document).ready(function () {
+window.onload = function () {
     $("#groupsupplier").hide();
     $("#groupregion").hide();
     $("#groupcustom").hide();
+}
+
+$(function () {
+    $.ajax({
+        type: 'Post',
+        url: 'salesStatistics.aspx',
+        data: {
+            op: "paging"
+        },
+        dataType: 'text',
+        beforeSend: function (XMLHttpRequest) { //开始请求
+            swal({
+                text: "少女祈祷中",
+                imageUrl: "../imgs/agela.gif",
+                imageHeight: 80,
+                imageWidth: 120,
+                width: 180,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        },
+        success: function (data) {
+            $("#table").append(data); //加载table
+            $(".swal2-container").remove();
+        }
+    });
+});
+
+$(document).ready(function () {
+    
+
     //$("p").css("color", "red");
 
     $('.paging').pagination({

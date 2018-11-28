@@ -17,13 +17,8 @@
     <link rel="stylesheet" href="../css/bootstrap-select.css" />
     <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" href="../css/jedate.css" />
+    <link rel="stylesheet" href="../css/sweetalert2.min.css" />
     <script src="../js/jedate.min.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
 </head>
 <body>
     <div class="wrapper ">
@@ -346,7 +341,7 @@
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
-                                            <%=getData() %>
+                                            <%--<%=getData() %>--%>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -421,6 +416,7 @@
 
     <!-- jQuery -->
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/salesStatistics.js"></script>
     <!-- Bootstrap JavaScript -->
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
@@ -429,10 +425,8 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
-
-    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/sweetalert2.min.js"></script>
     <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/salesStatistics.js"></script>
 </body>
 </html>
 

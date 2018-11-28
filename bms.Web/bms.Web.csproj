@@ -97,6 +97,7 @@
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.min.css" />
     <Content Include="css\pretty.min.css" />
+    <Content Include="css\sweetalert2.min.css" />
     <Content Include="customerLogin.aspx" />
     <Content Include="CustomerMGT\customerPurchase.aspx" />
     <Content Include="CustomerMGT\statistics.aspx" />
@@ -114,6 +115,7 @@
     <Content Include="error\_images\home.png" />
     <Content Include="error\_images\objects.png" />
     <Content Include="fonts\materialdesignicons-webfont.svg" />
+    <Content Include="imgs\agela.gif" />
     <Content Include="imgs\loading.gif" />
     <Content Include="imgs\lose.png" />
     <Content Include="imgs\success.png" />
@@ -155,6 +157,7 @@
     <Content Include="js\salesTaskStatisticsAll.js" />
     <Content Include="js\searchSalesDetail.js" />
     <Content Include="js\statistics.js" />
+    <Content Include="js\sweetalert2.min.js" />
     <Content Include="QRCode.aspx" />
     <Content Include="ReportStatistics\salesDetails.aspx" />
     <Content Include="ReportStatistics\salesStatistics.aspx" />
