@@ -234,6 +234,8 @@
                             </ul>
                         </div>
                     </li>
+                    <%if (funcRoleName)
+                    { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#ReportStatistics" data-toggle="collapse">
                             <i class="fa fa-table"></i>
@@ -252,6 +254,7 @@
                             </ul>
                         </div>
                     </li>
+                    <%} %>
                     <%} %>
                 </ul>
             </div>
