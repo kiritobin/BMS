@@ -83,156 +83,41 @@ namespace bms.Dao
                 startTime = sArray[0];
                 endTime = sArray[1];
             }
-            if (type == "supplier")
+            if ((state != null && state != "") || (time != "" && time != null))
             {
-                if (state != null && state != "")
+                if ((state == "1"))
                 {
-                    if (state == "0")
+                    if ((time != "" && time != null) && (state != null && state != ""))
                     {
-                        if (time != "" || time != null)
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where supplier = @strWhere and state=0 and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
-                        }
-                        else
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where supplier = @strWhere and state=0 GROUP BY bookNum HAVING 数量!=0";
-                        }
-                    }
-                    else if (state == "3")
-                    {
-                        if (time != "" && time != null)
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where supplier = @strWhere and state=3 and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
-                        }
-                        else
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where supplier = @strWhere and state=3 GROUP BY bookNum HAVING 数量!=0";
-                        }
+                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere and (state=1 or state=2) and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
                     }
                     else
                     {
-                        if (time != "" && time != null)
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where supplier = @strWhere and (state=1 or state=2) and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
-                        }
-                        else
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where supplier = @strWhere and (state=1 or state=2) GROUP BY bookNum HAVING 数量!=0";
-                        }
+                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere and (state=1 or state=2) GROUP BY bookNum HAVING 数量!=0";
                     }
                 }
                 else
                 {
-                    if (time != "" && time != null)
+                    if ((time != "" && time != null) && (state != null && state != ""))
                     {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where supplier = @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere and state=" + state + " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
                     }
                     else
                     {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where supplier = @strWhere GROUP BY bookNum HAVING 数量!=0";
-                    }
-                }
-            }
-            else if (type == "regionName")
-            {
-                if (state != null && state != "")
-                {
-                    if (state == "0")
-                    {
-                        if (time != "" || time != null)
+                        if ((time != "" && time != null))
                         {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where regionName = @strWhere and state=0 and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
                         }
                         else
                         {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where regionName = @strWhere and state=0 GROUP BY bookNum HAVING 数量!=0";
-                        }
-                    }
-                    else if (state == "3")
-                    {
-                        if (time != "" || time != null)
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where regionName = @strWhere and state=3 and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
-                        }
-                        else
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where regionName = @strWhere and state=3 GROUP BY bookNum HAVING 数量!=0";
-                        }
-                    }
-                    else
-                    {
-                        if (time != "" && time != null)
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where regionName = @strWhere and (state=1 or state=2) and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
-                        }
-                        else
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where regionName = @strWhere and (state=1 or state=2) GROUP BY bookNum HAVING 数量!=0";
+                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere and state=" + state + " GROUP BY bookNum HAVING 数量!=0";
                         }
                     }
                 }
-                else
-                {
-                    if (time != "" && time != null)
-                    {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where regionName = @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
-                    }
-                    else
-                    {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where regionName = @strWhere GROUP BY bookNum HAVING 数量!=0";
-                    }
-                }
-
             }
             else
             {
-                if (state != null && state != "")
-                {
-                    if (state == "0")
-                    {
-                        if (time != "" && time != null)
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where customerName = @strWhere and state=0 and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
-                        }
-                        else
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where customerName = @strWhere and state=0 GROUP BY bookNum HAVING 数量!=0";
-                        }
-                    }
-                    else if (state == "3")
-                    {
-                        if (time != "" && time != null)
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where customerName = @strWhere and state=3 and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
-                        }
-                        else
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where customerName = @strWhere and state=3 GROUP BY bookNum HAVING 数量!=0";
-                        }
-                    }
-                    else
-                    {
-                        if (time != "" && time != null)
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where customerName = @strWhere and (state=1 or state=2) and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
-                        }
-                        else
-                        {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where customerName = @strWhere and (state=1 or state=2) GROUP BY bookNum HAVING 数量!=0";
-                        }
-                    }
-                }
-                else
-                {
-                    if (time != "" && time != null)
-                    {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where customerName = @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
-                    }
-                    else
-                    {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where customerName = @strWhere GROUP BY bookNum HAVING 数量!=0";
-                    }
-                }
+                cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere GROUP BY bookNum HAVING 数量!=0";
             }
             string[] param = { "@strWhere", "@state" };
             object[] values = { strWhere, state };

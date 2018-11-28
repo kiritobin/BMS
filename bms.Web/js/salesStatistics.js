@@ -32,21 +32,39 @@ $(document).ready(function () {
         nextContent: '下页',
         callback: function (api) {
             var groupby = $("#groupby").find("option:selected").text();
+            var supplier = $("#supplier").find("option:selected").text();
+            var regionName = $("#region").find("option:selected").text();
+            var customerName = $("#customer").find("option:selected").text();
             var groupbyType;
             if (groupby == "供应商") {
                 groupbyType = "supplier";
+                if (supplier == "全部") {
+                    supplier = "";
+                }
+                regionName = "";
+                customerName = "";
             }
             else if (groupby == "组织") {
                 groupbyType = "regionName";
+                if (regionName == "全部") {
+                    regionName = "";
+                }
+                supplier = "";
+                customerName = "";
             } else if (groupby == "客户") {
+                if (customerName == "全部") {
+                    customerName = "";
+                }
                 groupbyType = "customerName";
+                supplier = "";
+                regionName = "";
             } else {
                 groupbyType = "state";
+                supplier = "";
+                regionName = "";
+                customerName = "";
             }
-            var supplier = $("#supplier").val();
-            var regionName = $("#region").val();
             var time = $("#time").val();
-            var customerName = $("#customer").val();
             var salestate = $("#state").find("option:selected").text();
             var saleHeadState;
             if (salestate == "空") {
@@ -87,23 +105,43 @@ $(document).ready(function () {
                     $("#intPageCount").remove();
                 }
             });
-
         }
     });
 
     //导出报表
     $("#exportAll").click(function () {
         var groupby = $("#groupby").find("option:selected").text();
+        var supplier = $("#supplier").find("option:selected").text();
+        var regionName = $("#region").find("option:selected").text();
+        var customerName = $("#customer").find("option:selected").text();
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
+            if (supplier == "全部") {
+                supplier = "";
+            }
+            regionName = "";
+            customerName = "";
         }
         else if (groupby == "组织") {
             groupbyType = "regionName";
+            if (regionName == "全部") {
+                regionName = "";
+            }
+            supplier = "";
+            customerName = "";
         } else if (groupby == "客户") {
+            if (customerName == "全部") {
+                customerName = "";
+            }
             groupbyType = "customerName";
+            supplier = "";
+            regionName = "";
         } else {
             groupbyType = "state";
+            supplier = "";
+            regionName = "";
+            customerName = "";
         }
         if (groupbyType == "state") {
             swal({
@@ -128,10 +166,7 @@ $(document).ready(function () {
             } else {
                 saleHeadState = "";
             }
-            var supplier = $("#supplier").val();
-            var regionName = $("#region").val();
             var time = $("#time").val();
-            var customerName = $("#customer").val();
             window.location.href = "salesStatistics.aspx?op=exportAll&&saleHeadState=" + saleHeadState + "&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time + "&&customerName=" + customerName;
         }
 
@@ -139,16 +174,37 @@ $(document).ready(function () {
     //导出报表明细
     $("#exportDe").click(function () {
         var groupby = $("#groupby").find("option:selected").text();
+        var supplier = $("#supplier").find("option:selected").text();
+        var regionName = $("#region").find("option:selected").text();
+        var customerName = $("#customer").find("option:selected").text();
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
+            if (supplier == "全部") {
+                supplier = "";
+            }
+            regionName = "";
+            customerName = "";
         }
         else if (groupby == "组织") {
             groupbyType = "regionName";
+            if (regionName == "全部") {
+                regionName = "";
+            }
+            supplier = "";
+            customerName = "";
         } else if (groupby == "客户") {
+            if (customerName == "全部") {
+                customerName = "";
+            }
             groupbyType = "customerName";
+            supplier = "";
+            regionName = "";
         } else {
             groupbyType = "state";
+            supplier = "";
+            regionName = "";
+            customerName = "";
         }
         if (groupbyType == "state") {
             swal({
@@ -173,10 +229,7 @@ $(document).ready(function () {
             } else {
                 saleHeadState = "";
             }
-            var supplier = $("#supplier").val();
-            var regionName = $("#region").val();
             var time = $("#time").val();
-            var customerName = $("#customer").val();
             window.location.href = "salesStatistics.aspx?op=exportDe&&saleHeadState=" + saleHeadState + "&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time + "&&customerName=" + customerName;
         }
     })
@@ -238,16 +291,38 @@ $(document).ready(function () {
     //点击查询按钮时
     $("#btn_search").click(function () {
         var groupby = $("#groupby").find("option:selected").text();
+        var supplier = $("#supplier").find("option:selected").text();
+        var regionName = $("#region").find("option:selected").text();
+        var customerName = $("#customer").find("option:selected").text();
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
+            if (supplier=="全部")
+            {
+                supplier = "";
+            }
+            regionName = "";
+            customerName = "";
         }
         else if (groupby == "组织") {
             groupbyType = "regionName";
+            if (regionName == "全部") {
+                regionName = "";
+            }
+            supplier = "";
+            customerName = "";
         } else if (groupby == "客户") {
+            if (customerName == "全部") {
+                customerName = "";
+            }
             groupbyType = "customerName";
+            supplier = "";
+            regionName = "";
         } else {
             groupbyType = "state";
+            supplier = "";
+            regionName = "";
+            customerName = "";
         }
         if (groupbyType == "state") {
             swal({
@@ -272,10 +347,7 @@ $(document).ready(function () {
             } else {
                 saleHeadState = "";
             }
-            var supplier = $("#supplier").val();
-            var regionName = $("#region").val();
             var time = $("#time").val();
-            var customerName = $("#customer").val();
             $.ajax({
                 type: 'Post',
                 url: 'salesStatistics.aspx',
@@ -358,6 +430,8 @@ $(document).ready(function () {
         if (groupby == "供应商") {
             $("#groupsupplier").show();
             $("#groupregion").hide();
+            $('#groupregion').selectpicker('refresh');
+
             $("#groupcustom").hide();
         }
         else if (groupby == "组织") {
