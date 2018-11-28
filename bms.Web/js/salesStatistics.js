@@ -282,7 +282,7 @@ $(document).ready(function () {
         } else if (groupby == "客户") {
             groupbyType = "customerName";
         } else {
-            groupbyType = "customerName";
+            groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text();
         window.location.href = "salesDetails.aspx?type=" + groupbyType + "&&name=" + name;
