@@ -15,15 +15,12 @@ jeDate("#endTime", {
     format: "YYYY-MM-DD"
 });
 
-$("#supplier").hide();
-$("#region").hide();
-$("#customer").hide();
-$("p").css("color", "red");
-alert($("button[title='请选择供应商']").text());
-$("button[title='请选择组织']").hide();
-$("button[title='请选择客户']").hide();
-
 $(document).ready(function () {
+    $("#groupsupplier").hide();
+    $("#groupregion").hide();
+    $("#groupcustom").hide();
+    $("p").css("color", "red");
+
     $('.paging').pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -359,24 +356,22 @@ $(document).ready(function () {
     $("#groupby").change(function () {
         var groupby = $("#groupby").find("option:selected").text();
         if (groupby == "供应商") {
-            $("#supplier").show();
-            $("#region").hide();
-            $("#customer").hide();
-            $("button[title='请选择组织']").hide();
-            $("button[title='请选择客户']").hide();
+            $("#groupsupplier").show();
+            $("#groupregion").hide();
+            $("#groupcustom").hide();
         }
         else if (groupby == "组织") {
-            $("#supplier").hide();
-            $("#region").show();
-            $("#customer").hide();
+            $("#groupsupplier").hide();
+            $("#groupregion").show();
+            $("#groupcustom").hide();
         } else if (groupby == "客户") {
-            $("#supplier").hide();
-            $("#region").hide();
-            $("#customer").show();
+            $("#groupsupplier").hide();
+            $("#groupregion").hide();
+            $("#groupcustom").show();
         } else {
-            $("#supplier").hide();
-            $("#region").hide();
-            $("#customer").hide();
+            $("#groupsupplier").hide();
+            $("#groupregion").hide();
+            $("#groupcustom").hide();
         }
     })
 })

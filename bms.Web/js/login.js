@@ -41,7 +41,7 @@
                 dataType: 'text',
                 success: function (succ) {
                     if (succ === "登录成功") {
-                        window.location.href = "/AccessMGT/userManagement.aspx";
+                        window.location.href = "/BasicInfor/bookBasicManagement.aspx";
                     }
                     else {
                         swal({

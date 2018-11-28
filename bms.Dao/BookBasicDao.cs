@@ -178,6 +178,24 @@ namespace bms.Dao
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
 
-        
+        /// <summary>
+        /// 查询供应商
+        /// </summary>
+        /// <returns></returns>
+        public DataTable selectSupplier()
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comText = "select distinct supplier from T_BookBasicData order by convert(supplier using gbk) collate gbk_chinese_ci";
+            DataSet ds = db.FillDataSet(comText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                return dt;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
