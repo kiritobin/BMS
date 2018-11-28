@@ -234,7 +234,7 @@
                             </ul>
                         </div>
                     </li>
-                    <%if (funcRoleName)
+                    <%if (isAdmin)
                     { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#ReportStatistics" data-toggle="collapse">
