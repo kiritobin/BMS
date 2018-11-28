@@ -15,12 +15,12 @@ $(document).ready(function () {
     else if (type == "CK") {
         $("#tjType").html("出&nbsp;库&nbsp;统&nbsp;计");
         $("#diff").text("收货组织");
-        $('#resource').attr('placeholder', "请输入收货组织");
+        $('#resource').attr('placeholder', "请输入来源组织");
     }
     else if (type == "TH") {
         $("#tjType").html("退&nbsp;货&nbsp;统&nbsp;计");
         $("#diff").text("收货组织");
-        $('#resource').attr('placeholder', "请输入收货组织");
+        $('#resource').attr('placeholder', "请输入来源组织");
     }
 
     var bookNum = $("#bookNum").val();
