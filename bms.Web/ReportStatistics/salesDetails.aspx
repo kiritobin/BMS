@@ -254,15 +254,29 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入采集人" id="user">
+                                                <select class="modal_select selectpicker collectionStatus" id="user">
+                                                    <option value="0">请选择采集人</option>
+                                                    <%int count = dsUser.Tables[0].Rows.Count;
+                                                        for (int i = 0; i < count; i++)
+                                                        {%>
+                                                    <option value="new"><%=dsUser.Tables[0].Rows[i]["userName"].ToString() %></option>
+                                                    <%}%>
+                                                </select>
+                                                <%--<input type="text" class="" placeholder="请输入采集人" id="user">--%>
+                                            </div>
+                                            &nbsp;
+                                            <div class="form-group form-group-sm">
+                                                <select class="modal_select selectpicker collectionStatus" id="state">
+                                                    <option value="0">请选择采集状态</option>
+                                                    <option value="new">新单据</option>
+                                                    <option value="sale">销售</option>
+                                                    <option value="pre">预采</option>
+                                                </select>
+                                                <%--<input type="text" class="" placeholder="请输入采集状态" id="state">--%>
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
                                                 <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal">
-                                            </div>
-                                            &nbsp;
-                                            <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入采集状态" id="state">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
@@ -276,22 +290,48 @@
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
-                                                    <th><nobr>序号</nobr></th>
-                                                    <th><nobr>ISBN</nobr></th>
-                                                    <th><nobr>书号</nobr></th>
-                                                    <th><nobr>书名</nobr></th>
-                                                    <th><nobr>定价</nobr></th>
-                                                    <th><nobr>数量</nobr></th>
-                                                    <th><nobr>码洋</nobr></th>
-                                                    <th><nobr>实洋</nobr></th>
-                                                    <th><nobr>销售折扣</nobr></th>
-                                                    <th><nobr>采集日期</nobr></th>
-                                                    <th><nobr>采集人</nobr></th>
-                                                    <th><nobr>采集状态</nobr></th>
-                                                    <th><nobr>供应商</nobr></th>
+                                                    <th>
+                                                        <nobr>序号</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>ISBN</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>书号</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>书名</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>定价</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>数量</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>码洋</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>实洋</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>销售折扣</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>采集日期</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>采集人</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>采集状态</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>供应商</nobr>
+                                                    </th>
                                                 </tr>
                                             </thead>
-                                             <%=getData()%>
+                                            <%=getData()%>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -375,7 +415,7 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
-    
+
     <script src="../js/salesDetails.js"></script>
     <script src="../js/jquery.pagination.js"></script>
 </body>

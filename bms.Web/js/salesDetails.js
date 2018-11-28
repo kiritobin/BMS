@@ -152,4 +152,8 @@ $(document).ready(function () {
             }
         });
     });
+    //导出
+    $("#export").click(function () {
+        window.location.href = "salesDetails.aspx?op=export";
+    })
 });

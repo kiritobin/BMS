@@ -15,8 +15,10 @@ namespace bms.Web.ReportStatistics
     {
         DataSet ds;
         SaleMonomerBll salemonBll = new SaleMonomerBll();
+        SalesDetailsBll detailsBll = new SalesDetailsBll();
         public int totalCount, intPageCount, pageSize = 20;
-        string type = "", name = "";
+        public DataSet dsUser=null;
+        string type = "", name = "",groupType="";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -35,21 +37,24 @@ namespace bms.Web.ReportStatistics
                 }
             }
             getData();
+            string exportOp = Request.QueryString["op"];
+            if (exportOp == "export")
+            {
+                export();
+            }
         }
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <returns></returns>
         public string getData()
         {
-            string isbn = Request["isbn"];
-            string price = Request["price"];
-            string discount = Request["discount"];
-            string user = Request["user"];
-            string time = Request["time"];
-            string state = Request["state"];
-            string strWhere="";
-            if(type == "supplier")
+            string strWhere = "";
+            if (type == "supplier")
             {
-                strWhere = "supplier = '"+ name + "' and deleteState=0";
+                strWhere = "supplier = '" + name + "' and deleteState=0";
             }
-            else if(type == "regionName")
+            else if (type == "regionName")
             {
                 strWhere = "regionName = '" + name + "' and deleteState=0";
             }
@@ -57,6 +62,14 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere = "customerName = '" + name + "' and deleteState=0";
             }
+            groupType = strWhere;
+            dsUser = detailsBll.getUser(groupType);
+            string isbn = Request["isbn"];
+            string price = Request["price"];
+            string discount = Request["discount"];
+            string user = Request["user"];
+            string time = Request["time"];
+            string state = Request["state"];
             if (isbn != null && isbn != "")
             {
                 strWhere += " and isbn='" + isbn + "'";
@@ -142,6 +155,45 @@ namespace bms.Web.ReportStatistics
                 Response.End();
             }
             return strb.ToString();
+        }
+
+        /// <summary>
+        /// //导出列表方法
+        /// </summary>
+        /// <param name="s_path">文件路径</param>
+        public void downloadfile(string s_path)
+        {
+            System.IO.FileInfo file = new System.IO.FileInfo(s_path);
+            HttpContext.Current.Response.ContentType = "application/ms-download";
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.AddHeader("Content-Type", "application/octet-stream");
+            HttpContext.Current.Response.Charset = "utf-8";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(file.Name, System.Text.Encoding.UTF8));
+            HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
+            HttpContext.Current.Response.WriteFile(file.FullName);
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.End();
+        }
+
+        /// <summary>
+        /// 导出
+        /// </summary>
+        public void export()
+        {
+            string Name = name + "-销售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            DataTable dt = detailsBll.ExportExcel(groupType,type);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                var path = Server.MapPath("~/download/销售明细导出/" + Name + ".xlsx");
+                ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
+                downloadfile(path);
+            }
+            else
+            {
+                Response.Write("<script>alert('没有数据，不能执行导出操作!');</script>");
+                Response.End();
+            }
         }
     }
 }
