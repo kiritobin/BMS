@@ -19,7 +19,7 @@ $(document).ready(function () {
     $("#groupsupplier").hide();
     $("#groupregion").hide();
     $("#groupcustom").hide();
-    $("p").css("color", "red");
+    //$("p").css("color", "red");
 
     $('.paging').pagination({
         pageCount: $("#intPageCount").val(), //总页数
