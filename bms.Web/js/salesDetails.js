@@ -156,4 +156,8 @@ $(document).ready(function () {
     $("#export").click(function () {
         window.location.href = "salesDetails.aspx?op=export";
     })
+    //返回上一页
+    $("#back").click(function () {
+        window.location.href = "salesStatistics.aspx";
+    })
 });

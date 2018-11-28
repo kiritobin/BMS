@@ -256,7 +256,7 @@
                                             </div>
                                             &nbsp;
                                             <div class="btn-group" role="group">
-                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" data-live-search="true" id="user">
+                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" id="user">
                                                     <option value="0">请选择采集人</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
                                                         for (int i = 0; i < count; i++)
@@ -285,6 +285,7 @@
                                                 <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
                                                 <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
                                                 <button type="button" class="btn btn-sm btn-info">打印</button>
+                                                <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
                                         </form>
                                     </div>
