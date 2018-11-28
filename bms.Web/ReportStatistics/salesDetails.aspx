@@ -12,8 +12,10 @@
     <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/material-dashboard.min.css" rel="stylesheet">
     <link href="../css/zgz.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/lgd.css">
+    <link rel="stylesheet" href="../css/bootstrap-select.css" />
     <link rel="stylesheet" href="../css/pagination.css">
-    <link rel="stylesheet" href="../css/jedate.css">
+    <link rel="stylesheet" href="../css/jedate.css" />
     <script src="../js/jedate.min.js"></script>
 </head>
 <body>
@@ -242,35 +244,35 @@
                                     <div class="card-header" style="padding-right: 0px;">
                                         <form class="form-inline">
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入ISBN" id="isbn">
+                                                <input type="text" class="" placeholder="请输入ISBN" style="width:130px;" id="isbn">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" id="price">
+                                                <input type="text" class="" placeholder="请输入定价" style="width:130px;" id="price">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入销售折扣" id="discount">
+                                                <input type="text" class="" placeholder="请输入销售折扣" style="width:130px;" id="discount">
                                             </div>
                                             &nbsp;
-                                            <div class="form-group form-group-sm">
-                                                <select class="modal_select selectpicker collectionStatus" id="user">
+                                            <div class="btn-group" role="group">
+                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" id="user">
                                                     <option value="0">请选择采集人</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
                                                         for (int i = 0; i < count; i++)
                                                         {%>
-                                                    <option value="new"><%=dsUser.Tables[0].Rows[i]["userName"].ToString() %></option>
+                                                    <option value="<%=dsUser.Tables[0].Rows[i]["userName"].ToString() %>"><%=dsUser.Tables[0].Rows[i]["userName"].ToString() %></option>
                                                     <%}%>
                                                 </select>
                                                 <%--<input type="text" class="" placeholder="请输入采集人" id="user">--%>
                                             </div>
                                             &nbsp;
-                                            <div class="form-group form-group-sm">
-                                                <select class="modal_select selectpicker collectionStatus" id="state">
-                                                    <option value="0">请选择采集状态</option>
-                                                    <option value="new">新单据</option>
-                                                    <option value="sale">销售</option>
-                                                    <option value="pre">预采</option>
+                                            <div class="btn-group" role="group">
+                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" id="state">
+                                                    <option value="-1">请选择采集状态</option>
+                                                    <option value="0">新单据</option>
+                                                    <option value="1">完成</option>
+                                                    <option value="3">预采</option>
                                                 </select>
                                                 <%--<input type="text" class="" placeholder="请输入采集状态" id="state">--%>
                                             </div>
@@ -376,7 +378,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;只统计26,27,28;29不统计</td>
+                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
                                 </tr>
                             </table>
                         </div>

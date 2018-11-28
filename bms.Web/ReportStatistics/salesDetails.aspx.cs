@@ -82,7 +82,7 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and realDiscount='" + discount + "'";
             }
-            if (user != null && user != "")
+            if (user != null && user != "" && user != "0")
             {
                 strWhere += " and userName='" + user + "'";
             }
@@ -93,9 +93,16 @@ namespace bms.Web.ReportStatistics
                 string endTime = sArray[1];
                 strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
             }
-            if (state != null && state != "")
+            if (state != null && state != "" && state != "-1")
             {
-                strWhere += " and state='" + state + "'";
+                if (state == "1")
+                {
+                    strWhere += " and (state='1' or state='2')";
+                }
+                else
+                {
+                    strWhere += " and state='" + state + "'";
+                }
             }
             strWhere += " group by bookNum";
             //获取分页数据

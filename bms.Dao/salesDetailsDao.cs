@@ -37,11 +37,31 @@ namespace bms.Dao
         /// <returns>返回一个DataTable的选题记录集合</returns>
         public DataTable ExportExcel(string strWhere,string type)
         {
-            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,price as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 销售折扣,dateTime as 采集时间,userName as 采集人,state as 采集状态,supplier as 供应商 from v_salemonomer where " + strWhere+" group by bookNum,"+ type;
+            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,price as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 销售折扣,supplier as 供应商,dateTime as 采集时间,userName as 采集人,state from v_salemonomer where " + strWhere+" group by bookNum,"+ type;
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            int count = ds.Tables[0].Rows.Count;
+            ds.Tables[0].Columns.Add("采集状态", typeof(string));
+            if (ds != null && count > 0)
             {
+                for (int i = 0; i < count; i++)
+                {
+                    DataRow dr = ds.Tables[0].Rows[i];
+                    string states = dr["state"].ToString();
+                    if (states == "0")
+                    {
+                        dr["采集状态"] = "新建单据";
+                    }
+                    else if (states == "3")
+                    {
+                        dr["采集状态"] = "预采";
+                    }
+                    else
+                    {
+                        dr["采集状态"] = "完成";
+                    }
+                }
+                ds.Tables[0].Columns.Remove("state");
                 dt = ds.Tables[0];
             }
             return dt;
