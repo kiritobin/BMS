@@ -287,7 +287,7 @@
                                                 </select>
                                             </div>
                                             <div class="btn-group">
-                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal">
+                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#myModal">
                                             </div>
                                             <%-- <div class="btn-group">
                                                 <input type="text" class="search" placeholder="请输入定价">
