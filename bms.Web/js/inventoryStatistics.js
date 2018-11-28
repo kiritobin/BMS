@@ -4,6 +4,16 @@
     if (r != null) return unescape(r[2]); return null;
 }
 
+//时间选择器
+jeDate("#time", {
+    theme: {
+        bgcolor: "#D91600",
+        pnColor: "#FF6653"
+    },
+    multiPane: true,
+    format: "YYYY-MM-DD"
+});
+
 $(document).ready(function () {
     //出入退
     var type = GetQueryString("type");

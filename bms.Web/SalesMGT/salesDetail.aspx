@@ -1,12 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="salesDetail.aspx.cs" Inherits="bms.Web.SalesMGT.salesDetail" %>
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
+
 <html class="no-js">
-<!--<![endif]-->
 
 <head>
     <meta charset="utf-8">

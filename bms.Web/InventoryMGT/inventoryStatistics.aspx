@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
     <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../css/jedate.css" />
+    <script src="../js/jedate.min.js"></script>
 </head>
 
 <body>
@@ -46,7 +48,7 @@
                                         <input type="text" value="" class="" id="supplier" placeholder="请输入供应商">
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="time" placeholder="请输入时间">
+                                        <input type="text" value="" class="" readonly="readonly" id="time" placeholder="请输入时间">
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="userName" placeholder="请输入制单员">

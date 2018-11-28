@@ -371,7 +371,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" id="startTime" placeholder="年--月--日">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日">
                                         </div>
                                     </td>
                                 </tr>
@@ -380,7 +380,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" id="endTime" placeholder="年--月--日">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日">
                                         </div>
                                     </td>
                                 </tr>
