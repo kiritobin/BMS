@@ -242,19 +242,19 @@
                                     <div class="card-header" style="padding-right: 0px;">
                                         <form class="form-inline">
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入ISBN" id="isbn" data-toggle="modal" data-target="#myModal">
+                                                <input type="text" class="" placeholder="请输入ISBN" id="isbn">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" id="price" data-toggle="modal" data-target="#myModal">
+                                                <input type="text" class="" placeholder="请输入定价" id="price">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入销售折扣" id="discount" data-toggle="modal" data-target="#myModal">
+                                                <input type="text" class="" placeholder="请输入销售折扣" id="discount">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入采集人" id="user" data-toggle="modal" data-target="#myModal">
+                                                <input type="text" class="" placeholder="请输入采集人" id="user">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
@@ -262,13 +262,13 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入采集状态" id="state" data-toggle="modal" data-target="#myModal">
+                                                <input type="text" class="" placeholder="请输入采集状态" id="state">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <button type="submit" class="btn btn-sm btn-info" id="search">查询</button>
-                                                <button type="submit" class="btn btn-sm btn-info" id="export">导出</button>
-                                                <button type="submit" class="btn btn-sm btn-info">打印</button>
+                                                <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
+                                                <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
+                                                <button type="button" class="btn btn-sm btn-info">打印</button>
                                             </div>
                                         </form>
                                     </div>
