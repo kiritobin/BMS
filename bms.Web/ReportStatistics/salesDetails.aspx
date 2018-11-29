@@ -150,6 +150,11 @@
                                         <span class="sidebar-normal">零退管理</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../CustomerMGT/statistics.aspx">
+                                        <span class="sidebar-normal">大屏配置</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>

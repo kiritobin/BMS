@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="../css/bootstrap-select.css" />
     <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" href="../css/jedate.css" />
-    <link rel="stylesheet" href="../css/sweetalert2.min.css" />
     <script src="../js/jedate.min.js"></script>
 </head>
 <body>
@@ -150,6 +149,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/retailBackManagement.aspx" id="retailBack">
                                         <span class="sidebar-normal">零退管理</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../CustomerMGT/statistics.aspx">
+                                        <span class="sidebar-normal">大屏配置</span>
                                     </a>
                                 </li>
                             </ul>
@@ -425,7 +429,7 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
-    <script src="../js/sweetalert2.min.js"></script>
+    <script src="../js/sweetalert2.js"></script>
     <script src="../js/jquery.pagination.js"></script>
 </body>
 </html>
