@@ -116,6 +116,7 @@
     <Content Include="error\_images\objects.png" />
     <Content Include="fonts\materialdesignicons-webfont.svg" />
     <Content Include="imgs\agela.gif" />
+    <Content Include="imgs\load.gif" />
     <Content Include="imgs\loading.gif" />
     <Content Include="imgs\lose.png" />
     <Content Include="imgs\success.png" />

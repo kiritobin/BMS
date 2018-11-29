@@ -31,10 +31,10 @@ $(function () {
         dataType: 'text',
         beforeSend: function (XMLHttpRequest) { //开始请求
             swal({
-                text: "少女祈祷中",
-                imageUrl: "../imgs/agela.gif",
-                imageHeight: 80,
-                imageWidth: 120,
+                text: "数据加载中",
+                imageUrl: "../imgs/load.gif",
+                imageHeight: 100,
+                imageWidth: 100,
                 width: 180,
                 showConfirmButton: false,
                 allowOutsideClick: false
@@ -43,6 +43,35 @@ $(function () {
         success: function (data) {
             $("#table").append(data); //加载table
             $(".swal2-container").remove();
+        },
+        error: function (XMLHttpRequest, textStatus) { //请求失败
+            if (textStatus == 'timeout') {
+                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                xmlhttp.abort();
+                $(".swal2-container").remove();
+                swal({
+                    title: "提示",
+                    text: "请求超时",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else if (textStatus == "error") {
+                $(".swal2-container").remove();
+                swal({
+                    title: "提示",
+                    text: "服务器内部错误",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            }
         }
     });
 });
