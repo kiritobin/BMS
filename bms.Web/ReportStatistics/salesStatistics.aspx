@@ -113,11 +113,11 @@
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+<%--                                <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
                             </ul>
                         </div>
                     </li>
@@ -291,7 +291,7 @@
                                                 </select>
                                             </div>
                                             <div class="btn-group">
-                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal">
+                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#myModal">
                                             </div>
                                             <%-- <div class="btn-group">
                                                 <input type="text" class="search" placeholder="请输入定价">
@@ -375,7 +375,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" id="startTime" placeholder="年--月--日">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日">
                                         </div>
                                     </td>
                                 </tr>
@@ -384,7 +384,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" id="endTime" placeholder="年--月--日">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日">
                                         </div>
                                     </td>
                                 </tr>

@@ -96,7 +96,7 @@ namespace bms.Web.InventoryMGT
             }
             if (time != null && time != "")
             {
-                where += " and time='" + time + "'";
+                where += " and time like '" + time + "%'";
             }
             if (userName != null && userName != "")
             {
