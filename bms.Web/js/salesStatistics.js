@@ -383,6 +383,7 @@ $(document).ready(function () {
                 type: 'Post',
                 url: 'salesStatistics.aspx',
                 data: {
+                    page: api.getCurrent(), //页码
                     saleHeadState: saleHeadState,
                     groupbyType: groupbyType,
                     supplier: supplier,
@@ -423,6 +424,7 @@ $(document).ready(function () {
                                 type: 'Post',
                                 url: 'salesStatistics.aspx',
                                 data: {
+                                    page: api.getCurrent(), //页码
                                     saleHeadState: saleHeadState,
                                     groupbyType: groupbyType,
                                     supplier: supplier,
