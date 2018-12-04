@@ -241,12 +241,22 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div>
+                            <%--<div>
                                 <h1 class=" text-danger welcome">欢迎使用</h1>
                                 <div class="text-center">
                                     <img src="imgs/welcome.jpg" alt="一帆风顺" width="300" class="img-thumbnail"/>
                                 </div>
                                 <h3 style="text-align: center;">云南新华书店项目综合管理系统</h3>
+                            </div>--%>
+                            <div class="card">
+                                <div class="card-header card-header-danger">
+                                    <h1 class="card-title">欢迎使用!</h1>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div>
+                                        <img src="imgs/welcome.png" height="550" alt="welcome" style="margin-top: 20px;margin-bottom: 20px;"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

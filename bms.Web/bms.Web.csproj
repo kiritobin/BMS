@@ -121,6 +121,7 @@
     <Content Include="imgs\lose.png" />
     <Content Include="imgs\success.png" />
     <Content Include="imgs\welcome.jpg" />
+    <Content Include="imgs\welcome.png" />
     <Content Include="imgs\YNXH-LOGO.png" />
     <Content Include="imgs\书市指引.gif" />
     <Content Include="InventoryMGT\addReturn.aspx" />
