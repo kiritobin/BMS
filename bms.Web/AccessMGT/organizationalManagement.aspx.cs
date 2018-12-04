@@ -96,6 +96,7 @@ namespace bms.Web.AccessMGT
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                sb.Append("<td>" + ds.Tables[0].Rows[i]["regionId"].ToString() + "</ td >");
                 sb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</ td >");
                 sb.Append("<td><button class='btn btn-warning btn-sm btn_Editor' data-toggle='modal' data-target='#myModal2'><i class='fa fa-pencil fa-lg'></i></button>");
                 sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[i]["regionId"].ToString() + "' /><button class='btn btn-danger btn-sm btn-delete'><i class='fa fa-trash-o fa-lg'></i></button></td>");

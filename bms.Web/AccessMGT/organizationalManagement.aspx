@@ -296,6 +296,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>序号</th>
+                                                    <th>组织编号</th>
                                                     <th>组织名称</th>
                                                     <th class="table-thead-th">操作</th>
                                                 </tr>
