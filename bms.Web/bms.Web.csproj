@@ -120,6 +120,7 @@
     <Content Include="imgs\loading.gif" />
     <Content Include="imgs\lose.png" />
     <Content Include="imgs\success.png" />
+    <Content Include="imgs\welcome.jpg" />
     <Content Include="imgs\YNXH-LOGO.png" />
     <Content Include="imgs\书市指引.gif" />
     <Content Include="InventoryMGT\addReturn.aspx" />
@@ -261,6 +262,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="welcomePage.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessMGT\jurisdictionManagement.aspx.cs">
@@ -665,6 +667,13 @@
     </Compile>
     <Compile Include="SalesMGT\tradeManagement.aspx.designer.cs">
       <DependentUpon>tradeManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="welcomePage.aspx.cs">
+      <DependentUpon>welcomePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="welcomePage.aspx.designer.cs">
+      <DependentUpon>welcomePage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

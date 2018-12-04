@@ -277,3 +277,13 @@ legend {
         padding-bottom: 8px;
     }
 
+/* welcome page css */
+.welcome {
+    font-family: KaiTi;
+    font-weight: 800;
+    text-shadow: 4px 4px 5px #333,0px 0px 10px rgba(0, 0, 0, .14),0px 0px 15px dimgray;
+    text-align: center;
+}
+
+
+
