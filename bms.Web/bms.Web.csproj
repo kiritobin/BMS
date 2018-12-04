@@ -161,6 +161,7 @@
     <Content Include="js\searchSalesDetail.js" />
     <Content Include="js\statistics.js" />
     <Content Include="js\sweetalert2.min.js" />
+    <Content Include="js\welcome.js" />
     <Content Include="QRCode.aspx" />
     <Content Include="ReportStatistics\salesDetails.aspx" />
     <Content Include="ReportStatistics\salesStatistics.aspx" />

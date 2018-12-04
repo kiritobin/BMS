@@ -41,7 +41,7 @@
                 dataType: 'text',
                 success: function (succ) {
                     if (succ === "登录成功") {
-                        window.location.href = "/BasicInfor/bookBasicManagement.aspx";
+                        window.location.href = "welcomePage.aspx";
                     }
                     else {
                         swal({
@@ -98,7 +98,7 @@
                     dataType: 'text',
                     success: function (succ) {
                         if (succ === "登录成功") {
-                            window.location.href = "/BasicInfor/bookBasicManagement.aspx";
+                            window.location.href = "welcomePage.aspx";
                         }
                         else {
                             swal({
