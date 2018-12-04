@@ -146,7 +146,7 @@ namespace bms.Web.reportStatistics
                 {
                     if (saleHeadState == "0")
                     {
-                        strWhere += " and state='0'";
+                        strWhere += "";
                     }
                     else if (saleHeadState == "3")
                     {
@@ -163,7 +163,7 @@ namespace bms.Web.reportStatistics
                     if (saleHeadState == "0")
                     {
 
-                        strWhere = " state='0'";
+                        strWhere = "";
                     }
                     else if (saleHeadState == "3")
                     {
