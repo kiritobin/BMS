@@ -23,8 +23,8 @@ namespace bms.Web.InventoryMGT
         public DataTable dt;
         public double discount;
         public string singleHeadId = "", userName, regionName;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
-        public bool isAdmin;
+        RoleBll roleBll = new RoleBll();
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
         BookBasicBll basicBll = new BookBasicBll();
         WarehousingBll warehousingBll = new WarehousingBll();
         GoodsShelvesBll goodsShelvesBll = new GoodsShelvesBll();
@@ -857,6 +857,13 @@ namespace bms.Web.InventoryMGT
             role = user.RoleId;
             int roleId = role.RoleId;
             dsPer = functionBll.SelectByRoleId(roleId);
+            string userId = user.UserId;
+            DataSet dsRole = roleBll.selectRole(userId);
+            string roleName = dsRole.Tables[0].Rows[0]["roleName"].ToString();
+            if (roleName == "超级管理员")
+            {
+                isAdmin = true;
+            }
             for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)
             {
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 1)

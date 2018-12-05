@@ -236,6 +236,52 @@
                             </ul>
                         </div>
                     </li>
+                    <%if (isAdmin)
+                        { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ReportStatistics" data-toggle="collapse">
+                            <i class="fa fa-table"></i>
+                            <p>
+                                报表统计
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="ReportStatistics">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/stockStatistics.aspx">
+                                        <span class="sidebar-normal">入库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/warehouseStatistics.aspx">
+                                        <span class="sidebar-normal">出库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/returnStatistics.aspx">
+                                        <span class="sidebar-normal">退货统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/salesStatistics.aspx">
+                                        <span class="sidebar-normal">销售统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/selloffStatistics.aspx">
+                                        <span class="sidebar-normal">销退统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/retailStatistics.aspx">
+                                        <span class="sidebar-normal">零售统计</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <%} %>
                     <%} %>
                 </ul>
             </div>
@@ -293,10 +339,10 @@
                                                 <button class="btn btn-info btn-sm" id="btn_search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <a class="btn btn-info btn-sm" style="padding-top:10px;" href="regionRs.aspx">根据地区查询</a>
+                                                <a class="btn btn-info btn-sm" style="padding-top: 10px;" href="regionRs.aspx">根据地区查询</a>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <a class="btn btn-info btn-sm" style="padding-top:10px;" href="customerRs.aspx">根据客户查询</a>
+                                                <a class="btn btn-info btn-sm" style="padding-top: 10px;" href="customerRs.aspx">根据客户查询</a>
                                             </div>
 
                                             <%-- <div class="btn-group" role="group">

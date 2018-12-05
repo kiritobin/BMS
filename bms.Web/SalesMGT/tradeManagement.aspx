@@ -233,6 +233,52 @@
                             </ul>
                         </div>
                     </li>
+                    <%if (isAdmin)
+                        { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ReportStatistics" data-toggle="collapse">
+                            <i class="fa fa-table"></i>
+                            <p>
+                                报表统计
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="ReportStatistics">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/stockStatistics.aspx">
+                                        <span class="sidebar-normal">入库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/warehouseStatistics.aspx">
+                                        <span class="sidebar-normal">出库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/returnStatistics.aspx">
+                                        <span class="sidebar-normal">退货统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/salesStatistics.aspx">
+                                        <span class="sidebar-normal">销售统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/selloffStatistics.aspx">
+                                        <span class="sidebar-normal">销退统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/retailStatistics.aspx">
+                                        <span class="sidebar-normal">零售统计</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <%} %>
                     <%} %>
                 </ul>
             </div>
@@ -486,7 +532,7 @@
         saleCustmer
         $("#saleCustmer").selectpicker({
             width: 180,
-            height:25
+            height: 25
         })
     </script>
 </body>

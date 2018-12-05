@@ -1,10 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="inventoryManagement.aspx.cs" Inherits="bms.Web.InventoryMGT.inventoryManagement" %>
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
 
@@ -236,6 +232,52 @@
                             </ul>
                         </div>
                     </li>
+                    <%if (isAdmin)
+                        { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ReportStatistics" data-toggle="collapse">
+                            <i class="fa fa-table"></i>
+                            <p>
+                                报表统计
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="ReportStatistics">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/stockStatistics.aspx">
+                                        <span class="sidebar-normal">入库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/warehouseStatistics.aspx">
+                                        <span class="sidebar-normal">出库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/returnStatistics.aspx">
+                                        <span class="sidebar-normal">退货统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/salesStatistics.aspx">
+                                        <span class="sidebar-normal">销售统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/selloffStatistics.aspx">
+                                        <span class="sidebar-normal">销退统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/retailStatistics.aspx">
+                                        <span class="sidebar-normal">零售统计</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <%} %>
                     <%} %>
                 </ul>
             </div>
@@ -293,7 +335,8 @@
                                             <div class="btn-group" role="group">
                                                 <input type="text" value="" class="searchOne" id="bookName" placeholder="书名查询">
                                             </div>
-                                            <%if(user.RoleId.RoleName == "超级管理员"){ %>
+                                            <%if (user.RoleId.RoleName == "超级管理员")
+                                            { %>
                                             <div class="btn-group" role="group">
                                                 <input type="text" value="" class="searchOne" id="area" placeholder="地区查询">
                                             </div>
@@ -321,7 +364,7 @@
                                     </div>
                                     <!-- 编辑模态框 -->
                                     <div class="modal fade modal-mini modal-primary" id="myModal10" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                                        <div class="modal-dialog" style="max-width:380px;">
+                                        <div class="modal-dialog" style="max-width: 380px;">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="myModalLabel">编辑库存</h5>
@@ -336,7 +379,7 @@
                                                             <td>
                                                                 <select class="modal_select" id="regionId">
                                                                     <option value="">201</option>
-                                                                 </select>
+                                                                </select>
                                                             </td>
                                                         </tr>
                                                     </table>

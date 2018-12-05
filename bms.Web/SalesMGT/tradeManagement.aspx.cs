@@ -21,7 +21,8 @@ namespace bms.Web.SalesMGT
         SaleTaskBll saleBll = new SaleTaskBll();
         CustomerBll custBll = new CustomerBll();
         string saleTaskId;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
+        RoleBll roleBll = new RoleBll();
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
@@ -327,6 +328,13 @@ namespace bms.Web.SalesMGT
             role = user.RoleId;
             int roleId = role.RoleId;
             dsPer = functionBll.SelectByRoleId(roleId);
+            string userId = user.UserId;
+            DataSet dsRole = roleBll.selectRole(userId);
+            string roleName = dsRole.Tables[0].Rows[0]["roleName"].ToString();
+            if (roleName == "超级管理员")
+            {
+                isAdmin = true;
+            }
             for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)
             {
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 1)

@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.ReportStatistics
 {
-    public partial class retailDetails : System.Web.UI.Page
+    public partial class returnStatistics : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -42,7 +42,7 @@
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <%if (funcRole)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
@@ -50,7 +50,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcUser)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
@@ -58,7 +58,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcOrg)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -66,7 +66,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcGoods)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
@@ -90,7 +90,7 @@
                         <div class="collapse" id="userManage">
                             <ul class="nav">
                                 <%if (funcCustom)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
@@ -178,7 +178,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcRetail)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="retailManagement.aspx" id="retail">
                                         <span class="sidebar-normal">零售管理</span>
@@ -229,6 +229,52 @@
                             </ul>
                         </div>
                     </li>
+                    <%if (isAdmin)
+                        { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ReportStatistics" data-toggle="collapse">
+                            <i class="fa fa-table"></i>
+                            <p>
+                                报表统计
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="ReportStatistics">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/stockStatistics.aspx">
+                                        <span class="sidebar-normal">入库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/warehouseStatistics.aspx">
+                                        <span class="sidebar-normal">出库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/returnStatistics.aspx">
+                                        <span class="sidebar-normal">退货统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/salesStatistics.aspx">
+                                        <span class="sidebar-normal">销售统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/selloffStatistics.aspx">
+                                        <span class="sidebar-normal">销退统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/retailStatistics.aspx">
+                                        <span class="sidebar-normal">零售统计</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <%} %>
                     <%} %>
                 </ul>
             </div>

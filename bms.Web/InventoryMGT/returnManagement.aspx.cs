@@ -17,7 +17,8 @@ namespace bms.Web.BasicInfor
         public string userName, regionName, roleName;
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
         public DataSet ds, dsRegion, dsPer;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail;
+        RoleBll roleBll = new RoleBll();
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
         UserBll userBll = new UserBll();
         RegionBll regionBll = new RegionBll();
         WarehousingBll wareBll = new WarehousingBll();
@@ -212,6 +213,13 @@ namespace bms.Web.BasicInfor
             role = user.RoleId;
             int roleId = role.RoleId;
             dsPer = functionBll.SelectByRoleId(roleId);
+            string userId = user.UserId;
+            DataSet dsRole = roleBll.selectRole(userId);
+            string roleName = dsRole.Tables[0].Rows[0]["roleName"].ToString();
+            if (roleName == "超级管理员")
+            {
+                isAdmin = true;
+            }
             for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)
             {
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 1)
