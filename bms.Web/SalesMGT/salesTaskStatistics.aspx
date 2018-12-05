@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css">
 </head>
 
-<body style="page-break-before:always;">
+<body style="page-break-before: always;">
     <div class="content" id="all">
         <div class="container-fluid">
             <div class="row">
@@ -164,12 +164,14 @@
                                             </tr>
                                         </table>
                                     </div>
-
+                                    <%if (ds.Tables[0].Rows.Count > 0)
+                                        { %>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
                                             <div class="m-style paging"></div>
                                         </div>
                                     </div>
+                                    <%} %>
                                 </div>
                             </div>
                         </div>

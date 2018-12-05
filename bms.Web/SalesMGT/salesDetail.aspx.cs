@@ -395,6 +395,7 @@ namespace bms.Web.SalesMGT
                     Result res = salemonbll.Insert(newSalemon);
                     if (res == Result.添加成功)
                     {
+                        updateSalehead();
                         msg.DataTable = getData();
                         msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' type='number'/></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
                         msg.AllKinds = allkinds.ToString();
