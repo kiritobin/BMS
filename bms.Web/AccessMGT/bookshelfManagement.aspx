@@ -233,6 +233,27 @@
                             </ul>
                         </div>
                     </li>
+                    <%if (isAdmin)
+                        { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ReportStatistics" data-toggle="collapse">
+                            <i class="fa fa-table"></i>
+                            <p>
+                                报表统计
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="ReportStatistics">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/salesStatistics.aspx">
+                                        <span class="sidebar-normal">销售统计</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <%} %>
                     <%} %>
                 </ul>
             </div>
