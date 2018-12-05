@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -13,6 +14,7 @@ namespace bms.Web.reportStatistics
 {
     public partial class salesStatistics : System.Web.UI.Page
     {
+        public string userName, regionName;
         public DataSet ds, dsRegion, dsCustom, dsPer;
         public DataTable dsSupplier;
         SaleMonomerBll salemonBll = new SaleMonomerBll();
@@ -24,6 +26,9 @@ namespace bms.Web.reportStatistics
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
         protected void Page_Load(object sender, EventArgs e)
         {
+            User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
             string op = Request["op"];
             if (op == "paging")
             {
@@ -46,6 +51,15 @@ namespace bms.Web.reportStatistics
                 dsRegion = regionBll.select();
                 //获取客户
                 dsCustom = customBll.select();
+            }
+            if (op == "logout")
+            {
+                //删除身份凭证
+                FormsAuthentication.SignOut();
+                //设置Cookie的值为空
+                Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                //设置Cookie的过期时间为上个月今天
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
         }
         public void exportAll()
@@ -217,7 +231,7 @@ namespace bms.Web.reportStatistics
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_salemonomer";
-            tb.OrderBy = "id";
+            tb.OrderBy = "convert("+ groupbyType + " using gbk) collate gbk_chinese_ci";
             tb.StrColumnlist = groupbyType + ", sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;

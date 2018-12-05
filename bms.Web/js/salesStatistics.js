@@ -164,46 +164,13 @@ $(document).ready(function () {
             });
         }
     });
-
+    $(".paging").hide();
     //导出报表
     $("#exportAll").click(function () {
-        var groupby = $("#groupby").find("option:selected").text();
-        var supplier = $("#supplier").find("option:selected").text();
-        var regionName = $("#region").find("option:selected").text();
-        var customerName = $("#customer").find("option:selected").text();
-        var groupbyType;
-        if (groupby == "供应商") {
-            groupbyType = "supplier";
-            if (supplier == "全部") {
-                supplier = "";
-            }
-            regionName = "";
-            customerName = "";
-        }
-        else if (groupby == "组织") {
-            groupbyType = "regionName";
-            if (regionName == "全部") {
-                regionName = "";
-            }
-            supplier = "";
-            customerName = "";
-        } else if (groupby == "客户") {
-            if (customerName == "全部") {
-                customerName = "";
-            }
-            groupbyType = "customerName";
-            supplier = "";
-            regionName = "";
-        } else {
-            groupbyType = "state";
-            supplier = "";
-            regionName = "";
-            customerName = "";
-        }
-        if (groupbyType == "state") {
+        if (!$("#table td:visible").length) {
             swal({
-                title: "提示",
-                text: "请选择分组方式",
+                title: "无查询条件或无数据",
+                text: "若以选择条件请先点击查询再导出",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
@@ -212,61 +179,73 @@ $(document).ready(function () {
                 allowOutsideClick: false
             });
         } else {
-            var salestate = $("#state").find("option:selected").text();
-            var saleHeadState;
-            if (salestate == "空") {
-                saleHeadState = "0";
-            } else if (salestate == "销售") {
-                saleHeadState = "1";
-            } else if (salestate == "预采") {
-                saleHeadState = "3";
-            } else {
-                saleHeadState = "";
+            var groupby = $("#groupby").find("option:selected").text();
+            var supplier = $("#supplier").find("option:selected").text();
+            var regionName = $("#region").find("option:selected").text();
+            var customerName = $("#customer").find("option:selected").text();
+            var groupbyType;
+            if (groupby == "供应商") {
+                groupbyType = "supplier";
+                if (supplier == "全部") {
+                    supplier = "";
+                }
+                regionName = "";
+                customerName = "";
             }
-            var time = $("#time").val();
-            window.location.href = "salesStatistics.aspx?op=exportAll&&saleHeadState=" + saleHeadState + "&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time + "&&customerName=" + customerName;
+            else if (groupby == "组织") {
+                groupbyType = "regionName";
+                if (regionName == "全部") {
+                    regionName = "";
+                }
+                supplier = "";
+                customerName = "";
+            } else if (groupby == "客户") {
+                if (customerName == "全部") {
+                    customerName = "";
+                }
+                groupbyType = "customerName";
+                supplier = "";
+                regionName = "";
+            } else {
+                groupbyType = "state";
+                supplier = "";
+                regionName = "";
+                customerName = "";
+            }
+            if (groupbyType == "state") {
+                swal({
+                    title: "提示",
+                    text: "请选择分组方式",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else {
+                var salestate = $("#state").find("option:selected").text();
+                var saleHeadState;
+                if (salestate == "空") {
+                    saleHeadState = "0";
+                } else if (salestate == "销售") {
+                    saleHeadState = "1";
+                } else if (salestate == "预采") {
+                    saleHeadState = "3";
+                } else {
+                    saleHeadState = "";
+                }
+                var time = $("#time").val();
+                window.location.href = "salesStatistics.aspx?op=exportAll&&saleHeadState=" + saleHeadState + "&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time + "&&customerName=" + customerName;
+            }
         }
-
     })
     //导出报表明细
     $("#exportDe").click(function () {
-        var groupby = $("#groupby").find("option:selected").text();
-        var supplier = $("#supplier").find("option:selected").text();
-        var regionName = $("#region").find("option:selected").text();
-        var customerName = $("#customer").find("option:selected").text();
-        var groupbyType;
-        if (groupby == "供应商") {
-            groupbyType = "supplier";
-            if (supplier == "全部") {
-                supplier = "";
-            }
-            regionName = "";
-            customerName = "";
-        }
-        else if (groupby == "组织") {
-            groupbyType = "regionName";
-            if (regionName == "全部") {
-                regionName = "";
-            }
-            supplier = "";
-            customerName = "";
-        } else if (groupby == "客户") {
-            if (customerName == "全部") {
-                customerName = "";
-            }
-            groupbyType = "customerName";
-            supplier = "";
-            regionName = "";
-        } else {
-            groupbyType = "state";
-            supplier = "";
-            regionName = "";
-            customerName = "";
-        }
-        if (groupbyType == "state") {
+        if (!$("#table td:visible").length) {
             swal({
-                title: "提示",
-                text: "请选择分组方式",
+                title: "无查询条件或无数据",
+                text: "若以选择条件请先点击查询再导出",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
@@ -275,19 +254,65 @@ $(document).ready(function () {
                 allowOutsideClick: false
             });
         } else {
-            var salestate = $("#state").find("option:selected").text();
-            var saleHeadState;
-            if (salestate == "空") {
-                saleHeadState = "0";
-            } else if (salestate == "销售") {
-                saleHeadState = "1";
-            } else if (salestate == "预采") {
-                saleHeadState = "3";
-            } else {
-                saleHeadState = "";
+            var groupby = $("#groupby").find("option:selected").text();
+            var supplier = $("#supplier").find("option:selected").text();
+            var regionName = $("#region").find("option:selected").text();
+            var customerName = $("#customer").find("option:selected").text();
+            var groupbyType;
+            if (groupby == "供应商") {
+                groupbyType = "supplier";
+                if (supplier == "全部") {
+                    supplier = "";
+                }
+                regionName = "";
+                customerName = "";
             }
-            var time = $("#time").val();
-            window.location.href = "salesStatistics.aspx?op=exportDe&&saleHeadState=" + saleHeadState + "&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time + "&&customerName=" + customerName;
+            else if (groupby == "组织") {
+                groupbyType = "regionName";
+                if (regionName == "全部") {
+                    regionName = "";
+                }
+                supplier = "";
+                customerName = "";
+            } else if (groupby == "客户") {
+                if (customerName == "全部") {
+                    customerName = "";
+                }
+                groupbyType = "customerName";
+                supplier = "";
+                regionName = "";
+            } else {
+                groupbyType = "state";
+                supplier = "";
+                regionName = "";
+                customerName = "";
+            }
+            if (groupbyType == "state") {
+                swal({
+                    title: "提示",
+                    text: "请选择分组方式",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else {
+                var salestate = $("#state").find("option:selected").text();
+                var saleHeadState;
+                if (salestate == "空") {
+                    saleHeadState = "0";
+                } else if (salestate == "销售") {
+                    saleHeadState = "1";
+                } else if (salestate == "预采") {
+                    saleHeadState = "3";
+                } else {
+                    saleHeadState = "";
+                }
+                var time = $("#time").val();
+                window.location.href = "salesStatistics.aspx?op=exportDe&&saleHeadState=" + saleHeadState + "&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time + "&&customerName=" + customerName;
+            }
         }
     })
     //清空时间
@@ -507,3 +532,32 @@ $(document).ready(function () {
         }
     })
 })
+
+
+//退出系统
+function logout() {
+    swal({
+        title: "温馨提示:)",
+        text: "您确定要退出系统吗？",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+    }).then(function () {
+        $.ajax({
+            type: 'get',
+            url: 'salesStatistics.aspx?op=logout',
+            datatype: 'text',
+            data: {},
+            success: function (data) {
+                window.location.href = "../login.aspx";
+            }
+        });
+    })
+}

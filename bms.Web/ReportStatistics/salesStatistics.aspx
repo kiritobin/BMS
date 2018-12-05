@@ -26,9 +26,8 @@
             <!-- 平台字体logo -->
             <div class="logo text-center">
                 <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统</a>
-                <span class="text-danger"></span>
-                <br />
-                <span class="text-danger"></span>
+                <span class="text-danger"><%=userName %></span><br />
+                <span class="text-danger"><%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
