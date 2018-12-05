@@ -163,8 +163,13 @@
     <Content Include="js\sweetalert2.min.js" />
     <Content Include="js\welcome.js" />
     <Content Include="QRCode.aspx" />
+    <Content Include="ReportStatistics\retailDetails.aspx" />
+    <Content Include="ReportStatistics\returnDetails.aspx" />
     <Content Include="ReportStatistics\salesDetails.aspx" />
     <Content Include="ReportStatistics\salesStatistics.aspx" />
+    <Content Include="ReportStatistics\selloffDetails.aspx" />
+    <Content Include="ReportStatistics\stockDetails.aspx" />
+    <Content Include="ReportStatistics\warehouseDetails.aspx" />
     <Content Include="SalesMGT\booksOut.aspx" />
     <Content Include="SalesMGT\CLodop_Setup_for_Win32NT.exe" />
     <Content Include="SalesMGT\customerRetail.aspx" />
@@ -463,6 +468,20 @@
     <Compile Include="QRCode.aspx.designer.cs">
       <DependentUpon>QRCode.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ReportStatistics\retailDetails.aspx.cs">
+      <DependentUpon>retailDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\retailDetails.aspx.designer.cs">
+      <DependentUpon>retailDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistics\returnDetails.aspx.cs">
+      <DependentUpon>returnDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\returnDetails.aspx.designer.cs">
+      <DependentUpon>returnDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ReportStatistics\salesDetails.aspx.cs">
       <DependentUpon>salesDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -476,6 +495,27 @@
     </Compile>
     <Compile Include="ReportStatistics\salesStatistics.aspx.designer.cs">
       <DependentUpon>salesStatistics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistics\selloffDetails.aspx.cs">
+      <DependentUpon>selloffDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\selloffDetails.aspx.designer.cs">
+      <DependentUpon>selloffDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistics\stockDetails.aspx.cs">
+      <DependentUpon>stockDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\stockDetails.aspx.designer.cs">
+      <DependentUpon>stockDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistics\warehouseDetails.aspx.cs">
+      <DependentUpon>warehouseDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\warehouseDetails.aspx.designer.cs">
+      <DependentUpon>warehouseDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesMGT\booksOut.aspx.cs">
       <DependentUpon>booksOut.aspx</DependentUpon>
