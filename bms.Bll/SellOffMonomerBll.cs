@@ -184,5 +184,27 @@ namespace bms.Bll
             DataSet ds = dao.getSellOffOperator(strWhere);
             return ds;
         }
+        /// <summary>
+        /// 导出页面上查询到的结果
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <param name="groupbyType">groupby条件</param>
+        /// <param name="state">状态</param>
+        /// <param name="time">时间</param>
+        /// <returns></returns>
+        public DataTable exportAll(string strWhere, string groupbyType, string time)
+        {
+            return dao.exportAll(strWhere, groupbyType, time);
+        }
+        /// <summary>
+        /// 导出明细
+        /// </summary>
+        /// <param name="groupbyType">groupby方式</param>
+        /// <param name="strWhere">条件</param>
+        /// <returns></returns>
+        public DataTable exportDel(string groupbyType, string strWhere)
+        {
+            return dao.exportDel(groupbyType, strWhere);
+        }
     }
 }
