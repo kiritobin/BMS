@@ -39,16 +39,20 @@ $(document).ready(function () {
         nextContent: '下页',
         callback: function (api) {
             var bookName = $("#bookName").val();
-            var bookNum = $("#bookNum").val();
-            var btnISBN = $("#bookISBN").val();
+            var bookArea = $("#area").val();
+            var bookISBN = $("#isbn").val();
+            var supplier = $("#supplier").val();
+            var stockNumber = $("#stock").val();
             $.ajax({
                 type: 'Post',
                 url: 'inventoryManagement.aspx',
                 data: {
                     page: api.getCurrent(), //页码
+                    supplier: supplier,
+                    stockNumber: stockNumber,
                     bookName: bookName,
-                    bookNum: bookNum,
-                    btnISBN: btnISBN,
+                    bookArea: bookArea,
+                    bookISBN: bookISBN,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -62,13 +66,17 @@ $(document).ready(function () {
     });
 
     $("#btn-search").click(function () {
-        var bookName =$("#bookName").val();
+        var bookName = $("#bookName").val();
         var bookArea = $("#area").val();
         var bookISBN = $("#isbn").val();
+        var supplier = $("#supplier").val();
+        var stockNumber = $("#stock").val();
         $.ajax({
             type: 'Post',
             url: 'inventoryManagement.aspx',
             data: {
+                supplier: supplier,
+                stockNumber: stockNumber,
                 bookName: bookName,
                 bookArea: bookArea,
                 bookISBN: bookISBN,
@@ -97,6 +105,8 @@ $(document).ready(function () {
                             url: 'inventoryManagement.aspx',
                             data: {
                                 page: api.getCurrent(), //页码
+                                supplier: supplier,
+                                stockNumber: stockNumber,
                                 bookName: bookName,
                                 bookArea: bookArea,
                                 bookISBN: bookISBN,
@@ -114,4 +124,28 @@ $(document).ready(function () {
             }
         });
     });
+    $("#btn_number").click(function () {
+        var type = $("input[name='optionsRadios']:checked").val();
+        var number = $("#number").val();
+        if (number == "" || number == null) {
+            swal({
+                title: "提示",
+                text: "请输入数量",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else {
+            $("#stock").val(type + number);
+            $("#numberModal").modal('hide');
+        }
+    })
+    $("#btn_clear").click(function () {
+        $("#stock").val("");
+        $("#number").val("");
+        $("#numberModal").modal('hide');
+    })
 });

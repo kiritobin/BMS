@@ -361,7 +361,44 @@ namespace bms.Bll
         {
             return SaleMonomerdao.getsBookRealPrice(saleHeadId, saleId);
         }
-
+        /// <summary>
+        /// 计算销售单头
+        /// </summary>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <param name="saleId">销售任务ID</param>
+        /// <returns></returns>
+        public DataSet calculationSaleHead(string saleHeadId, string saleId)
+        {
+            DataSet ds = SaleMonomerdao.calculationSaleHead(saleHeadId, saleId);
+            string sign = ds.Tables[0].Rows[0]["数量"].ToString();
+            if (sign != null && sign != "")
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// 获取该书籍在此销售单头中的已购数量
+        /// </summary>
+        /// <param name="saleHeadId">销售单头</param>
+        /// <param name="saleId">销售任务</param>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public DataSet getsalemonDetail(string saleHeadId, string saleId, string bookNum)
+        {
+            DataSet ds = SaleMonomerdao.getsalemonDetail(saleHeadId, saleId, bookNum);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// 根据书号，单头id，销售任务id，获取单体信息
         /// </summary>

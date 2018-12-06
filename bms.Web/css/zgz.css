@@ -284,6 +284,7 @@ legend {
     text-shadow: 4px 4px 5px #333,0px 0px 10px rgba(0, 0, 0, .14),0px 0px 15px dimgray;
     text-align: center;
 }
-
-
-
+/*库存数量查看页面模态框样式*/
+#table_numberModal tr td {
+    border: 0px;
+}

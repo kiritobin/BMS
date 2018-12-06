@@ -17,7 +17,7 @@ namespace bms.Web.SalesMGT
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         SaleHeadBll saleHeadbll = new SaleHeadBll();
         public DataSet ds, headBasicds;
-        public string saleheadId, saletaskId, time,userName,customerName;
+        public string saleheadId, saletaskId, time, userName, customerName;
         public int allkinds, allnumber;
         public double alltotalprice, allreadprice;
         protected void Page_Load(object sender, EventArgs e)
@@ -39,10 +39,25 @@ namespace bms.Web.SalesMGT
         public void getSaleHeadBasic()
         {
             headBasicds = saleHeadbll.getSaleHeadBasic(saletaskId, saleheadId);
-            allkinds = int.Parse(headBasicds.Tables[0].Rows[0]["kindsNum"].ToString());
-            allnumber = int.Parse(headBasicds.Tables[0].Rows[0]["number"].ToString());
-            alltotalprice = double.Parse(headBasicds.Tables[0].Rows[0]["allTotalPrice"].ToString());
-            allreadprice = double.Parse(headBasicds.Tables[0].Rows[0]["allRealPrice"].ToString());
+            allkinds = int.Parse(salemonbll.getkinds(saletaskId, saleheadId).ToString());
+            DataSet ds = salemonbll.calculationSaleHead(saleheadId, saletaskId);
+            if (ds == null)
+            {
+                allnumber = 0;
+                alltotalprice = 0;
+                allreadprice = 0;
+            }
+            else
+            {
+                allnumber = int.Parse(ds.Tables[0].Rows[0]["数量"].ToString());
+                alltotalprice = double.Parse(ds.Tables[0].Rows[0]["总码洋"].ToString());
+                allreadprice = double.Parse(ds.Tables[0].Rows[0]["总实洋"].ToString());
+            }
+
+            //allkinds = int.Parse(headBasicds.Tables[0].Rows[0]["kindsNum"].ToString());
+            //allnumber = int.Parse(headBasicds.Tables[0].Rows[0]["number"].ToString());
+            //alltotalprice = double.Parse(headBasicds.Tables[0].Rows[0]["allTotalPrice"].ToString());
+            //allreadprice = double.Parse(headBasicds.Tables[0].Rows[0]["allRealPrice"].ToString());
             time = headBasicds.Tables[0].Rows[0]["dateTime"].ToString();
             userName = headBasicds.Tables[0].Rows[0]["userName"].ToString();
         }
@@ -65,7 +80,7 @@ namespace bms.Web.SalesMGT
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = "saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' group by bookNum,bookName,ISBN,unitPrice,realDiscount";
+            tb.StrWhere = "saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' group by bookNum,bookName,ISBN,unitPrice HAVING allnumber!=0";
 
             // tb.StrWhere = search == "" ? "deleteState=0 and saleHeadId=" + "'" + saleheadId + "'" + " and saleTaskId=" + "'" + saletaskId + "'" : search + " and deleteState=0 and saleHeadId=" + "'" + saleheadId + "'" + " and saleTaskId=" + "'" + saletaskId + "'";
             //获取展示的客户数据
@@ -75,17 +90,14 @@ namespace bms.Web.SalesMGT
             strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
-                {
-                    strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td>");
-                }
+                strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"] + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td>");
             }
             strb.Append("</tbody>");
             strb.Append("<input type='hidden' value=' " + intPageCount + " ' id='intPageCount' />");
@@ -149,7 +161,7 @@ namespace bms.Web.SalesMGT
             saleheadId = Session["saleheadId"].ToString();
             saletaskId = Session["saleId"].ToString();
             string op = Request["op"];
-            if (op=="print")
+            if (op == "print")
             {
                 StringBuilder sb = new StringBuilder();
                 SellOffMonomerBll sellOffMonomerBll = new SellOffMonomerBll();
