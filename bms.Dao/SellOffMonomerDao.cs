@@ -149,5 +149,48 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
+        /// <summary>
+        /// 销退统计获取品种
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <param name="type"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public int getsellOffKinds(string strWhere, string type, string time)
+        {
+            string cmdText = "";
+            string startTime = "";
+            string endTime = "";
+            if (time != "" && time != null)
+            {
+                string[] sArray = time.Split('至');
+                startTime = sArray[0];
+                endTime = sArray[1];
+            }
+            if ((time != "" && time != null))
+            {
+                cmdText = "select count(bookNum) from ((select bookNum,customerName,supplier,count(bookNum) as kinds,dateTime from v_selloff where "+type+ "= @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum) as temp)";
+            }
+            else
+            {
+                cmdText = "select count(bookNum) from ((select bookNum,customerName,supplier,sum(count),dateTime from v_selloff  where " + type + "= @strWhere GROUP BY bookNum) as temp)";
+            }
+            string[] param = { "@strWhere" };
+            object[] values = { strWhere };
+            string val = db.ExecuteScalar(cmdText, param, values).ToString();
+            int row = int.Parse(val);
+            return row;
+        }
+        /// <summary>
+        /// 获取销退操作员
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <returns></returns>
+        public DataSet getSellOffOperator(string strWhere)
+        {
+            string cmdText = "select userName,bookName,supplier from v_selloff where " + strWhere + " group by userName ORDER BY convert(userName using gbk) collate gbk_chinese_ci";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            return ds;
+        }
     }
 }

@@ -162,5 +162,27 @@ namespace bms.Bll
         {
             return dao.searchSalesDetail(saletaskId, saleheadId);
         }
+        /// <summary>
+        /// 根据查询条件获取当前种类
+        /// </summary>
+        /// <param name="strWhere">where条件</param>
+        /// <param name="type">group条件</param>
+        /// <param name="time">时间点</param>
+        /// <returns></returns>
+        public int getsellOffKinds(string strWhere, string type, string time)
+        {
+            int row = dao.getsellOffKinds(strWhere, type, time);
+            return row;
+        }
+        /// <summary>
+        /// 获取操作员
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <returns></returns>
+        public DataSet getSellOffOperator(string strWhere)
+        {
+            DataSet ds = dao.getSellOffOperator(strWhere);
+            return ds;
+        }
     }
 }
