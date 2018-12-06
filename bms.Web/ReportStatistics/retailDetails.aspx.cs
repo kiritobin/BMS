@@ -95,7 +95,7 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and payment='" + payment + "'";
             }
-            strWhere += " group by bookNum";
+            strWhere += " group by bookNum,userName,supplier";
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
