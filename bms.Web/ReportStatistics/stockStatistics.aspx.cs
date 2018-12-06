@@ -22,7 +22,7 @@ namespace bms.Web.ReportStatistics
         RegionBll regionBll = new RegionBll();
         CustomerBll customBll = new CustomerBll();
         public int totalCount, intPageCount, pageSize = 20;
-        string exportAllStrWhere, exportgroupbyType, condition, state, Time;
+        string exportAllStrWhere, exportgroupbyType, condition, state;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,7 +36,7 @@ namespace bms.Web.ReportStatistics
             }
             if (op == "exportAll")
             {
-                exportAll();
+                //exportAll();
             }
             if (op == "exportDe")
             {
@@ -62,24 +62,24 @@ namespace bms.Web.ReportStatistics
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
         }
-        public void exportAll()
-        {
-            exportAllStrWhere = Session["exportAllStrWhere"].ToString();
-            exportgroupbyType = Session["exportgroupbyType"].ToString();
-            DataTable dt = salemonBll.exportAll(exportAllStrWhere, exportgroupbyType, state, Time);
-            //var name = DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
-            string name = "销售报表导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                var path = Server.MapPath("../download/报表导出/销售报表导出/" + name + ".xlsx");
-                ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
-                downloadfile(path);
-            }
-            else
-            {
-                Response.Write("<script language='javascript'>alert('查询不到数据，不能执行导出操作!')</script>");
-            }
-        }
+        //public void exportAll()
+        //{
+        //    exportAllStrWhere = Session["exportAllStrWhere"].ToString();
+        //    exportgroupbyType = Session["exportgroupbyType"].ToString();
+        //    DataTable dt = salemonBll.exportAll(exportAllStrWhere, exportgroupbyType, state, Time);
+        //    //var name = DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
+        //    string name = "销售报表导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
+        //    if (dt != null && dt.Rows.Count > 0)
+        //    {
+        //        var path = Server.MapPath("../download/报表导出/销售报表导出/" + name + ".xlsx");
+        //        ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
+        //        downloadfile(path);
+        //    }
+        //    else
+        //    {
+        //        Response.Write("<script language='javascript'>alert('查询不到数据，不能执行导出操作!')</script>");
+        //    }
+        //}
         /// <summary>
         /// 导出所有明细
         /// </summary>
@@ -132,12 +132,6 @@ namespace bms.Web.ReportStatistics
             string groupbyType = Request["groupbyType"];
             string supplier = Request["supplier"];
             string regionName = Request["regionName"];
-            string customerName = Request["customerName"];
-
-            string saleHeadState = Request["saleHeadState"];
-            string time = Request["time"];
-
-            Time = time;
 
             if (groupbyType == "state" || groupbyType == null)
             {
@@ -150,61 +144,6 @@ namespace bms.Web.ReportStatistics
             if (regionName != "" && regionName != null)
             {
                 strWhere = "regionName='" + regionName + "'";
-            }
-            if (customerName != "" && customerName != null)
-            {
-                strWhere = "customerName='" + customerName + "'";
-            }
-
-            if (saleHeadState != null && saleHeadState != "")
-            {
-                if (strWhere != null && strWhere != "")
-                {
-                    if (saleHeadState == "0")
-                    {
-                        strWhere += "";
-                    }
-                    else if (saleHeadState == "3")
-                    {
-                        strWhere += " and state='3'";
-                    }
-                    else
-                    {
-                        strWhere += " and (state='1' or state='2')";
-                    }
-
-                }
-                else
-                {
-                    if (saleHeadState == "0")
-                    {
-
-                        strWhere = "";
-                    }
-                    else if (saleHeadState == "3")
-                    {
-                        strWhere = " state='3'";
-                    }
-                    else
-                    {
-                        strWhere = " (state='1' or state='2')";
-                    }
-
-                }
-            }
-            if (time != null && time != "")
-            {
-                string[] sArray = time.Split('至');
-                string startTime = sArray[0];
-                string endTime = sArray[1];
-                if (strWhere != null && strWhere != "")
-                {
-                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
-                }
-                else
-                {
-                    strWhere = "dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
-                }
             }
 
             if (roleName != "超级管理员")
@@ -241,7 +180,7 @@ namespace bms.Web.ReportStatistics
             }
             else
             {
-                tb.StrWhere = "type=0 and" + strWhere + " GROUP BY " + groupbyType;
+                tb.StrWhere = "type=0 and " + strWhere + " GROUP BY " + groupbyType;
             }
             Session["exportgroupbyType"] = groupbyType;
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
@@ -252,10 +191,6 @@ namespace bms.Web.ReportStatistics
             StringBuilder strb = new StringBuilder();
             int dscount = ds.Tables[0].Rows.Count;
             string kinds;
-            if (saleHeadState != null && saleHeadState != "")
-            {
-                state = saleHeadState;
-            }
             for (int i = 0; i < dscount; i++)
             {
                 DataRow dr = ds.Tables[0].Rows[i];
@@ -263,7 +198,8 @@ namespace bms.Web.ReportStatistics
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<td>" + dr["" + groupbyType + ""].ToString() + "</td>");
                 condition = dr["" + groupbyType + ""].ToString();
-                kinds = salemonBll.getkindsGroupBy(condition, groupbyType, state, time).ToString();
+                //kinds = salemonBll.getkindsGroupBy(condition, groupbyType, state, time).ToString();
+                kinds = "23333";
                 strb.Append("<td>" + kinds + "</td>");
                 strb.Append("<td>" + dr["allNumber"].ToString() + "</td>");
                 strb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
