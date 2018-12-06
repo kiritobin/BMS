@@ -78,7 +78,7 @@
         var defaultDiscounted = $("#defaultDiscount").val();
         var defaultCopyed = $("#defaultCopyed").val();
         if (defaultDiscounted == "" || defaultDiscounted == null) {
-            defaultDiscounted = 100;
+            defaultDiscounted = -1;
         }
         if (defaultDiscounted > 100) {
             swal({
@@ -201,7 +201,7 @@
         var Price = $("#Price").val().trim();//默认折扣
         var defaultCopy = $("#defaultCopy").val().trim();//默认复本
         if (Price == "" || Price == null) {
-            Price = 100;
+            Price = -1;
         }
         if (Price > 100) {
             swal({
