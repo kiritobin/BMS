@@ -1,13 +1,30 @@
-﻿window.onload = function () {
-    $("#groupsupplier").hide();
+﻿jeDate("#startTime", {
+    theme: {
+        bgcolor: "#D91600",
+        pnColor: "#FF6653"
+    },
+    multiPane: true,
+    format: "YYYY-MM-DD"
+});
+jeDate("#endTime", {
+    theme: {
+        bgcolor: "#D91600",
+        pnColor: "#FF6653"
+    },
+    multiPane: true,
+    format: "YYYY-MM-DD"
+});
+
+window.onload = function () {
     $("#groupregion").hide();
+    $("#groupPayType").hide();
 }
 
 ///数据加载中
 //$(function () {
 //    $.ajax({
 //        type: 'Post',
-//        url: 'stockStatistics.aspx',
+//        url: 'retailStatistics.aspx',
 //        data: {
 //            op: "paging"
 //        },
@@ -71,53 +88,66 @@ $(document).ready(function () {
         nextContent: '下页',
         callback: function (api) {
             var groupby = $("#groupby").find("option:selected").text();
-            var supplier = $("#supplier").find("option:selected").text();
             var regionName = $("#region").find("option:selected").text();
+            var payType = $("#payType").find("option:selected").text();
             var groupbyType;
-            if (groupby == "供应商") {
-                groupbyType = "supplier";
-                if (supplier == "全部") {
-                    supplier = "";
-                }
-                regionName = "";
-            }
-            else if (groupby == "组织") {
+            if (groupby == "组织") {
                 groupbyType = "regionName";
                 if (regionName == "全部") {
                     regionName = "";
                 }
-                supplier = "";
-            }  else {
-                groupbyType = "state";
-                supplier = "";
-                regionName = "";
-            }
-            var page = api.getCurrent();
-            $.ajax({
-                type: 'Post',
-                url: 'stockStatistics.aspx',
-                data: {
-                    page: api.getCurrent(), //页码
-                    groupbyType: groupbyType,
-                    supplier: supplier,
-                    regionName: regionName,
-                    op: "paging"
-                },
-                dataType: 'text',
-                success: function (data) {
-                    if (groupby == "供应商") {
-                        $("#showType").text("供应商");
-                    }
-                    else if (groupby == "组织") {
-                        $("#showType").text("组织");
-                    } else if (groupby == "客户") {
-                        $("#showType").text("客户");
-                    } 
-                    $("#table tr:not(:first)").remove(); //清空table处首行
-                    $("#table").append(data); //加载table
-                    $("#intPageCount").remove();
+                payType = "";
+            } else if (groupby == "支付方式") {
+                if (payType == "全部") {
+                    payType = "";
                 }
-            });
+                groupbyType = "payment";
+                regionName = "";
+            } else {
+                groupbyType = "state";
+                regionName = "";
+                payType = "";
+            }
+            if (groupbyType == "state") {
+                swal({
+                    title: "提示",
+                    text: "请选择分组方式",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else {
+                var time = $("#time").val();
+                var page = api.getCurrent();
+                $.ajax({
+                    type: 'Post',
+                    url: 'retailStatistics.aspx',
+                    data: {
+                        page: api.getCurrent(), //页码
+                        groupbyType: groupbyType,
+                        regionName: regionName,
+                        time: time,
+                        payment: payType,
+                        op: "paging"
+                    },
+                    dataType: 'text',
+                    success: function (data) {
+                        if (groupby == "组织") {
+                            $("#showType").text("组织");
+                        } else if (groupby == "支付方式") {
+                            $("#showType").text("支付方式");
+                        } else {
+                            $("#showType").text("支付方式");
+                        }
+                        $("#table tr:not(:first)").remove(); //清空table处首行
+                        $("#table").append(data); //加载table
+                        $("#intPageCount").remove();
+                    }
+                });
+            }
         }
     });
     $(".paging").hide();
@@ -136,26 +166,25 @@ $(document).ready(function () {
             });
         } else {
             var groupby = $("#groupby").find("option:selected").text();
-            var supplier = $("#supplier").find("option:selected").text();
             var regionName = $("#region").find("option:selected").text();
+            var payType = $("#payType").find("option:selected").text();
             var groupbyType;
-            if (groupby == "供应商") {
-                groupbyType = "supplier";
-                if (supplier == "全部") {
-                    supplier = "";
-                }
-                regionName = "";
-            }
-            else if (groupby == "组织") {
+            if (groupby == "组织") {
                 groupbyType = "regionName";
                 if (regionName == "全部") {
                     regionName = "";
                 }
-                supplier = "";
+                payType = "";
+            } else if (groupby == "支付方式") {
+                if (payType == "全部") {
+                    payType = "";
+                }
+                groupbyType = "payment";
+                regionName = "";
             } else {
                 groupbyType = "state";
-                supplier = "";
                 regionName = "";
+                payType = "";
             }
             if (groupbyType == "state") {
                 swal({
@@ -168,7 +197,10 @@ $(document).ready(function () {
                     buttonsStyling: false,
                     allowOutsideClick: false
                 });
-            } 
+            } else {
+                var time = $("#time").val();
+                window.location.href = "retailStatistics.aspx?op=exportAll&&groupbyType=" + groupbyType + "&&regionName=" + regionName + "&&time=" + time + "&&payment=" + payType;
+            }
         }
     })
     //导出报表明细
@@ -186,26 +218,25 @@ $(document).ready(function () {
             });
         } else {
             var groupby = $("#groupby").find("option:selected").text();
-            var supplier = $("#supplier").find("option:selected").text();
             var regionName = $("#region").find("option:selected").text();
+            var payType = $("#payType").find("option:selected").text();
             var groupbyType;
-            if (groupby == "供应商") {
-                groupbyType = "supplier";
-                if (supplier == "全部") {
-                    supplier = "";
-                }
-                regionName = "";
-            }
-            else if (groupby == "组织") {
+            if (groupby == "组织") {
                 groupbyType = "regionName";
                 if (regionName == "全部") {
                     regionName = "";
                 }
-                supplier = "";
-            }  else {
-                groupbyType = "state";
-                supplier = "";
+                payType = "";
+            } else if (groupby == "支付方式") {
+                if (payType == "全部") {
+                    payType = "";
+                }
+                groupbyType = "payment";
                 regionName = "";
+            } else {
+                groupbyType = "state";
+                regionName = "";
+                payType = "";
             }
             if (groupbyType == "state") {
                 swal({
@@ -218,7 +249,46 @@ $(document).ready(function () {
                     buttonsStyling: false,
                     allowOutsideClick: false
                 });
-            } 
+            } else {
+                var time = $("#time").val();
+                window.location.href = "retailStatistics.aspx?op=exportDe&&groupbyType=" + groupbyType + "&&regionName=" + regionName + "&&time=" + time + "&&payment=" + payType;
+            }
+        }
+    })
+    //清空时间
+    $("#modalClose").click(function () {
+        $("#time").val("");
+        $("#myModal").modal('hide');
+    })
+    //选择时间后确定
+    $("#btnOK").click(function () {
+        var startTime = $("#startTime").val();
+        var endTime = $("#endTime").val();
+        if (startTime == "" || startTime == null) {
+            swal({
+                title: "提示",
+                text: "请选择开始时间",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else if (endTime == "" || endTime == null) {
+            swal({
+                title: "提示",
+                text: "请选择结束时间",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else {
+            $("#time").val(startTime + "至" + endTime);
+            $("#myModal").modal('hide');
         }
     })
 
@@ -226,41 +296,39 @@ $(document).ready(function () {
     $("#table").delegate(".look", "click", function (e) {
         var groupby = $("#groupby").find("option:selected").text();
         var groupbyType;
-        if (groupby == "供应商") {
-            groupbyType = "supplier";
-        }
-        else if (groupby == "组织") {
+        if (groupby == "组织") {
             groupbyType = "regionName";
+        } else if (groupby == "支付方式") {
+            groupbyType = "payment";
         } else {
-            groupbyType = "supplier";
+            groupbyType = "payment";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text();
-        window.location.href = "salesDetails.aspx?type=" + groupbyType + "&&name=" + name;
+        window.location.href = "retailDetails.aspx?type=" + groupbyType + "&&name=" + name;
     })
 
     //点击查询按钮时
     $("#btn_search").click(function () {
         var groupby = $("#groupby").find("option:selected").text();
-        var supplier = $("#supplier").find("option:selected").text();
         var regionName = $("#region").find("option:selected").text();
+        var payType = $("#payType").find("option:selected").text();
         var groupbyType;
-        if (groupby == "供应商") {
-            groupbyType = "supplier";
-            if (supplier == "全部") {
-                supplier = "";
-            }
-            regionName = "";
-        }
-        else if (groupby == "组织") {
+        if (groupby == "组织") {
             groupbyType = "regionName";
             if (regionName == "全部") {
                 regionName = "";
             }
-            supplier = "";
+            payType = "";
+        } else if (groupby == "支付方式") {
+            if (payType == "全部") {
+                payType = "";
+            }
+            groupbyType = "payment";
+            regionName = "";
         } else {
             groupbyType = "state";
-            supplier = "";
             regionName = "";
+            payType = "";
         }
         if (groupbyType == "state") {
             swal({
@@ -274,24 +342,25 @@ $(document).ready(function () {
                 allowOutsideClick: false
             });
         } else {
+            var time = $("#time").val();
             $.ajax({
                 type: 'Post',
-                url: 'stockStatistics.aspx',
+                url: 'retailStatistics.aspx',
                 data: {
                     groupbyType: groupbyType,
-                    supplier: supplier,
                     regionName: regionName,
+                    time: time,
+                    payment: payType,
                     op: "paging"
                 },
                 dataType: 'text',
                 success: function (data) {
-                    if (groupby == "供应商") {
-                        $("#showType").text("供应商");
-                    }
-                    else if (groupby == "组织") {
+                    if (groupby == "组织") {
                         $("#showType").text("组织");
-                    } else if (groupby == "客户") {
-                        $("#showType").text("客户");
+                    } else if (groupby == "支付方式") {
+                        $("#showType").text("支付方式");
+                    } else {
+                        $("#showType").text("支付方式");
                     }
                     $("#intPageCount").remove();
                     $("#table tr:not(:first)").empty(); //清空table处首行
@@ -311,21 +380,23 @@ $(document).ready(function () {
                         callback: function (api) {
                             $.ajax({
                                 type: 'Post',
-                                url: 'stockStatistics.aspx',
+                                url: 'retailStatistics.aspx',
                                 data: {
                                     page: api.getCurrent(), //页码
                                     groupbyType: groupbyType,
-                                    supplier: supplier,
                                     regionName: regionName,
+                                    time: time,
+                                    payment: payType,
                                     op: "paging"
                                 },
                                 dataType: 'text',
                                 success: function (data) {
-                                    if (groupby == "供应商") {
-                                        $("#showType").text("供应商");
-                                    }
-                                    else if (groupby == "组织") {
+                                    if (groupby == "组织") {
                                         $("#showType").text("组织");
+                                    } else if (groupby == "支付方式") {
+                                        $("#showType").text("支付方式");
+                                    } else {
+                                        $("#showType").text("支付方式");
                                     }
                                     $("#table tr:not(:first)").remove(); //清空table处首行
                                     $("#table").append(data); //加载table
@@ -342,20 +413,15 @@ $(document).ready(function () {
     //分组方式改变
     $("#groupby").change(function () {
         var groupby = $("#groupby").find("option:selected").text();
-        if (groupby == "供应商") {
-            $("#groupsupplier").show();
-            $("#groupregion").hide();
-            $('#groupregion').selectpicker('refresh');
-        }
-        else if (groupby == "组织") {
-            $("#groupsupplier").hide();
+        if (groupby == "组织") {
             $("#groupregion").show();
-        } else if (groupby == "客户") {
-            $("#groupsupplier").hide();
+            $("#groupPayType").hide();
+        } else if (groupby == "支付方式") {
             $("#groupregion").hide();
+            $("#groupPayType").show();
         } else {
-            $("#groupsupplier").hide();
             $("#groupregion").hide();
+            $("#groupPayType").hide();
         }
     })
 })
@@ -379,7 +445,7 @@ function logout() {
     }).then(function () {
         $.ajax({
             type: 'get',
-            url: 'stockStatistics.aspx?op=logout',
+            url: 'retailStatistics.aspx?op=logout',
             datatype: 'text',
             data: {},
             success: function (data) {

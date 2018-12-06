@@ -25,12 +25,13 @@
             <!-- 平台字体logo -->
             <div class="logo text-center">
                 <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统</a>
-                <span class="text-danger"></span>
-                <br />
-                <span class="text-danger"></span>
+                <span class="text-danger"><%=userName %></span><br />
+                <span class="text-danger"><%=regionName %></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
+                    <%if (funcUser || funcRole || funcOrg || funcGoods)
+                        { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
@@ -41,29 +42,44 @@
                         </a>
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
+                                <%if (funcRole)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcUser)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcOrg)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcGoods)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
+                    <%} %>
+                    <%if (funcCustom || funcLibrary)
+                        {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#userManage" data-toggle="collapse">
                             <i class="fa fa-user fa-lg"></i>
@@ -74,19 +90,28 @@
                         </a>
                         <div class="collapse" id="userManage">
                             <ul class="nav">
+                                <%if (funcCustom)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/customerManagement.aspx">
                                         <span class="sidebar-normal">客户信息管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcLibrary)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/collectionManagement.aspx">
                                         <span class="sidebar-normal">客户馆藏数据</span>
                                     </a>
                                 </li>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
+                    <%} %>
+                    <%if (funcPut || funcOut || funcReturn || funcSupply)
+                        {%>
                     <li class="nav-item">
                         <a class="nav-link" href="#inventoryManage" data-toggle="collapse">
                             <i class="fa fa-book"></i>
@@ -97,29 +122,44 @@
                         </a>
                         <div class="collapse" id="inventoryManage">
                             <ul class="nav">
+                                <%if (funcPut)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcOut)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcReturn)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <%} %>
+                                <%if (funcSupply)
+                                    { %>
+                                <%--<li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
                                     </a>
-                                </li>
+                                </li>--%>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
+                    <%} %>
+                    <%if (funcSale || funcSaleOff || funcRetail)
+                        { %>
                     <li class="nav-item ">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
@@ -130,11 +170,16 @@
                         </a>
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
+                                <%if (funcSale)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                <%if (funcRetail)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/retailManagement.aspx" id="retail">
                                         <span class="sidebar-normal">零售管理</span>
@@ -150,6 +195,7 @@
                                         <span class="sidebar-normal">零退管理</span>
                                     </a>
                                 </li>
+                                <%} %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/statistics.aspx">
                                         <span class="sidebar-normal">大屏配置</span>
@@ -158,6 +204,9 @@
                             </ul>
                         </div>
                     </li>
+                    <%} %>
+                    <%if (funcBook)
+                        { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
                             <i class="fa fa-file-archive-o"></i>
@@ -181,6 +230,8 @@
                             </ul>
                         </div>
                     </li>
+                    <%if (isAdmin)
+                        { %>
                     <li class="nav-item active">
                         <a class="nav-link" href="#ReportStatistics" data-toggle="collapse">
                             <i class="fa fa-table"></i>
@@ -192,13 +243,40 @@
                         <div class="collapse show" id="ReportStatistics">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="salesStatistics.aspx">
+                                    <a class="nav-link" href="../ReportStatistics/stockStatistics.aspx">
+                                        <span class="sidebar-normal">入库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/warehouseStatistics.aspx">
+                                        <span class="sidebar-normal">出库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/returnStatistics.aspx">
+                                        <span class="sidebar-normal">退货统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="../ReportStatistics/salesStatistics.aspx">
                                         <span class="sidebar-normal">销售统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/selloffStatistics.aspx">
+                                        <span class="sidebar-normal">销退统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/retailStatistics.aspx">
+                                        <span class="sidebar-normal">零售统计</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
+                    <%} %>
+                    <%} %>
                 </ul>
             </div>
         </div>
@@ -260,8 +338,8 @@
                                                 <input type="text" class="" placeholder="请输入销售折扣" style="width:130px;" id="discount">
                                             </div>
                                             &nbsp;
-                                            <div class="btn-group" role="group">
-                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" id="user">
+                                            <div class="btn-group" role="group" style="width:165px;">
+                                                <select class="modal_select selectpicker collectionStatus" id="user">
                                                     <option value="0">请选择采集人</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
                                                         for (int i = 0; i < count; i++)
@@ -269,17 +347,15 @@
                                                     <option value="<%=dsUser.Tables[0].Rows[i]["userName"].ToString() %>"><%=dsUser.Tables[0].Rows[i]["userName"].ToString() %></option>
                                                     <%}%>
                                                 </select>
-                                                <%--<input type="text" class="" placeholder="请输入采集人" id="user">--%>
                                             </div>
                                             &nbsp;
-                                            <div class="btn-group" role="group">
-                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" id="state">
+                                            <div class="btn-group" role="group" style="width:180px;">
+                                                <select class="modal_select selectpicker collectionStatus" id="state">
                                                     <option value="-1">请选择采集状态</option>
                                                     <option value="0">新单据</option>
                                                     <option value="1">完成</option>
                                                     <option value="3">预采</option>
                                                 </select>
-                                                <%--<input type="text" class="" placeholder="请输入采集状态" id="state">--%>
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
@@ -426,7 +502,7 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
-
+    <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/salesDetails.js"></script>
     <script src="../js/jquery.pagination.js"></script>
 </body>

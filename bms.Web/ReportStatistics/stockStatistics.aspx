@@ -241,8 +241,33 @@
                         <div class="collapse show" id="ReportStatistics">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../ReportStatistics/salesStatistics.aspx">
+                                    <a class="nav-link activeNext" href="../ReportStatistics/stockStatistics.aspx">
+                                        <span class="sidebar-normal">入库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/warehouseStatistics.aspx">
+                                        <span class="sidebar-normal">出库统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/returnStatistics.aspx">
+                                        <span class="sidebar-normal">退货统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/salesStatistics.aspx">
                                         <span class="sidebar-normal">销售统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/selloffStatistics.aspx">
+                                        <span class="sidebar-normal">销退统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/retailStatistics.aspx">
+                                        <span class="sidebar-normal">零售统计</span>
                                     </a>
                                 </li>
                             </ul>
@@ -294,7 +319,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">销售统计</h4>
+                                    <h4 class="card-title ">入库统计</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header" style="padding-right: 0px;">
@@ -305,7 +330,6 @@
                                                         <option value="">分组方式</option>
                                                         <option value="supplier">供应商</option>
                                                         <option value="region">组织</option>
-                                                        <option value="customer">客户</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -330,19 +354,6 @@
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupcustom">
-                                                <%--<input type="text" class="" placeholder="请输入客户" id="customer">--%>
-                                                <select class="modal_select selectpicker collectionStatus" title="请选择客户" data-live-search="true" id="customer">
-                                                    <option>全部</option>
-                                                    <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
-                                                        {%>
-                                                    <option value="<%=dsCustom.Tables[0].Rows[i]["customerID"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
-                                                    <%} %>
-                                                </select>
-                                            </div>
-                                            <div class="btn-group">
-                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#myModal">
-                                            </div>
                                             <%-- <div class="btn-group">
                                                 <input type="text" class="search" placeholder="请输入定价">
                                             </div>
@@ -358,16 +369,6 @@
                                             <div class="btn-group">
                                                 <input type="text" class="search" placeholder="请输入ISBN">
                                             </div>--%>
-                                            <div class="btn-group" role="group">
-                                                <div class="btn-group" role="group">
-                                                    <select class="modal_select selectpicker collectionStatus" id="state">
-                                                        <option value="">采集状态</option>
-                                                        <option value="">空</option>
-                                                        <option value="">销售</option>
-                                                        <option value="">预采</option>
-                                                    </select>
-                                                </div>
-                                            </div>
                                             <div class="btn-group">
                                                 <button class="btn btn-sm btn-info" id="btn_search">查询</button>
                                             </div>
@@ -409,48 +410,6 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="myModalLabel">请选择查询时间段</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body" style="max-height: 400px; overflow: auto;">
-                            <table class="table text-center model-table">
-                                <tr>
-                                    <td class="text-right" style="width: 40%">开始时间:
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-right" style="width: 40%">结束时间:
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;只统计26,27,28;29不统计</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                            
-                            <button type="button" class="btn btn-info" id="btnOK">确认</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -478,5 +437,5 @@
 <script src="../js/bootstrap-selectpicker.js"></script>
 <script src="../js/sweetalert2.js"></script>
 <script src="../js/jquery.pagination.js"></script>
-    <script src="../js/stockStatistics.js"></script>
+<script src="../js/stockStatistics.js"></script>
 </html>
