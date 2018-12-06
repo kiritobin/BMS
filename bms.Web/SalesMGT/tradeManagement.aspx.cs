@@ -69,7 +69,7 @@ namespace bms.Web.SalesMGT
                             }
                             else
                             {
-                                string js = getsaleId.Remove(0, getsaleId.Length-5);
+                                string js = getsaleId.Remove(0, getsaleId.Length - 5);
                                 count = Convert.ToInt32(js) + 1;
                                 saleTaskId = "XSRW" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                             }
@@ -298,7 +298,12 @@ namespace bms.Web.SalesMGT
                 strb.Append("<tr><td>" + ds.Tables[0].Rows[i]["saleTaskId"].ToString() + "</td>");
                 strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</nobr></td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["userName"].ToString() + "</td>");
-                strb.Append("<td>" + Double.Parse(ds.Tables[0].Rows[i]["defaultDiscount"].ToString()) + "</td>");
+                string defaultDiscount = ds.Tables[0].Rows[i]["defaultDiscount"].ToString();
+                if (defaultDiscount == "-1")
+                {
+                    defaultDiscount = "";
+                }
+                strb.Append("<td>" + defaultDiscount + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["numberLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["defaultCopy"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["priceLimit"].ToString() + "</td>");
