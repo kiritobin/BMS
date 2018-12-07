@@ -326,16 +326,14 @@
                                 <div class="card-body">
                                     <div class="card-header" style="padding-right: 0px;">
                                         <div class="input-group">
-                                            <div class="btn-group" role="group">
-                                                <div class="btn-group" role="group">
-                                                    <select class="modal_select selectpicker collectionStatus" id="groupby">
-                                                        <option value="">分组方式</option>
-                                                        <option value="region">组织</option>
-                                                        <option value="payType">支付方式</option>
-                                                    </select>
-                                                </div>
+                                            <div class="btn-group" role="group" style="width:180px;">
+                                                <select class="modal_select selectpicker collectionStatus" id="groupby">
+                                                    <option value="">分组方式</option>
+                                                    <option value="region">组织</option>
+                                                    <option value="payType">支付方式</option>
+                                                </select>
                                             </div>
-                                            <div class="btn-group" id="groupregion">
+                                            <div class="btn-group" id="groupregion" style="width:180px;">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="region">
                                                     <option value="">全部</option>
                                                     <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
@@ -344,8 +342,8 @@
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupPayType">
-                                                <select class="modal_select selectpicker collectionStatus" title="请选择支付方式" data-live-search="true" id="payType">
+                                            <div class="btn-group" id="groupPayType" style="width:180px;">
+                                                <select class="modal_select selectpicker collectionStatus" title="请选择支付方式" id="payType">
                                                     <option value="">全部</option>
                                                     <option value="未支付">未支付</option>
                                                     <option value="现金">现金</option>
