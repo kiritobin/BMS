@@ -555,6 +555,7 @@ namespace bms.Bll
             DataRowCollection count = dt.Rows;
             foreach (DataRow row in count)
             {
+                string time = row[9].ToString();
                 string state = row[11].ToString();
                 if (state=="3"|| state == "" | state == null)
                 {
