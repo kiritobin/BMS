@@ -162,5 +162,59 @@ namespace bms.Bll
         {
             return dao.searchSalesDetail(saletaskId, saleheadId);
         }
+        /// <summary>
+        /// 根据查询条件获取当前种类
+        /// </summary>
+        /// <param name="strWhere">where条件</param>
+        /// <param name="type">group条件</param>
+        /// <param name="time">时间点</param>
+        /// <returns></returns>
+        public int getsellOffKinds(string strWhere, string type, string time)
+        {
+            int row = dao.getsellOffKinds(strWhere, type, time);
+            return row;
+        }
+        /// <summary>
+        /// 获取操作员
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <returns></returns>
+        public DataSet getSellOffOperator(string strWhere)
+        {
+            DataSet ds = dao.getSellOffOperator(strWhere);
+            return ds;
+        }
+        /// <summary>
+        /// 导出页面上查询到的结果
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <param name="groupbyType">groupby条件</param>
+        /// <param name="state">状态</param>
+        /// <param name="time">时间</param>
+        /// <returns></returns>
+        public DataTable exportAll(string strWhere, string groupbyType, string time)
+        {
+            return dao.exportAll(strWhere, groupbyType, time);
+        }
+        /// <summary>
+        /// 导出明细
+        /// </summary>
+        /// <param name="groupbyType">groupby方式</param>
+        /// <param name="strWhere">条件</param>
+        /// <returns></returns>
+        public DataTable exportDel(string groupbyType, string strWhere)
+        {
+            return dao.exportDel(groupbyType, strWhere);
+        }
+        /// <summary>
+        /// 销退明细页面导出Excel
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <param name="type">分组条件</param>
+        /// <returns></returns>
+        public DataTable ExportExcel(string strWhere, string type)
+        {
+            return dao.ExportExcel(strWhere, type);
+        }
     }
 }

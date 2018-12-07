@@ -274,5 +274,60 @@ namespace bms.Bll
             DataSet ds = dao.GroupRetail(startTime,endTime,regionName);
             return ds;
         }
+
+        /// <summary>
+        /// 获取书籍种类
+        /// </summary>
+        /// <param name="strWhere">条件</param>
+        /// <param name="type">分组类型</param>
+        /// <param name="time">时间</param>
+        /// <returns></returns>
+        public int getkindsGroupBy(string strWhere, string type, string time)
+        {
+            return dao.getkindsGroupBy(strWhere, type, time);
+        }
+
+        /// <summary>
+        /// 导出明细
+        /// </summary>
+        /// <param name="groupbyType">groupby方式</param>
+        /// <param name="strWhere">条件</param>
+        /// <returns></returns>
+        public DataTable exportDel(string groupbyType, string strWhere)
+        {
+            return dao.exportDel(groupbyType, strWhere);
+        }
+
+        /// <summary>
+        /// 导出页面上查询到的结果
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <param name="groupbyType">groupby条件</param>
+        /// <param name="time">时间</param>
+        /// <returns></returns>
+        public DataTable exportAll(string strWhere, string groupbyType, string time)
+        {
+            return dao.exportAll(strWhere, groupbyType, time);
+        }
+
+        /// <summary>
+        /// 获取收银员
+        /// </summary>
+        /// <param name="strWhere">筛选条件</param>
+        /// <returns></returns>
+        public DataSet getUser(string strWhere)
+        {
+            return dao.getUser(strWhere);
+        }
+
+        /// <summary>
+        /// 导出成Excel表
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <returns>返回一个DataTable的选题记录集合</returns>
+        public DataTable ExportExcel(string strWhere, string type)
+        {
+            return dao.ExportExcel(strWhere, type);
+        }
     }
 }

@@ -151,25 +151,39 @@
     <Content Include="js\retailBack.js" />
     <Content Include="js\retailBackManagement.js" />
     <Content Include="js\retailBackQuery.js" />
+    <Content Include="js\retailDetails.js" />
     <Content Include="js\retailManagement.js" />
     <Content Include="js\retailQuery.js" />
+    <Content Include="js\retailStatistics.js" />
+    <Content Include="js\returnDetails.js" />
+    <Content Include="js\returnStatistics.js" />
     <Content Include="js\salesDetails.js" />
     <Content Include="js\salesStatistics.js" />
     <Content Include="js\salesTaskStatistics.js" />
     <Content Include="js\salesTaskStatisticsAll.js" />
     <Content Include="js\searchSalesDetail.js" />
+    <Content Include="js\sellOffDetail.js" />
+    <Content Include="js\selloffStatistics.js" />
     <Content Include="js\statistics.js" />
+    <Content Include="js\stockDetails.js" />
     <Content Include="js\stockStatistics.js" />
     <Content Include="js\sweetalert2.min.js" />
+    <Content Include="js\warehouseDetails.js" />
+    <Content Include="js\warehouseStatistics.js" />
     <Content Include="js\welcome.js" />
     <Content Include="js\xlsx.full.min.js" />
     <Content Include="QRCode.aspx" />
+    <Content Include="ReportStatistics\retailDetails.aspx" />
     <Content Include="ReportStatistics\retailStatistics.aspx" />
+    <Content Include="ReportStatistics\returnDetails.aspx" />
     <Content Include="ReportStatistics\returnStatistics.aspx" />
     <Content Include="ReportStatistics\salesDetails.aspx" />
     <Content Include="ReportStatistics\salesStatistics.aspx" />
+    <Content Include="ReportStatistics\sellOffDetail.aspx" />
     <Content Include="ReportStatistics\selloffStatistics.aspx" />
+    <Content Include="ReportStatistics\stockDetails.aspx" />
     <Content Include="ReportStatistics\stockStatistics.aspx" />
+    <Content Include="ReportStatistics\warehouseDetails.aspx" />
     <Content Include="ReportStatistics\warehouseStatistics.aspx" />
     <Content Include="SalesMGT\booksOut.aspx" />
     <Content Include="SalesMGT\CLodop_Setup_for_Win32NT.exe" />
@@ -448,12 +462,26 @@
     <Compile Include="QRCode.aspx.designer.cs">
       <DependentUpon>QRCode.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ReportStatistics\retailDetails.aspx.cs">
+      <DependentUpon>retailDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\retailDetails.aspx.designer.cs">
+      <DependentUpon>retailDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ReportStatistics\retailStatistics.aspx.cs">
       <DependentUpon>retailStatistics.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ReportStatistics\retailStatistics.aspx.designer.cs">
       <DependentUpon>retailStatistics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistics\returnDetails.aspx.cs">
+      <DependentUpon>returnDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\returnDetails.aspx.designer.cs">
+      <DependentUpon>returnDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="ReportStatistics\returnStatistics.aspx.cs">
       <DependentUpon>returnStatistics.aspx</DependentUpon>
@@ -476,6 +504,13 @@
     <Compile Include="ReportStatistics\salesStatistics.aspx.designer.cs">
       <DependentUpon>salesStatistics.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ReportStatistics\sellOffDetail.aspx.cs">
+      <DependentUpon>sellOffDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\sellOffDetail.aspx.designer.cs">
+      <DependentUpon>sellOffDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ReportStatistics\selloffStatistics.aspx.cs">
       <DependentUpon>selloffStatistics.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -483,12 +518,26 @@
     <Compile Include="ReportStatistics\selloffStatistics.aspx.designer.cs">
       <DependentUpon>selloffStatistics.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ReportStatistics\stockDetails.aspx.cs">
+      <DependentUpon>stockDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\stockDetails.aspx.designer.cs">
+      <DependentUpon>stockDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ReportStatistics\stockStatistics.aspx.cs">
       <DependentUpon>stockStatistics.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ReportStatistics\stockStatistics.aspx.designer.cs">
       <DependentUpon>stockStatistics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistics\warehouseDetails.aspx.cs">
+      <DependentUpon>warehouseDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\warehouseDetails.aspx.designer.cs">
+      <DependentUpon>warehouseDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="ReportStatistics\warehouseStatistics.aspx.cs">
       <DependentUpon>warehouseStatistics.aspx</DependentUpon>
@@ -747,7 +796,12 @@
     <Folder Include="Customer\" />
     <Folder Include="download\入库明细导出\" />
     <Folder Include="download\出库明细导出\" />
+    <Folder Include="download\报表导出\入库报表导出\" />
+    <Folder Include="download\报表导出\出库报表导出\" />
+    <Folder Include="download\报表导出\退货报表导出\" />
     <Folder Include="download\报表导出\销售报表导出\" />
+    <Folder Include="download\报表导出\销退报表导出\" />
+    <Folder Include="download\报表导出\零售报表导出\" />
     <Folder Include="download\退货明细导出\" />
     <Folder Include="download\销售明细导出\" />
     <Folder Include="download\销退明细导出\" />

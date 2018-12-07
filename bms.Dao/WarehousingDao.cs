@@ -421,9 +421,12 @@ namespace bms.Dao
         }
 
         /// <summary>
-        ///根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋 地区
+        /// 根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋 地区
         /// </summary>
-        /// <returns>数据集</returns>
+        /// <param name="dateTime">时间</param>
+        /// <param name="regionId">地区id</param>
+        /// <param name="type">出入退类型</param>
+        /// <returns></returns>
         public DataSet getAllpriceRegion(string dateTime, int regionId,int type)
         {
             string cmdText = "SELECT sum(a.number) as number,sum(a.totalPrice) as totalPrice,sum(a.realPrice) as realPrice from T_Monomers as a,T_SingleHead as b where a.singleHeadId=b.singleHeadId and b.time like '" + dateTime+"%' and b.regionId=@regionId and a.type=@type";
@@ -462,6 +465,175 @@ namespace bms.Dao
                 }
             }
             return zl;
+        }
+
+        /// <summary>
+        /// 获取书籍种类
+        /// </summary>
+        /// <param name="strWhere">条件</param>
+        /// <param name="groupbyType">类型</param>
+        /// <param name="time">时间</param>
+        /// <param name="type">出入退状态</param>
+        /// <returns></returns>
+        public int getkindsGroupBy(string strWhere, string groupbyType, string time, int type)
+        {
+            string cmdText = "";
+            string startTime = "";
+            string endTime = "";
+            if (time != "" && time != null)
+            {
+                string[] sArray = time.Split('至');
+                startTime = sArray[0];
+                endTime = sArray[1];
+            }
+            if (time != "" && time != null)
+            {
+                cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + groupbyType + " = @strWhere and type=@type and time BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+            }
+            else
+            {
+                cmdText = "select bookNum, SUM(number) as 数量 from v_monomer where " + groupbyType + " = @strWhere and type=@type GROUP BY bookNum HAVING 数量!=0";
+            }
+            
+            string[] param = { "@strWhere", "@type" };
+            object[] values = { strWhere, type };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            int allCount = ds.Tables[0].Rows.Count;
+            return allCount;
+        }
+
+        /// <summary>
+        /// 导出页面上查询到的结果
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <param name="groupbyType">groupby条件</param>
+        /// <param name="time">时间</param>
+        /// <param name="type">出入退类型</param>
+        /// <returns></returns>
+        public DataTable exportAll(string strWhere, string groupbyType, string time, int type)
+        {
+            DataTable exportdt = new DataTable();
+            String cmdText = "";
+            string condition = "";
+            int kinds = 0;
+            if (groupbyType == "supplier")
+            {
+                exportdt.Columns.Add("供应商", typeof(string));
+                cmdText = "select supplier, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " and type=" + type + " order by allTotalPrice desc";
+            }
+            else if (groupbyType == "regionName")
+            {
+                exportdt.Columns.Add("地区名称", typeof(string));
+                cmdText = "select regionName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " and type=" + type + " order by allTotalPrice desc";
+            }
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            exportdt.Columns.Add("书籍种数", typeof(long));
+            exportdt.Columns.Add("书籍总数量", typeof(long));
+            exportdt.Columns.Add("总实洋", typeof(long));
+            exportdt.Columns.Add("总码洋", typeof(long));
+            int allcount = ds.Tables[0].Rows.Count;
+            for (int i = 0; i < allcount; i++)
+            {
+                condition = ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString();
+                kinds = getkindsGroupBy(condition, groupbyType, time, type);
+                exportdt.Rows.Add(ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString(), Convert.ToInt64(kinds), Convert.ToInt64(ds.Tables[0].Rows[i]["allNumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allRealPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allTotalPrice"].ToString()));
+            }
+            if (exportdt.Rows.Count > 0)
+            {
+                return exportdt;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// 导出明细
+        /// </summary>
+        /// <param name="groupbyType">groupby方式</param>
+        /// <param name="strWhere">条件</param>
+        /// <param name="type">出入退类型</param>
+        /// <returns></returns>
+        public DataTable exportDel(string groupbyType, string strWhere, int type)
+        {
+            string cmdText = "",regionName="";
+            if (type == 1)
+            {
+                regionName = "入库来源";
+            }
+            else
+            {
+                regionName = "接收组织";
+            }
+            //所选分组条件如客户 ISBN    书号 书名  定价 数量  码洋 实洋  销折 采集日期    采集人用户名 采集状态（销售单或预采单）			供应商
+            if (strWhere != "" && strWhere != null)
+            {
+                cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,time as 制单日期,userName as 制单人, supplier as 供应商, regionName as " + regionName + " from v_monomer where type=" + type + " and " + strWhere + ",booknum order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
+            }
+            else
+            {
+                cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,time as 制单日期,userName as 制单人, supplier as 供应商, regionName as " + regionName + " from v_monomer where type=" + type + " GROUP BY " + groupbyType + ",booknum order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
+            }
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            DataTable dt = null;
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                dt = ds.Tables[0];
+            }
+            return dt;
+        }
+
+        /// <summary>
+        /// 获取制单员
+        /// </summary>
+        /// <param name="strWhere">筛选条件</param>
+        /// <param name="type">出入退类型</param>
+        /// <returns></returns>
+        public DataSet getUser(string strWhere, int type)
+        {
+            if (strWhere != null && strWhere != "")
+            {
+                strWhere = " and " + strWhere;
+            }
+            else
+            {
+                strWhere = "";
+            }
+            String cmdText = "select userName from v_monomer where  type=" + type + strWhere + " group by userName";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 导出成Excel表
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <param name="groupType">分组条件</param>
+        /// <param name="type">出入退类型</param>
+        /// <returns>返回一个DataTable的选题记录集合</returns>
+        public DataTable ExportExcelDetails(string strWhere, string groupType, int type)
+        {
+            if(strWhere != null && strWhere != "")
+            {
+                strWhere = " and " + strWhere;
+            }
+            else
+            {
+                strWhere = "";
+            }
+            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,discount as 折扣,supplier as 供应商,time as 制单时间,userName as 制单员,regionName as 入库来源 from v_monomer where type="+type+ strWhere + " group by bookNum," + groupType;
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            DataTable dt = null;
+            int count = ds.Tables[0].Rows.Count;
+            dt = ds.Tables[0];
+            return dt;
         }
     }
 }

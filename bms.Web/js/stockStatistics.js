@@ -1,4 +1,20 @@
-﻿window.onload = function () {
+﻿jeDate("#startTime", {
+    theme: {
+        bgcolor: "#D91600",
+        pnColor: "#FF6653"
+    },
+    multiPane: true,
+    format: "YYYY-MM-DD"
+});
+jeDate("#endTime", {
+    theme: {
+        bgcolor: "#D91600",
+        pnColor: "#FF6653"
+    },
+    multiPane: true,
+    format: "YYYY-MM-DD"
+});
+window.onload = function () {
     $("#groupsupplier").hide();
     $("#groupregion").hide();
 }
@@ -70,6 +86,7 @@ $(document).ready(function () {
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
+            var time = $("#time").val();
             var groupby = $("#groupby").find("option:selected").text();
             var supplier = $("#supplier").find("option:selected").text();
             var regionName = $("#region").find("option:selected").text();
@@ -101,6 +118,7 @@ $(document).ready(function () {
                     groupbyType: groupbyType,
                     supplier: supplier,
                     regionName: regionName,
+                    time:time,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -169,6 +187,8 @@ $(document).ready(function () {
                     allowOutsideClick: false
                 });
             } 
+            var time = $("#time").val();
+            window.location.href = "stockStatistics.aspx?op=exportAll&&&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time;
         }
     })
     //导出报表明细
@@ -218,10 +238,47 @@ $(document).ready(function () {
                     buttonsStyling: false,
                     allowOutsideClick: false
                 });
-            } 
+            }
+            var time = $("#time").val();
+            window.location.href = "stockStatistics.aspx?op=exportDe&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time;
         }
     })
-
+    //清空时间
+    $("#modalClose").click(function () {
+        $("#time").val("");
+        $("#myModal").modal('hide');
+    })
+    //选择时间后确定
+    $("#btnOK").click(function () {
+        var startTime = $("#startTime").val();
+        var endTime = $("#endTime").val();
+        if (startTime == "" || startTime == null) {
+            swal({
+                title: "提示",
+                text: "请选择开始时间",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else if (endTime == "" || endTime == null) {
+            swal({
+                title: "提示",
+                text: "请选择结束时间",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else {
+            $("#time").val(startTime + "至" + endTime);
+            $("#myModal").modal('hide');
+        }
+    })
     //查看详情
     $("#table").delegate(".look", "click", function (e) {
         var groupby = $("#groupby").find("option:selected").text();
@@ -235,7 +292,7 @@ $(document).ready(function () {
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text();
-        window.location.href = "salesDetails.aspx?type=" + groupbyType + "&&name=" + name;
+        window.location.href = "stockDetails.aspx?type=" + groupbyType + "&&name=" + name;
     })
 
     //点击查询按钮时
@@ -243,6 +300,7 @@ $(document).ready(function () {
         var groupby = $("#groupby").find("option:selected").text();
         var supplier = $("#supplier").find("option:selected").text();
         var regionName = $("#region").find("option:selected").text();
+        var time = $("#time").val();
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
@@ -281,6 +339,7 @@ $(document).ready(function () {
                     groupbyType: groupbyType,
                     supplier: supplier,
                     regionName: regionName,
+                    time:time,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -317,6 +376,7 @@ $(document).ready(function () {
                                     groupbyType: groupbyType,
                                     supplier: supplier,
                                     regionName: regionName,
+                                    time: time,
                                     op: "paging"
                                 },
                                 dataType: 'text',

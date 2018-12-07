@@ -13,12 +13,13 @@ namespace bms.Web.ReportStatistics
 {
     public partial class salesDetails : System.Web.UI.Page
     {
-        DataSet ds;
+        DataSet ds, dsPer;
         SaleMonomerBll salemonBll = new SaleMonomerBll();
         SalesDetailsBll detailsBll = new SalesDetailsBll();
         public int totalCount, intPageCount, pageSize = 20;
         public DataSet dsUser=null;
-        string type = "", name = "",groupType="";
+        public string type = "", name = "",groupType="", userName, regionName;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -104,7 +105,7 @@ namespace bms.Web.ReportStatistics
                     strWhere += " and state='" + state + "'";
                 }
             }
-            strWhere += " group by bookNum";
+            strWhere += " group by bookNum,userName,supplier";
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -143,13 +144,13 @@ namespace bms.Web.ReportStatistics
                 {
                     stateName = "新建单据";
                 }
-                else if(states == "3")
+                else if(states == "1"|| states == "2")
                 {
-                    stateName = "预采";
+                    stateName = "现采";
                 }
                 else
                 {
-                    stateName = "完成";
+                    stateName = "预采";
                 }
                 strb.Append("<td>" + stateName + "</td>");
                 strb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
@@ -192,7 +193,7 @@ namespace bms.Web.ReportStatistics
             DataTable dt = detailsBll.ExportExcel(groupType,type);
             if (dt != null && dt.Rows.Count > 0)
             {
-                var path = Server.MapPath("~/download/销售明细导出/" + Name + ".xlsx");
+                var path = Server.MapPath("~/download/报表导出/销售报表导出/" + Name + ".xlsx");
                 ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
                 downloadfile(path);
             }
@@ -200,6 +201,85 @@ namespace bms.Web.ReportStatistics
             {
                 Response.Write("<script>alert('没有数据，不能执行导出操作!');</script>");
                 Response.End();
+            }
+        }
+
+        protected void permission()
+        {
+            RoleBll roleBll = new RoleBll();
+            FunctionBll functionBll = new FunctionBll();
+            User user = (User)Session["user"];
+            userName = user.UserName;
+            regionName = user.ReginId.RegionName;
+            Role role = new Role();
+            role = user.RoleId;
+            int roleId = role.RoleId;
+            dsPer = functionBll.SelectByRoleId(roleId);
+            string userId = user.UserId;
+            DataSet dsRole = roleBll.selectRole(userId);
+            string roleName = dsRole.Tables[0].Rows[0]["roleName"].ToString();
+            if (roleName == "超级管理员")
+            {
+                isAdmin = true;
+            }
+            for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)
+            {
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 1)
+                {
+                    funcOrg = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 2)
+                {
+                    funcRole = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 3)
+                {
+                    funcUser = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 4)
+                {
+                    funcGoods = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 5)
+                {
+                    funcCustom = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 6)
+                {
+                    funcLibrary = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 7)
+                {
+                    funcBook = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 8)
+                {
+                    funcPut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 9)
+                {
+                    funcOut = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 10)
+                {
+                    funcSale = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 11)
+                {
+                    funcSaleOff = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 12)
+                {
+                    funcReturn = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 13)
+                {
+                    funcSupply = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
+                {
+                    funcRetail = true;
+                }
             }
         }
     }
