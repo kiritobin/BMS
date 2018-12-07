@@ -223,7 +223,7 @@ namespace bms.Dao
                 cmdText = "select customerName, sum(count) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_selloff where " + strWhere + " order by allTotalPrice desc";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
-            exportdt.Columns.Add("书籍种数", typeof(long));
+            exportdt.Columns.Add("书籍品种数", typeof(long));
             exportdt.Columns.Add("书籍总数量", typeof(long));
             exportdt.Columns.Add("总实洋", typeof(long));
             exportdt.Columns.Add("总码洋", typeof(long));
@@ -283,6 +283,24 @@ namespace bms.Dao
             }
             return dt;
         }
-
+        /// <summary>
+        /// 销退明细页面导出Excel
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <param name="type">分组条件</param>
+        /// <returns></returns>
+        public DataTable ExportExcel(string strWhere, string type)
+        {
+            //String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,price as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 销售折扣,supplier as 供应商,dateTime as 采集时间,userName as 采集人,state from v_salemonomer where " + strWhere + " group by bookNum," + type;
+            String cmdText = "select isbn as ISBN,bookNum as 书号,bookName as 书名,price as 单价,sum(count) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 销售折扣,supplier as 供应商,dateTime as 销退时间,userName as 操作员 from v_selloff where " + strWhere + " group by bookNum," + type;
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            DataTable dt = null;
+            int count = ds.Tables[0].Rows.Count;
+            if (count > 0)
+            {
+                dt = ds.Tables[0];
+            }
+            return dt;
+        }
     }
 }

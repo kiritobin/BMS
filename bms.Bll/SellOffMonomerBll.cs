@@ -206,5 +206,15 @@ namespace bms.Bll
         {
             return dao.exportDel(groupbyType, strWhere);
         }
+        /// <summary>
+        /// 销退明细页面导出Excel
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <param name="type">分组条件</param>
+        /// <returns></returns>
+        public DataTable ExportExcel(string strWhere, string type)
+        {
+            return dao.ExportExcel(strWhere, type);
+        }
     }
 }
