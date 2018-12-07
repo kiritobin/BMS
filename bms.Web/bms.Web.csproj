@@ -160,6 +160,8 @@
     <Content Include="js\salesTaskStatistics.js" />
     <Content Include="js\salesTaskStatisticsAll.js" />
     <Content Include="js\searchSalesDetail.js" />
+    <Content Include="js\sellOffDetail.js" />
+    <Content Include="js\selloffStatistics.js" />
     <Content Include="js\statistics.js" />
     <Content Include="js\stockDetails.js" />
     <Content Include="js\stockStatistics.js" />
@@ -174,6 +176,7 @@
     <Content Include="ReportStatistics\returnStatistics.aspx" />
     <Content Include="ReportStatistics\salesDetails.aspx" />
     <Content Include="ReportStatistics\salesStatistics.aspx" />
+    <Content Include="ReportStatistics\sellOffDetail.aspx" />
     <Content Include="ReportStatistics\selloffStatistics.aspx" />
     <Content Include="ReportStatistics\stockDetails.aspx" />
     <Content Include="ReportStatistics\stockStatistics.aspx" />
@@ -497,6 +500,13 @@
     </Compile>
     <Compile Include="ReportStatistics\salesStatistics.aspx.designer.cs">
       <DependentUpon>salesStatistics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistics\sellOffDetail.aspx.cs">
+      <DependentUpon>sellOffDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\sellOffDetail.aspx.designer.cs">
+      <DependentUpon>sellOffDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="ReportStatistics\selloffStatistics.aspx.cs">
       <DependentUpon>selloffStatistics.aspx</DependentUpon>

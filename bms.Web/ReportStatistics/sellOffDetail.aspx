@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="selloffStatistics.aspx.cs" Inherits="bms.Web.ReportStatistics.selloffStatistics" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="sellOffDetail.aspx.cs" Inherits="bms.Web.ReportStatistics.sellOffDetail" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>销退统计</title>
+    <title>云南新华书店项目综合管理系统</title>
     <link href="../css/font-awesome.min.css" rel="stylesheet"/>
     <link href="../css/material-dashboard.min.css" rel="stylesheet"/>
     <link href="../css/zgz.css" rel="stylesheet"/>
@@ -16,14 +16,15 @@
     <script src="../js/jedate.min.js"></script>
 </head>
 <body>
-        <div class="wrapper ">
+    <div class="wrapper ">
         <!-- 左侧垂直导航 -->
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!-- 平台字体logo -->
             <div class="logo text-center">
                 <a href="javascript:;" class="simple-text text-center logo-normal">云南新华书店项目综合管理系统</a>
-                <span class="text-danger"><%=userName %></span><br />
-                <span class="text-danger"><%=regionName %></span>
+                <span class="text-danger"></span>
+                <br />
+                <span class="text-danger"></span>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
@@ -318,80 +319,103 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">销售统计</h4>
+                                    <h4 class="card-title ">销退明细</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header" style="padding-right: 0px;">
-                                        <div class="input-group">
+                                        <form class="form-inline">
+                                            <div class="form-group form-group-sm">
+                                                <input type="text" class="" placeholder="请输入ISBN" style="width:130px;" id="isbn"/>
+                                            </div>
+                                            &nbsp;
+                                            <div class="form-group form-group-sm">
+                                                <input type="text" class="" placeholder="请输入定价" style="width:130px;" id="price"/>
+                                            </div>
+                                            &nbsp;
+                                            <div class="form-group form-group-sm">
+                                                <input type="text" class="" placeholder="请输入销售折扣" style="width:130px;" id="discount"/>
+                                            </div>
+                                            &nbsp;
                                             <div class="btn-group" role="group">
-                                                <div class="btn-group" role="group">
-                                                    <select class="modal_select selectpicker collectionStatus" id="groupby">
-                                                        <option value="">分组方式</option>
-                                                        <option value="supplier">供应商</option>
-                                                        <option value="region">组织</option>
-                                                        <option value="customer">客户</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="btn-group" id="groupsupplier">
-                                                <select class="modal_select selectpicker collectionStatus" title="请选择供应商" data-live-search="true" id="supplier">
-                                                    <option>全部</option>
-                                                    <%for (int i = 0; i < dsSupplier.Rows.Count; i++)
+                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" id="user">
+                                                    <option value="0">请选择操作员</option>
+                                                    <%int count = dsUser.Tables[0].Rows.Count;
+                                                        for (int i = 0; i < count; i++)
                                                         {%>
-                                                    <option value="<%=dsSupplier.Rows[i]["supplier"] %>"><%=dsSupplier.Rows[i]["supplier"] %></option>
-                                                    <%} %>
+                                                    <option value="<%=dsUser.Tables[0].Rows[i]["userName"].ToString() %>"><%=dsUser.Tables[0].Rows[i]["userName"].ToString() %></option>
+                                                    <%}%>
                                                 </select>
+                                                <%--<input type="text" class="" placeholder="请输入采集人" id="user">--%>
                                             </div>
-                                            <div class="btn-group" id="groupregion">
-                                                <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="region">
-                                                    <option>全部</option>
-                                                    <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
-                                                        {%>
-                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                    <%} %>
+                                            <%--&nbsp;
+                                            <div class="btn-group" role="group">
+                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" id="state">
+                                                    <option value="-1">请选择采集状态</option>
+                                                    <option value="0">新单据</option>
+                                                    <option value="1">完成</option>
+                                                    <option value="3">预采</option>
                                                 </select>
+                                                <input type="text" class="" placeholder="请输入采集状态" id="state">
+                                            </div>--%>
+                                            &nbsp;
+                                            <div class="form-group form-group-sm">
+                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal"/>
                                             </div>
-                                            <div class="btn-group" id="groupcustom">
-                                                <select class="modal_select selectpicker collectionStatus" title="请选择客户" data-live-search="true" id="customer">
-                                                    <option>全部</option>
-                                                    <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
-                                                        {%>
-                                                    <option value="<%=dsCustom.Tables[0].Rows[i]["customerID"] %>"><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
-                                                    <%} %>
-                                                </select>
+                                            &nbsp;
+                                            <div class="form-group form-group-sm">
+                                                <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
+                                                <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
+                                                <button type="button" class="btn btn-sm btn-info">打印</button>
+                                                <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
-                                            <div class="btn-group">
-                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#myModal" />
-                                            </div>
-                                            <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="btn_search">查询</button>
-                                            </div>
-                                            <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="exportAll">导出报表</button>
-                                            </div>
-                                            <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="exportDe">导出明细</button>
-                                            </div>
-                                            <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="print">打印报表</button>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
-                                                    <th>序号</th>
-                                                    <th id="showType">供应商</th>
-                                                    <th>品种</th>
-                                                    <th>数量</th>
-                                                    <th>码洋</th>
-                                                    <th>实洋</th>
-                                                    <th>操作</th>
+                                                    <th>
+                                                        <nobr>序号</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>ISBN</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>书号</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>书名</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>定价</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>数量</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>码洋</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>实洋</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>销售折扣</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>销退日期</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>操作员</nobr>
+                                                    </th>
+                                                    <%--<th>
+                                                        <nobr>采集状态</nobr>
+                                                    </th>--%>
+                                                    <th>
+                                                        <nobr>供应商</nobr>
+                                                    </th>
                                                 </tr>
                                             </thead>
-                                            <%--<%=getData() %>--%>
+                                            <%=getData() %>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -405,6 +429,7 @@
                     </div>
                 </div>
             </div>
+            <!--选择时间模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -421,7 +446,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日"/>
+                                            <input type="text" class="jeinput text-center" id="startTime" placeholder="年--月--日"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -430,12 +455,15 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日"/>
+                                            <input type="text" class="jeinput text-center" id="endTime" placeholder="年--月--日"/>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;只统计26,27,28;29不统计</td>
+                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
                                 </tr>
                             </table>
                         </div>
@@ -447,6 +475,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -463,8 +492,9 @@
             </footer>
         </div>
     </div>
+
+    <!-- jQuery -->
     <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/selloffStatistics.js"></script>
     <!-- Bootstrap JavaScript -->
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
@@ -472,8 +502,8 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
-    <script src="../js/bootstrap-selectpicker.js"></script>
-    <script src="../js/sweetalert2.js"></script>
+
+    <script src="../js/sellOffDetail.js"></script>
     <script src="../js/jquery.pagination.js"></script>
 </body>
 </html>

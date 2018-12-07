@@ -10,6 +10,6 @@
 namespace bms.Web.ReportStatistics {
     
     
-    public partial class selloffStatistics {
+    public partial class sellOffDetail {
     }
 }
