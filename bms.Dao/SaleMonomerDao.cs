@@ -547,6 +547,37 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 计算销售单头
+        /// </summary>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <param name="saleId">销售任务ID</param>
+        /// <returns></returns>
+        public DataSet  calculationSaleHead(string saleHeadId, string saleId)
+        {
+            string cmdtext = @"SELECT sum(A.allNum) as 数量,sum(A.alltotalPrice) as 总码洋,sum(A.allrealPrice) as 总实洋 from((select bookNum, ISBN, sum(number) as allNum, sum(totalPrice) as alltotalPrice, sum(realPrice) as allrealPrice from T_SaleMonomer where saleHeadId = @saleHeadId and saleTaskId = @saleId GROUP BY booknum, ISBN HAVING allNum != 0) as A)";
+            //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
+            string[] param = { "@saleHeadId", "@saleId" };
+            object[] values = { saleHeadId, saleId };
+            DataSet ds = db.FillDataSet(cmdtext, param, values);
+            return ds;
+        }
+        /// <summary>
+        /// 获取该书籍在此销售单头中的已购数量
+        /// </summary>
+        /// <param name="saleHeadId">销售单头</param>
+        /// <param name="saleId">销售任务</param>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public DataSet getsalemonDetail(string saleHeadId, string saleId,string bookNum)
+        {
+            string cmdtext = "select bookNum,ISBN,sum(number) as number from v_salemonomer where saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum GROUP BY bookNum,ISBN;";
+            //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
+            string[] param = { "@saleHeadId", "@saleId", "@bookNum" };
+            object[] values = { saleHeadId, saleId, bookNum };
+            DataSet ds = db.FillDataSet(cmdtext, param, values);
+            return ds;
+        }
+        /// <summary>
         /// 单头id，销售任务id，获取单体信息 group by
         /// </summary>
         /// <param name="saleId">销售任务id</param>

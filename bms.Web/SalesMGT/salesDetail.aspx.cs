@@ -94,7 +94,36 @@ namespace bms.Web.SalesMGT
                     disCount = double.Parse(Request["discount"]);
                     number = Convert.ToInt32(Request["number"]);
                     bookNum = Request["bookNum"].ToString();
-                    addsalemon();
+                    if (number < 0)
+                    {
+                        number = Math.Abs(number);
+                        DataSet bookNumds = salemonbll.getsalemonDetail(SaleHeadId, saleId, bookNum);
+                        if (bookNumds != null)
+                        {
+                            int booknumber = int.Parse(bookNumds.Tables[0].Rows[0]["number"].ToString());
+                            if (number > booknumber)
+                            {
+                                msg.Messege = "输入的负数不能大于已购数量，已购数为:" + booknumber;
+                                Response.Write(ObjectToJson(msg));
+                                Response.End();
+                            }
+                            else
+                            {
+                                number = number * -1;
+                                addsalemon();
+                            }
+                        }
+                        else
+                        {
+                            msg.Messege = "该书籍没有购买过，数量不能为负数";
+                            Response.Write(ObjectToJson(msg));
+                            Response.End();
+                        }
+                    }
+                    else
+                    {
+                        addsalemon();
+                    }
                 }
                 else
                 {
@@ -110,7 +139,36 @@ namespace bms.Web.SalesMGT
                 disCount = double.Parse(Request["discount"]);
                 number = Convert.ToInt32(Request["number"]);
                 bookNum = Request["bookNum"].ToString();
-                addsalemon();
+                if (number < 0)
+                {
+                    number = Math.Abs(number);
+                    DataSet bookNumds = salemonbll.getsalemonDetail(SaleHeadId, saleId, bookNum);
+                    if (bookNumds != null)
+                    {
+                        int booknumber = int.Parse(bookNumds.Tables[0].Rows[0]["number"].ToString());
+                        if (number > booknumber)
+                        {
+                            msg.Messege = "输入的负数不能大于已购数量，已购数为:" + booknumber;
+                            Response.Write(ObjectToJson(msg));
+                            Response.End();
+                        }
+                        else
+                        {
+                            number = number * -1;
+                            addsalemon();
+                        }
+                    }
+                    else
+                    {
+                        msg.Messege = "该书籍没有购买过，数量不能为负数";
+                        Response.Write(ObjectToJson(msg));
+                        Response.End();
+                    }
+                }
+                else
+                {
+                    addsalemon();
+                }
             }
             //完成单据
             if (op == "success")
@@ -194,7 +252,7 @@ namespace bms.Web.SalesMGT
             BookBasicBll bookbll = new BookBasicBll();
             BookBasicData book = bookbll.SelectById(booknum);
             string remarks = book.Remarks;
-            if (defaultdiscount == "100")
+            if (defaultdiscount == "-1")
             {
                 if (double.Parse(remarks) < 1)
                 {
@@ -265,7 +323,7 @@ namespace bms.Web.SalesMGT
             string booknum = bookds.Tables[0].Rows[0]["bookNum"].ToString();
             BookBasicData book = bookbll.SelectById(booknum);
             string remarks = book.Remarks;
-            if (defaultdiscount == "100")
+            if (defaultdiscount == "-1")
             {
                 if (double.Parse(remarks) < 1)
                 {
@@ -314,6 +372,9 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public void addsalemon()
         {
+
+
+
             string headState = salemonbll.getsaleHeadState(SaleHeadId, saleId);
             if (headState == "2")
             {
@@ -395,6 +456,7 @@ namespace bms.Web.SalesMGT
                     Result res = salemonbll.Insert(newSalemon);
                     if (res == Result.添加成功)
                     {
+                        updateSalehead();
                         msg.DataTable = getData();
                         msg.DataTable1 = "<tr class='first'> <td></td><td><input type='text' id='ISBN' class='isbn textareaISBN' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /> </td><td></td><td></td><td></td><td><input class='count textareaCount' type='number'/></td><td><input class='discount textareaDiscount' onkeyup='this.value=this.value.replace(/[^\r\n0-9]/g,'');' /></td><td></td><td></td></tr>";
                         msg.AllKinds = allkinds.ToString();
@@ -438,9 +500,20 @@ namespace bms.Web.SalesMGT
         {
             //更新单头
             allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
-            allnumber = salemonbll.getsBookNumberSum(SaleHeadId, saleId);
-            alltotalprice = salemonbll.getsBookTotalPrice(SaleHeadId, saleId);
-            allreadprice = salemonbll.getsBookRealPrice(SaleHeadId, saleId);
+
+            DataSet ds = salemonbll.calculationSaleHead(SaleHeadId, saleId);
+            if (ds == null)
+            {
+                allnumber = 0;
+                alltotalprice = 0;
+                allreadprice = 0;
+            }
+            else
+            {
+                allnumber = int.Parse(ds.Tables[0].Rows[0]["数量"].ToString());
+                alltotalprice = double.Parse(ds.Tables[0].Rows[0]["总码洋"].ToString());
+                allreadprice = double.Parse(ds.Tables[0].Rows[0]["总实洋"].ToString());
+            }
             //DataSet allds = salemonbll.SelectMonomers(SaleHeadId);
             //int j = allds.Tables[0].Rows.Count;
             //for (int h = 0; h < j; h++)
@@ -467,6 +540,8 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public void getbook()
         {
+            int count = bookds.Tables[0].Rows.Count;
+
             string booknum;
             int isnull = 0;
             strbook.Append("<thead>");
@@ -480,7 +555,6 @@ namespace bms.Web.SalesMGT
             strbook.Append("</tr>");
             strbook.Append("</thead>");
             strbook.Append("<tbody>");
-            int count = bookds.Tables[0].Rows.Count;
             for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
             {
                 int booknumber = 0;

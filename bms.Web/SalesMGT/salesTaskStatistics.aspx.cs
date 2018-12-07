@@ -19,7 +19,7 @@ namespace bms.Web.SalesMGT
         public double alltotalprice, allreadprice;
         SaleTaskBll saletaskbll = new SaleTaskBll();
         SaleMonomerBll salemonbll = new SaleMonomerBll();
-        DataSet ds;
+        public DataSet ds;
         string state;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,7 +41,7 @@ namespace bms.Web.SalesMGT
             {
                 export("3");
             }
-            else if(op=="excel")
+            else if (op == "excel")
             {
                 export("1");
             }
@@ -66,7 +66,7 @@ namespace bms.Web.SalesMGT
                 }
             }
             //统计种数
-            allkinds = saletaskbll.getkindsBySaleTaskId(saletaskId,state);
+            allkinds = saletaskbll.getkindsBySaleTaskId(saletaskId, state);
             DataSet userds = saletaskbll.getcustomerName(saletaskId);
             if (userds != null)
             {
@@ -177,7 +177,7 @@ namespace bms.Web.SalesMGT
             tb.OrderBy = "dateTime";
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number ,realPrice ,totalPrice,regionName,supplier,author";
 
-             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,sum(totalPrice) as totalPrice,regionName,supplier,author";
+            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,sum(totalPrice) as totalPrice,regionName,supplier,author";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             if (state == "3")
@@ -193,33 +193,36 @@ namespace bms.Web.SalesMGT
             ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table
             StringBuilder strb = new StringBuilder();
-            strb.Append("<tbody>");
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            if (ds.Tables[0].Rows.Count > 0)
             {
-                if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
+                strb.Append("<tbody>");
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
-                    strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"] + "</td></tr>");
+                    if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
+                    {
+                        strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
+                        strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"] + "</td></tr>");
+                    }
+                    //if (int.Parse(ds.Tables[0].Rows[i]["number"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["number"].ToString()) != 0)
+                    //{
+                    //    strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                    //    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
+                    //    strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                    //    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
+                    //    strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
+                    //    strb.Append("<td>" + ds.Tables[0].Rows[i]["number"] + "</td>");
+                    //    strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"] + "</td></tr>");
+                    //}
                 }
-                //if (int.Parse(ds.Tables[0].Rows[i]["number"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["number"].ToString()) != 0)
-                //{
-                //    strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
-                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
-                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
-                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
-                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["number"] + "</td>");
-                //    strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"] + "</td></tr>");
-                //}
+                strb.Append("</tbody>");
+                strb.Append("<input type='hidden' value='" + intPageCount + " ' id='intPageCount' />");
+                strb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[0]["regionName"] + " ' id='region' />");
             }
-            strb.Append("</tbody>");
-            strb.Append("<input type='hidden' value='" + intPageCount + " ' id='intPageCount' />");
-            strb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[0]["regionName"] + " ' id='region' />");
             string op = Request["op"];
             if (op == "paging")
             {
