@@ -374,13 +374,13 @@
                                                 <button class="btn btn-sm btn-info" id="exportDe">导出明细</button>
                                             </div>
                                             <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="print">打印报表</button>
+                                                <button class="btn btn-sm btn-info" id="print" onclick="mypreview()">打印报表</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
-                                            <thead>
+                                            <thead id="t_head">
                                                 <tr class="book-tab-tr text-nowrap">
                                                     <th>序号</th>
                                                     <th id="showType">供应商</th>
@@ -465,6 +465,7 @@
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/selloffStatistics.js"></script>
+    <script src="../js/LodopFuncs.js"></script>
     <!-- Bootstrap JavaScript -->
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
