@@ -494,7 +494,7 @@ function createdate() {
     var j = $("#table").find("tr").length;
     var row = $("#table").find('tr');
     for (i = 0; i < j-1; i++) {
-        LODOP.ADD_PRINT_TEXT(81 + 25 * i, 15, 81, 20, i+1);
+        LODOP.ADD_PRINT_TEXT(81 + 25 * i, 16, 81, 20, i+1);
         LODOP.ADD_PRINT_TEXT(81 + 25 * i, 90, 200, 20, row.eq(i+1).find('td').eq(1).text().trim());
         LODOP.ADD_PRINT_TEXT(81 + 25 * i, 289, 81, 20, row.eq(i + 1).find('td').eq(2).text().trim());
         LODOP.ADD_PRINT_TEXT(81 + 25 * i, 409, 81, 20, row.eq(i + 1).find('td').eq(3).text().trim());
@@ -516,11 +516,6 @@ function createdate() {
     //------------end-------------
 };
 function mypreview() {
-    //var content = $("#table").find('tr').eq(0).find('th').eq(1).text().trim()
-    //alert(content);
-    //var row = $("#table").find('tr');
-    //var ee = row.eq(1).find('td').eq(1).text().trim();
-    //alert(ee);
     LODOP = getLodop();
     createdate();
     LODOP.PREVIEW();//打印预览	
