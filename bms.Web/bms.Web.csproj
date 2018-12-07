@@ -135,12 +135,14 @@
     <Content Include="js\checkRs.js" />
     <Content Include="js\customerRetail.js" />
     <Content Include="js\customerRs.js" />
+    <Content Include="js\FileSaver.min.js" />
     <Content Include="js\inventoryStatistics.js" />
     <Content Include="js\jquery-migrate-1.2.1.min.js" />
     <Content Include="js\jquery.jqprint.js" />
     <Content Include="js\jquery.qrcode.min.js" />
     <Content Include="js\jquery.tabletojson.js" />
     <Content Include="js\JsBarcode.all.min.js" />
+    <Content Include="js\jsonToExcel.js" />
     <Content Include="js\LodopFuncs.js" />
     <Content Include="js\public.js" />
     <Content Include="js\regionRs.js" />
@@ -160,6 +162,7 @@
     <Content Include="js\stockStatistics.js" />
     <Content Include="js\sweetalert2.min.js" />
     <Content Include="js\welcome.js" />
+    <Content Include="js\xlsx.full.min.js" />
     <Content Include="QRCode.aspx" />
     <Content Include="ReportStatistics\retailStatistics.aspx" />
     <Content Include="ReportStatistics\returnStatistics.aspx" />

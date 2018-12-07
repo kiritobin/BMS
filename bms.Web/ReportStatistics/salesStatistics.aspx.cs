@@ -1,4 +1,5 @@
 ﻿using bms.Bll;
+using bms.DBHelper;
 using bms.Model;
 using System;
 using System.Collections.Generic;
@@ -36,10 +37,12 @@ namespace bms.Web.reportStatistics
             }
             if (op == "exportAll")
             {
+                //export();
                 exportAll();
             }
             if (op == "exportDe")
             {
+                //exportDe();
                 exportDetail();
             }
             else
@@ -62,6 +65,49 @@ namespace bms.Web.reportStatistics
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
         }
+        /// <summary>
+        /// ajax导出
+        /// </summary>
+        public void export()
+        {
+            exportAllStrWhere = Session["exportAllStrWhere"].ToString();
+            exportgroupbyType = Session["exportgroupbyType"].ToString();
+            DataTable dt = salemonBll.exportAll(exportAllStrWhere, exportgroupbyType, state, Time);
+            int count = dt.Rows.Count;
+            if (count<=0||dt==null)
+            {
+                Response.Write("无数据");
+                Response.End();
+            }
+            else
+            {
+                string json = JsonHelper.ToJson(dt, "excelData");
+                Response.Write(json);
+                Response.End();
+            }  
+        }
+        public void exportDe()
+        {
+            exportgroupbyType = Session["exportgroupbyType"].ToString();
+            exportAllStrWhere = Session["exportAllStrWhere"].ToString();
+            DataTable dt = salemonBll.exportDe(exportgroupbyType, exportAllStrWhere);
+            int count = dt.Rows.Count;
+            if (count <= 0 || dt == null)
+            {
+                Response.Write("无数据");
+                Response.End();
+            }
+            else
+            {
+                string json = JsonHelper.ToJson(dt, "excelData");
+                Response.Write(json);
+                Response.End();
+            }
+        }
+
+        /// <summary>
+        /// 地址栏导出
+        /// </summary>
         public void exportAll()
         {
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
@@ -87,7 +133,7 @@ namespace bms.Web.reportStatistics
         {
             exportgroupbyType = Session["exportgroupbyType"].ToString();
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
-            DataTable dt = salemonBll.exportDel(exportgroupbyType, exportAllStrWhere);
+            DataTable dt = salemonBll.exportDe(exportgroupbyType, exportAllStrWhere);
             string name = "销售报表明细导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             if (dt != null && dt.Rows.Count > 0)
             {

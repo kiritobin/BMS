@@ -770,8 +770,8 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(cmdText, null, null);
             exportdt.Columns.Add("书籍种数", typeof(long));
             exportdt.Columns.Add("书籍总数量", typeof(long));
-            exportdt.Columns.Add("总实洋", typeof(long));
-            exportdt.Columns.Add("总码洋", typeof(long));
+            exportdt.Columns.Add("总实洋", typeof(double));
+            exportdt.Columns.Add("总码洋", typeof(double));
             int allcount = ds.Tables[0].Rows.Count;
             for (int i = 0; i < allcount; i++)
             {
