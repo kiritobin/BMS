@@ -24,6 +24,7 @@ namespace bms.Web.ReportStatistics
         {
             if (!IsPostBack)
             {
+                permission();
                 type = Request.QueryString["type"];
                 name = Request.QueryString["name"];
                 if(type == null || type== "" || name == "" || name == null)
@@ -190,7 +191,7 @@ namespace bms.Web.ReportStatistics
         public void export()
         {
             string Name = name + "-销售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = detailsBll.ExportExcel(groupType,type);
+            DataTable dt = detailsBll.ExportExcels(groupType,type);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/报表导出/销售报表导出/" + Name + ".xlsx");

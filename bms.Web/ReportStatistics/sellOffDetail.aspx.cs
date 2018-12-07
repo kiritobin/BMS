@@ -172,7 +172,7 @@ namespace bms.Web.ReportStatistics
         public void export()
         {
             string Name = name + "-销退明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = sellBll.ExportExcel(groupType, type);
+            DataTable dt = sellBll.ExportExcels(groupType, type);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/销退明细导出/" + Name + ".xlsx");

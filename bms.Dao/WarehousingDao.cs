@@ -529,8 +529,8 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(cmdText, null, null);
             exportdt.Columns.Add("书籍种数", typeof(long));
             exportdt.Columns.Add("书籍总数量", typeof(long));
-            exportdt.Columns.Add("总实洋", typeof(long));
-            exportdt.Columns.Add("总码洋", typeof(long));
+            exportdt.Columns.Add("总实洋", typeof(double));
+            exportdt.Columns.Add("总码洋", typeof(double));
             int allcount = ds.Tables[0].Rows.Count;
             for (int i = 0; i < allcount; i++)
             {
@@ -628,7 +628,7 @@ namespace bms.Dao
             {
                 strWhere = "";
             }
-            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,discount as 折扣,supplier as 供应商,time as 制单时间,userName as 制单员,regionName as 入库来源 from v_monomer where type="+type+ strWhere + " group by bookNum," + groupType;
+            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,discount as 折扣,supplier as 供应商, DATE_FORMAT(time,'%Y-%m-%d %H:%i:%s') as 制单时间,userName as 制单员,regionName as 入库来源 from v_monomer where type=" + type+ strWhere + " group by bookNum," + groupType;
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
             int count = ds.Tables[0].Rows.Count;
