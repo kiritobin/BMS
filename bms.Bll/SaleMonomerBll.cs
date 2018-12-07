@@ -520,5 +520,78 @@ namespace bms.Bll
         {
             return SaleMonomerdao.exportDel(groupbyType, strWhere);
         }
+
+        public DataTable exportDe(string groupbyType, string strWhere)
+        {
+            string name = "";
+            //所选分组条件如客户 ISBN    书号 书名  定价 数量  码洋 实洋  销折 采集日期    采集人用户名 采集状态（销售单或预采单）			供应商
+            if (groupbyType == "supplier")
+            {
+                name = "供应商名称";
+            }
+            else if (groupbyType == "regionName")
+            {
+                name = "组织名称";
+            }
+            else
+            {
+                name = "客户名称";
+            }
+            DataTable excel = new DataTable();
+            excel.Columns.Add(name);
+            excel.Columns.Add("ISBN");
+            excel.Columns.Add("书号");
+            excel.Columns.Add("书名");
+            excel.Columns.Add("定价");
+            excel.Columns.Add("数量");
+            excel.Columns.Add("码洋");
+            excel.Columns.Add("实洋");
+            excel.Columns.Add("销售折扣");
+            excel.Columns.Add("采集日期");
+            excel.Columns.Add("采集人用户名");
+            excel.Columns.Add("采集状态");
+            excel.Columns.Add("供应商");
+            DataTable dt = SaleMonomerdao.exportDel(groupbyType, strWhere);
+            DataRowCollection count = dt.Rows;
+            foreach (DataRow row in count)
+            {
+                string time = row[9].ToString();
+                string state = row[11].ToString();
+                if (state=="3"|| state == "" | state == null)
+                {
+                    state = "预采";
+                }
+                if (state=="1"||state=="2")
+                {
+                    state = "现采";
+                }
+                string bookName = ToDBC(row[3].ToString());
+                excel.Rows.Add(row[0], row[1], row[2], bookName, row[4], row[5],row[6],row[7],row[8],row[9],row[10],state,row[12]);
+            }
+            return excel;
+        }
+
+        /// <summary>
+        /// 全转半
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ToDBC(string input)
+        {
+            char[] array = input.ToCharArray();
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == 12288)
+                {
+                    array[i] = (char)32;
+                    continue;
+                }
+                if (array[i] > 65280 && array[i] < 65375)
+                {
+                    array[i] = (char)(array[i] - 65248);
+                }
+            }
+            return new string(array);
+        }
     }
 }

@@ -21,6 +21,23 @@ window.onload = function () {
     $("#groupcustom").hide();
 }
 
+//jq时间格式化yyyyMMddhhmmss
+Date.prototype.Format = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, //月份   
+        "d+": this.getDate(), //日   
+        "H+": this.getHours(), //小时   
+        "m+": this.getMinutes(), //分   
+        "s+": this.getSeconds(), //秒   
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度   
+        "S": this.getMilliseconds() //毫秒   
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
 ///数据加载中
 //$(function () {
 //    $.ajax({
@@ -237,6 +254,79 @@ $(document).ready(function () {
                 }
                 var time = $("#time").val();
                 window.location.href = "salesStatistics.aspx?op=exportAll&&saleHeadState=" + saleHeadState + "&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time + "&&customerName=" + customerName;
+                //$.ajax({
+                //    type: 'Post',
+                //    url: 'salesStatistics.aspx',
+                //    dataType: 'json',
+                //    data: {
+                //        saleHeadState: saleHeadState,
+                //        groupbyType: groupbyType,
+                //        supplier: supplier,
+                //        regionName: regionName,
+                //        time: time,
+                //        customerName: customerName,
+                //        op: "exportAll"
+                //    },
+                //    beforeSend: function (XMLHttpRequest) { //开始请求
+                //        swal({
+                //            text: "数据导出中...",
+                //            imageUrl: "../imgs/load.gif",
+                //            imageHeight: 100,
+                //            imageWidth: 100,
+                //            width: 180,
+                //            showConfirmButton: false,
+                //            allowOutsideClick: false
+                //        });
+                //    },
+                //    success: function (data) {
+                //        if (data == "无数据") {
+                //            $(".swal2-container").remove();
+                //            swal({
+                //                title: "提示",
+                //                text: "查询不到数据，不能执行导出操作",
+                //                type: "warning",
+                //                confirmButtonColor: '#3085d6',
+                //                confirmButtonText: '确定',
+                //                confirmButtonClass: 'btn btn-success',
+                //                buttonsStyling: false,
+                //                allowOutsideClick: false
+                //            });
+                //        }
+                //        else {
+                //            var currtime = new Date().Format("yyyyMMddHHmmss");
+                //            downloadExecl(data["excelData"], "销售报表导出 - " + currtime);
+                //            $(".swal2-container").remove();
+                //        }
+                //    },
+                //    error: function (XMLHttpRequest, textStatus) { //请求失败
+                //        $(".swal2-container").remove();
+                //        if (textStatus == 'timeout') {
+                //            var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                //            xmlhttp.abort();
+                //            swal({
+                //                title: "提示",
+                //                text: "请求超时",
+                //                type: "warning",
+                //                confirmButtonColor: '#3085d6',
+                //                confirmButtonText: '确定',
+                //                confirmButtonClass: 'btn btn-success',
+                //                buttonsStyling: false,
+                //                allowOutsideClick: false
+                //            });
+                //        } else if (textStatus == "error") {
+                //            swal({
+                //                title: "提示",
+                //                text: "服务器内部错误",
+                //                type: "warning",
+                //                confirmButtonColor: '#3085d6',
+                //                confirmButtonText: '确定',
+                //                confirmButtonClass: 'btn btn-success',
+                //                buttonsStyling: false,
+                //                allowOutsideClick: false
+                //            });
+                //        }
+                //    }
+                //});
             }
         }
     })
@@ -312,6 +402,79 @@ $(document).ready(function () {
                 }
                 var time = $("#time").val();
                 window.location.href = "salesStatistics.aspx?op=exportDe&&saleHeadState=" + saleHeadState + "&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time + "&&customerName=" + customerName;
+                //$.ajax({
+                //    type: 'Post',
+                //    url: 'salesStatistics.aspx',
+                //    dataType: 'json',
+                //    data: {
+                //        saleHeadState: saleHeadState,
+                //        groupbyType: groupbyType,
+                //        supplier: supplier,
+                //        regionName: regionName,
+                //        time: time,
+                //        customerName: customerName,
+                //        op: "exportDe"
+                //    },
+                //    beforeSend: function (XMLHttpRequest) { //开始请求
+                //        swal({
+                //            text: "数据导出中...",
+                //            imageUrl: "../imgs/load.gif",
+                //            imageHeight: 100,
+                //            imageWidth: 100,
+                //            width: 180,
+                //            showConfirmButton: false,
+                //            allowOutsideClick: false
+                //        });
+                //    },
+                //    success: function (data) {
+                //        if (data == "无数据") {
+                //            $(".swal2-container").remove();
+                //            swal({
+                //                title: "提示",
+                //                text: "查询不到数据，不能执行导出操作",
+                //                type: "warning",
+                //                confirmButtonColor: '#3085d6',
+                //                confirmButtonText: '确定',
+                //                confirmButtonClass: 'btn btn-success',
+                //                buttonsStyling: false,
+                //                allowOutsideClick: false
+                //            });
+                //        }
+                //        else {
+                //            var currtime = new Date().Format("yyyyMMddHHmmss");
+                //            downloadExecl(data["excelData"], "销售报表明细导出 - " + currtime);
+                //            $(".swal2-container").remove();
+                //        }
+                //    },
+                //    error: function (XMLHttpRequest, textStatus) { //请求失败
+                //        $(".swal2-container").remove();
+                //        if (textStatus == 'timeout') {
+                //            var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                //            xmlhttp.abort();
+                //            swal({
+                //                title: "提示",
+                //                text: "请求超时",
+                //                type: "warning",
+                //                confirmButtonColor: '#3085d6',
+                //                confirmButtonText: '确定',
+                //                confirmButtonClass: 'btn btn-success',
+                //                buttonsStyling: false,
+                //                allowOutsideClick: false
+                //            });
+                //        } else if (textStatus == "error") {
+                //            swal({
+                //                title: "提示",
+                //                text: "服务器内部错误",
+                //                type: "warning",
+                //                confirmButtonColor: '#3085d6',
+                //                confirmButtonText: '确定',
+                //                confirmButtonClass: 'btn btn-success',
+                //                buttonsStyling: false,
+                //                allowOutsideClick: false
+                //            });
+                //        }
+                //    }
+                //});
             }
         }
     })

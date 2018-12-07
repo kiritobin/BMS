@@ -513,6 +513,9 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jquery.pagination.js"></script>
+<%--    <script src="../js/xlsx.full.min.js"></script>
+    <script src="../js/FileSaver.min.js"></script>
+    <script src="../js/jsonToExcel.js"></script>--%>
 </body>
 </html>
 
