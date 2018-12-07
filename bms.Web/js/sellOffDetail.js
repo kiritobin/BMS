@@ -187,3 +187,61 @@ function logout() {
         });
     })
 }
+
+//打印
+var LODOP; //声明为全局变量
+function createdate() {
+    //------循环画线例子begin-----			
+    LODOP = getLodop();
+    LODOP.PRINT_INITA(0, 0, 577, 10000, "打印控件功能演示_Lodop功能_不同高度幅面");
+    LODOP.SET_PRINT_PAGESIZE(3, 1505, 45, "");
+    LODOP.ADD_PRINT_TEXT(8, 136, 275, 30, "销退统计报表明细打印");
+    LODOP.SET_PRINT_STYLEA(0, "FontSize", 8);
+    LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
+    LODOP.ADD_PRINT_TEXT(50, 15, 110, 20, "ISBN");
+    LODOP.ADD_PRINT_TEXT(50, 120, 130, 20, "书号");
+    LODOP.ADD_PRINT_TEXT(50, 260, 200, 20, "书名");
+    LODOP.ADD_PRINT_TEXT(50, 470, 100, 20, "定价");
+    LODOP.ADD_PRINT_TEXT(50, 520, 50, 20, "数量");
+    LODOP.ADD_PRINT_TEXT(50, 570, 80, 20, "码洋");
+    LODOP.ADD_PRINT_TEXT(50, 570, 80, 20, "实洋");
+    LODOP.ADD_PRINT_LINE(44, 14, 44, 720, 0, 1);
+    LODOP.ADD_PRINT_LINE(76, 14, 44, 14, 0, 1);
+    LODOP.ADD_PRINT_LINE(76, 110, 44, 110, 0, 1);
+    LODOP.ADD_PRINT_LINE(76, 250, 44, 250, 0, 1);
+    LODOP.ADD_PRINT_LINE(76, 465, 44, 465, 0, 1);
+    LODOP.ADD_PRINT_LINE(76, 512, 44, 512, 0, 1);
+    LODOP.ADD_PRINT_LINE(76, 560, 44, 560, 0, 1);
+    LODOP.ADD_PRINT_LINE(76, 620, 44, 620, 0, 1);
+    LODOP.ADD_PRINT_LINE(76, 14, 76, 720, 0, 1);
+
+    //--行内容
+    var j = $("#table").find("tr").length;
+    var row = $("#table").find('tr');
+    for (i = 0; i < j - 1; i++) {
+        LODOP.ADD_PRINT_TEXT(81 + 25 * i, 16, 110, 20, row.eq(i + 1).find('td').eq(1).text().trim());
+        LODOP.ADD_PRINT_TEXT(81 + 25 * i, 120, 130, 20, row.eq(i + 1).find('td').eq(2).text().trim());
+        LODOP.ADD_PRINT_TEXT(81 + 25 * i, 260, 200, 20, row.eq(i + 1).find('td').eq(3).text().trim());
+        LODOP.ADD_PRINT_TEXT(81 + 25 * i, 470, 81, 20, row.eq(i + 1).find('td').eq(4).text().trim());
+        LODOP.ADD_PRINT_TEXT(81 + 25 * i, 520, 81, 20, row.eq(i + 1).find('td').eq(5).text().trim());
+        LODOP.ADD_PRINT_TEXT(81 + 25 * i, 570, 81, 20, row.eq(i + 1).find('td').eq(6).text().trim());
+        //--格子画线		
+        LODOP.ADD_PRINT_LINE(101 + 25 * i, 14, 76 + 25 * i, 15, 0, 1);
+        LODOP.ADD_PRINT_LINE(101 + 25 * i, 110, 76 + 25 * i, 110, 0, 1);
+        LODOP.ADD_PRINT_LINE(101 + 25 * i, 250, 76 + 25 * i, 250, 0, 1);
+        LODOP.ADD_PRINT_LINE(101 + 25 * i, 465, 76 + 25 * i, 465, 0, 1);
+        LODOP.ADD_PRINT_LINE(101 + 25 * i, 512, 76 + 25 * i, 512, 0, 1);
+        LODOP.ADD_PRINT_LINE(101 + 25 * i, 560, 76 + 25 * i, 560, 0, 1);
+        LODOP.ADD_PRINT_LINE(101 + 25 * i, 720, 76 + 25 * i, 720, 0, 1);
+        LODOP.ADD_PRINT_LINE(101 + 25 * i, 14, 101 + 25 * i, 720, 0, 1);
+    }
+    LODOP.ADD_PRINT_LINE(101 + 25 * j, 14, 102 + 25 * j, 510, 0, 1);
+    LODOP.ADD_PRINT_TEXT(105 + 25 * j, 20, 300, 20, "打印时间：‎2015‎-‎12‎-‎15 ‎12‎:‎19‎");
+    LODOP.ADD_PRINT_TEXT(105 + 25 * j, 346, 150, 20, "合计金额：" + 10 * j);
+    //------------end-------------
+};
+function mypreview() {
+    LODOP = getLodop();
+    createdate();
+    LODOP.PREVIEW();//打印预览	
+}
