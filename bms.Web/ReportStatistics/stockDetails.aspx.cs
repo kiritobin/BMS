@@ -160,8 +160,40 @@ namespace bms.Web.ReportStatistics
         /// </summary>
         public void export()
         {
-            string Name = name + "-入库明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = wareBll.ExportExcelDetails(groupType, type,1);
+            string isbn = Request.QueryString["isbn"];
+            string price = Request.QueryString["price"];
+            string discount = Request.QueryString["discount"];
+            string user = Request.QueryString["user"];
+            string time = Request.QueryString["time"];
+            string strWhere = groupType;
+            string fileName = name;
+            if (isbn != null && isbn != "")
+            {
+                fileName += "-" + isbn;
+                strWhere += " and isbn='" + isbn + "'";
+            }
+            if (price != null && price != "")
+            {
+                fileName += "-" + price;
+                strWhere += " and uPrice=" + price;
+            }
+            if (discount != null && discount != "")
+            {
+                fileName += "-" + discount;
+                strWhere += " and discount=" + discount;
+            }
+            if (user != null && user != "")
+            {
+                fileName += "-" + user;
+                strWhere += " and userName='" + user + "'";
+            }
+            if (time != null && time != "")
+            {
+                fileName += "-" + time;
+                strWhere += " and time='" + time + "'";
+            }
+            string Name = fileName + "-入库明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            DataTable dt = wareBll.ExportExcelDetails(strWhere, type,1);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/报表导出/入库报表导出/" + Name + ".xlsx");

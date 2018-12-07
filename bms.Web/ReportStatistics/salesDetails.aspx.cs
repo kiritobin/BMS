@@ -144,13 +144,13 @@ namespace bms.Web.ReportStatistics
                 {
                     stateName = "新建单据";
                 }
-                else if(states == "3")
+                else if(states == "1"|| states == "2")
                 {
-                    stateName = "预采";
+                    stateName = "现采";
                 }
                 else
                 {
-                    stateName = "完成";
+                    stateName = "预采";
                 }
                 strb.Append("<td>" + stateName + "</td>");
                 strb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
