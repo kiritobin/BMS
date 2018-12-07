@@ -327,15 +327,15 @@
                                     <div class="card-header" style="padding-right: 0px;">
                                         <form class="form-inline">
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入ISBN" style="width:130px;" id="isbn">
+                                                <input type="text" class="" placeholder="请输入ISBN" style="width:130px;" id="isbn" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" style="width:130px;" id="price">
+                                                <input type="text" class="" placeholder="请输入定价" style="width:130px;" id="price" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入销售折扣" style="width:130px;" id="discount">
+                                                <input type="text" class="" placeholder="请输入销售折扣" style="width:130px;" id="discount" />
                                             </div>
                                             &nbsp;
                                             <div class="btn-group" role="group" style="width:165px;">
@@ -359,7 +359,7 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal">
+                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
@@ -446,7 +446,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" id="startTime" placeholder="年--月--日">
+                                            <input type="text" class="jeinput text-center" id="startTime" placeholder="年--月--日" />
                                         </div>
                                     </td>
                                 </tr>
@@ -455,7 +455,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" id="endTime" placeholder="年--月--日">
+                                            <input type="text" class="jeinput text-center" id="endTime" placeholder="年--月--日" />
                                         </div>
                                     </td>
                                 </tr>
@@ -507,5 +507,3 @@
     <script src="../js/jquery.pagination.js"></script>
 </body>
 </html>
-
-

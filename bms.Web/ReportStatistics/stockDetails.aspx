@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailDetails.aspx.cs" Inherits="bms.Web.ReportStatistics.retailDetails" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="stockDetails.aspx.cs" Inherits="bms.Web.ReportStatistics.stockDetails" %>
 
 <!DOCTYPE html>
 <html lang="zh">
@@ -243,7 +243,7 @@
                         <div class="collapse show" id="ReportStatistics">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../ReportStatistics/stockStatistics.aspx">
+                                    <a class="nav-link activeNext" href="../ReportStatistics/stockStatistics.aspx">
                                         <span class="sidebar-normal">入库统计</span>
                                     </a>
                                 </li>
@@ -268,7 +268,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../ReportStatistics/retailStatistics.aspx">
+                                    <a class="nav-link" href="../ReportStatistics/retailStatistics.aspx">
                                         <span class="sidebar-normal">零售统计</span>
                                     </a>
                                 </li>
@@ -339,23 +339,13 @@
                                             </div>
                                             &nbsp;
                                             <div class="btn-group" role="group" style="width:165px !important;">
-                                                <select class="modal_select selectpicker collectionStatus" data-live-search="true" title="请选择收银员" id="user">
+                                                <select class="modal_select selectpicker collectionStatus" data-live-search="true" title="请选择制单员" id="user">
                                                     <option value="">全部</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
                                                         for (int i = 0; i < count; i++)
                                                         {%>
                                                     <option value="<%=dsUser.Tables[0].Rows[i]["userName"].ToString() %>"><%=dsUser.Tables[0].Rows[i]["userName"].ToString() %></option>
                                                     <%}%>
-                                                </select>
-                                            </div>
-                                            &nbsp;
-                                            <div class="btn-group" role="group" style="width:180px !important;" id="paySelect">
-                                                <select class="modal_select selectpicker collectionStatus" title="请选择支付方式" id="payment">
-                                                    <option value="">全部</option>
-                                                    <option value="未支付">未支付</option>
-                                                    <option value="现金">现金</option>
-                                                    <option value="第三方">第三方</option>
-                                                    <option value="其他">其他</option>
                                                 </select>
                                             </div>
                                             &nbsp;
@@ -406,16 +396,13 @@
                                                         <nobr>折扣</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>交易日期</nobr>
+                                                        <nobr>制单日期</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>收银员</nobr>
+                                                        <nobr>制单员</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>支付方式</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>组织名称</nobr>
+                                                        <nobr>入库来源</nobr>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -507,7 +494,7 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
-    <script src="../js/retailDetails.js"></script>
+    <script src="../js/stockDetails.js"></script>
     <script src="../js/jquery.pagination.js"></script>
 </body>
 </html>

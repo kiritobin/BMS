@@ -23,7 +23,7 @@ window.onload = function () {
 //$(function () {
 //    $.ajax({
 //        type: 'Post',
-//        url: 'stockStatistics.aspx',
+//        url: 'returnStatistics.aspx',
 //        data: {
 //            op: "paging"
 //        },
@@ -104,7 +104,7 @@ $(document).ready(function () {
                     regionName = "";
                 }
                 supplier = "";
-            }  else {
+            } else {
                 groupbyType = "state";
                 supplier = "";
                 regionName = "";
@@ -112,13 +112,13 @@ $(document).ready(function () {
             var page = api.getCurrent();
             $.ajax({
                 type: 'Post',
-                url: 'stockStatistics.aspx',
+                url: 'returnStatistics.aspx',
                 data: {
                     page: api.getCurrent(), //页码
                     groupbyType: groupbyType,
                     supplier: supplier,
                     regionName: regionName,
-                    time:time,
+                    time: time,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -130,7 +130,7 @@ $(document).ready(function () {
                         $("#showType").text("组织");
                     } else if (groupby == "客户") {
                         $("#showType").text("客户");
-                    } 
+                    }
                     $("#table tr:not(:first)").remove(); //清空table处首行
                     $("#table").append(data); //加载table
                     $("#intPageCount").remove();
@@ -186,9 +186,9 @@ $(document).ready(function () {
                     buttonsStyling: false,
                     allowOutsideClick: false
                 });
-            } 
+            }
             var time = $("#time").val();
-            window.location.href = "stockStatistics.aspx?op=exportAll&&&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time;
+            window.location.href = "returnStatistics.aspx?op=exportAll&&&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time;
         }
     })
     //导出报表明细
@@ -222,7 +222,7 @@ $(document).ready(function () {
                     regionName = "";
                 }
                 supplier = "";
-            }  else {
+            } else {
                 groupbyType = "state";
                 supplier = "";
                 regionName = "";
@@ -240,7 +240,7 @@ $(document).ready(function () {
                 });
             }
             var time = $("#time").val();
-            window.location.href = "stockStatistics.aspx?op=exportDe&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time;
+            window.location.href = "returnStatistics.aspx?op=exportDe&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time;
         }
     })
     //清空时间
@@ -292,7 +292,7 @@ $(document).ready(function () {
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text();
-        window.location.href = "stockDetails.aspx?type=" + groupbyType + "&&name=" + name;
+        window.location.href = "returnDetails.aspx?type=" + groupbyType + "&&name=" + name;
     })
 
     //点击查询按钮时
@@ -334,12 +334,12 @@ $(document).ready(function () {
         } else {
             $.ajax({
                 type: 'Post',
-                url: 'stockStatistics.aspx',
+                url: 'returnStatistics.aspx',
                 data: {
                     groupbyType: groupbyType,
                     supplier: supplier,
                     regionName: regionName,
-                    time:time,
+                    time: time,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -370,7 +370,7 @@ $(document).ready(function () {
                         callback: function (api) {
                             $.ajax({
                                 type: 'Post',
-                                url: 'stockStatistics.aspx',
+                                url: 'returnStatistics.aspx',
                                 data: {
                                     page: api.getCurrent(), //页码
                                     groupbyType: groupbyType,
@@ -439,7 +439,7 @@ function logout() {
     }).then(function () {
         $.ajax({
             type: 'get',
-            url: 'stockStatistics.aspx?op=logout',
+            url: 'returnStatistics.aspx?op=logout',
             datatype: 'text',
             data: {},
             success: function (data) {

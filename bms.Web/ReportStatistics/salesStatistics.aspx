@@ -369,7 +369,7 @@
                                                 </select>
                                             </div>
                                             <div class="btn-group">
-                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#myModal">
+                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#myModal" />
                                             </div>
                                             <%-- <div class="btn-group">
                                                 <input type="text" class="search" placeholder="请输入定价">
@@ -437,6 +437,7 @@
                     </div>
                 </div>
             </div>
+            <!--时间选择模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -453,7 +454,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日" />
                                         </div>
                                     </td>
                                 </tr>
@@ -462,12 +463,15 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日" />
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;只统计26,27,28;29不统计</td>
+                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
                                 </tr>
                             </table>
                         </div>

@@ -11,14 +11,14 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.ReportStatistics
 {
-    public partial class salesDetails : System.Web.UI.Page
+    public partial class stockDetails : System.Web.UI.Page
     {
         DataSet ds, dsPer;
         SaleMonomerBll salemonBll = new SaleMonomerBll();
-        SalesDetailsBll detailsBll = new SalesDetailsBll();
+        WarehousingBll wareBll = new WarehousingBll();
         public int totalCount, intPageCount, pageSize = 20;
-        public DataSet dsUser=null;
-        public string type = "", name = "",groupType="", userName, regionName;
+        public DataSet dsUser = null;
+        public string type = "", name = "", groupType = "", userName, regionName;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,7 +26,7 @@ namespace bms.Web.ReportStatistics
             {
                 type = Request.QueryString["type"];
                 name = Request.QueryString["name"];
-                if(type == null || type== "" || name == "" || name == null)
+                if (type == null || type == "" || name == "" || name == null)
                 {
                     type = Session["type"].ToString();
                     name = Session["name"].ToString();
@@ -38,6 +38,7 @@ namespace bms.Web.ReportStatistics
                 }
             }
             getData();
+            permission();
             string exportOp = Request.QueryString["op"];
             if (exportOp == "export")
             {
@@ -51,37 +52,32 @@ namespace bms.Web.ReportStatistics
         public string getData()
         {
             string strWhere = "";
-            if (type == "supplier")
-            {
-                strWhere = "supplier = '" + name + "' and deleteState=0";
-            }
-            else if (type == "regionName")
+            if (type == "regionName")
             {
                 strWhere = "regionName = '" + name + "' and deleteState=0";
             }
-            else if (type == "customerName")
+            else if (type == "supplier")
             {
-                strWhere = "customerName = '" + name + "' and deleteState=0";
+                strWhere = "supplier = '" + name + "' and deleteState=0";
             }
             groupType = strWhere;
-            dsUser = detailsBll.getUser(groupType);
+            dsUser = wareBll.getUser(groupType,1);
             string isbn = Request["isbn"];
             string price = Request["price"];
             string discount = Request["discount"];
             string user = Request["user"];
             string time = Request["time"];
-            string state = Request["state"];
             if (isbn != null && isbn != "")
             {
                 strWhere += " and isbn='" + isbn + "'";
             }
             if (price != null && price != "")
             {
-                strWhere += " and price='" + price + "'";
+                strWhere += " and uPrice='" + price + "'";
             }
             if (discount != null && discount != "")
             {
-                strWhere += " and realDiscount='" + discount + "'";
+                strWhere += " and discount='" + discount + "'";
             }
             if (user != null && user != "" && user != "0")
             {
@@ -92,20 +88,9 @@ namespace bms.Web.ReportStatistics
                 string[] sArray = time.Split('至');
                 string startTime = sArray[0];
                 string endTime = sArray[1];
-                strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                strWhere += " and time BETWEEN'" + startTime + "' and '" + endTime + "'";
             }
-            if (state != null && state != "" && state != "-1")
-            {
-                if (state == "1")
-                {
-                    strWhere += " and (state='1' or state='2')";
-                }
-                else
-                {
-                    strWhere += " and state='" + state + "'";
-                }
-            }
-            strWhere += " group by bookNum,userName,supplier";
+            strWhere += " and type=1 group by bookNum,userName,supplier";
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -113,9 +98,9 @@ namespace bms.Web.ReportStatistics
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "v_salemonomer";
-            tb.OrderBy = "id";
-            tb.StrColumnlist = "id,isbn,bookNum,bookName,price,sum(number) as number, sum(totalPrice) as totalPrice,sum(realPrice) as realPrice,realDiscount,dateTime,userName,state,supplier";
+            tb.StrTable = "v_monomer";
+            tb.OrderBy = type;
+            tb.StrColumnlist = "isbn,bookNum,bookName,uPrice,sum(number) as number, sum(totalPrice) as totalPrice,sum(realPrice) as realPrice,discount,time,userName,regionName,supplier";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = strWhere;
@@ -123,7 +108,6 @@ namespace bms.Web.ReportStatistics
             ds = salemonBll.selectBypage(tb, out totalCount, out intPageCount);
             StringBuilder strb = new StringBuilder();
             int dscount = ds.Tables[0].Rows.Count;
-            string states = "", stateName = "";
             for (int i = 0; i < dscount; i++)
             {
                 DataRow dr = ds.Tables[0].Rows[i];
@@ -132,28 +116,15 @@ namespace bms.Web.ReportStatistics
                 strb.Append("<td>" + dr["isbn"].ToString() + "</td>");
                 strb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
                 strb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-                strb.Append("<td>" + dr["price"].ToString() + "</td>");
+                strb.Append("<td>" + dr["uPrice"].ToString() + "</td>");
+                strb.Append("<td>" + dr["supplier"].ToString() + "</td>");
                 strb.Append("<td>" + dr["number"].ToString() + "</td>");
                 strb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
                 strb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
-                strb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
-                strb.Append("<td>" + dr["dateTime"].ToString() + "</td>");
+                strb.Append("<td>" + dr["discount"].ToString() + "</td>");
+                strb.Append("<td>" + dr["time"].ToString() + "</td>");
                 strb.Append("<td>" + dr["userName"].ToString() + "</td>");
-                states = dr["state"].ToString();
-                if(states == "0")
-                {
-                    stateName = "新建单据";
-                }
-                else if(states == "3")
-                {
-                    stateName = "预采";
-                }
-                else
-                {
-                    stateName = "完成";
-                }
-                strb.Append("<td>" + stateName + "</td>");
-                strb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
+                strb.Append("<td>" + dr["regionName"].ToString() + "</td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
@@ -189,11 +160,11 @@ namespace bms.Web.ReportStatistics
         /// </summary>
         public void export()
         {
-            string Name = name + "-销售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = detailsBll.ExportExcel(groupType,type);
+            string Name = name + "-入库明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            DataTable dt = wareBll.ExportExcelDetails(groupType, type,1);
             if (dt != null && dt.Rows.Count > 0)
             {
-                var path = Server.MapPath("~/download/报表导出/销售报表导出/" + Name + ".xlsx");
+                var path = Server.MapPath("~/download/报表导出/入库报表导出/" + Name + ".xlsx");
                 ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
                 downloadfile(path);
             }
@@ -204,6 +175,9 @@ namespace bms.Web.ReportStatistics
             }
         }
 
+        /// <summary>
+        /// 权限控制
+        /// </summary>
         protected void permission()
         {
             RoleBll roleBll = new RoleBll();

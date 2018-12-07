@@ -271,5 +271,61 @@ namespace bms.Bll
         {
             return monoDao.getAllkindsRegion(dateTime,regionId,type);
         }
+
+        /// <summary>
+        /// 获取书籍种类
+        /// </summary>
+        /// <param name="strWhere">条件</param>
+        /// <param name="groupbyType">类型</param>
+        /// <returns></returns>
+        public int getkindsGroupBy(string strWhere, string groupbyType, string time, int type)
+        {
+            return monoDao.getkindsGroupBy(strWhere, groupbyType, time, type);
+        }
+
+        /// <summary>
+        /// 导出页面上查询到的结果
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <param name="groupbyType">groupby条件</param>
+        /// <param name="time">时间</param>
+        /// <param name="type">出入退状态</param>
+        /// <returns></returns>
+        public DataTable exportAll(string strWhere, string groupbyType, string time, int type)
+        {
+            return monoDao.exportAll(strWhere, groupbyType, time, type);
+        }
+
+        /// <summary>
+        /// 导出明细
+        /// </summary>
+        /// <param name="groupbyType">groupby方式</param>
+        /// <param name="strWhere">条件</param>
+        /// <param name="type">出入退类型</param>
+        /// <returns></returns>
+        public DataTable exportDel(string groupbyType, string strWhere, int type)
+        {
+            return monoDao.exportDel(groupbyType, strWhere, type);
+        }
+
+        /// <summary>
+        /// 获取制单员
+        /// </summary>
+        /// <param name="strWhere">筛选条件</param>
+        /// <returns></returns>
+        public DataSet getUser(string strWhere,int type)
+        {
+            return monoDao.getUser(strWhere,type);
+        }
+
+        /// <summary>
+        /// 导出成Excel表
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <returns>返回一个DataTable的选题记录集合</returns>
+        public DataTable ExportExcelDetails(string strWhere, string groupType, int type)
+        {
+            return monoDao.ExportExcelDetails(strWhere, groupType, type);
+        }
     }
 }

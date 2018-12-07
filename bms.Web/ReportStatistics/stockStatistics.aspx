@@ -335,7 +335,6 @@
                                             </div>
 
                                             <div class="btn-group" id="groupsupplier">
-                                                <%--<input type="text" class="" placeholder="请输入供应商" id="supplier">--%>
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择供应商" data-live-search="true" id="supplier">
                                                     <option>全部</option>
                                                     <%for (int i = 0; i < dsSupplier.Rows.Count; i++)
@@ -345,7 +344,6 @@
                                                 </select>
                                             </div>
                                             <div class="btn-group" id="groupregion">
-                                                <%--<input type="text" class="" placeholder="请输入组织" id="region">--%>
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="region">
                                                     <option>全部</option>
                                                     <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
@@ -354,21 +352,9 @@
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <%-- <div class="btn-group">
-                                                <input type="text" class="search" placeholder="请输入定价">
-                                            </div>
                                             <div class="btn-group">
-                                                <input type="text" class="search" placeholder="请输入销折">
+                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#myModal" />
                                             </div>
-                                            <div class="btn-group">
-                                                <input type="text" class="search" placeholder="请输入进折">
-                                            </div>
-                                            <div class="btn-group">
-                                                <input type="text" class="search" placeholder="请输入采集人用户名">
-                                            </div>
-                                            <div class="btn-group">
-                                                <input type="text" class="search" placeholder="请输入ISBN">
-                                            </div>--%>
                                             <div class="btn-group">
                                                 <button class="btn btn-sm btn-info" id="btn_search">查询</button>
                                             </div>
@@ -406,6 +392,53 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!--时间选择模态框-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel">请选择查询时间段</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="max-height: 400px; overflow: auto;">
+                            <table class="table text-center model-table">
+                                <tr>
+                                    <td class="text-right" style="width: 40%">开始时间:
+                                    </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 40%">结束时间:
+                                    </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            <button type="button" class="btn btn-info" id="btnOK">确认</button>
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,6 @@
 namespace bms.Web.ReportStatistics {
     
     
-    public partial class warehouseStatistics {
+    public partial class stockDetails {
     }
 }

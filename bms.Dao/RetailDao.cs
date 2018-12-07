@@ -364,7 +364,14 @@ namespace bms.Dao
                 startTime = sArray[0];
                 endTime = sArray[1];
             }
-            cmdText = "select bookNum, SUM(number) as 数量 from v_retailmonomer where " + type + " = @strWhere GROUP BY bookNum HAVING 数量!=0";
+            if (time != "" && time != null)
+            {
+                cmdText = "select bookNum, SUM(number) as 数量 from v_retailmonomer where " + type + " = @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+            }
+            else
+            {
+                cmdText = "select bookNum, SUM(number) as 数量 from v_retailmonomer where " + type + " = @strWhere GROUP BY bookNum HAVING 数量!=0";
+            }
             string[] param = { "@strWhere"};
             object[] values = { strWhere };
             DataSet ds = db.FillDataSet(cmdText, param, values);
