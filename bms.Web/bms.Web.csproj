@@ -149,8 +149,10 @@
     <Content Include="js\retailBack.js" />
     <Content Include="js\retailBackManagement.js" />
     <Content Include="js\retailBackQuery.js" />
+    <Content Include="js\retailDetails.js" />
     <Content Include="js\retailManagement.js" />
     <Content Include="js\retailQuery.js" />
+    <Content Include="js\retailStatistics.js" />
     <Content Include="js\salesDetails.js" />
     <Content Include="js\salesStatistics.js" />
     <Content Include="js\salesTaskStatistics.js" />
@@ -160,6 +162,7 @@
     <Content Include="js\sweetalert2.min.js" />
     <Content Include="js\welcome.js" />
     <Content Include="QRCode.aspx" />
+    <Content Include="ReportStatistics\retailDetails.aspx" />
     <Content Include="ReportStatistics\retailStatistics.aspx" />
     <Content Include="ReportStatistics\returnStatistics.aspx" />
     <Content Include="ReportStatistics\salesDetails.aspx" />
@@ -443,6 +446,13 @@
     </Compile>
     <Compile Include="QRCode.aspx.designer.cs">
       <DependentUpon>QRCode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistics\retailDetails.aspx.cs">
+      <DependentUpon>retailDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\retailDetails.aspx.designer.cs">
+      <DependentUpon>retailDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="ReportStatistics\retailStatistics.aspx.cs">
       <DependentUpon>retailStatistics.aspx</DependentUpon>
@@ -744,6 +754,7 @@
     <Folder Include="download\入库明细导出\" />
     <Folder Include="download\出库明细导出\" />
     <Folder Include="download\报表导出\销售报表导出\" />
+    <Folder Include="download\报表导出\零售报表导出\" />
     <Folder Include="download\退货明细导出\" />
     <Folder Include="download\销售明细导出\" />
     <Folder Include="download\销退明细导出\" />

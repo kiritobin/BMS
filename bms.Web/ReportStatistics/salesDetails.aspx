@@ -260,8 +260,8 @@
                                                 <input type="text" class="" placeholder="请输入销售折扣" style="width:130px;" id="discount">
                                             </div>
                                             &nbsp;
-                                            <div class="btn-group" role="group">
-                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" id="user">
+                                            <div class="btn-group" role="group" style="width:165px;">
+                                                <select class="modal_select selectpicker collectionStatus" id="user">
                                                     <option value="0">请选择采集人</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
                                                         for (int i = 0; i < count; i++)
@@ -269,17 +269,15 @@
                                                     <option value="<%=dsUser.Tables[0].Rows[i]["userName"].ToString() %>"><%=dsUser.Tables[0].Rows[i]["userName"].ToString() %></option>
                                                     <%}%>
                                                 </select>
-                                                <%--<input type="text" class="" placeholder="请输入采集人" id="user">--%>
                                             </div>
                                             &nbsp;
-                                            <div class="btn-group" role="group">
-                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" id="state">
+                                            <div class="btn-group" role="group" style="width:180px;">
+                                                <select class="modal_select selectpicker collectionStatus" id="state">
                                                     <option value="-1">请选择采集状态</option>
                                                     <option value="0">新单据</option>
                                                     <option value="1">完成</option>
                                                     <option value="3">预采</option>
                                                 </select>
-                                                <%--<input type="text" class="" placeholder="请输入采集状态" id="state">--%>
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
@@ -426,7 +424,7 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
-
+    <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/salesDetails.js"></script>
     <script src="../js/jquery.pagination.js"></script>
 </body>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailStatistics.aspx.cs" Inherits="bms.Web.ReportStatistics.retailStatistics" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="retailDetails.aspx.cs" Inherits="bms.Web.ReportStatistics.retailDetails" %>
 
 <!DOCTYPE html>
 <html lang="zh">
@@ -321,31 +321,36 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">零售统计</h4>
+                                    <h4 class="card-title ">零售明细</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header" style="padding-right: 0px;">
-                                        <div class="input-group">
-                                            <div class="btn-group" role="group">
-                                                <div class="btn-group" role="group">
-                                                    <select class="modal_select selectpicker collectionStatus" id="groupby">
-                                                        <option value="">分组方式</option>
-                                                        <option value="region">组织</option>
-                                                        <option value="payType">支付方式</option>
-                                                    </select>
-                                                </div>
+                                        <form class="form-inline">
+                                            <div class="form-group form-group-sm">
+                                                <input type="text" class="" placeholder="请输入ISBN" style="width:130px;" id="isbn">
                                             </div>
-                                            <div class="btn-group" id="groupregion">
-                                                <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="region">
+                                            &nbsp;
+                                            <div class="form-group form-group-sm">
+                                                <input type="text" class="" placeholder="请输入定价" style="width:130px;" id="price">
+                                            </div>
+                                            &nbsp;
+                                            <div class="form-group form-group-sm">
+                                                <input type="text" class="" placeholder="请输入折扣" style="width:130px;" id="discount">
+                                            </div>
+                                            &nbsp;
+                                            <div class="btn-group" role="group" style="width:165px !important;">
+                                                <select class="modal_select selectpicker collectionStatus" data-live-search="true" title="请选择收银员" id="user">
                                                     <option value="">全部</option>
-                                                    <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                    <%int count = dsUser.Tables[0].Rows.Count;
+                                                        for (int i = 0; i < count; i++)
                                                         {%>
-                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
-                                                    <%} %>
+                                                    <option value="<%=dsUser.Tables[0].Rows[i]["userName"].ToString() %>"><%=dsUser.Tables[0].Rows[i]["userName"].ToString() %></option>
+                                                    <%}%>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupPayType">
-                                                <select class="modal_select selectpicker collectionStatus" title="请选择支付方式" data-live-search="true" id="payType">
+                                            &nbsp;
+                                            <div class="btn-group" role="group" style="width:180px !important;" id="paySelect">
+                                                <select class="modal_select selectpicker collectionStatus" title="请选择支付方式" id="payment">
                                                     <option value="">全部</option>
                                                     <option value="未支付">未支付</option>
                                                     <option value="现金">现金</option>
@@ -353,37 +358,68 @@
                                                     <option value="其他">其他</option>
                                                 </select>
                                             </div>
-                                            <div class="btn-group">
-                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#myModal">
+                                            &nbsp;
+                                            <div class="form-group form-group-sm">
+                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal">
                                             </div>
-                                            <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="btn_search">查询</button>
+                                            &nbsp;
+                                            <div class="form-group form-group-sm">
+                                                <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
+                                                <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
+                                                <button type="button" class="btn btn-sm btn-info">打印</button>
+                                                <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
-                                            <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="exportAll">导出报表</button>
-                                            </div>
-                                            <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="exportDe">导出明细</button>
-                                            </div>
-                                            <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="print">打印报表</button>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
-                                                    <th>序号</th>
-                                                    <th id="showType">供应商</th>
-                                                    <th>品种</th>
-                                                    <th>数量</th>
-                                                    <th>码洋</th>
-                                                    <th>实洋</th>
-                                                    <th>操作</th>
+                                                    <th>
+                                                        <nobr>序号</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>ISBN</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>书号</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>书名</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>定价</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>供应商</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>数量</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>码洋</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>实洋</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>折扣</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>交易日期</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>收银员</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>支付方式</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>组织名称</nobr>
+                                                    </th>
                                                 </tr>
                                             </thead>
-                                            <%--<%=getData() %>--%>
+                                            <%=getData()%>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -397,6 +433,7 @@
                     </div>
                 </div>
             </div>
+            <!--选择时间模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -413,7 +450,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日">
+                                            <input type="text" class="jeinput text-center" id="startTime" placeholder="年--月--日">
                                         </div>
                                     </td>
                                 </tr>
@@ -422,12 +459,15 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日">
+                                            <input type="text" class="jeinput text-center" id="endTime" placeholder="年--月--日">
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;只统计26,27,28;29不统计</td>
+                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
                                 </tr>
                             </table>
                         </div>
@@ -439,6 +479,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -458,7 +499,6 @@
 
     <!-- jQuery -->
     <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/retailStatistics.js"></script>
     <!-- Bootstrap JavaScript -->
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
@@ -467,9 +507,7 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
-    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/retailDetails.js"></script>
     <script src="../js/jquery.pagination.js"></script>
 </body>
 </html>
-
-
