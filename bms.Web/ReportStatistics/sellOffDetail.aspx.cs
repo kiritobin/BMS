@@ -8,6 +8,7 @@ using System.Data;
 using bms.Model;
 using bms.Bll;
 using System.Text;
+using System.Web.Security;
 
 namespace bms.Web.ReportStatistics
 {
@@ -18,7 +19,8 @@ namespace bms.Web.ReportStatistics
         SalesDetailsBll detailsBll = new SalesDetailsBll();
         SellOffMonomerBll sellBll = new SellOffMonomerBll();
         public int totalCount, intPageCount, pageSize = 20;
-        public DataSet dsUser = null, dsPer;
+        public DataSet dsUser = null;
+        public DataSet dsPer;
         string type = "", name = "", groupType = "";
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
         public void Page_Load(object sender, EventArgs e)
@@ -40,6 +42,7 @@ namespace bms.Web.ReportStatistics
             }
             getData();
             permission();
+            string op = Request["op"];
             if (op == "logout")
             {
                 //删除身份凭证
@@ -48,6 +51,11 @@ namespace bms.Web.ReportStatistics
                 Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
+            }
+            string exportOp = Request.QueryString["op"];
+            if (exportOp == "export")
+            {
+                export();
             }
         }
         public String getData()
@@ -140,6 +148,44 @@ namespace bms.Web.ReportStatistics
             }
             return strb.ToString();
         }
+        /// <summary>
+        /// //导出列表方法
+        /// </summary>
+        /// <param name="s_path">文件路径</param>
+        public void downloadfile(string s_path)
+        {
+            System.IO.FileInfo file = new System.IO.FileInfo(s_path);
+            HttpContext.Current.Response.ContentType = "application/ms-download";
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.AddHeader("Content-Type", "application/octet-stream");
+            HttpContext.Current.Response.Charset = "utf-8";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(file.Name, System.Text.Encoding.UTF8));
+            HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
+            HttpContext.Current.Response.WriteFile(file.FullName);
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.End();
+        }
+        /// <summary>
+        /// 导出
+        /// </summary>
+        public void export()
+        {
+            string Name = name + "-销退明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            DataTable dt = sellBll.ExportExcel(groupType, type);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                var path = Server.MapPath("~/download/销退明细导出/" + Name + ".xlsx");
+                ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
+                downloadfile(path);
+            }
+            else
+            {
+                Response.Write("<script>alert('没有数据，不能执行导出操作!');</script>");
+                Response.End();
+            }
+        }
+
         protected void permission()
         {
             RoleBll roleBll = new RoleBll();

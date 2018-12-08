@@ -67,12 +67,12 @@ namespace bms.Web.ReportStatistics
         {
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
             exportgroupbyType = Session["exportgroupbyType"].ToString();
-            DataTable dt = salemonBll.exportAll(exportAllStrWhere, exportgroupbyType, state, Time);
+            DataTable dt = sellBll.exportAll(exportAllStrWhere, exportgroupbyType, Time);
             //var name = DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
-            string name = "销售报表导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
+            string name = "销退报表导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             if (dt != null && dt.Rows.Count > 0)
             {
-                var path = Server.MapPath("../download/报表导出/销售报表导出/" + name + ".xlsx");
+                var path = Server.MapPath("../download/报表导出/销退报表导出/" + name + ".xlsx");
                 ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
                 downloadfile(path);
             }
@@ -88,11 +88,11 @@ namespace bms.Web.ReportStatistics
         {
             exportgroupbyType = Session["exportgroupbyType"].ToString();
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
-            DataTable dt = salemonBll.exportDel(exportgroupbyType, exportAllStrWhere);
-            string name = "销售报表明细导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
+            DataTable dt = sellBll.exportDel(exportgroupbyType, exportAllStrWhere);
+            string name = "销退报表明细导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             if (dt != null && dt.Rows.Count > 0)
             {
-                var path = Server.MapPath("../download/报表导出/销售报表导出/" + name + ".xlsx");
+                var path = Server.MapPath("../download/报表导出/销退报表导出/" + name + ".xlsx");
                 ExcelHelper.x2007.TableToExcelForXLSX(dt, path);
                 downloadfile(path);
             }

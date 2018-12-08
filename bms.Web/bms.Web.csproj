@@ -797,6 +797,7 @@
     <Folder Include="download\报表导出\出库报表导出\" />
     <Folder Include="download\报表导出\退货报表导出\" />
     <Folder Include="download\报表导出\销售报表导出\" />
+    <Folder Include="download\报表导出\销退报表导出\" />
     <Folder Include="download\报表导出\零售报表导出\" />
     <Folder Include="download\退货明细导出\" />
     <Folder Include="download\销售明细导出\" />
