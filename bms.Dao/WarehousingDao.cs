@@ -516,12 +516,12 @@ namespace bms.Dao
             if (groupbyType == "supplier")
             {
                 exportdt.Columns.Add("供应商", typeof(string));
-                cmdText = "select supplier, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " and type=" + type + " order by allTotalPrice desc";
+                cmdText = "select supplier, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " order by allTotalPrice desc";
             }
             else if (groupbyType == "regionName")
             {
                 exportdt.Columns.Add("地区名称", typeof(string));
-                cmdText = "select regionName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " and type=" + type + " order by allTotalPrice desc";
+                cmdText = "select regionName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " order by allTotalPrice desc";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             exportdt.Columns.Add("书籍种数", typeof(long));
