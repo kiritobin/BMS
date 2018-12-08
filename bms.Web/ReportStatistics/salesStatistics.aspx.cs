@@ -25,6 +25,7 @@ namespace bms.Web.reportStatistics
         public int totalCount, intPageCount, pageSize = 20;
         string exportAllStrWhere, exportgroupbyType, condition, state, Time;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
+        public DataTable dt;
         protected void Page_Load(object sender, EventArgs e)
         {
             User user = (User)Session["user"];
@@ -64,7 +65,66 @@ namespace bms.Web.reportStatistics
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
+            if (op == "print")
+            {
+                print();
+                Response.Write(print());
+                Response.End();
+            }
         }
+        public String print()
+        {
+            dt = salemonBll.print();
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < dt.Rows.Count; i++)
+            {
+                sb.Append("<tr>");
+                sb.Append("<td>" + dt.Rows[i]["allNumber"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["allTotalPrice"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["allRealPrice"] + "</td>");
+                sb.Append("</tr>");
+            }
+            return sb.ToString();
+        }
+
+        public string DataTableConvertToJson(DataTable table)
+        {
+            var str = new StringBuilder();
+            //首先根据获得的Table行数来判断Table是否为空，按照Json的数据格式将Table中的数据怕拼成Json格式的数据
+            if (table.Rows.Count > 0)
+            {
+                str.Append("[");
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    str.Append("{");
+                    for (int j = 0; j < table.Columns.Count; j++)
+                    {
+                        if (j < table.Columns.Count - 1)
+                        {
+                            //将Datatable中的列明作为Json键值对的Key
+                            str.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString() + "\",");
+                        }
+                        else if (j == table.Columns.Count - 1)
+                        {
+                            str.Append("\"" + table.Columns[j].ColumnName.ToString()
+                         + "\":" + "\""
+                         + table.Rows[i][j].ToString() + "\"");
+                        }
+                    }
+                    if (i == table.Rows.Count - 1)
+                    {
+                        str.Append("}");
+                    }
+                    else
+                    {
+                        str.Append("},");
+                    }
+                }
+                str.Append("]");
+            }
+            return str.ToString();
+        }
+
         /// <summary>
         /// ajax导出
         /// </summary>
