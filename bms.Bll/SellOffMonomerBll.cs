@@ -272,7 +272,7 @@ namespace bms.Bll
             DataRowCollection count = dt.Rows;
             foreach (DataRow row in count)
             {
-                string bookName = ToDBC(row[3].ToString());
+                string bookName = ToDBC(row[2].ToString());
                 excel.Rows.Add(row[0], row[1], bookName, row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]);
             }
             return excel;

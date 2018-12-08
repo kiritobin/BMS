@@ -21,7 +21,7 @@ namespace bms.Web.ReportStatistics
         RegionBll regionBll = new RegionBll();
         CustomerBll customBll = new CustomerBll();
         public int totalCount, intPageCount, pageSize = 20;
-        string exportAllStrWhere, exportgroupbyType, condition, state, Time;
+        string exportAllStrWhere, exportgroupbyType, condition;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -64,7 +64,7 @@ namespace bms.Web.ReportStatistics
         {
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
             exportgroupbyType = Session["exportgroupbyType"].ToString();
-            DataTable dt = retailBll.exportAll(exportAllStrWhere, exportgroupbyType, Time);
+            DataTable dt = retailBll.exportAll(exportAllStrWhere, exportgroupbyType, Session["time"].ToString());
             //var name = DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             string name = "零售报表导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             if (dt != null && dt.Rows.Count > 0)
@@ -131,8 +131,7 @@ namespace bms.Web.ReportStatistics
             string regionName = Request["regionName"];
             string payment = Request["payment"];
             string time = Request["time"];
-
-            Time = time;
+            Session["time"] = time;
 
             if (groupbyType == "state" || groupbyType == null)
             {

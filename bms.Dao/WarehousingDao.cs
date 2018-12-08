@@ -485,9 +485,6 @@ namespace bms.Dao
                 string[] sArray = time.Split('至');
                 startTime = sArray[0];
                 endTime = sArray[1];
-            }
-            if (time != "" && time != null)
-            {
                 cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + groupbyType + " = @strWhere and type=@type and time BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
             }
             else
@@ -519,12 +516,12 @@ namespace bms.Dao
             if (groupbyType == "supplier")
             {
                 exportdt.Columns.Add("供应商", typeof(string));
-                cmdText = "select supplier, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " and type=" + type + " order by allTotalPrice desc";
+                cmdText = "select supplier, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " order by allTotalPrice desc";
             }
             else if (groupbyType == "regionName")
             {
                 exportdt.Columns.Add("地区名称", typeof(string));
-                cmdText = "select regionName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " and type=" + type + " order by allTotalPrice desc";
+                cmdText = "select regionName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " order by allTotalPrice desc";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             exportdt.Columns.Add("书籍种数", typeof(long));
