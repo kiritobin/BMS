@@ -442,8 +442,8 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(cmdText, null, null);
             exportdt.Columns.Add("书籍种数", typeof(long));
             exportdt.Columns.Add("书籍总数量", typeof(long));
-            exportdt.Columns.Add("总实洋", typeof(long));
-            exportdt.Columns.Add("总码洋", typeof(long));
+            exportdt.Columns.Add("总实洋", typeof(double));
+            exportdt.Columns.Add("总码洋", typeof(double));
             int allcount = ds.Tables[0].Rows.Count;
             for (int i = 0; i < allcount; i++)
             {
@@ -488,7 +488,7 @@ namespace bms.Dao
         /// <returns>返回一个DataTable的选题记录集合</returns>
         public DataTable ExportExcel(string strWhere, string type)
         {
-            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,unitPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,supplier as 供应商,dateTime as 交易时间,userName as 收银员,payment as 支付方式 from v_retailmonomer where " + strWhere + " group by bookNum," + type;
+            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,unitPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,supplier as 供应商, DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 交易时间,userName as 收银员,payment as 支付方式 from v_retailmonomer where " + strWhere + " group by bookNum," + type;
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
             int count = ds.Tables[0].Rows.Count;

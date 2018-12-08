@@ -243,12 +243,12 @@
                         <div class="collapse show" id="ReportStatistics">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../ReportStatistics/stockStatistics.aspx">
+                                    <a class="nav-link" href="../ReportStatistics/stockStatistics.aspx">
                                         <span class="sidebar-normal">入库统计</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../ReportStatistics/warehouseStatistics.aspx">
+                                    <a class="nav-link activeNext" href="../ReportStatistics/warehouseStatistics.aspx">
                                         <span class="sidebar-normal">出库统计</span>
                                     </a>
                                 </li>

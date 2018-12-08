@@ -85,7 +85,7 @@ namespace bms.Web.ReportStatistics
         {
             exportgroupbyType = Session["exportgroupbyType"].ToString();
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
-            DataTable dt = retailBll.exportDel(exportgroupbyType, exportAllStrWhere);
+            DataTable dt = retailBll.exportDe(exportgroupbyType, exportAllStrWhere);
             string name = "零售报表明细导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             if (dt != null && dt.Rows.Count > 0)
             {
