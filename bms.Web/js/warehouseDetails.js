@@ -148,7 +148,12 @@ $(document).ready(function () {
     });
     //导出
     $("#export").click(function () {
-        window.location.href = "warehouseDetails.aspx?op=export";
+        var isbn = $("#isbn").val();
+        var price = $("#price").val();
+        var discount = $("#discount").val();
+        var user = $("#user").val();
+        var time = $("#time").val();
+        window.location.href = "warehouseDetails.aspx?op=export&&isbn=" + isbn + "&&price=" + price + "&&discount=" + discount + "&&user=" + user + "&&time=" + time;
     })
     //返回上一页
     $("#back").click(function () {

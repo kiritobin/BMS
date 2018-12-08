@@ -163,7 +163,13 @@ $(document).ready(function () {
     });
     //导出
     $("#export").click(function () {
-        window.location.href = "retailDetails.aspx?op=export";
+        var isbn = $("#isbn").val();
+        var price = $("#price").val();
+        var discount = $("#discount").val();
+        var user = $("#user").val();
+        var time = $("#time").val();
+        var payment = $("#payment").val();
+        window.location.href = "retailDetails.aspx?op=export&&isbn=" + isbn + "&&price=" + price + "&&discount=" + discount + "&&user=" + user + "&&time=" + time + "&&payment=" + payment;
     })
     //返回上一页
     $("#back").click(function () {

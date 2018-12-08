@@ -166,8 +166,39 @@ namespace bms.Web.ReportStatistics
         /// </summary>
         public void export()
         {
+            string isbn = Request.QueryString["isbn"];
+            string price = Request.QueryString["price"];
+            string discount = Request.QueryString["discount"];
+            string user = Request.QueryString["user"];
+            string time = Request.QueryString["time"];
+            string payment = Request.QueryString["payment"];
+            string strWhere = groupType;
+            if(isbn!=null&& isbn != "")
+            {
+                strWhere += " and isbn=" + isbn;
+            }
+            if (price != null && price != "")
+            {
+                strWhere += " and unitPrice=" + price;
+            }
+            if (discount != null && discount != "")
+            {
+                strWhere += " and realDiscount=" + discount;
+            }
+            if (user != null && user != "")
+            {
+                strWhere += " and userName=" + user;
+            }
+            if (time != null && time != "")
+            {
+                strWhere += " and dateTime=" + time;
+            }
+            if (payment != null && payment != "")
+            {
+                strWhere += " and payment=" + payment;
+            }
             string Name = name + "-零售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = retailBll.ExportExcel(groupType, type);
+            DataTable dt = retailBll.ExportExcel(strWhere, type);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/报表导出/零售报表导出/" + Name + ".xlsx");
