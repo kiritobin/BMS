@@ -127,7 +127,7 @@ namespace bms.Web.ReportStatistics
                 DataRow dr = ds.Tables[0].Rows[i];
                 //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                strb.Append("<td>" + dr["isbn"].ToString() + "</td>");
+                strb.Append("<td id='isbn'>" + dr["isbn"].ToString() + "</td>");
                 strb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
                 strb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                 strb.Append("<td>" + dr["price"].ToString() + "</td>");
