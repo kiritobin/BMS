@@ -175,7 +175,7 @@ namespace bms.Web.ReportStatistics
             string strWhere = groupType;
             if(isbn!=null&& isbn != "")
             {
-                strWhere += " and isbn=" + isbn;
+                strWhere += " and isbn='" + isbn + "'";
             }
             if (price != null && price != "")
             {
@@ -187,15 +187,15 @@ namespace bms.Web.ReportStatistics
             }
             if (user != null && user != "")
             {
-                strWhere += " and userName=" + user;
+                strWhere += " and userName='" + user + "'";
             }
             if (time != null && time != "")
             {
-                strWhere += " and dateTime=" + time;
+                strWhere += " and dateTime='" + time + "'";
             }
             if (payment != null && payment != "")
             {
-                strWhere += " and payment=" + payment;
+                strWhere += " and payment='" + payment + "'";
             }
             string Name = name + "-零售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
             DataTable dt = retailBll.ExportExcel(strWhere, type);

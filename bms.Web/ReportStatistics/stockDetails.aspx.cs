@@ -168,7 +168,7 @@ namespace bms.Web.ReportStatistics
             string strWhere = groupType;
             if (isbn != null && isbn != "")
             {
-                strWhere += " and isbn=" + isbn;
+                strWhere += " and isbn='" + isbn + "'";
             }
             if (price != null && price != "")
             {
@@ -180,11 +180,11 @@ namespace bms.Web.ReportStatistics
             }
             if (user != null && user != "")
             {
-                strWhere += " and userName=" + user;
+                strWhere += " and userName='" + user + "'";
             }
             if (time != null && time != "")
             {
-                strWhere += " and time=" + time;
+                strWhere += " and time='" + time + "'";
             }
             string Name = name + "-入库明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
             DataTable dt = wareBll.ExportExcelDetails(strWhere, type,1);
