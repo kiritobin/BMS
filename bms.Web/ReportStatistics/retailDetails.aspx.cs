@@ -173,31 +173,38 @@ namespace bms.Web.ReportStatistics
             string time = Request.QueryString["time"];
             string payment = Request.QueryString["payment"];
             string strWhere = groupType;
+            string fileName = name;
             if(isbn!=null&& isbn != "")
             {
+                fileName += "-" + isbn;
                 strWhere += " and isbn='" + isbn + "'";
             }
             if (price != null && price != "")
             {
+                fileName += "-" + price;
                 strWhere += " and unitPrice=" + price;
             }
             if (discount != null && discount != "")
             {
+                fileName += "-" + discount;
                 strWhere += " and realDiscount=" + discount;
             }
             if (user != null && user != "")
             {
+                fileName += "-" + user;
                 strWhere += " and userName='" + user + "'";
             }
             if (time != null && time != "")
             {
+                fileName += "-" + time;
                 strWhere += " and dateTime='" + time + "'";
             }
             if (payment != null && payment != "")
             {
+                fileName += "-" + payment;
                 strWhere += " and payment='" + payment + "'";
             }
-            string Name = name + "-零售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            string Name = fileName + "-零售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
             DataTable dt = retailBll.ExportExcel(strWhere, type);
             if (dt != null && dt.Rows.Count > 0)
             {

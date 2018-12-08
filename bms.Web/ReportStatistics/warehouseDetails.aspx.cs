@@ -166,27 +166,33 @@ namespace bms.Web.ReportStatistics
             string user = Request.QueryString["user"];
             string time = Request.QueryString["time"];
             string strWhere = groupType;
+            string fileName = name;
             if (isbn != null && isbn != "")
             {
+                fileName += "-" + isbn;
                 strWhere += " and isbn='" + isbn + "'";
             }
             if (price != null && price != "")
             {
+                fileName += "-" + price;
                 strWhere += " and uPrice=" + price;
             }
             if (discount != null && discount != "")
             {
+                fileName += "-" + discount;
                 strWhere += " and discount=" + discount;
             }
             if (user != null && user != "")
             {
+                fileName += "-" + user;
                 strWhere += " and userName='" + user + "'";
             }
             if (time != null && time != "")
             {
+                fileName += "-" + time;
                 strWhere += " and time='" + time + "'";
             }
-            string Name = name + "-出库明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            string Name = fileName + "-出库明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
             DataTable dt = wareBll.ExportExcelDetails(strWhere, type, 0);
             if (dt != null && dt.Rows.Count > 0)
             {
