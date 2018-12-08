@@ -188,7 +188,7 @@ $(document).ready(function () {
                 });
             } 
             var time = $("#time").val();
-            window.location.href = "stockStatistics.aspx?op=exportAll&&&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time;
+            window.location.href = "stockStatistics.aspx?op=exportAll&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&time=" + time;
         }
     })
     //导出报表明细

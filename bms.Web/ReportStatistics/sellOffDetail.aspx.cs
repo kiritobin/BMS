@@ -127,7 +127,7 @@ namespace bms.Web.ReportStatistics
                 DataRow dr = ds.Tables[0].Rows[i];
                 //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                strb.Append("<td>" + dr["isbn"].ToString() + "</td>");
+                strb.Append("<td id='isbn'>" + dr["isbn"].ToString() + "</td>");
                 strb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
                 strb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                 strb.Append("<td>" + dr["price"].ToString() + "</td>");
@@ -172,7 +172,7 @@ namespace bms.Web.ReportStatistics
         public void export()
         {
             string Name = name + "-销退明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = sellBll.ExportExcel(groupType, type);
+            DataTable dt = sellBll.ExportExcels(groupType, type);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/销退明细导出/" + Name + ".xlsx");

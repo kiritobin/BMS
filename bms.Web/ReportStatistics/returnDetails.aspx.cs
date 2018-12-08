@@ -193,7 +193,7 @@ namespace bms.Web.ReportStatistics
                 strWhere += " and time='" + time + "'";
             }
             string Name = fileName + "-退货明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = wareBll.ExportExcelDetails(strWhere, type, 2);
+            DataTable dt = wareBll.ExportExcelDetail(strWhere, type, 2);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/报表导出/退货报表导出/" + Name + ".xlsx");

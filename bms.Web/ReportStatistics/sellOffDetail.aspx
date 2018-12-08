@@ -365,7 +365,7 @@
                                             <div class="form-group form-group-sm">
                                                 <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
                                                 <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
-                                                <button type="button" class="btn btn-sm btn-info">打印</button>
+                                                <button type="button" class="btn btn-sm btn-info" onclick="MyPreview()">打印</button>
                                                 <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
                                         </form>
@@ -505,5 +505,6 @@
 
     <script src="../js/sellOffDetail.js"></script>
     <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/LodopFuncs.js"></script>
 </body>
 </html>

@@ -770,8 +770,8 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(cmdText, null, null);
             exportdt.Columns.Add("书籍种数", typeof(long));
             exportdt.Columns.Add("书籍总数量", typeof(long));
-            exportdt.Columns.Add("总实洋", typeof(long));
-            exportdt.Columns.Add("总码洋", typeof(long));
+            exportdt.Columns.Add("总实洋", typeof(double));
+            exportdt.Columns.Add("总码洋", typeof(double));
             int allcount = ds.Tables[0].Rows.Count;
             for (int i = 0; i < allcount; i++)
             {
@@ -813,11 +813,11 @@ namespace bms.Dao
             }
             if (strWhere != "" && strWhere != null)
             {
-                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,price as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,dateTime as 采集日期,userName as 采集人用户名, state as 采集状态,supplier as 供应商 from v_salemonomer where " + strWhere + ",booknum order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci HAVING 数量!=0";
+                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,price as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 采集日期,userName as 采集人用户名, state as 采集状态,supplier as 供应商 from v_salemonomer where " + strWhere + ",booknum HAVING 数量!=0 order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
             }
             else
             {
-                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,price as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,dateTime as 采集日期,userName as 采集人用户名, state as 采集状态,supplier as 供应商 from v_salemonomer GROUP BY " + groupbyType + ",booknum order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci HAVING 数量!=0";
+                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,price as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 采集日期,userName as 采集人用户名, state as 采集状态,supplier as 供应商 from v_salemonomer GROUP BY " + groupbyType + ",booknum HAVING 数量!=0 order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;

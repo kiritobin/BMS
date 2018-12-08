@@ -90,7 +90,7 @@ namespace bms.Web.ReportStatistics
         {
             exportgroupbyType = Session["exportgroupbyType"].ToString();
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
-            DataTable dt = wareBll.exportDel(exportgroupbyType, exportAllStrWhere, 0);
+            DataTable dt = wareBll.exportDe(exportgroupbyType, exportAllStrWhere, 0);
             string name = "出库报表明细导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             if (dt != null && dt.Rows.Count > 0)
             {

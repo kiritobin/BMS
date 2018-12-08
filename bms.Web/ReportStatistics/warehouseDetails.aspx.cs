@@ -193,7 +193,7 @@ namespace bms.Web.ReportStatistics
                 strWhere += " and time='" + time + "'";
             }
             string Name = fileName + "-出库明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = wareBll.ExportExcelDetails(strWhere, type, 0);
+            DataTable dt = wareBll.ExportExcelDetail(strWhere, type, 0);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/报表导出/出库报表导出/" + Name + ".xlsx");

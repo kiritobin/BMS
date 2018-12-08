@@ -318,7 +318,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">销售统计</h4>
+                                    <h4 class="card-title ">销退统计</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header" style="padding-right: 0px;">
@@ -374,7 +374,7 @@
                                                 <button class="btn btn-sm btn-info" id="exportDe">导出明细</button>
                                             </div>
                                             <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="print" onclick="mypreview()">打印报表</button>
+                                                <button class="btn btn-sm btn-info" id="print" onclick="MyPreview()">打印报表</button>
                                             </div>
                                         </div>
                                     </div>

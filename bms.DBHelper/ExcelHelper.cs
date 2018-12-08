@@ -69,7 +69,7 @@ public class ExcelHelper
         public static void TableToExcelForXLS(DataTable dt, string file)
         {
             HSSFWorkbook hssfworkbook = new HSSFWorkbook();
-            ISheet sheet = hssfworkbook.CreateSheet("Test");
+            ISheet sheet = hssfworkbook.CreateSheet("Sheet");
 
             //表头
             IRow row = sheet.CreateRow(0);
@@ -193,7 +193,7 @@ public class ExcelHelper
         public static void TableToExcelForXLSX(DataTable dt, string file)
         {
             XSSFWorkbook xssfworkbook = new XSSFWorkbook();
-            ISheet sheet = xssfworkbook.CreateSheet("Test");
+            ISheet sheet = xssfworkbook.CreateSheet("Sheet");
 
             //表头
             IRow row = sheet.CreateRow(0);
