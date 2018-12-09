@@ -90,7 +90,7 @@ namespace bms.Web.ReportStatistics
                 string endTime = sArray[1];
                 strWhere += " and time BETWEEN'" + startTime + "' and '" + endTime + "'";
             }
-            strWhere += " and type=2 group by bookNum,userName,supplier";
+            strWhere += " and type=2 group by bookNum,userName"+type;
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
