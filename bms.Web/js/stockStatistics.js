@@ -76,6 +76,7 @@ window.onload = function () {
 //});
 
 $(document).ready(function () {
+    $("#printContent").hide();//隐藏打印内容
     $('.paging').pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -416,6 +417,83 @@ $(document).ready(function () {
         } else {
             $("#groupsupplier").hide();
             $("#groupregion").hide();
+        }
+    })
+    //打印
+    $("#print").click(function () {
+        var groupbyType = $("#groupby").find("option:selected").text()
+        if (groupbyType == "" || groupbyType == null) {
+            swal({
+                title: "提示",
+                text: "至少选择一种选择方式",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        }
+        else if (!$("#table td:visible").length) {
+            swal({
+                title: "无查询条件或无数据",
+                text: "若以选择条件请先点击查询再导出",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } 
+        else {
+            var link = "<link rel='stylesheet' type='text/css' href='../css/zgz.css'><link rel='stylesheet' href='../css/material-dashboard.min.css'>";
+            var style = "<style>body{background-color:white !important;}#prinTable tr td{border: 1px solid black !important;padding:5px 5px;font-size:13px;}</style>";
+            $.ajax({
+                type: 'Post',
+                url: 'stockStatistics.aspx',
+                data: {
+                    op: "print",
+                    groupbyType: groupbyType
+                },
+                dataType: 'text',
+                success: function (data) {
+                    $("#printTable tr:not(:first)").remove(); //清空table处首行
+                    $("#printTable").append(data); //加载table
+                    var LODOP = getLodop();
+                    LODOP.PRINT_INIT("测试表格");
+                    LODOP.SET_PRINT_PAGESIZE(3, 1385, 20, "");
+                    LODOP.ADD_PRINT_HTM(10, 31, 1500, 12000, link + style + "<body>" + document.getElementById("printContent").innerHTML + "</body>");
+                    LODOP.PRINT_DESIGN();
+                },
+                error: function (XMLHttpRequest, textStatus) { //请求失败
+                    if (textStatus == 'timeout') {
+                        var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                        xmlhttp.abort();
+                        swal({
+                            title: "提示",
+                            text: "请求超时",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        });
+                    } else if (textStatus == "error") {
+                        swal({
+                            title: "提示",
+                            text: "服务器内部错误",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        });
+                    }
+                }
+            });
         }
     })
 })
