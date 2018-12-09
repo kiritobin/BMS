@@ -827,5 +827,13 @@ namespace bms.Dao
             }
             return dt;
         }
+
+        public DataTable print()
+        {
+            string sql = "select sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_salemonomer group by customerName";
+            DataSet ds = db.FillDataSet(sql, null, null);
+            DataTable dt = ds.Tables[0];
+            return dt;
+        }
     }
 }

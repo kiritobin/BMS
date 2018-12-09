@@ -406,11 +406,12 @@
                                                 <button class="btn btn-sm btn-info" id="exportDe">导出明细</button>
                                             </div>
                                             <div class="btn-group">
+                                                <%--onclick="MyPreview()"--%>
                                                 <button class="btn btn-sm btn-info" id="print">打印报表</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="table-responsive">
+                                    <div class="table-responsive" id="print_table">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
@@ -483,6 +484,11 @@
                     </div>
                 </div>
             </div>
+            <div id="print_div">
+                <table class="table text-center model-table table-bordered">
+                    <%--<%=print() %>--%>
+                </table>
+            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -503,6 +509,7 @@
     <!-- jQuery -->
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/salesStatistics.js"></script>
+    <script src="../js/LodopFuncs.js"></script>
     <!-- Bootstrap JavaScript -->
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>

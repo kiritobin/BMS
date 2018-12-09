@@ -694,9 +694,30 @@ $(document).ready(function () {
             $("#groupcustom").hide();
         }
     })
+    //打印
+    $("#print").click(function () {
+        //$.ajax({
+        //    type: 'Post',
+        //    url: 'salesStatistics.aspx',
+        //    dataType: 'text',
+        //    data: {
+        //        op: "print"
+        //    },
+        //    success: function (data) {
+        //        $("#print_table").append(data);
+        //        myPrint();
+        //    }
+        //})
+        myPrint();
+    })
 })
-
-
+var lodop;
+function myPrint() {
+    LODOP = getLodop();
+    LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_打印表格");
+    LODOP.ADD_PRINT_TABLE(100, 1, "99.8%", "100%", document.getElementById("print_table").innerHTML);
+    LODOP.PREVIEW();
+}
 //退出系统
 function logout() {
     swal({
@@ -724,3 +745,76 @@ function logout() {
         });
     })
 }
+
+//打印
+var LODOP; //声明为全局变量
+var group = $("#table").find('tr').eq(0).find('th').eq(1).text().trim();
+var kinds = $("#table").find('tr').eq(0).find('th').eq(2).text().trim();
+var num = $("#table").find('tr').eq(0).find('th').eq(3).text().trim();
+var totalPrice = $("#table").find('tr').eq(0).find('th').eq(4).text().trim();
+var realPrice = $("#table").find('tr').eq(0).find('th').eq(5).text().trim();
+var LODOP; //声明为全局变量
+function MyPreview() {
+    AddTitle();
+    var iCurLine = 75;//标题行之后的数据从位置80px开始打印
+    var j = $("#table").find("tr").length;
+    var row = $("#table").find('tr');
+    for (i = 1; i < j; i++) {
+        LODOP.ADD_PRINT_TEXT(iCurLine, 15, 50, 20, i);
+        LODOP.ADD_PRINT_TEXT(iCurLine, 70, 200, 20, row.eq(i).find('td').eq(1).text().trim());
+        LODOP.ADD_PRINT_TEXT(iCurLine, 270, 80, 20, row.eq(i).find('td').eq(2).text().trim());
+        LODOP.ADD_PRINT_TEXT(iCurLine, 330, 50, 20, row.eq(i).find('td').eq(3).text().trim());
+        LODOP.ADD_PRINT_TEXT(iCurLine, 380, 100, 20, row.eq(i).find('td').eq(4).text().trim());
+        LODOP.ADD_PRINT_TEXT(iCurLine, 480, 100, 20, row.eq(i).find('td').eq(5).text().trim());
+        iCurLine = iCurLine + 25;//每行占25px
+        LODOP.ADD_PRINT_LINE(iCurLine - 5, 14, iCurLine - 5, 580, 0, 1);//横线
+        //竖线
+        LODOP.ADD_PRINT_LINE(70, 14, 70 + 25 * i, 14, 0, 1);
+        LODOP.ADD_PRINT_LINE(70, 65, 70 + 25 * i, 65, 0, 1);
+        LODOP.ADD_PRINT_LINE(70, 265, 70 + 25 * i, 265, 0, 1);
+        LODOP.ADD_PRINT_LINE(70, 325, 70 + 25 * i, 325, 0, 1);
+        LODOP.ADD_PRINT_LINE(70, 375, 70 + 25 * i, 375, 0, 1);
+        LODOP.ADD_PRINT_LINE(70, 475, 70 + 25 * i, 475, 0, 1);
+        LODOP.ADD_PRINT_LINE(70, 580, 70 + 25 * i, 580, 0, 1);
+    }
+    LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 580, 0, 1);
+    LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 14, 0, 1);
+    LODOP.SET_PRINT_PAGESIZE(3, 1800, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
+    LODOP.PREVIEW();
+};
+function AddTitle() {
+    LODOP = getLodop();
+    LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_不同高度幅面");
+    LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "北京市东城区沃乐福商城收款票据");
+    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
+    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.ADD_PRINT_TEXT(50, 15, 50, 20, "序号");
+    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
+    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.ADD_PRINT_TEXT(50, 70, 200, 20, group);
+    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
+    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.ADD_PRINT_TEXT(50, 270, 50, 20, kinds);
+    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
+    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.ADD_PRINT_TEXT(50, 330, 100, 20, num);
+    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
+    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.ADD_PRINT_TEXT(50, 380, 100, 20, totalPrice);
+    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
+    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.ADD_PRINT_TEXT(50, 480, 50, 20, realPrice);
+    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
+    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    //横线
+    LODOP.ADD_PRINT_LINE(45, 14, 45, 580, 0, 1);
+    LODOP.ADD_PRINT_LINE(70, 14, 70, 580, 0, 1);
+    //竖线
+    LODOP.ADD_PRINT_LINE(45, 14, 70, 14, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 65, 70, 65, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 265, 70, 265, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 325, 70, 325, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 375, 70, 375, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 475, 70, 475, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 580, 70, 580, 0, 1);
+};
