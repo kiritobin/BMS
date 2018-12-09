@@ -134,6 +134,7 @@
                     prevContent: '上页',
                     nextContent: '下页',
                     callback: function (api) {
+                        var custom = $("#cusSearch").find("option:selected").text();
                         var book = $("#bookSearch").val().trim();
                         var isbn = $("#isbnSearch").val().trim();
                         $.ajax({
@@ -143,6 +144,7 @@
                                 page: api.getCurrent(), //页码
                                 book: book,
                                 isbn: isbn,
+                                custom: custom,
                                 op: "paging"
                             },
                             dataType: 'text',
