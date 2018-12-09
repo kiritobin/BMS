@@ -592,5 +592,11 @@ namespace bms.Bll
             }
             return new string(array);
         }
+
+        public DataTable print()
+        {
+            DataTable dt = SaleMonomerdao.print();
+            return dt;
+        }
     }
 }

@@ -398,13 +398,13 @@ namespace bms.Bll
             excel.Columns.Add("供应商");
             excel.Columns.Add("制单时间");
             excel.Columns.Add("制单员"); 
-            excel.Columns.Add("入库来源");
+            excel.Columns.Add("入库来源"); 
             DataTable dt = monoDao.ExportExcelDetails(strWhere, groupType, type);
             DataRowCollection count = dt.Rows;
             foreach (DataRow row in count)
             {
                 string bookName = ToDBC(row[2].ToString());
-                excel.Rows.Add(row[0], row[1], row[2], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]);
+                excel.Rows.Add(row[0], row[1],bookName, row[3],row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]);
             }
             return excel;
         }
