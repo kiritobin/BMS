@@ -43,6 +43,10 @@ namespace bms.Web.ReportStatistics
             {
                 exportDetail();
             }
+            if (op == "print")
+            {
+                print();
+            }
             else
             {
                 permission();
@@ -225,6 +229,31 @@ namespace bms.Web.ReportStatistics
             Response.End();
             return strb.ToString();
         }
+
+        private string print()
+        {
+            string groupbyType = Request["groupbyType"];
+            StringBuilder strb = new StringBuilder();
+            exportAllStrWhere = Session["exportAllStrWhere"].ToString();
+            exportgroupbyType = Session["exportgroupbyType"].ToString();
+            DataTable dt = wareBll.exportAll(exportAllStrWhere, exportgroupbyType, Session["time"].ToString(), 0);
+            int count = dt.Rows.Count;
+            for (int i = 0; i < count; i++)
+            {
+                DataRow dr = dt.Rows[i];
+                strb.Append("<tr><td>" + (i + 1) + "</td>");
+                strb.Append("<td>" + dr["" + groupbyType + ""].ToString() + "</td>");
+                //condition = dr["" + groupbyType + ""].ToString();
+                strb.Append("<td>" + dr["书籍种数"].ToString() + "</td>");
+                strb.Append("<td>" + dr["书籍总数量"].ToString() + "</td>");
+                strb.Append("<td>" + dr["总实洋"].ToString() + "</td>");
+                strb.Append("<td>" + dr["总码洋"].ToString() + "</td></tr>");
+            }
+            Response.Write(strb.ToString());
+            Response.End();
+            return strb.ToString();
+        }
+
         /// <summary>
         /// 权限控制
         /// </summary>
