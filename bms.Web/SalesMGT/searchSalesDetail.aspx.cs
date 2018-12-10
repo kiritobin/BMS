@@ -171,13 +171,13 @@ namespace bms.Web.SalesMGT
                 for (int i = 0; i < datacount; i++)
                 {
                     sb.Append("<tr><td>" + (i + 1) + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"] + "</td>");
-                    sb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td></tr>");
+                    sb.Append("<td>" + dataSet.Tables[0].Rows[i]["ISBN"] + "</td>");
+                    sb.Append("<td>" + dataSet.Tables[0].Rows[i]["bookNum"] + "</td>");
+                    sb.Append("<td>" + dataSet.Tables[0].Rows[i]["bookName"] + "</td>");
+                    sb.Append("<td>" + dataSet.Tables[0].Rows[i]["unitPrice"] + "</td>");
+                    sb.Append("<td>" + dataSet.Tables[0].Rows[i]["allnumber"] + "</td>");
+                    sb.Append("<td>" + dataSet.Tables[0].Rows[i]["realDiscount"] + "</td>");
+                    sb.Append("<td>" + dataSet.Tables[0].Rows[i]["allrealPrice"] + "</td></tr>");
                     //sb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
                     //sb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
                     //sb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
