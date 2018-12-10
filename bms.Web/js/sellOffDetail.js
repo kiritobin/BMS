@@ -391,7 +391,7 @@ function MyPreview() {
 function AddTitle() {
     LODOP = getLodop();
     LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_不同高度幅面");
-    LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "北京市东城区沃乐福商城收款票据");
+    LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "销退明细打印");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 15, 100, 20, "ISBN");

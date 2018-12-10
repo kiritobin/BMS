@@ -365,7 +365,7 @@
                                             <div class="form-group form-group-sm">
                                                 <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
                                                 <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
-                                                <button type="button" class="btn btn-sm btn-info">打印</button>
+                                                <button type="button" class="btn btn-sm btn-info" id="print">打印</button>
                                                 <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
                                         </form>
@@ -475,7 +475,53 @@
                     </div>
                 </div>
             </div>
-
+            <div class="table-responsive">
+                <table class="table mostTable table-bordered text-center" id="print_table">
+                    <thead>
+                        <tr class="book-tab-tr text-nowrap">
+                            <th>
+                                <nobr>序号</nobr>
+                            </th>
+                            <th>
+                                <nobr>ISBN</nobr>
+                            </th>
+                            <th>
+                                <nobr>书号</nobr>
+                            </th>
+                            <th>
+                                <nobr>书名</nobr>
+                            </th>
+                            <th>
+                                <nobr>定价</nobr>
+                            </th>
+                            <th>
+                                <nobr>数量</nobr>
+                            </th>
+                            <th>
+                                <nobr>码洋</nobr>
+                            </th>
+                            <th>
+                                <nobr>实洋</nobr>
+                            </th>
+                            <th>
+                                <nobr>销售折扣</nobr>
+                            </th>
+                            <th>
+                                <nobr>销退日期</nobr>
+                            </th>
+                            <th>
+                                <nobr>操作员</nobr>
+                            </th>
+                            <th>
+                                <nobr>供应商</nobr>
+                            </th>
+                            <th>
+                                <nobr>采集状态</nobr>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -505,5 +551,7 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/salesDetails.js"></script>
     <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/LodopFuncs.js"></script>
+    <script src="../js/sweetalert2.js"></script>
 </body>
 </html>
