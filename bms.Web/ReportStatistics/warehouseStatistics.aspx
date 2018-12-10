@@ -396,7 +396,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!--时间选择模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog modal-lg">
@@ -443,6 +443,23 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 打印内容 -->
+            <div id="printContent">
+                <table class="table mostTable table-bordered text-center" id="printTable">
+                    <thead>
+                        <tr class="book-tab-tr text-nowrap">
+                            <th>序号</th>
+                            <th>供应商</th>
+                            <th>品种</th>
+                            <th>数量</th>
+                            <th>码洋</th>
+                            <th>实洋</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -461,6 +478,7 @@
     </div>
 </body>
 <script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../js/LodopFuncs.js"></script>
 <!-- 左侧导航栏所需js -->
 <script src="../js/popper.min.js"></script>
 <script src="../js/bootstrap-material-design.min.js"></script>
@@ -471,4 +489,7 @@
 <script src="../js/sweetalert2.js"></script>
 <script src="../js/jquery.pagination.js"></script>
 <script src="../js/warehouseStatistics.js"></script>
+<object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
+    <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
+</object>
 </html>

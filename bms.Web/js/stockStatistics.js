@@ -76,7 +76,7 @@ window.onload = function () {
 //});
 
 $(document).ready(function () {
-    //$("#printContent").hide();//隐藏打印内容
+    $("#printContent").hide();//隐藏打印内容
     $('.paging').pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -553,7 +553,14 @@ function MyPreview() {
         //LODOP.ADD_PRINT_TEXT(iCurLine, 380, 300, 20, row.eq(i).find('td').eq(4).text().trim());
         //LODOP.ADD_PRINT_TEXT(iCurLine, 430, 300, 20, row.eq(i).find('td').eq(5).text().trim());
         LODOP.ADD_PRINT_TEXT(iCurLine, 15, 50, 20, i);
-        LODOP.ADD_PRINT_TEXT(iCurLine, 70, 200, 20, row.eq(i).find('td').eq(1).text().trim());
+        if (row.eq(i).find('td').eq(1).text().trim().length > 12) {
+            LODOP.ADD_PRINT_TEXT(iCurLine, 70, 200, 20, row.eq(i).find('td').eq(1).text().trim());
+            LODOP.SET_PRINT_STYLEA(0, "FontSize", 6);
+            LODOP.SET_PRINT_STYLEA(0, "Bold", 0);
+        }
+        else {
+            LODOP.ADD_PRINT_TEXT(iCurLine, 70, 200, 20, row.eq(i).find('td').eq(1).text().trim());
+        }
         LODOP.ADD_PRINT_TEXT(iCurLine, 270, 100, 20, row.eq(i).find('td').eq(2).text().trim());
         LODOP.ADD_PRINT_TEXT(iCurLine, 370, 100, 20, row.eq(i).find('td').eq(3).text().trim());
         LODOP.ADD_PRINT_TEXT(iCurLine, 470, 100, 20, row.eq(i).find('td').eq(4).text().trim());
