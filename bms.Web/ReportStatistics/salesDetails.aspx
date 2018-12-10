@@ -548,6 +548,7 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/salesDetails.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/LodopFuncs.js"></script>
