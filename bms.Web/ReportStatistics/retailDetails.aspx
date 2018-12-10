@@ -327,18 +327,18 @@
                                     <div class="card-header" style="padding-right: 0px;">
                                         <form class="form-inline">
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入ISBN" style="width:130px;" id="isbn" />
+                                                <input type="text" class="" placeholder="请输入ISBN" style="width: 130px;" id="isbn" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" style="width:130px;" id="price" />
+                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入折扣" style="width:130px;" id="discount" />
+                                                <input type="text" class="" placeholder="请输入折扣" style="width: 130px;" id="discount" />
                                             </div>
                                             &nbsp;
-                                            <div class="btn-group" role="group" style="width:165px !important;">
+                                            <div class="btn-group" role="group" style="width: 165px !important;">
                                                 <select class="modal_select selectpicker collectionStatus" data-live-search="true" title="请选择收银员" id="user">
                                                     <option value="">全部</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
@@ -349,7 +349,7 @@
                                                 </select>
                                             </div>
                                             &nbsp;
-                                            <div class="btn-group" role="group" style="width:180px !important;" id="paySelect">
+                                            <div class="btn-group" role="group" style="width: 180px !important;" id="paySelect">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择支付方式" id="payment">
                                                     <option value="">全部</option>
                                                     <option value="未支付">未支付</option>
@@ -366,7 +366,7 @@
                                             <div class="form-group form-group-sm">
                                                 <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
                                                 <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
-                                                <button type="button" class="btn btn-sm btn-info">打印</button>
+                                                <button type="button" class="btn btn-sm btn-info" id="print">打印</button>
                                                 <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
                                         </form>
@@ -389,11 +389,7 @@
                                                     </th>
                                                     <th>
                                                         <nobr>定价</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>供应商</nobr>
-                                                    </th>
-                                                    <th>
+                                                    </th>                                                    <th>
                                                         <nobr>数量</nobr>
                                                     </th>
                                                     <th>
@@ -410,6 +406,9 @@
                                                     </th>
                                                     <th>
                                                         <nobr>收银员</nobr>
+                                                    </th>
+                                                    <th>
+                                                        <nobr>供应商</nobr>
                                                     </th>
                                                     <th>
                                                         <nobr>支付方式</nobr>
@@ -479,7 +478,56 @@
                     </div>
                 </div>
             </div>
-
+            <div class="table-responsive">
+                <table class="table mostTable table-bordered text-center" id="print_table">
+                    <thead>
+                        <tr class="book-tab-tr text-nowrap">
+                            <th>
+                                <nobr>序号</nobr>
+                            </th>
+                            <th>
+                                <nobr>ISBN</nobr>
+                            </th>
+                            <th>
+                                <nobr>书号</nobr>
+                            </th>
+                            <th>
+                                <nobr>书名</nobr>
+                            </th>
+                            <th>
+                                <nobr>定价</nobr>
+                            </th>
+                            <th>
+                                <nobr>供应商</nobr>
+                            </th>
+                            <th>
+                                <nobr>数量</nobr>
+                            </th>
+                            <th>
+                                <nobr>码洋</nobr>
+                            </th>
+                            <th>
+                                <nobr>实洋</nobr>
+                            </th>
+                            <th>
+                                <nobr>折扣</nobr>
+                            </th>
+                            <th>
+                                <nobr>交易日期</nobr>
+                            </th>
+                            <th>
+                                <nobr>收银员</nobr>
+                            </th>
+                            <th>
+                                <nobr>支付方式</nobr>
+                            </th>
+                            <th>
+                                <nobr>组织名称</nobr>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -509,5 +557,7 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/retailDetails.js"></script>
     <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/LodopFuncs.js"></script>
+    <script src="../js/sweetalert2.js"></script>
 </body>
 </html>

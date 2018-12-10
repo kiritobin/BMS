@@ -44,6 +44,74 @@ namespace bms.Web.ReportStatistics
             {
                 export();
             }
+            string op = Request["op"];
+            if (op == "print")
+            {
+                Response.Write(Print());
+                Response.End();
+            }
+        }
+        public String Print()
+        {
+            string isbn = Request["isbn"];
+            string price = Request["price"];
+            string discount = Request["discount"];
+            string user = Request["user"];
+            string time = Request["time"];
+            string payment = Request["payment"];
+            string strWhere = groupType;
+            string fileName = name;
+            if (isbn != null && isbn != "")
+            {
+                fileName += "-" + isbn;
+                strWhere += " and isbn='" + isbn + "'";
+            }
+            if (price != null && price != "")
+            {
+                fileName += "-" + price;
+                strWhere += " and unitPrice=" + price;
+            }
+            if (discount != null && discount != "")
+            {
+                fileName += "-" + discount;
+                strWhere += " and realDiscount=" + discount;
+            }
+            if (user != null && user != "")
+            {
+                fileName += "-" + user;
+                strWhere += " and userName='" + user + "'";
+            }
+            if (time != null && time != "")
+            {
+                fileName += "-" + time;
+                strWhere += " and dateTime='" + time + "'";
+            }
+            if (payment != null && payment != "")
+            {
+                fileName += "-" + payment;
+                strWhere += " and payment='" + payment + "'";
+            }
+            DataTable dt = retailBll.ExportExcel(strWhere, type);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                sb.Append("<tr>");
+                sb.Append("<td>" + (i + 1) + "</td>");
+                sb.Append("<td>" + dt.Rows[i][0] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][1] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][2] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][3] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][4] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][5] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][6] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][7] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][9] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][10] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][8] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][11] + "</td>");
+                sb.Append("</tr>");
+            }
+            return sb.ToString();
         }
         /// <summary>
         /// 获取数据

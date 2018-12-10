@@ -56,6 +56,30 @@ namespace bms.Web.ReportStatistics
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
+            if (op == "print")
+            {
+                Response.Write(print());
+                Response.End();
+            }
+        }
+        public String print()
+        {
+            exportAllStrWhere = Session["exportAllStrWhere"].ToString();
+            exportgroupbyType = Session["exportgroupbyType"].ToString();
+            DataTable dt = retailBll.exportAll(exportAllStrWhere, exportgroupbyType, Session["time"].ToString());
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                sb.Append("<tr>");
+                sb.Append("<td>" + (i + 1) + "</td>");
+                sb.Append("<td>" + dt.Rows[i][0] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][1] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][2] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][3] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][4] + "</td>");
+                sb.Append("</tr>");
+            }
+            return sb.ToString();
         }
         /// <summary>
         /// 导出当前页面数据

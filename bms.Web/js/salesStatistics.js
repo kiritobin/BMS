@@ -95,6 +95,7 @@ Date.prototype.Format = function (fmt) {
 //});
 
 $(document).ready(function () {
+    $("#print_table").hide();
     $('.paging').pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -731,8 +732,8 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     $(".swal2-container").remove();
-                    $("#table tr:not(:first)").remove(); //清空table处首行
-                    $("#table").append(data); //加载table 
+                    $("#print_table tr:not(:first)").remove(); //清空table处首行
+                    $("#print_table").append(data); //加载table 
                     MyPreview();
                 },
                 error: function (XMLHttpRequest, textStatus) { //请求失败
@@ -800,11 +801,18 @@ var LODOP; //声明为全局变量
 function MyPreview() {
     AddTitle();
     var iCurLine = 75;//标题行之后的数据从位置80px开始打印
-    var j = $("#table").find("tr").length;
-    var row = $("#table").find('tr');
+    var j = $("#print_table").find("tr").length;
+    var row = $("#print_table").find('tr');
     for (i = 1; i < j; i++) {
         LODOP.ADD_PRINT_TEXT(iCurLine, 15, 50, 20, i);
-        LODOP.ADD_PRINT_TEXT(iCurLine, 70, 200, 20, row.eq(i).find('td').eq(1).text().trim());
+        if (row.eq(i).find('td').eq(1).text().trim().length > 12) {
+            LODOP.ADD_PRINT_TEXT(iCurLine, 70, 200, 20, row.eq(i).find('td').eq(1).text().trim());
+            LODOP.SET_PRINT_STYLEA(0, "FontSize", 6);
+            LODOP.SET_PRINT_STYLEA(0, "Bold", 0);
+        }
+        else {
+            LODOP.ADD_PRINT_TEXT(iCurLine, 70, 200, 20, row.eq(i).find('td').eq(1).text().trim());
+        }
         LODOP.ADD_PRINT_TEXT(iCurLine, 270, 80, 20, row.eq(i).find('td').eq(2).text().trim());
         LODOP.ADD_PRINT_TEXT(iCurLine, 330, 50, 20, row.eq(i).find('td').eq(3).text().trim());
         LODOP.ADD_PRINT_TEXT(iCurLine, 380, 100, 20, row.eq(i).find('td').eq(4).text().trim());

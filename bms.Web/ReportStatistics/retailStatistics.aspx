@@ -326,14 +326,14 @@
                                 <div class="card-body">
                                     <div class="card-header" style="padding-right: 0px;">
                                         <div class="input-group">
-                                            <div class="btn-group" role="group" style="width:180px;">
+                                            <div class="btn-group" role="group" style="width: 180px;">
                                                 <select class="modal_select selectpicker collectionStatus" id="groupby">
                                                     <option value="">分组方式</option>
                                                     <option value="region">组织</option>
                                                     <option value="payType">支付方式</option>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupregion" style="width:180px;">
+                                            <div class="btn-group" id="groupregion" style="width: 180px;">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="region">
                                                     <option value="">全部</option>
                                                     <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
@@ -342,7 +342,7 @@
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupPayType" style="width:180px;">
+                                            <div class="btn-group" id="groupPayType" style="width: 180px;">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择支付方式" id="payType">
                                                     <option value="">全部</option>
                                                     <option value="未支付">未支付</option>
@@ -438,6 +438,22 @@
                     </div>
                 </div>
             </div>
+            <div class="table-responsive">
+                <table class="table mostTable table-bordered text-center" id="print_table">
+                    <thead>
+                        <tr class="book-tab-tr text-nowrap">
+                            <th>序号</th>
+                            <th>供应商</th>
+                            <th>品种</th>
+                            <th>数量</th>
+                            <th>码洋</th>
+                            <th>实洋</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <%--<%=getData() %>--%>
+                </table>
+            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -468,6 +484,7 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/LodopFuncs.js"></script>
 </body>
 </html>
 

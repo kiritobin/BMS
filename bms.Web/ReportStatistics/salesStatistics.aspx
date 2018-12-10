@@ -411,7 +411,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="table-responsive" id="print_table">
+                                    <div class="table-responsive">
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
@@ -505,7 +505,22 @@
             </footer>
         </div>
     </div>
-
+    <div class="table-responsive">
+        <table class="table mostTable table-bordered text-center" id="print_table">
+            <thead>
+                <tr class="book-tab-tr text-nowrap">
+                    <th>序号</th>
+                    <th>供应商</th>
+                    <th>品种</th>
+                    <th>数量</th>
+                    <th>码洋</th>
+                    <th>实洋</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <%--<%=getData() %>--%>
+        </table>
+    </div>
     <!-- jQuery -->
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/salesStatistics.js"></script>
@@ -520,7 +535,7 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jquery.pagination.js"></script>
-<%--    <script src="../js/xlsx.full.min.js"></script>
+    <%--    <script src="../js/xlsx.full.min.js"></script>
     <script src="../js/FileSaver.min.js"></script>
     <script src="../js/jsonToExcel.js"></script>--%>
 </body>
