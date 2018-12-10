@@ -74,9 +74,9 @@ namespace bms.Web.InventoryMGT
                     sb.Append("<td>" + drc[i]["bookName"].ToString() + "</td>");
                     sb.Append("<td>" + drc[i]["number"].ToString() + "</td>");
                     sb.Append("<td>" + drc[i]["uPrice"].ToString() + "</td >");
-                    sb.Append("<td>" + drc[i]["discount"].ToString() + "</td >");
                     sb.Append("<td>" + drc[i]["totalPrice"].ToString() + "</td >");
                     sb.Append("<td>" + drc[i]["realPrice"].ToString() + "</td >");
+                    sb.Append("<td>" + drc[i]["discount"].ToString() + "</td >");
                     sb.Append("<td>" + drc[i]["shelvesName"].ToString() + "</td ></tr >");
                 }
                 Response.Write(sb);
