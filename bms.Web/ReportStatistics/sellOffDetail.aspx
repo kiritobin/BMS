@@ -4,14 +4,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>云南新华书店项目综合管理系统</title>
-    <link href="../css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="../css/material-dashboard.min.css" rel="stylesheet"/>
-    <link href="../css/zgz.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../css/lgd.css"/>
+    <link href="../css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/material-dashboard.min.css" rel="stylesheet" />
+    <link href="../css/zgz.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/lgd.css" />
     <link rel="stylesheet" href="../css/bootstrap-select.css" />
-    <link rel="stylesheet" href="../css/pagination.css"/>
+    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/jedate.css" />
     <script src="../js/jedate.min.js"></script>
 </head>
@@ -229,7 +229,7 @@
                         </div>
                     </li>
                     <%if (isAdmin)
-                    { %>
+                        { %>
                     <li class="nav-item active">
                         <a class="nav-link" href="#ReportStatistics" data-toggle="collapse">
                             <i class="fa fa-table"></i>
@@ -325,19 +325,19 @@
                                     <div class="card-header" style="padding-right: 0px;">
                                         <form class="form-inline">
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入ISBN" style="width:130px;" id="isbn"/>
+                                                <input type="text" class="" placeholder="请输入ISBN" style="width: 130px;" id="isbn" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" style="width:130px;" id="price"/>
+                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入销售折扣" style="width:130px;" id="discount"/>
+                                                <input type="text" class="" placeholder="请输入销售折扣" style="width: 130px;" id="discount" />
                                             </div>
                                             &nbsp;
                                             <div class="btn-group" role="group">
-                                                <select class="modal_select collectionStatus" style="border:1px solid initial;padding:2px;width:130px;" id="user">
+                                                <select class="modal_select collectionStatus" style="border: 1px solid initial; padding: 2px; width: 130px;" id="user">
                                                     <option value="0">请选择操作员</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
                                                         for (int i = 0; i < count; i++)
@@ -359,13 +359,13 @@
                                             </div>--%>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal"/>
+                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
                                                 <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
                                                 <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
-                                                <button type="button" class="btn btn-sm btn-info" onclick="MyPreview()">打印</button>
+                                                <button type="button" class="btn btn-sm btn-info" id="print">打印</button>
                                                 <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
                                         </form>
@@ -446,7 +446,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" id="startTime" placeholder="年--月--日"/>
+                                            <input type="text" class="jeinput text-center" id="startTime" placeholder="年--月--日" />
                                         </div>
                                     </td>
                                 </tr>
@@ -455,7 +455,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" id="endTime" placeholder="年--月--日"/>
+                                            <input type="text" class="jeinput text-center" id="endTime" placeholder="年--月--日" />
                                         </div>
                                     </td>
                                 </tr>
@@ -475,7 +475,50 @@
                     </div>
                 </div>
             </div>
-
+            <div class="table-responsive">
+                <table class="table mostTable table-bordered text-center" id="print_table">
+                    <thead>
+                        <tr class="book-tab-tr text-nowrap">
+                            <th>
+                                <nobr>序号</nobr>
+                            </th>
+                            <th>
+                                <nobr>ISBN</nobr>
+                            </th>
+                            <th>
+                                <nobr>书号</nobr>
+                            </th>
+                            <th>
+                                <nobr>书名</nobr>
+                            </th>
+                            <th>
+                                <nobr>定价</nobr>
+                            </th>
+                            <th>
+                                <nobr>数量</nobr>
+                            </th>
+                            <th>
+                                <nobr>码洋</nobr>
+                            </th>
+                            <th>
+                                <nobr>实洋</nobr>
+                            </th>
+                            <th>
+                                <nobr>销售折扣</nobr>
+                            </th>
+                            <th>
+                                <nobr>销退日期</nobr>
+                            </th>
+                            <th>
+                                <nobr>操作员</nobr>
+                            </th>
+                            <th>
+                                <nobr>供应商</nobr>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -506,5 +549,6 @@
     <script src="../js/sellOffDetail.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/LodopFuncs.js"></script>
+    <script src="../js/sweetalert2.js"></script>
 </body>
 </html>

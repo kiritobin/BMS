@@ -67,21 +67,25 @@ namespace bms.Web.reportStatistics
             }
             if (op == "print")
             {
-                print();
                 Response.Write(print());
                 Response.End();
             }
         }
         public String print()
         {
-            dt = salemonBll.print();
+            exportAllStrWhere = Session["exportAllStrWhere"].ToString();
+            exportgroupbyType = Session["exportgroupbyType"].ToString();
+            DataTable dt = salemonBll.exportAll(exportAllStrWhere, exportgroupbyType, state, Time);
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < dt.Rows.Count; i++)
             {
                 sb.Append("<tr>");
-                sb.Append("<td>" + dt.Rows[i]["allNumber"] + "</td>");
-                sb.Append("<td>" + dt.Rows[i]["allTotalPrice"] + "</td>");
-                sb.Append("<td>" + dt.Rows[i]["allRealPrice"] + "</td>");
+                sb.Append("<td>" + (i+1) + "</td>");
+                sb.Append("<td>" + dt.Rows[i][0] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][1] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][2] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][3] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][4] + "</td>");
                 sb.Append("</tr>");
             }
             return sb.ToString();

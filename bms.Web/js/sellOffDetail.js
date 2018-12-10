@@ -17,6 +17,7 @@ jeDate("#endTime", {
 });
 
 $(document).ready(function () {
+    $("#print_table").hide();
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -160,6 +161,78 @@ $(document).ready(function () {
     $("#back").click(function () {
         window.location.href = "selloffStatistics.aspx";
     })
+
+    $("#print").click(function () {
+        var t = $("#table").find('tr').length;
+        //alert(t);
+        if (t <= 1) {
+            swal({
+                title: "提示",
+                text: "请先查询你要打印的内容",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-warning',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        }
+        else {
+            $.ajax({
+                type: 'Post',
+                url: 'sellOffDetail.aspx',
+                data: {
+                    op: "print"
+                },
+                dataType: 'text',
+                beforeSend: function (XMLHttpRequest) { //开始请求
+                    swal({
+                        text: "正在获取数据",
+                        imageUrl: "../imgs/load.gif",
+                        imageHeight: 100,
+                        imageWidth: 100,
+                        width: 180,
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                },
+                success: function (data) {
+                    $(".swal2-container").remove();
+                    $("#print_table tr:not(:first)").remove(); //清空table处首行
+                    $("#print_table").append(data); //加载table
+                    MyPreview();
+                },
+                error: function (XMLHttpRequest, textStatus) { //请求失败
+                    $(".swal2-container").remove();
+                    if (textStatus == 'timeout') {
+                        var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                        xmlhttp.abort();
+                        swal({
+                            title: "提示",
+                            text: "请求超时",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        });
+                    } else if (textStatus == "error") {
+                        swal({
+                            title: "提示",
+                            text: "服务器内部错误",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        });
+                    }
+                }
+            })
+        }
+    })
 });
 function logout() {
     swal({
@@ -257,8 +330,8 @@ var LODOP; //声明为全局变量
 function MyPreview() {
     AddTitle();
     var iCurLine = 80;//标题行之后的数据从位置80px开始打印
-    var j = $("#table").find("tr").length;
-    var row = $("#table").find('tr');
+    var j = $("#print_table").find("tr").length;
+    var row = $("#print_table").find('tr');
     for (i = 1; i < j; i++) {
         LODOP.ADD_PRINT_TEXT(iCurLine, 15, 100, 20, row.eq(i).find('td').eq(1).text().trim());
         LODOP.ADD_PRINT_TEXT(iCurLine, 100, 150, 20, row.eq(i).find('td').eq(2).text().trim());
@@ -312,7 +385,7 @@ function MyPreview() {
     LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 14, 0, 1);
     //LODOP.ADD_PRINT_TEXT(iCurLine + 5, 20, 300, 20, "打印时间：" + (new Date()).toLocaleDateString() + " " + (new Date()).toLocaleTimeString());
     //LODOP.ADD_PRINT_TEXT(iCurLine + 5, 346, 150, 20, "合计金额：" + document.getElementById("HJ").value);
-    LODOP.SET_PRINT_PAGESIZE(3, 2200, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
+    LODOP.SET_PRINT_PAGESIZE(3, 2000, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
     LODOP.PREVIEW();
 };
 function AddTitle() {

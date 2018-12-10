@@ -4,19 +4,19 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>销退统计</title>
-    <link href="../css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="../css/material-dashboard.min.css" rel="stylesheet"/>
-    <link href="../css/zgz.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../css/lgd.css"/>
+    <link href="../css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/material-dashboard.min.css" rel="stylesheet" />
+    <link href="../css/zgz.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/lgd.css" />
     <link rel="stylesheet" href="../css/bootstrap-select.css" />
-    <link rel="stylesheet" href="../css/pagination.css"/>
+    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/jedate.css" />
     <script src="../js/jedate.min.js"></script>
 </head>
 <body>
-        <div class="wrapper ">
+    <div class="wrapper ">
         <!-- 左侧垂直导航 -->
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="../imgs/sidebar-2.jpg">
             <!-- 平台字体logo -->
@@ -228,7 +228,7 @@
                         </div>
                     </li>
                     <%if (isAdmin)
-                    { %>
+                        { %>
                     <li class="nav-item active">
                         <a class="nav-link" href="#ReportStatistics" data-toggle="collapse">
                             <i class="fa fa-table"></i>
@@ -374,7 +374,7 @@
                                                 <button class="btn btn-sm btn-info" id="exportDe">导出明细</button>
                                             </div>
                                             <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="print" onclick="MyPreview()">打印报表</button>
+                                                <button class="btn btn-sm btn-info" id="print">打印报表</button>
                                             </div>
                                         </div>
                                     </div>
@@ -421,7 +421,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日"/>
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日" />
                                         </div>
                                     </td>
                                 </tr>
@@ -430,7 +430,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日"/>
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日" />
                                         </div>
                                     </td>
                                 </tr>
@@ -446,6 +446,21 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table mostTable table-bordered text-center" id="print_table">
+                    <thead id="print_head">
+                        <tr class="book-tab-tr text-nowrap">
+                            <th>序号</th>
+                            <th>供应商</th>
+                            <th>品种</th>
+                            <th>数量</th>
+                            <th>码洋</th>
+                            <th>实洋</th>
+                        </tr>
+                    </thead>
+                    <%--<%=getData() %>--%>
+                </table>
             </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">

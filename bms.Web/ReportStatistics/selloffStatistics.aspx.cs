@@ -43,6 +43,12 @@ namespace bms.Web.ReportStatistics
             {
                 exportDetail();
             }
+            if (op == "print")
+            {
+                Print();
+                Response.Write(Print());
+                Response.End();
+            }
             else
             {
                 permission();
@@ -315,6 +321,27 @@ namespace bms.Web.ReportStatistics
                 }
             }
         }
-
+        public String Print()
+        {
+            exportAllStrWhere = Session["exportAllStrWhere"].ToString();
+            exportgroupbyType = Session["exportgroupbyType"].ToString();
+            DataTable dt = sellBll.exportAll(exportAllStrWhere, exportgroupbyType, Time);
+            StringBuilder sb = new StringBuilder();
+            int count = dt.Rows.Count;
+            for(int i = 0; i < count; i++)
+            {
+                sb.Append("<tbody>");
+                sb.Append("<tr>");
+                sb.Append("<td>" + (i+1) + "</td>");
+                sb.Append("<td>" + dt.Rows[i][0] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["书籍品种数"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["书籍总数量"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["总码洋"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["总实洋"] + "</td>");
+                sb.Append("</tr>");
+                sb.Append("</tbody>");
+            }
+            return sb.ToString();
+        }
     }
 }

@@ -696,28 +696,37 @@ $(document).ready(function () {
     })
     //打印
     $("#print").click(function () {
-        //$.ajax({
-        //    type: 'Post',
-        //    url: 'salesStatistics.aspx',
-        //    dataType: 'text',
-        //    data: {
-        //        op: "print"
-        //    },
-        //    success: function (data) {
-        //        $("#print_table").append(data);
-        //        myPrint();
-        //    }
-        //})
-        myPrint();
+        var t = $("#table").find('tr').length;
+        //alert(t);
+        if (t <= 1) {
+            swal({
+                title: "提示",
+                text: "请先查询你要打印的内容",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-warning',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        }
+        else {
+            $.ajax({
+                type: 'Post',
+                url: 'salesStatistics.aspx',
+                dataType: 'text',
+                data: {
+                    op: "print"
+                },
+                success: function (data) {
+                    $("#table tr:not(:first)").remove(); //清空table处首行
+                    $("#table").append(data); //加载table 
+                    MyPreview();
+                }
+            })
+        }
     })
 })
-var lodop;
-function myPrint() {
-    LODOP = getLodop();
-    LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_打印表格");
-    LODOP.ADD_PRINT_TABLE(100, 1, "99.8%", "100%", document.getElementById("print_table").innerHTML);
-    LODOP.PREVIEW();
-}
 //退出系统
 function logout() {
     swal({
@@ -748,12 +757,6 @@ function logout() {
 
 //打印
 var LODOP; //声明为全局变量
-var group = $("#table").find('tr').eq(0).find('th').eq(1).text().trim();
-var kinds = $("#table").find('tr').eq(0).find('th').eq(2).text().trim();
-var num = $("#table").find('tr').eq(0).find('th').eq(3).text().trim();
-var totalPrice = $("#table").find('tr').eq(0).find('th').eq(4).text().trim();
-var realPrice = $("#table").find('tr').eq(0).find('th').eq(5).text().trim();
-var LODOP; //声明为全局变量
 function MyPreview() {
     AddTitle();
     var iCurLine = 75;//标题行之后的数据从位置80px开始打印
@@ -783,6 +786,12 @@ function MyPreview() {
     LODOP.PREVIEW();
 };
 function AddTitle() {
+    var LODOP; //声明为全局变量
+    var group = $("#table").find('tr').eq(0).find('th').eq(1).text().trim();
+    var kinds = $("#table").find('tr').eq(0).find('th').eq(2).text().trim();
+    var num = $("#table").find('tr').eq(0).find('th').eq(3).text().trim();
+    var totalPrice = $("#table").find('tr').eq(0).find('th').eq(4).text().trim();
+    var realPrice = $("#table").find('tr').eq(0).find('th').eq(5).text().trim();
     LODOP = getLodop();
     LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_不同高度幅面");
     LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "北京市东城区沃乐福商城收款票据");
