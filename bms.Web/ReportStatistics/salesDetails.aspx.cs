@@ -44,6 +44,12 @@ namespace bms.Web.ReportStatistics
             {
                 export();
             }
+            string op = Request["op"];
+            if (op == "print")
+            {
+                Response.Write(Print());
+                Response.End();
+            }
         }
         /// <summary>
         /// 获取数据
@@ -203,6 +209,31 @@ namespace bms.Web.ReportStatistics
                 Response.Write("<script>alert('没有数据，不能执行导出操作!');</script>");
                 Response.End();
             }
+        }
+
+        public String Print()
+        {
+            DataTable dt = detailsBll.ExportExcels(groupType, type);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                sb.Append("<tr>");
+                sb.Append("<td>" + (i + 1) + "</td>");
+                sb.Append("<td>" + dt.Rows[i][0] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][1] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][2] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][3] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][4] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][5] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][6] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][7] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][9] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][10] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][8] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][11] + "</td>");
+                sb.Append("</tr>");
+            }
+            return sb.ToString();
         }
 
         protected void permission()
