@@ -167,7 +167,8 @@ namespace bms.Web.SalesMGT
                 SellOffMonomerBll sellOffMonomerBll = new SellOffMonomerBll();
                 DataSet dataSet = sellOffMonomerBll.searchSalesDetail(saletaskId, saleheadId);
                 DataRowCollection drc = dataSet.Tables[0].Rows;
-                for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                int datacount = dataSet.Tables[0].Rows.Count;
+                for (int i = 0; i < datacount; i++)
                 {
                     sb.Append("<tr><td>" + (i + 1) + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
@@ -177,6 +178,13 @@ namespace bms.Web.SalesMGT
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"] + "</td>");
                     sb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td></tr>");
+                    //sb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+                    //sb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
+                    //sb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
+                    //sb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
+                    //sb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
+                    //sb.Append("<td>" + ds.Tables[0].Rows[i]["realDiscount"] + "</td>");
+                    //sb.Append("<td>" + ds.Tables[0].Rows[i]["allrealPrice"] + "</td></tr>");
                 }
                 Response.Write(sb);
                 Response.End();
