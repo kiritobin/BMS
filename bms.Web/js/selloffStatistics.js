@@ -22,6 +22,7 @@ window.onload = function () {
 }
 
 $(document).ready(function () {
+    $("#print_table").hide();
     $('.paging').pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -429,6 +430,79 @@ $(document).ready(function () {
             $("#groupcustom").hide();
         }
     })
+
+    //打印
+    $("#print").click(function () {
+        var t = $("#table").find('tr').length;
+        //alert(t);
+        if (t <= 1) {
+            swal({
+                title: "提示",
+                text: "请先查询你要打印的内容",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-warning',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        }
+        else {
+            $.ajax({
+                type: 'Post',
+                url: 'selloffStatistics.aspx',
+                data: {
+                    op: "print"
+                },
+                dataType: 'text',
+                beforeSend: function (XMLHttpRequest) { //开始请求
+                    swal({
+                        text: "正在获取数据",
+                        imageUrl: "../imgs/load.gif",
+                        imageHeight: 100,
+                        imageWidth: 100,
+                        width: 180,
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                },
+                success: function (data) {
+                    $(".swal2-container").remove();
+                    $("#print_table tr:not(:first)").remove(); //清空table处首行
+                    $("#print_table").append(data); //加载table
+                    MyPreview();
+                },
+                error: function (XMLHttpRequest, textStatus) { //请求失败
+                    $(".swal2-container").remove();
+                    if (textStatus == 'timeout') {
+                        var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                        xmlhttp.abort();
+                        swal({
+                            title: "提示",
+                            text: "请求超时",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        });
+                    } else if (textStatus == "error") {
+                        swal({
+                            title: "提示",
+                            text: "服务器内部错误",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        });
+                    }
+                }
+            })
+        }
+    })
 })
 
 //退出系统
@@ -520,45 +594,46 @@ function logout() {
 //    LODOP.PREVIEW();//打印预览	
 
 
-var LODOP; //声明为全局变量
-var group = $("#table").find('tr').eq(0).find('th').eq(1).text().trim();
-var kinds = $("#table").find('tr').eq(0).find('th').eq(2).text().trim();
-var num = $("#table").find('tr').eq(0).find('th').eq(3).text().trim();
-var totalPrice = $("#table").find('tr').eq(0).find('th').eq(4).text().trim();
-var realPrice = $("#table").find('tr').eq(0).find('th').eq(5).text().trim();
+
 var LODOP; //声明为全局变量
 function MyPreview() {
     AddTitle();
     var iCurLine = 75;//标题行之后的数据从位置80px开始打印
-    var j = $("#table").find("tr").length;
-    var row = $("#table").find('tr');
+    var j = $("#print_table").find("tr").length;
+    var row = $("#print_table").find('tr');
     for (i = 1; i < j; i++) {
         LODOP.ADD_PRINT_TEXT(iCurLine, 15, 50, 20, i);
         LODOP.ADD_PRINT_TEXT(iCurLine, 70, 200, 20, row.eq(i).find('td').eq(1).text().trim());
-        LODOP.ADD_PRINT_TEXT(iCurLine, 270, 80, 20, row.eq(i).find('td').eq(2).text().trim());
-        LODOP.ADD_PRINT_TEXT(iCurLine, 330, 50, 20, row.eq(i).find('td').eq(3).text().trim());
-        LODOP.ADD_PRINT_TEXT(iCurLine, 380, 50, 20, row.eq(i).find('td').eq(4).text().trim());
-        LODOP.ADD_PRINT_TEXT(iCurLine, 430, 50, 20, row.eq(i).find('td').eq(5).text().trim());
+        LODOP.ADD_PRINT_TEXT(iCurLine, 270, 100, 20, row.eq(i).find('td').eq(2).text().trim());
+        LODOP.ADD_PRINT_TEXT(iCurLine, 370, 100, 20, row.eq(i).find('td').eq(3).text().trim());
+        LODOP.ADD_PRINT_TEXT(iCurLine, 470, 100, 20, row.eq(i).find('td').eq(4).text().trim());
+        LODOP.ADD_PRINT_TEXT(iCurLine, 570, 100, 20, row.eq(i).find('td').eq(5).text().trim());
         iCurLine = iCurLine + 25;//每行占25px
-        LODOP.ADD_PRINT_LINE(iCurLine - 5, 14, iCurLine - 5, 480, 0, 1);//横线
+        LODOP.ADD_PRINT_LINE(iCurLine - 5, 14, iCurLine - 5, 670, 0, 1);//横线
         //竖线
         LODOP.ADD_PRINT_LINE(70, 14, 70 + 25 * i, 14, 0, 1);
         LODOP.ADD_PRINT_LINE(70, 65, 70 + 25 * i, 65, 0, 1);
         LODOP.ADD_PRINT_LINE(70, 265, 70 + 25 * i, 265, 0, 1);
-        LODOP.ADD_PRINT_LINE(70, 325, 70 + 25 * i, 325, 0, 1);
-        LODOP.ADD_PRINT_LINE(70, 375, 70 + 25 * i, 375, 0, 1);
-        LODOP.ADD_PRINT_LINE(70, 425, 70 + 25 * i, 425, 0, 1);
-        LODOP.ADD_PRINT_LINE(70, 480, 70 + 25 * i, 480, 0, 1);
+        LODOP.ADD_PRINT_LINE(70, 365, 70 + 25 * i, 365, 0, 1);
+        LODOP.ADD_PRINT_LINE(70, 465, 70 + 25 * i, 465, 0, 1);
+        LODOP.ADD_PRINT_LINE(70, 565, 70 + 25 * i, 565, 0, 1);
+        LODOP.ADD_PRINT_LINE(70, 670, 70 + 25 * i, 670, 0, 1);
     }
-    LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 480, 0, 1);
+    LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 670, 0, 1);
     LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 14, 0, 1);
-    LODOP.SET_PRINT_PAGESIZE(3, 1500, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
+    LODOP.SET_PRINT_PAGESIZE(3, 2200, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
+    //LODOP.PRINT_DESIGN();//打印设计	
     LODOP.PREVIEW();
 };
 function AddTitle() {
+    var group = $("#table").find('tr').eq(0).find('th').eq(1).text().trim();
+    var kinds = $("#table").find('tr').eq(0).find('th').eq(2).text().trim();
+    var num = $("#table").find('tr').eq(0).find('th').eq(3).text().trim();
+    var totalPrice = $("#table").find('tr').eq(0).find('th').eq(4).text().trim();
+    var realPrice = $("#table").find('tr').eq(0).find('th').eq(5).text().trim();
     LODOP = getLodop();
-    LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_不同高度幅面");
-    LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "北京市东城区沃乐福商城收款票据");
+    //LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_不同高度幅面");
+    LODOP.ADD_PRINT_TEXT(15, 200, 355, 30, "新华书店销退报表打印");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 15, 50, 20, "序号");
@@ -567,27 +642,27 @@ function AddTitle() {
     LODOP.ADD_PRINT_TEXT(50, 70, 200, 20, group);
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 270, 50, 20, kinds);
+    LODOP.ADD_PRINT_TEXT(50, 270, 100, 20, kinds);
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 330, 50, 20, num);
+    LODOP.ADD_PRINT_TEXT(50, 370, 100, 20, num);
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 380, 50, 20, totalPrice);
+    LODOP.ADD_PRINT_TEXT(50, 470, 100, 20, totalPrice);
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 430, 50, 20, realPrice);
+    LODOP.ADD_PRINT_TEXT(50, 570, 100, 20, realPrice);
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     //横线
-    LODOP.ADD_PRINT_LINE(45, 14, 45, 480, 0, 1);
-    LODOP.ADD_PRINT_LINE(70, 14, 70, 480, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 14, 45, 670, 0, 1);
+    LODOP.ADD_PRINT_LINE(70, 14, 70, 670, 0, 1);
     //竖线
     LODOP.ADD_PRINT_LINE(45, 14, 70, 14, 0, 1);
     LODOP.ADD_PRINT_LINE(45, 65, 70, 65, 0, 1);
     LODOP.ADD_PRINT_LINE(45, 265, 70, 265, 0, 1);
-    LODOP.ADD_PRINT_LINE(45, 325, 70, 325, 0, 1);
-    LODOP.ADD_PRINT_LINE(45, 375, 70, 375, 0, 1);
-    LODOP.ADD_PRINT_LINE(45, 425, 70, 425, 0, 1);
-    LODOP.ADD_PRINT_LINE(45, 480, 70, 480, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 365, 70, 365, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 465, 70, 465, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 565, 70, 565, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 670, 70, 670, 0, 1);
 };
