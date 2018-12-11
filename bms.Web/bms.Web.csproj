@@ -40,6 +40,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NPOI">
       <HintPath>..\bms.DBHelper\bin\Debug\NPOI.dll</HintPath>
@@ -53,7 +56,9 @@
     <Reference Include="NPOI.OpenXmlFormats">
       <HintPath>..\bms.DBHelper\bin\Debug\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -351,6 +356,7 @@
     <Compile Include="CustomerMGT\customerPurchase.aspx.designer.cs">
       <DependentUpon>customerPurchase.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CustomerMGT\EPPlusHelper.cs" />
     <Compile Include="CustomerMGT\statistics.aspx.cs">
       <DependentUpon>statistics.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
