@@ -162,6 +162,9 @@ $(document).ready(function () {
     })
 
     $("#print").click(function () {
+        var type = GetQueryString("type");
+        var _n = GetQueryString("name")
+        var name = decodeURI(_n);
         var isbn = $("#isbn").val();
         var price = $("#price").val();
         var discount = $("#discount").val();
@@ -186,6 +189,8 @@ $(document).ready(function () {
                 type: 'Post',
                 url: 'stockDetails.aspx',
                 data: {
+                    type: type,
+                    name:decodeURI(name),
                     isbn: isbn,
                     price: price,
                     discount: discount,
@@ -243,6 +248,13 @@ $(document).ready(function () {
         }
     })
 });
+
+function GetQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+
 
 var LODOP; //声明为全局变量
 function MyPreview() {
