@@ -227,8 +227,8 @@ namespace bms.Web.BasicInfor
         //书号算法并生成datatable列
         private DataTable addBookId()
         {
-            excel = excelToDt();
-            //excel = npoi();
+            //excel = excelToDt();
+            excel = npoi();
             int row = excel.Rows.Count;
             string a;
             if (ViewState["i"].ToString().Length>=18)
@@ -550,6 +550,7 @@ namespace bms.Web.BasicInfor
                         string accept = row[8].ToString().Trim();
                         string sale = row[9].ToString().Trim();
                         string price = row[6].ToString().Trim();
+
                         if (price==""||isbn==""||bookName=="")
                         {
                             price = "0";
@@ -724,8 +725,8 @@ namespace bms.Web.BasicInfor
 
         private void check()
         {
-            excel = excelToDt();
-            //excel = npoi();
+            //excel = excelToDt();
+            excel = npoi();
             GetDistinctTable(excel);
         }
 
@@ -770,8 +771,8 @@ namespace bms.Web.BasicInfor
 
         private string test()
         {
-            excel = excelToDt();
-            //excel = npoi();
+            //excel = excelToDt();
+            excel = npoi();
             string s="";
             try
             {
@@ -855,9 +856,9 @@ namespace bms.Web.BasicInfor
             DataTable dtNpoi=new DataTable();
             try
             {
-                dtNpoi.Columns.Add("id");
                 dtNpoi = ExcelHelper.GetDataTable(path);
                 row = dtNpoi.Rows.Count;
+                dtNpoi.Columns.Add("id").SetOrdinal(0);
             }
             catch (Exception ex)
             {

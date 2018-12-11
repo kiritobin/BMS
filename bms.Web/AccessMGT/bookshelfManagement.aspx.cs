@@ -264,7 +264,6 @@ namespace bms.Web.BasicInfor
                 conn.Open();
                 string strExcel1 = "select 货架名称 from [Sheet1$]";
                 OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
-                dt1.Columns.Add("id"); //匹配列，与结构一致
                 oda1.Fill(dt1);
                 DataColumn dc = new DataColumn("地区ID", typeof(int));
                 dc.DefaultValue = regId; 
@@ -281,6 +280,35 @@ namespace bms.Web.BasicInfor
             finally
             {
                 conn.Close();
+            }
+            return dt1;
+        }
+        private DataTable npioDt()
+        {
+            DataTable dt1 = new DataTable();
+            int regId;
+            if (user.RoleId.RoleName == "超级管理员")
+            {
+                regId = Convert.ToInt32(Request["regId"]);
+            }
+            else
+            {
+                regId = user.ReginId.RegionId;
+            }
+            string path = Session["path"].ToString();
+            try
+            {
+                dt1 = ExcelHelper.GetDataTable(path);
+                DataColumn dc = new DataColumn("地区ID", typeof(int));
+                dc.DefaultValue = regId;
+                dt1.Columns.Add(dc);
+                dt1.Columns.Add("id").SetOrdinal(0);
+                row = dt1.Rows.Count;
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex);
+                Response.End();
             }
             return dt1;
         }
@@ -310,10 +338,12 @@ namespace bms.Web.BasicInfor
             }
             return SourceDt;
         }
+
         //取差集
         private void differentDt()
         {
-            excel = excelToDt();
+            //excel = excelToDt();
+            excel = npioDt();
             int regId;
             if (user.RoleId.RoleName == "超级管理员")
             {

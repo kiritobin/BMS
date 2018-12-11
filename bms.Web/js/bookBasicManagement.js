@@ -155,11 +155,21 @@
                                     op:"check"
                                 },
                                 dataType: 'text',
+                                beforeSend: function (XMLHttpRequest) { //开始请求
+                                    $("#myModalLabe1").html("正在读取数据");
+                                    $("#img").attr("src", "../imgs/loading.gif");
+                                    $("#myModal1").modal("show");
+                                    $("#close").hide();
+                                },
                                 success: function (succ) {
+                                    $("#myModal1").modal("hide");
+                                    $("#close").show();
+                                    $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
+                                    $("#img").attr("src", "../imgs/loading.gif");
                                     if (succ.indexOf("重复") > 0) {
                                         swal({
                                             title: "温馨提示:)",
-                                            text: succ,
+                                            text: "存在重复记录，请修改后上传",
                                             buttonsStyling: false,
                                             confirmButtonClass: "btn btn-success",
                                             type: "warning",

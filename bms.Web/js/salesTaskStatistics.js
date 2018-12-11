@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    $("#print_table").hide();
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -32,7 +33,6 @@ $("#excel").click(function () {
 //打印
 $("#print").click(function () {
     //$("#content").jqprint();
-
     $.ajax({
         type: 'Post',
         url: 'salesTaskStatistics.aspx',
@@ -40,9 +40,21 @@ $("#print").click(function () {
             op: 'print'
         },
         dataType: 'text',
+        beforeSend: function (XMLHttpRequest) { //开始请求
+            swal({
+                text: "正在获取数据",
+                imageUrl: "../imgs/load.gif",
+                imageHeight: 100,
+                imageWidth: 100,
+                width: 180,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        },
         success: function (data) {
-            $("#table tr:not(:first)").remove();
-            $("#table").append(data);
+            $(".swal2-container").remove();
+            $("#print_table tr:not(:first)").remove();
+            $("#print_table").append(data);
             var status = "";
             var LODOP = getLodop();
             //LODOP.SET_LICENSES("", "3C5743518A25D4EEFBB1CCB8C6FF9A49", "C94CEE276DB2187AE6B65D56B3FC2848", "");
@@ -104,15 +116,15 @@ $("#print").click(function () {
                 LODOP.ADD_PRINT_LINE(225, 14, 225, 755, 0, 1);//二线(行)
 
                 //--行内容
-                var j = $("#table").find("tr").length;
+                var j = $("#print_table").find("tr").length;
                 for (i = 0; i < j; i++) {
-                    var row = $("#table").find('tr').eq(i + 1).find('td');
+                    var row = $("#print_table").find('tr').eq(i + 1).find('td');
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 20, 50, 20, (i + 1));
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 70, 100, 20, row.eq(1).text().trim());
                     LODOP.ADD_PRINT_TEXT(235 + 25 * i, 170, 120, 20, row.eq(2).text().trim());
                     if (row.eq(3).text().trim().length > 20) {
                         LODOP.ADD_PRINT_TEXT(235 + 25 * i, 300, 300, 20, row.eq(3).text().trim());
-                        LODOP.SET_PRINT_STYLEA(0, "FontSize", 7);
+                        LODOP.SET_PRINT_STYLEA(0, "FontSize", 5);
                         LODOP.SET_PRINT_STYLEA(0, "Bold", 0);
                     }
                     else {
@@ -139,6 +151,34 @@ $("#print").click(function () {
                 LODOP.PREVIEW();//打印预览	
                 //LODOP.PRINT();
                 //window.location.reload();
+            }
+        },
+        error: function (XMLHttpRequest, textStatus) { //请求失败
+            $(".swal2-container").remove();
+            if (textStatus == 'timeout') {
+                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                xmlhttp.abort();
+                swal({
+                    title: "提示",
+                    text: "请求超时",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else if (textStatus == "error") {
+                swal({
+                    title: "提示",
+                    text: "服务器内部错误",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
             }
         }
     })

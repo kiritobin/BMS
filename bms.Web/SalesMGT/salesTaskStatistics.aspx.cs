@@ -45,6 +45,29 @@ namespace bms.Web.SalesMGT
             {
                 export("1");
             }
+            if (op == "print")
+            {
+                Response.Write(Print());
+                Response.End();
+            }
+        }
+
+        public String Print()
+        {
+            DataTable dt = saletaskbll.ExportExcel(saletaskId, state);
+            StringBuilder strb = new StringBuilder();
+            for (int i = 0;i< dt.Rows.Count;i++){
+                strb.Append("<tr><td>" + (i + 1) + "</td>");
+                strb.Append("<td>" + dt.Rows[i][2] + "</td>");
+                strb.Append("<td>" + dt.Rows[i][0] + "</td>");
+                strb.Append("<td>" + dt.Rows[i][1] + "</td>");
+                strb.Append("<td>" + dt.Rows[i][3] + "</td>");
+                strb.Append("<td>" + dt.Rows[i][4] + "</td>");
+                strb.Append("<td>" + dt.Rows[i][5] + "</td>");
+                strb.Append("<td>" + dt.Rows[i][6] + "</td>");
+                strb.Append("<td>" + dt.Rows[i][7] + "</td></tr>");
+            }
+            return strb.ToString();
         }
         public void getBasic(string state)
         {
@@ -118,51 +141,51 @@ namespace bms.Web.SalesMGT
             HttpContext.Current.Response.End();
         }
 
-        public string print()
-        {
-            int currentPage = Convert.ToInt32(Request["page"]);
-            if (currentPage == 0)
-            {
-                currentPage = 1;
-            }
-            TableBuilder tb = new TableBuilder();
-            tb.StrTable = "V_SaleMonomer";
-            tb.OrderBy = "dateTime";
-            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,sum(totalPrice) as totalPrice,regionName,supplier,author";
-            tb.IntPageSize = pageSize;
-            tb.IntPageNum = currentPage;
-            tb.StrWhere = " saleTaskId='" + saletaskId + "' group by bookNum,bookName,ISBN,unitPrice";
-            //获取展示的客户数据
-            ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
-            //生成table
-            StringBuilder strb = new StringBuilder();
-            strb.Append("<tbody>");
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-            {
-                if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
-                {
-                    strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["author"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"] + "</td>");
-                    strb.Append("<td>" + ds.Tables[0].Rows[i]["supplier"] + "</td></tr>");
-                }
-            }
-            strb.Append("</tbody>");
-            strb.Append("<input type='hidden' value='" + intPageCount + " ' id='intPageCount' />");
-            strb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[0]["regionName"] + " ' id='region' />");
-            string op = Request["op"];
-            if (op == "paging")
-            {
-                Response.Write(strb.ToString());
-                Response.End();
-            }
-            return strb.ToString();
-        }
+        //public string print()
+        //{
+        //    int currentPage = Convert.ToInt32(Request["page"]);
+        //    if (currentPage == 0)
+        //    {
+        //        currentPage = 1;
+        //    }
+        //    TableBuilder tb = new TableBuilder();
+        //    tb.StrTable = "V_SaleMonomer";
+        //    tb.OrderBy = "dateTime";
+        //    tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,sum(totalPrice) as totalPrice,regionName,supplier,author";
+        //    tb.IntPageSize = pageSize;
+        //    tb.IntPageNum = currentPage;
+        //    tb.StrWhere = " saleTaskId='" + saletaskId + "' group by bookNum,bookName,ISBN,unitPrice";
+        //    //获取展示的客户数据
+        //    ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
+        //    //生成table
+        //    StringBuilder strb = new StringBuilder();
+        //    strb.Append("<tbody>");
+        //    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+        //    {
+        //        if (int.Parse(ds.Tables[0].Rows[i]["allnumber"].ToString()) != 0 && double.Parse(ds.Tables[0].Rows[i]["allrealPrice"].ToString()) != 0)
+        //        {
+        //            strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+        //            strb.Append("<td>" + ds.Tables[0].Rows[i]["bookNum"] + "</td>");
+        //            strb.Append("<td>" + ds.Tables[0].Rows[i]["ISBN"] + "</td>");
+        //            strb.Append("<td>" + ds.Tables[0].Rows[i]["bookName"] + "</td>");
+        //            strb.Append("<td>" + ds.Tables[0].Rows[i]["unitPrice"] + "</td>");
+        //            strb.Append("<td>" + ds.Tables[0].Rows[i]["allnumber"] + "</td>");
+        //            strb.Append("<td>" + ds.Tables[0].Rows[i]["author"] + "</td>");
+        //            strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"] + "</td>");
+        //            strb.Append("<td>" + ds.Tables[0].Rows[i]["supplier"] + "</td></tr>");
+        //        }
+        //    }
+        //    strb.Append("</tbody>");
+        //    strb.Append("<input type='hidden' value='" + intPageCount + " ' id='intPageCount' />");
+        //    strb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[0]["regionName"] + " ' id='region' />");
+        //    string op = Request["op"];
+        //    if (op == "paging")
+        //    {
+        //        Response.Write(strb.ToString());
+        //        Response.End();
+        //    }
+        //    return strb.ToString();
+        //}
 
         //获取基础数据
         public string getData()

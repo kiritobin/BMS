@@ -44,6 +44,73 @@ namespace bms.Web.ReportStatistics
             {
                 export();
             }
+            string op = Request["op"];
+            if (op == "print") {
+                Print();
+            }
+        }
+        private string print()
+        {
+            string type = Request["type"];
+            string strWhere = "";
+            string name = Session["name"].ToString();
+            if (type == "regionName")
+            {
+                strWhere = "regionName = '" + name + "' and deleteState=0";
+            }
+            else if (type == "supplier")
+            {
+                strWhere = "supplier = '" + name + "' and deleteState=0";
+            }
+            string isbn = Request["isbn"];
+            string price = Request["price"];
+            string discount = Request["discount"];
+            string user = Request["user"];
+            string time = Request["time"];
+            if (isbn != null && isbn != "")
+            {
+                strWhere += " and isbn='" + isbn + "'";
+            }
+            if (price != null && price != "")
+            {
+                strWhere += " and uPrice=" + price;
+            }
+            if (discount != null && discount != "")
+            {
+
+                strWhere += " and discount=" + discount;
+            }
+            if (user != null && user != "")
+            {
+                strWhere += " and userName='" + user + "'";
+            }
+            if (time != null && time != "")
+            {
+                strWhere += " and time='" + time + "'";
+            }
+            DataTable dt = wareBll.ExportExcelDetail(strWhere, type, 2);
+            int count = dt.Rows.Count;
+            StringBuilder strb = new StringBuilder();
+            for (int i = 0; i < count; i++)
+            {
+                DataRow dr = dt.Rows[i];
+                strb.Append("<tr><td>" + (i + 1) + "</td>");
+                strb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                strb.Append("<td>" + dr["书号"].ToString() + "</td>");
+                strb.Append("<td>" + dr["书名"].ToString() + "</td>");
+                strb.Append("<td>" + dr["单价"].ToString() + "</td>");
+                strb.Append("<td>" + dr["数量"].ToString() + "</td>");
+                strb.Append("<td>" + dr["码洋"].ToString() + "</td>");
+                strb.Append("<td>" + dr["实洋"].ToString() + "</td>");
+                strb.Append("<td>" + dr["折扣"].ToString() + "</td>");
+                strb.Append("<td>" + dr["供应商"].ToString() + "</td>");
+                strb.Append("<td>" + dr["制单时间"].ToString() + "</td>");
+                strb.Append("<td>" + dr["制单员"].ToString() + "</td>");
+                strb.Append("<td>" + dr["入库来源"].ToString() + "</td></tr>");
+            }
+            Response.Write(strb.ToString());
+            Response.End();
+            return strb.ToString();
         }
         /// <summary>
         /// 获取数据

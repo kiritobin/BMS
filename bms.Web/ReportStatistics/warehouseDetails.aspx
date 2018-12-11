@@ -327,18 +327,18 @@
                                     <div class="card-header" style="padding-right: 0px;">
                                         <form class="form-inline">
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入ISBN" style="width:130px;" id="isbn" />
+                                                <input type="text" class="" placeholder="请输入ISBN" style="width: 130px;" id="isbn" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" style="width:130px;" id="price" />
+                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入折扣" style="width:130px;" id="discount" />
+                                                <input type="text" class="" placeholder="请输入折扣" style="width: 130px;" id="discount" />
                                             </div>
                                             &nbsp;
-                                            <div class="btn-group" role="group" style="width:165px !important;">
+                                            <div class="btn-group" role="group" style="width: 165px !important;">
                                                 <select class="modal_select selectpicker collectionStatus" data-live-search="true" title="请选择制单员" id="user">
                                                     <option value="">全部</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
@@ -356,7 +356,7 @@
                                             <div class="form-group form-group-sm">
                                                 <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
                                                 <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
-                                                <button type="button" class="btn btn-sm btn-info">打印</button>
+                                                <button type="button" class="btn btn-sm btn-info" id="print">打印</button>
                                                 <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
                                         </form>
@@ -402,7 +402,7 @@
                                                         <nobr>制单员</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>入库来源</nobr>
+                                                        <nobr>出库组织</nobr>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -466,7 +466,54 @@
                     </div>
                 </div>
             </div>
+            <div class="table-responsive">
+                <table class="table mostTable table-bordered text-center" id="print_table">
+                    <thead>
+                        <tr class="book-tab-tr text-nowrap">
+                            <th>
+                                <nobr>序号</nobr>
+                            </th>
+                            <th>
+                                <nobr>ISBN</nobr>
+                            </th>
+                            <th>
+                                <nobr>书号</nobr>
+                            </th>
+                            <th>
+                                <nobr>书名</nobr>
+                            </th>
+                            <th>
+                                <nobr>定价</nobr>
+                            </th>
+                            <th>
+                                <nobr>供应商</nobr>
+                            </th>
+                            <th>
+                                <nobr>数量</nobr>
+                            </th>
+                            <th>
+                                <nobr>码洋</nobr>
+                            </th>
+                            <th>
+                                <nobr>实洋</nobr>
+                            </th>
+                            <th>
+                                <nobr>折扣</nobr>
+                            </th>
+                            <th>
+                                <nobr>制单日期</nobr>
+                            </th>
+                            <th>
+                                <nobr>制单员</nobr>
+                            </th>
+                            <th>
+                                <nobr>出库组织</nobr>
+                            </th>
+                        </tr>
+                    </thead>
 
+                </table>
+            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -486,6 +533,7 @@
 
     <!-- jQuery -->
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/LodopFuncs.js"></script>
     <!-- Bootstrap JavaScript -->
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>
@@ -496,5 +544,9 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/warehouseDetails.js"></script>
     <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/sweetalert2.js"></script>
+    <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
+        <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
+    </object>
 </body>
 </html>

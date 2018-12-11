@@ -461,7 +461,41 @@
                     </div>
                 </div>
             </div>
-
+            <div class="table-responsive">
+                <table class="table mostTable table-bordered text-center" id="print_table">
+                    <thead>
+                        <tr>
+                            <td>
+                                <nobr>序号</nobr>
+                            </td>
+                            <td>
+                                <nobr>ISBN号</nobr>
+                            </td>
+                            <td>
+                                <nobr>书名</nobr>
+                            </td>
+                            <td>
+                                <nobr>商品数量</nobr>
+                            </td>
+                            <td>
+                                <nobr>单价</nobr>
+                            </td>
+                            <td>
+                                <nobr>折扣</nobr>
+                            </td>
+                            <td>
+                                <nobr>码洋</nobr>
+                            </td>
+                            <td>
+                                <nobr>实洋</nobr>
+                            </td>
+                            <td>
+                                <nobr>货架</nobr>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
