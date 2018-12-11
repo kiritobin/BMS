@@ -190,7 +190,7 @@ $(document).ready(function () {
                 url: 'stockDetails.aspx',
                 data: {
                     type: type,
-                    name:decodeURI(name),
+                    name: name,
                     isbn: isbn,
                     price: price,
                     discount: discount,
