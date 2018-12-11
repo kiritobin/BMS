@@ -133,10 +133,11 @@ namespace bms.Web.SalesMGT
                 if (state == 0)
                 {
                     strb.Append("<button class='btn btn-success btn-sm btn_add'><i class='fa fa-plus fa-lg'></i></button>");
+                    strb.Append("<button class='btn btn-info btn-sm search_back'><i class='fa fa-search'></i></button>");
                 }
                 if (state == 1)
                 {
-                    strb.Append("<button class='btn btn-info btn-sm search_back'><i class='fa fa-search'></i></button>");
+                    //strb.Append("<button class='btn btn-info btn-sm search_back'><i class='fa fa-search'></i></button>");
                 }
                 row = smBll.GetCount(headId);
                 if (row == 0)
