@@ -213,12 +213,22 @@ namespace bms.Web.ReportStatistics
         }
         private string print()
         {
+            string type = Request["type"];
+            string strWhere="";
+            string name = Session["name"].ToString();
+            if (type == "regionName")
+            {
+                strWhere = "regionName = '" + name + "' and deleteState=0";
+            }
+            else if (type == "supplier")
+            {
+                strWhere = "supplier = '" + name + "' and deleteState=0";
+            }
             string isbn = Request["isbn"];
             string price = Request["price"];
             string discount = Request["discount"];
             string user = Request["user"];
             string time = Request["time"];
-            string strWhere = groupType;
             if (isbn != null && isbn != "")
             {
                 strWhere += " and isbn='" + isbn + "'";
@@ -240,7 +250,7 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and time='" + time + "'";
             }
-            DataTable dt = wareBll.ExportExcelDetail(strWhere, Session["type"].ToString(), 1);
+            DataTable dt = wareBll.ExportExcelDetail(strWhere, type, 1);
             int count = dt.Rows.Count;
             StringBuilder strb = new StringBuilder();
             for (int i = 0; i < count; i++)
