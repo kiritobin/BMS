@@ -102,6 +102,7 @@
     <Content Include="CustomerMGT\customerPurchase.aspx" />
     <Content Include="CustomerMGT\statistics.aspx" />
     <Content Include="CustomerMGT\upload.aspx" />
+    <Content Include="CustomerMGT\WebForm1.aspx" />
     <Content Include="demo\sales_demo.aspx" />
     <Content Include="demo\textarea.aspx" />
     <Content Include="error\404.html" />
@@ -363,6 +364,13 @@
     </Compile>
     <Compile Include="CustomerMGT\upload.aspx.designer.cs">
       <DependentUpon>upload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerMGT\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerMGT\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="demo\sales_demo.aspx.cs">
       <DependentUpon>sales_demo.aspx</DependentUpon>
