@@ -101,10 +101,10 @@ namespace bms.Bll
         /// </summary>
         /// <param name="saleTaskId"></param>
         /// <returns></returns>
-        public DataSet getDisCount(string saleTaskId)
+        public DataSet getDisCount(string saleTaskId,string bookNum)
         {
             SaleTask st = new SaleTask();
-            DataSet ds = dao.getDisCount(saleTaskId);
+            DataSet ds = dao.getDisCount(saleTaskId,bookNum);
             return ds;
         }
         /// <summary>
