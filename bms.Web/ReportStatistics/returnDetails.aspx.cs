@@ -49,38 +49,43 @@ namespace bms.Web.ReportStatistics
                 Print();
             }
         }
-        public String Print()
+        private string print()
         {
-            string isbn = Request.QueryString["isbn"];
-            string price = Request.QueryString["price"];
-            string discount = Request.QueryString["discount"];
-            string user = Request.QueryString["user"];
-            string time = Request.QueryString["time"];
-            string strWhere = groupType;
-            string fileName = name;
+            string type = Request["type"];
+            string strWhere = "";
+            string name = Session["name"].ToString();
+            if (type == "regionName")
+            {
+                strWhere = "regionName = '" + name + "' and deleteState=0";
+            }
+            else if (type == "supplier")
+            {
+                strWhere = "supplier = '" + name + "' and deleteState=0";
+            }
+            string isbn = Request["isbn"];
+            string price = Request["price"];
+            string discount = Request["discount"];
+            string user = Request["user"];
+            string time = Request["time"];
             if (isbn != null && isbn != "")
             {
-                fileName += "-" + isbn;
                 strWhere += " and isbn='" + isbn + "'";
             }
             if (price != null && price != "")
             {
-                fileName += "-" + price;
                 strWhere += " and uPrice=" + price;
             }
             if (discount != null && discount != "")
             {
-                fileName += "-" + discount;
+
                 strWhere += " and discount=" + discount;
             }
             if (user != null && user != "")
             {
-                fileName += "-" + user;
                 strWhere += " and userName='" + user + "'";
             }
             if (time != null && time != "")
             {
-                fileName += "-" + time;
                 strWhere += " and time='" + time + "'";
             }
             DataTable dt = wareBll.ExportExcelDetail(strWhere, type, 2);

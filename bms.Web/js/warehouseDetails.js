@@ -336,10 +336,10 @@ function AddTitle() {
     LODOP.ADD_PRINT_TEXT(50, 415, 100, 20, "定价");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 455, 100, 20, "数量");
+    LODOP.ADD_PRINT_TEXT(50, 455, 100, 20, "供应商");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 490, 100, 20, "折扣");
+    LODOP.ADD_PRINT_TEXT(50, 490, 100, 20, "数量");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 530, 100, 20, "码洋");
@@ -348,7 +348,7 @@ function AddTitle() {
     LODOP.ADD_PRINT_TEXT(50, 570, 100, 20, "实洋");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 610, 100, 20, "供应商");
+    LODOP.ADD_PRINT_TEXT(50, 610, 100, 20, "折扣");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 685, 100, 20, "制单日期");

@@ -255,6 +255,7 @@ function GetQueryString(name) {
     if (r != null) return unescape(r[2]); return null;
 }
 
+
 var LODOP; //声明为全局变量
 function MyPreview() {
     AddTitle();
@@ -358,7 +359,7 @@ function AddTitle() {
     LODOP.ADD_PRINT_TEXT(50, 730, 100, 20, "制单员");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 805, 100, 20, "入库来源");
+    LODOP.ADD_PRINT_TEXT(50, 805, 100, 20, "接收组织");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     //横线
