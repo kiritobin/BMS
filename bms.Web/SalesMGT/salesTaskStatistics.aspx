@@ -179,6 +179,36 @@
                 </div>
             </div>
         </div>
+        <div>
+            <table class="table mostTable table-bordered text-center" id="print_table">
+                <thead>
+                    <tr>
+                        <td class="bbb">
+                            <nobr>序号</nobr>
+                        </td>
+                        <td>
+                            <nobr>书号</nobr>
+                        </td>
+                        <td>
+                            <nobr>ISBN</nobr>
+                        </td>
+                        <td>
+                            <nobr>书名</nobr>
+                        </td>
+                        <td>
+                            <nobr>单价</nobr>
+                        </td>
+                        <td>
+                            <nobr>数量</nobr>
+                        </td>
+                        <td>
+                            <nobr>码洋</nobr>
+                        </td>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
         <!-- 主界面页脚部分 -->
         <footer class="footer">
             <div class="container-fluid">
@@ -205,6 +235,7 @@
     <!-- 移动端手机菜单所需js -->
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
+    <script src="../js/salesTaskStatistics.js"></script>
     <!-- selectpicker.js -->
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/jquery.pagination.js"></script>
@@ -215,7 +246,6 @@
     </object>
     <script src="../js/LodopFuncs.js"></script>
     <script src="../js/public.js"></script>
-    <script src="../js/salesTaskStatistics.js"></script>
 </body>
 
 </html>

@@ -156,6 +156,40 @@
                 </div>
             </div>
         </div>
+        <%-- 打印内容 --%>
+        <div>
+            <table class="table mostTable table-bordered text-center" id="print_table">
+                <thead>
+                    <tr>
+                        <td class="bbb">
+                            <nobr>序号</nobr>
+                        </td>
+                        <td>
+                            <nobr>ISBN号</nobr>
+                        </td>
+                        <td>
+                            <nobr>书号</nobr>
+                        </td>
+                        <td>
+                            <nobr>书名</nobr>
+                        </td>
+                        <td>
+                            <nobr>单价</nobr>
+                        </td>
+                        <td>
+                            <nobr>数量</nobr>
+                        </td>
+                        <td>
+                            <nobr>折扣</nobr>
+                        </td>
+                        <td>
+                            <nobr>实洋</nobr>
+                        </td>
+                    </tr>
+                </thead>
+                <%=getData() %>
+            </table>
+        </div>
         <!-- 主界面页脚部分 -->
         <footer class="footer">
             <div class="container-fluid">

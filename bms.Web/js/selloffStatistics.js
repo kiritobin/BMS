@@ -619,12 +619,12 @@ function MyPreview() {
         LODOP.ADD_PRINT_LINE(iCurLine - 5, 14, iCurLine - 5, 670, 0, 1);//横线
         //竖线
         LODOP.ADD_PRINT_LINE(70, 14, 70 + 25 * i, 14, 0, 1);
-        LODOP.ADD_PRINT_LINE(70, 65, 70 + 25 * i, 65, 0, 1);
-        LODOP.ADD_PRINT_LINE(70, 265, 70 + 25 * i, 265, 0, 1);
-        LODOP.ADD_PRINT_LINE(70, 365, 70 + 25 * i, 365, 0, 1);
-        LODOP.ADD_PRINT_LINE(70, 465, 70 + 25 * i, 465, 0, 1);
-        LODOP.ADD_PRINT_LINE(70, 565, 70 + 25 * i, 565, 0, 1);
-        LODOP.ADD_PRINT_LINE(70, 670, 70 + 25 * i, 670, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 65, iCurLine - 30 + 25 * i, 65, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 265, iCurLine - 30 + 25 * i, 265, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 365, iCurLine - 30 + 25 * i, 365, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 465, iCurLine - 30 + 25 * i, 465, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 565, iCurLine - 30 + 25 * i, 565, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 670, iCurLine - 30 + 25 * i, 670, 0, 1);
     }
     LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 670, 0, 1);
     LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 14, 0, 1);
@@ -639,8 +639,8 @@ function AddTitle() {
     var totalPrice = $("#table").find('tr').eq(0).find('th').eq(4).text().trim();
     var realPrice = $("#table").find('tr').eq(0).find('th').eq(5).text().trim();
     LODOP = getLodop();
-    //LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_不同高度幅面");
-    LODOP.ADD_PRINT_TEXT(15, 200, 355, 30, "新华书店销退报表打印");
+    LODOP.PRINT_INIT("销退报表");
+    LODOP.ADD_PRINT_TEXT(15, 200, 355, 30, "销退报表");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 15, 50, 20, "序号");

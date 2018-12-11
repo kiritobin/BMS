@@ -423,6 +423,24 @@
             </footer>
         </div>
     </div>
+    <div class="table-responsive">
+        <table class="table mostTable table-bordered text-center" id="print_table">
+            <thead>
+                <tr>
+                    <td>序号</td>
+                    <td>ISBN号</td>
+                    <td>书名</td>
+                    <td>商品数量</td>
+                    <td>单价</td>
+                    <td>折扣</td>
+                    <td>码洋</td>
+                    <td>实洋</td>
+                    <td>货架名</td>
+                </tr>
+            </thead>
+            <%=getData() %>
+        </table>
+    </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
     <script src="../js/popper.min.js"></script>

@@ -299,19 +299,19 @@ function MyPreview() {
         iCurLine = iCurLine + 45;//每行占25px
         LODOP.ADD_PRINT_LINE(iCurLine - 5, 14, iCurLine - 5, 900, 0, 1);//横线
         //竖线
-        LODOP.ADD_PRINT_LINE(75, 14, 75 + 45 * i, 14, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 95, 75 + 45 * i, 95, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 215, 75 + 45 * i, 215, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 410, 75 + 45 * i, 410, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 450, 75 + 45 * i, 450, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 485, 75 + 45 * i, 485, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 525, 75 + 45 * i, 525, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 565, 75 + 45 * i, 565, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 605, 75 + 45 * i, 605, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 680, 75 + 45 * i, 680, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 725, 75 + 45 * i, 725, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 800, 75 + 45 * i, 800, 0, 1);
-        LODOP.ADD_PRINT_LINE(75, 900, 75 + 45 * i, 900, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 14, iCurLine - 50 + 45 * i, 14, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 95, iCurLine - 50 + 45 * i, 95, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 215, iCurLine - 50 + 45 * i, 215, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 410, iCurLine - 50 + 45 * i, 410, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 450, iCurLine - 50 + 45 * i, 450, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 485, iCurLine - 50 + 45 * i, 485, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 525, iCurLine - 50 + 45 * i, 525, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 565, iCurLine - 50 + 45 * i, 565, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 605, iCurLine - 50 + 45 * i, 605, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 680, iCurLine - 50 + 45 * i, 680, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 725, iCurLine - 50 + 45 * i, 725, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 800, iCurLine - 50 + 45 * i, 800, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 900, iCurLine - 50 + 45 * i, 900, 0, 1);
     }
     LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 860, 0, 1);
     LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 14, 0, 1);
@@ -322,8 +322,8 @@ function MyPreview() {
 };
 function AddTitle() {
     LODOP = getLodop();
-    LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_不同高度幅面");
-    LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "销售明细打印");
+    LODOP.PRINT_INIT("入库明细");
+    LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "入库明细");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 15, 100, 20, "ISBN");
