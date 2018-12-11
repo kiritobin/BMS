@@ -285,7 +285,7 @@
                             $("#table").empty();
                             $("#table").append(data); //加载table
                             $("#table tr:first").find("td").eq(5).children().focus();
-                            $("#table").find('tr').eq(1).find('td').eq(4).find('input').focus();
+                            $("#table").find('tr').eq(1).find('td').eq(5).find('input').focus();
                         }
                     }
                 });

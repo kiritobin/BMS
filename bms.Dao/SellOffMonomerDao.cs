@@ -80,11 +80,12 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleTaskId"></param>
         /// <returns></returns>
-        public DataSet getDisCount(string saleTaskId)
+        public DataSet getDisCount(string saleTaskId,string bookNum)
         {
-            string sql = "select defaultDiscount from T_SaleTask where saleTaskId=@saleTaskId";
-            string[] param = { "@saleTaskId" };
-            object[] values = { saleTaskId };
+            //string sql = "select defaultDiscount from T_SaleTask where saleTaskId=@saleTaskId";
+            string sql = "select * from ((select bookNum,realDiscount from v_salemonomer where saleTaskId=@saleTaskId GROUP BY bookNum) as temp) where bookNum=@bookNum";
+            string[] param = { "@saleTaskId","@bookNum" };
+            object[] values = { saleTaskId,bookNum };
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }

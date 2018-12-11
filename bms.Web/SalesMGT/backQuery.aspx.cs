@@ -147,6 +147,7 @@ namespace bms.Web.SalesMGT
                     bookNum = bookds.Tables[0].Rows[0]["bookNum"].ToString();//书号
                     BookBasicData book = new BookBasicData();
                     book = bookBll.SelectById(bookNum);
+                    bookName = book.BookName;
                     unitPrice = book.Price;//定价
                 }
             }
@@ -200,8 +201,8 @@ namespace bms.Web.SalesMGT
                     //获取默认折扣
                     DataSet stds = smBll.getSaleTask(sellId);
                     string stId = Session["saleId"].ToString();
-                    DataSet seds = smBll.getDisCount(stId);
-                    string dc = seds.Tables[0].Rows[0]["defaultDiscount"].ToString();
+                    DataSet seds = smBll.getDisCount(stId,bookNo);
+                    string dc = seds.Tables[0].Rows[0]["realDiscount"].ToString();
                     double discount = double.Parse(dc);//默认折扣
 
                     int count = int.Parse(Request["count"]);//数量
@@ -337,11 +338,11 @@ namespace bms.Web.SalesMGT
             string type = Session["type"].ToString();
             string sellId = Session["sellId"].ToString();
             //获取默认折扣
-            DataSet stds = smBll.getSaleTask(sellId);
-            string stId = Session["saleId"].ToString();
-            DataSet seds = smBll.getDisCount(stId);
-            string dc = seds.Tables[0].Rows[0]["defaultDiscount"].ToString();
-            double discount = double.Parse(dc);//默认折扣
+            //DataSet stds = smBll.getSaleTask(sellId);
+            //string stId = Session["saleId"].ToString();
+            //DataSet seds = smBll.getDisCount(stId,bookNum);
+            //string dc = seds.Tables[0].Rows[0]["defaultDiscount"].ToString();
+            //double discount = double.Parse(dc);//默认折扣
 
             ds = smBll.Select(sellId);
             StringBuilder sb = new StringBuilder();
