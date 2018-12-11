@@ -107,7 +107,7 @@ namespace bms.Web.ReportStatistics
                 strb.Append("<td>" + dr["供应商"].ToString() + "</td>");
                 strb.Append("<td>" + dr["制单时间"].ToString() + "</td>");
                 strb.Append("<td>" + dr["制单员"].ToString() + "</td>");
-                strb.Append("<td>" + dr["入库来源"].ToString() + "</td></tr>");
+                strb.Append("<td>" + dr["接收组织"].ToString() + "</td></tr>");
             }
             Response.Write(strb.ToString());
             Response.End();

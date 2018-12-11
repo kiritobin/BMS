@@ -625,7 +625,12 @@ namespace bms.Dao
             {
                 strWhere = "";
             }
-            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,discount as 折扣,supplier as 供应商, DATE_FORMAT(time,'%Y-%m-%d %H:%i:%s') as 制单时间,userName as 制单员,regionName as 入库来源 from v_monomer where type=" + type+ strWhere + " group by bookNum,userName," + groupType;
+            string regionName = "接收组织";
+            if(type == 1)
+            {
+                regionName = "入库来源";
+            }
+            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,discount as 折扣,supplier as 供应商, DATE_FORMAT(time,'%Y-%m-%d %H:%i:%s') as 制单时间,userName as 制单员,regionName as "+ regionName + " from v_monomer where type=" + type+ strWhere + " group by bookNum,userName," + groupType;
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
             int count = ds.Tables[0].Rows.Count;

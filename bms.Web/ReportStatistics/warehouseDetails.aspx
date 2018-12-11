@@ -402,7 +402,7 @@
                                                         <nobr>制单员</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>出库组织</nobr>
+                                                        <nobr>接收组织</nobr>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -507,7 +507,7 @@
                                 <nobr>制单员</nobr>
                             </th>
                             <th>
-                                <nobr>出库组织</nobr>
+                                <nobr>接收组织</nobr>
                             </th>
                         </tr>
                     </thead>
