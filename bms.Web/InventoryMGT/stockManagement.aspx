@@ -395,7 +395,7 @@
                                     <tr>
                                         <td class="text-right"><span>入库来源:</span></td>
                                         <td>
-                                            <select class="modal_select" id="source">
+                                            <select class="selectpicker" data-live-search="true" title="请选择入库来源" id="source">
                                                 <option value="">请选择入库来源</option>
                                                 <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                     {%>
