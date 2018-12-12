@@ -56,7 +56,7 @@ namespace bms.Web.CustomerMGT
         protected void Button1_Click(object sender, EventArgs e)
         {
             string path = @"C:\Users\daobin\Desktop\基础数据1.xlsx";
-            DataTable dtNpoi = EPPlusHelper.WorksheetToTable(path);
+            DataTable dtNpoi = ExcelHelper.WorksheetToTable(path);
             GridView1.DataSource = dtNpoi;
             GridView1.DataBind();
         }
