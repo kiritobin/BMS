@@ -490,7 +490,7 @@
                                 <tr>
                                     <td class="text-right">默认复本:</td>
                                     <td>
-                                        <input type="text" id="defaultCopy" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" class="modal_search_add" id="defaultCopy" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                             </table>
                         </div>

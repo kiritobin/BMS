@@ -441,7 +441,7 @@
                         <div class="modal-body">
                             <div class="text-center">
                                 <span>请选择客户:</span>
-                                <select class="selectpicker" title="请选择客户" data-style="btn-sm" id="sel-del" style="float: left;">
+                                <select class="selectpicker" title="请选择客户" data-live-search="true" data-style="btn-sm" id="sel-del" style="float: left;">
                                     <option value="">请选择客户</option>
                                     <%for (int j = 0; j < dsCustom.Tables[0].Rows.Count; j++)
                                         { %>

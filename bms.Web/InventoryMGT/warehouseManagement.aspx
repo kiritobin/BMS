@@ -400,7 +400,8 @@
                                         <nobr>收货组织:</nobr>
                                     </span></td>
                                     <td>
-                                        <select id="regionId" class="modal_search_add">
+                                        <select id="regionId" class="selectpicker" data-live-search="true" title="请选择收货组织">
+                                            <option value="">请选择收货组织</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 { %>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"].ToString() %>"><%=dsRegion.Tables[0].Rows[i]["regionName"].ToString() %></option>

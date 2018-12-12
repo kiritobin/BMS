@@ -436,7 +436,7 @@
                                 <tr>
                                     <td class="text-right"><span>货架所在地区:</span></td>
                                     <td>
-                                        <select class="modal_select" title="请选择地区" data-style="btn-sm" id="model-select-region">
+                                        <select class="selectpicker" data-live-search="true" title="请选择地区" data-style="btn-sm" id="model-select-region">
                                             <%for (int i = 0; i < regionDs.Tables[0].Rows.Count; i++)
                                                 { %>
                                             <option value="<%=regionDs.Tables[0].Rows[i]["regionId"] %>"><%=regionDs.Tables[0].Rows[i]["regionName"] %></option>
