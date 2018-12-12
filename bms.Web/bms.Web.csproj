@@ -356,7 +356,6 @@
     <Compile Include="CustomerMGT\customerPurchase.aspx.designer.cs">
       <DependentUpon>customerPurchase.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CustomerMGT\EPPlusHelper.cs" />
     <Compile Include="CustomerMGT\statistics.aspx.cs">
       <DependentUpon>statistics.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

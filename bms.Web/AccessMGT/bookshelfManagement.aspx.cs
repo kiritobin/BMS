@@ -121,6 +121,7 @@ namespace bms.Web.BasicInfor
                 watch.Stop();
                 double minute = ts.TotalMinutes; //计时
                 string m = minute.ToString("0.00");
+                int cf = row - a;
                 if (a > 0)
                 {
                     Response.Write("导入成功，总数据有" + row + "条，共导入" + a + "条数据" + "，共用时：" + m + "分钟");
@@ -128,7 +129,7 @@ namespace bms.Web.BasicInfor
                 }
                 else
                 {
-                    Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据");
+                    Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据，重复数据有"+cf);
                     Response.End();
                 }
             }
