@@ -276,22 +276,22 @@ function MyPreview() {
         LODOP.ADD_PRINT_TEXT(iCurLine, 490, 50, 20, row.eq(i).find('td').eq(6).text().trim());
         LODOP.ADD_PRINT_TEXT(iCurLine, 530, 50, 20, row.eq(i).find('td').eq(7).text().trim());
         LODOP.ADD_PRINT_TEXT(iCurLine, 570, 50, 20, row.eq(i).find('td').eq(8).text().trim());
-        LODOP.ADD_PRINT_TEXT(iCurLine, 610, 100, 20, row.eq(i).find('td').eq(9).text().trim());
-        if (row.eq(i).find('td').eq(10).text().trim().length > 5) {
-            LODOP.ADD_PRINT_TEXT(iCurLine, 685, 50, 20, row.eq(i).find('td').eq(10).text().trim());
+        LODOP.ADD_PRINT_TEXT(iCurLine, 610, 90, 20, row.eq(i).find('td').eq(9).text().trim());
+        if (row.eq(i).find('td').eq(11).text().trim().length > 5) {
+            LODOP.ADD_PRINT_TEXT(iCurLine, 685, 50, 20, row.eq(i).find('td').eq(11).text().trim());
             LODOP.SET_PRINT_STYLEA(0, "FontSize", 6);
             LODOP.SET_PRINT_STYLEA(0, "Bold", 0);
         }
         else {
-            LODOP.ADD_PRINT_TEXT(iCurLine, 685, 50, 20, row.eq(i).find('td').eq(10).text().trim());
+            LODOP.ADD_PRINT_TEXT(iCurLine, 685, 50, 20, row.eq(i).find('td').eq(11).text().trim());
         }
-        if (row.eq(i).find('td').eq(11).text().trim().length > 10) {
-            LODOP.ADD_PRINT_TEXT(iCurLine, 730, 85, 20, row.eq(i).find('td').eq(11).text().trim());
+        if (row.eq(i).find('td').eq(10).text().trim().length > 10) {
+            LODOP.ADD_PRINT_TEXT(iCurLine, 730, 85, 20, row.eq(i).find('td').eq(10).text().trim());
             LODOP.SET_PRINT_STYLEA(0, "FontSize", 6);
             LODOP.SET_PRINT_STYLEA(0, "Bold", 0);
         }
         else {
-            LODOP.ADD_PRINT_TEXT(iCurLine, 730, 85, 20, row.eq(i).find('td').eq(11).text().trim());
+            LODOP.ADD_PRINT_TEXT(iCurLine, 730, 85, 20, row.eq(i).find('td').eq(10).text().trim());
         }
         LODOP.ADD_PRINT_TEXT(iCurLine, 805, 85, 20, row.eq(i).find('td').eq(12).text().trim());
         iCurLine = iCurLine + 45;//每行占25px
@@ -336,25 +336,25 @@ function AddTitle() {
     LODOP.ADD_PRINT_TEXT(50, 415, 100, 20, "定价");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 455, 100, 20, "供应商");
+    LODOP.ADD_PRINT_TEXT(50, 455, 100, 20, "数量");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 490, 100, 20, "数量");
+    LODOP.ADD_PRINT_TEXT(50, 490, 100, 20, "码洋");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 530, 100, 20, "码洋");
+    LODOP.ADD_PRINT_TEXT(50, 530, 100, 20, "实洋");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 570, 100, 20, "实洋");
+    LODOP.ADD_PRINT_TEXT(50, 570, 100, 20, "折扣");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 610, 100, 20, "折扣");
+    LODOP.ADD_PRINT_TEXT(50, 610, 100, 20, "供应商");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 685, 100, 20, "制单日期");
+    LODOP.ADD_PRINT_TEXT(50, 685, 100, 20, "制单员");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 730, 100, 20, "制单员");
+    LODOP.ADD_PRINT_TEXT(50, 730, 100, 20, "制单日期");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 805, 100, 20, "出库组织");
