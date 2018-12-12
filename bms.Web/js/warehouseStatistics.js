@@ -450,7 +450,7 @@ $(document).ready(function () {
         else {
             $.ajax({
                 type: 'Post',
-                url: 'stockStatistics.aspx',
+                url: 'warehouseStatistics.aspx',
                 data: {
                     op: "print",
                     groupbyType: groupbyType

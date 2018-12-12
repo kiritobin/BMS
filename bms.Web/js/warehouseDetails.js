@@ -285,13 +285,13 @@ function MyPreview() {
         else {
             LODOP.ADD_PRINT_TEXT(iCurLine, 685, 50, 20, row.eq(i).find('td').eq(11).text().trim());
         }
-        if (row.eq(i).find('td').eq(10).text().trim().length > 10) {
-            LODOP.ADD_PRINT_TEXT(iCurLine, 730, 85, 20, row.eq(i).find('td').eq(10).text().trim());
+        if (row.eq(i).find('td').eq(10).text().trim().length > 19) {
+            LODOP.ADD_PRINT_TEXT(iCurLine, 730, 70, 20, row.eq(i).find('td').eq(10).text().trim());
             LODOP.SET_PRINT_STYLEA(0, "FontSize", 6);
             LODOP.SET_PRINT_STYLEA(0, "Bold", 0);
         }
         else {
-            LODOP.ADD_PRINT_TEXT(iCurLine, 730, 85, 20, row.eq(i).find('td').eq(10).text().trim());
+            LODOP.ADD_PRINT_TEXT(iCurLine, 730, 70, 20, row.eq(i).find('td').eq(10).text().trim());
         }
         LODOP.ADD_PRINT_TEXT(iCurLine, 805, 85, 20, row.eq(i).find('td').eq(12).text().trim());
         iCurLine = iCurLine + 45;//每行占25px
