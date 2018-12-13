@@ -199,24 +199,28 @@ $(document).ready(function () {
                 },
                 dataType: 'text',
                 beforeSend: function (XMLHttpRequest) { //开始请求
-                    swal({
-                        text: "正在获取数据",
-                        imageUrl: "../imgs/load.gif",
-                        imageHeight: 100,
-                        imageWidth: 100,
-                        width: 180,
-                        showConfirmButton: false,
-                        allowOutsideClick: false
-                    });
+                    //swal({
+                        //text: "正在获取数据",
+                        //imageUrl: "../imgs/load.gif",
+                        //imageHeight: 100,
+                        //imageWidth: 100,
+                        //width: 180,
+                        //showConfirmButton: false,
+                        //allowOutsideClick: false
+                    //});
+                    $("#showTittle").text("正在获取数据");
+                    $("#printmodel").modal("show");
                 },
                 success: function (data) {
-                    $(".swal2-container").remove();
+                    $("#printmodel").modal("hide");
+                    //$(".swal2-container").remove();
                     $("#print_table tr:not(:first)").remove(); //清空table处首行
                     $("#print_table").append(data); //加载table
                     MyPreview();
                 },
                 error: function (XMLHttpRequest, textStatus) { //请求失败
-                    $(".swal2-container").remove();
+                    $("#printmodel").modal("hide");
+                    //$(".swal2-container").remove();
                     if (textStatus == 'timeout') {
                         var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
                         xmlhttp.abort();

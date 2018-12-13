@@ -420,6 +420,21 @@
                     </div>
                 </div>
             </div>
+            <!--获取数据模态框-->
+            <div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="max-width:200px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="showTittle"></h4>
+                        </div>
+                        <div class="modal-body text-center" style="max-height: 200px;">
+                            <div>
+                                <img src="../imgs/load.gif" height="100" width="100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!--选择时间模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog modal-lg">
@@ -542,9 +557,9 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
-    <script src="../js/warehouseDetails.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/sweetalert2.js"></script>
+    <script src="../js/warehouseDetails.js"></script>
     <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
         <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
     </object>

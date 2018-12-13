@@ -209,15 +209,18 @@ $(document).ready(function () {
                         showConfirmButton: false,
                         allowOutsideClick: false
                     });
+                    //$("#printmodel").modal("toggle");
                 },
                 success: function (data) {
                     $(".swal2-container").remove();
+                    //$("#printmodel").modal("toggle");
                     $("#print_table tr:not(:first)").remove(); //清空table处首行
                     $("#print_table").append(data); //加载table
                     MyPreview();
                 },
                 error: function (XMLHttpRequest, textStatus) { //请求失败
                     $(".swal2-container").remove();
+                   // $("#printmodel").modal("toggle");
                     if (textStatus == 'timeout') {
                         var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
                         xmlhttp.abort();
