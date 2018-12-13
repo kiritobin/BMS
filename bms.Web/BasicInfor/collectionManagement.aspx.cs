@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.CustomerMGT
 {
+    using bms.DBHelper;
     using System.Web.Security;
     using Result = Enums.OpResult;
     public partial class collectionManagement : System.Web.UI.Page
@@ -133,43 +134,50 @@ namespace bms.Web.CustomerMGT
             int custom = Convert.ToInt32(Request["custom"]);
             string path = Session["path"].ToString();
             DataTable dt1 = new DataTable();
-            string strConn = "";
+            //string strConn = "";
             //文件类型判断
             string[] sArray = path.Split('.');
             int count = sArray.Length - 1;
-            if (sArray[count] == "xls"|| sArray[count] == "xls")
+            if (sArray[count] == "xls"|| sArray[count] == "xlsx")
             {
-                if (sArray[count] == "xls")
-                {
-                    strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-                }
-                else if (sArray[count] == "xlsx")
-                {
-                    strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-                }
-                OleDbConnection conn = new OleDbConnection(strConn);
-                try
-                {
-                    conn.Open();
-                    string strExcel1 = "select * from [Sheet1$]";
-                    OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
-                    dt1.Columns.Add("id"); //id自增列
-                    oda1.Fill(dt1);
-                    row = dt1.Rows.Count; //获取总数
-                    DataColumn dc = new DataColumn("客户ID", typeof(string));
-                    dc.DefaultValue = custom; //默认客户值值列
-                    dt1.Columns.Add(dc);
-                    //GetDistinctSelf(dt1, "ISBN", "客户ID"); //去重字段
-                }
-                catch (Exception ex)
-                {
-                    Response.Write(ex.Message);
-                    Response.End();
-                }
-                finally
-                {
-                    conn.Close();
-                }
+                dt1 = ExcelHelp.excelToDtByNpoi(path,"excel");
+                dt1.Columns.Add("id").SetOrdinal(0);
+                row = dt1.Rows.Count; //获取总数
+                DataColumn dc = new DataColumn("客户ID", typeof(string));
+                dc.DefaultValue = custom; //默认客户值值列
+                dt1.Columns.Add(dc);
+
+                //if (sArray[count] == "xls")
+                //{
+                //    strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                //}
+                //else if (sArray[count] == "xlsx")
+                //{
+                //    strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                //}
+                //OleDbConnection conn = new OleDbConnection(strConn);
+                //try
+                //{
+                //    conn.Open();
+                //    string strExcel1 = "select * from [Sheet1$]";
+                //    OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
+                //    dt1.Columns.Add("id"); //id自增列
+                //    oda1.Fill(dt1);
+                //    row = dt1.Rows.Count; //获取总数
+                //    DataColumn dc = new DataColumn("客户ID", typeof(string));
+                //    dc.DefaultValue = custom; //默认客户值值列
+                //    dt1.Columns.Add(dc);
+                //    //GetDistinctSelf(dt1, "ISBN", "客户ID"); //去重字段
+                //}
+                //catch (Exception ex)
+                //{
+                //    Response.Write(ex.Message);
+                //    Response.End();
+                //}
+                //finally
+                //{
+                //    conn.Close();
+                //}
             }
             else if (sArray[count] == "iso")
             {
