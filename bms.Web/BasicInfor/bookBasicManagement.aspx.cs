@@ -13,6 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.BasicInfor
 {
+    using bms.DBHelper;
     using System.Web.Security;
     using Result = Enums.OpResult;
     public partial class bookBasicManagement : System.Web.UI.Page
@@ -575,6 +576,9 @@ namespace bms.Web.BasicInfor
                             basicData.Author = row[8].ToString();
                             basicData.Remarks = row[9].ToString();
                             basicData.Dentification = row[10].ToString();
+                            basicData.Remarks1 = row[11].ToString();
+                            basicData.Remarks2 = row[12].ToString();
+                            basicData.Remarks3 = row[13].ToString();
                             Result result = bookBasicBll.Insert(basicData);
                             if(result == Result.添加失败)
                             {
@@ -780,7 +784,7 @@ namespace bms.Web.BasicInfor
                 string[] strComuns = { "ISBN", "书名", "单价","进货折扣" ,"销售折扣","供应商"};
                 int i = myDataView.ToTable(true, strComuns).Rows.Count;
                 int j = excel.Rows.Count;
-                if (i < j)
+                if (i > j)
                 {
                     s = "存在重复记录";
                     Response.Write(s);
@@ -819,7 +823,10 @@ namespace bms.Web.BasicInfor
                         basicData.Author = row[8].ToString();
                         basicData.Remarks = row[9].ToString();
                         basicData.Dentification = row[10].ToString();
-                        Result result = bookbll.Insert(basicData);
+                    basicData.Remarks1 = row[11].ToString();
+                    basicData.Remarks2 = row[12].ToString();
+                    basicData.Remarks3 = row[13].ToString();
+                    Result result = bookbll.Insert(basicData);
                         if (result == Result.添加失败)
                         {
                             Response.Write("导入失败，可能重复导入");
@@ -852,19 +859,24 @@ namespace bms.Web.BasicInfor
 
         private DataTable npoi()
         {
+
             string path = Session["path"].ToString();
             DataTable dtNpoi=new DataTable();
-            try
-            {
-                dtNpoi = ExcelHelper.GetDataTable(path);
-                row = dtNpoi.Rows.Count;
-                dtNpoi.Columns.Add("id").SetOrdinal(0);
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex);
-                Response.End();
-            }
+            //string[] sArray = path.Split('.');
+            //int count = sArray.Length - 1;
+            //if (sArray[count] == "xls")
+            //{
+            //    dtNpoi = ExcelHelp.excelToDtByNpoi(path,"excel");
+            //    dtNpoi.Columns.Add("id").SetOrdinal(0);
+            //}
+            //else
+            //{
+            //    dtNpoi = ExcelHelp.excelToDtByEpplus(path, "excel");
+            //    dtNpoi.Columns.Add("id").SetOrdinal(0);
+            //}
+            dtNpoi = ExcelHelp.excelToDtByNpoi(path,"excel");
+            dtNpoi.Columns.Add("id").SetOrdinal(0);
+            row = dtNpoi.Rows.Count;
             return dtNpoi;
         }
     }
