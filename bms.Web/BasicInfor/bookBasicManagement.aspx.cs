@@ -784,7 +784,7 @@ namespace bms.Web.BasicInfor
                 string[] strComuns = { "ISBN", "书名", "单价","进货折扣" ,"销售折扣","供应商"};
                 int i = myDataView.ToTable(true, strComuns).Rows.Count;
                 int j = excel.Rows.Count;
-                if (i > j)
+                if (i < j)
                 {
                     s = "存在重复记录";
                     Response.Write(s);
