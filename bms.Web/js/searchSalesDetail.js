@@ -133,7 +133,7 @@
                         LODOP.ADD_PRINT_TEXT(235 + 25 * i, 650, 50, 20, row.eq(5).text().trim());
                         LODOP.ADD_PRINT_TEXT(235 + 25 * i, 700, 60, 20, row.eq(6).text().trim());
                         LODOP.ADD_PRINT_TEXT(235 + 25 * i, 760, 60, 20, row.eq(7).text().trim());
-                        //--格子画线		
+                        //--格子画线
                         LODOP.ADD_PRINT_LINE(250 + 25 * i, 14, 225 + 25 * i, 15, 0, 1);
                         LODOP.ADD_PRINT_LINE(250 + 25 * i, 65, 225 + 25 * i, 65, 0, 1);
                         LODOP.ADD_PRINT_LINE(250 + 25 * i, 165, 225 + 25 * i, 165, 0, 1);
