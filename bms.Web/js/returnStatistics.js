@@ -569,13 +569,13 @@ function MyPreview() {
         iCurLine = iCurLine + 25;//每行占25px
         LODOP.ADD_PRINT_LINE(iCurLine - 5, 14, iCurLine - 5, 670, 0, 1);//横线
         //竖线
-        LODOP.ADD_PRINT_LINE(iCurLine - 30, 14, iCurLine - 30 + 25 * i, 14, 0, 1);
-        LODOP.ADD_PRINT_LINE(iCurLine - 30, 65, iCurLine - 30 + 25 * i, 65, 0, 1);
-        LODOP.ADD_PRINT_LINE(iCurLine - 30, 265, iCurLine - 30 + 25 * i, 265, 0, 1);
-        LODOP.ADD_PRINT_LINE(iCurLine - 30, 365, iCurLine - 30 + 25 * i, 365, 0, 1);
-        LODOP.ADD_PRINT_LINE(iCurLine - 30, 465, iCurLine - 30 + 25 * i, 465, 0, 1);
-        LODOP.ADD_PRINT_LINE(iCurLine - 30, 565, iCurLine - 30 + 25 * i, 565, 0, 1);
-        LODOP.ADD_PRINT_LINE(iCurLine - 30, 670, iCurLine - 30 + 25 * i, 670, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 14, iCurLine - 30 + 25, 14, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 65, iCurLine - 30 + 25, 65, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 265, iCurLine - 30 + 25, 265, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 365, iCurLine - 30 + 25, 365, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 465, iCurLine - 30 + 25, 465, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 565, iCurLine - 30 + 25, 565, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 30, 670, iCurLine - 30 + 25, 670, 0, 1);
         //LODOP.ADD_PRINT_LINE(iCurLine - 5, 14, iCurLine - 5, 480, 0, 1);//横线
         ////竖线
         //LODOP.ADD_PRINT_LINE(70, 14, 70 + 25 * i, 14, 0, 1);
