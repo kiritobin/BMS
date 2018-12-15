@@ -752,6 +752,9 @@
     <Compile Include="SalesMGT\tradeManagement.aspx.designer.cs">
       <DependentUpon>tradeManagement.aspx</DependentUpon>
     </Compile>
+    <Compile Include="wechat\login.ashx.cs">
+      <DependentUpon>login.ashx</DependentUpon>
+    </Compile>
     <Compile Include="welcomePage.aspx.cs">
       <DependentUpon>welcomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -804,6 +807,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="wechat\login.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Customer\" />
