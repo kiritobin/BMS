@@ -16,11 +16,11 @@ function logout() {
     }).then(function () {
         $.ajax({
             type: 'get',
-            url: 'bookBasicManagement.aspx?op=logout',
+            url: 'welcomePage.aspx?op=logout',
             datatype: 'text',
             data: {},
             success: function (data) {
-                window.location.href = "../login.aspx";
+                window.location.href = "login.aspx";
             }
         });
     })
