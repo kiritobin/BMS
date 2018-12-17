@@ -159,5 +159,19 @@ namespace bms.Dao
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
             return row;
         }
+
+        /// <summary>
+        /// 判断客户是否有未完成的销售任务
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public int CustomersaletaskIsNull(string userId)
+        { 
+            string cmdText = "select count(customerID) from t_saletask where customerID=@userId and deleteState=0 and ISNULL(finishTime)";
+            string[] param = { "@userId" };
+            object[] values = { userId };
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            return row;
+        }
     }
 }
