@@ -756,6 +756,10 @@
       <DependentUpon>login.ashx</DependentUpon>
     </Compile>
     <Compile Include="wechat\Page.cs" />
+    <Compile Include="wechat\retail.ashx.cs">
+      <DependentUpon>retail.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="wechat\retailM.cs" />
     <Compile Include="wechat\retailManagement.ashx.cs">
       <DependentUpon>retailManagement.ashx</DependentUpon>
     </Compile>
@@ -813,6 +817,7 @@
     </None>
     <Content Include="wechat\login.ashx" />
     <Content Include="wechat\retailManagement.ashx" />
+    <Content Include="wechat\retail.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Customer\" />
