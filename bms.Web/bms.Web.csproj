@@ -290,7 +290,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="wechat\test.aspx" />
     <Content Include="welcomePage.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -757,14 +756,12 @@
       <DependentUpon>login.ashx</DependentUpon>
     </Compile>
     <Compile Include="wechat\Page.cs" />
+    <Compile Include="wechat\retail.ashx.cs">
+      <DependentUpon>retail.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="wechat\retailM.cs" />
     <Compile Include="wechat\retailManagement.ashx.cs">
       <DependentUpon>retailManagement.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="wechat\test.aspx.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="wechat\test.aspx.designer.cs">
-      <DependentUpon>test.aspx</DependentUpon>
     </Compile>
     <Compile Include="welcomePage.aspx.cs">
       <DependentUpon>welcomePage.aspx</DependentUpon>
@@ -820,6 +817,7 @@
     </None>
     <Content Include="wechat\login.ashx" />
     <Content Include="wechat\retailManagement.ashx" />
+    <Content Include="wechat\retail.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Customer\" />
