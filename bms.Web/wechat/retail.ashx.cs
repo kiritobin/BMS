@@ -16,7 +16,7 @@ namespace bms.Web.wechat
     /// <summary>
     /// retail 的摘要说明
     /// </summary>
-    public class retailModel : IHttpHandler
+    public class retail : IHttpHandler
     {
         SaleHead single = new SaleHead();
         UserBll userBll = new UserBll();
