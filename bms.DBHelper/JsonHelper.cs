@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.Types;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -457,6 +458,10 @@ namespace bms.DBHelper
                 str = "\"" + str + "\"";
             }
             else if (type == typeof(DateTime))
+            {
+                str = "\"" + str + "\"";
+            }
+            else if (type == typeof(MySqlDateTime))
             {
                 str = "\"" + str + "\"";
             }
