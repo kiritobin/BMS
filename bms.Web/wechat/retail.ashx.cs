@@ -27,7 +27,7 @@ namespace bms.Web.wechat
         RetailBll retailBll = new RetailBll();
         User user = new User();
         public List<string> bookNumList = new List<string>();
-        retailM retail = new retailM();
+        retailM retailM = new retailM();
         public void ProcessRequest(HttpContext context)
         {
             string op = context.Request.QueryString["op"];
@@ -40,8 +40,8 @@ namespace bms.Web.wechat
                     DataSet bookDs = bookBasicBll.SelectByIsbn(isbn);
                     if (bookDs == null)
                     {
-                        retail.type = "ISBN不存在";
-                        string json = JsonHelper.JsonSerializerBySingleData(retail);
+                        retailM.type = "ISBN不存在";
+                        string json = JsonHelper.JsonSerializerBySingleData(retailM);
                         context.Response.Write(json);
                         context.Response.End();
                     }
@@ -52,12 +52,12 @@ namespace bms.Web.wechat
                         {
                             if (count == 1)
                             {
-                                retail.type = "一号一书";
+                                retailM.type = "一号一书";
                                 string data = JsonHelper.ToJson(bookDs.Tables[0], "retail");
-                                retail.data = data;
-                                retail.price = bookDs.Tables[0].Rows[0]["price"].ToString();
-                                retail.author = bookDs.Tables[0].Rows[0]["author"].ToString();
-                                string json = JsonHelper.JsonSerializerBySingleData(retail);
+                                retailM.data = data;
+                                retailM.price = bookDs.Tables[0].Rows[0]["price"].ToString();
+                                retailM.author = bookDs.Tables[0].Rows[0]["author"].ToString();
+                                string json = JsonHelper.JsonSerializerBySingleData(retailM);
                                 context.Response.Write(json);
                                 context.Response.End();
                             }
@@ -84,46 +84,46 @@ namespace bms.Web.wechat
                                 }
                                 if (counts == 0)
                                 {
-                                    retail.type = "无库存";
-                                    string json = JsonHelper.JsonSerializerBySingleData(retail);
+                                    retailM.type = "无库存";
+                                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
                                     context.Response.Write(json);
                                     context.Response.End();
                                 }
                                 else if (counts == 1)
                                 {
-                                    retail.type = "一号一书";
+                                    retailM.type = "一号一书";
                                     string data = JsonHelper.ToJson(bookDs.Tables[0],"retail");
-                                    retail.data = data;
-                                    retail.price = bookDs.Tables[0].Rows[0]["price"].ToString();
+                                    retailM.data = data;
+                                    retailM.price = bookDs.Tables[0].Rows[0]["price"].ToString();
                                     double author = 100;
                                     if(bookDs.Tables[0].Rows[0]["author"].ToString() != null && bookDs.Tables[0].Rows[0]["author"].ToString() != "")
                                     {
                                         author = Convert.ToDouble(bookDs.Tables[0].Rows[0]["author"]);
                                     }
-                                    retail.realPrice = (Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]) * author * 0.01).ToString();
-                                    string json = JsonHelper.JsonSerializerBySingleData(retail);
+                                    retailM.realPrice = (Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]) * author * 0.01).ToString();
+                                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
                                     context.Response.Write(json);
                                     context.Response.End();
                                 }
                                 else
                                 {
-                                    retail.type = "一号多书数据";
+                                    retailM.type = "一号多书数据";
                                     string data = JsonHelper.ToJson(bookDs.Tables[0], "retail");
-                                    retail.data = data;
-                                    string json = JsonHelper.JsonSerializerBySingleData(retail);
+                                    retailM.data = data;
+                                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
                                     context.Response.Write(json);
                                     context.Response.End();
                                 }
                             }
-                            retail.type = "一号多书";
-                            string strJson = JsonHelper.JsonSerializerBySingleData(retail);
+                            retailM.type = "一号多书";
+                            string strJson = JsonHelper.JsonSerializerBySingleData(retailM);
                             context.Response.Write(strJson);
                             context.Response.End();
                         }
                         else
                         {
-                            retail.type = "ISBN不存在";
-                            string strJson = JsonHelper.JsonSerializerBySingleData(retail);
+                            retailM.type = "ISBN不存在";
+                            string strJson = JsonHelper.JsonSerializerBySingleData(retailM);
                             context.Response.Write(strJson);
                             context.Response.End();
                         }
@@ -202,7 +202,7 @@ namespace bms.Web.wechat
             single.DateTime = DateTime.Now;
             single.State = 0;
             single.PayType = "未支付";
-            retail.retailHeadId = retailHeadId;
+            retailM.retailHeadId = retailHeadId;
             Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)
             {
@@ -225,22 +225,22 @@ namespace bms.Web.wechat
                     Result mon = retailBll.InsertRetail(monomers);
                     if (mon == Result.添加失败)
                     {
-                        retail.type = "添加失败";
-                        string jsonFail = JsonHelper.JsonSerializerBySingleData(retail);
+                        retailM.type = "添加失败";
+                        string jsonFail = JsonHelper.JsonSerializerBySingleData(retailM);
                         context.Response.Write(jsonFail);
                         context.Response.End();
                     }
                 }
-                retail.type = "添加成功";
-                retail.retailHeadId = retailHeadId;
-                string jsonSucc = JsonHelper.JsonSerializerBySingleData(retail);
+                retailM.type = "添加成功";
+                retailM.retailHeadId = retailHeadId;
+                string jsonSucc = JsonHelper.JsonSerializerBySingleData(retailM);
                 context.Response.Write(jsonSucc);
                 context.Response.End();
             }
             else
             {
-                retail.type = "添加失败";
-                string jsonFail = JsonHelper.JsonSerializerBySingleData(retail);
+                retailM.type = "添加失败";
+                string jsonFail = JsonHelper.JsonSerializerBySingleData(retailM);
                 context.Response.Write(jsonFail);
                 context.Response.End();
             }
