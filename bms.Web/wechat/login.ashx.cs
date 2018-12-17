@@ -38,9 +38,17 @@ namespace bms.Web.wechat
             else
             {
                 Customer custom = loginBll.getPwdByCustomId(account);
-                if (custom.CustomerId.ToString() == account)
+                string customID = custom.CustomerId.ToString();
+                OpResult res = userBll.CustomersaletaskIsNull(customID);
+                if (custom.CustomerId.ToString() == account && res==OpResult.记录存在)
                 {
                     context.Response.Write("登录成功");
+                    context.Response.End();
+
+                }
+                else if (custom.CustomerId.ToString() == account && res == OpResult.记录不存在)
+                {
+                    context.Response.Write("您还未创建销售计划");
                     context.Response.End();
 
                 }
