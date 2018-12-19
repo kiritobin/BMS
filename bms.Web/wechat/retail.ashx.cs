@@ -139,7 +139,7 @@ namespace bms.Web.wechat
                     }
                     if (counts == 0)
                     {
-                        retailM.type = "无库存";
+                        retailM.type = "无库存信息";
                         string json = JsonHelper.JsonSerializerBySingleData(retailM);
                         context.Response.Write(json);
                         context.Response.End();
