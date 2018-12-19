@@ -107,7 +107,6 @@
     <Content Include="CustomerMGT\customerPurchase.aspx" />
     <Content Include="CustomerMGT\statistics.aspx" />
     <Content Include="CustomerMGT\upload.aspx" />
-    <Content Include="CustomerMGT\WebForm1.aspx" />
     <Content Include="demo\sales_demo.aspx" />
     <Content Include="demo\textarea.aspx" />
     <Content Include="error\404.html" />
@@ -267,7 +266,6 @@
     <Content Include="js\userManagement.js" />
     <Content Include="js\warehouseManagement.js" />
     <Content Include="login.aspx" />
-    <Content Include="main.aspx" />
     <Content Include="demo\paging.html" />
     <Content Include="SalesMGT\backManagement.aspx" />
     <Content Include="SalesMGT\backQuery.aspx" />
@@ -291,7 +289,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="wechat\login.asmx" />
-    <Content Include="wechat\retailManagement.asmx" />
     <Content Include="welcomePage.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -371,13 +368,6 @@
     </Compile>
     <Compile Include="CustomerMGT\upload.aspx.designer.cs">
       <DependentUpon>upload.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerMGT\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CustomerMGT\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="demo\sales_demo.aspx.cs">
       <DependentUpon>sales_demo.aspx</DependentUpon>
@@ -634,13 +624,6 @@
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="main.aspx.cs">
-      <DependentUpon>main.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="main.aspx.designer.cs">
-      <DependentUpon>main.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SalesMGT\backManagement.aspx.cs">
       <DependentUpon>backManagement.aspx</DependentUpon>
@@ -774,10 +757,6 @@
     </Compile>
     <Compile Include="wechat\login.asmx.cs">
       <DependentUpon>login.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="wechat\retailManagement.asmx.cs">
-      <DependentUpon>retailManagement.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="welcomePage.aspx.cs">
