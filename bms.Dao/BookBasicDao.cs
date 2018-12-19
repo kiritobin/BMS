@@ -19,11 +19,12 @@ namespace bms.Dao
         /// <returns></returns>
         public int Insert(BookBasicData basic)
         {
-            string cmdText = "insert into T_BookBasicData(bookNum,ISBN,bookName,supplier,publishTime,price,catalog,author,remarks,dentification) values(@bookNum,@ISBN,@bookName,@supplier,@publishTime,@price,@catalog,@author,@remarks,@dentification)";
-            String[] param = { "@bookNum", "@ISBN", "@bookName","@supplier", "@publishTime","@price","@catalog","@author","@remarks","@dentification"};
-            object[] values = { basic.BookNum, basic.Isbn, basic.BookName, basic.Publisher, basic.PublishTime, basic.Price, basic.Catalog, basic.Author, basic.Remarks, basic.Dentification };
+            string cmdText = "insert into T_BookBasicData(bookNum,ISBN,bookName,supplier,publishTime,price,catalog,author,remarks,dentification,remarksOne,remarksTwo,remarksThree) values(@bookNum,@ISBN,@bookName,@supplier,@publishTime,@price,@catalog,@author,@remarks,@dentification,@remarksOne,@remarksTwo,@remarksThree)";
+            String[] param = { "@bookNum", "@ISBN", "@bookName", "@supplier", "@publishTime", "@price", "@catalog", "@author", "@remarks", "@dentification", "@remarksOne", "@remarksTwo", "@remarksThree" };
+            object[] values = { basic.BookNum, basic.Isbn, basic.BookName, basic.Publisher, basic.PublishTime, basic.Price, basic.Catalog, basic.Author, basic.Remarks, basic.Dentification, basic.Remarks1, basic.Remarks2, basic.Remarks3 };
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
+
 
         /// <summary>
         /// 获取所有书本基础数据的ISBN，单价，书名

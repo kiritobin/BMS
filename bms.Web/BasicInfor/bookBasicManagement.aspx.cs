@@ -543,8 +543,8 @@ namespace bms.Web.BasicInfor
                 int kz = 0;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
-                    try
-                    {
+                    //try
+                    //{
                         string isbn = row[2].ToString().Trim();
                         string bookName = ToSBC(row[3].ToString().Trim());
                         string supplier = row[4].ToString().Trim();
@@ -559,7 +559,7 @@ namespace bms.Web.BasicInfor
                             kz++;
                             continue;
                         }
-                        DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}'  and supplier='{2}' and price={3} and author={4} and remarks={5}", isbn,bookName,supplier, Convert.ToDouble(price), Convert.ToDouble(accept), Convert.ToDouble(sale)));
+                        DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}'  and supplier='{2}' and price='{3}' and author='{4}' and remarks='{5}'", isbn,bookName,supplier, price, accept, sale));
                         //DataRow[] rows = dataTable.Select(string.Format("ISBN='{0}' and bookName='{1}' and price={2}", isbn, bookName, Convert.ToDouble(price)));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
@@ -591,12 +591,12 @@ namespace bms.Web.BasicInfor
                             }
                         }
                         rowls++;
-                    }
-                    catch (Exception ex)
-                    {
-                        Response.Write(ex);
-                        Response.End();
-                    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Response.Write(ex);
+                    //    Response.End();
+                    //}
                 }
                 string s = last;
                 bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
