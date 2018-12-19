@@ -291,7 +291,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="wechat\login.asmx" />
-    <Content Include="wechat\retailManagement.asmx" />
     <Content Include="welcomePage.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -770,10 +769,6 @@
     </Compile>
     <Compile Include="wechat\login.asmx.cs">
       <DependentUpon>login.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="wechat\retailManagement.asmx.cs">
-      <DependentUpon>retailManagement.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="welcomePage.aspx.cs">
