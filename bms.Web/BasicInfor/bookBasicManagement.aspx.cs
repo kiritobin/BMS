@@ -543,8 +543,8 @@ namespace bms.Web.BasicInfor
                 int kz = 0;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
-                    //try
-                    //{
+                    try
+                    {
                         string isbn = row[2].ToString().Trim();
                         string bookName = ToSBC(row[3].ToString().Trim());
                         string supplier = row[4].ToString().Trim();
@@ -591,13 +591,13 @@ namespace bms.Web.BasicInfor
                             }
                         }
                         rowls++;
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    Response.Write(ex);
-                    //    Response.End();
-                    //}
                 }
+                    catch (Exception ex)
+                {
+                    Response.Write(ex);
+                    Response.End();
+                }
+            }
                 string s = last;
                 bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
                 last = last.ToString().Substring(last.ToString().Length - 8);
