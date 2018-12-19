@@ -173,5 +173,18 @@ namespace bms.Dao
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
             return row;
         }
+        /// <summary>
+        /// 根据客户ID获取销售任务ID和销售任务时间
+        /// </summary>
+        /// <param name="userId">根据客户ID</param>
+        /// <returns></returns>
+        public DataSet  getCustomersaletaskID(string userId)
+        {
+            string cmdText = "select saleTaskId,startTime from t_saletask where customerID=@userId and deleteState=0 and ISNULL(finishTime)";
+            string[] param = { "@userId" };
+            object[] values = { userId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
+        }
     }
 }

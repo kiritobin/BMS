@@ -1,7 +1,9 @@
 ﻿using bms.Bll;
+using bms.DBHelper;
 using bms.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using static bms.Bll.Enums;
@@ -19,20 +21,23 @@ namespace bms.Web.wechat
         public void ProcessRequest(HttpContext context)
         {
             string op = context.Request["op"];
-            if (op=="login")
+            if (op == "login")
             {
                 Login(context);
             }
-            
+
         }
 
         private void Login(HttpContext context)
         {
+            loginmsg logs = new loginmsg();
             string account = context.Request["userName"];
             OpResult row = userBll.isCustomer(account);
             if (row == OpResult.记录不存在)
             {
-                context.Response.Write("该账号不存在");
+                logs.msg = "该账号不存在";
+                string json = JsonHelper.JsonSerializerBySingleData(logs);
+                context.Response.Write(json);
                 context.Response.End();
             }
             else
@@ -40,21 +45,44 @@ namespace bms.Web.wechat
                 Customer custom = loginBll.getPwdByCustomId(account);
                 string customID = custom.CustomerId.ToString();
                 OpResult res = userBll.CustomersaletaskIsNull(customID);
-                if (custom.CustomerId.ToString() == account && res==OpResult.记录存在)
+                if (custom.CustomerId.ToString() == account && res == OpResult.记录存在)
                 {
-                    context.Response.Write("登录成功");
-                    context.Response.End();
-
+                    DataSet ds = userBll.getCustomersaletaskID(customID);
+                    string saletaskID = ds.Tables[0].Rows[0]["saleTaskId"].ToString();
+                    DateTime starTime = Convert.ToDateTime(ds.Tables[0].Rows[0]["startTime"].ToString());
+                    DateTime nowTime = DateTime.Now;
+                    TimeSpan timespan = nowTime - starTime;
+                    int days = timespan.Days;
+                    if (days > 3)
+                    {
+                        logs.msg = "您上次的销售计划还未结束，请联系工作人员";
+                        string json = JsonHelper.JsonSerializerBySingleData(logs);
+                        context.Response.Write(json);
+                        context.Response.End();
+                    }
+                    else
+                    {
+                        logs.saletaskID = saletaskID;
+                        logs.customID = customID;
+                        logs.msg = "登录成功";
+                        string json = JsonHelper.JsonSerializerBySingleData(logs);
+                        context.Response.Write(json);
+                        context.Response.End();
+                    }
                 }
                 else if (custom.CustomerId.ToString() == account && res == OpResult.记录不存在)
                 {
-                    context.Response.Write("您还未创建销售计划");
+                    logs.msg = "此次展会您还未创建销售计划";
+                    string json = JsonHelper.JsonSerializerBySingleData(logs);
+                    context.Response.Write(json);
                     context.Response.End();
 
                 }
                 else
                 {
-                    context.Response.Write("登录失败");
+                    logs.msg = "登录失败";
+                    string json = JsonHelper.JsonSerializerBySingleData(logs);
+                    context.Response.Write(json);
                     context.Response.End();
                 }
             }

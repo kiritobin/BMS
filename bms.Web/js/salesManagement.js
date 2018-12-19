@@ -508,16 +508,20 @@ $(document).ready(function () {
             }).then(function () {
             })
         }
-        else if (state == "未结算") {
+        else if (state == "预采") {
             swal({
                 title: "温馨提示:)",
-                text: "单据未结算,将彻底删除！是否继续？",
+                text: "此单头为预采单！是否继续删除？",
                 type: "warning",
+                showCancelButton: true,
                 confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
                 confirmButtonText: '确定',
+                cancelButtonText: '取消',
                 confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
                 buttonsStyling: false,
-                allowOutsideClick: false
+                allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
             }).then(function () {
                 $.ajax({
                     type: 'Post',
@@ -542,10 +546,22 @@ $(document).ready(function () {
                             }).then(function () {
                                 window.location.reload();
                             })
+                        } else if (succ == "该预采单已有数据,不能删除") {
+                            swal({
+                                title: "温馨提示:)",
+                                text: "该预采单已有数据,不能删除",
+                                type: "warning",
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: '确定',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false,
+                                allowOutsideClick: false
+                            }).then(function () {
+                            })
                         } else {
                             swal({
                                 title: "温馨提示:)",
-                                text: "删除失败。",
+                                text: "删除失败",
                                 type: "warning",
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: '确定',
