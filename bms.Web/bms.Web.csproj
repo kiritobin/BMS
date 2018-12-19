@@ -291,6 +291,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="wechat\login.asmx" />
+    <Content Include="wechat\retailManagement.asmx" />
     <Content Include="welcomePage.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -753,11 +754,15 @@
     <Compile Include="SalesMGT\tradeManagement.aspx.designer.cs">
       <DependentUpon>tradeManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="wechat\customerLogin.ashx.cs">
-      <DependentUpon>customerLogin.ashx</DependentUpon>
+    <Compile Include="wechat\headManagement.ashx.cs">
+      <DependentUpon>headManagement.ashx</DependentUpon>
     </Compile>
     <Compile Include="wechat\login.ashx.cs">
       <DependentUpon>login.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="wechat\loginmsg.cs" />
+    <Compile Include="wechat\monomersdetail.ashx.cs">
+      <DependentUpon>monomersdetail.ashx</DependentUpon>
     </Compile>
     <Compile Include="wechat\Page.cs" />
     <Compile Include="wechat\retail.ashx.cs">
@@ -769,6 +774,10 @@
     </Compile>
     <Compile Include="wechat\login.asmx.cs">
       <DependentUpon>login.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="wechat\retailManagement.asmx.cs">
+      <DependentUpon>retailManagement.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="welcomePage.aspx.cs">
@@ -826,7 +835,8 @@
     <Content Include="wechat\login.ashx" />
     <Content Include="wechat\retailManagement.ashx" />
     <Content Include="wechat\retail.ashx" />
-    <Content Include="wechat\customerLogin.ashx" />
+    <Content Include="wechat\headManagement.ashx" />
+    <Content Include="wechat\monomersdetail.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Customer\" />

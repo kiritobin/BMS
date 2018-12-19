@@ -552,7 +552,7 @@ namespace bms.Dao
         /// <param name="saleHeadId">销售单头id</param>
         /// <param name="saleId">销售任务ID</param>
         /// <returns></returns>
-        public DataSet  calculationSaleHead(string saleHeadId, string saleId)
+        public DataSet calculationSaleHead(string saleHeadId, string saleId)
         {
             string cmdtext = @"SELECT sum(A.allNum) as 数量,sum(A.alltotalPrice) as 总码洋,sum(A.allrealPrice) as 总实洋 from((select bookNum, ISBN, sum(number) as allNum, sum(totalPrice) as alltotalPrice, sum(realPrice) as allrealPrice from T_SaleMonomer where saleHeadId = @saleHeadId and saleTaskId = @saleId GROUP BY booknum, ISBN HAVING allNum != 0) as A)";
             //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
@@ -568,7 +568,7 @@ namespace bms.Dao
         /// <param name="saleId">销售任务</param>
         /// <param name="bookNum">书号</param>
         /// <returns></returns>
-        public DataSet getsalemonDetail(string saleHeadId, string saleId,string bookNum)
+        public DataSet getsalemonDetail(string saleHeadId, string saleId, string bookNum)
         {
             string cmdtext = "select bookNum,ISBN,sum(number) as number from v_salemonomer where saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum GROUP BY bookNum,ISBN;";
             //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
@@ -650,6 +650,18 @@ namespace bms.Dao
             {
                 return sum = Convert.ToInt32(sumstring);
             }
+        }
+        /// <summary>
+        /// 微信汇总
+        /// </summary>
+        /// <param name="condition">条件</param>
+        /// <returns>数据集</returns>
+        public DataSet wechatSummary(string condition)
+        {
+            string cmdtext = @"select count(a.bookNum) as kinds,sum(a.allrealPrice) as allrealPrice,sum(a.totalPrice) as totalPrice,sum(allnumber) as allnumber from (select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice ,sum(totalPrice) as totalPrice from V_salemonomer where  " + condition + ") as a";
+
+            DataSet ds = db.FillDataSet(cmdtext, null, null);
+            return ds;
         }
         /// <summary>
         /// 根据销售任务id，销售单头ID，和书号，查询该销售单的已购数
