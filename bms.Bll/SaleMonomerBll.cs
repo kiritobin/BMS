@@ -201,6 +201,24 @@ namespace bms.Bll
                 return null;
             }
         }
+
+        /// <summary>
+        /// 微信汇总
+        /// </summary>
+        /// <param name="condition">条件</param>
+        /// <returns>数据集</returns>
+        public DataSet wechatSummary(string condition)
+        {
+            DataSet ds = SaleMonomerdao.wechatSummary(condition);
+            if (ds!=null ||ds.Tables[0].Rows.Count>0)
+            {
+                return ds;
+            } else
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// 更新销售单体
         /// </summary>

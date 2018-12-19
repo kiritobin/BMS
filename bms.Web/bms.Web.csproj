@@ -754,8 +754,15 @@
     <Compile Include="SalesMGT\tradeManagement.aspx.designer.cs">
       <DependentUpon>tradeManagement.aspx</DependentUpon>
     </Compile>
+    <Compile Include="wechat\headManagement.ashx.cs">
+      <DependentUpon>headManagement.ashx</DependentUpon>
+    </Compile>
     <Compile Include="wechat\login.ashx.cs">
       <DependentUpon>login.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="wechat\loginmsg.cs" />
+    <Compile Include="wechat\monomersdetail.ashx.cs">
+      <DependentUpon>monomersdetail.ashx</DependentUpon>
     </Compile>
     <Compile Include="wechat\Page.cs" />
     <Compile Include="wechat\retail.ashx.cs">
@@ -828,6 +835,8 @@
     <Content Include="wechat\login.ashx" />
     <Content Include="wechat\retailManagement.ashx" />
     <Content Include="wechat\retail.ashx" />
+    <Content Include="wechat\headManagement.ashx" />
+    <Content Include="wechat\monomersdetail.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Customer\" />
