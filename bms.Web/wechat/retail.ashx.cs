@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.SessionState;
 
 namespace bms.Web.wechat
 {
@@ -16,142 +17,253 @@ namespace bms.Web.wechat
     /// <summary>
     /// retail 的摘要说明
     /// </summary>
-    public class retail : IHttpHandler
+    public class retail : IHttpHandler, IRequiresSessionState
     {
         SaleHead single = new SaleHead();
-        UserBll userBll = new UserBll();
         StockBll stockBll = new StockBll();
-        BookBasicBll basicBll = new BookBasicBll();
-        GoodsShelvesBll goods = new GoodsShelvesBll();
-        DataTable monTable = new DataTable();
         RetailBll retailBll = new RetailBll();
-        User user = new User();
-        public List<string> bookNumList = new List<string>();
         retailM retailM = new retailM();
         public void ProcessRequest(HttpContext context)
         {
             string op = context.Request.QueryString["op"];
             if (op == "isbn")
             {
-                string isbn = context.Request.QueryString["isbn"];
-                if (isbn != null && isbn != "")
+                isbn(context);
+            }
+            if (op == "choose")
+            {
+                choose(context);
+            }
+            if (op == "bookNum")
+            {
+                bookNum(context);
+            }
+            if (op == "insert")
+            {
+                insert(context);
+            }
+        }
+        /// <summary>
+        /// 第一次扫描isbn
+        /// </summary>
+        /// <param name="context"></param>
+        public void isbn(HttpContext context)
+        {
+            string isbn = context.Request.QueryString["isbn"];
+            if (isbn != null && isbn != "")
+            {
+                DataSet bookDs = retailBll.SelectByIsbn(isbn);
+                if (bookDs == null)
                 {
-                    BookBasicBll bookBasicBll = new BookBasicBll();
-                    DataSet bookDs = bookBasicBll.SelectByIsbn(isbn);
-                    if (bookDs == null)
+                    retailM.type = "ISBN不存在";
+                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                    context.Response.Write(json);
+                    context.Response.End();
+                }
+                else
+                {
+                    int count = bookDs.Tables[0].Rows.Count;
+                    if (bookDs != null && count > 0)
+                    {
+                        if (count == 1)
+                        {
+                            retailM.type = "一号一书";
+                            double discount = 100;
+                            if (bookDs.Tables[0].Rows[0]["discount"].ToString() != null && bookDs.Tables[0].Rows[0]["discount"].ToString() != "")
+                            {
+                                discount = Convert.ToDouble(bookDs.Tables[0].Rows[0]["discount"]);
+                            }
+                            bookDs.Tables[0].Columns.Add("number", typeof(string));
+                            bookDs.Tables[0].Rows[0]["number"] = "1";
+                            bookDs.Tables[0].Columns.Add("totalPrice", typeof(string));
+                            bookDs.Tables[0].Rows[0]["totalPrice"] = bookDs.Tables[0].Rows[0]["price"].ToString();
+                            bookDs.Tables[0].Columns.Add("totalReal", typeof(string));
+                            bookDs.Tables[0].Rows[0]["totalReal"] = (Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]) * discount * 0.01).ToString();
+                            string data = JsonHelper.ToJson(bookDs.Tables[0], "retail");
+                            retailM.data = data;
+                            string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                            context.Response.Write(json);
+                            context.Response.End();
+                        }
+                        retailM.type = "一号多书";
+                        string strJson = JsonHelper.JsonSerializerBySingleData(retailM);
+                        context.Response.Write(strJson);
+                        context.Response.End();
+                    }
+                    else
                     {
                         retailM.type = "ISBN不存在";
+                        string strJson = JsonHelper.JsonSerializerBySingleData(retailM);
+                        context.Response.Write(strJson);
+                        context.Response.End();
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// 一号多书获取数据
+        /// </summary>
+        /// <param name="context"></param>
+        public void choose(HttpContext context)
+        {
+            string isbn = context.Request.QueryString["isbn"];
+            if (isbn != null && isbn != "")
+            {
+                DataSet bookDs = retailBll.SelectByIsbn(isbn);
+                if (bookDs == null)
+                {
+                    retailM.type = "ISBN不存在";
+                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                    context.Response.Write(json);
+                    context.Response.End();
+                }
+                else
+                {
+                    int counts = bookDs.Tables[0].Rows.Count;
+                    StringBuilder sb = new StringBuilder();
+                    int i = 0;
+                    while (i < counts)
+                    {
+                        DataRow dr = bookDs.Tables[0].Rows[i];
+                        string bookNum = dr["bookNum"].ToString();
+                        int stockNum = stockBll.selectStockNum(dr["bookNum"].ToString());
+                        if (stockNum <= 0)
+                        {
+                            bookDs.Tables[0].Rows.RemoveAt(i);
+                            counts--;
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+                    if (counts == 0)
+                    {
+                        retailM.type = "无库存";
+                        string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                        context.Response.Write(json);
+                        context.Response.End();
+                    }
+                    else if (counts == 1)
+                    {
+                        retailM.type = "一号一书";
+                        double discount = 100;
+                        if (bookDs.Tables[0].Rows[0]["discount"].ToString() != null && bookDs.Tables[0].Rows[0]["discount"].ToString() != "")
+                        {
+                            discount = Convert.ToDouble(bookDs.Tables[0].Rows[0]["discount"]);
+                        }
+                        bookDs.Tables[0].Columns.Add("number", typeof(string));
+                        bookDs.Tables[0].Rows[0]["number"] = "1";
+                        bookDs.Tables[0].Columns.Add("totalPrice", typeof(string));
+                        bookDs.Tables[0].Rows[0]["totalPrice"] = bookDs.Tables[0].Rows[0]["price"].ToString();
+                        bookDs.Tables[0].Columns.Add("totalReal", typeof(string));
+                        bookDs.Tables[0].Rows[0]["totalReal"] = (Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]) * discount * 0.01).ToString();
+                        string data = JsonHelper.ToJson(bookDs.Tables[0], "retail");
+                        retailM.data = data;
                         string json = JsonHelper.JsonSerializerBySingleData(retailM);
                         context.Response.Write(json);
                         context.Response.End();
                     }
                     else
                     {
-                        int count = bookDs.Tables[0].Rows.Count;
-                        if (bookDs != null && bookDs.Tables[0].Rows.Count > 0)
+                        retailM.type = "一号多书数据";
+                        bookDs.Tables[0].Columns.Add("totalPrice", typeof(string));
+                        bookDs.Tables[0].Columns.Add("number", typeof(string));
+                        bookDs.Tables[0].Columns.Add("totalReal", typeof(string));
+                        bookDs.Tables[0].Columns.Add("color", typeof(string));
+                        for (int j = 0; j < bookDs.Tables[0].Rows.Count; j++)
                         {
-                            if (count == 1)
+                            double discount = 100;
+                            if (bookDs.Tables[0].Rows[j]["discount"].ToString() != null && bookDs.Tables[0].Rows[j]["discount"].ToString() != "")
                             {
-                                retailM.type = "一号一书";
-                                string data = JsonHelper.ToJson(bookDs.Tables[0], "retail");
-                                retailM.data = data;
-                                retailM.price = bookDs.Tables[0].Rows[0]["price"].ToString();
-                                retailM.author = bookDs.Tables[0].Rows[0]["author"].ToString();
-                                string json = JsonHelper.JsonSerializerBySingleData(retailM);
-                                context.Response.Write(json);
-                                context.Response.End();
+                                discount = Convert.ToDouble(bookDs.Tables[0].Rows[j]["discount"]);
                             }
-                            if (op == "choose")
-                            {
-                                int counts = bookDs.Tables[0].Rows.Count;
-                                StringBuilder sb = new StringBuilder();
-                                int i = 0;
-                                while (i < counts)
-                                {
-                                    DataRow dr = bookDs.Tables[0].Rows[i];
-                                    user = (User)context.Session["user"];
-                                    string bookNum = dr["bookNum"].ToString();
-                                    int stockNum = stockBll.selectStockNum(dr["bookNum"].ToString(), user.ReginId.RegionId);
-                                    if (stockNum <= 0)
-                                    {
-                                        bookDs.Tables[0].Rows.RemoveAt(i);
-                                        counts--;
-                                    }
-                                    else
-                                    {
-                                        i++;
-                                    }
-                                }
-                                if (counts == 0)
-                                {
-                                    retailM.type = "无库存";
-                                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
-                                    context.Response.Write(json);
-                                    context.Response.End();
-                                }
-                                else if (counts == 1)
-                                {
-                                    retailM.type = "一号一书";
-                                    string data = JsonHelper.ToJson(bookDs.Tables[0],"retail");
-                                    retailM.data = data;
-                                    retailM.price = bookDs.Tables[0].Rows[0]["price"].ToString();
-                                    double author = 100;
-                                    if(bookDs.Tables[0].Rows[0]["author"].ToString() != null && bookDs.Tables[0].Rows[0]["author"].ToString() != "")
-                                    {
-                                        author = Convert.ToDouble(bookDs.Tables[0].Rows[0]["author"]);
-                                    }
-                                    retailM.realPrice = (Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]) * author * 0.01).ToString();
-                                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
-                                    context.Response.Write(json);
-                                    context.Response.End();
-                                }
-                                else
-                                {
-                                    retailM.type = "一号多书数据";
-                                    string data = JsonHelper.ToJson(bookDs.Tables[0], "retail");
-                                    retailM.data = data;
-                                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
-                                    context.Response.Write(json);
-                                    context.Response.End();
-                                }
-                            }
-                            retailM.type = "一号多书";
-                            string strJson = JsonHelper.JsonSerializerBySingleData(retailM);
-                            context.Response.Write(strJson);
-                            context.Response.End();
+                            bookDs.Tables[0].Rows[j]["number"] = "1";
+                            bookDs.Tables[0].Rows[j]["totalPrice"] = bookDs.Tables[0].Rows[j]["price"].ToString();
+                            bookDs.Tables[0].Rows[j]["totalReal"] = (Convert.ToDouble(bookDs.Tables[0].Rows[j]["price"]) * discount * 0.01).ToString();
+                            bookDs.Tables[0].Rows[j]["color"] = "";
                         }
-                        else
-                        {
-                            retailM.type = "ISBN不存在";
-                            string strJson = JsonHelper.JsonSerializerBySingleData(retailM);
-                            context.Response.Write(strJson);
-                            context.Response.End();
-                        }
+                        string data = JsonHelper.ToJson(bookDs.Tables[0], "retail");
+                        retailM.data = data;
+                        string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                        context.Response.Write(json);
+                        context.Response.End();
                     }
                 }
             }
-            if(op == "insert")
+        }
+        /// <summary>
+        /// 根据书号查找书籍信息
+        /// </summary>
+        /// <param name="context"></param>
+        public void bookNum(HttpContext context)
+        {
+            string bookNum = context.Request.QueryString["bookNum"];
+            DataSet bookDs = retailBll.SelectByBookNum(bookNum);
+            if (bookDs == null)
             {
-                insert(context);
+                retailM.type = "找不到书籍信息";
+                string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                context.Response.Write(json);
+                context.Response.End();
+            }
+            else
+            {
+                int count = bookDs.Tables[0].Rows.Count;
+                if (bookDs != null && count > 0)
+                {
+                    retailM.type = "一号一书";
+                    double discount = 100;
+                    if (bookDs.Tables[0].Rows[0]["discount"].ToString() != null && bookDs.Tables[0].Rows[0]["discount"].ToString() != "")
+                    {
+                        discount = Convert.ToDouble(bookDs.Tables[0].Rows[0]["discount"]);
+                    }
+                    bookDs.Tables[0].Columns.Add("number", typeof(string));
+                    bookDs.Tables[0].Rows[0]["number"] = "1";
+                    bookDs.Tables[0].Columns.Add("totalPrice", typeof(string));
+                    bookDs.Tables[0].Rows[0]["totalPrice"] = bookDs.Tables[0].Rows[0]["price"].ToString();
+                    bookDs.Tables[0].Columns.Add("totalReal", typeof(string));
+                    bookDs.Tables[0].Rows[0]["totalReal"] = (Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]) * discount * 0.01).ToString();
+                    string data = JsonHelper.ToJson(bookDs.Tables[0], "retail");
+                    retailM.data = data;
+                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                    context.Response.Write(json);
+                    context.Response.End();
+                }
+                else
+                {
+                    retailM.type = "找不到书籍信息";
+                    string strJson = JsonHelper.JsonSerializerBySingleData(retailM);
+                    context.Response.Write(strJson);
+                    context.Response.End();
+                }
             }
         }
+        /// <summary>
+        /// 插入数据库
+        /// </summary>
+        /// <param name="context"></param>
         public void insert(HttpContext context)
         {
-            string json = context.Request.QueryString["json"];
+            string json = context.Request.QueryString["data"];
             DataTable dataTable = jsonToDt(json);
-            int row, rows = 0;
-            double total, allTotal = 0, real, allReal = 0;
-            int Counts = dataTable.Rows.Count;
-            for (int i = 0; i < Counts; i++)
-            {
-                DataRow dr = dataTable.Rows[i];
-                row = Convert.ToInt32(dr["数量"]);
-                total = Convert.ToDouble(dr["码洋"]);
-                real = Convert.ToDouble(dr["实洋"]);
-                rows = rows + row;
-                allTotal = allTotal + total;
-                allReal = allReal + real;
-            }
+            string kindNum = context.Request.QueryString["kindNum"];
+            string totalNumber = context.Request.QueryString["totalNumber"];
+            string totalPrice = context.Request.QueryString["totalPrice"];
+            string totalReal = context.Request.QueryString["totalReal"];
+            //int row, rows = 0;
+            //double total, allTotal = 0, real, allReal = 0;
+            //int Counts = dataTable.Rows.Count;
+            //for (int i = 0; i < Counts; i++)
+            //{
+            //    DataRow dr = dataTable.Rows[i];
+            //    row = Convert.ToInt32(dr["数量"]);
+            //    total = Convert.ToDouble(dr["码洋"]);
+            //    real = Convert.ToDouble(dr["实洋"]);
+            //    rows = rows + row;
+            //    allTotal = allTotal + total;
+            //    allReal = allReal + real;
+            //}
             DateTime nowTime = DateTime.Now;
             string nowDt = nowTime.ToString("yyyy-MM-dd");
             long count = 0;
@@ -192,13 +304,13 @@ namespace bms.Web.wechat
                 count = 1;
             }
             string retailHeadId = "LS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-            single.AllRealPrice = allReal;
-            single.AllTotalPrice = allTotal;
-            single.KindsNum = Counts;
-            single.Number = rows;
-            single.RegionId = user.ReginId.RegionId;
+            single.AllRealPrice = Convert.ToDouble(totalReal);
+            single.AllTotalPrice = Convert.ToDouble(totalPrice);
+            single.KindsNum = Convert.ToInt32(kindNum);
+            single.Number = Convert.ToInt32(totalNumber);
+            single.RegionId = 67;
             single.SaleHeadId = retailHeadId;
-            single.UserId = user.UserId;
+            single.UserId = "99999";
             single.DateTime = DateTime.Now;
             single.State = 0;
             single.PayType = "未支付";
@@ -206,20 +318,19 @@ namespace bms.Web.wechat
             Result result = retailBll.InsertRetail(single);
             if (result == Result.添加成功)
             {
-                context.Session["List"] = new List<long>();
                 SaleMonomer monomers = new SaleMonomer();
                 int Count = dataTable.Rows.Count;
                 for (int i = 0; i < Count; i++)
                 {
                     DataRow dr = dataTable.Rows[i];
                     monomers.ISBN1 = dr["ISBN"].ToString();
-                    monomers.UnitPrice = Convert.ToDouble(dr["单价"]);
-                    monomers.BookNum = dr["书号"].ToString();
-                    monomers.RealDiscount = Convert.ToDouble(dr["折扣"]);
+                    monomers.UnitPrice = Convert.ToDouble(dr["price"]);
+                    monomers.BookNum = dr["bookNum"].ToString();
+                    monomers.RealDiscount = Convert.ToDouble(dr["discount"]);
                     monomers.SaleIdMonomerId = i + 1;
-                    monomers.Number = Convert.ToInt32(dr["数量"]);
-                    monomers.TotalPrice = Convert.ToDouble(dr["码洋"]);
-                    monomers.RealPrice = Convert.ToDouble(dr["实洋"]);
+                    monomers.Number = Convert.ToInt32(dr["number"]);
+                    monomers.TotalPrice = Convert.ToDouble(dr["totalPrice"]);
+                    monomers.RealPrice = Convert.ToDouble(dr["totalReal"]);
                     monomers.SaleHeadId = retailHeadId;
                     monomers.Datetime = DateTime.Now;
                     Result mon = retailBll.InsertRetail(monomers);
