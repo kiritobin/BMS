@@ -256,17 +256,37 @@ namespace bms.Web.SalesMGT
                 }
                 else if (state == 3)
                 {
-                    Result result = salemonbll.realDeleteHeadAndMon(saleTaskid, salehead);
-                    if (result == Result.删除成功)
+                    int count = salemonbll.SelectcountbyHeadID(salehead, saleTaskid);
+                    if (count > 0)
                     {
-                        Response.Write("删除成功");
+                        Response.Write("该预采单已有数据,不能删除");
                         Response.End();
                     }
                     else
                     {
-                        Response.Write("删除失败");
-                        Response.End();
+                        Result result = salemonbll.realDelete(saleTaskid, salehead);
+                        if (result == Result.删除成功)
+                        {
+                            Response.Write("删除成功");
+                            Response.End();
+                        }
+                        else
+                        {
+                            Response.Write("删除失败");
+                            Response.End();
+                        }
                     }
+                    //Result result = salemonbll.realDeleteHeadAndMon(saleTaskid, salehead);
+                    //if (result == Result.删除成功)
+                    //{
+                    //    Response.Write("删除成功");
+                    //    Response.End();
+                    //}
+                    //else
+                    //{
+                    //    Response.Write("删除失败");
+                    //    Response.End();
+                    //}
                 }
                 else
                 {
@@ -617,7 +637,11 @@ namespace bms.Web.SalesMGT
                     strb.Append("<button class='btn btn-success btn-sm add'><i class='fa fa-plus fa-lg'></i></button>");
                 }
                 strb.Append("<button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button>");
-                strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>" + "</td></tr>");
+                if (state == "新建单据" || state == "预采")
+                {
+                    strb.Append("<button class='btn btn-danger btn-sm btn_del'><i class='fa fa-trash'></i></button>");
+                }
+                strb.Append("</td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];

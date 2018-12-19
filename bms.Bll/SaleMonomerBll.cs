@@ -55,6 +55,16 @@ namespace bms.Bll
         }
 
         /// <summary>
+        /// 根据销售单头ID和销售任务id获取单体数量
+        /// </summary>
+        /// <param name="HeadId">销售单头ID</param>
+        /// <param name="saletaskId">销售任务id</param>
+        /// <returns></returns>
+        public int SelectcountbyHeadID(string HeadId, string saletaskId)
+        {
+            return SaleMonomerdao.SelectcountbyHeadID(HeadId, saletaskId);
+        }
+        /// <summary>
         /// 根据销售单头ID真删除销售单头包括单体
         /// </summary>
         /// <param name="saleHeadId">销售单头ID</param>

@@ -41,7 +41,7 @@ namespace bms.Bll
         }
 
         /// <summary>
-        /// 销售单头添加
+        /// 零售单头添加
         /// </summary>
         /// <param name="salehead">销售单头实体</param>
         /// <returns>返回结果</returns>
@@ -383,6 +383,44 @@ namespace bms.Bll
         public DataTable ExportExcel(string strWhere, string type)
         {
             return dao.ExportExcel(strWhere, type);
+        }
+
+        /// <summary>
+        /// 根据ISBN查找书号，单价，折扣
+        /// </summary>
+        /// <param name="ISBN">ISBN</param>
+        /// <returns></returns>
+        public DataSet SelectByIsbn(string ISBN)
+        {
+            return dao.SelectByIsbn(ISBN);
+        }
+
+        /// <summary>
+        /// 根据书号查找ISBN，单价，折扣
+        /// </summary>
+        /// <param name="ISBN">ISBN</param>
+        /// <returns></returns>
+        public DataSet SelectByBookNum(string bookNum)
+        {
+            return dao.SelectByBookNum(bookNum);
+        }
+
+        /// <summary>
+        /// 小程序零售单头添加
+        /// </summary>
+        /// <param name="salehead">销售单头实体</param>
+        /// <returns>返回结果</returns>
+        public Result Insert(SaleHead salehead)
+        {
+            int row = dao.Insert(salehead);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
         }
     }
 }

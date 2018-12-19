@@ -230,6 +230,23 @@ namespace bms.Bll
             }
         }
         /// <summary>
+        /// 根据客户ID获取销售任务ID和销售任务时间
+        /// </summary>
+        /// <param name="userId">根据客户ID</param>
+        /// <returns></returns>
+        public DataSet getCustomersaletaskID(string userId)
+        {
+            DataSet ds = userDao.getCustomersaletaskID(userId);
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
         /// 根据索引和pagesize返回记录
         /// </summary>
         /// <param name="dt">记录集 DataTable</param>
@@ -239,7 +256,7 @@ namespace bms.Bll
         public DataTable SplitDataTable(DataTable dt, int PageIndex, int PageSize)
         {
             PublicProcedure publicProcedure = new PublicProcedure();
-            return publicProcedure.SplitDataTable(dt,PageIndex, PageSize);
+            return publicProcedure.SplitDataTable(dt, PageIndex, PageSize);
         }
     }
 }

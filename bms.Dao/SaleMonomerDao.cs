@@ -676,6 +676,21 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 根据销售单头ID和销售任务id获取单体数量
+        /// </summary>
+        /// <param name="HeadId">销售单头ID</param>
+        /// <param name="saletaskId">销售任务id</param>
+        /// <returns></returns>
+        public int SelectcountbyHeadID(string HeadId, string saletaskId)
+        {
+            string comText = "select COUNT(saleIdMonomerId) from t_salemonomer where saleHeadId=@HeadId and saleTaskId=@saletaskId";
+            string[] param = { "@HeadId", "@saletaskId" };
+            object[] values = { HeadId, saletaskId };
+            int row = Convert.ToInt32(db.ExecuteScalar(comText, param, values));
+            return row;
+        }
+
+        /// <summary>
         /// 团采统计
         /// </summary>
         /// <returns></returns>
