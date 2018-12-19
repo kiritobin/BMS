@@ -114,5 +114,19 @@ namespace bms.Dao
             int count = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
             return count;
         }
+
+        /// <summary>
+        /// 通过书号获取库存
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public int selectStockNum(string bookNum)
+        {
+            string cmdText = "select sum(stockNum) as stockNum from T_Stock where bookNum=@bookNum";
+            String[] param = { "@bookNum" };
+            String[] values = { bookNum };
+            int count = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            return count;
+        }
     }
 }

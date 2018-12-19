@@ -492,5 +492,85 @@ namespace bms.Dao
             dt = ds.Tables[0];
             return dt;
         }
+
+        /// <summary>
+        /// 根据ISBN查找书号，单价，折扣
+        /// </summary>
+        /// <param name="ISBN">ISBN</param>
+        /// <returns></returns>
+        public DataSet SelectByIsbn(string ISBN)
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comTexts = "select count(bookNum) from T_BookBasicData where ISBN=@ISBN";
+            string[] parames = { "@ISBN" };
+            object[] value = { ISBN };
+            int row = Convert.ToInt32(db.ExecuteScalar(comTexts, parames, value));
+            if (row == 0)
+            {
+                return null;
+            }
+            else
+            {
+                string comText = "select bookNum,ISBN,price,remarks as discount,bookName from T_BookBasicData where ISBN=@ISBN";
+                string[] param = { "@ISBN" };
+                object[] values = { ISBN };
+                DataSet ds = db.FillDataSet(comText, param, values);
+                if (ds != null || ds.Tables[0].Rows.Count > 0)
+                {
+                    return ds;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 根据书号查找ISBN，单价，折扣
+        /// </summary>
+        /// <param name="ISBN">ISBN</param>
+        /// <returns></returns>
+        public DataSet SelectByBookNum(string bookNum)
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comTexts = "select count(bookNum) from T_BookBasicData where bookNum=@bookNum";
+            string[] parames = { "@bookNum" };
+            object[] value = { bookNum };
+            int row = Convert.ToInt32(db.ExecuteScalar(comTexts, parames, value));
+            if (row == 0)
+            {
+                return null;
+            }
+            else
+            {
+                string comText = "select bookNum,ISBN,price,remarks as discount,bookName from T_BookBasicData where bookNum=@bookNum";
+                string[] param = { "@bookNum" };
+                object[] values = { bookNum };
+                DataSet ds = db.FillDataSet(comText, param, values);
+                if (ds != null || ds.Tables[0].Rows.Count > 0)
+                {
+                    return ds;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 小程序添加零售单头信息
+        /// </summary>
+        /// <param name="salehead"></param>
+        /// <returns></returns>
+        public int Insert(SaleHead salehead)
+        {
+            string cmdText = "insert into T_RetailHead(state,retailHeadId,dateTime,kindsNum,number,allTotalPrice,allRealPrice,payment) values(@state,@retailHeadId,@dateTime,@kindsNum,@number,@allTotalPrice,@allRealPrice,@payment)";
+            string[] param = { "@state", "@retailHeadId", "@dateTime", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@payment" };
+            object[] values = { salehead.State, salehead.SaleHeadId, salehead.DateTime, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.PayType };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
     }
 }

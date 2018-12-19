@@ -90,13 +90,24 @@ namespace bms.Bll
             return stockDao.getStockNum(bookNum, goodsShelf, regionId);
         }
         /// <summary>
-        /// 通过书号获取库存
+        /// 通过书号、地区ID获取库存
         /// </summary>
-        /// <param name="bookNum"></param>
+        /// <param name="bookNum">书号</param>
+        /// <param name="regionId">地区id</param>
         /// <returns></returns>
         public int selectStockNum(string bookNum, int regionId)
         {
             return stockDao.selectStockNum(bookNum,regionId);
+        }
+
+        /// <summary>
+        /// 通过书号获取库存
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public int selectStockNum(string bookNum)
+        {
+            return stockDao.selectStockNum(bookNum);
         }
     }
 }
