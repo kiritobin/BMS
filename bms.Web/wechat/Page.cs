@@ -11,5 +11,6 @@ namespace bms.Web.wechat
         public string summarydata { get; set; }
         public int totalCount { get; set; }
         public int intPageCount { get; set; }
+        public int currentPage { get; set; }
     }
 }
