@@ -248,7 +248,7 @@ namespace bms.Web.BasicInfor
             for (int i = 0; i < row; i++)
             {
                 a=(Convert.ToInt32(a)+1).ToString();
-                ViewState["i"] = a;
+                //ViewState["i"] = a;
                 string ss = a.PadLeft(8, '0');
                 string isbn = excel.Rows[i]["ISBN"].ToString();
                 int count = isbn.Length;
@@ -261,6 +261,7 @@ namespace bms.Web.BasicInfor
                 {
                     bookId = isbn + ss;
                 }
+                ViewState["i"] = bookId;
                 dataRow = dt.NewRow();
                 dataRow["书号"] = bookId;
                 dt.Rows.Add(bookId);
