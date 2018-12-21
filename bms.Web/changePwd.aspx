@@ -18,14 +18,14 @@
 </head>
 
 <body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
     <div class="wrapper ">
         <div class="main-panel" style="margin: 0px auto; float: none;">
             <!-- 主界面头部面板 -->
             <!-- 主界面头部面板 -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+                <div class="navbar-wrapper">
+                </div>
+                <a class="btn btn-white btn-sm" onclick="javascript:history.back(-1);">返回</a>
                 <div class="container">
                     <div class="navbar-wrapper">
                     </div>

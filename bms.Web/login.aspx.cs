@@ -1,4 +1,5 @@
 ﻿using bms.Bll;
+using bms.DBHelper;
 using bms.Model;
 using System;
 using System.Collections;
@@ -69,6 +70,7 @@ namespace bms.Web
                 }
                 else
                 {
+                    string str = "";
                     if (user.UserId.ToString() == account && userPwd == pwd)
                     {
                         Session.Timeout = 1440;
@@ -80,12 +82,14 @@ namespace bms.Web
                         HttpCookie UserCookie = new HttpCookie(FormsAuthentication.FormsCookieName, HashTicket); //生成Cookie 
                         Context.Response.Cookies.Add(UserCookie); //票据写入Cookie
                                                                   //isLogined(account);
-                        Response.Write("登录成功");
+                        TokenHelper token = new TokenHelper();
+                        str = token.Produce(account);
+                        Response.Write(str);
                         Response.End();
                     }
                     else
                     {
-                        Response.Write("登录失败");
+                        Response.Write(str);
                         Response.End();
                     }
                 }
