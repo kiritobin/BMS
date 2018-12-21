@@ -38,9 +38,10 @@
                     pwd: encrypt.encrypt(pwd),
                     op: "login"
                 },
-                dataType: 'text',
+                dataType: 'json',
                 success: function (succ) {
-                    if (succ === "登录成功") {
+                    if (succ["succ"]) {
+                        sessionStorage.setItem("tokenId", succ["tokenId"]);
                         window.location.href = "welcomePage.aspx";
                     }
                     else {
@@ -53,6 +54,16 @@
                             allowOutsideClick: false
                         })
                     }
+                },
+                error: function (XMLHttpRequest, textStatus) { //请求失败
+                    swal({
+                        title: "温馨提示:)",
+                        text: "登录失败，请重试",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-success",
+                        type: "warning",
+                        allowOutsideClick: false
+                    })
                 }
             });
         }
@@ -95,14 +106,15 @@
                         pwd: encrypt.encrypt(pwd),
                         op: "login"
                     },
-                    dataType: 'text',
+                    dataType: 'json',
                     success: function (succ) {
-                        if (succ === "登录成功") {
+                        if (succ["succ"]) {
+                            sessionStorage.setItem("tokenId", succ["tokenId"]);
                             window.location.href = "welcomePage.aspx";
                         }
                         else {
                             swal({
-                                title: "温馨提示",
+                                title: "温馨提示:)",
                                 text: "登录失败",
                                 buttonsStyling: false,
                                 confirmButtonClass: "btn btn-success",
@@ -110,6 +122,16 @@
                                 allowOutsideClick: false
                             })
                         }
+                    },
+                    error: function (XMLHttpRequest, textStatus) { //请求失败
+                        swal({
+                            title: "温馨提示:)",
+                            text: "登录失败，请重试",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-success",
+                            type: "warning",
+                            allowOutsideClick: false
+                        })
                     }
                 });
             }

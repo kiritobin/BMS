@@ -56,6 +56,11 @@
                                         <input type="text" class="form-control" id="userName" placeholder="请输入用户名..." />
                                     </div>
                                 </div>
+                                <div class="bmd-form-group">
+                                    <div class="text-right">
+                                        <label><a href="login.aspx">员工登录</a></label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer justify-content-center">
                                 <a href="#" id="submit" class="btn btn-danger btn-link btn-sm btnLogin">登录</a>

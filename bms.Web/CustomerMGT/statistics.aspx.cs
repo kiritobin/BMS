@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using bms.Bll;
 using System.Data;
 using bms.Model;
+using System.Web.Security;
 
 namespace bms.Web.CustomerMGT
 {
@@ -89,6 +90,15 @@ namespace bms.Web.CustomerMGT
                     Response.Write("记录存在");
                     Response.End();
                 }
+            }
+            if (op == "logout")
+            {
+                //删除身份凭证
+                FormsAuthentication.SignOut();
+                //设置Cookie的值为空
+                Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                //设置Cookie的过期时间为上个月今天
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
         }
 

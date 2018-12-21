@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.AccessMGT
 {
+    using bms.DBHelper;
     using System.Web.Security;
     using Result = Enums.OpResult;
     public partial class userManagement : System.Web.UI.Page
