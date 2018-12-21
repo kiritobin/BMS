@@ -119,10 +119,10 @@
                     <div class="copyright text-center">
                         &copy;
                         <script>
-                            document.write(new Date().getFullYear());
+                            document.write(new Date().getFullYear())
                         </script>
                         &nbsp;版权归云南新华书店图书有限公司所有
-                        <p>建议使用<a href="../chrome/ChromeDownload.html" class="text-dark"> Google</a> | FireFox | 360极速浏览器浏览网页</p>
+                        <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                     </div>
                 </div>
             </footer>

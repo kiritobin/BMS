@@ -61,6 +61,7 @@
     <Compile Include="Stock.cs" />
     <Compile Include="TableBuilder.cs" />
     <Compile Include="TableInsertion.cs" />
+    <Compile Include="TokenModel.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

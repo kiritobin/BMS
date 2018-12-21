@@ -107,8 +107,6 @@
     <Content Include="CustomerMGT\customerPurchase.aspx" />
     <Content Include="CustomerMGT\statistics.aspx" />
     <Content Include="CustomerMGT\upload.aspx" />
-    <Content Include="demo\sales_demo.aspx" />
-    <Content Include="demo\textarea.aspx" />
     <Content Include="error\404.html" />
     <Content Include="error\500.html" />
     <Content Include="error\502.html" />
@@ -203,7 +201,6 @@
     <Content Include="css\qc.css" />
     <Content Include="BasicInfor\collectionManagement.aspx" />
     <Content Include="CustomerMGT\customerManagement.aspx" />
-    <Content Include="demo\alert.html" />
     <Content Include="bin\bms.Web.dll" />
     <Content Include="bin\bms.Web.pdb" />
     <Content Include="CommonPage.aspx" />
@@ -216,8 +213,6 @@
     <Content Include="css\lgd.css" />
     <Content Include="css\materialdesignicons.css" />
     <Content Include="css\zgz.css" />
-    <Content Include="demo\form_demo.html" />
-    <Content Include="demo\loginDemo.html" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -266,7 +261,6 @@
     <Content Include="js\userManagement.js" />
     <Content Include="js\warehouseManagement.js" />
     <Content Include="login.aspx" />
-    <Content Include="demo\paging.html" />
     <Content Include="SalesMGT\backManagement.aspx" />
     <Content Include="SalesMGT\backQuery.aspx" />
     <Content Include="SalesMGT\retail.aspx" />
@@ -284,11 +278,9 @@
     <Content Include="SalesMGT\searchSalesDetail.aspx" />
     <Content Include="SalesMGT\tradeManagement.aspx" />
     <Content Include="test\LodopFuncs.js" />
-    <Content Include="test\test.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="wechat\login.asmx" />
     <Content Include="welcomePage.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -368,20 +360,6 @@
     </Compile>
     <Compile Include="CustomerMGT\upload.aspx.designer.cs">
       <DependentUpon>upload.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="demo\sales_demo.aspx.cs">
-      <DependentUpon>sales_demo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="demo\sales_demo.aspx.designer.cs">
-      <DependentUpon>sales_demo.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="demo\textarea.aspx.cs">
-      <DependentUpon>textarea.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="demo\textarea.aspx.designer.cs">
-      <DependentUpon>textarea.aspx</DependentUpon>
     </Compile>
     <Compile Include="InventoryMGT\addReturn.aspx.cs">
       <DependentUpon>addReturn.aspx</DependentUpon>
@@ -757,10 +735,6 @@
     <Compile Include="wechat\retailM.cs" />
     <Compile Include="wechat\retailManagement.ashx.cs">
       <DependentUpon>retailManagement.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="wechat\login.asmx.cs">
-      <DependentUpon>login.asmx</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="welcomePage.aspx.cs">
       <DependentUpon>welcomePage.aspx</DependentUpon>

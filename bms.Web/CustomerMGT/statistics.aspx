@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/bootstrap-select.css" />
-    <link rel="stylesheet" href="../css/pagination.css" />
     <link rel="stylesheet" href="../css/jedate.css" />
     <script src="../js/jedate.min.js"></script>
 </head>
@@ -45,7 +44,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse show" id="securityManage">
+                        <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <%if (funcRole)
                                     { %>
@@ -74,7 +73,7 @@
                                 <%if (funcGoods)
                                     { %>
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../AccessMGT/bookshelfManagement.aspx">
+                                    <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
                                     </a>
                                 </li>
@@ -165,7 +164,7 @@
                     <%} %>
                     <%if (funcSale || funcSaleOff || funcRetail)
                         { %>
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
@@ -173,7 +172,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="saleManage">
+                        <div class="collapse show" id="saleManage">
                             <ul class="nav">
                                 <%if (funcSale)
                                     { %>
@@ -202,7 +201,7 @@
                                 </li>
                                 <%} %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../CustomerMGT/statistics.aspx">
+                                    <a class="nav-link activeNext" href="../CustomerMGT/statistics.aspx">
                                         <span class="sidebar-normal">大屏配置</span>
                                     </a>
                                 </li>
@@ -423,8 +422,6 @@
         <script src="../js/material-dashboard.min.js"></script>
         <script src="../js/bootstrap-selectpicker.js"></script>
         <script src="../js/sweetalert2.js"></script>
-        <script src="../js/jquery.pagination.js"></script>
-        <script src="../js/ajaxfileupload.js"></script>
         <script src="../js/public.js"></script>
         <script src="../js/statistics.js"></script>
 </body>
