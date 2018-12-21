@@ -79,7 +79,7 @@ namespace bms.Web.wechat
             }
             Page page = new Page();
 
-             page.data = JsonHelper.ToJson(dt, "detail");
+            page.data = JsonHelper.ToJson(dt, "detail");
             page.summarydata= JsonHelper.ToJson(summaryds.Tables[0], "summar");
             page.currentPage = currentPage;
             page.totalCount = totalCount;
