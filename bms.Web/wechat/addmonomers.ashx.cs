@@ -103,6 +103,11 @@ namespace bms.Web.wechat
                 Result libresult = library.Selectbook(customerId, ISBN);
                 if (libresult == Result.记录不存在 || type== "continue")
                 {
+
+                    string saleId = context.Request["saletaskID"];
+                    SaleTaskBll saletaskbll = new SaleTaskBll();
+                    DataSet limtds = saletaskbll.SelectBysaleTaskId(saleId);
+                    string copy = limtds.Tables[0].Rows[0]["defaultCopy"].ToString();
                     //如果有两条及两条以上
                     if (bookds.Tables[0].Rows.Count > 1)
                     {
@@ -116,7 +121,16 @@ namespace bms.Web.wechat
                         {
                             dt.Rows.Add(bookds.Tables[0].Rows[i]["bookNum"].ToString(), Convert.ToInt32((i + 1)), bookds.Tables[0].Rows[i]["bookName"].ToString(), Convert.ToDouble(bookds.Tables[0].Rows[i]["price"].ToString()),"");
                         }
+
                         Page page = new Page();
+                        if (copy == "" || copy == null)
+                        {
+                            page.number = "0";
+                        }
+                        else
+                        {
+                            page.number = copy;
+                        }
                         page.data = JsonHelper.ToJson(dt, "book");
                         page.type = "books";
                         string json = JsonHelper.JsonSerializerBySingleData(page);
@@ -126,16 +140,11 @@ namespace bms.Web.wechat
                     //只有一条数据
                     else
                     {
-                        Page page = new Page();
                         book book = new book();
                         //bookNum,ISBN,price,author,bookName,supplier
                         book.BookNum = bookds.Tables[0].Rows[0]["bookNum"].ToString();
                         book.BookName = bookds.Tables[0].Rows[0]["bookName"].ToString();
                         book.Price = double.Parse(bookds.Tables[0].Rows[0]["price"].ToString());
-                        string saleId = context.Request["saletaskID"];
-                        SaleTaskBll saletaskbll = new SaleTaskBll();
-                        DataSet limtds = saletaskbll.SelectBysaleTaskId(saleId);
-                        string copy = limtds.Tables[0].Rows[0]["defaultCopy"].ToString();
                         if (copy == "" || copy == null)
                         {
                             book.number = "0";
@@ -311,7 +320,7 @@ namespace bms.Web.wechat
             salehead.Number = allnumber;
             salehead.AllTotalPrice = alltotalprice;
             salehead.AllRealPrice = allreadprice;
-            Result res = salemonbll.updateHead(salehead);
+            Result res = salemonbll.wechatSummary(salehead);
             return res;
         }
 

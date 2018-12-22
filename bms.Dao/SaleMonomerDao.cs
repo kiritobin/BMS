@@ -304,6 +304,14 @@ namespace bms.Dao
             int row = db.ExecuteNoneQuery(cmdTexts, parames, value);
             return row;
         }
+        public int wechatupdateHead(SaleHead salehead)
+        {
+            string cmdTexts = "update T_SaleHead set state=3,kindsNum=@kindsNum,number=@number,allTotalPrice=@allTotalPrice,allRealPrice=@allRealPrice where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            string[] parames = { "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@saleTaskId", "@saleHeadId" };
+            object[] value = { salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.SaleTaskId, salehead.SaleHeadId };
+            int row = db.ExecuteNoneQuery(cmdTexts, parames, value);
+            return row;
+        }
         /// <summary>
         /// 更新销售单头状态
         /// </summary>

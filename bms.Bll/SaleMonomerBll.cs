@@ -253,6 +253,19 @@ namespace bms.Bll
                 return Result.更新失败;
             }
         }
+        public Result wechatSummary(SaleHead salehead)
+        {
+            int row = SaleMonomerdao.wechatupdateHead(salehead);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+
         /// <summary>
         /// 更新销售单头状态
         /// </summary>
