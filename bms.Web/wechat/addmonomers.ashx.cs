@@ -101,7 +101,7 @@ namespace bms.Web.wechat
                 string customerId = context.Request["customerId"];
                 LibraryCollectionBll library = new LibraryCollectionBll();
                 Result libresult = library.Selectbook(customerId, ISBN);
-                if (libresult == Result.记录不存在 || type== "continue")
+                if (libresult == Result.记录不存在 || type == "continue")
                 {
 
                     string saleId = context.Request["saletaskID"];
@@ -119,7 +119,7 @@ namespace bms.Web.wechat
                         dt.Columns.Add("color", typeof(string));
                         for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
                         {
-                            dt.Rows.Add(bookds.Tables[0].Rows[i]["bookNum"].ToString(), Convert.ToInt32((i + 1)), bookds.Tables[0].Rows[i]["bookName"].ToString(), Convert.ToDouble(bookds.Tables[0].Rows[i]["price"].ToString()),"");
+                            dt.Rows.Add(bookds.Tables[0].Rows[i]["bookNum"].ToString(), Convert.ToInt32((i + 1)), bookds.Tables[0].Rows[i]["bookName"].ToString(), Convert.ToDouble(bookds.Tables[0].Rows[i]["price"].ToString()), "");
                         }
 
                         Page page = new Page();
@@ -179,34 +179,44 @@ namespace bms.Web.wechat
             string saleId = context.Request["saletaskID"];
             int number = Convert.ToInt32(context.Request["number"]);
             string bookNum = context.Request["bookNum"].ToString();
-            if (number < 0)
+            string type = context.Request["type"];
+            DataSet bookNumds = salemonbll.getsalemonDetail(SaleHeadId, saleId, bookNum);
+            if (bookNumds != null && bookNumds.Tables[0].Rows.Count > 0 && type != "continue")
             {
-                number = Math.Abs(number);
-                DataSet bookNumds = salemonbll.getsalemonDetail(SaleHeadId, saleId, bookNum);
-                if (bookNumds != null)
+                context.Response.Write("已购买");
+                context.Response.End();
+            }
+            else
+            {
+                if (number < 0)
                 {
-                    int booknumber = int.Parse(bookNumds.Tables[0].Rows[0]["number"].ToString());
-                    if (number > booknumber)
+                    number = Math.Abs(number);
+                    if (bookNumds != null)
                     {
-                        context.Response.Write("输入的负数不能大于已购数量，已购数为:" + booknumber);
-                        context.Response.End();
+                        int booknumber = int.Parse(bookNumds.Tables[0].Rows[0]["number"].ToString());
+                        if (number > booknumber)
+                        {
+                            context.Response.Write("输入的负数不能大于已购数量，已购数为:" + booknumber);
+                            context.Response.End();
+                        }
+                        else
+                        {
+                            number = number * -1;
+                            addsalemon(context);
+                        }
                     }
                     else
                     {
-                        number = number * -1;
-                        addsalemon(context);
+                        context.Response.Write("该书籍没有购买过，数量不能为负数");
+                        context.Response.End();
                     }
                 }
                 else
                 {
-                    context.Response.Write("该书籍没有购买过，数量不能为负数");
-                    context.Response.End();
+                    addsalemon(context);
                 }
             }
-            else
-            {
-                addsalemon(context);
-            }
+
         }
         public void addsalemon(HttpContext context)
         {
