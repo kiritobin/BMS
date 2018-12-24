@@ -25,7 +25,7 @@ namespace bms.Web.wechat
         retailM retailM = new retailM();
         public void ProcessRequest(HttpContext context)
         {
-            string op = context.Request.QueryString["op"];
+            string op = context.Request["op"];
             if (op == "isbn")
             {
                 isbn(context);
@@ -49,7 +49,7 @@ namespace bms.Web.wechat
         /// <param name="context"></param>
         public void isbn(HttpContext context)
         {
-            string isbn = context.Request.QueryString["isbn"];
+            string isbn = context.Request["isbn"];
             if (isbn != null && isbn != "")
             {
                 DataSet bookDs = retailBll.SelectByIsbn(isbn);
@@ -106,7 +106,7 @@ namespace bms.Web.wechat
         /// <param name="context"></param>
         public void choose(HttpContext context)
         {
-            string isbn = context.Request.QueryString["isbn"];
+            string isbn = context.Request["isbn"];
             if (isbn != null && isbn != "")
             {
                 DataSet bookDs = retailBll.SelectByIsbn(isbn);
@@ -198,7 +198,7 @@ namespace bms.Web.wechat
         /// <param name="context"></param>
         public void bookNum(HttpContext context)
         {
-            string bookNum = context.Request.QueryString["bookNum"];
+            string bookNum = context.Request["bookNum"];
             DataSet bookDs = retailBll.SelectByBookNum(bookNum);
             if (bookDs == null)
             {
@@ -245,12 +245,12 @@ namespace bms.Web.wechat
         /// <param name="context"></param>
         public void insert(HttpContext context)
         {
-            string json = context.Request.QueryString["data"];
+            string json = context.Request["data"];
             DataTable dataTable = jsonToDt(json);
-            string kindNum = context.Request.QueryString["kindNum"];
-            string totalNumber = context.Request.QueryString["totalNumber"];
-            string totalPrice = context.Request.QueryString["totalPrice"];
-            string totalReal = context.Request.QueryString["totalReal"];
+            string kindNum = context.Request["kindNum"];
+            string totalNumber = context.Request["totalNumber"];
+            string totalPrice = context.Request["totalPrice"];
+            string totalReal = context.Request["totalReal"];
             //int row, rows = 0;
             //double total, allTotal = 0, real, allReal = 0;
             //int Counts = dataTable.Rows.Count;
