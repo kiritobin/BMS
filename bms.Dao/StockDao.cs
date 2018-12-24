@@ -122,11 +122,20 @@ namespace bms.Dao
         /// <returns></returns>
         public int selectStockNum(string bookNum)
         {
-            string cmdText = "select sum(stockNum) as stockNum from T_Stock where bookNum=@bookNum";
+            string cmdText = "select stockNum from T_Stock where bookNum=@bookNum";
             String[] param = { "@bookNum" };
             String[] values = { bookNum };
-            int count = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
-            return count;
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if(ds == null || ds.Tables[0].Rows.Count <= 0)
+            {
+                return 0;
+            }
+            else
+            {
+                cmdText = "select sum(stockNum) as stockNum from T_Stock where bookNum=@bookNum";
+                int count = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+                return count;
+            }
         }
     }
 }
