@@ -28,21 +28,29 @@ namespace bms.Web.wechat
         ///// </summary>
         //public string price { get; set; }
         ///// <summary>
-        ///// 实洋
-        ///// </summary>
-        //public string realPrice { get; set; }
-        ///// <summary>
-        ///// 数量
-        ///// </summary>
-        //public string number { get; set; }
-        ///// <summary>
         ///// isbn
         ///// </summary>
         //public string ISBN { get; set; }
-        ///// <summary>
-        ///// 折扣
-        ///// </summary>
-        //public string discount { get; set; }
+        /// <summary>
+        /// 码洋
+        /// </summary>
+        public string allTotalPrice { get; set; }
+        /// <summary>
+        /// 实洋
+        /// </summary>
+        public string allRealPrice { get; set; }
+        /// <summary>
+        /// 数量
+        /// </summary>
+        public string allNumber { get; set; }
+        /// <summary>
+        /// 种类
+        /// </summary>
+        public string kindsNum { get; set; }
+        /// <summary>
+        /// 折扣
+        /// </summary>
+        public string discount { get; set; }
         /// <summary>
         /// 零售单头ID
         /// </summary>

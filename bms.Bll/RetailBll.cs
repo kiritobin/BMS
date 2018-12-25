@@ -422,5 +422,14 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
+        /// <summary>
+        /// 小程序获取用户单头信息
+        /// </summary>
+        /// <param name="openid">用户唯一标识</param>
+        /// <returns></returns>
+        public DataSet selectHead(string openid)
+        {
+            return dao.selectHead(openid);
+        }
     }
 }

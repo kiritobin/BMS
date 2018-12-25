@@ -42,6 +42,14 @@ namespace bms.Web.wechat
             {
                 insert(context);
             }
+            if(op == "openid")
+            {
+                openid(context);
+            }
+            if(op == "checkDetail")
+            {
+                checkDetail(context);
+            }
         }
         /// <summary>
         /// 第一次扫描isbn
@@ -245,25 +253,13 @@ namespace bms.Web.wechat
         /// <param name="context"></param>
         public void insert(HttpContext context)
         {
+            string openid = context.Request["openid"];
             string json = context.Request["data"];
             DataTable dataTable = jsonToDt(json);
             string kindNum = context.Request["kindNum"];
             string totalNumber = context.Request["totalNumber"];
             string totalPrice = context.Request["totalPrice"];
             string totalReal = context.Request["totalReal"];
-            //int row, rows = 0;
-            //double total, allTotal = 0, real, allReal = 0;
-            //int Counts = dataTable.Rows.Count;
-            //for (int i = 0; i < Counts; i++)
-            //{
-            //    DataRow dr = dataTable.Rows[i];
-            //    row = Convert.ToInt32(dr["数量"]);
-            //    total = Convert.ToDouble(dr["码洋"]);
-            //    real = Convert.ToDouble(dr["实洋"]);
-            //    rows = rows + row;
-            //    allTotal = allTotal + total;
-            //    allReal = allReal + real;
-            //}
             DateTime nowTime = DateTime.Now;
             string nowDt = nowTime.ToString("yyyy-MM-dd");
             long count = 0;
@@ -314,8 +310,8 @@ namespace bms.Web.wechat
             single.DateTime = DateTime.Now;
             single.State = 0;
             single.PayType = "未支付";
-            retailM.retailHeadId = retailHeadId;
-            Result result = retailBll.InsertRetail(single);
+            single.OpenId = openid;
+            Result result = retailBll.Insert(single);
             if (result == Result.添加成功)
             {
                 SaleMonomer monomers = new SaleMonomer();
@@ -357,7 +353,87 @@ namespace bms.Web.wechat
             }
 
         }
-
+        /// <summary>
+        /// 用户查看我的订单
+        /// </summary>
+        /// <param name="context"></param>
+        public void openid(HttpContext context)
+        {
+            string openid = context.Request["openid"];
+            if(openid !=null && openid != "")
+            {
+                DataSet dsHead = retailBll.selectHead(openid);
+                if(dsHead == null|| dsHead.Tables[0].Rows.Count <= 0)
+                {
+                    retailM.type = "暂无订单信息";
+                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                    context.Response.Write(json);
+                    context.Response.End();
+                }
+                else
+                {
+                    retailM.type = "数据";
+                    string data = JsonHelper.ToJson(dsHead.Tables[0], "retail");
+                    retailM.data = data;
+                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                    context.Response.Write(json);
+                    context.Response.End();
+                }
+            }
+        }
+        public void checkDetail(HttpContext context)
+        {
+            string headid = context.Request["headid"];
+            SaleHead retail = retailBll.GetHead(headid);
+            if (retail == null)
+            {
+                retailM.type = "暂无订单信息";
+                string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                context.Response.Write(json);
+                context.Response.End();
+            }
+            else
+            {
+                DataSet dsDetail = retailBll.GetRetail(headid);
+                if (dsDetail == null || dsDetail.Tables[0].Rows.Count <= 0)
+                {
+                    retailM.type = "暂无订单信息";
+                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                    context.Response.Write(json);
+                    context.Response.End();
+                }
+                else
+                {
+                    if (retail.PayType == "未支付")
+                    {
+                        retailM.type = "未支付";
+                        retailM.retailHeadId = retail.SaleHeadId;
+                        retailM.allNumber = retail.Number.ToString();
+                        retailM.kindsNum = retail.KindsNum.ToString();
+                        retailM.allTotalPrice = retail.AllTotalPrice.ToString();
+                        retailM.allRealPrice = retail.AllRealPrice.ToString();
+                        string data = JsonHelper.ToJson(dsDetail.Tables[0], "retail");
+                        retailM.data = data;
+                        string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                        context.Response.Write(json);
+                        context.Response.End();
+                    }
+                    else
+                    {
+                        retailM.allNumber = retail.Number.ToString();
+                        retailM.kindsNum = retail.KindsNum.ToString();
+                        retailM.allTotalPrice = retail.AllTotalPrice.ToString();
+                        retailM.allRealPrice = retail.AllRealPrice.ToString();
+                        retailM.type = "数据";
+                        string data = JsonHelper.ToJson(dsDetail.Tables[0], "retail");
+                        retailM.data = data;
+                        string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                        context.Response.Write(json);
+                        context.Response.End();
+                    }
+                }
+            }
+        }
         /// <summary>
         /// Json 字符串 转换为 DataTable数据集合
         /// </summary>

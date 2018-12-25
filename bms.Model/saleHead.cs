@@ -62,6 +62,10 @@ namespace bms.Model
         /// 零售支付状态
         /// </summary>
         private string payType;
+        /// <summary>
+        /// 零售用户唯一标示
+        /// </summary>
+        private string openid;
 
         /// <summary>
         /// 销售单头Id
@@ -258,6 +262,20 @@ namespace bms.Model
             }
         }
         /// <summary>
+        /// 零售客户唯一标示
+        /// </summary>
+        public string OpenId
+        {
+            get
+            {
+                return openid;
+            }
+            set
+            {
+                openid = value;
+            }
+        }
+        /// <summary>
         /// 无参构造函数
         /// </summary>
         public SaleHead() { }
@@ -278,7 +296,8 @@ namespace bms.Model
         /// <param name="regionName">地区名称</param>
         /// <param name="dateTime">制单时间</param>
         /// <param name="payType">零售支付状态</param>
-        public SaleHead(string saleHeadId, string saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, string userId,string userName, int state, int regionId, string regionName, DateTime dateTime,string payType)
+        /// <param name="openid">零售客户唯一标示</param>
+        public SaleHead(string saleHeadId, string saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, string userId,string userName, int state, int regionId, string regionName, DateTime dateTime,string payType,string openid)
         {
             SaleHeadId = saleHeadId;
             SaleTaskId = saleTaskId;
@@ -293,6 +312,7 @@ namespace bms.Model
             RegionName = regionName;
             DateTime = dateTime;
             PayType = payType;
+            OpenId = openid;
         }
     }
 }
