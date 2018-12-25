@@ -135,6 +135,7 @@
     <Content Include="InventoryMGT\inventoryStatistics.aspx" />
     <Content Include="InventoryMGT\regionRs.aspx" />
     <Content Include="InventoryMGT\replenishMent.aspx" />
+    <Content Include="js\bookStock.js" />
     <Content Include="js\checkRs.js" />
     <Content Include="js\customerRetail.js" />
     <Content Include="js\customerRs.js" />
@@ -176,6 +177,7 @@
     <Content Include="js\welcome.js" />
     <Content Include="js\xlsx.full.min.js" />
     <Content Include="QRCode.aspx" />
+    <Content Include="ReportStatistics\bookStock.aspx" />
     <Content Include="ReportStatistics\retailDetails.aspx" />
     <Content Include="ReportStatistics\retailStatistics.aspx" />
     <Content Include="ReportStatistics\returnDetails.aspx" />
@@ -444,6 +446,13 @@
     </Compile>
     <Compile Include="QRCode.aspx.designer.cs">
       <DependentUpon>QRCode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistics\bookStock.aspx.cs">
+      <DependentUpon>bookStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportStatistics\bookStock.aspx.designer.cs">
+      <DependentUpon>bookStock.aspx</DependentUpon>
     </Compile>
     <Compile Include="ReportStatistics\retailDetails.aspx.cs">
       <DependentUpon>retailDetails.aspx</DependentUpon>

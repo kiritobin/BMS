@@ -59,6 +59,24 @@ namespace bms.Bll
         {
             return stockDao.SelectByBookNum(bookNum,regionId);
         }
+        /// <summary>
+        /// 书籍库存导出全部
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <param name="groupbyType"></param>
+        /// <returns></returns>
+        public DataSet bookStock(string str)
+        {
+            return stockDao.bookStock(str);
+        }
+        /// <summary>
+        /// 书籍库存导出明细
+        /// </summary>
+        /// <returns></returns>
+        public DataSet bookStockDetail()
+        {
+            return stockDao.bookStockDetail();
+        }
 
         /// <summary>
         /// 判断此书号是否有库存
