@@ -199,12 +199,18 @@
                                         <span class="sidebar-normal">零退管理</span>
                                     </a>
                                 </li>
-                                <%} %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/bookStock.aspx">
+                                        <span class="sidebar-normal">库存统计</span>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../CustomerMGT/statistics.aspx">
                                         <span class="sidebar-normal">大屏配置</span>
                                     </a>
                                 </li>
+                                <%} %>
+                                
                             </ul>
                         </div>
                     </li>
@@ -275,6 +281,16 @@
                                     <a class="nav-link" href="../ReportStatistics/retailStatistics.aspx">
                                         <span class="sidebar-normal">零售统计</span>
                                     </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/bookStock.aspx">
+                                        <span class="sidebar-normal">库存统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="nav-link">
+                                        <span class="sidebar-normal"></span>
+                                    </span>
                                 </li>
                             </ul>
                         </div>
