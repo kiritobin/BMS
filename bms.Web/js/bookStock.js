@@ -176,7 +176,7 @@
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text();
-        window.location.href = "stockDetails.aspx?type=" + groupbyType + "&&name=" + name;
+        window.location.href = "bookStockDetail.aspx?type=" + groupbyType + "&&name=" + name;
     })
 
     //点击查询按钮时
