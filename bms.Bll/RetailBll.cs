@@ -322,12 +322,16 @@ namespace bms.Bll
             excel.Columns.Add("交易日期");
             excel.Columns.Add("收银员");
             excel.Columns.Add("供应商");
+            excel.Columns.Add("备注");
+            excel.Columns.Add("备注1");
+            excel.Columns.Add("备注2");
+            excel.Columns.Add("备注3");
             DataTable dt = dao.exportDel(groupbyType, strWhere);
             DataRowCollection count = dt.Rows;
             foreach (DataRow row in count)
             {
                 string bookName = ToDBC(row[3].ToString());
-                excel.Rows.Add(row[0], row[1], row[2], bookName, row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]);
+                excel.Rows.Add(row[0], row[1], row[2], bookName, row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15]);
             }
             return excel;
         }
