@@ -333,7 +333,7 @@
                                         <div class="input-group">
                                             <div class="input-group">
                                                 <div class="btn-group" role="group">
-                                                    <input type="text" class="searchOne" id="search_All" placeholder="请输入客户名">
+                                                    <input type="text" class="searchOne" id="search_All" placeholder="请输入客户账号或名称">
                                                     <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                                 </div>
                                                 <div class="btn-group" role="group">

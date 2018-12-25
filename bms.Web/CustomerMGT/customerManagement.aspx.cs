@@ -72,7 +72,7 @@ namespace bms.Web.CustomerMGT
             }
             else
             {
-                search = String.Format(" customerName {0} and deleteState=0", "like '%" + search + "%'");
+                search = String.Format(" (customerName {0} or customerID {0}) and deleteState=0", "like '%" + search + "%'");
             }
 
             TableBuilder tb = new TableBuilder();
