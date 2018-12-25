@@ -81,7 +81,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public SaleHead GetHead(string retailHeadId)
         {
-            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,userName,retailHeadId,dateTime,regionName from V_RetailHead where retailHeadId=@retailHeadId";
+            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,userName,retailHeadId,dateTime,regionName,payment from V_RetailHead where retailHeadId=@retailHeadId";
             string[] param = { "@retailHeadId" };
             object[] values = { retailHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
@@ -97,6 +97,7 @@ namespace bms.Dao
                     sale.UserName = ds.Tables[0].Rows[0]["userName"].ToString();
                     sale.RegionName = ds.Tables[0].Rows[0]["regionName"].ToString();
                     sale.SaleHeadId = ds.Tables[0].Rows[0]["retailHeadId"].ToString();
+                    sale.PayType = ds.Tables[0].Rows[0]["payment"].ToString();
                     sale.DateTime = Convert.ToDateTime(ds.Tables[0].Rows[0]["dateTime"]);
                 }
                 return sale;
@@ -114,7 +115,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet GetRetail(string retailHeadId)
         {
-            string cmdText = "select retailMonomerId,bookName,bookNum,ISBN,number,unitPrice,realDiscount,totalPrice,realPrice from V_RetailMonomer where retailHeadId=@retailHeadId";
+            string cmdText = "select retailMonomerId,bookName,bookNum,ISBN,number,unitPrice,realDiscount,totalPrice,realPrice,payment from V_RetailMonomer where retailHeadId=@retailHeadId";
             string[] param = { "@retailHeadId" };
             object[] values = { retailHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
@@ -566,11 +567,33 @@ namespace bms.Dao
         /// <returns></returns>
         public int Insert(SaleHead salehead)
         {
-            string cmdText = "insert into T_RetailHead(state,retailHeadId,dateTime,kindsNum,number,allTotalPrice,allRealPrice,payment) values(@state,@retailHeadId,@dateTime,@kindsNum,@number,@allTotalPrice,@allRealPrice,@payment)";
-            string[] param = { "@state", "@retailHeadId", "@dateTime", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@payment" };
-            object[] values = { salehead.State, salehead.SaleHeadId, salehead.DateTime, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.PayType };
+            string cmdText = "insert into T_RetailHead(state,retailHeadId,userId,regionId,dateTime,kindsNum,number,allTotalPrice,allRealPrice,payment,openid) values(@state,@retailHeadId,@userId,@regionId,@dateTime,@kindsNum,@number,@allTotalPrice,@allRealPrice,@payment,@openid)";
+            string[] param = { "@state", "@retailHeadId", "@userId", "@regionId", "@dateTime", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@payment", "@openid" };
+            object[] values = { salehead.State, salehead.SaleHeadId, salehead.UserId, salehead.RegionId, salehead.DateTime, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.PayType,salehead.OpenId };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
+        }
+
+        /// <summary>
+        /// 小程序获取用户单头信息
+        /// </summary>
+        /// <param name="openid">用户唯一标识</param>
+        /// <returns></returns>
+        public DataSet selectHead(string openid)
+        {
+            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,retailHeadId,dateTime from V_RetailHead where openid=@openid";
+            string[] param = { "@openid" };
+            object[] values = { openid };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            int count = ds.Tables[0].Rows.Count;
+            if (ds == null || count <= 0)
+            {
+                return null;
+            }
+            else
+            {
+                return ds;
+            }
         }
     }
 }
