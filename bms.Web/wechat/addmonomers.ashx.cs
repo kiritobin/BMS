@@ -58,7 +58,7 @@ namespace bms.Web.wechat
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleMonomer";
             tb.OrderBy = "dateTime desc";
-            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice,userName,customerName,regionName";
+            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(totalPrice) as alltotalPrice,userName,customerName,regionName";
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
@@ -71,13 +71,13 @@ namespace bms.Web.wechat
             dt.Columns.Add("bookName", typeof(string));
             dt.Columns.Add("allnumber", typeof(long));
             dt.Columns.Add("unitPrice", typeof(double));
-            dt.Columns.Add("allrealPrice", typeof(double));
+            dt.Columns.Add("alltotalPrice", typeof(double));
             //(i + 1 + ((currentPage - 1) * pageSize))
             int count = ds.Tables[0].Rows.Count;
             for (int i = 0; i < count; i++)
             {
                 int number = (i + 1 + ((currentPage - 1) * pageSize));
-                dt.Rows.Add(Convert.ToInt32(number), ds.Tables[0].Rows[i]["bookName"].ToString(), Convert.ToInt64(ds.Tables[0].Rows[i]["allnumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["unitPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allrealPrice"].ToString()));
+                dt.Rows.Add(Convert.ToInt32(number), ds.Tables[0].Rows[i]["bookName"].ToString(), Convert.ToInt64(ds.Tables[0].Rows[i]["allnumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["unitPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["alltotalPrice"].ToString()));
             }
             Page page = new Page();
 
