@@ -106,12 +106,12 @@ namespace bms.Web.ReportStatistics
             {
                 str = strWhere + "  GROUP BY " + groupbyType;
             }
-            string now = DateTime.Now.ToString("yyyyMMddHHmmss");
+            string file = "书籍库存导出" + DateTime.Now.ToString("yyyyMMddHHmmss");
             DataTable dt = StockBll.bookStock(str).Tables[0];
             int count = dt.Rows.Count;
             if (count>0)
             {
-                ExcelHelp.dtToExcelForXlsxByNpoi(dt, "书籍库存导出 - " + now);
+                ExcelHelp.dtToExcelForXlsxByNpoi(dt, file);
             }
             else
             {
@@ -121,12 +121,52 @@ namespace bms.Web.ReportStatistics
 
         private void exportDetail()
         {
-            string now = DateTime.Now.ToString("yyyyMMddHHmmss");
+            User user = (User)Session["user"];
+            int regionId = user.ReginId.RegionId;
+            string roleName = user.RoleId.RoleName;
+            string strWhere = "";
+            string groupbyType = Request["groupbyType"];
+            string supplier = Request["supplier"];
+            string regionName = Request["regionName"];
+            if (groupbyType == "state" || groupbyType == null)
+            {
+                groupbyType = "supplier";
+            }
+            if (supplier != "" && supplier != null)
+            {
+                strWhere = "supplier='" + supplier + "'";
+            }
+            if (regionName != "" && regionName != null)
+            {
+                strWhere = "regionName='" + regionName + "'";
+            }
+
+            if (roleName != "超级管理员")
+            {
+                if (strWhere == "" || strWhere == null)
+                {
+                    strWhere = "regionId=" + regionId;
+                }
+                else
+                {
+                    strWhere += "and regionId=" + regionId;
+                }
+            }
+            string str = "";
+            if (strWhere == "" || strWhere == null)
+            {
+                str = groupbyType + " like'%'" + " GROUP BY " + groupbyType;
+            }
+            else
+            {
+                str = strWhere + "  GROUP BY " + groupbyType;
+            }
+            string file = "书籍库存明细导出" + DateTime.Now.ToString("yyyyMMddHHmmss");
             DataTable dt = StockBll.bookStockDetail().Tables[0];
             int count = dt.Rows.Count;
             if (count > 0)
             {
-                ExcelHelp.dtToExcelForXlsxByNpoi(dt, "书籍库存明细导出 - " + now);
+                ExcelHelp.dtToExcelForXlsxByNpoi(dt, file);
             }
             else
             {
@@ -203,7 +243,6 @@ namespace bms.Web.ReportStatistics
             for (int i = 0; i < dscount; i++)
             {
                 DataRow dr = ds.Tables[0].Rows[i];
-                //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<td>" + dr["供应商"].ToString() + "</td>");
                 strb.Append("<td>" + dr["品种"].ToString() + "</td>");
