@@ -80,7 +80,7 @@ namespace bms.Web.ReportStatistics
             }
             if (discount != null && discount != "")
             {
-                strWhere += " and discount='" + discount + "'";
+                strWhere += " and (author like'%" + discount + "%' or remarks like'%" + discount + "%')";
             }
             strWhere += " and type=1 group by bookNum,userName," + type;
             //获取分页数据
@@ -90,9 +90,9 @@ namespace bms.Web.ReportStatistics
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "v_monomer";
+            tb.StrTable = "v_stock";
             tb.OrderBy = type;
-            tb.StrColumnlist = "isbn,bookNum,bookName,uPrice,sum(number) as number, sum(totalPrice) as totalPrice,sum(realPrice) as realPrice,discount,regionName,supplier";
+            tb.StrColumnlist = "ISBN,bookNum,bookName,price,sum(stockNum) as stockNum, author,remarks,supplier, regionName";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = strWhere;
@@ -105,15 +105,14 @@ namespace bms.Web.ReportStatistics
                 DataRow dr = ds.Tables[0].Rows[i];
                 //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                strb.Append("<td>" + dr["isbn"].ToString() + "</td>");
+                strb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
                 strb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
                 strb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-                strb.Append("<td>" + dr["uPrice"].ToString() + "</td>");
+                strb.Append("<td>" + dr["price"].ToString() + "</td>");
                 strb.Append("<td>" + dr["supplier"].ToString() + "</td>");
-                strb.Append("<td>" + dr["number"].ToString() + "</td>");
-                strb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
-                strb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
-                strb.Append("<td>" + dr["discount"].ToString() + "</td>");
+                strb.Append("<td>" + dr["stockNum"].ToString() + "</td>");
+                strb.Append("<td>" + dr["author"].ToString() + "</td>");
+                strb.Append("<td>" + dr["remarks"].ToString() + "</td>");
                 strb.Append("<td>" + dr["regionName"].ToString() + "</td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");

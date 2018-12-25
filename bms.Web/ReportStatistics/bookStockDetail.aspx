@@ -243,7 +243,7 @@
                         <div class="collapse show" id="ReportStatistics">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link activeNext" href="../ReportStatistics/stockStatistics.aspx">
+                                    <a class="nav-link" href="../ReportStatistics/stockStatistics.aspx">
                                         <span class="sidebar-normal">入库统计</span>
                                     </a>
                                 </li>
@@ -271,6 +271,16 @@
                                     <a class="nav-link" href="../ReportStatistics/retailStatistics.aspx">
                                         <span class="sidebar-normal">零售统计</span>
                                     </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link activeNext" href="bookStock.aspx">
+                                        <span class="sidebar-normal">库存统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="nav-link">
+                                        <span class="sidebar-normal"></span>
+                                    </span>
                                 </li>
                             </ul>
                         </div>
@@ -335,7 +345,7 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入折扣" style="width: 130px;" id="discount" />
+                                                <input type="text" class="" placeholder="请输入销售折扣或进货折扣" style="width: 130px;" id="discount" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
@@ -369,16 +379,13 @@
                                                         <nobr>供应商</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>数量</nobr>
+                                                        <nobr>库存数量</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>码洋</nobr>
+                                                        <nobr>进货折扣</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>实洋</nobr>
-                                                    </th>
-                                                    <th>
-                                                        <nobr>折扣</nobr>
+                                                        <nobr>销售折扣</nobr>
                                                     </th>
                                                     <th>
                                                         <nobr>组织名称</nobr>
@@ -437,16 +444,13 @@
                                 <nobr>供应商</nobr>
                             </th>
                             <th>
-                                <nobr>数量</nobr>
+                                <nobr>库存数量</nobr>
                             </th>
                             <th>
-                                <nobr>码洋</nobr>
+                                <nobr>进货折扣</nobr>
                             </th>
                             <th>
-                                <nobr>实洋</nobr>
-                            </th>
-                            <th>
-                                <nobr>折扣</nobr>
+                                <nobr>销售折扣</nobr>
                             </th>
                             <th>
                                 <nobr>组织名称</nobr>
