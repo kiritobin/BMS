@@ -47,12 +47,12 @@
                 success: function (data) {
                     if (groupby == "供应商") {
                         $("#showType").text("供应商");
+                        $("#showType2").text("组织名称");
                     }
                     else if (groupby == "组织") {
-                        $("#showType").text("组织");
-                    } else if (groupby == "客户") {
-                        $("#showType").text("客户");
-                    }
+                        $("#showType").text("组织名称");
+                        $("#showType2").text("供应商");
+                    } 
                     $("#table tr:not(:first)").remove(); //清空table处首行
                     $("#table").append(data); //加载table
                     $("#intPageCount").remove();
@@ -175,7 +175,7 @@
         } else {
             groupbyType = "supplier";
         }
-        var name = $(this).parent().prev().prev().prev().prev().prev().text();
+        var name = $(this).parent().prev().prev().prev().prev().text();
         window.location.href = "bookStockDetail.aspx?type=" + groupbyType + "&&name=" + name;
     })
 
@@ -228,12 +228,12 @@
                 success: function (data) {
                     if (groupby == "供应商") {
                         $("#showType").text("供应商");
+                        $("#showType2").text("组织名称");
                     }
                     else if (groupby == "组织") {
-                        $("#showType").text("组织");
-                    } else if (groupby == "客户") {
-                        $("#showType").text("客户");
-                    }
+                        $("#showType").text("组织名称");
+                        $("#showType2").text("供应商");
+                    } 
                     $("#intPageCount").remove();
                     $("#table tr:not(:first)").empty(); //清空table处首行
                     $("#table").append(data); //加载table

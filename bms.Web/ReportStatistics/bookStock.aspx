@@ -380,9 +380,8 @@
                                                     <th>序号</th>
                                                     <th id="showType">供应商</th>
                                                     <th>品种</th>
-                                                    <th>数量</th>
-                                                    <th>码洋</th>
-                                                    <th>实洋</th>
+                                                    <th>库存数量</th>
+                                                    <th id="showType2">组织名称</th>
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>

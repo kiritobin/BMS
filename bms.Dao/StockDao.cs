@@ -68,9 +68,9 @@ namespace bms.Dao
         /// <param name="strWhere"></param>
         /// <param name="groupbyType"></param>
         /// <returns></returns>
-        public DataSet bookStock(string str)
+        public DataSet bookStock(string str, string groupType)
         {
-            string cmdText = "select supplier as 供应商, count(bookNum) as 品种, sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋 from v_monomer where "+str+ " order by 码洋 desc";
+            string cmdText = "select sum(stockNum) as 库存数量,count(bookNum) as 品种数,supplier as 供应商, regionName as 组织名称 from v_stock where " + str + " group by " + groupType + " order by "+ groupType;
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -86,9 +86,9 @@ namespace bms.Dao
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public DataSet bookStockDetail()
+        public DataSet bookStockDetail(string str,string groupType)
         {
-            string cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,discount as 折扣,supplier as 供应商,regionName as 组织名称,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_monomer";
+            string cmdText = "select ISBN,bookNum as 书号,bookName as 书名,price as 单价,sum(stockNum) as 数量, author as 进货折扣,remarks as 销售折扣,supplier as 供应商, regionName as 组织名称,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_stock where " + str + " group by bookNum," + groupType + " order by " + groupType;
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -183,7 +183,7 @@ namespace bms.Dao
         /// <returns>返回一个DataTable的选题记录集合</returns>
         public DataTable ExportExcelDetails(string strWhere, string groupType)
         {
-            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,price as 单价,sum(stockNum) as 数量, author as 进货折扣,remarks as 销售折扣,supplier as 供应商, regionName as 组织名称,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_stock where " + strWhere + " group by bookNum," + groupType + " order by 码洋";
+            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,price as 单价,sum(stockNum) as 数量, author as 进货折扣,remarks as 销售折扣,supplier as 供应商, regionName as 组织名称,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_stock where " + strWhere + " group by bookNum," + groupType + " order by "+ groupType;
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
             int count = ds.Tables[0].Rows.Count;

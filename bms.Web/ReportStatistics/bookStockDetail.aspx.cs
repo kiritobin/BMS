@@ -59,11 +59,11 @@ namespace bms.Web.ReportStatistics
             string strWhere = "";
             if (type == "regionName")
             {
-                strWhere = "regionName = '" + name + "' and deleteState=0";
+                strWhere = "regionName = '" + name + "'";
             }
             else if (type == "supplier")
             {
-                strWhere = "supplier = '" + name + "' and deleteState=0";
+                strWhere = "supplier = '" + name + "'";
             }
             groupType = strWhere;
             dsUser = wareBll.getUser(groupType, 1);
@@ -76,13 +76,13 @@ namespace bms.Web.ReportStatistics
             }
             if (price != null && price != "")
             {
-                strWhere += " and uPrice='" + price + "'";
+                strWhere += " and price='" + price + "'";
             }
             if (discount != null && discount != "")
             {
                 strWhere += " and (author like'%" + discount + "%' or remarks like'%" + discount + "%')";
             }
-            strWhere += " and type=1 group by bookNum,userName," + type;
+            strWhere += " group by bookNum," + type;
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)

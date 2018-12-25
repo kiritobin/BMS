@@ -65,17 +65,17 @@ namespace bms.Bll
         /// <param name="strWhere"></param>
         /// <param name="groupbyType"></param>
         /// <returns></returns>
-        public DataSet bookStock(string str)
+        public DataSet bookStock(string str,string groupType)
         {
-            return stockDao.bookStock(str);
+            return stockDao.bookStock(str,groupType);
         }
         /// <summary>
         /// 书籍库存导出明细
         /// </summary>
         /// <returns></returns>
-        public DataSet bookStockDetail()
+        public DataSet bookStockDetail(string str, string groupType)
         {
-            return stockDao.bookStockDetail();
+            return stockDao.bookStockDetail(str, groupType);
         }
 
         /// <summary>

@@ -345,13 +345,12 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入销售折扣或进货折扣" style="width: 130px;" id="discount" />
+                                                <input type="text" class="" placeholder="请输入销售折扣或进货折扣" style="width: 180px;" id="discount" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
                                                 <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
                                                 <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
-                                                <button type="button" class="btn btn-sm btn-info" id="print">打印</button>
                                                 <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
                                         </form>

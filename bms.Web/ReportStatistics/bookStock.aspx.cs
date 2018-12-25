@@ -100,14 +100,14 @@ namespace bms.Web.ReportStatistics
             string str="";
             if (strWhere == "" || strWhere == null)
             {
-                str = groupbyType + " like'%'" + " GROUP BY " + groupbyType;
+                str = groupbyType + " like'%'";
             }
             else
             {
-                str = strWhere + "  GROUP BY " + groupbyType;
+                str = strWhere;
             }
             string file = "书籍库存导出" + DateTime.Now.ToString("yyyyMMddHHmmss");
-            DataTable dt = StockBll.bookStock(str).Tables[0];
+            DataTable dt = StockBll.bookStock(str, groupbyType).Tables[0];
             int count = dt.Rows.Count;
             if (count>0)
             {
@@ -155,14 +155,14 @@ namespace bms.Web.ReportStatistics
             string str = "";
             if (strWhere == "" || strWhere == null)
             {
-                str = groupbyType + " like'%'" + " GROUP BY " + groupbyType;
+                str = groupbyType + " like'%'";
             }
             else
             {
-                str = strWhere + "  GROUP BY " + groupbyType;
+                str = strWhere;
             }
             string file = "书籍库存明细导出" + DateTime.Now.ToString("yyyyMMddHHmmss");
-            DataTable dt = StockBll.bookStockDetail().Tables[0];
+            DataTable dt = StockBll.bookStockDetail(str,groupbyType).Tables[0];
             int count = dt.Rows.Count;
             if (count > 0)
             {
@@ -219,9 +219,9 @@ namespace bms.Web.ReportStatistics
             }
 
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "v_monomer";
-            tb.OrderBy = "码洋 desc";
-            tb.StrColumnlist = "supplier as 供应商, count(bookNum) as 品种, sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋";
+            tb.StrTable = "v_stock";
+            tb.OrderBy = "stockNum desc";
+            tb.StrColumnlist = "count(bookNum) as kindsNum,sum(stockNum) as stockNum,supplier, regionName";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             if (strWhere == "" || strWhere == null)
@@ -244,11 +244,20 @@ namespace bms.Web.ReportStatistics
             {
                 DataRow dr = ds.Tables[0].Rows[i];
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
-                strb.Append("<td>" + dr["供应商"].ToString() + "</td>");
-                strb.Append("<td>" + dr["品种"].ToString() + "</td>");
-                strb.Append("<td>" + dr["数量"].ToString() + "</td>");
-                strb.Append("<td>" + dr["码洋"].ToString() + "</td>");
-                strb.Append("<td>" + dr["实洋"].ToString() + "</td>");
+                if (groupbyType == "supplier")
+                {
+                    strb.Append("<td>" + dr["supplier"].ToString() + "</td>");
+                    strb.Append("<td>" + dr["kindsNum"].ToString() + "</td>");
+                    strb.Append("<td>" + dr["stockNum"].ToString() + "</td>");
+                    strb.Append("<td>" + dr["regionName"].ToString() + "</td>");
+                }
+                else
+                {
+                    strb.Append("<td>" + dr["regionName"].ToString() + "</td>");
+                    strb.Append("<td>" + dr["kindsNum"].ToString() + "</td>");
+                    strb.Append("<td>" + dr["stockNum"].ToString() + "</td>");
+                    strb.Append("<td>" + dr["supplier"].ToString() + "</td>");
+                }
                 strb.Append("<td><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
