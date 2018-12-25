@@ -272,7 +272,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../ReportStatistics/bookStock.aspx">
-                                        <span class="sidebar-normal">书籍库存统计</span>
+                                        <span class="sidebar-normal">库存统计</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
