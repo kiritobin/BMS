@@ -270,6 +270,16 @@
                                         <span class="sidebar-normal">零售统计</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="../ReportStatistics/bookStock.aspx">
+                                        <span class="sidebar-normal">书籍库存统计</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="nav-link">
+                                        <span class="sidebar-normal"></span>
+                                    </span>
+                                </li>
                             </ul>
                         </div>
                     </li>

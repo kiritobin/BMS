@@ -1,19 +1,20 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="welcomePage.aspx.cs" Inherits="bms.Web.welcomePage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bookStock.aspx.cs" Inherits="bms.Web.ReportStatistics.bookStock" %>
 
 <!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>云南新华书店项目综合管理系统</title>
 
-    <!-- CSS -->
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/material-dashboard.min.css" rel="stylesheet">
-    <link href="../css/zgz.css" rel="stylesheet">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>云南新华书店项目综合管理系统</title>
+    <!-- 字体图标样式 -->
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <!-- css样式 -->
+    <link rel="stylesheet" href="../css/material-dashboard.min.css">
+    <link rel="stylesheet" href="../css/pagination.css" />
+    <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
-    <link rel="stylesheet" href="../css/bootstrap-select.css" />
+    <link rel="stylesheet" href="../css/jedate.css" />
+    <script src="../js/jedate.min.js"></script>
 </head>
 <body>
     <div class="wrapper ">
@@ -229,7 +230,7 @@
                     </li>
                     <%if (isAdmin)
                         { %>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="#ReportStatistics" data-toggle="collapse">
                             <i class="fa fa-table"></i>
                             <p>
@@ -237,7 +238,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="ReportStatistics">
+                        <div class="collapse show" id="ReportStatistics">
                             <ul class="nav">
                                 <li class="nav-item">
                                     <a class="nav-link" href="../ReportStatistics/stockStatistics.aspx">
@@ -270,7 +271,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../ReportStatistics/bookStock.aspx">
+                                    <a class="nav-link activeNext" href="../ReportStatistics/bookStock.aspx">
                                         <span class="sidebar-normal">书籍库存统计</span>
                                     </a>
                                 </li>
@@ -326,20 +327,75 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <%--<div>
-                                <h1 class=" text-danger welcome">欢迎使用</h1>
-                                <div class="text-center">
-                                    <img src="imgs/welcome.jpg" alt="一帆风顺" width="300" class="img-thumbnail"/>
-                                </div>
-                                <h3 style="text-align: center;">云南新华书店项目综合管理系统</h3>
-                            </div>--%>
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h1 class="card-title">欢迎使用!</h1>
+                                    <h4 class="card-title ">书籍库存统计</h4>
                                 </div>
-                                <div class="card-body text-center">
-                                    <div>
-                                        <img src="imgs/welcome.png" height="550" alt="welcome" style="margin-top: 20px; margin-bottom: 20px;" />
+                                <div class="card-body">
+                                    <div class="card-header" style="padding-right: 0px;">
+                                        <div class="input-group">
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-group" role="group">
+                                                    <select class="modal_select selectpicker collectionStatus" id="groupby">
+                                                        <option value="">分组方式</option>
+                                                        <option value="supplier">供应商</option>
+                                                        <option value="region">组织</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="btn-group" id="groupsupplier">
+                                                <select class="modal_select selectpicker collectionStatus" title="请选择供应商" data-live-search="true" id="supplier">
+                                                    <option>全部</option>
+                                                    <%for (int i = 0; i < dsSupplier.Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsSupplier.Rows[i]["supplier"] %>"><%=dsSupplier.Rows[i]["supplier"] %></option>
+                                                    <%} %>
+                                                </select>
+                                            </div>
+                                            <div class="btn-group" id="groupregion">
+                                                <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="region">
+                                                    <option>全部</option>
+                                                    <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%} %>
+                                                </select>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-info" id="btn_search">查询</button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-info" id="exportAll">导出报表</button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-info" id="exportDe">导出明细</button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-info" id="print">打印报表</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table mostTable table-bordered text-center" id="table">
+                                            <thead>
+                                                <tr class="book-tab-tr text-nowrap">
+                                                    <th>序号</th>
+                                                    <th id="showType">供应商</th>
+                                                    <th>品种</th>
+                                                    <th>数量</th>
+                                                    <th>码洋</th>
+                                                    <th>实洋</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                            </thead>
+                                            <%--<%=getData() %>--%>
+                                        </table>
+                                    </div>
+                                    <div class="copyright float-right page-box">
+                                        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+                                            <div class="m-style paging"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -354,28 +410,26 @@
                     <!-- 版权内容 -->
                     <div class="copyright text-center">
                         &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script>
                         &nbsp;版权归云南新华书店图书有限公司所有
-                        <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
+                                <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
-
-    <!-- jQuery -->
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <!-- Bootstrap JavaScript -->
-    <!-- 左侧导航栏所需js -->
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/bootstrap-material-design.min.js"></script>
-    <!-- 移动端手机菜单所需js -->
-    <script src="../js/perfect-scrollbar.jquery.min.js"></script>
-    <script src="../js/material-dashboard.min.js"></script>
-    <script src="../js/sweetalert2.js"></script>
-    <script src="../js/welcome.js"></script>
 </body>
+<script src="../js/jquery-3.3.1.min.js"></script>
+<!-- 左侧导航栏所需js -->
+<script src="../js/popper.min.js"></script>
+<script src="../js/bootstrap-material-design.min.js"></script>
+<!-- 移动端手机菜单所需js -->
+<script src="../js/perfect-scrollbar.jquery.min.js"></script>
+<script src="../js/material-dashboard.min.js"></script>
+<script src="../js/bootstrap-selectpicker.js"></script>
+<script src="../js/sweetalert2.js"></script>
+<script src="../js/jquery.pagination.js"></script>
+<script src="../js/bookStock.js"></script>
 </html>
-

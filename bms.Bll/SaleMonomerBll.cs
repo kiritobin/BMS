@@ -592,6 +592,10 @@ namespace bms.Bll
             excel.Columns.Add("采集人用户名");
             excel.Columns.Add("采集状态");
             excel.Columns.Add("供应商");
+            excel.Columns.Add("备注");
+            excel.Columns.Add("备注1");
+            excel.Columns.Add("备注2");
+            excel.Columns.Add("备注3");
             DataTable dt = SaleMonomerdao.exportDel(groupbyType, strWhere);
             DataRowCollection count = dt.Rows;
             foreach (DataRow row in count)
@@ -606,7 +610,7 @@ namespace bms.Bll
                     state = "现采";
                 }
                 string bookName = ToDBC(row[3].ToString());
-                excel.Rows.Add(row[0], row[1], row[2], bookName, row[4], row[5],row[6],row[7],row[8],row[9],row[10],state,row[12]);
+                excel.Rows.Add(row[0], row[1], row[2], bookName, row[4], row[5],row[6],row[7],row[8],row[9],row[10],state,row[12], row[13], row[14], row[15], row[16]);
             }
             return excel;
         }

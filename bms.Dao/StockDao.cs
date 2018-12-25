@@ -62,6 +62,43 @@ namespace bms.Dao
                 return null;
             }
         }
+        /// <summary>
+        /// 书籍库存导出全部
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <param name="groupbyType"></param>
+        /// <returns></returns>
+        public DataSet bookStock(string str)
+        {
+            string cmdText = "select supplier as 供应商, count(bookNum) as 品种, sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋 from v_monomer where "+str+ " order by 码洋 desc";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// 书籍库存导出明细
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public DataSet bookStockDetail()
+        {
+            string cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,discount as 折扣,supplier as 供应商,regionName as 组织名称,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_monomer";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// 获取库存数量
