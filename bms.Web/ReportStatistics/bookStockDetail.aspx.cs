@@ -70,6 +70,8 @@ namespace bms.Web.ReportStatistics
             string isbn = Request["isbn"];
             string price = Request["price"];
             string discount = Request["discount"];
+            string bookName = Request["bookName"];
+            string stockNumber = Request["stockNumber"];
             if (isbn != null && isbn != "")
             {
                 strWhere += " and isbn='" + isbn + "'";
@@ -78,10 +80,51 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and price='" + price + "'";
             }
+            if (bookName != null && bookName != "")
+            {
+                strWhere += " and bookName like '%" + bookName + "%'";
+            }
+            if (stockNumber != "" && stockNumber != null)
+            {
+                string[] sArray = stockNumber.Split('于');
+                string type = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type == "小")
+                    {
+                        strWhere = " and stockNum < '" + number + "'";
+                    }
+                    else if (type == "等")
+                    {
+                        strWhere = " and stockNum = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = " and stockNum > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type == "小")
+                    {
+                        strWhere += " and stockNum < '" + number + "'";
+                    }
+                    else if (type == "等")
+                    {
+                        strWhere += " and stockNum = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and stockNum > '" + number + "'";
+                    }
+                }
+            }
             if (discount != null && discount != "")
             {
                 strWhere += " and (author like'%" + discount + "%' or remarks like'%" + discount + "%')";
             }
+            
             strWhere += " group by bookNum," + type;
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);

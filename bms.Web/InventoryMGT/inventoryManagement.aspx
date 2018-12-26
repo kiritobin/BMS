@@ -448,7 +448,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                      <button type="button" id="btn_clear" class="btn btn-success btn-sm" style="margin-right:10px">
-                                                        清楚
+                                                        清除
                                                     </button>
                                                     <button type="button" id="btn_number" class="btn btn-success btn-sm">
                                                         确定

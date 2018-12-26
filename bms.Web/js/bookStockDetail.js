@@ -37,6 +37,8 @@
         var isbn = $("#isbn").val();
         var price = $("#price").val();
         var discount = $("#discount").val();
+        var bookName = $("#bookName").val();
+        var stockNumber = $("#stock").val();
         $.ajax({
             type: 'Post',
             url: 'bookStockDetail.aspx',
@@ -44,6 +46,8 @@
                 isbn: isbn,
                 price: price,
                 discount: discount,
+                bookName: bookName,
+                stockNumber: stockNumber,
                 op: "paging"
             },
             dataType: 'text',
@@ -70,6 +74,8 @@
                                 isbn: isbn,
                                 price: price,
                                 discount: discount,
+                                bookName: bookName,
+                                stockNumber: stockNumber,
                                 op: "paging"
                             },
                             dataType: 'text',
@@ -95,7 +101,30 @@
     $("#back").click(function () {
         window.location.href = "bookStock.aspx";
     })
-
+    $("#btn_number").click(function () {
+        var type = $("input[name='optionsRadios']:checked").val();
+        var number = $("#number").val();
+        if (number == "" || number == null) {
+            swal({
+                title: "提示",
+                text: "请输入数量",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else {
+            $("#stock").val(type + number);
+            $("#numberModal").modal('hide');
+        }
+    })
+    $("#btn_clear").click(function () {
+        $("#stock").val("");
+        $("#number").val("");
+        $("#numberModal").modal('hide');
+    })
 });
 
 function GetQueryString(name) {
