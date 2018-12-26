@@ -230,7 +230,7 @@ namespace bms.Web.ReportStatistics
                 sb.Append("<td>" + dt.Rows[i][9] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][10] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][8] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][11] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][15] + "</td>");
                 sb.Append("</tr>");
             }
             return sb.ToString();
