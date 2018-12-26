@@ -95,7 +95,9 @@
         var isbn = $("#isbn").val();
         var price = $("#price").val();
         var discount = $("#discount").val();
-        window.location.href = "bookStockDetail.aspx?op=export&&isbn=" + isbn + "&&price=" + price + "&&discount=" + discount;
+        var bookName = $("#bookName").val();
+        var stockNumber = $("#stock").val();
+        window.location.href = "bookStockDetail.aspx?op=export&&bookName=" + bookName + "&&stockNumber=" + stockNumber+"&&isbn=" + isbn + "&&price=" + price + "&&discount=" + discount;
     })
     //返回上一页
     $("#back").click(function () {
