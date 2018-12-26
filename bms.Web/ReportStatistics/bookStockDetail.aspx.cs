@@ -15,7 +15,7 @@ namespace bms.Web.ReportStatistics
     {
         DataSet ds, dsPer;
         SaleMonomerBll salemonBll = new SaleMonomerBll();
-        WarehousingBll wareBll = new WarehousingBll();
+        StockBll stockBll = new StockBll();
         public int totalCount, intPageCount, pageSize = 20;
         public DataSet dsUser = null;
         public string type = "", name = "", groupType = "", userName, regionName;
@@ -23,10 +23,6 @@ namespace bms.Web.ReportStatistics
         protected void Page_Load(object sender, EventArgs e)
         {
             string op = Request["op"];
-            if (op == "print")
-            {
-                print();
-            }
             if (!IsPostBack)
             {
                 type = Request.QueryString["type"];
@@ -66,7 +62,6 @@ namespace bms.Web.ReportStatistics
                 strWhere = "supplier = '" + name + "'";
             }
             groupType = strWhere;
-            dsUser = wareBll.getUser(groupType, 1);
             string isbn = Request["isbn"];
             string price = Request["price"];
             string discount = Request["discount"];
@@ -255,7 +250,7 @@ namespace bms.Web.ReportStatistics
                 }
             }
             string Name = fileName + "-书籍库存明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = wareBll.ExportExcelDetail(strWhere, type, 1);
+            DataTable dt = stockBll.ExportExcelDetail(strWhere, type);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/报表导出/入库报表导出/" + Name + ".xlsx");
@@ -267,57 +262,6 @@ namespace bms.Web.ReportStatistics
                 Response.Write("<script>alert('没有数据，不能执行导出操作!');</script>");
                 Response.End();
             }
-        }
-        private string print()
-        {
-            string type = Request["type"];
-            string strWhere = "";
-            string name = Session["name"].ToString();
-            if (type == "regionName")
-            {
-                strWhere = "regionName = '" + name + "' and deleteState=0";
-            }
-            else if (type == "supplier")
-            {
-                strWhere = "supplier = '" + name + "' and deleteState=0";
-            }
-            string isbn = Request["isbn"];
-            string price = Request["price"];
-            string discount = Request["discount"];
-            if (isbn != null && isbn != "")
-            {
-                strWhere += " and isbn='" + isbn + "'";
-            }
-            if (price != null && price != "")
-            {
-                strWhere += " and uPrice=" + price;
-            }
-            if (discount != null && discount != "")
-            {
-
-                strWhere += " and discount=" + discount;
-            }
-            DataTable dt = wareBll.ExportExcelDetail(strWhere, type, 1);
-            int count = dt.Rows.Count;
-            StringBuilder strb = new StringBuilder();
-            for (int i = 0; i < count; i++)
-            {
-                DataRow dr = dt.Rows[i];
-                strb.Append("<tr><td>" + (i + 1) + "</td>");
-                strb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                strb.Append("<td>" + dr["书号"].ToString() + "</td>");
-                strb.Append("<td>" + dr["书名"].ToString() + "</td>");
-                strb.Append("<td>" + dr["单价"].ToString() + "</td>");
-                strb.Append("<td>" + dr["数量"].ToString() + "</td>");
-                strb.Append("<td>" + dr["码洋"].ToString() + "</td>");
-                strb.Append("<td>" + dr["实洋"].ToString() + "</td>");
-                strb.Append("<td>" + dr["折扣"].ToString() + "</td>");
-                strb.Append("<td>" + dr["供应商"].ToString() + "</td>");
-                strb.Append("<td>" + dr["组织名称"].ToString() + "</td></tr>");
-            }
-            Response.Write(strb.ToString());
-            Response.End();
-            return strb.ToString();
         }
         /// <summary>
         /// 权限控制

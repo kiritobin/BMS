@@ -142,9 +142,8 @@ namespace bms.Bll
             excel.Columns.Add("书名");
             excel.Columns.Add("单价");
             excel.Columns.Add("数量");
-            excel.Columns.Add("码洋");
-            excel.Columns.Add("实洋");
-            excel.Columns.Add("折扣");
+            excel.Columns.Add("进货折扣");
+            excel.Columns.Add("销售折扣");
             excel.Columns.Add("供应商");
             excel.Columns.Add("组织名称");
             excel.Columns.Add("备注");
@@ -156,7 +155,7 @@ namespace bms.Bll
             foreach (DataRow row in count)
             {
                 string bookName = ToDBC(row[2].ToString());
-                excel.Rows.Add(row[0], row[1], bookName, row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13]);
+                excel.Rows.Add(row[0], row[1], bookName, row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12]);
             }
             return excel;
         }
