@@ -195,6 +195,8 @@ namespace bms.Web.ReportStatistics
             string isbn = Request.QueryString["isbn"];
             string price = Request.QueryString["price"];
             string discount = Request.QueryString["discount"];
+            string bookName = Request["bookName"];
+            string stockNumber = Request["stockNumber"];
             string strWhere = groupType;
             string fileName = name;
             if (isbn != null && isbn != "")
@@ -211,6 +213,46 @@ namespace bms.Web.ReportStatistics
             {
                 fileName += "-" + discount;
                 strWhere += " and discount=" + discount;
+            }
+            if (bookName != null && bookName != "")
+            {
+                strWhere += " and bookName like '%" + bookName + "%'";
+            }
+            if (stockNumber != "" && stockNumber != null)
+            {
+                string[] sArray = stockNumber.Split('于');
+                string type = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type == "小")
+                    {
+                        strWhere = " and stockNum < '" + number + "'";
+                    }
+                    else if (type == "等")
+                    {
+                        strWhere = " and stockNum = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = " and stockNum > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type == "小")
+                    {
+                        strWhere += " and stockNum < '" + number + "'";
+                    }
+                    else if (type == "等")
+                    {
+                        strWhere += " and stockNum = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and stockNum > '" + number + "'";
+                    }
+                }
             }
             string Name = fileName + "-书籍库存明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
             DataTable dt = wareBll.ExportExcelDetail(strWhere, type, 1);
