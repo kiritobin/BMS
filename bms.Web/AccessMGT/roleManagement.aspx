@@ -757,7 +757,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" value="15">书籍库存查看
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="15">书籍库存查看
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
