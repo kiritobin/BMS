@@ -232,9 +232,10 @@ namespace bms.Web.BasicInfor
             excel = npoi();
             int row = excel.Rows.Count;
             string a;
-            if (ViewState["i"].ToString().Length>=18)
+            string oldBookId = ViewState["i"].ToString();
+            if (oldBookId.Length>8)
             {
-                a = ViewState["i"].ToString().Substring(10, 8);
+                a = oldBookId.Substring(oldBookId.Length-8, 8);
             }
             else
             {
