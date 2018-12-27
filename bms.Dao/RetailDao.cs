@@ -26,9 +26,7 @@ namespace bms.Dao
             {
                 cmdText = "select retailHeadId,dateTime from T_RetailHead where state=0 or state=1 ORDER BY retailHeadId desc";
             }
-            string[] param = { "@state" };
-            object[] values = { state };
-            DataSet ds = db.FillDataSet(cmdText, param, values);
+            DataSet ds = db.FillDataSet(cmdText, null, null);
             return ds;
         }
 
