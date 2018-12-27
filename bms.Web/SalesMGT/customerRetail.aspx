@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-<body>
+<body style="overflow:hidden;">
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
