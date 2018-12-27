@@ -36,7 +36,7 @@ namespace bms.Web.BasicInfor
             BookBasicData bookId = bookbll.getBookNum();
             if (!IsPostBack)
             {
-                if (bookId.NewBookNum == "0" || bookId.NewBookNum == null)
+                if (bookId.NewBookNum == "0" || bookId.NewBookNum == null||bookId.NewBookNum.Length<8)
                 {
                     num = "0";
                 }
@@ -232,9 +232,10 @@ namespace bms.Web.BasicInfor
             excel = npoi();
             int row = excel.Rows.Count;
             string a;
-            if (ViewState["i"].ToString().Length>=18)
+            string oldBookId = ViewState["i"].ToString();
+            if (oldBookId.Length>8)
             {
-                a = ViewState["i"].ToString().Substring(10, 8);
+                a = oldBookId.Substring(oldBookId.Length-8, 8);
             }
             else
             {
@@ -600,12 +601,13 @@ namespace bms.Web.BasicInfor
                 }
             }
                 string s = last;
-                bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
-                last = last.ToString().Substring(last.ToString().Length - 8);
-                if (Convert.ToInt64(bookId.NewBookNum) < Convert.ToInt64(last))
-                {
-                    Result reg = bookbll.updateBookNum(s); //更新书号
-                }
+                Result reg = bookbll.updateBookNum(s); //更新书号
+                //bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
+                //last = last.ToString().Substring(last.ToString().Length - 8);
+                //if (Convert.ToInt64(bookId.NewBookNum) < Convert.ToInt64(last))
+                //{
+                //    Result reg = bookbll.updateBookNum(s); //更新书号
+                //}
                 Session["path"] = null; //清除路径session
                 int cf = row - counts;
                 if (counts==0)
