@@ -50,6 +50,10 @@ namespace bms.Web.wechat
             {
                 checkDetail(context);
             }
+            if (op == "del")
+            {
+                del(context);
+            }
         }
         /// <summary>
         /// 第一次扫描isbn
@@ -381,6 +385,10 @@ namespace bms.Web.wechat
                 }
             }
         }
+        /// <summary>
+        /// 查看详情页面
+        /// </summary>
+        /// <param name="context"></param>
         public void checkDetail(HttpContext context)
         {
             string headid = context.Request["headid"];
@@ -432,6 +440,29 @@ namespace bms.Web.wechat
                         context.Response.End();
                     }
                 }
+            }
+        }
+        /// <summary>
+        /// 小程序删除单头
+        /// </summary>
+        /// <param name="context"></param>
+        public void del(HttpContext context)
+        {
+            string headId = context.Request["headId"];
+            Result del = retailBll.UpdateDel(headId);
+            if(del == Result.删除成功)
+            {
+                retailM.type = "删除成功";
+                string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                context.Response.Write(json);
+                context.Response.End();
+            }
+            else
+            {
+                retailM.type = "删除失败";
+                string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                context.Response.Write(json);
+                context.Response.End();
             }
         }
         /// <summary>

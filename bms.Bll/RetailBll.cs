@@ -435,5 +435,21 @@ namespace bms.Bll
         {
             return dao.selectHead(openid);
         }
+
+        /// <summary>
+        /// 小程序删除单头
+        /// </summary>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>受影响行数</returns>
+        public Result UpdateDel(string retailHeadId)
+        {
+            int row = dao.UpdateDel(retailHeadId);
+            Result result = Result.删除失败;
+            if (row > 0)
+            {
+                result = Result.删除成功;
+            }
+            return result;
+        }
     }
 }

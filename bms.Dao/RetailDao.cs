@@ -81,7 +81,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public SaleHead GetHead(string retailHeadId)
         {
-            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,userName,retailHeadId,dateTime,regionName,payment from V_RetailHead where retailHeadId=@retailHeadId";
+            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,userName,retailHeadId,dateTime,regionName,payment from V_RetailHead where retailHeadId=@retailHeadId and deleteState!=1";
             string[] param = { "@retailHeadId" };
             object[] values = { retailHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
@@ -581,7 +581,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet selectHead(string openid)
         {
-            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,retailHeadId,dateTime from V_RetailHead where openid=@openid";
+            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,retailHeadId,dateTime from V_RetailHead where openid=@openid and deleteState=0 ORDER BY dateTime desc";
             string[] param = { "@openid" };
             object[] values = { openid };
             DataSet ds = db.FillDataSet(cmdText, param, values);
@@ -594,6 +594,20 @@ namespace bms.Dao
             {
                 return ds;
             }
+        }
+
+        /// <summary>
+        /// 小程序删除单头
+        /// </summary>
+        /// <param name="retailHeadId">零售单头ID</param>
+        /// <returns>受影响行数</returns>
+        public int UpdateDel(string retailHeadId)
+        {
+            string cmdText = "update T_RetailHead set deleteState=2 where retailHeadId=@retailHeadId";
+            string[] param = { "@retailHeadId" };
+            object[] values = { retailHeadId };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
         }
     }
 }
