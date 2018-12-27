@@ -19,7 +19,7 @@ namespace bms.Web.InventoryMGT
         protected int pageSize = 20, totalCount, intPageCount;
         protected string shId, shOperator, shCount, shRegionName, shTotalPrice, shRealPrice, shTime,userName,regionName;
         RoleBll roleBll = new RoleBll();
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         UserBll userBll = new UserBll();
         WarehousingBll warehousingBll = new WarehousingBll();
         string singleHeadId;
@@ -213,6 +213,10 @@ namespace bms.Web.InventoryMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
                 {
                     funcRetail = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 15)
+                {
+                    funcBookStock = true;
                 }
             }
         }

@@ -23,7 +23,7 @@ namespace bms.Web.InventoryMGT
         public double discount;
         string singleHeadId;
         RoleBll roleBll = new RoleBll();
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         SingleHead single = new SingleHead();
         UserBll userBll = new UserBll();
         WarehousingBll warehousingBll = new WarehousingBll();
@@ -650,6 +650,10 @@ namespace bms.Web.InventoryMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
                 {
                     funcRetail = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 15)
+                {
+                    funcBookStock = true;
                 }
             }
         }

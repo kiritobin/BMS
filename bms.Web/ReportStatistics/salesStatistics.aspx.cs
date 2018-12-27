@@ -24,7 +24,7 @@ namespace bms.Web.reportStatistics
         CustomerBll customBll = new CustomerBll();
         public int totalCount, intPageCount, pageSize = 20;
         string exportAllStrWhere, exportgroupbyType, condition, state, Time;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         public DataTable dt;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -462,6 +462,10 @@ namespace bms.Web.reportStatistics
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
                 {
                     funcRetail = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 15)
+                {
+                    funcBookStock = true;
                 }
             }
         }

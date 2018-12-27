@@ -14,6 +14,7 @@
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
+    7
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/qc.css">
@@ -208,7 +209,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcBook)
+                    <%if (funcBook||funcBookStock)
                         { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
@@ -220,16 +221,22 @@
                         </a>
                         <div class="collapse" id="baseManage">
                             <ul class="nav">
+                                <%if (funcBook)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
                                 </li>
+                                <%}%>
+                                <%if (funcBookStock)
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/inventoryManagement.aspx">
                                         <span class="sidebar-normal">书籍库存查看</span>
                                     </a>
                                 </li>
+                                <%} %>
                             </ul>
                         </div>
                     </li>
@@ -470,7 +477,7 @@
                                         <td>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="7">书籍基础数据导入
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="7">书籍基础数据管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -545,6 +552,16 @@
                                             <div class="form-check">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="checkbox" name="checkbox" value="14">零售管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" name="checkbox" value="15">书籍库存查看
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
@@ -731,6 +748,16 @@
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input class="form-check-input" type="checkbox" name="checkboxEdit" value="14">零售管理
+                                                        <span class="form-check-sign">
+                                                            <span class="check functionCheck"></span>
+                                                        </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="checkbox" value="15">书籍库存查看
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
