@@ -61,11 +61,11 @@ namespace bms.Web.SalesMGT
             string search;
             if (roleName == "超级管理员")
             {
-                search = "deleteState=0 and (state=0 or state=1)";
+                search = "deleteState!=1 and (state=0 or state=1)";
             }
             else
             {
-                search = "deleteState=0 and regionId=" + regionId + " and(state=0 or state=1)";
+                search = "deleteState!=1 and regionId=" + regionId + " and(state=0 or state=1)";
 
             }
             TableBuilder tb = new TableBuilder();

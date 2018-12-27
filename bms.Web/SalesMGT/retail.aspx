@@ -19,8 +19,7 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-    <%-- style="overflow:hidden;"--%>
-<body>
+<body style="overflow:hidden;">
     <div class="retail-content" >
         <div class="container-fluid">
             <div class="row">
@@ -145,6 +144,7 @@
                                     </tr>
                                     <tr>
                                         <td style="width: 50%; text-align: left;">金额：￥&nbsp&nbsp<span id="totalEnd"></span></td>
+                                        <td style="width: 50%; text-align: left;">折扣：&nbsp&nbsp<span id="discount"></span></td>
                                     </tr>
                                 </table>
                                 <div style="margin-top: 10px;">

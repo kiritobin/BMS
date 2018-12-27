@@ -327,6 +327,7 @@ $("#insert").click(function () {
                     $("#numberEnd").text(sessionStorage.getItem("number"));
                     $("#totalEnd").text(parseFloat(sessionStorage.getItem("totalPrice")).toFixed(2));
                     $("#realEnd").text(parseFloat(sessionStorage.getItem("realPrice")).toFixed(2));
+                    $("#discount").text((parseFloat(sessionStorage.getItem("realPrice")) / parseFloat(sessionStorage.getItem("totalPrice")) * 100).toFixed(2))
                     $("#timeEnd").text(endTime())
                     //二维码
                     jQuery('#output').qrcode({
