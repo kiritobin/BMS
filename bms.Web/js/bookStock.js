@@ -300,7 +300,10 @@
         }
     })
 })
-
+window.onload = function () {
+    $("#groupsupplier").hide();
+    $("#groupregion").hide();
+}
 
 //退出系统
 function logout() {
