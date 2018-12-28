@@ -180,9 +180,23 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet  getCustomersaletaskID(string userId)
         {
-            string cmdText = "select saleTaskId,startTime from t_saletask where customerID=@userId and deleteState=0 and ISNULL(finishTime)";
+            //SELECT regionId,regionName from v_saletask where customerId='87100127' and ISNULL(finishTime) 
+            string cmdText = "select saleTaskId,startTime,regionId,regionName from v_saletask where customerID=@userId and deleteState=0 and ISNULL(finishTime)";
             string[] param = { "@userId" };
             object[] values = { userId };
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            return ds;
+        }
+        /// <summary>
+        /// 根据销售任务ID获取销售任务时间
+        /// </summary>
+        /// <param name="saletaskId">销售任务ID</param>
+        /// <returns></returns>
+        public DataSet getsaletasktime(string saletaskId)
+        {
+            string cmdText = "select saleTaskId,startTime,regionId,regionName from v_saletask where saleTaskId=@saletaskId and deleteState=0 and ISNULL(finishTime)";
+            string[] param = { "@saletaskId" };
+            object[] values = { saletaskId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
             return ds;
         }

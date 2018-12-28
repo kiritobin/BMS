@@ -246,6 +246,25 @@ namespace bms.Bll
                 return null;
             }
         }
+
+        /// <summary>
+        /// 根据销售任务ID获取销售任务时间
+        /// </summary>
+        /// <param name="saletaskId">销售任务ID</param>
+        /// <returns></returns>
+        public DataSet getsaletasktime(string saletaskId)
+        {
+            DataSet ds = userDao.getsaletasktime(saletaskId);
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// 根据索引和pagesize返回记录
         /// </summary>

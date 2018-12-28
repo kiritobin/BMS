@@ -18,7 +18,6 @@ namespace bms.Web.wechat
     {
         public int totalCount, intPageCount, pageSize = 15;
         SaleMonomerBll salemonbll = new SaleMonomerBll();
-        loginmsg msg = new loginmsg();
         BookBasicBll bookbll = new BookBasicBll();
 
         public bool IsReusable

@@ -47,28 +47,77 @@ namespace bms.Web.wechat
                 OpResult res = userBll.CustomersaletaskIsNull(customID);
                 if (custom.CustomerId.ToString() == account && res == OpResult.记录存在)
                 {
+                    string type = context.Request["type"];
                     DataSet ds = userBll.getCustomersaletaskID(customID);
-                    string saletaskID = ds.Tables[0].Rows[0]["saleTaskId"].ToString();
-                    DateTime starTime = Convert.ToDateTime(ds.Tables[0].Rows[0]["startTime"].ToString());
-                    DateTime nowTime = DateTime.Now;
-                    TimeSpan timespan = nowTime - starTime;
-                    int days = timespan.Days;
-                    if (days > 3)
+                    if (ds.Tables[0].Rows.Count > 1 && type != "Confirm")
                     {
-                        logs.msg = "您上次的销售计划还未结束，请联系工作人员";
+                        //checked saleTaskId,startTime,regionId,regionName
+                        DataTable dt = new DataTable();
+                        dt.Columns.Add("saleTaskId", typeof(string));
+                        dt.Columns.Add("name", typeof(string));
+                        dt.Columns.Add("checked", typeof(string));
+                        for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                        {
+                            dt.Rows.Add(ds.Tables[0].Rows[i]["saleTaskId"].ToString(), ds.Tables[0].Rows[i]["regionName"].ToString(), "");
+                        }
+                        logs.customID = customID;
+                        logs.msgds = JsonHelper.ToJson(dt);
+                        logs.msg = "多个计划";
                         string json = JsonHelper.JsonSerializerBySingleData(logs);
                         context.Response.Write(json);
                         context.Response.End();
+                    }
+                    else if (ds.Tables[0].Rows.Count > 1 && type == "Confirm")
+                    {
+                        string saletaskId = context.Request["saleTaskId"];
+                        DataSet saleTaskds = userBll.getsaletasktime(saletaskId);
+                        string saletaskID = saleTaskds.Tables[0].Rows[0]["saleTaskId"].ToString();
+                        DateTime starTime = Convert.ToDateTime(saleTaskds.Tables[0].Rows[0]["startTime"].ToString());
+                        DateTime nowTime = DateTime.Now;
+                        TimeSpan timespan = nowTime - starTime;
+                        int days = timespan.Days;
+                        if (days > 3)
+                        {
+                            logs.msg = "您上次的销售计划还未结束，请联系工作人员";
+                            string json = JsonHelper.JsonSerializerBySingleData(logs);
+                            context.Response.Write(json);
+                            context.Response.End();
+                        }
+                        else
+                        {
+                            logs.saletaskID = saletaskID;
+                            logs.customID = customID;
+                            logs.msg = "登录成功";
+                            string json = JsonHelper.JsonSerializerBySingleData(logs);
+                            context.Response.Write(json);
+                            context.Response.End();
+                        }
                     }
                     else
                     {
-                        logs.saletaskID = saletaskID;
-                        logs.customID = customID;
-                        logs.msg = "登录成功";
-                        string json = JsonHelper.JsonSerializerBySingleData(logs);
-                        context.Response.Write(json);
-                        context.Response.End();
+                        string saletaskID = ds.Tables[0].Rows[0]["saleTaskId"].ToString();
+                        DateTime starTime = Convert.ToDateTime(ds.Tables[0].Rows[0]["startTime"].ToString());
+                        DateTime nowTime = DateTime.Now;
+                        TimeSpan timespan = nowTime - starTime;
+                        int days = timespan.Days;
+                        if (days > 3)
+                        {
+                            logs.msg = "您上次的销售计划还未结束，请联系工作人员";
+                            string json = JsonHelper.JsonSerializerBySingleData(logs);
+                            context.Response.Write(json);
+                            context.Response.End();
+                        }
+                        else
+                        {
+                            logs.saletaskID = saletaskID;
+                            logs.customID = customID;
+                            logs.msg = "登录成功";
+                            string json = JsonHelper.JsonSerializerBySingleData(logs);
+                            context.Response.Write(json);
+                            context.Response.End();
+                        }
                     }
+
                 }
                 else if (custom.CustomerId.ToString() == account && res == OpResult.记录不存在)
                 {

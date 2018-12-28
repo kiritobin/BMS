@@ -16,7 +16,6 @@ namespace bms.Web.wechat
     {
         public int totalCount, intPageCount, pageSize = 15;
         SaleMonomerBll salemonbll = new SaleMonomerBll();
-        loginmsg msg = new loginmsg();
         public void ProcessRequest(HttpContext context)
         {
             string op = context.Request["op"];
