@@ -18,7 +18,7 @@ namespace bms.Web.SalesMGT
         public DataSet ds,dsPer;
         RetailBll retailbll = new RetailBll();
         RoleBll roleBll = new RoleBll();
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected string userName, regionName;
         protected User user;
         protected void Page_Load(object sender, EventArgs e)
@@ -178,6 +178,10 @@ namespace bms.Web.SalesMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
                 {
                     funcRetail = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 15)
+                {
+                    funcBookStock = true;
                 }
             }
         }

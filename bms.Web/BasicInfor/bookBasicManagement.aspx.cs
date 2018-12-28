@@ -21,7 +21,7 @@ namespace bms.Web.BasicInfor
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row,funCount;
         public string search = "", last, num,userName,regionName;
         public DataSet ds, dsPer;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply,funcRetail, isAdmin;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply,funcRetail, isAdmin, funcBookStock;
         DataTable except = new DataTable();//接受差集
         BookBasicBll bookbll = new BookBasicBll();
         UserBll userBll = new UserBll();
@@ -36,7 +36,7 @@ namespace bms.Web.BasicInfor
             BookBasicData bookId = bookbll.getBookNum();
             if (!IsPostBack)
             {
-                if (bookId.NewBookNum == "0" || bookId.NewBookNum == null)
+                if (bookId.NewBookNum == "0" || bookId.NewBookNum == null||bookId.NewBookNum.Length<8)
                 {
                     num = "0";
                 }
@@ -232,9 +232,10 @@ namespace bms.Web.BasicInfor
             excel = npoi();
             int row = excel.Rows.Count;
             string a;
-            if (ViewState["i"].ToString().Length>=18)
+            string oldBookId = ViewState["i"].ToString();
+            if (oldBookId.Length>8)
             {
-                a = ViewState["i"].ToString().Substring(10, 8);
+                a = oldBookId.Substring(oldBookId.Length-8, 8);
             }
             else
             {
@@ -600,12 +601,13 @@ namespace bms.Web.BasicInfor
                 }
             }
                 string s = last;
-                bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
-                last = last.ToString().Substring(last.ToString().Length - 8);
-                if (Convert.ToInt64(bookId.NewBookNum) < Convert.ToInt64(last))
-                {
-                    Result reg = bookbll.updateBookNum(s); //更新书号
-                }
+                Result reg = bookbll.updateBookNum(s); //更新书号
+                //bookId.NewBookNum = bookId.NewBookNum.Substring(bookId.NewBookNum.Length - 8);
+                //last = last.ToString().Substring(last.ToString().Length - 8);
+                //if (Convert.ToInt64(bookId.NewBookNum) < Convert.ToInt64(last))
+                //{
+                //    Result reg = bookbll.updateBookNum(s); //更新书号
+                //}
                 Session["path"] = null; //清除路径session
                 int cf = row - counts;
                 if (counts==0)
@@ -724,6 +726,10 @@ namespace bms.Web.BasicInfor
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
                 {
                     funcRetail = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 15)
+                {
+                    funcBookStock = true;
                 }
             }
         }

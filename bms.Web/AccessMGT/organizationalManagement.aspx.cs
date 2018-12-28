@@ -19,7 +19,7 @@ namespace bms.Web.AccessMGT
         public string search, regionId,userName,regionName;
         public DataSet ds,dsPer;
         public int count;
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
         RoleBll roleBll = new RoleBll();
@@ -333,6 +333,10 @@ namespace bms.Web.AccessMGT
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
                 {
                     funcRetail = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 15)
+                {
+                    funcBookStock = true;
                 }
             }
         }

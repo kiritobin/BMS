@@ -18,7 +18,7 @@ namespace bms.Web.BasicInfor
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
         public DataSet ds, dsRegion, dsPer;
         RoleBll roleBll = new RoleBll();
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         UserBll userBll = new UserBll();
         RegionBll regionBll = new RegionBll();
         WarehousingBll wareBll = new WarehousingBll();
@@ -277,6 +277,10 @@ namespace bms.Web.BasicInfor
                 if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 14)
                 {
                     funcRetail = true;
+                }
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 15)
+                {
+                    funcBookStock = true;
                 }
             }
         }
