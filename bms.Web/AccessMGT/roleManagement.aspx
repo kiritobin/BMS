@@ -671,7 +671,7 @@
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="7">书籍基础数据导入
+                                                <input class="form-check-input" type="checkbox" name="checkboxEdit" value="7">书籍基础数据管理
                                                         <span class="form-check-sign">
                                                             <span class="check functionCheck"></span>
                                                         </span>
