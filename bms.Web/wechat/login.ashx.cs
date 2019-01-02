@@ -72,50 +72,50 @@ namespace bms.Web.wechat
                         string saletaskId = context.Request["saleTaskId"];
                         DataSet saleTaskds = userBll.getsaletasktime(saletaskId);
                         string saletaskID = saleTaskds.Tables[0].Rows[0]["saleTaskId"].ToString();
-                        DateTime starTime = Convert.ToDateTime(saleTaskds.Tables[0].Rows[0]["startTime"].ToString());
-                        DateTime nowTime = DateTime.Now;
-                        TimeSpan timespan = nowTime - starTime;
-                        int days = timespan.Days;
-                        if (days > 3)
-                        {
-                            logs.msg = "您上次的销售计划还未结束，请联系工作人员";
-                            string json = JsonHelper.JsonSerializerBySingleData(logs);
-                            context.Response.Write(json);
-                            context.Response.End();
-                        }
-                        else
-                        {
+                        //DateTime starTime = Convert.ToDateTime(saleTaskds.Tables[0].Rows[0]["startTime"].ToString());
+                        //DateTime nowTime = DateTime.Now;
+                        //TimeSpan timespan = nowTime - starTime;
+                        //int days = timespan.Days;
+                        //if (days > 3)
+                        //{
+                        //    logs.msg = "您上次的销售计划还未结束，请联系工作人员";
+                        //    string json = JsonHelper.JsonSerializerBySingleData(logs);
+                        //    context.Response.Write(json);
+                        //    context.Response.End();
+                        //}
+                        //else
+                        //{
                             logs.saletaskID = saletaskID;
                             logs.customID = customID;
                             logs.msg = "登录成功";
                             string json = JsonHelper.JsonSerializerBySingleData(logs);
                             context.Response.Write(json);
                             context.Response.End();
-                        }
+                        //}
                     }
                     else
                     {
                         string saletaskID = ds.Tables[0].Rows[0]["saleTaskId"].ToString();
-                        DateTime starTime = Convert.ToDateTime(ds.Tables[0].Rows[0]["startTime"].ToString());
-                        DateTime nowTime = DateTime.Now;
-                        TimeSpan timespan = nowTime - starTime;
-                        int days = timespan.Days;
-                        if (days > 3)
-                        {
-                            logs.msg = "您上次的销售计划还未结束，请联系工作人员";
-                            string json = JsonHelper.JsonSerializerBySingleData(logs);
-                            context.Response.Write(json);
-                            context.Response.End();
-                        }
-                        else
-                        {
+                        //DateTime starTime = Convert.ToDateTime(ds.Tables[0].Rows[0]["startTime"].ToString());
+                        //DateTime nowTime = DateTime.Now;
+                        //TimeSpan timespan = nowTime - starTime;
+                        //int days = timespan.Days;
+                        //if (days > 3)
+                        //{
+                        //    logs.msg = "您上次的销售计划还未结束，请联系工作人员";
+                        //    string json = JsonHelper.JsonSerializerBySingleData(logs);
+                        //    context.Response.Write(json);
+                        //    context.Response.End();
+                        //}
+                        //else
+                        //{
                             logs.saletaskID = saletaskID;
                             logs.customID = customID;
                             logs.msg = "登录成功";
                             string json = JsonHelper.JsonSerializerBySingleData(logs);
                             context.Response.Write(json);
                             context.Response.End();
-                        }
+                       // }
                     }
 
                 }
