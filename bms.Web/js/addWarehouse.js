@@ -36,11 +36,11 @@ $("#back").click(function () {
 })
 
 //只允许数字
-$("#table").delegate(".isbn", "keyup", function (e) {
-    $(this).val($(this).val().replace(/[^\w\.\/]/ig, ''));
-}).bind("paste", function () {  //CTR+V事件处理    
-    $(this).val($(this).val().replace(/[^\w\.\/]/ig, ''));
-}).css("ime-mode", "disabled");
+//$("#table").delegate(".isbn", "keyup", function (e) {
+//    $(this).val($(this).val().replace(/[^\w\.\/]/ig, ''));
+//}).bind("paste", function () {  //CTR+V事件处理    
+//    $(this).val($(this).val().replace(/[^\w\.\/]/ig, ''));
+//}).css("ime-mode", "disabled");
 $("#table").delegate(".count", "keyup", function (e) {
     $(this).val($(this).val().replace(/[^0-9.]/g, ''));
 }).bind("paste", function () {  //CTR+V事件处理    
