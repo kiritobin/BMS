@@ -36,7 +36,7 @@
                 <ul class="nav">
                     <%if (funcUser || funcRole || funcOrg || funcGoods)
                         { %>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#securityManage" data-toggle="collapse">
                             <i class="fa fa-cogs"></i>
                             <p>
