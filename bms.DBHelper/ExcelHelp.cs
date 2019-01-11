@@ -293,7 +293,7 @@ namespace bms.DBHelper
         public static DataTable excelToDtByNpoi(string filepath, string dtName)
         {
             var dt = new DataTable(dtName);
-            if (filepath.Last() == 's')
+            if (filepath.ToLower().Last() == 's')
             {
                 dt = excelToDtByNpoiForXls(filepath);
             }
@@ -391,68 +391,62 @@ namespace bms.DBHelper
 
         //EPPlus
 
-        private static string GetString(object obj)
-        {
-            try
-            {
-                return obj.ToString();
-            }
-            catch (Exception ex)
-            {
-                return "";
-            }
-        }
-
         /// <summary>
-        ///将指定的Excel的文件转换成DataTable （Excel的第一个sheet）
+        /// 将指定的Excel的文件转换成DataTable
         /// </summary>
-        /// <param name="fullFielPath">文件的绝对路径</param>
+        /// <param name="path"></param>
+        /// <param name="dtName"></param>
+        /// <param name="hasHeader"></param>
         /// <returns></returns>
-        public static DataTable excelToDtByEpplus(string fullFielPath, string dtName)
+        public static DataTable excelToDtByEpplus(string path, string dtName, bool hasHeader = true)
         {
-            try
+            using (var pck = new OfficeOpenXml.ExcelPackage())
             {
-                FileInfo existingFile = new FileInfo(fullFielPath);
-
-                ExcelPackage package = new ExcelPackage(existingFile);
-                ExcelWorksheet worksheet = package.Workbook.Worksheets[1];//选定 指定页
-
-                return worksheetToDtByEpplus(worksheet, dtName);
-            }
-            catch (Exception)
-            {
-                throw;
+                using (var stream = File.OpenRead(path))
+                {
+                    pck.Load(stream);
+                }
+                var ws = pck.Workbook.Worksheets.First();
+                DataTable dt = new DataTable(dtName);
+                foreach (var firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
+                {
+                    dt.Columns.Add(hasHeader ? firstRowCell.Text : string.Format("Column {0}", firstRowCell.Start.Column));
+                }
+                var startRow = hasHeader ? 2 : 1;
+                for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
+                {
+                    var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
+                    DataRow row = dt.Rows.Add();
+                    foreach (var cell in wsRow)
+                    {
+                        row[cell.Start.Column - 1] = cell.Text;
+                    }
+                }
+                return dt;
             }
         }
 
+
+        //NPOI&EPPlus
+
         /// <summary>
-        /// 将worksheet转成datatable
+        /// 混合模式 xls用npoi xlsx用epplus
         /// </summary>
-        /// <param name="worksheet">待处理的worksheet</param>
-        /// <returns>返回处理后的datatable</returns>
-        private static DataTable worksheetToDtByEpplus(ExcelWorksheet worksheet, string dtName)
+        /// <param name="filepath"></param>
+        /// <param name="dtName"></param>
+        /// <returns></returns>
+        public static DataTable excelToDt(string filepath, string dtName)
         {
-            //获取worksheet的行数
-            int rows = worksheet.Dimension.End.Row;
-            //获取worksheet的列数
-            int cols = worksheet.Dimension.End.Column;
-
-            DataTable dt = new DataTable(worksheet.Name);
-            DataRow dr = null;
-            for (int i = 1; i <= rows; i++)
+            var dt = new DataTable(dtName);
+            if (filepath.ToLower().Last() == 's')
             {
-                if (i > 1)
-                    dr = dt.Rows.Add();
-
-                for (int j = 1; j <= cols; j++)
-                {
-                    //默认将第一行设置为datatable的标题
-                    if (i == 1)
-                        dt.Columns.Add(GetString(worksheet.Cells[i, j].Value));
-                    //剩下的写入datatable
-                    else
-                        dr[j - 1] = GetString(worksheet.Cells[i, j].Value);
-                }
+                //NPOI-XLS
+                dt = excelToDtByNpoiForXls(filepath);
+            }
+            else
+            {
+                //EPPlus-XLSX
+                dt = excelToDtByEpplus(filepath, dtName);
             }
             return dt;
         }
