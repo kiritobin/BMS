@@ -224,7 +224,7 @@
                                 <%if (funcBook)
                                     { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../BasicInfor/bookBasicManagement.aspx">
+                                    <a class="nav-link activeNext" href="../BasicInfor/bookBasicManagement.aspx">
                                         <span class="sidebar-normal">书籍基础数据管理</span>
                                     </a>
                                 </li>

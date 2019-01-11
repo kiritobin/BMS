@@ -232,7 +232,7 @@
                                 <%if (funcBookStock)
                                     { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../InventoryMGT/inventoryManagement.aspx">
+                                    <a class="nav-link activeNext" href="../InventoryMGT/inventoryManagement.aspx">
                                         <span class="sidebar-normal">书籍库存查看</span>
                                     </a>
                                 </li>
