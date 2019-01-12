@@ -77,6 +77,30 @@ namespace bms.Bll
         {
             return stockDao.bookStockDetail(str, groupType);
         }
+        public DataTable bookStockDe(string str, string groupType)
+        {
+            DataTable excel = new DataTable();
+            excel.Columns.Add("ISBN");
+            excel.Columns.Add("书号");
+            excel.Columns.Add("书名");
+            excel.Columns.Add("单价");
+            excel.Columns.Add("进货折扣");
+            excel.Columns.Add("销售折扣");
+            excel.Columns.Add("供应商");
+            excel.Columns.Add("组织名称");
+            excel.Columns.Add("备注");
+            excel.Columns.Add("备注1");
+            excel.Columns.Add("备注2");
+            excel.Columns.Add("备注3");
+            DataSet ds = stockDao.bookStockDetail(str, groupType);
+            DataRowCollection count = ds.Tables[0].Rows;
+            foreach (DataRow row in count)
+            {
+                string bookName = ToDBC(row[2].ToString());
+                excel.Rows.Add(row[0], row[1], bookName, row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]);
+            }
+            return excel;
+        }
 
         /// <summary>
         /// 判断此书号是否有库存

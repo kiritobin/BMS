@@ -539,6 +539,28 @@ namespace bms.Bll
         {
             return SaleMonomerdao.ExportExcel(strWhere);
         }
+
+        public DataTable ExportExcels(string strWhere)
+        {
+            DataTable excel = new DataTable();
+            
+            excel.Columns.Add("书号");
+            excel.Columns.Add("书名");
+            excel.Columns.Add("ISBN");
+            excel.Columns.Add("单价");
+            excel.Columns.Add("数量");
+            excel.Columns.Add("码洋");
+            excel.Columns.Add("出版社");
+            excel.Columns.Add("销售折扣");
+            DataTable dt = SaleMonomerdao.ExportExcel(strWhere);
+            DataRowCollection count = dt.Rows;
+            foreach (DataRow row in count)
+            {
+                string bookName = ToDBC(row[1].ToString());
+                excel.Rows.Add(row[0], bookName, row[2], row[3], row[4], row[5], row[6], row[7]);
+            }
+            return excel;
+        }
         /// <summary>
         /// 导出页面上查询到的结果
         /// </summary>

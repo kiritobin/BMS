@@ -238,7 +238,7 @@ namespace bms.Web.InventoryMGT
         public void export()
         {
             string name = "退货明细" + headId + "-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = warehousingBll.ExportExcel(headId);
+            DataTable dt = warehousingBll.ExportExcels(headId);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/退货明细导出/" + name + ".xlsx");

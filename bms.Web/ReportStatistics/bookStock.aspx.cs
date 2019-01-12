@@ -162,7 +162,7 @@ namespace bms.Web.ReportStatistics
                 str = strWhere;
             }
             string file = "书籍库存明细导出" + DateTime.Now.ToString("yyyyMMddHHmmss");
-            DataTable dt = StockBll.bookStockDetail(str,groupbyType).Tables[0];
+            DataTable dt = StockBll.bookStockDe(str,groupbyType);
             int count = dt.Rows.Count;
             if (count > 0)
             {

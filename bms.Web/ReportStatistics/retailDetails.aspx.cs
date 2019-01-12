@@ -273,7 +273,7 @@ namespace bms.Web.ReportStatistics
                 strWhere += " and payment='" + payment + "'";
             }
             string Name = fileName + "-零售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = retailBll.ExportExcel(strWhere, type);
+            DataTable dt = retailBll.ExportExcels(strWhere, type);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/报表导出/零售报表导出/" + Name + ".xlsx");

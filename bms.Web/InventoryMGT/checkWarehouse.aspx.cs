@@ -244,7 +244,7 @@ namespace bms.Web.InventoryMGT
         public void export()
         {
             string name = "出库明细" + singleHeadId + "-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = warehousingBll.ExportExcel(singleHeadId);
+            DataTable dt = warehousingBll.ExportExcels(singleHeadId);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/出库明细导出/" + name + ".xlsx");

@@ -139,7 +139,7 @@ namespace bms.Web.SalesMGT
         public void export()
         {
             string name = "销售明细" + Session["saleheadId"].ToString() + "-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = salemonbll.ExportExcel(Session["saleheadId"].ToString());
+            DataTable dt = salemonbll.ExportExcels(Session["saleheadId"].ToString());
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/销售明细导出/" + name + ".xlsx");

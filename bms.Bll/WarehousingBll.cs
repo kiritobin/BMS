@@ -215,6 +215,28 @@ namespace bms.Bll
             }
             return null;
         }
+        public DataTable ExportExcels(string strWhere)
+        {
+            DataTable excel = new DataTable();
+            excel.Columns.Add("单据编号");
+            excel.Columns.Add("书号");
+            excel.Columns.Add("ISBN");
+            excel.Columns.Add("书名");
+            excel.Columns.Add("商品数量");
+            excel.Columns.Add("单价");
+            excel.Columns.Add("折扣");
+            excel.Columns.Add("码洋");
+            excel.Columns.Add("实洋");
+            excel.Columns.Add("货架");
+            DataTable dt = monoDao.ExportExcel(strWhere);
+            DataRowCollection count = dt.Rows;
+            foreach (DataRow row in count)
+            {
+                string bookName = ToDBC(row[3].ToString());
+                excel.Rows.Add(row[0], row[1], row[2], bookName, row[4], row[5], row[6], row[7],row[8],row[9]);
+            }
+            return excel;
+        }
 
         /// <summary>
         /// 获取该销退单头下所有的单据号和制单时间
