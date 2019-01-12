@@ -553,11 +553,14 @@ namespace bms.Bll
             excel.Columns.Add("出版社");
             excel.Columns.Add("销售折扣");
             DataTable dt = SaleMonomerdao.ExportExcel(strWhere);
-            DataRowCollection count = dt.Rows;
-            foreach (DataRow row in count)
+            if (dt!=null)
             {
-                string bookName = ToDBC(row[1].ToString());
-                excel.Rows.Add(row[0], bookName, row[2], row[3], row[4], row[5], row[6], row[7]);
+                DataRowCollection count = dt.Rows;
+                foreach (DataRow row in count)
+                {
+                    string bookName = ToDBC(row[1].ToString());
+                    excel.Rows.Add(row[0], bookName, row[2], row[3], row[4], row[5], row[6], row[7]);
+                }
             }
             return excel;
         }
@@ -619,20 +622,23 @@ namespace bms.Bll
             excel.Columns.Add("备注2");
             excel.Columns.Add("备注3");
             DataTable dt = SaleMonomerdao.exportDel(groupbyType, strWhere);
-            DataRowCollection count = dt.Rows;
-            foreach (DataRow row in count)
+            if (dt!=null)
             {
-                string state = row[11].ToString();
-                if (state=="3"|| state == "" | state == null)
+                DataRowCollection count = dt.Rows;
+                foreach (DataRow row in count)
                 {
-                    state = "预采";
+                    string state = row[11].ToString();
+                    if (state == "3" || state == "" | state == null)
+                    {
+                        state = "预采";
+                    }
+                    if (state == "1" || state == "2")
+                    {
+                        state = "现采";
+                    }
+                    string bookName = ToDBC(row[3].ToString());
+                    excel.Rows.Add(row[0], row[1], row[2], bookName, row[4], row[5], row[6], row[7], row[8], row[9], row[10], state, row[12], row[13], row[14], row[15], row[16]);
                 }
-                if (state=="1"||state=="2")
-                {
-                    state = "现采";
-                }
-                string bookName = ToDBC(row[3].ToString());
-                excel.Rows.Add(row[0], row[1], row[2], bookName, row[4], row[5],row[6],row[7],row[8],row[9],row[10],state,row[12], row[13], row[14], row[15], row[16]);
             }
             return excel;
         }

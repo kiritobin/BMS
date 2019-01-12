@@ -388,11 +388,14 @@ namespace bms.Bll
             excel.Columns.Add("出版社");
             excel.Columns.Add("销售折扣");
             DataTable dt = saleDao.ExportExcel(cmdText);
-            DataRowCollection count = dt.Rows;
-            foreach (DataRow row in count)
+            if (dt!=null)
             {
-                string bookName = ToDBC(row[1].ToString());
-                excel.Rows.Add(row[0], bookName, row[2], row[3], row[4], row[5], row[6]);
+                DataRowCollection count = dt.Rows;
+                foreach (DataRow row in count)
+                {
+                    string bookName = ToDBC(row[1].ToString());
+                    excel.Rows.Add(row[0], bookName, row[2], row[3], row[4], row[5], row[6]);
+                }
             }
             return excel;
         }

@@ -49,11 +49,14 @@ namespace bms.Bll
             excel.Columns.Add("备注3");
             excel.Columns.Add("采集状态");
             DataTable dt = dao.ExportExcel(strWhere, type);
-            DataRowCollection count = dt.Rows;
-            foreach (DataRow row in count)
+            if (dt!=null)
             {
-                string bookName = ToDBC(row[2].ToString());
-                excel.Rows.Add(row[0], row[1], bookName,row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10],row[11], row[12], row[13], row[14], row[15]);
+                DataRowCollection count = dt.Rows;
+                foreach (DataRow row in count)
+                {
+                    string bookName = ToDBC(row[2].ToString());
+                    excel.Rows.Add(row[0], row[1], bookName, row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15]);
+                }
             }
             return excel;
         }

@@ -93,11 +93,14 @@ namespace bms.Bll
             excel.Columns.Add("备注2");
             excel.Columns.Add("备注3");
             DataSet ds = stockDao.bookStockDetail(str, groupType);
-            DataRowCollection count = ds.Tables[0].Rows;
-            foreach (DataRow row in count)
+            if (ds!=null)
             {
-                string bookName = ToDBC(row[2].ToString());
-                excel.Rows.Add(row[0], row[1], bookName, row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]);
+                DataRowCollection count = ds.Tables[0].Rows;
+                foreach (DataRow row in count)
+                {
+                    string bookName = ToDBC(row[2].ToString());
+                    excel.Rows.Add(row[0], row[1], bookName, row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]);
+                }
             }
             return excel;
         }
@@ -175,12 +178,15 @@ namespace bms.Bll
             excel.Columns.Add("备注2");
             excel.Columns.Add("备注3");
             DataTable dt = stockDao.ExportExcelDetails(strWhere, groupType);
-            DataRowCollection count = dt.Rows;
-            foreach (DataRow row in count)
+            if (dt!=null)
             {
-                string bookName = ToDBC(row[2].ToString());
-                excel.Rows.Add(row[0], row[1], bookName, row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12]);
-            }
+                DataRowCollection count = dt.Rows;
+                foreach (DataRow row in count)
+                {
+                    string bookName = ToDBC(row[2].ToString());
+                    excel.Rows.Add(row[0], row[1], bookName, row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12]);
+                }
+            }            
             return excel;
         }
 
