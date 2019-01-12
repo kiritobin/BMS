@@ -496,7 +496,7 @@ namespace bms.Web.SalesMGT
         public void export()
         {
             string name = "销退明细" + Session["sellId"].ToString() + "-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = shBll.ExportExcel(Session["sellId"].ToString());
+            DataTable dt = shBll.ExportExcels(Session["sellId"].ToString());
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/销退明细导出/" + name + ".xlsx");

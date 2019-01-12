@@ -113,7 +113,7 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public void export(string state)
         {
-            DataTable dt = saletaskbll.ExportExcel(saletaskId, state);
+            DataTable dt = saletaskbll.ExportExcels(saletaskId, state);
             string name = "销售任务" + saletaskId;
             if (dt != null && dt.Rows.Count > 0)
             {

@@ -368,5 +368,55 @@ namespace bms.Bll
             }
             return null;
         }
+        public DataTable ExportExcels(string strWhere, string state)
+        {
+            string cmdText;
+            if (state == "3")
+            {
+                cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer where saleTaskId='" + strWhere + "' and state=3 group by bookNum,bookName,ISBN,unitPrice";
+            }
+            else
+            {
+                cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer where saleTaskId='" + strWhere + "' and state <>3 group by bookNum,bookName,ISBN,unitPrice";
+            }
+            DataTable excel = new DataTable();
+            excel.Columns.Add("书号");
+            excel.Columns.Add("书名");
+            excel.Columns.Add("ISBN");
+            excel.Columns.Add("数量");;
+            excel.Columns.Add("码洋");
+            excel.Columns.Add("出版社");
+            excel.Columns.Add("销售折扣");
+            DataTable dt = saleDao.ExportExcel(cmdText);
+            DataRowCollection count = dt.Rows;
+            foreach (DataRow row in count)
+            {
+                string bookName = ToDBC(row[1].ToString());
+                excel.Rows.Add(row[0], bookName, row[2], row[3], row[4], row[5], row[6]);
+            }
+            return excel;
+        }
+        /// <summary>
+        /// 全转半
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ToDBC(string input)
+        {
+            char[] array = input.ToCharArray();
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == 12288)
+                {
+                    array[i] = (char)32;
+                    continue;
+                }
+                if (array[i] > 65280 && array[i] < 65375)
+                {
+                    array[i] = (char)(array[i] - 65248);
+                }
+            }
+            return new string(array);
+        }
     }
 }

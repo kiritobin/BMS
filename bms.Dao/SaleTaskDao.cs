@@ -555,5 +555,15 @@ namespace bms.Dao
             return dt;
         }
 
+        public DataTable ExportExcel(string cmdText)
+        {
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            DataTable dt = null;
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                dt = ds.Tables[0];
+            }
+            return dt;
+        }
     }
 }
