@@ -515,6 +515,7 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/defaults-zh_CN.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/bookshelfManagement.js"></script>

@@ -177,6 +177,7 @@
     <script src="../js/material-dashboard.min.js"></script>
     <!-- selectpicker.js -->
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/defaults-zh_CN.js"></script>
     <script src="../js/backQuery.js"></script>
     <script src="../js/jquery-migrate-1.2.1.min.js"></script>
     <%--<script src="../js/jquery.jqprint.js"></script>--%>

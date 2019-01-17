@@ -535,6 +535,7 @@
     <script src="../js/jquery.pagination.js"></script>
     <!-- selectpicker.js -->
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/defaults-zh_CN.js"></script>
     <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/checkWarehouse.js"></script>

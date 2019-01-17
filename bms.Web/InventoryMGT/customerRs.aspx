@@ -460,6 +460,7 @@
     <script src="../js/material-dashboard.min.js"></script>
     <!-- selectpicker.js -->
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/defaults-zh_CN.js"></script>
     <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
     <!-- paging.js -->
