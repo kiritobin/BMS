@@ -69,7 +69,76 @@
         }
     });
     //回车事件
-    $(document).keypress(function (e) {
+    $("#userName").keypress(function (e) {
+        if (e.keyCode == 13) {
+            var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAnNXR7lHTpPH/97QOxIp+UusK9/RH5elvEPv6ssL37xGo8vQHh7CCsOonUWWVdi1iVegi7fRCkWeUVlta61EuX141+eKnZcdJe81NeUZ1h3N77JbzElbhhi8Wln6U27xpfkskKASLhQ4dS9DqoJQN/YUhBaBpER287Wjf3X6WmQIDAQAB";
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(pubKey);
+
+            var userName = $("#userName").val();
+            var pwd = $("#userPwd").val();
+            if (userName == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "用户名不能为空",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-success",
+                    type: "warning",
+                    allowOutsideClick: false
+                })
+            }
+            else if (pwd == "") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "密码不能为空",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-success",
+                    type: "warning",
+                    allowOutsideClick: false
+                })
+            }
+            else {
+                $.ajax({
+                    type: 'Post',
+                    url: 'login.aspx',
+                    data: {
+                        userName: userName,
+                        pwd: encrypt.encrypt(pwd),
+                        op: "login"
+                    },
+                    dataType: 'json',
+                    success: function (succ) {
+                        if (succ["succ"]) {
+                            sessionStorage.setItem("tokenId", succ["tokenId"]);
+                            window.location.href = "welcomePage.aspx";
+                        }
+                        else {
+                            swal({
+                                title: "温馨提示:)",
+                                text: "登录失败",
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-success",
+                                type: "warning",
+                                allowOutsideClick: false
+                            })
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus) { //请求失败
+                        swal({
+                            title: "温馨提示:)",
+                            text: "登录失败，请重试",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-success",
+                            type: "warning",
+                            allowOutsideClick: false
+                        })
+                    }
+                });
+            }
+        }
+    })
+    //回车事件
+    $("#userPwd").keypress(function (e) {
         if (e.keyCode == 13) {
             var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAnNXR7lHTpPH/97QOxIp+UusK9/RH5elvEPv6ssL37xGo8vQHh7CCsOonUWWVdi1iVegi7fRCkWeUVlta61EuX141+eKnZcdJe81NeUZ1h3N77JbzElbhhi8Wln6U27xpfkskKASLhQ4dS9DqoJQN/YUhBaBpER287Wjf3X6WmQIDAQAB";
             var encrypt = new JSEncrypt();
