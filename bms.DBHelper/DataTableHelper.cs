@@ -138,22 +138,51 @@ namespace bms.DBHelper
         }
 
         /// <summary>
-        /// 判断dt是否存在重复记录，true为存在
+        /// 查重
         /// </summary>
-        /// <param name="dt">源表</param>
-        /// <param name="strComuns">需要判断的字段</param>
-        /// <returns></returns>
-        public static bool checkDt(DataTable dt, string[] strComuns)
+        /// <param name="dt1">源表</param>
+        /// <param name="strComuns">列名 string[] strComuns = { "ISBN", "书名", "单价", "进货折扣", "销售折扣", "供应商" };</param>
+        /// <returns>true重复，false不重复</returns>
+        public static bool isRepeatDt(DataTable dt1, string[] strComuns)
         {
-            // string[] strComuns = { "ISBN", "书名", "单价" };
-            DataView myDataView = new DataView(dt);
-            int i = myDataView.ToTable(true, strComuns).Rows.Count;
-            int j = dt.Rows.Count;
-            if (i < j)
+            int PageIndex = 1; //当前页
+            int PageSize; //每页数据量
+            int index = PageIndex - 1; //循环次数 一次
+            int allCount = dt1.Rows.Count; //总数据量
+            if (allCount > 10)
             {
-                return true; //存在重复记录
+                PageSize = 10;
             }
-            return false; //不存在重复记录
+            else
+            {
+                PageSize = allCount;
+            }
+            for (int m = index; m < PageIndex; m++)
+            {
+                DataTable splitDt = SplitDataTable(dt1, PageIndex, PageSize); //dt分页
+                int j = splitDt.Rows.Count; //分页后的数据量
+                DataView myDataView = new DataView(splitDt); //dt拷贝到视图
+                int i = myDataView.ToTable(true, strComuns).Rows.Count; //查重后的数据量
+                if (i < j) //小于则重复，大于则不重复
+                {
+                    //存在重复记录,跳出循环
+                    return true;
+                }
+                else
+                {
+                    if (PageSize == j)
+                    {
+                        PageIndex++;
+                        index = PageIndex - 1;
+                    }
+                    else
+                    {
+                        //循环到尾行,跳出循环
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         /// <summary>

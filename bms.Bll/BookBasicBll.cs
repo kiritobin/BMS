@@ -38,6 +38,14 @@ namespace bms.Bll
             return basicDao.Select();
         }
         /// <summary>
+        /// 取行数
+        /// </summary>
+        /// <returns></returns>
+        public int SelectCount()
+        {
+            return basicDao.SelectCount();
+        }
+        /// <summary>
         /// 通过ISBN和书名获取书号
         /// </summary>
         /// <param name="ISBN"></param>

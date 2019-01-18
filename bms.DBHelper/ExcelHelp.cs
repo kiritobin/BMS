@@ -422,6 +422,7 @@ namespace bms.DBHelper
                         row[cell.Start.Column - 1] = cell.Text;
                     }
                 }
+                pck.Dispose();
                 return dt;
             }
         }

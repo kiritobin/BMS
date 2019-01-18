@@ -514,7 +514,7 @@ namespace bms.Web.BasicInfor
         private void differentDt()
         {
             BookBasicBll bookBasicBll = new BookBasicBll();
-            int j = bookBasicBll.Select().Rows.Count;
+            int j = bookBasicBll.SelectCount();
             //数据库无数据时直接导入excel
             if (j <= 0)
             {
@@ -783,26 +783,22 @@ namespace bms.Web.BasicInfor
         private string test()
         {
             //excel = excelToDt();
+            string s = "";
             excel = npoi();
-            string s="";
             try
             {
-                DataView myDataView = new DataView(excel);
-                string[] strComuns = { "ISBN", "书名", "单价","进货折扣" ,"销售折扣","供应商"};
-                int i = myDataView.ToTable(true, strComuns).Rows.Count;
-                int j = excel.Rows.Count;
-                if (i < j)
+                string[] strComuns = { "ISBN", "书名", "单价", "进货折扣", "销售折扣", "供应商" };
+                if (DataTableHelper.isRepeatDt(excel, strComuns))
                 {
                     s = "存在重复记录";
-                    Response.Write(s);
-                    Response.End();
                 }
             }
             catch (Exception ex)
             {
-                Response.Write(ex);
-                Response.End();
+                s = ex.ToString() ;
             }
+            Response.Write(s);
+            Response.End();
             return s;
         }
 
@@ -866,22 +862,9 @@ namespace bms.Web.BasicInfor
 
         private DataTable npoi()
         {
-
             string path = Session["path"].ToString();
             DataTable dtNpoi=new DataTable();
-            //string[] sArray = path.Split('.');
-            //int count = sArray.Length - 1;
-            //if (sArray[count] == "xls")
-            //{
-            //    dtNpoi = ExcelHelp.excelToDtByNpoi(path,"excel");
-            //    dtNpoi.Columns.Add("id").SetOrdinal(0);
-            //}
-            //else
-            //{
-            //    dtNpoi = ExcelHelp.excelToDtByEpplus(path, "excel");
-            //    dtNpoi.Columns.Add("id").SetOrdinal(0);
-            //}
-            dtNpoi = ExcelHelp.excelToDtByNpoi(path,"excel");
+            dtNpoi = ExcelHelp.excelToDt(path,"excel");
             dtNpoi.Columns.Add("id").SetOrdinal(0);
             row = dtNpoi.Rows.Count;
             return dtNpoi;

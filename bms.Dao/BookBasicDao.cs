@@ -45,6 +45,18 @@ namespace bms.Dao
                 return null;
             }
         }
+
+        /// <summary>
+        /// 取行数
+        /// </summary>
+        /// <returns></returns>
+        public int SelectCount()
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comText = "select count(bookNum) from T_BookBasicData";
+            int count = Convert.ToInt32(db.ExecuteScalar(comText, null, null));
+            return count;
+        }
         /// <summary>
         /// 通过ISBN和书名获取书号 单价 进货折扣
         /// </summary>
