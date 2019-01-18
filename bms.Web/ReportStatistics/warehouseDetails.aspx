@@ -437,7 +437,7 @@
                 </div>
             </div>
             <!--获取数据模态框-->
-            <div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <%--<div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="max-width:200px">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -450,7 +450,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--%>
             <!--选择时间模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog modal-lg">
