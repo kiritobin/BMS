@@ -436,21 +436,25 @@
                     </div>
                 </div>
             </div>
-            <!--获取数据模态框-->
-            <%--<div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <!--打印弹窗-->
+            <div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="max-width:200px">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="showTittle"></h4>
+                            <h4 class="modal-title float-left" id="showTittle">请选择打印方式</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
                         </div>
                         <div class="modal-body text-center" style="max-height: 200px;">
                             <div>
-                                <img src="../imgs/load.gif" height="100" width="100" />
+                                <button type="button" class="btn btn-info" id="">A4纸打印</button>
+                                <button type="button" class="btn btn-info" id="">信纸打印</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>--%>
+            </div>
             <!--选择时间模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog modal-lg">

@@ -44,7 +44,7 @@
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>--%>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="print">打印</button>
+                                        <button class="btn btn-info btn-sm" id="print" data-toggle="modal" data-target="#printmodel">打印</button>
                                     </div>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-info btn-sm" id="excel">导出</button>
@@ -209,6 +209,27 @@
 
             </table>
         </div>
+
+        <!--打印弹窗-->
+            <div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="max-width:200px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="showTittle">请选择打印方式</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center" style="max-height: 200px;">
+                            <div>
+                                <button type="button" class="btn btn-info" id="">A4纸打印</button>
+                                <button type="button" class="btn btn-info" id="">信纸打印</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         <!-- 主界面页脚部分 -->
         <footer class="footer">
             <div class="container-fluid">
