@@ -203,7 +203,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcBook||funcBookStock)
+                    <%if (funcBook || funcBookStock)
                         { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
@@ -415,7 +415,7 @@
 
             <!--打印弹窗-->
             <div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width:200px">
+                <div class="modal-dialog" style="max-width: 200px">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="showTittle">请选择打印方式</h4>
@@ -526,6 +526,9 @@
 <script src="../js/sweetalert2.js"></script>
 <script src="../js/jquery.pagination.js"></script>
 <script src="../js/warehouseStatistics.js"></script>
+<script src="../js/jquery-migrate-1.2.1.min.js"></script>
+<script src="../js/jquery.jqprint.js"></script>
+<script src="../js/checkLogined.js"></script>
 <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
     <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
 </object>

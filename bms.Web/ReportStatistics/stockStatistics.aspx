@@ -203,7 +203,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcBook||funcBookStock)
+                    <%if (funcBook || funcBookStock)
                         { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
@@ -381,7 +381,7 @@
                                                 <button class="btn btn-sm btn-info" id="exportDe">导出明细</button>
                                             </div>
                                             <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="print" data-toggle="modal" data-target="#printmodel">打印报表</button>
+                                                <button class="btn btn-sm btn-info" id="print" data-toggle="modal">打印报表</button>
                                             </div>
                                         </div>
                                     </div>
@@ -462,7 +462,7 @@
 
             <!--打印弹窗-->
             <div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width:200px">
+                <div class="modal-dialog" style="max-width: 300px">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="showTittle">请选择打印方式</h4>
@@ -470,10 +470,10 @@
                                 <i class="fa fa-close"></i>
                             </button>
                         </div>
-                        <div class="modal-body text-center" style="max-height: 200px;">
+                        <div class="modal-body text-center" style="max-height: 400px;">
                             <div>
-                                <button type="button" class="btn btn-info" id="">A4纸打印</button>
-                                <button type="button" class="btn btn-info" id="">信纸打印</button>
+                                <button type="button" class="btn btn-info" id="a4">A4纸打印</button>
+                                <button type="button" class="btn btn-info" id="zhen">多联纸打印</button>
                             </div>
                         </div>
                     </div>
@@ -481,7 +481,10 @@
             </div>
 
             <!-- 打印内容 -->
-            <div id="printContent">
+            <div id="printContent" class="table-responsive">
+                <p>
+                    <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
+                </p>
                 <table class="table mostTable table-bordered text-center" id="printTable">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
@@ -526,6 +529,9 @@
 <script src="../js/sweetalert2.js"></script>
 <script src="../js/jquery.pagination.js"></script>
 <script src="../js/stockStatistics.js"></script>
+<script src="../js/jquery-migrate-1.2.1.min.js"></script>
+<script src="../js/jquery.jqprint.js"></script>
+<script src="../js/checkLogined.js"></script>
 <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
     <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
 </object>

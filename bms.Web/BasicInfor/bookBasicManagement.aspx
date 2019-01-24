@@ -506,6 +506,7 @@
     <script src="../js/bookBasicManagement.js"></script>
     <script src="../js/ajaxfileupload.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

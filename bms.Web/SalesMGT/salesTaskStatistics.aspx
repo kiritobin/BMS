@@ -179,7 +179,75 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="table-responsive" id="a4t">
+            <p>
+                <h3 class="table-responsive" style="text-align: center"><span id="pname"></span>销售任务单</h3>
+            </p>
+            <table class="table table_stock text-center">
+                <tr class="text-nowrap">
+                    <td>
+                        <span>销售任务编号:</span>
+                    </td>
+                    <td>
+                        <input value="<%=saletaskId.ToString() %>" class="form-control" disabled>
+                    </td>
+                    <td>
+                        <span>所属客户:</span>
+                    </td>
+                    <td>
+                        <input value="<%=customerName %>" class="form-control" disabled>
+                    </td>
+                    <td>
+                        <span>操作员:</span>
+                    </td>
+                    <td>
+                        <input value="<%=userName %>" class="form-control" disabled>
+                    </td>
+                </tr>
+                <tr class="text-nowrap">
+                    <td>
+                        <span>开始日期:</span>
+                    </td>
+                    <td>
+                        <div class="jeinpbox">
+                            <input type="text" value="<%=startTime %>" class="form-control" disabled>
+                        </div>
+                    </td>
+                    <td>
+                        <span>结束日期:</span>
+                    </td>
+                    <td>
+                        <div class="jeinpbox">
+                            <input type="text" value="<%=finishTime %>" class="form-control" disabled>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="text-nowrap">
+                    <td>
+                        <span>书籍种数:</span>
+                    </td>
+                    <td>
+                        <input type="text" value="<%=allkinds %>" class="form-control" disabled>
+                    </td>
+                    <td>
+                        <span>书本总数:</span>
+                    </td>
+                    <td>
+                        <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
+                    <td>
+                        <span>总码洋:</span>
+                    </td>
+                    <td>
+                        <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
+                    </td>
+                    <td>
+                        <span>总实洋:</span>
+                    </td>
+                    <td>
+                        <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
+                    </td>
+                </tr>
+            </table>
             <table class="table mostTable table-bordered text-center" id="print_table">
                 <thead>
                     <tr>
@@ -206,29 +274,28 @@
                         </td>
                     </tr>
                 </thead>
-
             </table>
         </div>
 
         <!--打印弹窗-->
-            <div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width:200px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="showTittle">请选择打印方式</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body text-center" style="max-height: 200px;">
-                            <div>
-                                <button type="button" class="btn btn-info" id="">A4纸打印</button>
-                                <button type="button" class="btn btn-info" id="">信纸打印</button>
-                            </div>
+        <div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" style="max-width: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left" id="showTittle">请选择打印方式</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="fa fa-close"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center" style="max-height: 400px;">
+                        <div>
+                            <button type="button" class="btn btn-info" id="a4">A4纸打印</button>
+                            <button type="button" class="btn btn-info" id="zhen">多联纸打印</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
         <!-- 主界面页脚部分 -->
         <footer class="footer">
@@ -268,6 +335,7 @@
     </object>
     <script src="../js/LodopFuncs.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

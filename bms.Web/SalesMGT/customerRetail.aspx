@@ -317,5 +317,6 @@
     </object>
     <script src="../js/LodopFuncs.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 </html>

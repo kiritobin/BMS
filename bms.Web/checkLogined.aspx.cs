@@ -3,21 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace bms.Web
 {
-    public partial class CommonPage : System.Web.UI.Page
+    public partial class checkLogined : System.Web.UI.Page
     {
-        public CommonPage()
+        protected void Page_Load(object sender, EventArgs e)
         {
-            //  
-            // TODO: 在此处添加构造函数逻辑  
-            //  
-        }
-        override protected void OnInit(EventArgs e)
-        {
+            string s = "";
             Hashtable hOnline = (Hashtable)Application["Online"];
             if (hOnline != null)
             {
@@ -32,18 +28,23 @@ namespace bms.Web
                             Application.Lock();
                             Application["Online"] = hOnline;
                             Application.UnLock();
-                            string js = "<script language=javascript>alert('{0}');window.location.replace('{1}')</script>";
-                            Response.Write(string.Format(js, "帐号已在别处登录 ，你将被强迫下线（若非本人登录，请注意保护密码安全）！", "login.aspx"));
+                            s = "已登录";
+                            Response.Write(s);
+                            Response.End();
+                            //删除身份凭证
+                            FormsAuthentication.SignOut();
+                            //设置Cookie的值为空
+                            Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                            //设置Cookie的过期时间为上个月今天
+                            Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
                             return;
                         }
                         break;
                     }
                 }
+                Response.Write(s);
+                Response.End();
             }
-        }
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

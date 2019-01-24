@@ -77,6 +77,7 @@ window.onload = function () {
 
 $(document).ready(function () {
     $("#printContent").hide();//隐藏打印内容
+    $("#print_table").hide();
     $('.paging').pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -421,7 +422,7 @@ $(document).ready(function () {
     })
     //打印
     $("#print").click(function () {
-        var groupbyType = $("#groupby").find("option:selected").text()
+        var groupbyType = $("#groupby").find("option:selected").text();
         if (groupbyType == "" || groupbyType == null) {
             swal({
                 title: "提示",
@@ -447,64 +448,128 @@ $(document).ready(function () {
             });
         } 
         else {
-            $.ajax({
-                type: 'Post',
-                url: 'stockStatistics.aspx',
-                data: {
-                    op: "print",
-                    groupbyType: groupbyType
-                },
-                dataType: 'text',
-                beforeSend: function (XMLHttpRequest) { //开始请求
-                    swal({
-                        text: "正在获取数据",
-                        imageUrl: "../imgs/load.gif",
-                        imageHeight: 100,
-                        imageWidth: 100,
-                        width: 180,
-                        showConfirmButton: false,
-                        allowOutsideClick: false
-                    });
-                },
-                success: function (data) {
-                    $(".swal2-container").remove();
-                    $("#printTable tr:not(:first)").remove(); //清空table处首行
-                    $("#printTable").append(data); //加载table
-                    MyPreview();
-                },
-                error: function (XMLHttpRequest, textStatus) { //请求失败
-                    $(".swal2-container").remove();
-                    if (textStatus == 'timeout') {
-                        var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
-                        xmlhttp.abort();
-                        swal({
-                            title: "提示",
-                            text: "请求超时",
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        });
-                    } else if (textStatus == "error") {
-                        swal({
-                            title: "提示",
-                            text: "服务器内部错误",
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        });
-                    }
-                }
-            });
+            $("#printmodel").modal("show");
         }
     })
 })
 
+$("#a4").click(function () {
+    $.ajax({
+        type: 'Post',
+        url: 'stockStatistics.aspx',
+        data: {
+            op: 'print'
+        },
+        dataType: 'text',
+        beforeSend: function (XMLHttpRequest) { //开始请求
+            swal({
+                text: "正在获取数据",
+                imageUrl: "../imgs/load.gif",
+                imageHeight: 100,
+                imageWidth: 100,
+                width: 180,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        },
+        success: function (data) {
+            $("#pname").html("<h3>入库统计</h3>");
+            $(".swal2-container").remove();
+            $("#printTable tr:not(:first)").remove();
+            $("#printTable").append(data);
+            $('#printContent').show();
+            $("#printContent").jqprint();
+            $('#printContent').hide();
+        },
+        error: function (XMLHttpRequest, textStatus) { //请求失败
+            $(".swal2-container").remove();
+            $('#printTable').hide();
+            $('#printContent').hide();
+            if (textStatus == 'timeout') {
+                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                xmlhttp.abort();
+                swal({
+                    title: "提示",
+                    text: "请求超时",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else if (textStatus == "error") {
+                swal({
+                    title: "提示",
+                    text: "服务器内部错误",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            }
+        }
+    })
+})
+$("#zhen").click(function () {
+    var groupbyType = $("#groupby").find("option:selected").text();
+    $.ajax({
+        type: 'Post',
+        url: 'stockStatistics.aspx',
+        data: {
+            op: "print",
+            groupbyType: groupbyType
+        },
+        dataType: 'text',
+        beforeSend: function (XMLHttpRequest) { //开始请求
+            swal({
+                text: "正在获取数据",
+                imageUrl: "../imgs/load.gif",
+                imageHeight: 100,
+                imageWidth: 100,
+                width: 180,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        },
+        success: function (data) {
+            $(".swal2-container").remove();
+            $("#printTable tr:not(:first)").remove(); //清空table处首行
+            $("#printTable").append(data); //加载table
+            MyPreview();
+        },
+        error: function (XMLHttpRequest, textStatus) { //请求失败
+            $(".swal2-container").remove();
+            if (textStatus == 'timeout') {
+                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                xmlhttp.abort();
+                swal({
+                    title: "提示",
+                    text: "请求超时",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else if (textStatus == "error") {
+                swal({
+                    title: "提示",
+                    text: "服务器内部错误",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            }
+        }
+    });
+})
 
 //退出系统
 function logout() {
@@ -593,27 +658,18 @@ function MyPreview() {
 function AddTitle() {
     LODOP = getLodop();
     LODOP.PRINT_INIT("入库统计");
-    LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "入库统计");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.ADD_PRINT_TEXT(11, 295, 84, 30, "入库统计");
+    LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
+    LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 15, 50, 20, "序号");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 70, 200, 20, group);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 270, 100, 20, kinds);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 370, 100, 20, num);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.SET_PRINT_STYLEA(0, "FontSize", 8);
     LODOP.ADD_PRINT_TEXT(50, 470, 100, 20, totalPrice);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 570, 100, 20, realPrice);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
 
     //横线
     LODOP.ADD_PRINT_LINE(45, 14, 45, 670, 0, 1);

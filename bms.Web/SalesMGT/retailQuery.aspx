@@ -455,6 +455,8 @@
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/retailQuery.js"></script>
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

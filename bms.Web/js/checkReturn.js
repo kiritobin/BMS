@@ -27,6 +27,8 @@ function logout() {
 }
 
 $(document).ready(function () {
+    $("#print_table").hide();
+    $('#a4t').hide();
     $('.paging').pagination({
         //totalData: $("#countPage").val(), //数据总数
         //showData: $("#totalCount").val(), //每页显示的条数
@@ -56,7 +58,7 @@ $(document).ready(function () {
         }
     });
     //打印
-    $("#print").click(function () {
+    $("#zhen").click(function () {
         //$("#content").jqprint();
         $.ajax({
             type: 'Post',
@@ -97,8 +99,8 @@ $(document).ready(function () {
                     //LODOP.PREVIEW();
                     //window.location.reload();
                     LODOP = getLodop();
-                    LODOP.PRINT_INITA(0, 0, 577, 10000, "打印控件功能演示_Lodop功能_不同高度幅面");
-                    LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#shRegion").val() + "新华书店有限公司   退货单");
+                    LODOP.PRINT_INITA(0, 0, 577, 10000, $("#shRegion").val() + "   新华书店有限公司   退货单");
+                    LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#shRegion").val() + "   新华书店有限公司   退货单");
                     LODOP.SET_PRINT_PAGESIZE(3, 2000, 50, "");
                     LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
                     LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
@@ -214,7 +216,67 @@ $("#export").click(function () {
     window.location.href = "checkReturn.aspx?op=export";
 })
 
-
+$("#a4").click(function () {
+    var name = $("#shRegion").val() + "   新华书店有限公司    ";
+    $.ajax({
+        type: 'Post',
+        url: 'checkReturn.aspx',
+        data: {
+            op: 'print'
+        },
+        dataType: 'text',
+        beforeSend: function (XMLHttpRequest) { //开始请求
+            swal({
+                text: "正在获取数据",
+                imageUrl: "../imgs/load.gif",
+                imageHeight: 100,
+                imageWidth: 100,
+                width: 180,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        },
+        success: function (data) {
+            $("#pname").text(name);
+            $(".swal2-container").remove();
+            $("#print_table tr:not(:first)").remove();
+            $("#print_table").append(data);
+            $('#print_table').show();
+            $('#a4t').show();
+            $("#a4t").jqprint();
+            $('#a4t').hide();
+        },
+        error: function (XMLHttpRequest, textStatus) { //请求失败
+            $(".swal2-container").remove();
+            $('#a4t').hide();
+            if (textStatus == 'timeout') {
+                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                xmlhttp.abort();
+                swal({
+                    title: "提示",
+                    text: "请求超时",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else if (textStatus == "error") {
+                swal({
+                    title: "提示",
+                    text: "服务器内部错误",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            }
+        }
+    })
+})
 
 $("#back").click(function () {
     window.location.href = "returnManagement.aspx";

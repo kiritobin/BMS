@@ -495,6 +495,7 @@
     <script src="../js/addReturn.js"></script>
     <script src="../js/jquery.tabletojson.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

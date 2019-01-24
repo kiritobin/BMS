@@ -502,6 +502,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/inventoryManagement.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 </html>
 

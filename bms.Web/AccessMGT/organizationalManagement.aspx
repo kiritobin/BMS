@@ -462,6 +462,7 @@
     <!-- alert.js -->
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

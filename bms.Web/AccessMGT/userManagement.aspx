@@ -535,8 +535,7 @@
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/demo.js"></script>
     <script src="../js/jquery.pagination.js"></script>
-    <script>
-</script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

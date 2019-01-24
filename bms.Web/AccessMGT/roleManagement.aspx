@@ -14,7 +14,6 @@
     <!-- 字体图标样式 -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- css样式 -->
-    7
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/qc.css">
@@ -803,7 +802,7 @@
     <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/defaults-zh_CN.js"></script>
     <script src="../js/jquery.pagination.js"></script>
-
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

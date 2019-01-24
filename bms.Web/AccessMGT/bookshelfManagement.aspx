@@ -347,7 +347,7 @@
                                         <!-- 表格头部按钮功能组 -->
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="search_region" class="searchOne" placeholder="请输入分公司名称">
+                                                <input type="text" id="search_region" class="searchOne" placeholder="请输入所属地区">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="search_goods" value="" class="searchOne" placeholder="请输入货架名称">
@@ -520,5 +520,6 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/bookshelfManagement.js"></script>
     <script src="../js/ajaxfileupload.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 </html>

@@ -403,6 +403,7 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/retailManagement.js"></script>
     <script src="../js/sweetalert2.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

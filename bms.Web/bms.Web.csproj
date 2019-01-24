@@ -94,6 +94,7 @@
     <Content Include="bin\bms.Model.pdb" />
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="changePwd.aspx" />
+    <Content Include="checkLogined.aspx" />
     <Content Include="chrome\69.0.3497.92_chrome_installer.exe" />
     <Content Include="chrome\chromedev_x86-v71.0.3573.0.exe" />
     <Content Include="chrome\ChromeDownload.html" />
@@ -137,6 +138,7 @@
     <Content Include="InventoryMGT\replenishMent.aspx" />
     <Content Include="js\bookStock.js" />
     <Content Include="js\bookStockDetail.js" />
+    <Content Include="js\checkLogined.js" />
     <Content Include="js\checkRs.js" />
     <Content Include="js\customerRetail.js" />
     <Content Include="js\customerRs.js" />
@@ -336,6 +338,13 @@
     </Compile>
     <Compile Include="changePwd.aspx.designer.cs">
       <DependentUpon>changePwd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="checkLogined.aspx.cs">
+      <DependentUpon>checkLogined.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="checkLogined.aspx.designer.cs">
+      <DependentUpon>checkLogined.aspx</DependentUpon>
     </Compile>
     <Compile Include="customerLogin.aspx.cs">
       <DependentUpon>customerLogin.aspx</DependentUpon>

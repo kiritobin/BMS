@@ -28,8 +28,9 @@
     //    window.location.href = "../SalesMGT/salesManagement.aspx";
     //})
     $("#print_table").hide();
+    $('#a4t').hide();
     //打印
-    $("#print").click(function () {
+    $("#zhen").click(function () {
         //$("#content").jqprint();
         $.ajax({
             type: 'Post',
@@ -181,6 +182,68 @@
                 }
             }
         })
+    })
+})
+
+$("#a4").click(function () {
+    var name = $("#region").val() + "   新华书店有限公司    ";
+    $.ajax({
+        type: 'Post',
+        url: 'searchSalesDetail.aspx',
+        data: {
+            op: 'print'
+        },
+        dataType: 'text',
+        beforeSend: function (XMLHttpRequest) { //开始请求
+            swal({
+                text: "正在获取数据",
+                imageUrl: "../imgs/load.gif",
+                imageHeight: 100,
+                imageWidth: 100,
+                width: 180,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        },
+        success: function (data) {
+            $("#pname").text(name);
+            $(".swal2-container").remove();
+            $("#print_table tr:not(:first)").remove();
+            $("#print_table").append(data);
+            $('#print_table').show();
+            $('#a4t').show();
+            $("#a4t").jqprint();
+            $('#a4t').hide();
+        },
+        error: function (XMLHttpRequest, textStatus) { //请求失败
+            $(".swal2-container").remove();
+            $('#a4t').hide();
+            if (textStatus == 'timeout') {
+                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                xmlhttp.abort();
+                swal({
+                    title: "提示",
+                    text: "请求超时",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else if (textStatus == "error") {
+                swal({
+                    title: "提示",
+                    text: "服务器内部错误",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            }
+        }
     })
 })
 
