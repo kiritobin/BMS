@@ -346,21 +346,21 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="supplier" placeholder="供应商查询">
+                                                <input type="text" value="" class="searchOne" id="supplier" placeholder="请输入供应商">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="stock" placeholder="按库存" readonly="readonly" data-toggle="modal" data-target="#numberModal">
+                                                <input type="text" value="" class="searchOne" id="stock" placeholder="请输入库存数量" readonly="readonly" data-toggle="modal" data-target="#numberModal">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="isbn" placeholder="ISBN查询">
+                                                <input type="text" value="" class="searchOne" id="isbn" placeholder="请输入ISBN">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookName" placeholder="书名查询">
+                                                <input type="text" value="" class="searchOne" id="bookName" placeholder="请输入书名">
                                             </div>
                                             <%if (user.RoleId.RoleName == "超级管理员")
                                                 { %>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="area" placeholder="地区查询">
+                                                <input type="text" value="" class="searchOne" id="area" placeholder="请输入组织名称">
                                             </div>
                                             <%} %>
                                             <div class="btn-group" role="group">
@@ -376,7 +376,7 @@
                                                     <th>书名</th>
                                                     <th>出版社</th>
                                                     <th>定价</th>
-                                                    <th>地区</th>
+                                                    <th>组织名称</th>
                                                     <th>货架</th>
                                                     <th>库存数量</th>
                                                 </tr>

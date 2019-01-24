@@ -289,7 +289,7 @@ namespace bms.Web.SalesMGT
                         int rowes = dsStock.Tables[0].Rows.Count;
                         for (int j = 0; j < rowes; j++)
                         {
-                            int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[i]["goodsShelvesId"]);
+                            string goodsId = dsStock.Tables[0].Rows[i]["goodsShelvesId"].ToString();
                             int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[i]["stockNum"]);
                             Result stock = stockBll.update(stockNum + monomers.Number, goodsId, monomers.BookNum);
                             if (stock == Result.更新失败)

@@ -18,7 +18,7 @@ namespace bms.Model
         private GoodsShelves goodsShelvesId;
         private int type;
         private SingleHead singleHeadId;
-        private int shelvesId;
+        private string shelvesId;
         /// <summary>
         /// 单体
         /// </summary>
@@ -187,7 +187,7 @@ namespace bms.Model
         /// <summary>
         /// 货架ID
         /// </summary>
-        public int ShelvesId
+        public string ShelvesId
         {
             get
             {
@@ -218,7 +218,7 @@ namespace bms.Model
         /// <param name="goodsShelvesId">货架ID</param>
         /// <param name="type">0为出库，1入库</param>
         /// <param name="singleHeadId">单头ID</param>
-        public Monomers(int monomersId, BookBasicData bookNum, BookBasicData isbn, int number, BookBasicData uPrice, double totalPrice, double realPrice, double discount, GoodsShelves goodsShelvesId, int type, SingleHead singleHeadId,int shelvesId)
+        public Monomers(int monomersId, BookBasicData bookNum, BookBasicData isbn, int number, BookBasicData uPrice, double totalPrice, double realPrice, double discount, GoodsShelves goodsShelvesId, int type, SingleHead singleHeadId,string shelvesId)
         {
             this.MonomersId = monomersId;
             this.BookNum = bookNum;

@@ -273,13 +273,13 @@ namespace bms.Web.InventoryMGT
                     string bookNum = drow["书号"].ToString();
                     count = Convert.ToInt32(drow["商品数量"]);
                     int billCount = Convert.ToInt32(drow["商品数量"]);
-                    int goodsId = 0;//货架ID
+                    string goodsId = "0";//货架ID
                     DataSet dsGoods = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
                     for (int j = 0; j < dsGoods.Tables[0].Rows.Count; j++)
                     {
                         billCount = count;
                         int stockNum = Convert.ToInt32(dsGoods.Tables[0].Rows[j]["stockNum"]);
-                        goodsId = Convert.ToInt32(dsGoods.Tables[0].Rows[j]["goodsShelvesId"]);//获取货架ID
+                        goodsId = dsGoods.Tables[0].Rows[j]["goodsShelvesId"].ToString();//获取货架ID
                         if (billCount <= stockNum)
                         {
                             int a = stockNum - billCount;

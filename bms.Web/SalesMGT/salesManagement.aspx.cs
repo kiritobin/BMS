@@ -418,7 +418,7 @@ namespace bms.Web.SalesMGT
                                 replenBll.updateRsHead(upRsHead);
                                 for (int t = 0; t < stockbook.Tables[0].Rows.Count; t++)
                                 {
-                                    int goodsID = int.Parse(stockbook.Tables[0].Rows[t]["goodsShelvesId"].ToString());
+                                    string goodsID = stockbook.Tables[0].Rows[t]["goodsShelvesId"].ToString();
                                     stockbll.update(0, goodsID, bookNum);
                                 }
                             }
@@ -471,7 +471,7 @@ namespace bms.Web.SalesMGT
                             replenBll.updateRsHead(upRsHead);
                             for (int t = 0; t < stockbook.Tables[0].Rows.Count; t++)
                             {
-                                int goodsID = int.Parse(stockbook.Tables[0].Rows[t]["goodsShelvesId"].ToString());
+                                string goodsID = stockbook.Tables[0].Rows[t]["goodsShelvesId"].ToString();
                                 stockbll.update(0, goodsID, bookNum);
                             }
                         }
@@ -488,7 +488,7 @@ namespace bms.Web.SalesMGT
                     for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
                     {
                         int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
-                        int goodsId = Convert.ToInt32(stockbook.Tables[0].Rows[j]["goodsShelvesId"]);
+                        string goodsId = stockbook.Tables[0].Rows[j]["goodsShelvesId"].ToString();
                         if (number <= stockNum)
                         {
                             int stockcount = stockNum - number;
