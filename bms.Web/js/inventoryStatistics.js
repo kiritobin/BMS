@@ -109,6 +109,46 @@ $(document).ready(function () {
                 $("#table tr:not(:first)").remove(); //清空table处首行
                 $("#table").append(data); //加载table
                 $("#intPageCount").remove();
+                $(".paging").empty();
+                $('.paging').pagination({
+                    //totalData: $("#totalCount").val(),
+                    //showData: $("#pageSize").val(),
+                    pageCount: $("#intPageCount").val(), //总页数
+                    jump: true,
+                    mode: 'fixed',//固定页码数量
+                    coping: true,
+                    homePage: '首页',
+                    endPage: '尾页',
+                    prevContent: '上页',
+                    nextContent: '下页',
+                    callback: function (api) {
+                        var bookName = $("#bookName").val();
+                        var bookNum = $("#bookNum").val();
+                        var btnISBN = $("#bookISBN").val();
+                        $.ajax({
+                            type: 'Post',
+                            url: 'inventoryStatistics.aspx',
+                            data: {
+                                page: api.getCurrent(), //页码
+                                type: type,
+                                bookNum: bookNum,
+                                bookName: bookName,
+                                supplier: supplier,
+                                time: time,
+                                userName: userName,
+                                region: region,
+                                resource: resource,
+                                op: "paging"
+                            },
+                            dataType: 'text',
+                            success: function (data) {
+                                $("#table tr:not(:first)").remove(); //清空table处首行
+                                $("#table").append(data); //加载table
+                                $("#intPageCount").remove();
+                            }
+                        });
+                    }
+                });
             }
         });
     });
