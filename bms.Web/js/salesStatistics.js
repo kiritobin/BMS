@@ -95,6 +95,7 @@ Date.prototype.Format = function (fmt) {
 //});
 
 $(document).ready(function () {
+    $("#printContent").hide();//隐藏打印内容
     $("#print_table").hide();
     $('.paging').pagination({
         pageCount: $("#intPageCount").val(), //总页数
@@ -712,62 +713,127 @@ $(document).ready(function () {
             });
         }
         else {
-            $.ajax({
-                type: 'Post',
-                url: 'salesStatistics.aspx',
-                dataType: 'text',
-                data: {
-                    op: "print"
-                },
-                beforeSend: function (XMLHttpRequest) { //开始请求
-                    swal({
-                        text: "正在获取数据",
-                        imageUrl: "../imgs/load.gif",
-                        imageHeight: 100,
-                        imageWidth: 100,
-                        width: 180,
-                        showConfirmButton: false,
-                        allowOutsideClick: false
-                    });
-                },
-                success: function (data) {
-                    $(".swal2-container").remove();
-                    $("#print_table tr:not(:first)").remove(); //清空table处首行
-                    $("#print_table").append(data); //加载table 
-                    MyPreview();
-                },
-                error: function (XMLHttpRequest, textStatus) { //请求失败
-                    $(".swal2-container").remove();
-                    if (textStatus == 'timeout') {
-                        var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
-                        xmlhttp.abort();
-                        swal({
-                            title: "提示",
-                            text: "请求超时",
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        });
-                    } else if (textStatus == "error") {
-                        swal({
-                            title: "提示",
-                            text: "服务器内部错误",
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        });
-                    }
-                }
-            })
+            $("#printmodel").modal("show");
         }
     })
 })
+
+$("#a4").click(function () {
+    $.ajax({
+        type: 'Post',
+        url: 'salesStatistics.aspx',
+        data: {
+            op: 'print'
+        },
+        dataType: 'text',
+        beforeSend: function (XMLHttpRequest) { //开始请求
+            swal({
+                text: "正在获取数据",
+                imageUrl: "../imgs/load.gif",
+                imageHeight: 100,
+                imageWidth: 100,
+                width: 180,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        },
+        success: function (data) {
+            $("#pname").html("<h3>销售统计</h3>");
+            $(".swal2-container").remove();
+            $("#printTable tr:not(:first)").remove();
+            $("#printTable").append(data);
+            $('#printContent').show();
+            $("#printContent").jqprint();
+            $('#printContent').hide();
+        },
+        error: function (XMLHttpRequest, textStatus) { //请求失败
+            $(".swal2-container").remove();
+            $('#printTable').hide();
+            $('#printContent').hide();
+            if (textStatus == 'timeout') {
+                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                xmlhttp.abort();
+                swal({
+                    title: "提示",
+                    text: "请求超时",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else if (textStatus == "error") {
+                swal({
+                    title: "提示",
+                    text: "服务器内部错误",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            }
+        }
+    })
+})
+$("#zhen").click(function () {
+    $.ajax({
+        type: 'Post',
+        url: 'salesStatistics.aspx',
+        dataType: 'text',
+        data: {
+            op: "print"
+        },
+        beforeSend: function (XMLHttpRequest) { //开始请求
+            swal({
+                text: "正在获取数据",
+                imageUrl: "../imgs/load.gif",
+                imageHeight: 100,
+                imageWidth: 100,
+                width: 180,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        },
+        success: function (data) {
+            $(".swal2-container").remove();
+            $("#print_table tr:not(:first)").remove(); //清空table处首行
+            $("#print_table").append(data); //加载table 
+            MyPreview();
+        },
+        error: function (XMLHttpRequest, textStatus) { //请求失败
+            $(".swal2-container").remove();
+            if (textStatus == 'timeout') {
+                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                xmlhttp.abort();
+                swal({
+                    title: "提示",
+                    text: "请求超时",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else if (textStatus == "error") {
+                swal({
+                    title: "提示",
+                    text: "服务器内部错误",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            }
+        }
+    })
+})
+
 //退出系统
 function logout() {
     swal({
@@ -841,28 +907,20 @@ function AddTitle() {
     var totalPrice = $("#table").find('tr').eq(0).find('th').eq(4).text().trim();
     var realPrice = $("#table").find('tr').eq(0).find('th').eq(5).text().trim();
     LODOP = getLodop();
+
     LODOP.PRINT_INIT("销售报表");
-    LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "销售报表");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.SET_PRINT_PAGESIZE(3, 1800, 100, "");
+    LODOP.ADD_PRINT_TEXT(9, 243, 110, 30, "销售报表");
+    LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
+    LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 15, 50, 20, "序号");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 70, 200, 20, group);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 270, 50, 20, kinds);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 330, 100, 20, num);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.SET_PRINT_STYLEA(0, "FontSize", 8);
     LODOP.ADD_PRINT_TEXT(50, 380, 100, 20, totalPrice);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 480, 50, 20, realPrice);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+
     //横线
     LODOP.ADD_PRINT_LINE(45, 14, 45, 580, 0, 1);
     LODOP.ADD_PRINT_LINE(70, 14, 70, 580, 0, 1);

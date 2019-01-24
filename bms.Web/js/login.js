@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     var url = getUrlParam(location.href, "logout");
-    if (url == "force" || url == "force#") {
+    if (url == "force") {
         swal({
             title: "注意",
             text: "帐号已在别处登录 ，你将被强迫下线（若非本人登录，请注意保护密码安全）！",
