@@ -166,7 +166,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -350,7 +350,7 @@
                                                 <input type="text" value="" class="searchOne" id="input-region" placeholder="请输入分公司">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="input-role" placeholder="请输入职位">
+                                                <input type="text" value="" class="searchOne" id="input-role" placeholder="请输入职位名称">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" value="" class="searchOne" id="input-userName" placeholder="请输入用户名">

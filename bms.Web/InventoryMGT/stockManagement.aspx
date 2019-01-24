@@ -168,7 +168,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -350,10 +350,10 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
+                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据编号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
+                                                <input type="text" id="region" class="searchOne" placeholder="请输入入库来源">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">

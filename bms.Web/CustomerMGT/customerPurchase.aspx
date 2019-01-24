@@ -52,10 +52,10 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookSearch" placeholder="书名查询">
+                                                <input type="text" value="" class="searchOne" id="bookSearch" placeholder="请输入书名">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="goodsSearch" placeholder="供应商查询">
+                                                <input type="text" value="" class="searchOne" id="goodsSearch" placeholder="请输入供应商">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                         </div>

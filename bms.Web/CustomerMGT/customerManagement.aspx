@@ -168,7 +168,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -398,12 +398,12 @@
                                 <tr>
                                     <td class="text-right"><span>账号:</span></td>
                                     <td>
-                                        <input type="text" value="" class="modal_search" placeholder="请您输入账号" id="customerId"></td>
+                                        <input type="text" value="" class="modal_search" placeholder="请输入账号" id="customerId"></td>
                                 </tr>
                                 <tr>
                                     <td class="text-right"><span>客户名称:</span></td>
                                     <td>
-                                        <input type="text" value="" class="modal_search" placeholder="请您输入名称" id="customerName"></td>
+                                        <input type="text" value="" class="modal_search" placeholder="请输入名称" id="customerName"></td>
                                 </tr>
                             </table>
                         </div>

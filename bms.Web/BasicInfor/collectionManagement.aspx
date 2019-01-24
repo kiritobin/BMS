@@ -168,7 +168,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -349,10 +349,10 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" id="bookSearch" placeholder="书名查询">
+                                                <input type="text" value="" id="bookSearch" placeholder="请输入书名">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" id="isbnSearch" placeholder="ISBN号查询">
+                                                <input type="text" value="" id="isbnSearch" placeholder="请输入ISBN">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <%--<input type="text" value="" class="searchOne" id="cusSearch" placeholder="客户查询">--%>

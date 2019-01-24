@@ -162,7 +162,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
