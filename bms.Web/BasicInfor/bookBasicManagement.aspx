@@ -350,13 +350,13 @@
                                         <%-- 表格头部按钮功能组 --%>
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookName" placeholder="书名查询">
+                                                <input type="text" value="" class="searchOne" id="bookName" placeholder="请输入书名">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookNum" placeholder="书号查询">
+                                                <input type="text" value="" class="searchOne" id="bookNum" placeholder="请输入书号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookISBN" placeholder="ISBN查询">
+                                                <input type="text" value="" class="searchOne" id="bookISBN" placeholder="请输入ISBN">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>

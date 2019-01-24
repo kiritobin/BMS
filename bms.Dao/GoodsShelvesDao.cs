@@ -30,10 +30,11 @@ namespace bms.Dao
         /// <returns>受影响行数</returns>
         public int Insert(GoodsShelves shelves)
         {
-            string cmdText = "insert into T_GoodsShelves(shelvesName,regionId) values(@shelvesName,@regionId)";
-            String[] param = { "@shelvesName", "@regionId" };
-            String[] values = { shelves.ShelvesName,shelves.RegionId.RegionId.ToString() };
-            return db.ExecuteNoneQuery(cmdText, param, values);
+            string cmdText = "insert into T_GoodsShelves(goodsShelvesId,shelvesName,regionId) values(@goodsShelvesId,@shelvesName,@regionId)";
+            String[] param = { "@goodsShelvesId", "@shelvesName", "@regionId" };
+            String[] values = { shelves.GoodsShelvesId,shelves.ShelvesName,shelves.RegionId.RegionId.ToString() };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
         }
        /// <summary>
        /// 根据地区id查询货架
@@ -103,11 +104,32 @@ namespace bms.Dao
         /// <returns></returns>
         public int selectByName(GoodsShelves shelves)
         {
-            string cmdText = "select count(goodsShelvesId) from T_GoodsShelves where regionId = @regionId and shelvesName=@shelvesName";
-            String[] param = { "@shelvesName", "@regionId" };
-            String[] values = { shelves.ShelvesName, shelves.RegionId.RegionId.ToString() };
+            //货架ID
+            string cmdText = "select count(goodsShelvesId) from T_GoodsShelves where regionId = @regionId and goodsShelvesId=@goodsShelvesId";
+            String[] param = { "@goodsShelvesId", "@regionId" };
+            String[] values = { shelves.GoodsShelvesId, shelves.RegionId.RegionId.ToString() };
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
-            return row;
+            //货架名称
+            string cmdTexts = "select count(goodsShelvesId) from T_GoodsShelves where regionId = @regionId and shelvesName=@shelvesName";
+            String[] parames = { "@shelvesName", "@regionId" };
+            String[] valuess = { shelves.ShelvesName, shelves.RegionId.RegionId.ToString() };
+            int rows = Convert.ToInt32(db.ExecuteScalar(cmdTexts, parames, valuess));
+            if (row > 0 && rows > 0)//都重复
+            {
+                return 2;
+            }
+            else if (row > 0 && rows <= 0)//货架ID重复
+            {
+                return 1;
+            }
+            else if (rows > 0 && row <= 0)//货架名称重复
+            {
+                return -1;
+            }
+            else//都不重复
+            {
+                return 0;
+            }
         }
     }
 }
