@@ -216,15 +216,15 @@ namespace bms.Web.BasicInfor
             else if ((goods != null || goods != "") && (region == "" || region == null))
             {
 
-                search = String.Format("shelvesName='{0}' and deleteState=0", goods);
+                search = String.Format("shelvesName like '%{0}%' and deleteState=0", goods);
             }
             else if ((goods == null || goods == "") && (region != "" || region != null))
             {
-                search = String.Format("regionName='{0}' and deleteState=0", region);
+                search = String.Format("regionName like '%{0}%' and deleteState=0", region);
             }
             else
             {
-                search = String.Format("regionName='{0}' and shelvesName='{1}' and deleteState=0", region, goods);
+                search = String.Format("regionName like '%{0}%' and shelvesName like '%{1}%' and deleteState=0", region, goods);
             }
 
             TableBuilder tb = new TableBuilder();

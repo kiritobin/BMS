@@ -365,6 +365,7 @@
                                             <div class="form-group form-group-sm">
                                                 <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
                                                 <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
+                                                <button type="button" class="btn btn-sm btn-info" id="print">打印</button>
                                                 <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
                                         </form>
@@ -440,21 +441,7 @@
                 </div>
             </div>
 
-            <!--获取数据模态框-->
-            <!--<div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width: 200px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="">正在获取数据</h4>
-                        </div>
-                        <div class="modal-body text-center" style="max-height: 200px;">
-                            <div>
-                                <img src="../imgs/load.gif" height="100" width="100" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
+            <!--打印内容-->
             <div class="table-responsive">
                 <table class="table mostTable table-bordered text-center" id="print_table">
                     <thead>

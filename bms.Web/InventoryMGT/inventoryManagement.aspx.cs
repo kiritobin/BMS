@@ -77,22 +77,22 @@ namespace bms.Web.InventoryMGT
                 {
                     if (search == "" || search == null)
                     {
-                        search = "ISBN = '" + bookISBN + "'";
+                        search = "ISBN like '%" + bookISBN + "%'";
                     }
                     else
                     {
-                        search += " and ISBN = '" + bookISBN + "'";
+                        search += " and ISBN like '%" + bookISBN + "%'";
                     }
                 }
                 if (area != "" && area != null)
                 {
                     if (search == "" || search == null)
                     {
-                        search = "regionName='" + area + "'";
+                        search = "regionName like '%" + area + "%'";
                     }
                     else
                     {
-                        search += " and regionName='" + area + "'";
+                        search += " and regionName like '%" + area + "%'";
                     }
                 }
                 if (stockNumber != "" && stockNumber != null)

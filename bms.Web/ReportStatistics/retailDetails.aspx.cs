@@ -138,7 +138,7 @@ namespace bms.Web.ReportStatistics
             string payment = Request["payment"];
             if (isbn != null && isbn != "")
             {
-                strWhere += " and isbn='" + isbn + "'";
+                strWhere += " and isbn like '%" + isbn + "%'";
             }
             if (price != null && price != "")
             {

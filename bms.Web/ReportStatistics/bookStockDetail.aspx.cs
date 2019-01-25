@@ -45,7 +45,99 @@ namespace bms.Web.ReportStatistics
             {
                 export();
             }
+            if (op == "print")
+            {
+                Print();
+            }
         }
+
+        public String Print()
+        {
+            string isbn = Request["isbn"];
+            string price = Request["price"];
+            string discount = Request["discount"];
+            string bookName = Request["bookName"];
+            string stockNumber = Request["stockNumber"];
+            string strWhere = groupType;
+            string fileName = name;
+            if (isbn != null && isbn != "")
+            {
+                fileName += "-" + isbn;
+                strWhere += " and isbn='" + isbn + "'";
+            }
+            if (price != null && price != "")
+            {
+                fileName += "-" + price;
+                strWhere += " and uPrice=" + price;
+            }
+            if (discount != null && discount != "")
+            {
+                fileName += "-" + discount;
+                strWhere += " and discount=" + discount;
+            }
+            if (bookName != null && bookName != "")
+            {
+                strWhere += " and bookName like '%" + bookName + "%'";
+            }
+            if (stockNumber != "" && stockNumber != null)
+            {
+                string[] sArray = stockNumber.Split('于');
+                string type = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type == "小")
+                    {
+                        strWhere = " and stockNum < '" + number + "'";
+                    }
+                    else if (type == "等")
+                    {
+                        strWhere = " and stockNum = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = " and stockNum > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type == "小")
+                    {
+                        strWhere += " and stockNum < '" + number + "'";
+                    }
+                    else if (type == "等")
+                    {
+                        strWhere += " and stockNum = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and stockNum > '" + number + "'";
+                    }
+                }
+            }
+            DataTable dt = stockBll.ExportExcelDetail(strWhere, type);
+            StringBuilder strb = new StringBuilder();
+            int dscount = dt.Rows.Count;
+            for (int i = 0; i < dscount; i++)
+            {
+                DataRow dr = dt.Rows[i];
+                //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
+                strb.Append("<tr><td>" + (i) + "</td>");
+                strb.Append("<td>" + dr[0].ToString() + "</td>");
+                strb.Append("<td>" + dr[1].ToString() + "</td>");
+                strb.Append("<td>" + dr[2].ToString() + "</td>");
+                strb.Append("<td>" + dr[3].ToString() + "</td>");
+                strb.Append("<td>" + dr[4].ToString() + "</td>");
+                strb.Append("<td>" + dr[5].ToString() + "</td>");
+                strb.Append("<td>" + dr[6].ToString() + "</td>");
+                strb.Append("<td>" + dr[7].ToString() + "</td>");
+                strb.Append("<td>" + dr[8].ToString() + "</td></tr>");
+            }
+            Response.Write(strb.ToString());
+            Response.End();
+            return strb.ToString();
+        }
+
         /// <summary>
         /// 获取数据
         /// </summary>
@@ -69,7 +161,7 @@ namespace bms.Web.ReportStatistics
             string stockNumber = Request["stockNumber"];
             if (isbn != null && isbn != "")
             {
-                strWhere += " and isbn='" + isbn + "'";
+                strWhere += " and isbn like '%" + isbn + "%'";
             }
             if (price != null && price != "")
             {
@@ -119,7 +211,7 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and (author like'%" + discount + "%' or remarks like'%" + discount + "%')";
             }
-            
+
             strWhere += " group by bookNum," + type;
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);

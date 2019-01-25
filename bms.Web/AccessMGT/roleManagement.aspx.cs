@@ -70,7 +70,7 @@ namespace bms.Web.AccessMGT
             search = Request["search"];
             if (search != "" && search != null)
             {
-                search = String.Format(" roleName = '{0}'",search);
+                search = String.Format(" roleName like '%{0}%'",search);
             }
             else
             {

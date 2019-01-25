@@ -250,7 +250,7 @@ namespace bms.Web.CustomerMGT
             }
             else if ((book == "" || book == null) && (isbn != "" && isbn != null) && (custom == null || custom == ""))
             {
-                search = "ISBN=" + isbn;
+                search = "ISBN like %" + isbn + "%";
             }
             else if ((book == "" || book == null) && (custom != "" && custom != null) && (isbn == null || isbn == ""))
             {
@@ -258,11 +258,11 @@ namespace bms.Web.CustomerMGT
             }
             else if ((book == "" || book == null) && (custom != "" && custom != null) && (isbn != null && isbn != ""))
             {
-                search = "ISBN='" + isbn + "' and customerName='" + custom + "'";
+                search = "ISBN like '%" + isbn + "%' and customerName='" + custom + "'";
             }
             else if ((book != "" && book != null) && (isbn != null && isbn != "") && (custom == null || custom == ""))
             {
-                search = String.Format(" bookName like '%{0}%' and ISBN = '{1}'", book, isbn);
+                search = String.Format(" bookName like '%{0}%' and ISBN like '%{1}%'", book, isbn);
             }
             else if ((book != "" && book != null) && (isbn == null || isbn == "") && (custom != null && custom != ""))
             {
@@ -270,7 +270,7 @@ namespace bms.Web.CustomerMGT
             }
             else
             {
-                search = String.Format(" bookName like '%{0}%' and ISBN = '{1}' and customerName='{2}'", book, isbn, custom);
+                search = String.Format(" bookName like '%{0}%' and ISBN like '%{1}%' and customerName='{2}'", book, isbn, custom);
             }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_LibraryCollection";

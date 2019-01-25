@@ -133,15 +133,15 @@ namespace bms.Web.InventoryMGT
             string singHeadId = Request["singHeadId"];
             if (userName != "" && userName != null)
             {
-                search += " and userName= '"+ userName + "'";
+                search += " and userName like '%"+ userName + "%'";
             }
             if (region != "" && region != null)
             {
-                search += " and regionName='" + region + "'";
+                search += " and regionName like '%" + region + "%'";
             }
             if (singHeadId != "" && singHeadId != null)
             {
-                search += " and singleHeadId='" + singHeadId + "'";
+                search += " and singleHeadId like '%" + singHeadId + "%'";
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
