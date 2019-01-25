@@ -43,6 +43,10 @@ namespace bms.Web.ReportStatistics
             {
                 exportDetail();
             }
+            if (op == "print")
+            {
+                Print();
+            }
             else
             {
                 permission();
@@ -62,6 +66,65 @@ namespace bms.Web.ReportStatistics
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
+        }
+
+        private String Print()
+        {
+            User user = (User)Session["user"];
+            int regionId = user.ReginId.RegionId;
+            string roleName = user.RoleId.RoleName;
+            string strWhere = "";
+            string groupbyType = Request["groupbyType"];
+            string supplier = Request["supplier"];
+            string regionName = Request["regionName"];
+            if (groupbyType == "state" || groupbyType == null)
+            {
+                groupbyType = "supplier";
+            }
+            if (supplier != "" && supplier != null)
+            {
+                strWhere = "supplier='" + supplier + "'";
+            }
+            if (regionName != "" && regionName != null)
+            {
+                strWhere = "regionName='" + regionName + "'";
+            }
+            if (roleName != "超级管理员")
+            {
+                if (strWhere == "" || strWhere == null)
+                {
+                    strWhere = "regionId=" + regionId;
+                }
+                else
+                {
+                    strWhere += "and regionId=" + regionId;
+                }
+            }
+            string str = "";
+            if (strWhere == "" || strWhere == null)
+            {
+                str = groupbyType + " like'%'";
+            }
+            else
+            {
+                str = strWhere;
+            }
+            DataTable dt = StockBll.bookStock(str, groupbyType).Tables[0];
+            int count = dt.Rows.Count;
+            StringBuilder strb = new StringBuilder();
+            for (int i = 0; i < count; i++)
+            {
+                DataRow dr = dt.Rows[i];
+                strb.Append("<tr><td>" + (i + 1) + "</td>");
+                strb.Append("<td>" + dr[0].ToString() + "</td>");
+                strb.Append("<td>" + dr[1].ToString() + "</td>");
+                strb.Append("<td>" + dr[2].ToString() + "</td>");
+                strb.Append("<td>" + dr[3].ToString() + "</td>");
+                //strb.Append("<td>" + dr[4].ToString() + "</td></tr>");
+            }
+            Response.Write(strb.ToString());
+            Response.End();
+            return strb.ToString();
         }
 
         private void exportAll()
@@ -97,7 +160,7 @@ namespace bms.Web.ReportStatistics
                     strWhere += "and regionId=" + regionId;
                 }
             }
-            string str="";
+            string str = "";
             if (strWhere == "" || strWhere == null)
             {
                 str = groupbyType + " like'%'";
@@ -109,7 +172,7 @@ namespace bms.Web.ReportStatistics
             string file = "书籍库存导出" + DateTime.Now.ToString("yyyyMMddHHmmss");
             DataTable dt = StockBll.bookStock(str, groupbyType).Tables[0];
             int count = dt.Rows.Count;
-            if (count>0)
+            if (count > 0)
             {
                 ExcelHelp.dtToExcelForXlsxByNpoi(dt, file);
             }
@@ -162,7 +225,7 @@ namespace bms.Web.ReportStatistics
                 str = strWhere;
             }
             string file = "书籍库存明细导出" + DateTime.Now.ToString("yyyyMMddHHmmss");
-            DataTable dt = StockBll.bookStockDe(str,groupbyType);
+            DataTable dt = StockBll.bookStockDe(str, groupbyType);
             int count = dt.Rows.Count;
             if (count > 0)
             {

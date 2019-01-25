@@ -436,7 +436,7 @@ namespace bms.Web.SalesMGT
                     for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
                     {
                         int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
-                        int goodsId = Convert.ToInt32(stockbook.Tables[0].Rows[j]["goodsShelvesId"]);
+                        string goodsId = stockbook.Tables[0].Rows[j]["goodsShelvesId"].ToString();
                         if (number <= stockNum)
                         {
                             int stockcount = stockNum - number;

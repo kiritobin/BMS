@@ -143,15 +143,15 @@ namespace bms.Web.BasicInfor
             
                 if (singleHeadId != "" && singleHeadId != null)
                 {
-                    search += " and singleHeadId='" + singleHeadId + "'";
+                    search += " and singleHeadId like '%" + singleHeadId + "%'";
                 }
                 if (regionName != "" && regionName != null)
                 {
-                    search += " and regionName='" + regionName + "'";
+                    search += " and regionName like '%" + regionName + "%'";
                 }
                 if (userName != "" && userName != null)
                 {
-                    search += " and userName='" + userName + "'";
+                    search += " and userName like '%" + userName + "%'";
                 }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";

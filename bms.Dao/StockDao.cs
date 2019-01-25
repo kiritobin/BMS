@@ -31,7 +31,7 @@ namespace bms.Dao
         /// <param name="stockNum">库存数量</param>
         /// <param name="goodsShelvesId">货架号</param>
         /// <returns></returns>
-        public int update(int stockNum, int goodsShelvesId, string bookNum)
+        public int update(int stockNum, string goodsShelvesId, string bookNum)
         {
             string cmdText = "update T_Stock set stockNum=@stockNum where goodsShelvesId=@goodsShelvesId and bookNum=@bookNum";
             string[] param = { "@stockNum", "@goodsShelvesId", "@bookNum" };
@@ -106,7 +106,7 @@ namespace bms.Dao
         /// <param name="bookNum">书号</param>
         /// <param name="goodsShelf">货架Id</param>
         /// <returns></returns>
-        public int getStockNum(string bookNum, int goodsShelf, int regionId)
+        public int getStockNum(string bookNum, string goodsShelf, int regionId)
         {
             string cmdText = "select stockNum from T_Stock where goodsShelvesId = @goodsShelf and bookNum=@bookNum and regionId=@regionId";
             String[] param = { "@goodsShelf", "@bookNum", "@regionId" };
@@ -129,7 +129,7 @@ namespace bms.Dao
         /// <param name="bookNum">书号</param>
         /// <param name="goodsShelf">货架号</param>
         /// <returns></returns>
-        public int GetByBookNum(string bookNum, int goodsShelf)
+        public int GetByBookNum(string bookNum, string goodsShelf)
         {
             string cmdText = "select count(stockId) from T_Stock where bookNum=@bookNum and goodsShelvesId=@goodsShelf";
             String[] param = { "@bookNum", "@goodsShelf" };

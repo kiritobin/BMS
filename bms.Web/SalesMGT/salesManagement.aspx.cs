@@ -418,7 +418,7 @@ namespace bms.Web.SalesMGT
                                 replenBll.updateRsHead(upRsHead);
                                 for (int t = 0; t < stockbook.Tables[0].Rows.Count; t++)
                                 {
-                                    int goodsID = int.Parse(stockbook.Tables[0].Rows[t]["goodsShelvesId"].ToString());
+                                    string goodsID = stockbook.Tables[0].Rows[t]["goodsShelvesId"].ToString();
                                     stockbll.update(0, goodsID, bookNum);
                                 }
                             }
@@ -471,7 +471,7 @@ namespace bms.Web.SalesMGT
                             replenBll.updateRsHead(upRsHead);
                             for (int t = 0; t < stockbook.Tables[0].Rows.Count; t++)
                             {
-                                int goodsID = int.Parse(stockbook.Tables[0].Rows[t]["goodsShelvesId"].ToString());
+                                string goodsID = stockbook.Tables[0].Rows[t]["goodsShelvesId"].ToString();
                                 stockbll.update(0, goodsID, bookNum);
                             }
                         }
@@ -488,7 +488,7 @@ namespace bms.Web.SalesMGT
                     for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
                     {
                         int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
-                        int goodsId = Convert.ToInt32(stockbook.Tables[0].Rows[j]["goodsShelvesId"]);
+                        string goodsId = stockbook.Tables[0].Rows[j]["goodsShelvesId"].ToString();
                         if (number <= stockNum)
                         {
                             int stockcount = stockNum - number;
@@ -558,27 +558,27 @@ namespace bms.Web.SalesMGT
             }
             else if ((saleHeadId == "" || saleHeadId == null) && (regionName != "" && regionName != null) && (userName == null || userName == ""))
             {
-                search = "regionName='" + regionName + "'";
+                search = "regionName like '%" + regionName + "%'";
             }
             else if ((saleHeadId == "" || saleHeadId == null) && (userName != "" && userName != null) && (regionName == null || regionName == ""))
             {
-                search = "userName='" + userName + "'";
+                search = "userName like '%" + userName + "%'";
             }
             else if ((saleHeadId == "" || saleHeadId == null) && (userName != "" && userName != null) && (regionName != null && regionName != ""))
             {
-                search = "regionName='" + regionName + "' and userName='" + userName + "'";
+                search = "regionName like '%" + regionName + "%' and userName like '%" + userName + "%'";
             }
             else if ((saleHeadId != "" && saleHeadId != null) && (regionName != null && regionName != "") && (userName == null || userName == ""))
             {
-                search = String.Format(" saleHeadId like '%{0}%' and regionName = '{1}'", saleHeadId, regionName);
+                search = String.Format(" saleHeadId like '%{0}%' and regionName like '%{1}%'", saleHeadId, regionName);
             }
             else if ((saleHeadId != "" && saleHeadId != null) && (regionName == null || regionName == "") && (userName != null && userName != ""))
             {
-                search = String.Format(" saleHeadId like '%{0}%' and userName='{1}'", saleHeadId, userName);
+                search = String.Format(" saleHeadId like '%{0}%' and userName like '%{1}%'", saleHeadId, userName);
             }
             else
             {
-                search = String.Format(" saleHeadId like '%{0}%' and regionName = '{1}' and userName='{2}'", saleHeadId, regionName, userName);
+                search = String.Format(" saleHeadId like '%{0}%' and regionName like '{1}' and userName like '%{2}%'", saleHeadId, regionName, userName);
             }
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleHead";

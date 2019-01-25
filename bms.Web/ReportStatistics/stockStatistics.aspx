@@ -381,7 +381,7 @@
                                                 <button class="btn btn-sm btn-info" id="exportDe">导出明细</button>
                                             </div>
                                             <div class="btn-group">
-                                                <button class="btn btn-sm btn-info" id="print" data-toggle="modal">打印报表</button>
+                                                <button class="btn btn-sm btn-info" id="print">打印报表</button>
                                             </div>
                                         </div>
                                     </div>

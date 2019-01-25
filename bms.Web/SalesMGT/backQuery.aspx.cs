@@ -315,7 +315,7 @@ namespace bms.Web.SalesMGT
             string shelvesId = stockDs.Tables[0].Rows[0]["goodsShelvesId"].ToString();//获取货架Id
             string oldStockNum = stockDs.Tables[0].Rows[0]["stockNum"].ToString();//原来的库存量
             int stockNum = newstockNum + int.Parse(oldStockNum);
-            Result row = stbll.update(stockNum, int.Parse(shelvesId), bookNo);
+            Result row = stbll.update(stockNum, shelvesId, bookNo);
             if (row == Result.更新成功)
             {
                 return "更新成功";

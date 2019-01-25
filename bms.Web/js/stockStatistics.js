@@ -682,5 +682,4 @@ function AddTitle() {
     LODOP.ADD_PRINT_LINE(45, 465, 70, 465, 0, 1);
     LODOP.ADD_PRINT_LINE(45, 565, 70, 565, 0, 1);
     LODOP.ADD_PRINT_LINE(45, 670, 70, 670, 0, 1);
-
 };

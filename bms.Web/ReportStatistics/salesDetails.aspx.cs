@@ -80,7 +80,7 @@ namespace bms.Web.ReportStatistics
             string state = Request["state"];
             if (isbn != null && isbn != "")
             {
-                strWhere += " and isbn='" + isbn + "'";
+                strWhere += " and isbn like '%" + isbn + "%'";
             }
             if (price != null && price != "")
             {
@@ -196,8 +196,64 @@ namespace bms.Web.ReportStatistics
         /// </summary>
         public void export()
         {
+            string strWhere = "";
+            if (type == "supplier")
+            {
+                strWhere = "supplier = '" + name + "' and deleteState=0";
+            }
+            else if (type == "regionName")
+            {
+                strWhere = "regionName = '" + name + "' and deleteState=0";
+            }
+            else if (type == "customerName")
+            {
+                strWhere = "customerName = '" + name + "' and deleteState=0";
+            }
+            groupType = strWhere;
+            dsUser = detailsBll.getUser(groupType);
+            string isbn = Request["isbn"];
+            string price = Request["price"];
+            string discount = Request["discount"];
+            string user = Request["user"];
+            string time = Request["time"];
+            string state = Request["state"];
+            if (isbn != null && isbn != "")
+            {
+                strWhere += " and isbn like '%" + isbn + "%'";
+            }
+            if (price != null && price != "")
+            {
+                strWhere += " and price='" + price + "'";
+            }
+            if (discount != null && discount != "")
+            {
+                strWhere += " and realDiscount='" + discount + "'";
+            }
+            if (user != null && user != "" && user != "0")
+            {
+                strWhere += " and userName='" + user + "'";
+            }
+            if (time != null && time != "")
+            {
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+            }
+            if (state != null && state != "" && state != "-1")
+            {
+                if (state == "1")
+                {
+                    strWhere += " and (state='1' or state='2')";
+                }
+                else
+                {
+                    strWhere += " and state='" + state + "'";
+                }
+            }
+
             string Name = name + "-销售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = detailsBll.ExportExcels(groupType,type);
+            DataTable dt = detailsBll.ExportExcels(strWhere,type);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/报表导出/销售报表导出/" + Name + ".xlsx");
@@ -213,7 +269,63 @@ namespace bms.Web.ReportStatistics
 
         public String Print()
         {
-            DataTable dt = detailsBll.ExportExcels(groupType, type);
+            string strWhere = "";
+            if (type == "supplier")
+            {
+                strWhere = "supplier = '" + name + "' and deleteState=0";
+            }
+            else if (type == "regionName")
+            {
+                strWhere = "regionName = '" + name + "' and deleteState=0";
+            }
+            else if (type == "customerName")
+            {
+                strWhere = "customerName = '" + name + "' and deleteState=0";
+            }
+            groupType = strWhere;
+            dsUser = detailsBll.getUser(groupType);
+            string isbn = Request["isbn"];
+            string price = Request["price"];
+            string discount = Request["discount"];
+            string user = Request["user"];
+            string time = Request["time"];
+            string state = Request["state"];
+            if (isbn != null && isbn != "")
+            {
+                strWhere += " and isbn like '%" + isbn + "%'";
+            }
+            if (price != null && price != "")
+            {
+                strWhere += " and price='" + price + "'";
+            }
+            if (discount != null && discount != "")
+            {
+                strWhere += " and realDiscount='" + discount + "'";
+            }
+            if (user != null && user != "" && user != "0")
+            {
+                strWhere += " and userName='" + user + "'";
+            }
+            if (time != null && time != "")
+            {
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+            }
+            if (state != null && state != "" && state != "-1")
+            {
+                if (state == "1")
+                {
+                    strWhere += " and (state='1' or state='2')";
+                }
+                else
+                {
+                    strWhere += " and state='" + state + "'";
+                }
+            }
+
+            DataTable dt = detailsBll.ExportExcels(strWhere, type);
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < dt.Rows.Count; i++)
             {

@@ -7,13 +7,13 @@ namespace bms.Model
 {
     public class GoodsShelves
     {
-        private int goodsShelvesId;
+        private string goodsShelvesId;
         private string shelvesName;
         private Region regionId;
         /// <summary>
         /// 货架ID
         /// </summary>
-        public int GoodsShelvesId
+        public string GoodsShelvesId
         {
             get
             {
@@ -66,7 +66,7 @@ namespace bms.Model
         /// <param name="goodsShelvesId">货架ID</param>
         /// <param name="shelvesName">货架名称</param>
         /// <param name="regionId">地区ID</param>
-        public GoodsShelves(int goodsShelvesId, string shelvesName, Region regionId)
+        public GoodsShelves(string goodsShelvesId, string shelvesName, Region regionId)
         {
             this.GoodsShelvesId = goodsShelvesId;
             this.ShelvesName = shelvesName;
