@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $("#print_table").hide();
+    $("#printContent").hide();
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -128,7 +128,7 @@
         $("#numberModal").modal('hide');
     })
 
-    $("#print").click(function () {
+    $("#zhen").click(function () {
         var isbn = $("#isbn").val();
         var price = $("#price").val();
         var discount = $("#discount").val();
@@ -209,6 +209,75 @@
             })
         }
     })
+    $("#a4").click(function () {
+        var isbn = $("#isbn").val();
+        var price = $("#price").val();
+        var discount = $("#discount").val();
+        var bookName = $("#bookName").val();
+        var stockNumber = $("#stock").val();
+        $.ajax({
+            type: 'Post',
+            url: 'bookStockDetail.aspx',
+            data: {
+                op: "print",
+                bookName: bookName,
+                stockNumber: stockNumber,
+                isbn: isbn,
+                price: price,
+                discount: discount
+            },
+            dataType: 'text',
+            beforeSend: function (XMLHttpRequest) { //开始请求
+                swal({
+                    text: "正在获取数据",
+                    imageUrl: "../imgs/load.gif",
+                    imageHeight: 100,
+                    imageWidth: 100,
+                    width: 180,
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            },
+            success: function (data) {
+                $("#pname").html("<h3>库存明细</h3>");
+                $(".swal2-container").remove();
+                $("#print_table tr:not(:first)").remove(); //清空table处首行
+                $("#print_table").append(data); //加载table
+                $('#printContent').show();
+                $("#printContent").jqprint();
+                $('#printContent').hide();
+            },
+            error: function (XMLHttpRequest, textStatus) { //请求失败
+                $(".swal2-container").remove();
+                $('#printContent').hide();
+                if (textStatus == 'timeout') {
+                    var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                    xmlhttp.abort();
+                    swal({
+                        title: "提示",
+                        text: "请求超时",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                } else if (textStatus == "error") {
+                    swal({
+                        title: "提示",
+                        text: "服务器内部错误",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                }
+            }
+        })
+    })
 });
 
 function GetQueryString(name) {
@@ -274,7 +343,7 @@ function MyPreview() {
     //LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 860, 0, 1);
     LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 14, 0, 1);
     LODOP.SET_PRINT_PAGESIZE(3, 2000, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
-    LODOP.PREVIEW();
+    LODOP.PRINT_DESIGN();
 };
 function AddTitle() {
     var printISBN = $("#print_table").find('tr').eq(0).find('th').eq(1).text().trim();
