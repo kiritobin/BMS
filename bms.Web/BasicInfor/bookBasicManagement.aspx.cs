@@ -347,27 +347,27 @@ namespace bms.Web.BasicInfor
             }
             else if ((bookName == "" || bookName == null) && (bookNum != "" && bookNum != null) && (bookISBN == null || bookISBN == ""))
             {
-                search = "bookNum='" + bookNum + "'";
+                search = "bookNum like '%" + bookNum + "%'";
             }
             else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum == null || bookNum == ""))
             {
-                search = "ISBN='" + bookISBN + "'";
+                search = "ISBN like '%" + bookISBN + "%'";
             }
             else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum != null && bookNum != ""))
             {
-                search = "bookNum='" + bookNum + "' and ISBN='" + bookISBN + "'";
+                search = "bookNum like '%" + bookNum + "%' and ISBN like '%" + bookISBN + "%'";
             }
             else if ((bookName != "" && bookName != null) && (bookNum != null && bookNum != "") && (bookISBN == null || bookISBN == ""))
             {
-                search = String.Format(" bookName like '%{0}%' and bookNum = '{1}'", bookName, bookNum);
+                search = String.Format(" bookName like '%{0}%' and bookNum like '{1}'", bookName, bookNum);
             }
             else if ((bookName != "" && bookName != null) && (bookNum == null || bookNum == "") && (bookISBN != null && bookISBN != ""))
             {
-                search = String.Format(" bookName like '%{0}%' and ISBN='{1}'", bookName, bookISBN);
+                search = String.Format(" bookName like '%{0}%' and ISBN like '%{1}%'", bookName, bookISBN);
             }
             else
             {
-                search = String.Format(" bookName like '%{0}%' and bookNum ='{1}' and ISBN='{2}'", bookName, bookNum, bookISBN);
+                search = String.Format(" bookName like '%{0}%' and bookNum like '%{1}%' and ISBN like '%{2}%'", bookName, bookNum, bookISBN);
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();

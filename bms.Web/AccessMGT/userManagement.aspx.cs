@@ -160,31 +160,31 @@ namespace bms.Web.AccessMGT
             }
             else if ((userName != "" && userName != null) && (region == null || region == "") && (role == null || role == ""))
             {
-                search = String.Format(" userName= '{0}' and deleteState=0", userName);
+                search = String.Format(" userName like '%{0}%' and deleteState=0", userName);
             }
             else if ((userName == "" || userName == null) && (region != "" && region != null) && (role == null || role == ""))
             {
-                search = "regionName='" + region + "'  and deleteState=0";
+                search = "regionName like '%" + region + "%'  and deleteState=0";
             }
             else if ((userName == "" || userName == null) && (role != "" && role != null) && (region == null || region == ""))
             {
-                search = "roleName='" + role + "'  and deleteState=0";
+                search = "roleName like '%" + role + "%'  and deleteState=0";
             }
             else if ((userName == "" || userName == null) && (role != "" && role != null) && (region != null && region != ""))
             {
-                search = "regionName='" + region + "' and roleName='" + role + "'  and deleteState=0";
+                search = "regionName like '%" + region + "%' and roleName like '%" + role + "%'  and deleteState=0";
             }
             else if ((userName != "" && userName != null) && (region != null && region != "") && (role == null || role == ""))
             {
-                search = String.Format(" userName= '{0}' and regionName = '{1}'  and deleteState=0", userName, region);
+                search = String.Format(" userName like '%{0}%' and regionName like '%{1}%'  and deleteState=0", userName, region);
             }
             else if ((userName != "" && userName != null) && (region == null || region == "") && (role != null && role != ""))
             {
-                search = String.Format(" userName= '{0}' and roleName='{1}'  and deleteState=0", userName, role);
+                search = String.Format(" userName like '{0}' and roleName like '%{1}%'  and deleteState=0", userName, role);
             }
             else
             {
-                search = String.Format(" userName= '{0}' and regionName = '{1}' and roleName='{2}'  and deleteState=0", userName, region, role);
+                search = String.Format(" userName like '{0}' and regionName like '%{1}%' and roleName like '%{2}%'  and deleteState=0", userName, region, role);
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();

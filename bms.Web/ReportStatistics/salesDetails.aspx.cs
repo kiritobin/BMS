@@ -80,7 +80,7 @@ namespace bms.Web.ReportStatistics
             string state = Request["state"];
             if (isbn != null && isbn != "")
             {
-                strWhere += " and isbn='" + isbn + "'";
+                strWhere += " and isbn like '%" + isbn + "%'";
             }
             if (price != null && price != "")
             {
