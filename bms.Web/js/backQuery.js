@@ -1,11 +1,12 @@
 ﻿$(document).ready(function () {
+    $("#pname").text("");
     //sessionStorage.removeItem("save");
     //导出
     $("#export").click(function () {
         window.location.href = "backQuery.aspx?op=export";
     })
     //打印
-    $("#print").click(function () {
+    $("#zhen").click(function () {
         //$("#print_content").jqprint();
         var status = "";
         var LODOP = getLodop();
@@ -25,7 +26,7 @@
             //window.location.reload();
             LODOP = getLodop();
             //LODOP.PRINT_INITA(0, 0, 577, 10000, "打印控件功能演示_Lodop功能_不同高度幅面");
-            LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#XSRW").val() + "销退单");
+            LODOP.ADD_PRINT_TEXT(30, 248, 308, 30, $("#XSRW").val() + "   销退单");
             LODOP.SET_PRINT_PAGESIZE(3, 2200, 0, "");
             LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
             LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
@@ -103,6 +104,11 @@
             //window.location.reload();
 
         }
+    })
+    $("#a4").click(function () {
+        $("#pname").text($("#XSRW").val() + "   销退单");
+        $("#print_content").jqprint();
+        $("#pname").text("");
     })
     //只允许输入数字
     $("#table").delegate("#inputISBN", "keyup", function (e) {

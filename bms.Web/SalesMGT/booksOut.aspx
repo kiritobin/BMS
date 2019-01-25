@@ -103,6 +103,8 @@
         </div>
     </div>
     <script src="../js/jquery.min.js"></script>
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/checkLogined.js"></script>
     <script src="../js/public.js"></script>
     <script>
         function reload() {

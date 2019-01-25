@@ -44,6 +44,7 @@ namespace bms.Web.BasicInfor
                     regionId = user.ReginId.RegionId;
                 }
                 string shelfName = Request["shelfName"];
+                string shelfNo = Request["shelfNo"];
 
                 Region reg = new Region()
                 {
@@ -51,11 +52,12 @@ namespace bms.Web.BasicInfor
                 };
                 GoodsShelves shelves = new GoodsShelves()
                 {
+                    GoodsShelvesId = shelfNo,
                     ShelvesName = shelfName,
                     RegionId = reg
                 };
-                Result row = shelvesbll.selectByName(shelves);
-                if (row == Result.记录不存在)
+                int row = shelvesbll.selectByName(shelves);
+                if(row == 0)
                 {
                     Result result = shelvesbll.Insert(shelves);
                     if (result == Result.添加成功)
@@ -69,11 +71,41 @@ namespace bms.Web.BasicInfor
                         Response.End();
                     }
                 }
-                else
+                else if(row == 1)
                 {
-                    Response.Write("货架名已存在");
+                    Response.Write("货架编号已存在");
                     Response.End();
                 }
+                else if (row == -1)
+                {
+                    Response.Write("货架名称已存在");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("货架编号，货架名称已存在");
+                    Response.End();
+                }
+                //Result row = shelvesbll.selectByName(shelves);
+                //if (row == Result.记录不存在)
+                //{
+                //    Result result = shelvesbll.Insert(shelves);
+                //    if (result == Result.添加成功)
+                //    {
+                //        Response.Write("添加成功");
+                //        Response.End();
+                //    }
+                //    else
+                //    {
+                //        Response.Write("添加成功");
+                //        Response.End();
+                //    }
+                //}
+                //else
+                //{
+                //    Response.Write("货架名已存在");
+                //    Response.End();
+                //}
             }
             if (op == "del")
             {
@@ -218,7 +250,6 @@ namespace bms.Web.BasicInfor
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * PageSize)) + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["goodsShelvesId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["shelvesName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
                 strb.Append("<td>" + "<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "</button>" + " </td></tr>");

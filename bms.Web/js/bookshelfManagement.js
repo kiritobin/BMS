@@ -152,11 +152,20 @@
         } else {
             region = "";
         }
+        var shelfNo = $("#shelfNo").val().trim();
         var shelfName = $("#shelfName").val().trim();
-        if (shelfName == "") {
+        if (shelfNo == "") {
             swal({
                 title: "温馨提示:)",
-                text: "货架不能为空，请您输入货架号!",
+                text: "货架编号不能为空，请您输入货架编号!",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        } else if (shelfName == "") {
+            swal({
+                title: "温馨提示:)",
+                text: "货架名称不能为空，请您输入货架名称!",
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"
@@ -168,6 +177,7 @@
                 url: 'bookshelfManagement.aspx',
                 data: {
                     regionId: region,
+                    shelfNo: shelfNo,
                     shelfName: shelfName,
                     op: "add"
                 },
@@ -189,7 +199,7 @@
                         })
                     } else {
                         swal({
-                            title: succ,
+                            title: "错误提示",
                             text: succ,
                             type: "warning",
                             confirmButtonColor: '#3085d6',

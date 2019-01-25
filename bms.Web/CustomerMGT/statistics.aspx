@@ -168,7 +168,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -209,7 +209,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcBook||funcBookStock)
+                    <%if (funcBook || funcBookStock)
                         { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
@@ -429,17 +429,18 @@
             'selectedText': 'cat'
         });
     </script>--%>
-        <script src="../js/jquery-3.3.1.min.js"></script>
-        <!-- 左侧导航栏所需js -->
-        <script src="../js/popper.min.js"></script>
-        <script src="../js/bootstrap-material-design.min.js"></script>
-        <!-- 移动端手机菜单所需js -->
-        <script src="../js/perfect-scrollbar.jquery.min.js"></script>
-        <script src="../js/material-dashboard.min.js"></script>
-        <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <!-- 左侧导航栏所需js -->
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap-material-design.min.js"></script>
+    <!-- 移动端手机菜单所需js -->
+    <script src="../js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../js/material-dashboard.min.js"></script>
+    <script src="../js/bootstrap-selectpicker.js"></script>
     <script src="../js/defaults-zh_CN.js"></script>
-        <script src="../js/sweetalert2.js"></script>
-        <script src="../js/public.js"></script>
-        <script src="../js/statistics.js"></script>
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/public.js"></script>
+    <script src="../js/statistics.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 </html>

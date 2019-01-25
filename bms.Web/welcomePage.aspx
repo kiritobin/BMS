@@ -161,7 +161,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -345,7 +345,7 @@
                                 </div>
                                 <div class="card-body text-center">
                                     <div>
-                                        <img src="imgs/welcome.png" height="550" alt="welcome" style="margin-top: 20px; margin-bottom: 20px;" />
+                                        <img src="imgs/ynxhts.jpg" height="550" alt="welcome" style="margin-top: 20px; margin-bottom: 20px;" />
                                     </div>
                                 </div>
                             </div>
@@ -382,6 +382,7 @@
     <script src="../js/material-dashboard.min.js"></script>
     <script src="../js/sweetalert2.js"></script>
     <script src="../js/welcome.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 </html>
 

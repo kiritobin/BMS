@@ -107,14 +107,14 @@ namespace bms.Web.InventoryMGT
                         string bookNum = dtInsert.Rows[k]["书号"].ToString();
                         int count = Convert.ToInt32(dtInsert.Rows[k]["商品数量"]);
                         string isbn = dtInsert.Rows[k]["ISBN"].ToString();
-                        Result results = stockBll.GetByBookNum(bookNum, int.Parse(goods));//判断是否已经有库存
+                        Result results = stockBll.GetByBookNum(bookNum, goods);//判断是否已经有库存
                         book.BookNum = bookNum;
                         book.Isbn = isbn;
                         stock.BookNum = book;
                         stock.ISBN = book;
                         stock.StockNum = count;
                         rg.RegionId = regionId;
-                        gs.GoodsShelvesId = int.Parse(goods);
+                        gs.GoodsShelvesId = goods;
                         stock.RegionId = rg;
                         stock.GoodsShelvesId = gs;
                         if (results == Result.记录不存在)
@@ -128,8 +128,8 @@ namespace bms.Web.InventoryMGT
                         }
                         else
                         {
-                            int rows = stockBll.getStockNum(bookNum, int.Parse(goods), regionId);
-                            Result result = stockBll.update((count + rows), int.Parse(goods), bookNum);
+                            int rows = stockBll.getStockNum(bookNum, goods, regionId);
+                            Result result = stockBll.update((count + rows), goods, bookNum);
                             if (result == Result.更新失败)
                             {
                                 Response.Write("更新库存失败");
@@ -600,7 +600,7 @@ namespace bms.Web.InventoryMGT
                         stock.BookNum = bookBasic;
                         stock.RegionId = user.ReginId;
                         GoodsShelves goodsShelves = new GoodsShelves();
-                        int goodsShelf = Convert.ToInt32(drow["货架号"]);
+                        string goodsShelf = drow["货架号"].ToString();
                         goodsShelves.GoodsShelvesId = goodsShelf;//货架ID
                         stock.GoodsShelvesId = goodsShelves;
                         Result results = stockBll.GetByBookNum(drow["书号"].ToString(), goodsShelf);

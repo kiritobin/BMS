@@ -167,7 +167,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -545,6 +545,7 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/tradeManagement.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/checkLogined.js"></script>
     <script>
         saleCustmer
         $("#saleCustmer").selectpicker({

@@ -50,7 +50,7 @@
                                         <button class="btn btn-info btn-sm" id="export">导出</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="print">打印</button>
+                                        <button class="btn btn-info btn-sm" id="print" data-toggle="modal" data-target="#printmodel">打印</button>
                                     </div>
                                     <%} %>
                                     <%
@@ -63,6 +63,7 @@
                                 </div>
                             </div>
                             <div class="content_tab" id="print_content">
+                                <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
                                 <%if (type == "search")
                                     { %>
                                 <div id="content">
@@ -164,6 +165,27 @@
             </div>
         </div>
     </div>
+
+    <!--打印弹窗-->
+    <div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" style="max-width: 300px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title float-left" id="showTittle">请选择打印方式</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body text-center" style="max-height: 400px;">
+                    <div>
+                        <button type="button" class="btn btn-info" id="a4">A4纸打印</button>
+                        <button type="button" class="btn btn-info" id="zhen">多联纸打印</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- js file -->
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->
@@ -180,8 +202,9 @@
     <script src="../js/defaults-zh_CN.js"></script>
     <script src="../js/backQuery.js"></script>
     <script src="../js/jquery-migrate-1.2.1.min.js"></script>
-    <%--<script src="../js/jquery.jqprint.js"></script>--%>
+    <script src="../js/jquery.jqprint.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/checkLogined.js"></script>
     <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
         <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
     </object>

@@ -167,7 +167,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -472,6 +472,7 @@
         <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
     </object>
     <script src="../js/LodopFuncs.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

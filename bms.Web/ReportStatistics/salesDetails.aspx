@@ -164,7 +164,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -381,7 +381,7 @@
                                             <div class="form-group form-group-sm">
                                                 <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
                                                 <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
-                                                <button type="button" class="btn btn-sm btn-info" id="print">打印</button>
+                                                <button type="button" class="btn btn-sm btn-info" id="print" data-toggle="modal" data-target="#printmodel">打印</button>
                                                 <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
                                         </form>
@@ -445,16 +445,20 @@
                     </div>
                 </div>
             </div>
-            <!--获取数据模态框-->
+            <!--打印弹窗-->
             <div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width:200px">
+                <div class="modal-dialog" style="max-width: 300px">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title float-left" id="">正在获取数据</h4>
+                            <h4 class="modal-title float-left" id="showTittle">请选择打印方式</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
                         </div>
-                        <div class="modal-body text-center" style="max-height: 200px;">
+                        <div class="modal-body text-center" style="max-height: 400px;">
                             <div>
-                                <img src="../imgs/load.gif" height="100" width="100" />
+                                <button type="button" class="btn btn-info" id="a4">A4纸打印</button>
+                                <button type="button" class="btn btn-info" id="zhen">多联纸打印</button>
                             </div>
                         </div>
                     </div>
@@ -506,7 +510,10 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive" id="printContent">
+                <p>
+                    <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
+                </p>
                 <table class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
@@ -585,6 +592,9 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/LodopFuncs.js"></script>
     <script src="../js/sweetalert2.js"></script>
+    <script src="../js/checkLogined.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/jquery.jqprint.js"></script>
     <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
         <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
     </object>

@@ -170,7 +170,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -377,9 +377,9 @@
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr>
-                                                    <th>单据号</th>
+                                                    <th>单据编号</th>
                                                     <th>组织名称</th>
-                                                    <th>操作员名称</th>
+                                                    <th>操作员</th>
                                                     <th>单据总数</th>
                                                     <th>总码洋</th>
                                                     <th>总实洋</th>
@@ -467,6 +467,7 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/returnManagement.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

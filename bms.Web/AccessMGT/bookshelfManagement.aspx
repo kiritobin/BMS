@@ -167,7 +167,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -347,7 +347,7 @@
                                         <!-- 表格头部按钮功能组 -->
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="search_region" class="searchOne" placeholder="请输入分公司名称">
+                                                <input type="text" id="search_region" class="searchOne" placeholder="请输入所属地区">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="search_goods" value="" class="searchOne" placeholder="请输入货架名称">
@@ -369,9 +369,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>序号</th>
-                                                    <th>货架ID</th>
                                                     <th>货架名称</th>
-                                                    <th>所属地区</th>
+                                                    <th>组织名称</th>
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
@@ -462,6 +461,12 @@
                                 </tr>
                                 <%} %>
                                 <tr>
+                                    <td class="text-right"><span>货架编号:</span></td>
+                                    <td>
+                                        <input type="text" value="" class="modal_search" id="shelfNo" placeholder="请输入货架编号">
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td class="text-right"><span>货架名称:</span></td>
                                     <td>
                                         <input type="text" value="" class="modal_search" id="shelfName" placeholder="请输入货架名称">
@@ -520,5 +525,6 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/bookshelfManagement.js"></script>
     <script src="../js/ajaxfileupload.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 </html>

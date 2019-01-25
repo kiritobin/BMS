@@ -19,38 +19,38 @@ namespace bms.Web
         RSACryptoService rsa = new RSACryptoService();
 
         //单点登录判断
-        //private void isLogined(string id)
-        //{
-        //    Hashtable hOnline = (Hashtable)Application["Online"];
-        //    if (hOnline != null)
-        //    {
-        //        int i = 0;
-        //        while (i < hOnline.Count)
-        //        {
-        //            IDictionaryEnumerator idE = hOnline.GetEnumerator();
-        //            string strKey = "";
-        //            while (idE.MoveNext())
-        //            {
-        //                if (idE.Value != null && idE.Value.ToString().Equals(id))
-        //                {
-        //                    //already login              
-        //                    strKey = idE.Key.ToString();
-        //                    hOnline[strKey] = "XXXXXX";
-        //                    break;
-        //                }
-        //            }
-        //            i = i + 1;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        hOnline = new Hashtable();
-        //    }
-        //    hOnline[Session.SessionID] = id;
-        //    Application.Lock();
-        //    Application["Online"] = hOnline;
-        //    Application.UnLock();
-        //}
+        private void isLogined(string id)
+        {
+            Hashtable hOnline = (Hashtable)Application["Online"];
+            if (hOnline != null)
+            {
+                int i = 0;
+                while (i < hOnline.Count)
+                {
+                    IDictionaryEnumerator idE = hOnline.GetEnumerator();
+                    string strKey = "";
+                    while (idE.MoveNext())
+                    {
+                        if (idE.Value != null && idE.Value.ToString().Equals(id))
+                        {
+                            //already login              
+                            strKey = idE.Key.ToString();
+                            hOnline[strKey] = "XXXXXX";
+                            break;
+                        }
+                    }
+                    i = i + 1;
+                }
+            }
+            else
+            {
+                hOnline = new Hashtable();
+            }
+            hOnline[Session.SessionID] = id;
+            Application.Lock();
+            Application["Online"] = hOnline;
+            Application.UnLock();
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             UserBll userBll = new UserBll();
@@ -81,7 +81,7 @@ namespace bms.Web
                         Session["HashTicket"] = HashTicket;
                         HttpCookie UserCookie = new HttpCookie(FormsAuthentication.FormsCookieName, HashTicket); //生成Cookie 
                         Context.Response.Cookies.Add(UserCookie); //票据写入Cookie
-                                                                  //isLogined(account);
+                        isLogined(account);
                         TokenHelper token = new TokenHelper();
                         str = token.Produce(account);
                         Response.Write(str);

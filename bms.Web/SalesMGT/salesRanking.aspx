@@ -104,6 +104,8 @@
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/sweetalert2.js"></script>
+    <script src="../js/checkLogined.js"></script>
     <script>
         function reload() {
             //window.location.reload();

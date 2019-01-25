@@ -126,7 +126,7 @@ namespace bms.Web.SalesMGT
                     {
                         number = count;
                         int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
-                        int goodsId = Convert.ToInt32(dsStock.Tables[0].Rows[j]["goodsShelvesId"]);
+                        string goodsId = dsStock.Tables[0].Rows[j]["goodsShelvesId"].ToString();
                         if (stockNum > number)
                         {
                             Result stock = stockBll.update(stockNum - count, goodsId, bookNum);

@@ -16,7 +16,7 @@ jeDate("#endTime", {
     format: "YYYY-MM-DD"
 });
 $(document).ready(function () {
-    $("#print_table").hide();
+    $("#printContent").hide();
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -160,7 +160,7 @@ $(document).ready(function () {
     $("#back").click(function () {
         window.location.href = "warehouseStatistics.aspx";
     })
-    $("#print").click(function () {
+    $("#zhen").click(function () {
         var type = GetQueryString("type");
         var _n = GetQueryString("name")
         var name = decodeURI(_n);
@@ -249,6 +249,80 @@ $(document).ready(function () {
             })
         }
     })
+    $("#a4").click(function () {
+        var type = GetQueryString("type");
+        var _n = GetQueryString("name")
+        var name = decodeURI(_n);
+        var isbn = $("#isbn").val();
+        var price = $("#price").val();
+        var discount = $("#discount").val();
+        var user = $("#user").val();
+        var time = $("#time").val();
+        $.ajax({
+            type: 'Post',
+            url: 'warehouseDetails.aspx',
+            data: {
+                type: type,
+                name: name,
+                isbn: isbn,
+                price: price,
+                discount: discount,
+                user: user,
+                time: time,
+                op: "print"
+            },
+            dataType: 'text',
+            beforeSend: function (XMLHttpRequest) { //开始请求
+                swal({
+                    text: "正在获取数据",
+                    imageUrl: "../imgs/load.gif",
+                    imageHeight: 100,
+                    imageWidth: 100,
+                    width: 180,
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            },
+            success: function (data) {
+                $("#pname").html("<h3>出库明细</h3>");
+                $(".swal2-container").remove();
+                $("#print_table tr:not(:first)").remove(); //清空table处首行
+                $("#print_table").append(data); //加载table
+                $('#printContent').show();
+                $("#printContent").jqprint();
+                $('#printContent').hide();
+            },
+            error: function (XMLHttpRequest, textStatus) { //请求失败
+                $(".swal2-container").remove();
+                $('#printContent').hide();
+                if (textStatus == 'timeout') {
+                    var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                    xmlhttp.abort();
+                    swal({
+                        title: "提示",
+                        text: "请求超时",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                } else if (textStatus == "error") {
+                    swal({
+                        title: "提示",
+                        text: "服务器内部错误",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                }
+            }
+        })
+    })
 });
 
 function GetQueryString(name) {
@@ -324,45 +398,23 @@ function MyPreview() {
 function AddTitle() {
     LODOP = getLodop();
     LODOP.PRINT_INIT("出库明细");
-    LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "出库明细");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.SET_PRINT_PAGESIZE(3, 2000, 100, "");
+    LODOP.ADD_PRINT_TEXT(10, 230, 152, 30, "出库明细");
+    LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
+    LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 15, 100, 20, "ISBN");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 120, 150, 20, "书号");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 220, 250, 20, "书名");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 415, 100, 20, "定价");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.SET_PRINT_STYLEA(0, "FontSize", 8);
     LODOP.ADD_PRINT_TEXT(50, 455, 100, 20, "数量");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 490, 100, 20, "码洋");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 530, 100, 20, "实洋");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 570, 100, 20, "折扣");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 610, 100, 20, "供应商");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 685, 100, 20, "制单员");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 730, 100, 20, "制单日期");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 805, 100, 20, "出库组织");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     //横线
     LODOP.ADD_PRINT_LINE(45, 14, 45, 900, 0, 1);
     LODOP.ADD_PRINT_LINE(75, 14, 75, 900, 0, 1);

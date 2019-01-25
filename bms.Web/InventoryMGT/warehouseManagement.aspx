@@ -170,7 +170,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -354,7 +354,7 @@
                                                 <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
+                                                <input type="text" id="region" class="searchOne" placeholder="请输入收货组织">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
@@ -375,7 +375,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>单据编号</th>
-                                                    <th>操作员名称</th>
+                                                    <th>操作员</th>
                                                     <%--<th>发货组织</th>--%>
                                                     <th>收货组织</th>
                                                     <th>单据总数</th>
@@ -465,6 +465,7 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/warehouseManagement.js"></script>
     <script src="../js/public.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

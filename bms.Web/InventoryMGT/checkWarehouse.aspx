@@ -167,7 +167,7 @@
                         <a class="nav-link" href="#saleManage" data-toggle="collapse">
                             <i class="fa fa-area-chart"></i>
                             <p>
-                                销售管理
+                                团采管理
                                 <b class="caret"></b>
                             </p>
                         </a>
@@ -208,7 +208,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcBook||funcBookStock)
+                    <%if (funcBook || funcBookStock)
                         { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
@@ -472,7 +472,66 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive" id="a4t">
+                <p>
+                    <h3 class="table-responsive" style="text-align: center"><span id="pname"></span>出库单</h3>
+                </p>
+                <table class="table table_stock text-right">
+                    <tr class="text-nowrap">
+                        <td>
+                            <span>单据编号:</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" disabled value="<%=shId %>" />
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span>操作员:</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" disabled value="<%=shOperator %>" />
+                        </td>
+                    </tr>
+                    <tr class="text-nowrap">
+                        <td>
+                            <span>接收组织:</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" disabled value="<%=shRegionName %>" />
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span>制单日期:</span>
+                        </td>
+                        <td>
+                            <div class="jeinpbox">
+                                <input type="text" class="jeinput form-control" disabled value="<%=shTime %>" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="text-nowrap">
+                        <td>
+                            <span>单据总数:</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" disabled value="<%=shCount %>">
+                        </td>
+                        <td>
+                            <span>总码洋:</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" disabled value="<%=shTotalPrice %>">
+                        </td>
+                        <td>
+                            <span>总实洋:</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" disabled value="<%=shRealPrice %>">
+                        </td>
+                    </tr>
+                </table>
                 <table class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr>
@@ -505,13 +564,13 @@
                             </td>
                         </tr>
                     </thead>
-                    
+
                 </table>
             </div>
 
             <!--打印弹窗-->
             <div class="modal fade" id="printmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width:200px">
+                <div class="modal-dialog" style="max-width: 300px">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="showTittle">请选择打印方式</h4>
@@ -519,10 +578,10 @@
                                 <i class="fa fa-close"></i>
                             </button>
                         </div>
-                        <div class="modal-body text-center" style="max-height: 200px;">
+                        <div class="modal-body text-center" style="max-height: 400px;">
                             <div>
-                                <button type="button" class="btn btn-info" id="">A4纸打印</button>
-                                <button type="button" class="btn btn-info" id="">信纸打印</button>
+                                <button type="button" class="btn btn-info" id="a4">A4纸打印</button>
+                                <button type="button" class="btn btn-info" id="zhen">多联纸打印</button>
                             </div>
                         </div>
                     </div>
@@ -568,6 +627,9 @@
         <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0"></embed>
     </object>
     <script src="../js/LodopFuncs.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/jquery.jqprint.js"></script>
+    <script src="../js/checkLogined.js"></script>
 </body>
 
 </html>

@@ -36,7 +36,7 @@ namespace bms.Bll
         /// <param name="stockNum">库存数量</param>
         /// <param name="goodsShelvesId">货架号</param>
         /// <returns></returns>
-        public Result update(int stockNum, int goodsShelvesId, string bookNum)
+        public Result update(int stockNum, string goodsShelvesId, string bookNum)
         {
             int row = stockDao.update(stockNum, goodsShelvesId, bookNum);
             if (row > 0)
@@ -111,7 +111,7 @@ namespace bms.Bll
         /// <param name="bookNum">书号</param>
         /// <param name="goodsShelf">货架号</param>
         /// <returns></returns>
-        public Result GetByBookNum(string bookNum, int goodsShelf)
+        public Result GetByBookNum(string bookNum, string goodsShelf)
         {
             int row = stockDao.GetByBookNum(bookNum, goodsShelf);
             if (row > 0)
@@ -130,7 +130,7 @@ namespace bms.Bll
         /// <param name="bookNum">书号</param>
         /// <param name="goodsShelf">货架Id</param>
         /// <returns></returns>
-        public int getStockNum(string bookNum, int goodsShelf,int regionId)
+        public int getStockNum(string bookNum, string goodsShelf,int regionId)
         {
             return stockDao.getStockNum(bookNum, goodsShelf, regionId);
         }
