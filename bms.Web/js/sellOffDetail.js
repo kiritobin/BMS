@@ -155,7 +155,14 @@ $(document).ready(function () {
     });
     //导出
     $("#export").click(function () {
-        window.location.href = "sellOffDetail.aspx?op=export";
+        var isbn = $("#isbn").val();
+        var price = $("#price").val();
+        var discount = $("#discount").val();
+        var user = $("#user").val();
+        var time = $("#time").val();
+        var state = $("#state").val();
+
+        window.location.href = "sellOffDetail.aspx?op=export&&isbn=" + isbn + "&&price=" + price + "&&discount=" + discount + "&&user=" + user + "&&time=" + time + "&&state=" + state;
     })
     //返回上一页
     $("#back").click(function () {
@@ -178,10 +185,22 @@ $(document).ready(function () {
             });
         }
         else {
+            var isbn = $("#isbn").val();
+            var price = $("#price").val();
+            var discount = $("#discount").val();
+            var user = $("#user").val();
+            var time = $("#time").val();
+            var state = $("#state").val();
             $.ajax({
                 type: 'Post',
                 url: 'sellOffDetail.aspx',
                 data: {
+                    isbn: isbn,
+                    price: price,
+                    discount: discount,
+                    user: user,
+                    time: time,
+                    state: state,
                     op: "print"
                 },
                 dataType: 'text',
@@ -234,10 +253,22 @@ $(document).ready(function () {
         }
     })
     $("#a4").click(function () {
+        var isbn = $("#isbn").val();
+        var price = $("#price").val();
+        var discount = $("#discount").val();
+        var user = $("#user").val();
+        var time = $("#time").val();
+        var state = $("#state").val();
         $.ajax({
             type: 'Post',
             url: 'sellOffDetail.aspx',
             data: {
+                isbn: isbn,
+                price: price,
+                discount: discount,
+                user: user,
+                time: time,
+                state: state,
                 op: "print"
             },
             dataType: 'text',

@@ -343,7 +343,7 @@ function MyPreview() {
     //LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 860, 0, 1);
     LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 14, 0, 1);
     LODOP.SET_PRINT_PAGESIZE(3, 2000, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
-    LODOP.PRINT_DESIGN();
+    LODOP.PREVIEW();
 };
 function AddTitle() {
     var printISBN = $("#print_table").find('tr').eq(0).find('th').eq(1).text().trim();
@@ -357,37 +357,20 @@ function AddTitle() {
     var printreginName = $("#print_table").find('tr').eq(0).find('th').eq(9).text().trim();
 
     LODOP = getLodop();
+
     LODOP.PRINT_INIT("库存明细");
-    LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "库存明细");
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
+    LODOP.ADD_PRINT_TEXT(7, 341, 115, 30, "库存明细");
+    LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
+    LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 15, 100, 20, printISBN);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 120, 150, 20, printbookNum);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 220, 250, 20, printbookName);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 415, 100, 20, printprice);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 455, 100, 20, printsupplier);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 500, 100, 20, printstockNum);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 560, 100, 20, printinDiscount);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 620, 100, 20, printoutDiscount);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 690, 100, 20, printreginName);
-    LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
-    LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     //横线
     LODOP.ADD_PRINT_LINE(45, 14, 45, 770, 0, 1);
     LODOP.ADD_PRINT_LINE(75, 14, 75, 770, 0, 1);
