@@ -334,7 +334,6 @@ namespace bms.Web.BasicInfor
                 DataColumn dc = new DataColumn("地区ID", typeof(int));
                 dc.DefaultValue = regId;
                 dt1.Columns.Add(dc);
-                dt1.Columns.Add("id").SetOrdinal(0);
                 row = dt1.Rows.Count;
             }
             catch (Exception ex)
@@ -345,7 +344,7 @@ namespace bms.Web.BasicInfor
             return dt1;
         }
         //某字段table去重方法
-        private DataTable GetDistinctSelf(DataTable SourceDt, string field)
+        private DataTable GetDistinctSelf(DataTable SourceDt, string field1,string field2)
         {
             int j = SourceDt.Rows.Count;
             if (j > 1)
@@ -355,8 +354,9 @@ namespace bms.Web.BasicInfor
                 while (i <= k)
                 {
                     DataRow dr = SourceDt.Rows[i];
-                    string isbn = dr[field].ToString();
-                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{1}'", field, isbn));
+                    string a = dr[field1].ToString();
+                    string b = dr[field2].ToString();
+                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{1}' or {2}='{3}'", field1, a,field2,b));
                     if (rows.Length > 1)
                     {
                         SourceDt.Rows.RemoveAt(i);
@@ -390,7 +390,7 @@ namespace bms.Web.BasicInfor
             if (j <= 0)
             {
                 //except = excelToDt();
-                except=GetDistinctSelf(excel, "货架名称");
+                except=GetDistinctSelf(excel, "货架编号", "货架名称");
             }
             else
             {
@@ -403,8 +403,9 @@ namespace bms.Web.BasicInfor
                 {
                     try
                     {
-                        string goodsName = ToSBC(row[1].ToString());
-                        DataRow[] rows = dataSet.Tables[0].Select(string.Format("shelvesName='{0}'", goodsName));
+                        string goodsShelvesId = row[0].ToString();
+                        string goodsName = row[1].ToString();
+                        DataRow[] rows = dataSet.Tables[0].Select(string.Format("goodsShelvesId='{0}' or shelvesName='{1}'", goodsShelvesId,goodsName));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
                             except.Rows.Add(row[0], row[1], row[2]);
