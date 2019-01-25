@@ -763,6 +763,9 @@
     <Compile Include="wechat\retailManagement.ashx.cs">
       <DependentUpon>retailManagement.ashx</DependentUpon>
     </Compile>
+    <Compile Include="wechat\saleTask.ashx.cs">
+      <DependentUpon>saleTask.ashx</DependentUpon>
+    </Compile>
     <Compile Include="welcomePage.aspx.cs">
       <DependentUpon>welcomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -821,6 +824,7 @@
     <Content Include="wechat\headManagement.ashx" />
     <Content Include="wechat\monomersdetail.ashx" />
     <Content Include="wechat\addmonomers.ashx" />
+    <Content Include="wechat\saleTask.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Customer\" />
