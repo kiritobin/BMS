@@ -358,7 +358,7 @@ function AddTitle() {
 
     LODOP = getLodop();
     LODOP.PRINT_INIT("库存明细");
-    LODOP.ADD_PRINT_TEXT("15, 102, 355, 30, 库存明细");
+    LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "库存明细");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 15, 100, 20, printISBN);
