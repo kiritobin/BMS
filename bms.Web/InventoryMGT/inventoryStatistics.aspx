@@ -39,7 +39,7 @@
                             <div class="card-header from-group">
                                 <div class="input-group">
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="bookNum" placeholder="请输入书号">
+                                        <input type="text" value="" class="" id="bookIsbn" placeholder="请输入ISBN">
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="bookName" placeholder="请输入书名">

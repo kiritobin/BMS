@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
+    <link rel="stylesheet" href="../css/jedate.css" />
+    <script src="../js/jedate.min.js"></script>
 </head>
 
 <body>
@@ -357,6 +359,9 @@
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                 <input type="text" class="searchOne" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#timeModal" />
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
@@ -429,6 +434,54 @@
                     </div>
                 </div>
             </div>
+
+            <!--时间选择模态框-->
+            <div class="modal fade" id="timeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="timeModalLabel">请选择查询时间段</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="max-height: 400px; overflow: auto;">
+                            <table class="table text-center model-table">
+                                <tr>
+                                    <td class="text-right" style="width: 40%">开始时间:
+                                    </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 40%">结束时间:
+                                    </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            <button type="button" class="btn btn-info" id="btnOK">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">

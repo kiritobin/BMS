@@ -359,6 +359,9 @@
                                                 <input type="text" value="" class="searchOne" id="bookISBN" placeholder="请输入ISBN">
                                             </div>
                                             <div class="btn-group" role="group">
+                                                <input type="text" value="" class="searchOne" id="bookGys" placeholder="请输入供应商">
+                                            </div>
+                                            <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <%if (funcBook)

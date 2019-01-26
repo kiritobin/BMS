@@ -337,38 +337,83 @@ namespace bms.Web.BasicInfor
             string bookName = Request["bookName"];
             string bookNum = Request["bookNum"];
             string bookISBN = Request["bookISBN"];
-            if ((bookName == "" || bookName == null) && (bookNum == null || bookNum == "") && (bookISBN == null || bookISBN == ""))
+            string bookGys = Request["bookGys"];
+            if (bookName != "" && bookName != null)
             {
-                search = "";
+                if (search == "" || search == null)
+                {
+                    search += "bookName like '%" + bookName + "%'";
+                }
+                else
+                {
+                    search += " and bookName like '%" + bookName + "%'";
+                }
             }
-            else if ((bookName != "" && bookName != null) && (bookNum == null || bookNum == "") && (bookISBN == null || bookISBN == ""))
+            if (bookNum != "" && bookNum != null)
             {
-                search = String.Format(" bookName like '%{0}%'", bookName);
+                if (search == "" || search == null)
+                {
+                    search += "bookNum like '%" + bookNum + "%'";
+                }
+                else
+                {
+                    search += " and bookNum like '%" + bookNum + "%'";
+                }
             }
-            else if ((bookName == "" || bookName == null) && (bookNum != "" && bookNum != null) && (bookISBN == null || bookISBN == ""))
+            if (bookISBN != "" && bookISBN != null)
             {
-                search = "bookNum like '%" + bookNum + "%'";
+                if (search == "" || search == null)
+                {
+                    search += "isbn like '%" + bookISBN + "%'";
+                }
+                else
+                {
+                    search += " and isbn like '%" + bookISBN + "%'";
+                }
             }
-            else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum == null || bookNum == ""))
+            if (bookGys != "" && bookGys != null)
             {
-                search = "ISBN like '%" + bookISBN + "%'";
+                if (search == "" || search == null)
+                {
+                    search += "supplier like '%" + bookGys + "%'";
+                }
+                else
+                {
+                    search += " and supplier like '%" + bookGys + "%'";
+                }
             }
-            else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum != null && bookNum != ""))
-            {
-                search = "bookNum like '%" + bookNum + "%' and ISBN like '%" + bookISBN + "%'";
-            }
-            else if ((bookName != "" && bookName != null) && (bookNum != null && bookNum != "") && (bookISBN == null || bookISBN == ""))
-            {
-                search = String.Format(" bookName like '%{0}%' and bookNum like '{1}'", bookName, bookNum);
-            }
-            else if ((bookName != "" && bookName != null) && (bookNum == null || bookNum == "") && (bookISBN != null && bookISBN != ""))
-            {
-                search = String.Format(" bookName like '%{0}%' and ISBN like '%{1}%'", bookName, bookISBN);
-            }
-            else
-            {
-                search = String.Format(" bookName like '%{0}%' and bookNum like '%{1}%' and ISBN like '%{2}%'", bookName, bookNum, bookISBN);
-            }
+            //if ((bookName == "" || bookName == null) && (bookNum == null || bookNum == "") && (bookISBN == null || bookISBN == ""))
+            //{
+            //    search = "";
+            //}
+            //else if ((bookName != "" && bookName != null) && (bookNum == null || bookNum == "") && (bookISBN == null || bookISBN == ""))
+            //{
+            //    search = String.Format(" bookName like '%{0}%'", bookName);
+            //}
+            //else if ((bookName == "" || bookName == null) && (bookNum != "" && bookNum != null) && (bookISBN == null || bookISBN == ""))
+            //{
+            //    search = "bookNum like '%" + bookNum + "%'";
+            //}
+            //else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum == null || bookNum == ""))
+            //{
+            //    search = "ISBN like '%" + bookISBN + "%'";
+            //}
+            //else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum != null && bookNum != ""))
+            //{
+            //    search = "bookNum like '%" + bookNum + "%' and ISBN like '%" + bookISBN + "%'";
+            //}
+            //else if ((bookName != "" && bookName != null) && (bookNum != null && bookNum != "") && (bookISBN == null || bookISBN == ""))
+            //{
+            //    search = String.Format(" bookName like '%{0}%' and bookNum like '{1}'", bookName, bookNum);
+            //}
+            //else if ((bookName != "" && bookName != null) && (bookNum == null || bookNum == "") && (bookISBN != null && bookISBN != ""))
+            //{
+            //    search = String.Format(" bookName like '%{0}%' and ISBN like '%{1}%'", bookName, bookISBN);
+            //}
+            //else
+            //{
+            //    search = String.Format(" bookName like '%{0}%' and bookNum like '%{1}%' and ISBN like '%{2}%'", bookName, bookNum, bookISBN);
+            //}
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "T_BookBasicData";

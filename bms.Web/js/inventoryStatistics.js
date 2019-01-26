@@ -33,7 +33,7 @@ $(document).ready(function () {
         $('#resource').attr('placeholder', "请输入来源组织");
     }
 
-    var bookNum = $("#bookNum").val();
+    var bookIsbn = $("#bookIsbn").val();
     var bookName = $("#bookName").val();
     var supplier = $("#supplier").val();
     var time = $("#time").val();
@@ -54,7 +54,7 @@ $(document).ready(function () {
         nextContent: '下页',
         callback: function (api) {
             var bookName = $("#bookName").val();
-            var bookNum = $("#bookNum").val();
+            var bookIsbn = $("#bookIsbn").val();
             var btnISBN = $("#bookISBN").val();
             $.ajax({
                 type: 'Post',
@@ -62,7 +62,7 @@ $(document).ready(function () {
                 data: {
                     page: api.getCurrent(), //页码
                     type: type,
-                    bookNum: bookNum,
+                    bookIsbn: bookIsbn,
                     bookName: bookName,
                     supplier: supplier,
                     time: time,
@@ -82,7 +82,7 @@ $(document).ready(function () {
     });
 
     $("#btn_search").click(function () {
-        var bookNum = $("#bookNum").val();
+        var bookIsbn = $("#bookIsbn").val();
         var bookName = $("#bookName").val();
         var supplier = $("#supplier").val();
         var time = $("#time").val();
@@ -95,7 +95,7 @@ $(document).ready(function () {
             url: 'inventoryStatistics.aspx',
             data: {
                 type: type,
-                bookNum: bookNum,
+                bookIsbn: bookIsbn,
                 bookName: bookName,
                 supplier: supplier,
                 time: time,
@@ -123,7 +123,7 @@ $(document).ready(function () {
                     nextContent: '下页',
                     callback: function (api) {
                         var bookName = $("#bookName").val();
-                        var bookNum = $("#bookNum").val();
+                        var bookIsbn = $("#bookIsbn").val();
                         var btnISBN = $("#bookISBN").val();
                         $.ajax({
                             type: 'Post',
@@ -131,7 +131,7 @@ $(document).ready(function () {
                             data: {
                                 page: api.getCurrent(), //页码
                                 type: type,
-                                bookNum: bookNum,
+                                bookIsbn: bookIsbn,
                                 bookName: bookName,
                                 supplier: supplier,
                                 time: time,

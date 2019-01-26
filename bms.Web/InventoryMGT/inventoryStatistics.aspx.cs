@@ -57,7 +57,7 @@ namespace bms.Web.InventoryMGT
         //获取数据
         protected string getData()
         {
-            string bookNum = Request["bookNum"];
+            string bookIsbn = Request["bookIsbn"];
             string bookName = Request["bookName"];
             string supplier = Request["supplier"];
             string time = Request["time"];
@@ -82,9 +82,9 @@ namespace bms.Web.InventoryMGT
             {
                 type = 2;
             }
-            if(bookNum != null && bookNum != "")
+            if(bookIsbn != null && bookIsbn != "")
             {
-                where += " and bookNum='" + bookNum + "'";
+                where += " and isbn='" + bookIsbn + "'";
             }
             if (bookName != null && bookName != "")
             {

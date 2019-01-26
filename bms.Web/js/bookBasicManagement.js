@@ -355,6 +355,7 @@
             var bookName = $("#bookName").val();
             var bookNum = $("#bookNum").val();
             var btnISBN = $("#bookISBN").val();
+            var bookGys = $("#bookGys").val();
             $.ajax({
                 type: 'Post',
                 url: 'bookBasicManagement.aspx',
@@ -363,6 +364,7 @@
                     bookName: bookName,
                     bookNum: bookNum,
                     btnISBN: btnISBN,
+                    bookGys: bookGys,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -381,6 +383,7 @@ $("#btn-search").click(function () {
     var bookName = $("#bookName").val();
     var bookNum = $("#bookNum").val();
     var bookISBN = $("#bookISBN").val();
+    var bookGys = $("#bookGys").val();
     $.ajax({
         type: 'Post',
         url: 'bookBasicManagement.aspx',
@@ -388,6 +391,7 @@ $("#btn-search").click(function () {
             bookName: bookName,
             bookNum: bookNum,
             bookISBN: bookISBN,
+            bookGys: bookGys,
             op: "paging"
         },
         dataType: 'text',
@@ -416,6 +420,7 @@ $("#btn-search").click(function () {
                             bookName: bookName,
                             bookNum: bookNum,
                             bookISBN: bookISBN,
+                            bookGys: bookGys,
                             op: "paging"
                         },
                         dataType: 'text',

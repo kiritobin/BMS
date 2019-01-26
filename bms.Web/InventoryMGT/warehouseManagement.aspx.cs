@@ -133,6 +133,7 @@ namespace bms.Web.BasicInfor
             string singleHeadId = Request["ID"];
             string regionName = Request["region"];
             string userName = Request["user"];
+            string time = Request["time"];
             if (singleHeadId != "" && singleHeadId != null)
             {
                 search += " and singleHeadId like '%" + singleHeadId + "%'";
@@ -144,6 +145,13 @@ namespace bms.Web.BasicInfor
             if (userName != "" && userName != null)
             {
                 search += " and userName like '%" + userName + "%'";
+            }
+            if (time != null && time != "")
+            {
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                search += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
             }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";

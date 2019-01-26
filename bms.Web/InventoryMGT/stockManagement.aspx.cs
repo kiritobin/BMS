@@ -131,6 +131,7 @@ namespace bms.Web.InventoryMGT
             string userName = Request["userName"];
             string region = Request["regionName"];
             string singHeadId = Request["singHeadId"];
+            string time = Request["time"];
             if (userName != "" && userName != null)
             {
                 search += " and userName like '%"+ userName + "%'";
@@ -142,6 +143,13 @@ namespace bms.Web.InventoryMGT
             if (singHeadId != "" && singHeadId != null)
             {
                 search += " and singleHeadId like '%" + singHeadId + "%'";
+            }
+            if (time != null && time != "")
+            {
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                search += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
