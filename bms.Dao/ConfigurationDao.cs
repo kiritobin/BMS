@@ -16,14 +16,14 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(cmdText, null, null);
             return ds;
         }
-        public int Insert(DateTime startTime, DateTime endTime, string regionName)
+        public int Insert(DateTime startTime, DateTime endTime, string regionName, string type)
         {
             //string cmdText;
             //if (regionName != "" || regionName != null)
             //{
-            string cmdText = "insert into t_configuration(startTime,endTime,regionName) value(@startTime,@endTime,@regionName)";
-            string[] param = { "@startTime", "@endTime", "@regionName" };
-            object[] values = { startTime, endTime, regionName };
+            string cmdText = "insert into t_configuration(startTime,endTime,regionName,type) value(@startTime,@endTime,@regionName,@type)";
+            string[] param = { "@startTime", "@endTime", "@regionName", "@type" };
+            object[] values = { startTime, endTime, regionName, type };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
             //}
@@ -36,11 +36,11 @@ namespace bms.Dao
             //    return row;
             //}
         }
-        public int Update(DateTime startTime, DateTime endTime, string regionName)
+        public int Update(DateTime startTime, DateTime endTime, string regionName, string type)
         {
-            string cmdText = "update t_configuration set startTime=@startTime,endTime=@endTime where regionName=@regionName";
-            string[] param = { "@startTime", "@endTime", "@regionName" };
-            object[] values = { startTime, endTime, regionName };
+            string cmdText = "update t_configuration set startTime=@startTime,endTime=@endTime,type=@type where regionName=@regionName";
+            string[] param = { "@startTime", "@endTime", "@regionName", "@type" };
+            object[] values = { startTime, endTime, regionName, type };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -54,7 +54,7 @@ namespace bms.Dao
         }
         public DataSet getDateTime(string regionName)
         {
-            string cmdText = "select startTime,endTime from t_configuration where regionName=@regionName";
+            string cmdText = "select startTime,endTime,type from t_configuration where regionName=@regionName";
             string[] param = { "@regionName" };
             object[] values = { regionName };
             DataSet ds = db.FillDataSet(cmdText, param, values);

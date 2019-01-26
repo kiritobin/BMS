@@ -16,19 +16,23 @@ namespace bms.Web.SalesMGT
         protected int kindsNum, allCount;
         protected double allPrice;
         public DateTime startTime, endTime;
-        public string regionName;
+        public string regionName,type;
         RetailBll rtBll = new RetailBll();
         ConfigurationBll cBll = new ConfigurationBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            regionName = Session["regionName"].ToString();
-            DataSet timeDs = cBll.getDateTime(regionName);
-            if (timeDs.Tables[0].Rows.Count > 0)
+            if (!IsPostBack)
             {
-                string st = timeDs.Tables[0].Rows[0]["startTime"].ToString();
-                startTime = DateTime.Parse(st);
-                string et = timeDs.Tables[0].Rows[0]["endTime"].ToString();
-                endTime = DateTime.Parse(et);
+                regionName = Session["regionName"].ToString();
+                DataSet timeDs = cBll.getDateTime(regionName);
+                if (timeDs.Tables[0].Rows.Count > 0)
+                {
+                    string st = timeDs.Tables[0].Rows[0]["startTime"].ToString();
+                    startTime = DateTime.Parse(st);
+                    string et = timeDs.Tables[0].Rows[0]["endTime"].ToString();
+                    endTime = DateTime.Parse(et);
+                    type= timeDs.Tables[0].Rows[0]["type"].ToString();
+                }
             }
             groupRetail();
             GetData();

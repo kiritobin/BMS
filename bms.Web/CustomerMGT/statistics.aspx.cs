@@ -38,12 +38,13 @@ namespace bms.Web.CustomerMGT
                 string startTime = Request["startDt"].ToString(),
                 endTime = Request["endDt"].ToString(),
                 regionName = Request["regName"].ToString();
+                string type = Request["type"].ToString();
                 DateTime st = DateTime.Parse(startTime);
                 DateTime et = DateTime.Parse(endTime);
                 result = cBll.isExist(regionName);
                 if (result == Result.记录不存在)
                 {
-                    result = cBll.Insert(st, et, regionName);
+                    result = cBll.Insert(st, et, regionName,type);
                     if(result == Result.添加成功)
                     {
                         Response.Write("添加成功");
@@ -57,7 +58,7 @@ namespace bms.Web.CustomerMGT
                 }
                 else
                 {
-                    result = cBll.Update(st, et, regionName);
+                    result = cBll.Update(st, et, regionName,type);
                     if(result == Result.更新成功)
                     {
                         Response.Write("更新成功");

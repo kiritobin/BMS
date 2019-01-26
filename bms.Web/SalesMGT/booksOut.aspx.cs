@@ -17,7 +17,7 @@ namespace bms.Web.SalesMGT
         DataSet ds,groupDs;
         protected int kindsNum=0,allCount=0;
         public DateTime startTime, endTime;
-        public string regionName;
+        public string regionName,type;
         protected double allPrice;
         ConfigurationBll cBll = new ConfigurationBll();
         protected void Page_Load(object sender, EventArgs e)
@@ -30,13 +30,14 @@ namespace bms.Web.SalesMGT
                 startTime = DateTime.Parse(st);
                 string et = timeDs.Tables[0].Rows[0]["endTime"].ToString();
                 endTime = DateTime.Parse(et);
+                type = timeDs.Tables[0].Rows[0]["type"].ToString();
             }
             groupCount();
             GetData();
         }
         public String GetData()
         {
-            ds = smBll.SelectBookRanking(startTime,endTime,regionName);
+            ds = smBll.SelectBookRanking(startTime,endTime,regionName,type);
             StringBuilder sb = new StringBuilder();
             sb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -55,7 +56,7 @@ namespace bms.Web.SalesMGT
         }
         public void groupCount()
         {
-            DataSet groupds = smBll.GroupCount(startTime, endTime, regionName);
+            DataSet groupds = smBll.GroupCount(startTime, endTime, regionName,type);
             int count = groupds.Tables[0].Rows.Count;
             if (count > 0)
             {

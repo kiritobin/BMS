@@ -46,6 +46,7 @@ $(document).ready(function () {
         var st = $("#startTime").val();
         var et = $("#endTime").val();
         var rName = $("#cusSearch").find('option:selected').text();
+        var type = $("#searchKinds").find('option:selected').text();
         if (st == "" || st == null) {
             swal({
                 title: "温馨提示:)",
@@ -73,6 +74,15 @@ $(document).ready(function () {
                 type: "warning"
             }).catch(swal.noop);
         }
+        else if (type == "选择类型") {
+            swal({
+                title: "温馨提示:)",
+                text: "展示类型不能为空",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
         else {
             $.ajax({
                 type: "Post",
@@ -81,6 +91,7 @@ $(document).ready(function () {
                     startDt: st,
                     endDt: et,
                     regName: rName,
+                    type:type,
                     op: "sure"
                 },
                 dateType: "text",

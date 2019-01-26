@@ -18,20 +18,24 @@ namespace bms.Web.SalesMGT
         public double allPrice;
         public DataSet ds, groupDs;
         public DateTime startTime, endTime;
-        public string regionName;
+        public string regionName,type;
         SaleTaskBll salebll = new SaleTaskBll();
         SaleMonomerBll smBll = new SaleMonomerBll();
         ConfigurationBll cBll = new ConfigurationBll();
         protected void Page_Load(object sender, EventArgs e)
         {
-            regionName = Session["regionName"].ToString();
-            DataSet timeDs = cBll.getDateTime(regionName);
-            if (timeDs.Tables[0].Rows.Count > 0)
+            if (!IsPostBack)
             {
-                string st = timeDs.Tables[0].Rows[0]["startTime"].ToString();
-                startTime = DateTime.Parse(st);
-                string et = timeDs.Tables[0].Rows[0]["endTime"].ToString();
-                endTime = DateTime.Parse(et);
+                regionName = Session["regionName"].ToString();
+                DataSet timeDs = cBll.getDateTime(regionName);
+                if (timeDs.Tables[0].Rows.Count > 0)
+                {
+                    string st = timeDs.Tables[0].Rows[0]["startTime"].ToString();
+                    startTime = DateTime.Parse(st);
+                    string et = timeDs.Tables[0].Rows[0]["endTime"].ToString();
+                    endTime = DateTime.Parse(et);
+                    type = timeDs.Tables[0].Rows[0]["type"].ToString();
+                }
             }
             groupCount();
             string op = Request["op"];
@@ -67,7 +71,7 @@ namespace bms.Web.SalesMGT
 
         public string getData()
         {
-            ds = smBll.groupCustomer(startTime,endTime,regionName);
+            ds = smBll.groupCustomer(startTime,endTime,regionName,type);
             StringBuilder strb = new StringBuilder();
             strb.Append("<tbody>");
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -87,7 +91,7 @@ namespace bms.Web.SalesMGT
         }
         public void groupCount()
         {
-            DataSet groupds = smBll.GroupCount(startTime, endTime, regionName);
+            DataSet groupds = smBll.GroupCount(startTime, endTime, regionName,type);
             int count = groupds.Tables[0].Rows.Count;
             if (count > 0)
             {
