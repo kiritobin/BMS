@@ -177,10 +177,10 @@ $(document).ready(function () {
     $("#price_ok").click(function () {
         var type = $("input[name='priceRadios']:checked").val();
         var price = $("#inputprice").val();
-        if (number == "" || number == null) {
+        if (type == "" || type == null) {
             swal({
                 title: "提示",
-                text: "请输入数量",
+                text: "请选择类型",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
@@ -189,10 +189,10 @@ $(document).ready(function () {
                 allowOutsideClick: false
             });
         }
-        else if (type == "" || type == null) {
+        else if (price == "" || price == null) {
             swal({
                 title: "提示",
-                text: "请选择类型",
+                text: "请输入定价",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
