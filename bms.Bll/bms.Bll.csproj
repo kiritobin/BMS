@@ -42,6 +42,7 @@
     <Compile Include="BookBasicBll.cs" />
     <Compile Include="ConfigurationBll.cs" />
     <Compile Include="CustomerBll.cs" />
+    <Compile Include="customerPurchaseBll.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="FunctionBll.cs" />
     <Compile Include="GoodsShelvesBll.cs" />

@@ -36,7 +36,7 @@
                     <div class="navbar-wrapper">
                     </div>
                     <a class="btn btn-default btn-md" href="#"><%=userName %></a>
-                    <a class="btn btn-white btn-md" href="javascript:logout();">退出系统</a>
+                    <a class="btn btn-danger btn-md" href="javascript:logout();">退出系统</a>
                 </div>
             </nav>
             <!-- 主界面内容 -->
@@ -103,6 +103,33 @@
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
+                                        </table>
+                                        <table class="table table_stock text-center">
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>书籍种数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=kindsNum %>" class="form-control" disabled id="bookKinds">
+                                                </td>
+                                                <td>
+                                                    <span>书本总数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=allNum %>" class="form-control" disabled id="allBookCount"></td>
+                                                <td>
+                                                    <span>总码洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=Convert.ToDouble(allTotalPrice).ToString("F2") %>" class="form-control" disabled id="alltotalprice">
+                                                </td>
+                                                <td>
+                                                    <span>总实洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=Convert.ToDouble(allRealPrice).ToString("F2") %>" class="form-control" disabled id="allreadprice">
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
