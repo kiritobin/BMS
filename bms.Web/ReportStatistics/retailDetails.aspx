@@ -347,7 +347,7 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price" />
+                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price"   readonly="readonly" data-toggle="modal" data-target="#priceModal" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
@@ -356,7 +356,7 @@
                                             &nbsp;
                                             <div class="btn-group" role="group" style="width: 165px !important;">
                                                 <select class="modal_select selectpicker collectionStatus" data-live-search="true" title="请选择收银员" id="user">
-                                                    <option value="">全部</option>
+                                                    <option value="">全部收银员</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
                                                         for (int i = 0; i < count; i++)
                                                         {%>
@@ -367,7 +367,7 @@
                                             &nbsp;
                                             <div class="btn-group" role="group" style="width: 180px !important;" id="paySelect">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择支付方式" id="payment">
-                                                    <option value="">全部</option>
+                                                    <option value="">全部支付方式</option>
                                                     <option value="未支付">未支付</option>
                                                     <option value="现金">现金</option>
                                                     <option value="第三方">第三方</option>
@@ -516,6 +516,57 @@
                     </div>
                 </div>
             </div>
+
+            <%-- 定价 --%>
+            <div class="modal fade modal-mini modal-primary" id="priceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog" style="max-width: 580px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">按定价查询</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <table class="table text-center" id="table_priceModal">
+                                <tr>
+                                    <td class="text-right">方式：</td>
+                                    <td colspan="2" class="text-left">
+                                        <div style="margin-top: 8px">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="priceRadios" id="priceless" value="小于" checked>
+                                                小于
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="priceRadios" checked="checked" style="margin-left: 20px" id="priceequal" value="等于">
+                                                等于
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="priceRadios" style="margin-left: 20px" id="pricebig" value="大于">
+                                                大于
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">请输入定价：</td>
+                                    <td class="text-left" colspan="2">
+                                        <input type="number" value="" id="inputprice"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="price_clear" class="btn btn-success btn-sm" style="margin-right: 10px">
+                                清除
+                            </button>
+                            <button type="button" id="price_ok" class="btn btn-success btn-sm">
+                                确定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="table-responsive" id="printContent">
                 <p>
                     <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>

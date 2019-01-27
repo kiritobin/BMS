@@ -60,35 +60,65 @@ namespace bms.Web.ReportStatistics
             string time = Request["time"];
             string payment = Request["payment"];
             string strWhere = groupType;
-            string fileName = name;
             if (isbn != null && isbn != "")
             {
-                fileName += "-" + isbn;
                 strWhere += " and isbn='" + isbn + "'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                fileName += "-" + price;
-                strWhere += " and unitPrice=" + price;
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "unitPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "unitPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "unitPrice > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and unitPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and unitPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and unitPrice > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    fileName += "-" + price;
+            //    strWhere += " and unitPrice=" + price;
+            //}
             if (discount != null && discount != "")
             {
-                fileName += "-" + discount;
                 strWhere += " and realDiscount=" + discount;
             }
             if (user != null && user != "")
             {
-                fileName += "-" + user;
                 strWhere += " and userName='" + user + "'";
             }
             if (time != null && time != "")
             {
-                fileName += "-" + time;
                 strWhere += " and dateTime='" + time + "'";
             }
             if (payment != null && payment != "")
             {
-                fileName += "-" + payment;
                 strWhere += " and payment='" + payment + "'";
             }
             DataTable dt = retailBll.ExportExcel(strWhere, type);
@@ -140,10 +170,46 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and isbn like '%" + isbn + "%'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                strWhere += " and unitPrice='" + price + "'";
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "unitPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "unitPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "unitPrice > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and unitPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and unitPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and unitPrice > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    strWhere += " and unitPrice='" + price + "'";
+            //}
             if (discount != null && discount != "")
             {
                 strWhere += " and realDiscount='" + discount + "'";
@@ -190,13 +256,13 @@ namespace bms.Web.ReportStatistics
                 strb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
                 strb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                 strb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
-                strb.Append("<td>" + dr["supplier"].ToString() + "</td>");
                 strb.Append("<td>" + dr["number"].ToString() + "</td>");
                 strb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
                 strb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
                 strb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
                 strb.Append("<td>" + dr["dateTime"].ToString() + "</td>");
                 strb.Append("<td>" + dr["userName"].ToString() + "</td>");
+                strb.Append("<td>" + dr["supplier"].ToString() + "</td>");
                 strb.Append("<td>" + dr["payment"].ToString() + "</td>");
                 strb.Append("<td>" + dr["regionName"].ToString() + "</td></tr>");
             }
@@ -244,32 +310,63 @@ namespace bms.Web.ReportStatistics
             string fileName = name;
             if(isbn!=null&& isbn != "")
             {
-                fileName += "-" + isbn;
                 strWhere += " and isbn='" + isbn + "'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                fileName += "-" + price;
-                strWhere += " and unitPrice=" + price;
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "unitPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "unitPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "unitPrice > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and unitPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and unitPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and unitPrice > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    fileName += "-" + price;
+            //    strWhere += " and unitPrice=" + price;
+            //}
             if (discount != null && discount != "")
             {
-                fileName += "-" + discount;
                 strWhere += " and realDiscount=" + discount;
             }
             if (user != null && user != "")
             {
-                fileName += "-" + user;
                 strWhere += " and userName='" + user + "'";
             }
             if (time != null && time != "")
             {
-                fileName += "-" + time;
                 strWhere += " and dateTime='" + time + "'";
             }
             if (payment != null && payment != "")
             {
-                fileName += "-" + payment;
                 strWhere += " and payment='" + payment + "'";
             }
             string Name = fileName + "-零售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);

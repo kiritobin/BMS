@@ -40,7 +40,7 @@ $(document).ready(function () {
             var groupbyType;
             if (groupby == "供应商") {
                 groupbyType = "supplier";
-                if (supplier == "全部") {
+                if (supplier == "全部供应商") {
                     supplier = "";
                 }
                 regionName = "";
@@ -48,13 +48,13 @@ $(document).ready(function () {
             }
             else if (groupby == "组织") {
                 groupbyType = "regionName";
-                if (regionName == "全部") {
+                if (regionName == "全部组织") {
                     regionName = "";
                 }
                 supplier = "";
                 customerName = "";
             } else if (groupby == "客户") {
-                if (customerName == "全部") {
+                if (customerName == "全部客户") {
                     customerName = "";
                 }
                 groupbyType = "customerName";
@@ -121,7 +121,7 @@ $(document).ready(function () {
             var groupbyType;
             if (groupby == "供应商") {
                 groupbyType = "supplier";
-                if (supplier == "全部") {
+                if (supplier == "全部供应商") {
                     supplier = "";
                 }
                 regionName = "";
@@ -129,13 +129,13 @@ $(document).ready(function () {
             }
             else if (groupby == "组织") {
                 groupbyType = "regionName";
-                if (regionName == "全部") {
+                if (regionName == "全部组织") {
                     regionName = "";
                 }
                 supplier = "";
                 customerName = "";
             } else if (groupby == "客户") {
-                if (customerName == "全部") {
+                if (customerName == "全部客户") {
                     customerName = "";
                 }
                 groupbyType = "customerName";
@@ -185,7 +185,7 @@ $(document).ready(function () {
             var groupbyType;
             if (groupby == "供应商") {
                 groupbyType = "supplier";
-                if (supplier == "全部") {
+                if (supplier == "全部供应商") {
                     supplier = "";
                 }
                 regionName = "";
@@ -193,13 +193,13 @@ $(document).ready(function () {
             }
             else if (groupby == "组织") {
                 groupbyType = "regionName";
-                if (regionName == "全部") {
+                if (regionName == "全部组织") {
                     regionName = "";
                 }
                 supplier = "";
                 customerName = "";
             } else if (groupby == "客户") {
-                if (customerName == "全部") {
+                if (customerName == "全部客户") {
                     customerName = "";
                 }
                 groupbyType = "customerName";
@@ -292,7 +292,7 @@ $(document).ready(function () {
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
-            if (supplier == "全部") {
+            if (supplier == "全部供应商") {
                 supplier = "";
             }
             regionName = "";
@@ -300,13 +300,13 @@ $(document).ready(function () {
         }
         else if (groupby == "组织") {
             groupbyType = "regionName";
-            if (regionName == "全部") {
+            if (regionName == "全部组织") {
                 regionName = "";
             }
             supplier = "";
             customerName = "";
         } else if (groupby == "客户") {
-            if (customerName == "全部") {
+            if (customerName == "全部客户") {
                 customerName = "";
             }
             groupbyType = "customerName";

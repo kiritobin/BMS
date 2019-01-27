@@ -323,6 +323,45 @@ $(document).ready(function () {
             }
         })
     })
+
+    $("#price_ok").click(function () {
+        var type = $("input[name='priceRadios']:checked").val();
+        var price = $("#inputprice").val();
+        if (type == "" || type == null) {
+            swal({
+                title: "提示",
+                text: "请选择类型",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        }
+        else if (price == "" || price == null) {
+            swal({
+                title: "提示",
+                text: "请输入定价",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        }
+        else {
+            $("#price").val("");
+            $("#price").val(type + price);
+            $("#priceModal").modal('hide');
+        }
+    })
+    $("#price_clear").click(function () {
+        $("#price").val("");
+        $("#inputprice").val("");
+        $("#priceModal").modal('hide');
+    })
 });
 function logout() {
     swal({

@@ -72,10 +72,46 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and isbn='" + isbn + "'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                strWhere += " and uPrice=" + price;
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "uPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "uPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "uPrice > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and uPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and uPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and uPrice > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    strWhere += " and uPrice=" + price;
+            //}
             if (discount != null && discount != "")
             {
 
@@ -139,10 +175,46 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and isbn like '%" + isbn + "%'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                strWhere += " and uPrice='" + price + "'";
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "uPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "uPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "uPrice > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and uPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and uPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and uPrice > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    strWhere += " and uPrice='" + price + "'";
+            //}
             if (discount != null && discount != "")
             {
                 strWhere += " and discount='" + discount + "'";
@@ -237,27 +309,59 @@ namespace bms.Web.ReportStatistics
             string fileName = name;
             if (isbn != null && isbn != "")
             {
-                fileName += "-" + isbn;
                 strWhere += " and isbn='" + isbn + "'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                fileName += "-" + price;
-                strWhere += " and uPrice=" + price;
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "uPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "uPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "uPrice > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and uPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and uPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and uPrice > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    fileName += "-" + price;
+            //    strWhere += " and uPrice=" + price;
+            //}
             if (discount != null && discount != "")
             {
-                fileName += "-" + discount;
                 strWhere += " and discount=" + discount;
             }
             if (user != null && user != "")
             {
-                fileName += "-" + user;
                 strWhere += " and userName='" + user + "'";
             }
             if (time != null && time != "")
             {
-                fileName += "-" + time;
                 strWhere += " and time='" + time + "'";
             }
             string Name = fileName + "-出库明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
