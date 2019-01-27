@@ -1,4 +1,20 @@
-﻿//退出系统
+﻿jeDate("#startTime", {
+    theme: {
+        bgcolor: "#D91600",
+        pnColor: "#FF6653"
+    },
+    multiPane: true,
+    format: "YYYY-MM-DD"
+});
+jeDate("#endTime", {
+    theme: {
+        bgcolor: "#D91600",
+        pnColor: "#FF6653"
+    },
+    multiPane: true,
+    format: "YYYY-MM-DD"
+});
+//退出系统
 function logout() {
     swal({
         title: "温馨提示:)",
@@ -38,6 +54,10 @@ $(document).ready(function () {
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
+            //var bookName = $("#bookSearch").val().trim();
+            //var source = $("#goodsSearch").val().trim();
+            //var isbn = $("#isbnSearch").val().trim();
+            //var time = $("#time").val();
             $.ajax({
                 type: 'Post',
                 url: 'customerPurchase.aspx',
@@ -54,15 +74,56 @@ $(document).ready(function () {
         }
     });
 
+    //清空时间
+    $("#modalClose").click(function () {
+        $("#time").val("");
+        $("#myModal").modal('hide');
+    })
+    //选择时间后确定
+    $("#btnOK").click(function () {
+        var startTime = $("#startTime").val();
+        var endTime = $("#endTime").val();
+        if (startTime == "" || startTime == null) {
+            swal({
+                title: "提示",
+                text: "请选择开始时间",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else if (endTime == "" || endTime == null) {
+            swal({
+                title: "提示",
+                text: "请选择结束时间",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else {
+            $("#time").val(startTime + "至" + endTime);
+            $("#myModal").modal('hide');
+        }
+    })
+
     $("#btn-search").click(function () {
         var bookName = $("#bookSearch").val().trim();
         var source = $("#goodsSearch").val().trim();
+        var isbn = $("#isbnSearch").val().trim();
+        var time = $("#time").val();
         $.ajax({
             type: 'Post',
             url: 'customerPurchase.aspx',
             data: {
                 bookName: bookName,
                 source: source,
+                isbn: isbn,
+                time: time,
                 op: "paging"
             },
             dataType: 'text',
@@ -90,6 +151,8 @@ $(document).ready(function () {
                                 page: api.getCurrent(), //页码
                                 bookName: bookName,
                                 source: source,
+                                isbn: isbn,
+                                time: time,
                                 op: "paging"
                             },
                             dataType: 'text',
