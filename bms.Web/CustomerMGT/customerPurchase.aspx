@@ -54,8 +54,14 @@
                                             <div class="btn-group" role="group">
                                                 <input type="text" value="" class="searchOne" id="bookSearch" placeholder="请输入书名">
                                             </div>
+                                            <!--下拉列表-->
+                                            <%--<div class="btn-group" role="group" style="width: 165px !important;">
+                                                <select class="modal_select selectpicker collectionStatus" data-live-search="true" title="请输入团采地点" id="goodsSearch">
+                                                    <option value="">全部</option>
+                                                </select>
+                                            </div>--%>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="goodsSearch" placeholder="请输入供应商">
+                                                <input type="text" value="" class="searchOne" id="goodsSearch" placeholder="请输入团采地点">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                         </div>
@@ -65,7 +71,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>
-                                                        <nobr>单据编号</nobr>
+                                                        <nobr>采集单号</nobr>
                                                     </th>
                                                     <th>
                                                         <nobr>ISBN</nobr>
@@ -89,7 +95,7 @@
                                                         <nobr>折扣</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>供应商</nobr>
+                                                        <nobr>团采地点</nobr>
                                                     </th>
                                                     <th>
                                                         <nobr>采购日期</nobr>
@@ -138,5 +144,6 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/public.js"></script>
     <script src="../js/checkLogined.js"></script>
+    <script src="../js/bootstrap-selectpicker.js"></script>
 </body>
 </html>

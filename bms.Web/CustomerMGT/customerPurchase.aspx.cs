@@ -19,6 +19,12 @@ namespace bms.Web.CustomerMGT
         BookBasicBll bookbll = new BookBasicBll();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                Customer custom = (Customer)Session["custom"];
+                userName = custom.CustomerName;
+                int cusId = custom.CustomerId;
+            }
             getData();
             string op = Request["op"];
             if (op == "logout")
@@ -46,15 +52,15 @@ namespace bms.Web.CustomerMGT
             }
             else if ((bookName == "" || bookName == null)&&(source != "" || source != null))
             {
-                search = "deleteState=0 and regionName '"+source+ "' and customerID=" + cusId;
+                search = "deleteState=0 and regionName='" +source+ "' and customerID=" + cusId;
             }
             else if ((bookName != "" || bookName != null) && (source == "" || source == null))
             {
-                search = "deleteState=0 and bookName '" + bookName + "' and customerID=" + cusId;
+                search = "deleteState=0 and bookName like '%" + bookName + "%' and customerID=" + cusId;
             }
             else
             {
-                search = "deleteState=0 and bookName '" + bookName + "' and regionName='"+ source + "' and customerID=" + cusId;
+                search = "deleteState=0 and bookName like '%" + bookName + "%' and regionName='"+ source + "' and customerID=" + cusId;
             }
             currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
