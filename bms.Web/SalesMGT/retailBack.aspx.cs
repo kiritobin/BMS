@@ -22,7 +22,6 @@ namespace bms.Web.SalesMGT
         SaleHead single = new SaleHead();
         UserBll userBll = new UserBll();
         StockBll stockBll = new StockBll();
-        BookBasicBll basicBll = new BookBasicBll();
         GoodsShelvesBll goods = new GoodsShelvesBll();
         DataTable monTable = new DataTable();
         RetailBll retailBll = new RetailBll();
@@ -71,6 +70,7 @@ namespace bms.Web.SalesMGT
             string op = Request["op"];
             string isbn = Request["isbn"];
             string kind = Request["kind"];
+            string retailHeadId = Request["headId"];
             if (kind == "0")
             {
                 Session["List"] = new List<string>();
@@ -79,8 +79,26 @@ namespace bms.Web.SalesMGT
             int billCount = Convert.ToInt32(Request["billCount"]);
             if (isbn != null && isbn != "")
             {
-                string retailHeadId = Request["headId"];
+                //string retailHeadId = Request["headId"];
                 DataSet bookDs = retailBll.SelectByIsbn(isbn, retailHeadId);
+                if (op == "choose")
+                {
+                    int counts = bookDs.Tables[0].Rows.Count;
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < counts; i++)
+                    {
+                        DataRow dr = bookDs.Tables[0].Rows[i];
+                        //sb.Append("<tr><td><input type='checkbox' name='checkbox' class='check' value='" + dr["bookNum"].ToString() + "' /></td>");
+                        //sb.Append("<tr><td><input type='radio' name='radio' class='radio' value='" + dr["bookNum"].ToString() + "' /></td>");
+                        sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
+                        sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["price"].ToString() + "</td>");
+                        sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
+                    }
+                    Response.Write(sb.ToString());
+                    Response.End();
+                }
                 if (bookDs != null && bookDs.Tables[0].Rows.Count > 0)
                 {
                     int count = bookDs.Tables[0].Rows.Count;
@@ -89,26 +107,11 @@ namespace bms.Web.SalesMGT
                         string bookNum = bookDs.Tables[0].Rows[0]["bookNum"].ToString();
                         add(bookNum, retailHeadId);
                     }
-                    if (op == "choose")
+                    else
                     {
-                        int counts = bookDs.Tables[0].Rows.Count;
-                        StringBuilder sb = new StringBuilder();
-                        for (int i = 0; i < counts; i++)
-                        {
-                            DataRow dr = bookDs.Tables[0].Rows[i];
-                            //sb.Append("<tr><td><input type='checkbox' name='checkbox' class='check' value='" + dr["bookNum"].ToString() + "' /></td>");
-                            //sb.Append("<tr><td><input type='radio' name='radio' class='radio' value='" + dr["bookNum"].ToString() + "' /></td>");
-                            sb.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + dr["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
-                            sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["price"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["supplier"].ToString() + "</td></tr>");
-                        }
-                        Response.Write(sb.ToString());
+                        Response.Write("一号多书");
                         Response.End();
                     }
-                    Response.Write("一号多书");
-                    Response.End();
                 }
                 else
                 {
@@ -138,28 +141,16 @@ namespace bms.Web.SalesMGT
             }
             else
             {
-                BookBasicData bookBasicData = basicBll.SelectById(bookNum);
-                string isbn = bookBasicData.Isbn;
-                string bookName = bookBasicData.BookName;
+                SaleMonomer retail = retailBll.SelectBookNum(bookNum, headId);
+                string isbn = retail.ISBN1;
+                string bookName = retail.BookName;
                 int billCount = Convert.ToInt32(Request["billCount"]);
-                double discount = 1;
-                if (bookBasicData.Remarks == "")
-                {
-                    discount = 1;
-                }
-                if (discount > 1 && discount <= 10)
-                {
-                    discount = discount * 0.1;
-                }
-                else if (discount > 10)
-                {
-                    discount = discount * 0.01;
-                }
+                double discount = retail.RealDiscount;
                 int row = monTable.Rows.Count;
-                double uPrice = bookBasicData.Price;
+                double uPrice = retail.UnitPrice;
                 SaleMonomer monomers = new SaleMonomer();
-                double totalPrice = Convert.ToDouble((billCount * uPrice).ToString("0.00"));
-                double realPrice = Convert.ToDouble((totalPrice * discount).ToString("0.00"));
+                //double totalPrice = Convert.ToDouble((billCount * uPrice).ToString("0.00"));
+                //double realPrice = Convert.ToDouble((totalPrice * discount).ToString("0.00"));
                 monTable.Columns.Add("ISBN", typeof(string));
                 monTable.Columns.Add("unitPrice", typeof(double));
                 monTable.Columns.Add("bookNum", typeof(long));
@@ -173,7 +164,7 @@ namespace bms.Web.SalesMGT
                 monRow["unitPrice"] = uPrice;
                 monRow["bookNum"] = bookNum;
                 monRow["bookName"] = bookName;
-                monRow["realDiscount"] = discount * 100;
+                monRow["realDiscount"] = discount;
                 monRow["number"] = 1;
                 monRow["totalPrice"] = uPrice;
                 monRow["realPrice"] = uPrice * discount;
@@ -282,11 +273,15 @@ namespace bms.Web.SalesMGT
                     monomers.RealPrice = Convert.ToDouble(dr["实洋"]);
                     monomers.SaleHeadId = retailHeadId;
                     monomers.Datetime = DateTime.Now;
-                    Result mon = retailBll.InsertRetail(monomers);
-                    if (mon == Result.添加成功)
+                    DataSet dsStock = stockBll.SelectByBookNum(monomers.BookNum, user.ReginId.RegionId);
+                    int rowes = dsStock.Tables[0].Rows.Count;
+                    if (rowes == 0)
                     {
-                        DataSet dsStock = stockBll.SelectByBookNum(monomers.BookNum, user.ReginId.RegionId);
-                        int rowes = dsStock.Tables[0].Rows.Count;
+                        Response.Write("库存不足");
+                        Response.End();
+                    }
+                    else
+                    {
                         for (int j = 0; j < rowes; j++)
                         {
                             string goodsId = dsStock.Tables[0].Rows[i]["goodsShelvesId"].ToString();
@@ -298,18 +293,17 @@ namespace bms.Web.SalesMGT
                                 Response.End();
                             }
                         }
-                        if(rowes == 0)
+                        Result mon = retailBll.InsertRetail(monomers);
+                        if (mon == Result.添加成功)
                         {
-                            Response.Write("库存不足");
+                            Response.Write("添加成功");
                             Response.End();
                         }
-                        Response.Write("添加成功");
-                        Response.End();
-                    }
-                    else
-                    {
-                        Response.Write("添加失败");
-                        Response.End();
+                        else
+                        {
+                            Response.Write("添加失败");
+                            Response.End();
+                        }
                     }
                 }
                 Response.Write("添加成功");

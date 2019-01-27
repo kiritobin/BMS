@@ -261,7 +261,6 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet SelectByIsbn(string ISBN,string retailHeadId)
         {
-            MySqlHelp db = new MySqlHelp();
             string comTexts = "select count(id) from T_RetailMonomer where ISBN=@ISBN and retailHeadId=@retailHeadId";
             string[] parames = { "@ISBN", "@retailHeadId" };
             object[] value = { ISBN, retailHeadId };
@@ -269,6 +268,34 @@ namespace bms.Dao
             if (row == 0)
             {
                 return null;
+            }
+            else if(row == 1)
+            {
+                string comText = "select bookNum from T_RetailMonomer where ISBN=@ISBN and retailHeadId=@retailHeadId";
+                string[] param = { "@ISBN", "@retailHeadId" };
+                object[] values = { ISBN, retailHeadId };
+                DataSet ds = db.FillDataSet(comText, param, values);
+                string bookNum = "";
+                if (ds != null || ds.Tables[0].Rows.Count > 0)
+                {
+                    bookNum = ds.Tables[0].Rows[0]["bookNum"].ToString();
+                }
+                else
+                {
+                    return null;
+                }
+                string comText2 = "select bookNum,ISBN,price,bookName,supplier from T_BookBasicData where bookNum=@bookNum";
+                string[] param2 = { "@bookNum" };
+                object[] values2 = { bookNum };
+                DataSet dsResult = db.FillDataSet(comText2, param2, values2);
+                if (dsResult != null || dsResult.Tables[0].Rows.Count > 0)
+                {
+                    return dsResult;
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {
@@ -287,6 +314,47 @@ namespace bms.Dao
             }
         }
 
+        /// <summary>
+        /// 根据书号查找isbn，单价，折扣
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public SaleMonomer SelectBookNum(string bookNum, string retailHeadId)
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comTexts = "select count(*) from T_RetailMonomer where bookNum=@bookNum and retailHeadId=@retailHeadId";
+            string[] parames = { "@bookNum", "@retailHeadId" };
+            object[] value = { bookNum, retailHeadId };
+            int row = Convert.ToInt32(db.ExecuteScalar(comTexts, parames, value));
+            if (row == 0)
+            {
+                return null;
+            }
+            else
+            {
+                string comText = "select bookName,bookNum,ISBN,number,unitPrice,realDiscount,totalPrice,realPrice from V_RetailMonomer where bookNum=@bookNum";
+                string[] param = { "@bookNum" };
+                object[] values = { bookNum };
+                DataSet ds = db.FillDataSet(comText, param, values);
+                if (ds != null || ds.Tables[0].Rows.Count > 0)
+                {
+                    SaleMonomer retail = new SaleMonomer();
+                    retail.ISBN1 = ds.Tables[0].Rows[0]["ISBN"].ToString();
+                    retail.BookName = ds.Tables[0].Rows[0]["bookName"].ToString();
+                    retail.BookNum = ds.Tables[0].Rows[0]["bookNum"].ToString();
+                    retail.Number = Convert.ToInt32(ds.Tables[0].Rows[0]["number"]);
+                    retail.UnitPrice = Convert.ToDouble(ds.Tables[0].Rows[0]["unitPrice"]);
+                    retail.RealDiscount = Convert.ToDouble(ds.Tables[0].Rows[0]["realDiscount"]);
+                    retail.TotalPrice = Convert.ToDouble(ds.Tables[0].Rows[0]["totalPrice"]);
+                    retail.RealPrice = Convert.ToDouble(ds.Tables[0].Rows[0]["realPrice"]);
+                    return retail;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         /// <summary>
         /// 根据书号查找isbn，单价，折扣
         /// </summary>

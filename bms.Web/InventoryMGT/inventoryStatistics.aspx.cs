@@ -21,7 +21,7 @@ namespace bms.Web.InventoryMGT
         public bool isAdmin;
         public DataTable dsSupplier, dsUser,dsSource;
         public DataSet dsRegion;
-        protected string sbNum, sjNum, total, real;
+        protected string sbNum, sjNum, total, real, title;
         protected void Page_Load(object sender, EventArgs e)
         {
             string tjType = Request.QueryString["type"];
@@ -29,21 +29,23 @@ namespace bms.Web.InventoryMGT
             if (tjType=="CK")
             {
                 type = 0;
+                title = "接收组织";
             }
             if (tjType=="RK")
             {
                 type = 1;
+                title = "入库来源";
             }
             if (tjType=="TH")
             {
                 type = 2;
+                title = "接收组织";
             }
             User user = (User)Session["user"];
             string userId = user.UserId;
             DataSet ds = roleBll.selectRole(userId);
             string roleName = ds.Tables[0].Rows[0]["roleName"].ToString();
-            string time = DateTime.Now.ToString("yyyy-MM-dd");
-            DataSet dataSet = warehousingBll.getKinds(time, type);
+            DataSet dataSet = warehousingBll.getKinds(type);
             sjNum = dataSet.Tables[0].Rows[0]["pz"].ToString();
             sbNum = dataSet.Tables[0].Rows[0]["sl"].ToString();
             total = dataSet.Tables[0].Rows[0]["my"].ToString();

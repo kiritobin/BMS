@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="inventoryStatistics.aspx.cs" Inherits="bms.Web.InventoryMGT.inventoryStatistics" %>
-
+<%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -68,8 +68,8 @@
                                         <%--<input type="text" value="" class="" id="userName" placeholder="请输入制单员">--%>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <select class="modal_select selectpicker" title="请选择来源组织" data-live-search="true" id="resource">
-                                            <option id="change">全部来源组织</option>
+                                        <select class="modal_select selectpicker" title="<%=title %>" data-live-search="true" id="resource">
+                                            <option id="change">全部<%=title %></option>
                                             <%for (int i = 0; i < dsSource.Rows.Count; i++)
                                                 {%>
                                             <option><%=dsSource.Rows[i]["regionName"] %></option>
