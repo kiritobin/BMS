@@ -350,16 +350,23 @@
                                         <%-- 表格头部按钮功能组 --%>
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookName" placeholder="请输入书名">
+                                                <input type="text" value="" class="" id="bookName" placeholder="请输入书名">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookNum" placeholder="请输入书号">
+                                                <input type="text" value="" class="" id="bookNum" placeholder="请输入书号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookISBN" placeholder="请输入ISBN">
+                                                <input type="text" value="" class="" id="bookISBN" placeholder="请输入ISBN">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookGys" placeholder="请输入供应商">
+                                                <select class="modal_select selectpicker collectionStatus" title="请选择供应商" data-live-search="true" id="bookGys">
+                                                    <option>全部供应商</option>
+                                                    <%for (int i = 0; i < dsSupplier.Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsSupplier.Rows[i]["supplier"] %>"><%=dsSupplier.Rows[i]["supplier"] %></option>
+                                                    <%} %>
+                                                </select>
+                                                <%--<input type="text" value="" class="searchOne" id="bookGys" placeholder="请输入供应商">--%>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>

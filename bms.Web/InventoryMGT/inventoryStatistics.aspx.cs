@@ -17,7 +17,10 @@ namespace bms.Web.InventoryMGT
         RoleBll roleBll = new RoleBll();
         BookBasicBll bookbll = new BookBasicBll();
         WarehousingBll warehousingBll = new WarehousingBll();
+        RegionBll regionBll = new RegionBll();
         public bool isAdmin;
+        public DataTable dsSupplier, dsUser,dsSource;
+        public DataSet dsRegion;
         protected string sbNum, sjNum, total, real;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -96,8 +99,15 @@ namespace bms.Web.InventoryMGT
             }
             if (time != null && time != "")
             {
-                where += " and time like '" + time + "%'";
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                where += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
             }
+            //if (time != null && time != "")
+            //{
+            //    where += " and time like '" + time + "%'";
+            //}
             if (userName != null && userName != "")
             {
                 where += " and userName='" + userName + "'";
@@ -148,7 +158,14 @@ namespace bms.Web.InventoryMGT
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             DataSet ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
-
+            //获取供应商
+            dsSupplier = bookbll.selectSupplier();
+            //获取组织
+            dsRegion = regionBll.select();
+            //获取制单员
+            dsUser = bookbll.selectZdy();
+            //获取来源组织/收货组织
+            dsSource = bookbll.selectSource();
             StringBuilder sb = new StringBuilder();
             int j = ds.Tables[0].Rows.Count;
             for (int i = 0; i < j; i++)

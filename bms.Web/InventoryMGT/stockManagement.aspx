@@ -49,7 +49,7 @@
                         <div class="collapse" id="securityManage">
                             <ul class="nav">
                                 <%if (funcRole)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/roleManagement.aspx">
                                         <span class="sidebar-normal">角色管理</span>
@@ -57,7 +57,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcUser)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/userManagement.aspx">
                                         <span class="sidebar-normal">用户管理</span>
@@ -65,7 +65,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcOrg)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/organizationalManagement.aspx">
                                         <span class="sidebar-normal">组织管理</span>
@@ -73,7 +73,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcGoods)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../AccessMGT/bookshelfManagement.aspx">
                                         <span class="sidebar-normal">货架管理</span>
@@ -129,7 +129,7 @@
                         <div class="collapse show" id="inventoryManage">
                             <ul class="nav">
                                 <%if (funcPut)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link activeNext" href="../InventoryMGT/stockManagement.aspx">
                                         <span class="sidebar-normal">入库管理</span>
@@ -137,7 +137,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcOut)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/warehouseManagement.aspx">
                                         <span class="sidebar-normal">出库管理</span>
@@ -145,7 +145,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcReturn)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/returnManagement.aspx">
                                         <span class="sidebar-normal">退货管理</span>
@@ -153,7 +153,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcSupply)
-                                { %>
+                                    { %>
                                 <%--<li class="nav-item">
                                     <a class="nav-link" href="../InventoryMGT/replenishMent.aspx">
                                         <span class="sidebar-normal">补货管理</span>
@@ -177,7 +177,7 @@
                         <div class="collapse" id="saleManage">
                             <ul class="nav">
                                 <%if (funcSale)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/tradeManagement.aspx">
                                         <span class="sidebar-normal">销售管理</span>
@@ -185,7 +185,7 @@
                                 </li>
                                 <%} %>
                                 <%if (funcRetail)
-                                { %>
+                                    { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../SalesMGT/retailManagement.aspx" id="retail">
                                         <span class="sidebar-normal">零售管理</span>
@@ -211,7 +211,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcBook||funcBookStock)
+                    <%if (funcBook || funcBookStock)
                         { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
@@ -352,24 +352,38 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据编号">
+                                                <input type="text" id="ID" class="" placeholder="请输入单据编号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="region" class="searchOne" placeholder="请输入入库来源">
+                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#timeModal" />
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
+                                                <select class="selectpicker" data-live-search="true" title="请选择入库来源" id="region">
+                                                <option value="">全部入库来源</option>
+                                                <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                    {%>
+                                                <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                <%} %>
+                                            </select>
+                                                <%--<input type="text" id="region" class="searchOne" placeholder="请输入入库来源">--%>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                 <input type="text" class="searchOne" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#timeModal" />
+                                                <select class="selectpicker" data-live-search="true" title="请选择操作员" id="user">
+                                                    <option value="">全部操作员</option>
+                                                    <%for (int i = 0; i < dsUser.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option><%=dsUser.Tables[0].Rows[i]["userName"] %></option>
+                                                    <%} %>
+                                                </select>
+                                                <%--<input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">--%>
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" style="height: 35px" id="btn-add">添加</button>
+                                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" style="height: 41px" id="btn-add">添加</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <a href="/InventoryMGT/inventoryStatistics.aspx?type=RK">
-                                                    <button class="btn btn-info btn-sm" style="height: 35px" id="tjbb">统计报表</button></a>
+                                                    <button class="btn btn-info btn-sm" style="height: 41px" id="tjbb">统计报表</button></a>
                                             </div>
                                         </div>
                                     </div>

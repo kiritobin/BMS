@@ -54,9 +54,15 @@ $(document).ready(function () {
         nextContent: '下页',
         callback: function (api) {
             var ID = $("#ID").val();
-            var region = $("#region").val();
-            var user = $("#user").val();
+            var region = $("#region").find("option:selected").text();
+            var user = $("#user").find("option:selected").text();
             var time = $("#time").val();
+            if (region == "全部收货组织") {
+                regionName = "";
+            }
+            if (user == "全部操作员") {
+                userName = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'warehouseManagement.aspx',
@@ -176,9 +182,15 @@ $("#btnAdd").click(function () {
 //查询
 $("#btn-search").click(function () {
     var ID = $("#ID").val();
-    var region = $("#region").val();
-    var user = $("#user").val();
+    var region = $("#region").find("option:selected").text();
+    var user = $("#user").find("option:selected").text();
     var time = $("#time").val();
+    if (region == "全部收货组织") {
+        regionName = "";
+    }
+    if (user == "全部操作员") {
+        userName = "";
+    }
     $.ajax({
         type: 'Post',
         url: 'warehouseManagement.aspx',

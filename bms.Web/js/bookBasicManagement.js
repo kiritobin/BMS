@@ -355,7 +355,10 @@
             var bookName = $("#bookName").val();
             var bookNum = $("#bookNum").val();
             var btnISBN = $("#bookISBN").val();
-            var bookGys = $("#bookGys").val();
+            var bookGys = $("#bookGys").find("option:selected").text();
+            if (bookGys == "全部供应商") {
+                bookGys = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'bookBasicManagement.aspx',
@@ -383,7 +386,10 @@ $("#btn-search").click(function () {
     var bookName = $("#bookName").val();
     var bookNum = $("#bookNum").val();
     var bookISBN = $("#bookISBN").val();
-    var bookGys = $("#bookGys").val();
+    var bookGys = $("#bookGys").find("option:selected").text();
+    if (bookGys == "全部供应商") {
+        bookGys = "";
+    }
     $.ajax({
         type: 'Post',
         url: 'bookBasicManagement.aspx',

@@ -145,6 +145,24 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 获取操作员
+        /// </summary>
+        /// <returns></returns>
+        public DataSet slectCzy()
+        {
+            string comText = "select distinct userName from V_SaleHead order by convert(userName using gbk) collate gbk_chinese_ci";
+            DataSet ds = db.FillDataSet(comText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// 根据销售任务id，销售单头,该销售单头下的所有销售单体
         /// </summary>
         /// <param name="saleTaskId">销售任务id</param>

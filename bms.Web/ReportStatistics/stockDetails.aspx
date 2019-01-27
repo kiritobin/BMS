@@ -343,20 +343,20 @@
                                     <div class="card-header" style="padding-right: 0px;">
                                         <form class="form-inline">
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入ISBN" style="width: 130px;" id="isbn" />
+                                                <input type="text" class="" placeholder="请输入ISBN" style="width: 130px;height:34px" id="isbn" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price" />
+                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;height:34px" id="price" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入折扣" style="width: 130px;" id="discount" />
+                                                <input type="text" class="" placeholder="请输入折扣" style="width: 130px;height:34px" id="discount" />
                                             </div>
                                             &nbsp;
                                             <div class="btn-group" role="group" style="width: 165px !important;">
                                                 <select class="modal_select selectpicker collectionStatus" data-live-search="true" title="请选择制单员" id="user">
-                                                    <option value="">全部</option>
+                                                    <option value="">全部制单员</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
                                                         for (int i = 0; i < count; i++)
                                                         {%>
@@ -366,7 +366,7 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal" />
+                                                <input type="text" class="" placeholder="请输入时间段" style="width: 130px;height:34px" id="time" data-toggle="modal" data-target="#myModal" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">

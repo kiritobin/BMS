@@ -26,9 +26,15 @@ $(document).ready(function () {
         nextContent: '下页',
         callback: function (api) {
             var ID = $("#ID").val();
-            var region = $("#region").val();
-            var user = $("#user").val();
+            var region = $("#region").find("option:selected").text();
+            var user = $("#user").find("option:selected").text();
             var time = $("#time").val();
+            if (region == "全部收货组织") {
+                region = "";
+            }
+            if (user == "全部操作员") {
+                user = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'returnManagement.aspx',
@@ -175,9 +181,15 @@ $("#btnAdd").click(function () {
 //查询
 $("#btn-search").click(function () {
     var ID = $("#ID").val();
-    var region = $("#region").val();
-    var user = $("#user").val();
+    var region = $("#region").find("option:selected").text();
+    var user = $("#user").find("option:selected").text();
     var time = $("#time").val();
+    if (region == "全部收货组织") {
+        region = "";
+    }
+    if (user == "全部操作员") {
+        user = "";
+    }
     $.ajax({
         type: 'Post',
         url: 'returnManagement.aspx',

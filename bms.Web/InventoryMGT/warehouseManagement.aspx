@@ -352,24 +352,38 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
+                                                <input type="text" id="ID" class="" placeholder="请输入单据编号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="region" class="searchOne" placeholder="请输入收货组织">
+                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#timeModal" />
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
+                                                <select class="selectpicker" data-live-search="true" title="请选择收货组织" id="region">
+                                                    <option value="">全部收货组织</option>
+                                                    <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%} %>
+                                                </select>
+                                                <%--<input type="text" id="region" class="searchOne" placeholder="请输入收货组织">--%>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" class="searchOne" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#timeModal" />
+                                                <select class="selectpicker" data-live-search="true" title="请选择操作员" id="user">
+                                                    <option value="">全部操作员</option>
+                                                    <%for (int i = 0; i < dsUser.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option><%=dsUser.Tables[0].Rows[i]["userName"] %></option>
+                                                    <%} %>
+                                                </select>
+                                                <%--<input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">--%>
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add" style="height: 35px">添加</button>
+                                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add" style="height: 41px">添加</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <a href="/InventoryMGT/inventoryStatistics.aspx?type=CK">
-                                                    <button class="btn btn-info btn-sm" style="height: 35px" id="tjbb">统计报表</button></a>
+                                                    <button class="btn btn-info btn-sm" style="height: 41px" id="tjbb">统计报表</button></a>
                                             </div>
                                         </div>
                                     </div>

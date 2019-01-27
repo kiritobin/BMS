@@ -346,14 +346,14 @@
                                 <div class="card-body">
                                     <div class="card-header from-group">
                                         <div class="btn-group" role="group">
-                                            <input type="text" class="searchOne" id="search_All" placeholder="请输入查询条件">
+                                            <input type="text" class="" id="search_All" placeholder="请输入查询条件">
                                             <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                         </div>
                                         <%--<div class="btn-group" role="group">
                                             <button class="btn btn-info" onclick="window.location.href='salesTaskStatisticsAll.aspx'" style="height:35px">销售统计</button>
                                         </div>--%>
                                         <div class="btn-group" role="group">
-                                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-addSale">添加</button>
+                                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-addSale" style="height: 41px">添加</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">

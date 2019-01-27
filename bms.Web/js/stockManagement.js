@@ -28,18 +28,24 @@ $('.paging').pagination({
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var strWhere = $("#input-search").val();
-            var regionId = $("#select-region").val();
-            var roleId = $("#select-role").val();
+            var singHeadId = $("#ID").val();
+            var regionName = $("#region").find("option:selected").text();
+            var userName = $("#user").find("option:selected").text();
             var time = $("#time").val();
+            if (regionName == "全部入库来源") {
+                regionName = "";
+            }
+            if (userName == "全部操作员") {
+                userName = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'stockManagement.aspx',
                 data: {
                     page: api.getCurrent(), //页码
-                    role: roleId,
-                    region: regionId,
-                    search: strWhere,
+                    singHeadId: singHeadId,
+                    regionName: regionName,
+                    userName: userName,
                     time: time,
                     op: "paging"
                 },
@@ -94,9 +100,15 @@ $('.paging').pagination({
 //点击查询按钮时
 $("#btn-search").click(function () {
     var singHeadId = $("#ID").val();
-    var regionName = $("#region").val();
-    var userName = $("#user").val();
+    var regionName = $("#region").find("option:selected").text();
+    var userName = $("#user").find("option:selected").text();
     var time = $("#time").val();
+    if (regionName == "全部入库来源") {
+        regionName = "";
+    }
+    if (userName == "全部操作员") {
+        userName = "";
+    }
     $.ajax({
         type: 'Post',
         url: 'stockManagement.aspx',

@@ -41,11 +41,14 @@ $(document).ready(function () {
             var bookName = $("#bookName").val();
             var bookArea = $("#area").find("option:selected").text();
             var bookISBN = $("#isbn").val();
-            var supplier = $("#supplier").val();
+            var supplier = $("#supplier").find("option:selected").text();
             var stockNumber = $("#stock").val();
             var price = $("#price").val();
-            if (bookArea == "全部") {
+            if (bookArea == "全部组织") {
                 bookArea = "";
+            }
+            if (supplier == "全部供应商") {
+                supplier = "";
             }
             $.ajax({
                 type: 'Post',
@@ -74,11 +77,14 @@ $(document).ready(function () {
         var bookName = $("#bookName").val();
         var bookArea = $("#area").find("option:selected").text();;
         var bookISBN = $("#isbn").val();
-        var supplier = $("#supplier").val();
+        var supplier = $("#supplier").find("option:selected").text();
         var stockNumber = $("#stock").val();
         var price = $("#price").val();
-        if (bookArea=="全部") {
+        if (bookArea == "全部组织") {
             bookArea = "";
+        }
+        if (supplier == "全部供应商") {
+            supplier = "";
         }
         $.ajax({
             type: 'Post',

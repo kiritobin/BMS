@@ -17,6 +17,7 @@ namespace bms.Web.InventoryMGT
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "", userName, regionName;
         public DataSet ds, dsPer,dsRegion;
+        public DataTable dsSupplier;
         public User user;
         RoleBll roleBll = new RoleBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
@@ -249,6 +250,8 @@ namespace bms.Web.InventoryMGT
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
+            //获取供应商
+            dsSupplier = bookbll.selectSupplier();
             int j = ds.Tables[0].Rows.Count;
             if (ds == null)
             {

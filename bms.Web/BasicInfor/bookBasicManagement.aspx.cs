@@ -21,6 +21,7 @@ namespace bms.Web.BasicInfor
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row,funCount;
         public string search = "", last, num,userName,regionName;
         public DataSet ds, dsPer;
+        public DataTable dsSupplier;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply,funcRetail, isAdmin, funcBookStock;
         DataTable except = new DataTable();//接受差集
         BookBasicBll bookbll = new BookBasicBll();
@@ -424,7 +425,9 @@ namespace bms.Web.BasicInfor
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
-
+            //获取供应商
+            //获取供应商
+            dsSupplier = bookbll.selectSupplier();
             //生成table
             StringBuilder sb = new StringBuilder();
             int j = ds.Tables[0].Rows.Count;

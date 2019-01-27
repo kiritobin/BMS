@@ -38,8 +38,14 @@ $(document).ready(function () {
         nextContent: '下页',
         callback: function (api) {
             var saleTaskId = $("#ID").val().trim();
-            var regionName = $("#regionName").val().trim();
-            var userName = $("#userName").val().trim();
+            var regionName = $("#regionName").find("option:selected").text();
+            var userName = $("#userName").find("option:selected").text();
+            if (regionName == "全部组织") {
+                regionName = "";
+            }
+            if (userName == "全部操作员") {
+                userName = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'salesManagement.aspx',
@@ -62,8 +68,14 @@ $(document).ready(function () {
     //查询
     $("#btn-search").click(function () {
         var saleTaskId = $("#ID").val().trim();
-        var regionName = $("#regionName").val().trim();
-        var userName = $("#userName").val().trim();
+        var regionName = $("#regionName").find("option:selected").text();
+        var userName = $("#userName").find("option:selected").text();
+        if (regionName == "全部组织名称") {
+            regionName = "";
+        }
+        if (userName == "全部操作员") {
+            userName = "";
+        }
         $.ajax({
             type: 'Post',
             url: 'salesManagement.aspx',
