@@ -17,14 +17,10 @@ namespace bms.Web.CustomerMGT
         public string userName;
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         BookBasicBll bookbll = new BookBasicBll();
+        public int kindsNum = 0, allNum = 0;
+        public string allTotalPrice = "", allRealPrice = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                Customer custom = (Customer)Session["custom"];
-                userName = custom.CustomerName;
-                int cusId = custom.CustomerId;
-            }
             getData();
             string op = Request["op"];
             if (op == "logout")
@@ -40,28 +36,16 @@ namespace bms.Web.CustomerMGT
 
         protected string getData()
         {
-            Customer custom=(Customer)Session["custom"];
+            Customer custom = (Customer)Session["custom"];
             userName = custom.CustomerName;
             int cusId = custom.CustomerId;
             //string search = "";
-            string search = "deleteState=0 and customerID=" + cusId;
+            string search = "(state=1 or state=2) and deleteState=0 and customerID=" + cusId;
             string bookName = Request["bookName"];
             string source = Request["source"];
             string isbn = Request["isbn"];
             string time = Request["time"];
-            //if ((bookName == ""|| bookName==null)&&(source==""||source==null))
-            //{
-            //    search = "deleteState=0 and customerID=" + cusId;
-            //}
-            //else if ((bookName == "" || bookName == null)&&(source != "" || source != null))
-            //{
-            //    search = "deleteState=0 and regionName='" +source+ "' and customerID=" + cusId;
-            //}
-            //else if ((bookName != "" || bookName != null) && (source == "" || source == null))
-            //{
-            //    search = "deleteState=0 and bookName like '%" + bookName + "%' and customerID=" + cusId;
-            //}
-            if(bookName != "" && bookName != null)
+            if (bookName != "" && bookName != null)
             {
                 search = search + " and bookName like '%" + bookName + "%'";
             }
@@ -69,7 +53,7 @@ namespace bms.Web.CustomerMGT
             {
                 search = search + " and regionName like '%" + source + "%'";
             }
-            if(isbn != "" && isbn != null)
+            if (isbn != "" && isbn != null)
             {
                 search = search + " and ISBN like '%" + isbn + "%'";
             }
@@ -91,6 +75,18 @@ namespace bms.Web.CustomerMGT
             //{
             //    search = "deleteState=0 and bookName like '%" + bookName + "%' and regionName='"+ source + "' and customerID=" + cusId;
             //}
+
+            //获取汇总数据
+            customerPurchaseBll cpBll = new customerPurchaseBll();
+            DataSet sumDs = cpBll.getSummary(cusId, search);
+            kindsNum = int.Parse(sumDs.Tables[0].Rows[0]["kindsNum"].ToString());
+            if (kindsNum > 0)
+            {
+                allNum = int.Parse(sumDs.Tables[0].Rows[0]["alln"].ToString());
+                allRealPrice = sumDs.Tables[0].Rows[0]["arp"].ToString();
+                allTotalPrice = sumDs.Tables[0].Rows[0]["atp"].ToString();
+            }
+
             currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
