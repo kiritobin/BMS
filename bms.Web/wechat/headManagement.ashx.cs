@@ -58,7 +58,7 @@ namespace bms.Web.wechat
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "t_salehead";
+            tb.StrTable = "t_salehead_copy";
             tb.OrderBy = "saleHeadId";
             tb.StrColumnlist = "saleHeadId,kindsNum,number,allRealPrice";
             tb.IntPageSize = pageSize;
@@ -78,7 +78,7 @@ namespace bms.Web.wechat
         /// <param name="context"></param>
         private void addHead(HttpContext context)
         {
-            string customeID = context.Request["customeID"];
+            string customeID = context.Request["customID"];
             string saleId = context.Request["saletaskID"];
 
             SaleHeadBll saleheadbll = new SaleHeadBll();
@@ -124,11 +124,11 @@ namespace bms.Web.wechat
             salehead.Number = 0;
             salehead.AllTotalPrice = 0;
             salehead.AllRealPrice = 0;
-            salehead.UserId = "99999";
+            salehead.UserId = customeID;
             salehead.RegionId = 67;
             salehead.DateTime = DateTime.Now.ToLocalTime();
             salehead.State = 3;
-            Result result = saleheadbll.Insert(salehead);
+            Result result = saleheadbll.perInsert(salehead);
             if (result == Result.添加成功)
             {
                 context.Response.Write("添加成功");
