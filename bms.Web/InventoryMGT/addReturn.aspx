@@ -379,7 +379,7 @@
                                                         <nobr>出版社</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>商品数量</nobr>
+                                                        <nobr>数量</nobr>
                                                     </td>
                                                     <td>
                                                         <nobr>单价</nobr>

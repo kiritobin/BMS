@@ -381,17 +381,17 @@
                                             <thead>
                                                 <tr>
                                                     <!--<th>任务单据编号</th>-->
-                                                    <th>销退单据编号</th>
-                                                    <th>操作员</th>
-                                                    <th>客户</th>
-                                                    <th>状态</th>
-                                                    <th>品种数</th>
-                                                    <th>总数量</th>
-                                                    <th>默认折扣</th>
-                                                    <th>码洋</th>
-                                                    <th>实洋</th>
-                                                    <th>制单时间</th>
-                                                    <th>操作</th>
+                                                    <th><nobr>销退单据编号</nobr></th>
+                                                    <th><nobr>操作员</nobr></th>
+                                                    <th><nobr>客户</nobr></th>
+                                                    <th><nobr>状态</nobr></th>
+                                                    <th><nobr>品种</nobr></th>
+                                                    <th><nobr>数量</nobr></th>
+                                                    <th><nobr>折扣</nobr></th>
+                                                    <th><nobr>码洋</nobr></th>
+                                                    <th><nobr>实洋</nobr></th>
+                                                    <th><nobr>制单时间</nobr></th>
+                                                    <th><nobr>操作</nobr></th>
                                                 </tr>
                                                 <%=getData() %>
                                         </table>

@@ -385,12 +385,12 @@
                                                             <td>序号</td>
                                                             <td>ISBN号</td>
                                                             <td>书名</td>
-                                                            <td>商品数量</td>
+                                                            <td>数量</td>
                                                             <td>单价</td>
                                                             <td>折扣</td>
                                                             <td>码洋</td>
                                                             <td>实洋</td>
-                                                            <td>货架名</td>
+                                                            <td>货架</td>
                                                         </tr>
                                                     </thead>
                                                     <%=getData() %>
