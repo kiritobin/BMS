@@ -354,7 +354,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="btn-group" id="groupsupplier">
+                                            <div class="btn-group" id="groupsupplier" style="display:none">
                                                 <%--<input type="text" class="" placeholder="请输入供应商" id="supplier">--%>
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择供应商" data-live-search="true" id="supplier">
                                                     <option>全部供应商</option>
@@ -364,7 +364,7 @@
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupregion">
+                                            <div class="btn-group" id="groupregion" style="display:none">
                                                 <%--<input type="text" class="" placeholder="请输入组织" id="region">--%>
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="region">
                                                     <option>全部组织</option>
@@ -374,7 +374,7 @@
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupcustom">
+                                            <div class="btn-group" id="groupcustom" style="display:none">
                                                 <%--<input type="text" class="" placeholder="请输入客户" id="customer">--%>
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择客户" data-live-search="true" id="customer">
                                                     <option>全部客户</option>

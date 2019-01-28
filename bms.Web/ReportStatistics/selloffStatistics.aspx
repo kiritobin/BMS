@@ -350,7 +350,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="btn-group" id="groupsupplier">
+                                            <div class="btn-group" id="groupsupplier" style="display:none">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择供应商" data-live-search="true" id="supplier">
                                                     <option>全部供应商</option>
                                                     <%for (int i = 0; i < dsSupplier.Rows.Count; i++)
@@ -359,7 +359,7 @@
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupregion">
+                                            <div class="btn-group" id="groupregion" style="display:none">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="region">
                                                     <option>全部组织</option>
                                                     <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
@@ -368,7 +368,7 @@
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupcustom">
+                                            <div class="btn-group" id="groupcustom" style="display:none">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择客户" data-live-search="true" id="customer">
                                                     <option>全部客户</option>
                                                     <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
