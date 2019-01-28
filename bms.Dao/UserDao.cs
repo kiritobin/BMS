@@ -120,6 +120,26 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 根据用户ID获取用户基础信息
+        /// </summary>
+        /// <param name="userId">用户id</param>
+        /// <returns>数据集</returns>
+        public DataSet selectByUserId(string  userId)
+        {
+            string comText = "select userId,userName,regionName,roleName,regionId from V_User where userId=@userId";
+            string[] param = { "@userId" };
+            object[] values = { userId };
+            DataSet ds = db.FillDataSet(comText, param, values);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
         /// 判断该用户是否已经被删除
         /// </summary>
         /// <param name="userId">用户ID</param>

@@ -55,14 +55,14 @@ namespace bms.Web.wechat
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "V_SaleMonomer";
+            tb.StrTable = "v_persalemonomer";
             tb.OrderBy = "dateTime desc";
             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(totalPrice) as alltotalPrice,userName,customerName,regionName";
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = "saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' group by bookNum,bookName,ISBN,unitPrice HAVING allnumber!=0";
-            DataSet summaryds = salemonbll.wechatSummary(tb.StrWhere);
+            DataSet summaryds = salemonbll.wechatPerSummary(tb.StrWhere,3);
             DataSet ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
 
             DataTable dt = new DataTable();
@@ -179,7 +179,7 @@ namespace bms.Web.wechat
             int number = Convert.ToInt32(context.Request["number"]);
             string bookNum = context.Request["bookNum"].ToString();
             string type = context.Request["type"];
-            DataSet bookNumds = salemonbll.getsalemonDetail(SaleHeadId, saleId, bookNum);
+            DataSet bookNumds = salemonbll.getPersalemonDetail(SaleHeadId, saleId, bookNum);
             if (bookNumds != null && bookNumds.Tables[0].Rows.Count > 0 && type != "continue")
             {
                 context.Response.Write("已购买");
@@ -282,7 +282,7 @@ namespace bms.Web.wechat
                 Datetime = Time,
                 SaleTaskId = saleId
             };
-            Result res = salemonbll.Insert(newSalemon);
+            Result res = salemonbll.perInsert(newSalemon);
             if (res == Result.添加成功)
             {
                 Result upresult = updateSalehead(context);
@@ -307,7 +307,7 @@ namespace bms.Web.wechat
             double alltotalprice;
             double allreadprice;
 
-            int allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
+            int allkinds = int.Parse(salemonbll.getperkinds(saleId, SaleHeadId).ToString());
             DataSet ds = salemonbll.calculationSaleHead(SaleHeadId, saleId);
             if (ds == null)
             {
@@ -329,7 +329,7 @@ namespace bms.Web.wechat
             salehead.Number = allnumber;
             salehead.AllTotalPrice = alltotalprice;
             salehead.AllRealPrice = allreadprice;
-            Result res = salemonbll.wechatSummary(salehead);
+            Result res = salemonbll.wechatupdatePerHead(salehead);
             return res;
         }
 

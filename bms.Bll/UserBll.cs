@@ -109,6 +109,23 @@ namespace bms.Bll
         {
             return userDao.selectByRegion(regionId);
         }
+        /// <summary>
+        /// 根据用户ID获取用户基础信息
+        /// </summary>
+        /// <param name="userId">用户id</param>
+        /// <returns>数据集</returns>
+        public DataSet selectByUserId(string  userId)
+        {
+            DataSet ds = userDao.selectByUserId(userId);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// 获取分页数据

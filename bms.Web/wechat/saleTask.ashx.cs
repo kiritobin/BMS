@@ -23,6 +23,10 @@ namespace bms.Web.wechat
             {
                 Load(context);
             }
+            if (op == "search")
+            {
+                Load(context);
+            }
         }
 
         private void Load(HttpContext context)
@@ -30,8 +34,13 @@ namespace bms.Web.wechat
             Page page = new Page();
             //获取分页数据
             int currentPage = Convert.ToInt32(context.Request["page"]);
-            string userId = context.Request["userId"].ToString();
+            string userId = context.Request["userId"];
+            string opeartion = context.Request["opeartion"];
+
+
             UserBll userbll = new UserBll();
+            DataSet userds = userbll.selectByUserId(userId);
+            int regionId = Int32.Parse(userds.Tables[0].Rows[0]["regionId"].ToString());
             if (currentPage == 0)
             {
                 currentPage = 1;
@@ -43,10 +52,18 @@ namespace bms.Web.wechat
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             //tb.StrWhere = "deleteState=0 and (state=0 or state=1) and saleTaskId='" + saleTaskId + "'";
-            tb.StrWhere = "deleteState=0 and saleTaskId='" + "'";
+            if (opeartion != null && opeartion != "")
+            {
+                string condition = " and (saleTaskId like '%" + opeartion + "%' or customerName like'%" + opeartion + "%')";
+                tb.StrWhere = "deleteState=0 and regionId='" + regionId + "'" + condition + " and ISNULL(finishTime)";
+            }
+            else
+            {
+                tb.StrWhere = "deleteState=0 and regionId='" + regionId + "' and ISNULL(finishTime)";
+            }
             //获取展示的客户数据
             DataSet ds = taskbll.selectBypage(tb, out totalCount, out intPageCount);
-            string json = JsonHelper.ToJson(ds.Tables[0]);
+            string json = JsonHelper.ToJson(ds.Tables[0], "detail");
             context.Response.Write(json);
             context.Response.End();
         }
