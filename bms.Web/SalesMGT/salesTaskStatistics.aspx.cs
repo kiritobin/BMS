@@ -14,7 +14,7 @@ namespace bms.Web.SalesMGT
     public partial class salesTaskStatistics : System.Web.UI.Page
     {
         public int totalCount, intPageCount, pageSize = 20;
-        public string saletaskId, userName, customerName, startTime, finishTime;
+        public string saletaskId, userName, customerName, startTime, finishTime, regionName;
         public int allkinds, allnumber;
         public double alltotalprice, allreadprice;
         SaleTaskBll saletaskbll = new SaleTaskBll();
@@ -98,6 +98,7 @@ namespace bms.Web.SalesMGT
                 //startTime = userds.Tables[0].Rows[0]["startTime"].ToString();
                 startTime = Convert.ToDateTime(userds.Tables[0].Rows[0]["startTime"].ToString()).ToString("yyyy年MM月dd日");
                 finishTime = userds.Tables[0].Rows[0]["finishTime"].ToString();
+                regionName = userds.Tables[0].Rows[0]["regionName"].ToString();
                 if (finishTime == "" || finishTime == null)
                 {
                     finishTime = "此销售任务还未结束";

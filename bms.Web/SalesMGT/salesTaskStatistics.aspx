@@ -72,28 +72,30 @@
                                                     <input value="<%=customerName %>" class="form-control" disabled id="customer">
                                                 </td>
                                                 <td>
+                                                    <span>所属组织:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=regionName %>" class="form-control" disabled id="startTime">
+                                                </td>
+                                            </tr>
+                                            <tr class="text-nowrap">
+                                                <td>
                                                     <span>操作员:</span>
                                                 </td>
                                                 <td>
                                                     <input value="<%=userName %>" class="form-control" disabled id="operator">
                                                 </td>
-                                            </tr>
-                                            <tr class="text-nowrap">
                                                 <td>
                                                     <span>开始日期:</span>
                                                 </td>
                                                 <td>
-                                                    <div class="jeinpbox">
-                                                        <input type="text" value="<%=startTime %>" class="form-control" disabled id="startTime">
-                                                    </div>
+                                                    <input type="text" value="<%=startTime %>" class="form-control" disabled id="startTime">
                                                 </td>
                                                 <td>
                                                     <span>结束日期:</span>
                                                 </td>
                                                 <td>
-                                                    <div class="jeinpbox">
-                                                        <input type="text" value="<%=finishTime %>" class="form-control" disabled id="endTime">
-                                                    </div>
+                                                    <input type="text" value="<%=finishTime %>" class="form-control" disabled id="endTime">
                                                 </td>
                                             </tr>
                                         </table>

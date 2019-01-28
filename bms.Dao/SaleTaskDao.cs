@@ -342,7 +342,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public DataSet getcustomerName(string saleTaskId)
         {
-            string cmdText = "select userName,customerName,startTime,finishTime from V_SaleTask where saleTaskId=@saleTaskId";
+            string cmdText = "select userName,customerName,startTime,finishTime,regionName from V_SaleTask where saleTaskId=@saleTaskId";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
