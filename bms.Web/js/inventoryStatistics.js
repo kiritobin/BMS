@@ -1,10 +1,4 @@
-﻿function GetQueryString(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
-}
-
-//时间选择器
+﻿//时间选择器
 jeDate("#startTime", {
     theme: {
         bgcolor: "#D91600",
@@ -47,7 +41,7 @@ $(document).ready(function () {
     var singleHeadId = getUrlParam(location.href, "singleHeadId");
     
     //出入退
-    var type = GetQueryString("type");
+    var type = getUrlParam(location.href, "type");
     if (type == "RK") {
         $("#tjType").html("入&nbsp;库&nbsp;统&nbsp;计");
         $("#diff").text("来源组织");
