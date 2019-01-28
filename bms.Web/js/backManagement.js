@@ -9,11 +9,18 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
+            var sellId = $("#region").val();
+            var customer = $("#customer").find("option:selected").text();
+            if (customer == "全部客户") {
+                customer = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'backManagement.aspx',
                 data: {
                     page: api.getCurrent(), //页码
+                    sellId: sellId,
+                    customer: customer,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -29,7 +36,10 @@
     $("#btn-search").click(function () {
         //var stockId = $("#bill").val();
         var sellId = $("#region").val();
-        var customer = $("#customer").val();
+        var customer = $("#customer").find("option:selected").text();
+        if (customer == "全部客户") {
+            customer = "";
+        }
         $.ajax({
             type: 'Post',
             url: 'backManagement.aspx',

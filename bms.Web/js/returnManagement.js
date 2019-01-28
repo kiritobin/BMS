@@ -1,4 +1,20 @@
-﻿$(document).ready(function () {
+﻿jeDate("#startTime", {
+    theme: {
+        bgcolor: "#D91600",
+        pnColor: "#FF6653"
+    },
+    multiPane: true,
+    format: "YYYY-MM-DD"
+});
+jeDate("#endTime", {
+    theme: {
+        bgcolor: "#D91600",
+        pnColor: "#FF6653"
+    },
+    multiPane: true,
+    format: "YYYY-MM-DD"
+});
+$(document).ready(function () {
    $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -9,13 +25,25 @@
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var search = $("#btn-search").val();
+            var ID = $("#ID").val();
+            var region = $("#region").find("option:selected").text();
+            var user = $("#user").find("option:selected").text();
+            var time = $("#time").val();
+            if (region == "全部收货组织") {
+                region = "";
+            }
+            if (user == "全部操作员") {
+                user = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'returnManagement.aspx',
                 data: {
                     page: api.getCurrent(), //页码
-                    search: search,
+                    ID: ID,
+                    region: region,
+                    user: user,
+                    time: time,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -25,6 +53,43 @@
                     $("#intPageCount").remove();
                 }
             });
+        }
+    })
+
+    //清空时间
+    $("#modalClose").click(function () {
+        $("#time").val("");
+        $("#timeModal").modal('hide');
+    })
+    //选择时间后确定
+    $("#btnOK").click(function () {
+        var startTime = $("#startTime").val();
+        var endTime = $("#endTime").val();
+        if (startTime == "" || startTime == null) {
+            swal({
+                title: "提示",
+                text: "请选择开始时间",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else if (endTime == "" || endTime == null) {
+            swal({
+                title: "提示",
+                text: "请选择结束时间",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else {
+            $("#time").val(startTime + "至" + endTime);
+            $("#timeModal").modal('hide');
         }
     })
 })
@@ -116,8 +181,15 @@ $("#btnAdd").click(function () {
 //查询
 $("#btn-search").click(function () {
     var ID = $("#ID").val();
-    var region = $("#region").val();
-    var user = $("#user").val();
+    var region = $("#region").find("option:selected").text();
+    var user = $("#user").find("option:selected").text();
+    var time = $("#time").val();
+    if (region == "全部收货组织") {
+        region = "";
+    }
+    if (user == "全部操作员") {
+        user = "";
+    }
     $.ajax({
         type: 'Post',
         url: 'returnManagement.aspx',
@@ -125,6 +197,7 @@ $("#btn-search").click(function () {
             ID: ID,
             region: region,
             user: user,
+            time:time,
             op: "paging"
         },
         datatype: 'text',

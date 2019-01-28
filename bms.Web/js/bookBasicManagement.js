@@ -339,7 +339,6 @@
 
     });
 
-
     $('.paging').pagination({
         //totalData: $("#totalCount").val(),
         //showData: $("#pageSize").val(),
@@ -355,6 +354,12 @@
             var bookName = $("#bookName").val();
             var bookNum = $("#bookNum").val();
             var btnISBN = $("#bookISBN").val();
+            var bookGys = $("#bookGys").find("option:selected").text();
+            var discount = $("#bookDiscount").val();
+            var discount2 = $("#bookDiscount2").val();
+            if (bookGys == "全部供应商") {
+                bookGys = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'bookBasicManagement.aspx',
@@ -363,17 +368,112 @@
                     bookName: bookName,
                     bookNum: bookNum,
                     btnISBN: btnISBN,
+                    bookGys: bookGys,
+                    discount: discount,
+                    discount2: discount2,
                     op: "paging"
                 },
                 dataType: 'text',
                 success: function (data) {
-                    $("#table tr:not(:first)").remove(); //清空table处首行
-                    $("#table").append(data); //加载table
-                    $("#intPageCount").remove();
+                    if (data == "数据库存在不符合格式的数据") {
+                        swal({
+                            title: "错误提示",
+                            text: data,
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-warning',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        });
+                    } else {
+                        $("#table tr:not(:first)").remove(); //清空table处首行
+                        $("#table").append(data); //加载table
+                        $("#intPageCount").remove();
+                    }
                 }
             });
         }
     });
+})
+//选定销售折扣数
+$("#btn_number").click(function () {
+    var type = $("input[name='optionsRadios']:checked").val();
+    var number = $("#number").val();
+    if (number == "" || number == null) {
+        swal({
+            title: "提示",
+            text: "请输入数量",
+            type: "warning",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '确定',
+            confirmButtonClass: 'btn btn-warning',
+            buttonsStyling: false,
+            allowOutsideClick: false
+        });
+    }
+    else if (type == "" || type == null) {
+        swal({
+            title: "提示",
+            text: "请选择类型",
+            type: "warning",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '确定',
+            confirmButtonClass: 'btn btn-warning',
+            buttonsStyling: false,
+            allowOutsideClick: false
+        });
+    }
+    else {
+        $("#bookDiscount").val("");
+        $("#bookDiscount").val(type + number);
+        $("#numberModal").modal('hide');
+    }
+})
+//选定进货折扣数
+$("#btn_number2").click(function () {
+    var type = $("input[name='optionsRadios2']:checked").val();
+    var number = $("#number2").val();
+    if (number == "" || number == null) {
+        swal({
+            title: "提示",
+            text: "请输入数量",
+            type: "warning",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '确定',
+            confirmButtonClass: 'btn btn-warning',
+            buttonsStyling: false,
+            allowOutsideClick: false
+        });
+    }
+    else if (type == "" || type == null) {
+        swal({
+            title: "提示",
+            text: "请选择类型",
+            type: "warning",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '确定',
+            confirmButtonClass: 'btn btn-warning',
+            buttonsStyling: false,
+            allowOutsideClick: false
+        });
+    }
+    else {
+        $("#bookDiscount2").val("");
+        $("#bookDiscount2").val(type + number);
+        $("#numberModal2").modal('hide');
+    }
+})
+//取消已选择折扣
+$("#btn_clear").click(function () {
+    $("#bookDiscount").val("");
+    $("#number").val("");
+    $("#numberModal").modal('hide');
+})
+$("#btn_clear2").click(function () {
+    $("#bookDiscount2").val("");
+    $("#number2").val("");
+    $("#numberModal2").modal('hide');
 })
 
 //点击查询按钮时
@@ -381,6 +481,12 @@ $("#btn-search").click(function () {
     var bookName = $("#bookName").val();
     var bookNum = $("#bookNum").val();
     var bookISBN = $("#bookISBN").val();
+    var bookGys = $("#bookGys").find("option:selected").text();
+    var discount = $("#bookDiscount").val();
+    var discount2 = $("#bookDiscount2").val();
+    if (bookGys == "全部供应商") {
+        bookGys = "";
+    }
     $.ajax({
         type: 'Post',
         url: 'bookBasicManagement.aspx',
@@ -388,45 +494,77 @@ $("#btn-search").click(function () {
             bookName: bookName,
             bookNum: bookNum,
             bookISBN: bookISBN,
+            bookGys: bookGys,
+            discount: discount,
+            discount2: discount2,
             op: "paging"
         },
         dataType: 'text',
         success: function (data) {
-            $("#intPageCount").remove();
-            $("#table tr:not(:first)").empty(); //清空table处首行
-            $("#table").append(data); //加载table
-            $(".paging").empty();
-            $('.paging').pagination({
-                //totalData: $("#totalCount").val(),
-                //showData: $("#pageSize").val(),
-                pageCount: $("#intPageCount").val(), //总页数
-                jump: true,
-                mode: 'fixed',//固定页码数量
-                coping: true,
-                homePage: '首页',
-                endPage: '尾页',
-                prevContent: '上页',
-                nextContent: '下页',
-                callback: function (api) {
-                    $.ajax({
-                        type: 'Post',
-                        url: 'bookBasicManagement.aspx',
-                        data: {
-                            page: api.getCurrent(), //页码
-                            bookName: bookName,
-                            bookNum: bookNum,
-                            bookISBN: bookISBN,
-                            op: "paging"
-                        },
-                        dataType: 'text',
-                        success: function (data) {
-                            $("#table tr:not(:first)").remove(); //清空table处首行
-                            $("#table").append(data); //加载table
-                            $("#intPageCount").remove();
-                        }
-                    });
-                }
-            });
+            if (data == "数据库存在不符合格式的数据") {
+                swal({
+                    title: "错误提示",
+                    text: data,
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-warning',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            } else {
+                $("#intPageCount").remove();
+                $("#table tr:not(:first)").empty(); //清空table处首行
+                $("#table").append(data); //加载table
+                $(".paging").empty();
+                $('.paging').pagination({
+                    //totalData: $("#totalCount").val(),
+                    //showData: $("#pageSize").val(),
+                    pageCount: $("#intPageCount").val(), //总页数
+                    jump: true,
+                    mode: 'fixed',//固定页码数量
+                    coping: true,
+                    homePage: '首页',
+                    endPage: '尾页',
+                    prevContent: '上页',
+                    nextContent: '下页',
+                    callback: function (api) {
+                        $.ajax({
+                            type: 'Post',
+                            url: 'bookBasicManagement.aspx',
+                            data: {
+                                page: api.getCurrent(), //页码
+                                bookName: bookName,
+                                bookNum: bookNum,
+                                bookISBN: bookISBN,
+                                bookGys: bookGys,
+                                discount: discount,
+                                discount2: discount2,
+                                op: "paging"
+                            },
+                            dataType: 'text',
+                            success: function (data) {
+                                if (data == "数据库存在不符合格式的数据") {
+                                    swal({
+                                        title: "错误提示",
+                                        text: data,
+                                        type: "warning",
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: '确定',
+                                        confirmButtonClass: 'btn btn-warning',
+                                        buttonsStyling: false,
+                                        allowOutsideClick: false
+                                    });
+                                } else {
+                                    $("#table tr:not(:first)").remove(); //清空table处首行
+                                    $("#table").append(data); //加载table
+                                    $("#intPageCount").remove();
+                                }
+                            }
+                        });
+                    }
+                });
+            }
         }
     });
 });
@@ -471,12 +609,12 @@ $("#table").delegate(".btn-delete", "click", function () {
                     })
                 } else {
                     swal({
-                        title: succ,
+                        title: "错误提示",
                         text: succ,
-                        type: "success",
+                        type: "warning",
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: '确定',
-                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonClass: 'btn btn-warning',
                         buttonsStyling: false,
                         allowOutsideClick: false
                     }).then(function () {

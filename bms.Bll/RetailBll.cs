@@ -246,6 +246,16 @@ namespace bms.Bll
             return dao.SelectByIsbn(ISBN, retailHeadId);
         }
         /// <summary>
+        /// 根据书号查找isbn，单价，折扣
+        /// </summary>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public SaleMonomer SelectBookNum(string bookNum, string retailHeadId)
+        {
+            return dao.SelectBookNum(bookNum, retailHeadId);
+        }
+
+        /// <summary>
         /// 获取分页数据
         /// </summary>
         /// <param name="tablebuilder"></param>

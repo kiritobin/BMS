@@ -22,6 +22,15 @@ namespace bms.Bll
         }
 
         /// <summary>
+        /// 获取操作员
+        /// </summary>
+        /// <returns></returns>
+        public DataSet selectUser()
+        {
+            return regionDao.selectUser();
+        }
+
+        /// <summary>
         /// 根据地区ID获取地区信息
         /// </summary>
         /// <returns></returns>

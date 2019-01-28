@@ -133,6 +133,15 @@ namespace bms.Bll
             }
         }
         /// <summary>
+        /// 获取操作员
+        /// </summary>
+        /// <returns></returns>
+        public DataSet selectCzy()
+        {
+            return saleHeaddao.slectCzy();
+        }
+
+        /// <summary>
         /// 获取制单日期
         /// </summary>
         /// <returns>时间字符串</returns>

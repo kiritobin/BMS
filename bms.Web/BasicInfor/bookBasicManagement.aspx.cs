@@ -21,6 +21,7 @@ namespace bms.Web.BasicInfor
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row,funCount;
         public string search = "", last, num,userName,regionName;
         public DataSet ds, dsPer;
+        public DataTable dsSupplier;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply,funcRetail, isAdmin, funcBookStock;
         DataTable except = new DataTable();//接受差集
         BookBasicBll bookbll = new BookBasicBll();
@@ -69,7 +70,7 @@ namespace bms.Web.BasicInfor
                 }
                 else
                 {
-                    Response.Write("在其他表中有关联不能删除");
+                    Response.Write("此资料已有关联订单，无法删除！");
                     Response.End();
                 }
             }
@@ -337,38 +338,173 @@ namespace bms.Web.BasicInfor
             string bookName = Request["bookName"];
             string bookNum = Request["bookNum"];
             string bookISBN = Request["bookISBN"];
-            if ((bookName == "" || bookName == null) && (bookNum == null || bookNum == "") && (bookISBN == null || bookISBN == ""))
+            string discount = Request["discount"];
+            string discount2 = Request["discount2"];
+            string bookGys = Request["bookGys"];
+            if (bookName != "" && bookName != null)
             {
-                search = "";
+                if (search == "" || search == null)
+                {
+                    search += "bookName like '%" + bookName + "%'";
+                }
+                else
+                {
+                    search += " and bookName like '%" + bookName + "%'";
+                }
             }
-            else if ((bookName != "" && bookName != null) && (bookNum == null || bookNum == "") && (bookISBN == null || bookISBN == ""))
+            if (bookNum != "" && bookNum != null)
             {
-                search = String.Format(" bookName like '%{0}%'", bookName);
+                if (search == "" || search == null)
+                {
+                    search += "bookNum like '%" + bookNum + "%'";
+                }
+                else
+                {
+                    search += " and bookNum like '%" + bookNum + "%'";
+                }
             }
-            else if ((bookName == "" || bookName == null) && (bookNum != "" && bookNum != null) && (bookISBN == null || bookISBN == ""))
+            if (bookISBN != "" && bookISBN != null)
             {
-                search = "bookNum like '%" + bookNum + "%'";
+                if (search == "" || search == null)
+                {
+                    search += "isbn like '%" + bookISBN + "%'";
+                }
+                else
+                {
+                    search += " and isbn like '%" + bookISBN + "%'";
+                }
             }
-            else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum == null || bookNum == ""))
+            if (discount != "" && discount != null)
             {
-                search = "ISBN like '%" + bookISBN + "%'";
+                string[] sArray = discount.Split('于');
+                string type = sArray[0];
+                string number = sArray[1];
+                try
+                {
+                    if (search == "" || search == null)
+                    {
+                        if (type == "小")
+                        {
+                            search = "remarks < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            search = "remarks = '" + number + "'";
+                        }
+                        else
+                        {
+                            search = "remarks > '" + number + "'";
+                        }
+                    }
+                    else
+                    {
+                        if (type == "小")
+                        {
+                            search += " and remarks < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            search += " and remarks = '" + number + "'";
+                        }
+                        else
+                        {
+                            search += " and remarks > '" + number + "'";
+                        }
+                    }
+                }
+                catch
+                {
+                    Response.Write("数据库存在不符合格式的数据");
+                    Response.End();
+                }
             }
-            else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum != null && bookNum != ""))
+            if (discount2 != "" && discount2 != null)
             {
-                search = "bookNum like '%" + bookNum + "%' and ISBN like '%" + bookISBN + "%'";
+                string[] sArray = discount2.Split('于');
+                string type = sArray[0];
+                string number = sArray[1];
+                try
+                {
+                    if (search == "" || search == null)
+                    {
+                        if (type == "小")
+                        {
+                            search = "author < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            search = "author = '" + number + "'";
+                        }
+                        else
+                        {
+                            search = "author > '" + number + "'";
+                        }
+                    }
+                    else
+                    {
+                        if (type == "小")
+                        {
+                            search += " and author < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            search += " and author = '" + number + "'";
+                        }
+                        else
+                        {
+                            search += " and author > '" + number + "'";
+                        }
+                    }
+                }
+                catch
+                {
+                    Response.Write("数据库存在不符合格式的数据");
+                    Response.End();
+                }
             }
-            else if ((bookName != "" && bookName != null) && (bookNum != null && bookNum != "") && (bookISBN == null || bookISBN == ""))
+            if (bookGys != "" && bookGys != null)
             {
-                search = String.Format(" bookName like '%{0}%' and bookNum like '{1}'", bookName, bookNum);
+                if (search == "" || search == null)
+                {
+                    search += "supplier like '%" + bookGys + "%'";
+                }
+                else
+                {
+                    search += " and supplier like '%" + bookGys + "%'";
+                }
             }
-            else if ((bookName != "" && bookName != null) && (bookNum == null || bookNum == "") && (bookISBN != null && bookISBN != ""))
-            {
-                search = String.Format(" bookName like '%{0}%' and ISBN like '%{1}%'", bookName, bookISBN);
-            }
-            else
-            {
-                search = String.Format(" bookName like '%{0}%' and bookNum like '%{1}%' and ISBN like '%{2}%'", bookName, bookNum, bookISBN);
-            }
+            //if ((bookName == "" || bookName == null) && (bookNum == null || bookNum == "") && (bookISBN == null || bookISBN == ""))
+            //{
+            //    search = "";
+            //}
+            //else if ((bookName != "" && bookName != null) && (bookNum == null || bookNum == "") && (bookISBN == null || bookISBN == ""))
+            //{
+            //    search = String.Format(" bookName like '%{0}%'", bookName);
+            //}
+            //else if ((bookName == "" || bookName == null) && (bookNum != "" && bookNum != null) && (bookISBN == null || bookISBN == ""))
+            //{
+            //    search = "bookNum like '%" + bookNum + "%'";
+            //}
+            //else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum == null || bookNum == ""))
+            //{
+            //    search = "ISBN like '%" + bookISBN + "%'";
+            //}
+            //else if ((bookName == "" || bookName == null) && (bookISBN != "" && bookISBN != null) && (bookNum != null && bookNum != ""))
+            //{
+            //    search = "bookNum like '%" + bookNum + "%' and ISBN like '%" + bookISBN + "%'";
+            //}
+            //else if ((bookName != "" && bookName != null) && (bookNum != null && bookNum != "") && (bookISBN == null || bookISBN == ""))
+            //{
+            //    search = String.Format(" bookName like '%{0}%' and bookNum like '{1}'", bookName, bookNum);
+            //}
+            //else if ((bookName != "" && bookName != null) && (bookNum == null || bookNum == "") && (bookISBN != null && bookISBN != ""))
+            //{
+            //    search = String.Format(" bookName like '%{0}%' and ISBN like '%{1}%'", bookName, bookISBN);
+            //}
+            //else
+            //{
+            //    search = String.Format(" bookName like '%{0}%' and bookNum like '%{1}%' and ISBN like '%{2}%'", bookName, bookNum, bookISBN);
+            //}
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "T_BookBasicData";
@@ -379,7 +515,9 @@ namespace bms.Web.BasicInfor
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
-
+            //获取供应商
+            //获取供应商
+            dsSupplier = bookbll.selectSupplier();
             //生成table
             StringBuilder sb = new StringBuilder();
             int j = ds.Tables[0].Rows.Count;

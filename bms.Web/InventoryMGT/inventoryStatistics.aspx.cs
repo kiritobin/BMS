@@ -17,8 +17,11 @@ namespace bms.Web.InventoryMGT
         RoleBll roleBll = new RoleBll();
         BookBasicBll bookbll = new BookBasicBll();
         WarehousingBll warehousingBll = new WarehousingBll();
+        RegionBll regionBll = new RegionBll();
         public bool isAdmin;
-        protected string sbNum, sjNum, total, real;
+        public DataTable dsSupplier, dsUser,dsSource;
+        public DataSet dsRegion;
+        protected string sbNum, sjNum, total, real, title;
         protected void Page_Load(object sender, EventArgs e)
         {
             string tjType = Request.QueryString["type"];
@@ -26,21 +29,23 @@ namespace bms.Web.InventoryMGT
             if (tjType=="CK")
             {
                 type = 0;
+                title = "接收组织";
             }
             if (tjType=="RK")
             {
                 type = 1;
+                title = "入库来源";
             }
             if (tjType=="TH")
             {
                 type = 2;
+                title = "接收组织";
             }
             User user = (User)Session["user"];
             string userId = user.UserId;
             DataSet ds = roleBll.selectRole(userId);
             string roleName = ds.Tables[0].Rows[0]["roleName"].ToString();
-            string time = DateTime.Now.ToString("yyyy-MM-dd");
-            DataSet dataSet = warehousingBll.getKinds(time, type);
+            DataSet dataSet = warehousingBll.getKinds(type);
             sjNum = dataSet.Tables[0].Rows[0]["pz"].ToString();
             sbNum = dataSet.Tables[0].Rows[0]["sl"].ToString();
             total = dataSet.Tables[0].Rows[0]["my"].ToString();
@@ -57,7 +62,7 @@ namespace bms.Web.InventoryMGT
         //获取数据
         protected string getData()
         {
-            string bookNum = Request["bookNum"];
+            string bookIsbn = Request["bookIsbn"];
             string bookName = Request["bookName"];
             string supplier = Request["supplier"];
             string time = Request["time"];
@@ -82,9 +87,9 @@ namespace bms.Web.InventoryMGT
             {
                 type = 2;
             }
-            if(bookNum != null && bookNum != "")
+            if(bookIsbn != null && bookIsbn != "")
             {
-                where += " and bookNum='" + bookNum + "'";
+                where += " and isbn='" + bookIsbn + "'";
             }
             if (bookName != null && bookName != "")
             {
@@ -96,8 +101,15 @@ namespace bms.Web.InventoryMGT
             }
             if (time != null && time != "")
             {
-                where += " and time like '" + time + "%'";
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                where += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
             }
+            //if (time != null && time != "")
+            //{
+            //    where += " and time like '" + time + "%'";
+            //}
             if (userName != null && userName != "")
             {
                 where += " and userName='" + userName + "'";
@@ -148,7 +160,14 @@ namespace bms.Web.InventoryMGT
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             DataSet ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
-
+            //获取供应商
+            dsSupplier = bookbll.selectSupplier();
+            //获取组织
+            dsRegion = regionBll.select();
+            //获取制单员
+            dsUser = bookbll.selectZdy();
+            //获取来源组织/收货组织
+            dsSource = bookbll.selectSource();
             StringBuilder sb = new StringBuilder();
             int j = ds.Tables[0].Rows.Count;
             for (int i = 0; i < j; i++)

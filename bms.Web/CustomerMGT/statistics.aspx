@@ -378,6 +378,16 @@
                                                 </select></td>
                                         </tr>
                                         <tr>
+                                            <td>展示类型：</td>
+                                            <td class="">
+                                                <select class="selectpicker text-center" data-live-search="true" id="searchKinds">
+                                                    <option value="">选择类型</option>
+                                                    <option value="">全部</option>
+                                                    <option value="">销售</option>
+                                                    <option value="">预采</option>
+                                                </select></td>
+                                        </tr>
+                                        <tr>
                                             <td>
                                                 <button class="btn btn-success pull-right" id="goScreen">进入大屏</button>
                                             </td>

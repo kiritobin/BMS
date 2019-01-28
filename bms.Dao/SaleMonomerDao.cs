@@ -443,13 +443,41 @@ namespace bms.Dao
         /// 获取销售单体中的数据统计
         /// </summary>
         /// <returns>返回数据集</returns>
-        public DataSet SelectBookRanking(DateTime startTime, DateTime endTime, string regionName)
+        public DataSet SelectBookRanking(DateTime startTime, DateTime endTime, string regionName,string type)
         {
-            string sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_salemonomer where (state=1 or state=2) and dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
-            string[] param = { "@startTime", "@endTime", "@regionName" };
-            object[] values = { startTime, endTime, regionName };
-            DataSet ds = db.FillDataSet(sql, param, values);
-            return ds;
+            string typeString = null;
+            string sql = null;
+            if (type == "销售")
+            {
+                typeString = "(state=1 or state=2) and";
+                sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_salemonomer where " + typeString + " dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
+                string[] param = { "@startTime", "@endTime", "@regionName" };
+                object[] values = { startTime, endTime, regionName };
+                DataSet ds = db.FillDataSet(sql, param, values);
+                return ds;
+            }
+            else if (type == "预采")
+            {
+                typeString = "state=3 and";
+                sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_salemonomer where " + typeString + " dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
+                string[] param = { "@startTime", "@endTime", "@regionName" };
+                object[] values = { startTime, endTime, regionName };
+                DataSet ds = db.FillDataSet(sql, param, values);
+                return ds;
+            }
+            else
+            {
+                sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_salemonomer where dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
+                string[] param = { "@startTime", "@endTime", "@regionName" };
+                object[] values = { startTime, endTime, regionName };
+                DataSet ds = db.FillDataSet(sql, param, values);
+                return ds;
+            }
+            //string sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_salemonomer where (state=1 or state=2) and dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
+            //string[] param = { "@startTime", "@endTime", "@regionName" };
+            //object[] values = { startTime, endTime, regionName };
+            //DataSet ds = db.FillDataSet(sql, param, values);
+            //return ds;
         }
         /// <summary>
         /// 获取销售单体最后一条数据
@@ -799,28 +827,84 @@ namespace bms.Dao
         /// 团采统计
         /// </summary>
         /// <returns></returns>
-        public DataSet GroupCount(DateTime startTime, DateTime endTime, string regionName)
+        public DataSet GroupCount(DateTime startTime, DateTime endTime, string regionName, string type)
         {
             //string sql = "select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select bookNum,sum(number) as allCount,sum(totalPrice) as allPrice from v_salemonomer where (state=1 or state=2) GROUP BY bookNum ORDER BY allCount desc) as temp)";
-            string sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_salemonomer where (state=1 or state=2) and dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
-            string[] param = { "@startTime", "@endTime", "@regionName" };
-            object[] values = { startTime, endTime, regionName };
-            DataSet ds = db.FillDataSet(sql, param, values);
-            return ds;
+            string typeString = null;
+            string sql = null;
+            if (type == "销售")
+            {
+                typeString = "(state=1 or state=2) and";
+                sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_salemonomer where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
+                string[] param = { "@startTime", "@endTime", "@regionName" };
+                object[] values = { startTime, endTime, regionName };
+                DataSet ds = db.FillDataSet(sql, param, values);
+                return ds;
+            }
+            else if (type == "预采")
+            {
+                typeString = "state=3 and";
+                sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_salemonomer  where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
+                string[] param = { "@startTime", "@endTime", "@regionName" };
+                object[] values = { startTime, endTime, regionName };
+                DataSet ds = db.FillDataSet(sql, param, values);
+                return ds;
+            }
+            else
+            {
+                sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_salemonomer where dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
+                string[] param = { "@startTime", "@endTime", "@regionName" };
+                object[] values = { startTime, endTime, regionName };
+                DataSet ds = db.FillDataSet(sql, param, values);
+                return ds;
+            }
+            //string sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_salemonomer where (state=1 or state=2) and dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
+            //string[] param = { "@startTime", "@endTime", "@regionName" };
+            //object[] values = { startTime, endTime, regionName };
+            //DataSet ds = db.FillDataSet(sql, param, values);
+            //return ds;
         }
         /// <summary>
         /// 客户采购统计
         /// </summary>
         /// <returns></returns>
-        public DataSet groupCustomer(DateTime startTime, DateTime endTime, string regionName)
+        public DataSet groupCustomer(DateTime startTime, DateTime endTime, string regionName, string type)
         {
             //string sql = "select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice from v_salemonomer  where (state=1 or state=2) GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
             //string sql = "SELECT sum(A.totalPrice) as totalPrice,D.customerName as customerName,sum(A.number) as number from t_salemonomer as A,t_salehead as B,t_saletask as C,t_customer as D where a.saleHeadId = b.saleHeadId and b.saleTaskId=c.saleTaskId and c.customerID=d.customerID and (b.state=1 or b.state=2) group by D.customerName ORDER BY totalPrice desc LIMIT 0,10";
-            string sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_salemonomer  where (state=1 or state=2) and dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
-            string[] param = { "@startTime", "@endTime", "@regionName" };
-            object[] values = { startTime, endTime, regionName };
-            DataSet ds = db.FillDataSet(sql, param, values);
-            return ds;
+            string typeString = null;
+            string sql = null;
+            if (type == "销售")
+            {
+                typeString = "(state=1 or state=2) and";
+                sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_salemonomer  where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
+                string[] param = { "@startTime", "@endTime", "@regionName" };
+                object[] values = { startTime, endTime, regionName };
+                DataSet ds = db.FillDataSet(sql, param, values);
+                return ds;
+            }
+            else if (type == "预采")
+            {
+                typeString = "state=3 and";
+                sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_salemonomer  where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
+                string[] param = { "@startTime", "@endTime", "@regionName" };
+                object[] values = { startTime, endTime, regionName };
+                DataSet ds = db.FillDataSet(sql, param, values);
+                return ds;
+            }
+            else
+            {
+                sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_salemonomer where dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
+                string[] param = { "@startTime", "@endTime", "@regionName" };
+                object[] values = { startTime, endTime, regionName };
+                DataSet ds = db.FillDataSet(sql, param, values);
+                return ds;
+            }
+            //string sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_salemonomer  where (state=1 or state=2) and dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
+            //string[] param = { "@startTime", "@endTime", "@regionName" };
+            //object[] values = { startTime, endTime, regionName };
+            //DataSet ds = db.FillDataSet(sql, param, values);
+            //return ds;
         }
         /// <summary>
         /// 客户所购品种数

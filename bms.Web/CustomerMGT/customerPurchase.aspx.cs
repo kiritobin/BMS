@@ -17,6 +17,8 @@ namespace bms.Web.CustomerMGT
         public string userName;
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         BookBasicBll bookbll = new BookBasicBll();
+        public int kindsNum = 0, allNum = 0;
+        public string allTotalPrice = "", allRealPrice = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
@@ -34,28 +36,57 @@ namespace bms.Web.CustomerMGT
 
         protected string getData()
         {
-            Customer custom=(Customer)Session["custom"];
+            Customer custom = (Customer)Session["custom"];
             userName = custom.CustomerName;
             int cusId = custom.CustomerId;
-            string search = "";
+            //string search = "";
+            string search = "(state=1 or state=2) and deleteState=0 and customerID=" + cusId;
             string bookName = Request["bookName"];
             string source = Request["source"];
-            if ((bookName == ""|| bookName==null)&&(source==""||source==null))
+            string isbn = Request["isbn"];
+            string time = Request["time"];
+            if (bookName != "" && bookName != null)
             {
-                search = "deleteState=0 and customerID=" + cusId;
+                search = search + " and bookName like '%" + bookName + "%'";
             }
-            else if ((bookName == "" || bookName == null)&&(source != "" || source != null))
+            if (source != "" && source != null)
             {
-                search = "deleteState=0 and regionName '"+source+ "' and customerID=" + cusId;
+                search = search + " and regionName like '%" + source + "%'";
             }
-            else if ((bookName != "" || bookName != null) && (source == "" || source == null))
+            if (isbn != "" && isbn != null)
             {
-                search = "deleteState=0 and bookName '" + bookName + "' and customerID=" + cusId;
+                search = search + " and ISBN like '%" + isbn + "%'";
             }
-            else
+            if (time != null && time != "")
             {
-                search = "deleteState=0 and bookName '" + bookName + "' and regionName='"+ source + "' and customerID=" + cusId;
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                if (search != null && search != "")
+                {
+                    search += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
+                else
+                {
+                    search += "dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
             }
+            //else
+            //{
+            //    search = "deleteState=0 and bookName like '%" + bookName + "%' and regionName='"+ source + "' and customerID=" + cusId;
+            //}
+
+            //获取汇总数据
+            customerPurchaseBll cpBll = new customerPurchaseBll();
+            DataSet sumDs = cpBll.getSummary(cusId, search);
+            kindsNum = int.Parse(sumDs.Tables[0].Rows[0]["kindsNum"].ToString());
+            if (kindsNum > 0)
+            {
+                allNum = int.Parse(sumDs.Tables[0].Rows[0]["alln"].ToString());
+                allRealPrice = sumDs.Tables[0].Rows[0]["arp"].ToString();
+                allTotalPrice = sumDs.Tables[0].Rows[0]["atp"].ToString();
+            }
+
             currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {

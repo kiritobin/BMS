@@ -82,10 +82,46 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and isbn like '%" + isbn + "%'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                strWhere += " and price='" + price + "'";
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "price > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and price > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    strWhere += " and price='" + price + "'";
+            //}
             if (discount != null && discount != "")
             {
                 strWhere += " and realDiscount='" + discount + "'";
@@ -221,10 +257,46 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and isbn like '%" + isbn + "%'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                strWhere += " and price='" + price + "'";
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "price > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and price > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    strWhere += " and price='" + price + "'";
+            //}
             if (discount != null && discount != "")
             {
                 strWhere += " and realDiscount='" + discount + "'";
@@ -294,10 +366,46 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and isbn like '%" + isbn + "%'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                strWhere += " and price='" + price + "'";
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "price > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and price > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    strWhere += " and price='" + price + "'";
+            //}
             if (discount != null && discount != "")
             {
                 strWhere += " and realDiscount='" + discount + "'";

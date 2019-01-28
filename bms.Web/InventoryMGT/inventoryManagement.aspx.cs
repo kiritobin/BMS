@@ -16,16 +16,20 @@ namespace bms.Web.InventoryMGT
     {
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "", userName, regionName;
-        public DataSet ds, dsPer;
+        public DataSet ds, dsPer,dsRegion;
+        public DataTable dsSupplier;
         public User user;
         RoleBll roleBll = new RoleBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         BookBasicBll bookbll = new BookBasicBll();
+        RegionBll regionBll = new RegionBll();
         protected void Page_Load(object sender, EventArgs e)
         {
             user = (User)Session["user"];
             permission();
             getData();
+            //获取组织
+            dsRegion = regionBll.select();
             string op = Request["op"];
             if (op == "logout")
             {
@@ -43,6 +47,7 @@ namespace bms.Web.InventoryMGT
             string bookName = Request["bookName"];
             string stockNumber = Request["stockNumber"];
             string supplier = Request["supplier"];
+            string price = Request["price"];
             if (user.RoleId.RoleName == "超级管理员")
             {
                 string area = Request["bookArea"];
@@ -131,6 +136,42 @@ namespace bms.Web.InventoryMGT
                         }
                     }
                 }
+                if (price != "" && price != null)
+                {
+                    string[] sArray = price.Split('于');
+                    string type = sArray[0];
+                    string number = sArray[1];
+                    if (search == "" || search == null)
+                    {
+                        if (type == "小")
+                        {
+                            search = "price < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            search = "price = '" + number + "'";
+                        }
+                        else
+                        {
+                            search = "price > '" + number + "'";
+                        }
+                    }
+                    else
+                    {
+                        if (type == "小")
+                        {
+                            search += " and price < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            search += " and price = '" + number + "'";
+                        }
+                        else
+                        {
+                            search += " and price > '" + number + "'";
+                        }
+                    }
+                }
             }
             else
             {
@@ -180,6 +221,24 @@ namespace bms.Web.InventoryMGT
                         search += " and stockNum > '" + number + "'";
                     }
                 }
+                if (price != "" && price != null)
+                {
+                    string[] sArray = price.Split('于');
+                    string type = sArray[0];
+                    string number = sArray[1];
+                    if (type == "小")
+                    {
+                        search += " and price < '" + number + "'";
+                    }
+                    else if (type == "等")
+                    {
+                        search += " and price = '" + number + "'";
+                    }
+                    else
+                    {
+                        search += " and price > '" + number + "'";
+                    }
+                }
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
@@ -191,6 +250,8 @@ namespace bms.Web.InventoryMGT
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
+            //获取供应商
+            dsSupplier = bookbll.selectSupplier();
             int j = ds.Tables[0].Rows.Count;
             if (ds == null)
             {

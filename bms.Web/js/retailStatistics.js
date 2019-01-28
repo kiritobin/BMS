@@ -94,12 +94,12 @@ $(document).ready(function () {
             var groupbyType;
             if (groupby == "组织") {
                 groupbyType = "regionName";
-                if (regionName == "全部") {
+                if (regionName == "全部组织") {
                     regionName = "";
                 }
                 payType = "";
             } else if (groupby == "支付方式") {
-                if (payType == "全部") {
+                if (payType == "全部支付方式") {
                     payType = "";
                 }
                 groupbyType = "payment";
@@ -172,12 +172,12 @@ $(document).ready(function () {
             var groupbyType;
             if (groupby == "组织") {
                 groupbyType = "regionName";
-                if (regionName == "全部") {
+                if (regionName == "全部组织") {
                     regionName = "";
                 }
                 payType = "";
             } else if (groupby == "支付方式") {
-                if (payType == "全部") {
+                if (payType == "全部支付方式") {
                     payType = "";
                 }
                 groupbyType = "payment";
@@ -224,12 +224,12 @@ $(document).ready(function () {
             var groupbyType;
             if (groupby == "组织") {
                 groupbyType = "regionName";
-                if (regionName == "全部") {
+                if (regionName == "全部组织") {
                     regionName = "";
                 }
                 payType = "";
             } else if (groupby == "支付方式") {
-                if (payType == "全部") {
+                if (payType == "全部支付方式") {
                     payType = "";
                 }
                 groupbyType = "payment";
@@ -316,12 +316,12 @@ $(document).ready(function () {
         var groupbyType;
         if (groupby == "组织") {
             groupbyType = "regionName";
-            if (regionName == "全部") {
+            if (regionName == "全部组织") {
                 regionName = "";
             }
             payType = "";
         } else if (groupby == "支付方式") {
-            if (payType == "全部") {
+            if (payType == "全部支付方式") {
                 payType = "";
             }
             groupbyType = "payment";

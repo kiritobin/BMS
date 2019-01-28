@@ -16,7 +16,7 @@ namespace bms.Web.BasicInfor
     {
         public string userName, regionName, roleName;
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
-        public DataSet ds, dsRegion, dsPer;
+        public DataSet ds, dsRegion, dsPer,dsUser;
         RoleBll roleBll = new RoleBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         UserBll userBll = new UserBll();
@@ -30,7 +30,6 @@ namespace bms.Web.BasicInfor
             roleName = user.RoleId.RoleName;
             permission();
             getData();
-            dsRegion = regionBll.select();
             string op = Request["op"];
             if (op == "add")
             {
@@ -140,19 +139,27 @@ namespace bms.Web.BasicInfor
             string singleHeadId = Request["ID"];
             string regionName = Request["region"];
             string userName = Request["user"];
-            
-                if (singleHeadId != "" && singleHeadId != null)
-                {
+            string time = Request["time"];
+
+            if (singleHeadId != "" && singleHeadId != null)
+            {
                     search += " and singleHeadId like '%" + singleHeadId + "%'";
-                }
-                if (regionName != "" && regionName != null)
-                {
+            }
+            if (regionName != "" && regionName != null)
+            {
                     search += " and regionName like '%" + regionName + "%'";
-                }
-                if (userName != "" && userName != null)
-                {
+            }
+            if (userName != "" && userName != null)
+            {
                     search += " and userName like '%" + userName + "%'";
-                }
+            }
+            if (time != null && time != "")
+            {
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                search += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
+            }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
             tbd.OrderBy = "singleHeadId";
@@ -169,7 +176,10 @@ namespace bms.Web.BasicInfor
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
-
+            //获取组织
+            dsRegion = regionBll.select();
+            //获取操作员
+            dsUser = regionBll.selectUser();
             //生成table
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             int count = ds.Tables[0].Rows.Count;

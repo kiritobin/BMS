@@ -354,7 +354,7 @@ namespace bms.Web.SalesMGT
             sb.Append("<td>" + "书名" + "</td>");
             sb.Append("<td>" + "单价" + "</td>");
             sb.Append("<td>" + "数量" + "</td>");
-            sb.Append("<td>" + "实际折扣" + "</td>");
+            sb.Append("<td>" + "折扣" + "</td>");
             sb.Append("<td>" + "码洋" + "</td>");
             sb.Append("<td>" + "实洋" + "</td>");
             sb.Append("</tr>");

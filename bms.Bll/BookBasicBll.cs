@@ -164,5 +164,22 @@ namespace bms.Bll
         {
             return basicDao.selectSupplier();
         }
+        /// <summary>
+        /// 获取制单员
+        /// </summary>
+        /// <returns></returns>
+        public DataTable selectZdy()
+        {
+            return basicDao.selectZdy();
+        }
+
+        /// <summary>
+        /// 获取来源组织/收货组织
+        /// </summary>
+        /// <returns></returns>
+        public DataTable selectSource()
+        {
+            return basicDao.selectSource();
+        }
     }
 }

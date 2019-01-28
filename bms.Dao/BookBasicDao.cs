@@ -210,5 +210,43 @@ namespace bms.Dao
                 return null;
             }
         }
+        /// <summary>
+        /// 获取制单员
+        /// </summary>
+        /// <returns></returns>
+        public DataTable selectZdy()
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comText = "select distinct userName from v_stockstatistics order by convert(userName using gbk) collate gbk_chinese_ci";
+            DataSet ds = db.FillDataSet(comText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                return dt;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// 获取来源组织/收货组织
+        /// </summary>
+        /// <returns></returns>
+        public DataTable selectSource()
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comText = "select distinct regionName from v_stockstatistics order by convert(regionName using gbk) collate gbk_chinese_ci";
+            DataSet ds = db.FillDataSet(comText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                return dt;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

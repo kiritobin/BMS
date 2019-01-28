@@ -47,6 +47,7 @@
     <Compile Include="bulkLoad.cs" />
     <Compile Include="ConfigurationDao.cs" />
     <Compile Include="CustomerDao.cs" />
+    <Compile Include="customerPurchaseDao.cs" />
     <Compile Include="FunctionDao.cs" />
     <Compile Include="GoodsShelvesDao.cs" />
     <Compile Include="LibraryCollectionDao.cs" />

@@ -120,13 +120,24 @@ $("#search").keypress(function (e) {
                                 url: 'retailBack.aspx',
                                 data: {
                                     isbn: isbn,
+                                    headId: sessionStorage.getItem("retailId"),
                                     op: 'choose'
                                 },
                                 dataType: 'text',
                                 success: function (succ) {
-                                    $("#myModal").modal("show");
-                                    $("#table2 tr:not(:first)").empty(); //清空table处首行
-                                    $("#table2").append(succ); //加载table
+                                    if (succ == "此书不属于此零售单中") {
+                                        swal({
+                                            title: "ISBN:" + isbn,
+                                            text: "不属于此零售单中",
+                                            buttonsStyling: false,
+                                            confirmButtonClass: "btn btn-warning",
+                                            type: "warning"
+                                        }).catch(swal.noop);
+                                    } else {
+                                        $("#myModal").modal("show");
+                                        $("#table2 tr:not(:first)").empty(); //清空table处首行
+                                        $("#table2").append(succ); //加载table
+                                    }
                                 }
                             })
                         } else {

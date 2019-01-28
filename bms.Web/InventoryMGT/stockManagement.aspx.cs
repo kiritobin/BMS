@@ -19,7 +19,7 @@ namespace bms.Web.InventoryMGT
         public string search = "",userName,regionName;
         RoleBll roleBll = new RoleBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
-        public DataSet ds, dsRegion, dsPer;
+        public DataSet ds, dsRegion, dsPer,dsUser;
         UserBll userBll = new UserBll();
         RegionBll regionBll = new RegionBll();
         WarehousingBll wareBll = new WarehousingBll();
@@ -131,6 +131,7 @@ namespace bms.Web.InventoryMGT
             string userName = Request["userName"];
             string region = Request["regionName"];
             string singHeadId = Request["singHeadId"];
+            string time = Request["time"];
             if (userName != "" && userName != null)
             {
                 search += " and userName like '%"+ userName + "%'";
@@ -142,6 +143,13 @@ namespace bms.Web.InventoryMGT
             if (singHeadId != "" && singHeadId != null)
             {
                 search += " and singleHeadId like '%" + singHeadId + "%'";
+            }
+            if (time != null && time != "")
+            {
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                search += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
             }
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
@@ -160,7 +168,11 @@ namespace bms.Web.InventoryMGT
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
+            //获取组织
             dsRegion = regionBll.select();
+            //获取操作员
+            dsUser = regionBll.selectUser();
+            
             //生成table
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)

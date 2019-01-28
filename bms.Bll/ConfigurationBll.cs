@@ -11,9 +11,9 @@ namespace bms.Bll
     public class ConfigurationBll
     {
         ConfigurationDao dao = new ConfigurationDao();
-        public Result Insert(DateTime startTime,DateTime endTime,string regionName)
+        public Result Insert(DateTime startTime,DateTime endTime,string regionName,string type)
         {
-            int row = dao.Insert(startTime, endTime, regionName);
+            int row = dao.Insert(startTime, endTime, regionName,type);
             if (row > 0)
             {
                 return Result.添加成功;
@@ -23,9 +23,9 @@ namespace bms.Bll
                 return Result.添加失败;
             }
         }
-        public Result Update(DateTime startTime, DateTime endTime, string regionName)
+        public Result Update(DateTime startTime, DateTime endTime, string regionName, string type)
         {
-            int row = dao.Update(startTime, endTime, regionName);
+            int row = dao.Update(startTime, endTime, regionName,type);
             if (row > 0)
             {
                 return Result.更新成功;

@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="../css/material-dashboard.min.css">
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/pagination.css" />
-    <style>
-    </style>
+    <link rel="stylesheet" href="../css/jedate.css" />
+    <script src="../js/jedate.min.js"></script>
 </head>
 
 <body>
@@ -36,7 +36,7 @@
                     <div class="navbar-wrapper">
                     </div>
                     <a class="btn btn-default btn-md" href="#"><%=userName %></a>
-                    <a class="btn btn-white btn-md" href="javascript:logout();">退出系统</a>
+                    <a class="btn btn-danger btn-md" href="javascript:logout();">退出系统</a>
                 </div>
             </nav>
             <!-- 主界面内容 -->
@@ -52,10 +52,16 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
+                                                <input type="text" value="" class="searchOne" id="isbnSearch" placeholder="请输入ISBN">
+                                            </div>
+                                            <div class="btn-group" role="group">
                                                 <input type="text" value="" class="searchOne" id="bookSearch" placeholder="请输入书名">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="goodsSearch" placeholder="请输入供应商">
+                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#myModal" />
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <input type="text" value="" class="searchOne" id="goodsSearch" placeholder="请输入团采地点">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                         </div>
@@ -65,7 +71,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>
-                                                        <nobr>单据编号</nobr>
+                                                        <nobr>采集单号</nobr>
                                                     </th>
                                                     <th>
                                                         <nobr>ISBN</nobr>
@@ -89,7 +95,7 @@
                                                         <nobr>折扣</nobr>
                                                     </th>
                                                     <th>
-                                                        <nobr>供应商</nobr>
+                                                        <nobr>团采地点</nobr>
                                                     </th>
                                                     <th>
                                                         <nobr>采购日期</nobr>
@@ -97,6 +103,33 @@
                                                 </tr>
                                             </thead>
                                             <%=getData() %>
+                                        </table>
+                                        <table class="table table_stock text-center">
+                                            <tr class="text-nowrap">
+                                                <td>
+                                                    <span>书籍种数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=kindsNum %>" class="form-control" disabled id="bookKinds">
+                                                </td>
+                                                <td>
+                                                    <span>书本总数:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=allNum %>" class="form-control" disabled id="allBookCount"></td>
+                                                <td>
+                                                    <span>总码洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=Convert.ToDouble(allTotalPrice).ToString("F2") %>" class="form-control" disabled id="alltotalprice">
+                                                </td>
+                                                <td>
+                                                    <span>总实洋:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=Convert.ToDouble(allRealPrice).ToString("F2") %>" class="form-control" disabled id="allreadprice">
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
                                     <div class="copyright float-right page-box">
@@ -111,7 +144,52 @@
                     </div>
                 </div>
             </div>
-
+            <!--时间选择模态框-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="myModalLabel">请选择查询时间段</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="max-height: 400px; overflow: auto;">
+                            <table class="table text-center model-table">
+                                <tr>
+                                    <td class="text-right" style="width: 40%">开始时间:
+                                    </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 40%">结束时间:
+                                    </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            <button type="button" class="btn btn-info" id="btnOK">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -138,5 +216,6 @@
     <script src="../js/jquery.pagination.js"></script>
     <script src="../js/public.js"></script>
     <script src="../js/checkLogined.js"></script>
+    <script src="../js/bootstrap-selectpicker.js"></script>
 </body>
 </html>

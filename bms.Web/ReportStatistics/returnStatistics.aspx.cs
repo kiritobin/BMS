@@ -161,11 +161,11 @@ namespace bms.Web.ReportStatistics
                 string endTime = sArray[1];
                 if (strWhere != null && strWhere != "")
                 {
-                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                    strWhere += " and time BETWEEN'" + startTime + "' and '" + endTime + "'";
                 }
                 else
                 {
-                    strWhere = "dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                    strWhere = "time BETWEEN'" + startTime + "' and '" + endTime + "'";
                 }
             }
 

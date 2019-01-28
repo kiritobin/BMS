@@ -39,10 +39,17 @@ $(document).ready(function () {
         nextContent: '下页',
         callback: function (api) {
             var bookName = $("#bookName").val();
-            var bookArea = $("#area").val();
+            var bookArea = $("#area").find("option:selected").text();
             var bookISBN = $("#isbn").val();
-            var supplier = $("#supplier").val();
+            var supplier = $("#supplier").find("option:selected").text();
             var stockNumber = $("#stock").val();
+            var price = $("#price").val();
+            if (bookArea == "全部组织") {
+                bookArea = "";
+            }
+            if (supplier == "全部供应商") {
+                supplier = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'inventoryManagement.aspx',
@@ -53,6 +60,7 @@ $(document).ready(function () {
                     bookName: bookName,
                     bookArea: bookArea,
                     bookISBN: bookISBN,
+                    price: price,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -67,10 +75,17 @@ $(document).ready(function () {
 
     $("#btn-search").click(function () {
         var bookName = $("#bookName").val();
-        var bookArea = $("#area").val();
+        var bookArea = $("#area").find("option:selected").text();;
         var bookISBN = $("#isbn").val();
-        var supplier = $("#supplier").val();
+        var supplier = $("#supplier").find("option:selected").text();
         var stockNumber = $("#stock").val();
+        var price = $("#price").val();
+        if (bookArea == "全部组织") {
+            bookArea = "";
+        }
+        if (supplier == "全部供应商") {
+            supplier = "";
+        }
         $.ajax({
             type: 'Post',
             url: 'inventoryManagement.aspx',
@@ -80,6 +95,7 @@ $(document).ready(function () {
                 bookName: bookName,
                 bookArea: bookArea,
                 bookISBN: bookISBN,
+                price: price,
                 op: "paging"
             },
             dataType: 'text',
@@ -110,6 +126,7 @@ $(document).ready(function () {
                                 bookName: bookName,
                                 bookArea: bookArea,
                                 bookISBN: bookISBN,
+                                price: price,
                                 op: "paging"
                             },
                             dataType: 'text',
@@ -138,14 +155,66 @@ $(document).ready(function () {
                 buttonsStyling: false,
                 allowOutsideClick: false
             });
-        } else {
+        }
+        else if (type == "" || type == null) {
+            swal({
+                title: "提示",
+                text: "请选择类型",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        }
+        else {
+            $("#stock").val("");
             $("#stock").val(type + number);
             $("#numberModal").modal('hide');
+        }
+    })
+    $("#price_ok").click(function () {
+        var type = $("input[name='priceRadios']:checked").val();
+        var price = $("#inputprice").val();
+        if (type == "" || type == null) {
+            swal({
+                title: "提示",
+                text: "请选择类型",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        }
+        else if (price == "" || price == null) {
+            swal({
+                title: "提示",
+                text: "请输入定价",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        }
+        else {
+            $("#price").val("");
+            $("#price").val(type + price);
+            $("#priceModal").modal('hide');
         }
     })
     $("#btn_clear").click(function () {
         $("#stock").val("");
         $("#number").val("");
         $("#numberModal").modal('hide');
+    })
+    $("#price_clear").click(function () {
+        $("#price").val("");
+        $("#inputprice").val("");
+        $("#priceModal").modal('hide');
     })
 });

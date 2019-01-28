@@ -144,11 +144,12 @@
 }
 
 .topSearch {
-    position: absolute;
-    bottom: 0px;
+    /*position: absolute;
+    background-color: #eee;
+    bottom: 0px;*/
     width: 100%;
     border: 0px;
-    background-color: #eee;
+    background-color: #fff;
 }
 
 fieldset {

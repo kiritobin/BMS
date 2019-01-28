@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="inventoryStatistics.aspx.cs" Inherits="bms.Web.InventoryMGT.inventoryStatistics" %>
-
+<%="" %>
 <!DOCTYPE html>
 
 <html class="no-js">
@@ -39,27 +39,55 @@
                             <div class="card-header from-group">
                                 <div class="input-group">
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="bookNum" placeholder="请输入书号">
+                                        <input type="text" value="" class="" id="bookIsbn" placeholder="请输入ISBN">
                                     </div>
                                     <div class="btn-group" role="group">
                                         <input type="text" value="" class="" id="bookName" placeholder="请输入书名">
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="supplier" placeholder="请输入供应商">
+                                         <input type="text" value="" class="" readonly="readonly" id="time" placeholder="请输入时间" data-toggle="modal" data-target="#timeModal">
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" readonly="readonly" id="time" placeholder="请输入时间">
+                                        <select class="modal_select selectpicker" title="请选择供应商" data-live-search="true" id="supplier">
+                                            <option>全部供应商</option>
+                                            <%for (int i = 0; i < dsSupplier.Rows.Count; i++)
+                                                {%>
+                                            <option value="<%=dsSupplier.Rows[i]["supplier"] %>"><%=dsSupplier.Rows[i]["supplier"] %></option>
+                                            <%} %>
+                                        </select>
+                                        <%--<input type="text" value="" class="" id="supplier" placeholder="请输入供应商">--%>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="userName" placeholder="请输入制单员">
+                                        <select class="modal_select selectpicker" title="请选择制单员" data-live-search="true" id="userName">
+                                            <option>全部制单员</option>
+                                            <%for (int i = 0; i < dsUser.Rows.Count; i++)
+                                                {%>
+                                            <option><%=dsUser.Rows[i]["userName"] %></option>
+                                            <%} %>
+                                        </select>
+                                        <%--<input type="text" value="" class="" id="userName" placeholder="请输入制单员">--%>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="resource" placeholder="请输入来源组织">
+                                        <select class="modal_select selectpicker" title="<%=title %>" data-live-search="true" id="resource">
+                                            <option id="change">全部<%=title %></option>
+                                            <%for (int i = 0; i < dsSource.Rows.Count; i++)
+                                                {%>
+                                            <option><%=dsSource.Rows[i]["regionName"] %></option>
+                                            <%} %>
+                                        </select>
+                                        <%--<input type="text" value="" class="" id="resource" placeholder="请输入来源组织">--%>
                                     </div>
                                     <%if (isAdmin)
                                         { %>
                                     <div class="btn-group" role="group">
-                                        <input type="text" value="" class="" id="region" placeholder="请输入组织名称">
+                                        <select class="modal_select selectpicker" title="请选择组织" data-live-search="true" id="region">
+                                            <option>全部组织</option>
+                                            <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                {%>
+                                            <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                            <%} %>
+                                        </select>
+                                        <%--<input type="text" value="" class="" id="region" placeholder="请输入组织名称">--%>
                                     </div>
                                     <%} %>
                                     <div class="btn-group" role="group">
@@ -106,7 +134,8 @@
                                                     <td>
                                                         <nobr>制单员</nobr>
                                                     </td>
-                                                    <%if (isAdmin){ %>
+                                                    <%if (isAdmin)
+                                                        { %>
                                                     <td>
                                                         <nobr>组织名称</nobr>
                                                     </td>
@@ -148,7 +177,8 @@
                                     </div>
                                     <div class="copyright float-right page-box">
                                         <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                            <div class="m-style paging"></div> <%--分页栏--%>
+                                            <div class="m-style paging"></div>
+                                            <%--分页栏--%>
                                         </div>
                                     </div>
                                 </div>
@@ -158,6 +188,54 @@
                 </div>
             </div>
         </div>
+
+         <!--时间选择模态框-->
+            <div class="modal fade" id="timeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="timeModalLabel">请选择查询时间段</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="max-height: 400px; overflow: auto;">
+                            <table class="table text-center model-table">
+                                <tr>
+                                    <td class="text-right" style="width: 40%">开始时间:
+                                    </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 40%">结束时间:
+                                    </td>
+                                    <td class="text-left">
+                                        <div class="jeinpbox">
+                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            <button type="button" class="btn btn-info" id="btnOK">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         <!-- 主界面页脚部分 -->
         <footer class="footer">
             <div class="container-fluid">

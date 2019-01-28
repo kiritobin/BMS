@@ -5,7 +5,15 @@
 }
 
 //时间选择器
-jeDate("#time", {
+jeDate("#startTime", {
+    theme: {
+        bgcolor: "#D91600",
+        pnColor: "#FF6653"
+    },
+    multiPane: true,
+    format: "YYYY-MM-DD"
+});
+jeDate("#endTime", {
     theme: {
         bgcolor: "#D91600",
         pnColor: "#FF6653"
@@ -20,20 +28,26 @@ $(document).ready(function () {
     if (type == "RK") {
         $("#tjType").html("入&nbsp;库&nbsp;统&nbsp;计");
         $("#diff").text("来源组织");
-        $('#resource').attr('placeholder', "请输入来源组织");
+        $('#resource').attr('title', "请输入来源组织");
+        $("#change").text("请选择来源组织");
+        $("button[data-id='resource']>.filter-option-inner-inner").text("请选择来源组织");
     }
     else if (type == "CK") {
         $("#tjType").html("出&nbsp;库&nbsp;统&nbsp;计");
         $("#diff").text("收货组织");
-        $('#resource').attr('placeholder', "请输入来源组织");
+        $('#resource').attr('title', "请输入收货组织");
+        $("#change").text("请选择收货组织");
+        $("button[data-id='resource']>.filter-option-inner-inner").html("请选择收货组织");
     }
     else if (type == "TH") {
         $("#tjType").html("退&nbsp;货&nbsp;统&nbsp;计");
         $("#diff").text("收货组织");
-        $('#resource').attr('placeholder', "请输入来源组织");
+        $("#change").text("请选择收货组织");
+        $('#resource').attr('title', "请输入收货组织");
+        $("button[data-id='resource']>.filter-option-inner-inner").text("请选择收货组织");
     }
 
-    var bookNum = $("#bookNum").val();
+    var bookIsbn = $("#bookIsbn").val();
     var bookName = $("#bookName").val();
     var supplier = $("#supplier").val();
     var time = $("#time").val();
@@ -54,15 +68,27 @@ $(document).ready(function () {
         nextContent: '下页',
         callback: function (api) {
             var bookName = $("#bookName").val();
-            var bookNum = $("#bookNum").val();
+            var bookIsbn = $("#bookIsbn").val();
             var btnISBN = $("#bookISBN").val();
+            if (supplier == "全部供应商") {
+                supplier = "";
+            }
+            if (region == "全部组织") {
+                region = "";
+            }
+            if (userName == "全部制单员") {
+                region = "";
+            }
+            if (resource == "全部来源组织" || "全部收货组织") {
+                resource = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'inventoryStatistics.aspx',
                 data: {
                     page: api.getCurrent(), //页码
                     type: type,
-                    bookNum: bookNum,
+                    bookIsbn: bookIsbn,
                     bookName: bookName,
                     supplier: supplier,
                     time: time,
@@ -81,21 +107,69 @@ $(document).ready(function () {
         }
     });
 
-    $("#btn_search").click(function () {
-        var bookNum = $("#bookNum").val();
-        var bookName = $("#bookName").val();
-        var supplier = $("#supplier").val();
-        var time = $("#time").val();
-        var userName = $("#userName").val();
-        var region = $("#region").val();
-        var resource = $("#resource").val();
+    //清空时间
+    $("#modalClose").click(function () {
+        $("#time").val("");
+        $("#timeModal").modal('hide');
+    })
+    //选择时间后确定
+    $("#btnOK").click(function () {
+        var startTime = $("#startTime").val();
+        var endTime = $("#endTime").val();
+        if (startTime == "" || startTime == null) {
+            swal({
+                title: "提示",
+                text: "请选择开始时间",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else if (endTime == "" || endTime == null) {
+            swal({
+                title: "提示",
+                text: "请选择结束时间",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else {
+            $("#time").val(startTime + "至" + endTime);
+            $("#timeModal").modal('hide');
+        }
+    })
 
+    $("#btn_search").click(function () {
+        var bookIsbn = $("#bookIsbn").val();
+        var bookName = $("#bookName").val();
+        var supplier = $("#supplier").find("option:selected").text();
+        var time = $("#time").val();
+        var userName = $("#userName").find("option:selected").text();
+        var region = $("#region").find("option:selected").text();
+        var resource = $("#resource").find("option:selected").text();
+        if (supplier == "全部供应商") {
+            supplier = "";
+        }
+        if (region == "全部组织") {
+            region = "";
+        }
+        if (userName == "全部制单员") {
+            region = "";
+        }
+        if (resource == "全部来源组织" || "全部收货组织") {
+            resource = "";
+        }
         $.ajax({
             type: 'Post',
             url: 'inventoryStatistics.aspx',
             data: {
                 type: type,
-                bookNum: bookNum,
+                bookIsbn: bookIsbn,
                 bookName: bookName,
                 supplier: supplier,
                 time: time,
@@ -123,7 +197,7 @@ $(document).ready(function () {
                     nextContent: '下页',
                     callback: function (api) {
                         var bookName = $("#bookName").val();
-                        var bookNum = $("#bookNum").val();
+                        var bookIsbn = $("#bookIsbn").val();
                         var btnISBN = $("#bookISBN").val();
                         $.ajax({
                             type: 'Post',
@@ -131,7 +205,7 @@ $(document).ready(function () {
                             data: {
                                 page: api.getCurrent(), //页码
                                 type: type,
-                                bookNum: bookNum,
+                                bookIsbn: bookIsbn,
                                 bookName: bookName,
                                 supplier: supplier,
                                 time: time,

@@ -63,7 +63,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet isGoodsShelves(int regionId)
         {
-            string cmdText = "select shelvesName from T_GoodsShelves where regionId = @regionId";
+            string cmdText = "select goodsShelvesId,shelvesName from T_GoodsShelves where regionId = @regionId";
             String[] param = { "@regionId" };
             String[] values = { regionId.ToString() };
             DataSet ds = db.FillDataSet(cmdText, param, values);
@@ -105,9 +105,9 @@ namespace bms.Dao
         public int selectByName(GoodsShelves shelves)
         {
             //货架ID
-            string cmdText = "select count(goodsShelvesId) from T_GoodsShelves where regionId = @regionId and goodsShelvesId=@goodsShelvesId";
-            String[] param = { "@goodsShelvesId", "@regionId" };
-            String[] values = { shelves.GoodsShelvesId, shelves.RegionId.RegionId.ToString() };
+            string cmdText = "select count(goodsShelvesId) from T_GoodsShelves where goodsShelvesId=@goodsShelvesId";
+            String[] param = { "@goodsShelvesId"};
+            String[] values = { shelves.GoodsShelvesId };
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
             //货架名称
             string cmdTexts = "select count(goodsShelvesId) from T_GoodsShelves where regionId = @regionId and shelvesName=@shelvesName";

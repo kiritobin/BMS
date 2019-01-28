@@ -347,15 +347,15 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price" />
+                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price"   readonly="readonly" data-toggle="modal" data-target="#priceModal" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="书名" style="width: 130px;" id="bookName" />
+                                                <input type="text" class="" placeholder="请输入书名" style="width: 130px;" id="bookName" />
                                             </div>
                                             &nbsp;
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" style="width: 130px;" id="stock" placeholder="按库存" readonly="readonly" data-toggle="modal" data-target="#numberModal">
+                                                <input type="text" value="" style="width: 130px;" id="stock" placeholder="请输入库存数量" readonly="readonly" data-toggle="modal" data-target="#numberModal">
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
@@ -526,6 +526,56 @@
                                 清除
                             </button>
                             <button type="button" id="btn_number" class="btn btn-success btn-sm">
+                                确定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%-- 定价 --%>
+            <div class="modal fade modal-mini modal-primary" id="priceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog" style="max-width: 580px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">按定价查询</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <table class="table text-center" id="table_priceModal">
+                                <tr>
+                                    <td class="text-right">方式：</td>
+                                    <td colspan="2" class="text-left">
+                                        <div style="margin-top: 8px">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="priceRadios" id="priceless" value="小于" checked>
+                                                小于
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="priceRadios" checked="checked" style="margin-left: 20px" id="priceequal" value="等于">
+                                                等于
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="priceRadios" style="margin-left: 20px" id="pricebig" value="大于">
+                                                大于
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">请输入定价：</td>
+                                    <td class="text-left" colspan="2">
+                                        <input type="number" value="" id="inputprice"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="price_clear" class="btn btn-success btn-sm" style="margin-right: 10px">
+                                清除
+                            </button>
+                            <button type="button" id="price_ok" class="btn btn-success btn-sm">
                                 确定
                             </button>
                         </div>
