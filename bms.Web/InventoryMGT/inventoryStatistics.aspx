@@ -77,9 +77,7 @@
                                         </select>
                                         <%--<input type="text" value="" class="" id="resource" placeholder="请输入来源组织">--%>
                                     </div>
-                                    <%if (isAdmin)
-                                        { %>
-                                    <div class="btn-group" role="group">
+                                    <%--<div class="btn-group" role="group">
                                         <select class="modal_select selectpicker" title="请选择组织" data-live-search="true" id="region">
                                             <option>全部组织</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
@@ -87,9 +85,7 @@
                                             <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
                                             <%} %>
                                         </select>
-                                        <%--<input type="text" value="" class="" id="region" placeholder="请输入组织名称">--%>
-                                    </div>
-                                    <%} %>
+                                    </div>--%>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>

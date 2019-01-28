@@ -239,6 +239,28 @@ $("#btn-search").click(function () {
     })
 });
 
+//查看报表
+$("#check").click(function () {
+    var source = $("#bbsource").find("option:selected").text();
+    var singleHeadId = $("#singleHeadId").val().trim();
+    if (singleHeadId == "") {
+        singleHeadId = "null";
+    }
+    if (source == "" && singleHeadId == "") {
+        swal({
+            title: "温馨提示:)",
+            text: "请先选择组织或输入单据编号",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-success",
+            type: "warning",
+            allowOutsideClick: false
+        })
+    }
+    else {
+        window.location.href = "/InventoryMGT/inventoryStatistics.aspx?type=TH&&region=" + source + "&&singleHeadId=" + singleHeadId;
+    }
+});
+
 
 $("#table").delegate(".btn-add", "click", function () {
     var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();

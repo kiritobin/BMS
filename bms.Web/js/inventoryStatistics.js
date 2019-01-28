@@ -22,7 +22,30 @@ jeDate("#endTime", {
     format: "YYYY-MM-DD"
 });
 
+//地址栏获取
+//console.log(getUrlParam(location.href,"参数名"));
+function getUrlParam(url, name) {
+    var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+    var matcher = pattern.exec(url);
+    var items = null;
+    if (null != matcher) {
+        try {
+            items = decodeURIComponent(decodeURIComponent(matcher[1]));
+        } catch (e) {
+            try {
+                items = decodeURIComponent(matcher[1]);
+            } catch (e) {
+                items = matcher[1];
+            }
+        }
+    }
+    return items;
+}  
+
 $(document).ready(function () {
+    var region = getUrlParam(location.href, "region");
+    var singleHeadId = getUrlParam(location.href, "singleHeadId");
+    
     //出入退
     var type = GetQueryString("type");
     if (type == "RK") {
@@ -52,7 +75,7 @@ $(document).ready(function () {
     var supplier = $("#supplier").val();
     var time = $("#time").val();
     var userName = $("#userName").val();
-    var region = $("#region").val();
+    //var region = $("#region").val();
     var resource = $("#resource").val();
 
     $('.paging').pagination({
@@ -67,9 +90,13 @@ $(document).ready(function () {
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var bookName = $("#bookName").val();
             var bookIsbn = $("#bookIsbn").val();
-            var btnISBN = $("#bookISBN").val();
+            var bookName = $("#bookName").val();
+            var supplier = $("#supplier").val();
+            var time = $("#time").val();
+            var userName = $("#userName").val();
+            //var region = $("#region").val();
+            var resource = $("#resource").val();
             if (supplier == "全部供应商") {
                 supplier = "";
             }
@@ -77,7 +104,7 @@ $(document).ready(function () {
                 region = "";
             }
             if (userName == "全部制单员") {
-                region = "";
+                userName = "";
             }
             if (resource == "全部来源组织" || "全部收货组织") {
                 resource = "";
@@ -150,7 +177,7 @@ $(document).ready(function () {
         var supplier = $("#supplier").find("option:selected").text();
         var time = $("#time").val();
         var userName = $("#userName").find("option:selected").text();
-        var region = $("#region").find("option:selected").text();
+        //var region = $("#region").find("option:selected").text();
         var resource = $("#resource").find("option:selected").text();
         if (supplier == "全部供应商") {
             supplier = "";
@@ -159,7 +186,7 @@ $(document).ready(function () {
             region = "";
         }
         if (userName == "全部制单员") {
-            region = "";
+            userName = "";
         }
         if (resource == "全部来源组织" || "全部收货组织") {
             resource = "";
@@ -196,9 +223,13 @@ $(document).ready(function () {
                     prevContent: '上页',
                     nextContent: '下页',
                     callback: function (api) {
-                        var bookName = $("#bookName").val();
                         var bookIsbn = $("#bookIsbn").val();
-                        var btnISBN = $("#bookISBN").val();
+                        var bookName = $("#bookName").val();
+                        var supplier = $("#supplier").val();
+                        var time = $("#time").val();
+                        var userName = $("#userName").val();
+                        //var region = $("#region").val();
+                        var resource = $("#resource").val();
                         $.ajax({
                             type: 'Post',
                             url: 'inventoryStatistics.aspx',
