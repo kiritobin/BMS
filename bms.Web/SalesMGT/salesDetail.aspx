@@ -30,7 +30,7 @@
                         <li><a href="javascript:;">团采管理</a></li>
                         <li><a href="tradeManagement.aspx">销售管理</a></li>
                         <li><a href="javascript:;" onclick="history.go(-1);">添加销售</a></li>
-                        <li class="active">销售明细</li>
+                        <li class="active">添加销售单体</li>
                     </ul>
                     <div class="card">
                         <div class="container-fluid">
