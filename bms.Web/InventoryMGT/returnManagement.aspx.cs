@@ -37,7 +37,7 @@ namespace bms.Web.BasicInfor
                 string nowDt = nowTime.ToString("yyyy-MM-dd");
                 long count = 0;
                 //判断数据库中是否已经有记录
-                DataSet backds = wareBll.getAllTime(1);
+                DataSet backds = wareBll.getAllTime(2);
                 if (backds != null && backds.Tables[0].Rows.Count > 0)
                 {
                     for (int i = 0; i < backds.Tables[0].Rows.Count; i++)
@@ -147,7 +147,7 @@ namespace bms.Web.BasicInfor
             }
             if (regionName != "" && regionName != null)
             {
-                    search += " and regionName like '%" + regionName + "%'";
+                    search += " and userRegionName like '%" + regionName + "%'";
             }
             if (userName != "" && userName != null)
             {
@@ -163,7 +163,7 @@ namespace bms.Web.BasicInfor
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,regionName,userName,allBillCount,allTotalPrice,allRealPrice,time";
+            tbd.StrColumnlist = "singleHeadId,userRegionName,userName,allBillCount,allTotalPrice,allRealPrice,time";
             tbd.IntPageSize = pageSize;
             if (user.RoleId.RoleName == "超级管理员")
             {
@@ -188,7 +188,7 @@ namespace bms.Web.BasicInfor
             {
                 DataRow dr = dt.Rows[i];
                 sb.Append("<tr><td>" + dr["singleHeadId"].ToString() + "</td>");
-                sb.Append("<td>" + dr["regionName"].ToString() + "</td>");
+                sb.Append("<td>" + dr["userRegionName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["userName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allBillCount"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
