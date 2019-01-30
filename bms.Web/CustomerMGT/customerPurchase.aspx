@@ -102,7 +102,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <%=getData() %>
+                                            <%=getData()%>
                                         </table>
                                         <table class="table table_stock text-center">
                                             <tr class="text-nowrap">
@@ -110,24 +110,24 @@
                                                     <span>书籍种数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=kindsNum %>" class="form-control" disabled id="bookKinds">
+                                                    <input type="text" value="" class="form-control" disabled id="bookKinds">
                                                 </td>
                                                 <td>
                                                     <span>书本总数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allNum %>" class="form-control" disabled id="allBookCount"></td>
+                                                    <input type="text" value="" class="form-control" disabled id="allBookCount"></td>
                                                 <td>
                                                     <span>总码洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=Convert.ToDouble(allTotalPrice).ToString("F2") %>" class="form-control" disabled id="alltotalprice">
+                                                    <input type="text" value="" class="form-control" disabled id="alltotalprice">
                                                 </td>
                                                 <td>
                                                     <span>总实洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=Convert.ToDouble(allRealPrice).ToString("F2") %>" class="form-control" disabled id="allreadprice">
+                                                    <input type="text" value="" class="form-control" disabled id="allreadprice">
                                                 </td>
                                             </tr>
                                         </table>

@@ -41,6 +41,15 @@ function logout() {
         });
     })
 }
+var kNum = $("#kinds").val();
+$("#bookKinds").attr("value", kNum);
+var aNum = $("#alln").val();
+$("#allBookCount").attr("value", aNum);
+var atp = $("#allt").val();
+$("#alltotalprice").attr("value", atp);
+var arp = $("#allr").val();
+$("#allreadprice").attr("value", arp);
+
 $(document).ready(function () {
     $('.paging').pagination({
         //totalData: $("#countPage").val(), //数据总数
@@ -110,7 +119,6 @@ $(document).ready(function () {
             $("#myModal").modal('hide');
         }
     })
-
     $("#btn-search").click(function () {
         var bookName = $("#bookSearch").val().trim();
         var source = $("#goodsSearch").val().trim();
@@ -129,9 +137,21 @@ $(document).ready(function () {
             dataType: 'text',
             success: function (data) {
                 $("#intPageCount").remove();
+                $("#kinds").remove();
+                $("#alln").remove();
+                $("#allt").remove();
+                $("#allr").remove();
                 $("#table tr:not(:first)").empty(); //清空table处首行
                 $("#table").append(data); //加载table
                 $(".paging").empty();
+                var kNum = $("#kinds").val();
+                $("#bookKinds").attr("value", kNum);
+                var aNum = $("#alln").val();
+                $("#allBookCount").attr("value", aNum);
+                var atp = $("#allt").val();
+                $("#alltotalprice").attr("value", atp);
+                var arp = $("#allr").val();
+                $("#allreadprice").attr("value", arp);
                 $('.paging').pagination({
                     //totalData: $("#totalCount").val(),
                     //showData: $("#pageSize").val(),
@@ -160,6 +180,8 @@ $(document).ready(function () {
                                 $("#table tr:not(:first)").remove(); //清空table处首行
                                 $("#table").append(data); //加载table
                                 $("#intPageCount").remove();
+                                //var k = $("#kinds").val();
+                                //$("#bookKinds").attr("value", k);
                             }
                         });
                     }
