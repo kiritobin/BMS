@@ -21,5 +21,10 @@ namespace bms.Bll
             DataSet ds = dao.getSummary(cusId, search);
             return ds;
         }
+        public DataTable getRegionSaleMonomer()
+        {
+            DataTable dt = dao.getRegionSaleMonomer().Tables[0];
+            return dt;
+        }
     }
 }

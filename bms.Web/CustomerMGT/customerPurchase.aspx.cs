@@ -19,6 +19,7 @@ namespace bms.Web.CustomerMGT
         BookBasicBll bookbll = new BookBasicBll();
         public int kindsNum = 0, allNum = 0;
         public string allTotalPrice = "", allRealPrice = "";
+        public DataTable dtRegion;
         protected void Page_Load(object sender, EventArgs e)
         {
             getData();
@@ -170,7 +171,9 @@ namespace bms.Web.CustomerMGT
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
-
+            //获取团采地点
+            customerPurchaseBll customerPurchaseBll = new customerPurchaseBll();
+            dtRegion = customerPurchaseBll.getRegionSaleMonomer();
             //生成table
             StringBuilder sb = new StringBuilder();
             int j = ds.Tables[0].Rows.Count;
