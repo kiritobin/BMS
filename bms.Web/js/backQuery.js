@@ -111,11 +111,11 @@
         $("#pname").text("");
     })
     //只允许输入数字
-    $("#table").delegate("#inputISBN", "keyup", function (e) {
-        $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
-    }).bind("paste", function () {  //CTR+V事件处理    
-        $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
-    }).css("ime-mode", "disabled");
+    //$("#table").delegate("#inputISBN", "keyup", function (e) {
+    //    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
+    //}).bind("paste", function () {  //CTR+V事件处理    
+    //    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
+    //}).css("ime-mode", "disabled");
     $("#table").delegate("#inputCount", "keyup", function (e) {
         $(this).val($(this).val().replace(/[^\r\n\-0-9]/g, ''));//允许输入“-”运算符号
     }).bind("paste", function () {  //CTR+V事件处理    
