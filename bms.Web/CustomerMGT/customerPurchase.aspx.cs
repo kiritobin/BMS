@@ -18,7 +18,7 @@ namespace bms.Web.CustomerMGT
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         BookBasicBll bookbll = new BookBasicBll();
         public int kindsNum = 0, allNum = 0;
-        public string allTotalPrice = "", allRealPrice = "";
+        public string allTotalPrice = "0", allRealPrice = "0";
         public DataTable dtRegion;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -203,8 +203,16 @@ namespace bms.Web.CustomerMGT
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             sb.Append("<input type='hidden' value='" + kindsNum + "' id='kinds' />");
             sb.Append("<input type='hidden' value='" + allNum + "' id='alln' />");
-            sb.Append("<input type='hidden' value='" + Convert.ToDouble(allTotalPrice).ToString("F2") + "' id='allt' />");
-            sb.Append("<input type='hidden' value='" + Convert.ToDouble(allRealPrice).ToString("F2") + "' id='allr' />");
+            if (kindsNum > 0)
+            {
+                sb.Append("<input type='hidden' value='" + Convert.ToDouble(allTotalPrice).ToString("F2") + "' id='allt' />");
+                sb.Append("<input type='hidden' value='" + Convert.ToDouble(allRealPrice).ToString("F2") + "' id='allr' />");
+            }
+            else
+            {
+                sb.Append("<input type='hidden' value='" + allTotalPrice + "' id='allt' />");
+                sb.Append("<input type='hidden' value='" + allRealPrice + "' id='allr' />");
+            }
             string op = Request["op"];
             if (op == "paging")
             {
