@@ -70,6 +70,11 @@ namespace bms.Web.BasicInfor
                     count = 1;
                 }
                 string regionId = Request["regionId"];
+                string remarks = Request["remarks"];
+                if(remarks==""|| remarks == null)
+                {
+                    remarks = "";
+                }
                 SingleHead single = new SingleHead();
                 Region region = new Region();
                 region.RegionId = Convert.ToInt32(regionId);
@@ -78,6 +83,7 @@ namespace bms.Web.BasicInfor
                 single.Time = DateTime.Now;
                 single.Type = 2;
                 single.User = user;
+                single.Remarks = remarks;
                 Result row = wareBll.insertHead(single);
                 if (row == Result.添加成功)
                 {
@@ -163,7 +169,7 @@ namespace bms.Web.BasicInfor
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,userRegionName,userName,allBillCount,allTotalPrice,allRealPrice,time";
+            tbd.StrColumnlist = "remarks,singleHeadId,userRegionName,userName,allBillCount,allTotalPrice,allRealPrice,time";
             tbd.IntPageSize = pageSize;
             if (user.RoleId.RoleName == "超级管理员")
             {
@@ -194,6 +200,7 @@ namespace bms.Web.BasicInfor
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allRealPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["time"].ToString() + "</ td >");
+                sb.Append("<td>" + dr["remarks"].ToString() + "</td >");
                 sb.Append("<td>");
                 if (dr["allBillCount"].ToString() != "0" && dr["allBillCount"].ToString() != "")
                 {

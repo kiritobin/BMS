@@ -407,6 +407,7 @@
                                                     <th>码洋</th>
                                                     <th>实洋</th>
                                                     <th>制单时间</th>
+                                                    <th>备注</th>
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
@@ -426,7 +427,7 @@
             </div>
             <!--添加模态框-->
             <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width: 350px;">
+                <div class="modal-dialog" style="max-width: 400px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">退货添加</h4>
@@ -456,26 +457,34 @@
                                                     {
                                                         if (dsRegion.Tables[0].Rows[i]["regionName"].ToString() == "供应商")
                                                         {%>
-                                                    <option selected="selected"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>" selected="selected"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
                                                     <%}
                                                         else
                                                         {%>
-                                                    <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
                                                     <%}
                                                         }
                                                         else
                                                         {
                                                             if (dsRegion.Tables[0].Rows[i]["regionName"].ToString() == "图书公司")
                                                             {%>
-                                                    <option selected="selected"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>" selected="selected"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
                                                     <%}
                                                         else
                                                         {%>
-                                                    <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
                                                     <%}
                                                             }
                                                         } %>
                                         </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"><span>
+                                        <nobr>备注:</nobr>
+                                    </span></td>
+                                    <td class="text-right">
+                                        <input type="text" id="remarks" class="remark" placeholder="请输入备注">
                                     </td>
                                 </tr>
                             </table>

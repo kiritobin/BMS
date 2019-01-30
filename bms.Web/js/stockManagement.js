@@ -214,6 +214,7 @@ $("#table").delegate(".btn-danger", "click", function () {
 
 $("#btnAdd").click(function () {
     var source = $("#source").val();
+    var remarks = $("#remarks").val().trim();
     if (source == "") {
         swal({
             title: "温馨提示:)",
@@ -229,6 +230,7 @@ $("#btnAdd").click(function () {
             url: 'stockManagement.aspx',
             data: {
                 source: source,
+                remarks: remarks,
                 op:"add"
             },
             dataType: 'text',

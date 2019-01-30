@@ -129,6 +129,7 @@ $("#close").click(function () {
 //添加退货单头
 $("#btnAdd").click(function () {
     var regionId = $("#regionId").val();
+    var remarks = $("#remarks").val().trim();
     if (regionId == "") {
         swal({
             title: "温馨提示:)",
@@ -143,6 +144,7 @@ $("#btnAdd").click(function () {
             url: 'warehouseManagement.aspx',
             data: {
                 regionId: regionId,
+                remarks: remarks,
                 op: "add"
             },
             datatype: 'text',

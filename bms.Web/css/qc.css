@@ -29,6 +29,10 @@
 #btn-search {
     height: 41px;
 }
+.remark{
+    margin-right:35px;
+    width:225px;
+}
 /*模态框样式*/
 .model-tab-td-span {
     float: right;

@@ -125,6 +125,7 @@ function logout() {
 //添加退货单头
 $("#btnAdd").click(function () {
     var regionId = $("#regionId").val().trim();
+    var remarks = $("#remarks").val().trim();
     if (regionId == "" || regionId == null) {
         swal({
             title: "温馨提示:)",
@@ -136,13 +137,13 @@ $("#btnAdd").click(function () {
             buttonsStyling: false,
             allowOutsideClick: false
         })
-    }
-    else {
+    }else {
         $.ajax({
             type: 'Post',
             url: 'returnManagement.aspx',
             data: {
                 regionId: regionId,
+                remarks: remarks,
                 op: "add"
             },
             datatype: 'text',

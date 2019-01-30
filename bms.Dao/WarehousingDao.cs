@@ -82,9 +82,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int insertHead(SingleHead single)
         {
-            string cmdText = "insert into T_SingleHead(singleHeadId,time,regionId,userId,type) values(@singleHeadId,@time,@regionId,@userId,@type)";
-            string[] param = { "@singleHeadId", "@time","@regionId","@userId", "@type" };
-            object[] values = { single.SingleHeadId, single.Time, single.Region.RegionId, single.User.UserId,single.Type };
+            string cmdText = "insert into T_SingleHead(singleHeadId,time,regionId,userId,type,remarks) values(@singleHeadId,@time,@regionId,@userId,@type,@remarks)";
+            string[] param = { "@singleHeadId", "@time","@regionId","@userId", "@type", "@remarks" };
+            object[] values = { single.SingleHeadId, single.Time, single.Region.RegionId, single.User.UserId,single.Type, single.Remarks };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
