@@ -304,8 +304,21 @@ $(document).ready(function () {
         } else {
             groupbyType = "payment";
         }
-        var name = $(this).parent().prev().prev().prev().prev().prev().text();
-        window.location.href = "retailDetails.aspx?type=" + groupbyType + "&&name=" + name;
+        var name = $(this).parent().prev().prev().prev().prev().prev().text().trim();
+        if (name == "" || name == null) {
+            swal({
+                title: "提示",
+                text: groupbyType+"为空，请联系管理员查找原因",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        } else {
+            window.location.href = "retailDetails.aspx?type=" + groupbyType + "&&name=" + name;
+        }
     })
 
     //点击查询按钮时
