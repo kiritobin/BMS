@@ -28,6 +28,23 @@ namespace bms.Dao
                 return null;
             }
         }
+        /// <summary>
+        /// 获取操作员
+        /// </summary>
+        /// <returns></returns>
+        public DataSet selectUser()
+        {
+            string cmdText = "select distinct userName from V_SingleHead where deleteState=0 order by convert(userName using gbk) collate gbk_chinese_ci";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// 根据地区ID获取地区信息

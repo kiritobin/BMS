@@ -330,6 +330,10 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">报表统计</a></li>
+                    <li class="active">入库统计</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -350,18 +354,18 @@
                                                 </div>
                                             </div>
 
-                                            <div class="btn-group" id="groupsupplier">
+                                            <div class="btn-group" id="groupsupplier" style="display: none">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择供应商" data-live-search="true" id="supplier">
-                                                    <option>全部</option>
+                                                    <option>全部供应商</option>
                                                     <%for (int i = 0; i < dsSupplier.Rows.Count; i++)
                                                         {%>
                                                     <option value="<%=dsSupplier.Rows[i]["supplier"] %>"><%=dsSupplier.Rows[i]["supplier"] %></option>
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupregion">
+                                            <div class="btn-group" id="groupregion" style="display: none">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="region">
-                                                    <option>全部</option>
+                                                    <option>全部组织</option>
                                                     <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                         {%>
                                                     <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>

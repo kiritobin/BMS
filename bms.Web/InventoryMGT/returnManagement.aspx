@@ -212,7 +212,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcBook||funcBookStock)
+                    <%if (funcBook || funcBookStock)
                         { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
@@ -341,6 +341,10 @@
 
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">库存管理</a></li>
+                    <li class="active">退货管理</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -352,27 +356,42 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="ID" class="searchOne" placeholder="请输入单据号">
+                                                <input type="text" id="ID" class="" placeholder="请输入单据编号">
                                             </div>
                                             <%if (roleName == "超级管理员")
-                                            { %>
+                                                { %>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="region" class="searchOne" placeholder="请输入组织名称">
+                                                <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#timeModal" />
                                             </div>
                                             <%} %>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">
+                                                <select class="selectpicker" data-live-search="true" title="请选择退货组织" id="region">
+                                                    <option value="">请选择退货组织</option>
+                                                    <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%} %>
+                                                </select>
+                                                <%--<input type="text" id="region" class="searchOne" placeholder="请输入组织名称">--%>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" class="searchOne" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#timeModal" />
+                                                <select class="selectpicker" data-live-search="true" title="请选择操作员" id="user">
+                                                    <option value="">全部操作员</option>
+                                                    <%for (int i = 0; i < dsUser.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option><%=dsUser.Tables[0].Rows[i]["userName"] %></option>
+                                                    <%} %>
+                                                </select>
+                                                <%--<input type="text" id="user" class="searchOne" placeholder="请输入操作员名称">--%>
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add" style="height: 35px">添加</button>
+                                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add" style="height: 41px">添加</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <a href="/InventoryMGT/inventoryStatistics.aspx?type=TH">
-                                                    <button class="btn btn-info btn-sm" style="height: 35px" id="tjbb">统计报表</button></a>
+                                                <%--<a href="/InventoryMGT/inventoryStatistics.aspx?type=TH">
+                                                  </a>--%>
+                                                <button class="btn btn-info btn-sm" style="height: 41px" id="tjbb" data-toggle="modal" data-target="#bbModal">统计报表</button>
                                             </div>
                                         </div>
                                     </div>
@@ -382,11 +401,11 @@
                                             <thead>
                                                 <tr>
                                                     <th>单据编号</th>
-                                                    <th>组织名称</th>
+                                                    <th>退货组织</th>
                                                     <th>操作员</th>
                                                     <th>单据总数</th>
-                                                    <th>总码洋</th>
-                                                    <th>总实洋</th>
+                                                    <th>码洋</th>
+                                                    <th>实洋</th>
                                                     <th>制单时间</th>
                                                     <th>操作</th>
                                                 </tr>
@@ -422,12 +441,40 @@
                                         <nobr>接收组织:</nobr>
                                     </span></td>
                                     <td>
-                                        <select id="regionId" class="selectpicker" data-live-search="true" title="请选择接收组织">
+                                        <%--<select id="regionId" class="selectpicker" data-live-search="true" title="请选择接收组织">
                                             <option value="">请选择接收组织</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                 { %>
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"].ToString() %>"><%=dsRegion.Tables[0].Rows[i]["regionName"].ToString() %></option>
                                             <%} %>
+                                        </select>--%>
+                                        <select id="regionId" class="selectpicker" data-live-search="true" title="请选择接收组织">
+                                            <option value="">请选择接收组织</option>
+                                            <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                {
+                                                    if (regionName == "图书公司")
+                                                    {
+                                                        if (dsRegion.Tables[0].Rows[i]["regionName"].ToString() == "供应商")
+                                                        {%>
+                                                    <option selected="selected"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%}
+                                                        else
+                                                        {%>
+                                                    <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%}
+                                                        }
+                                                        else
+                                                        {
+                                                            if (dsRegion.Tables[0].Rows[i]["regionName"].ToString() == "图书公司")
+                                                            {%>
+                                                    <option selected="selected"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%}
+                                                        else
+                                                        {%>
+                                                    <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%}
+                                                            }
+                                                        } %>
                                         </select>
                                     </td>
                                 </tr>
@@ -440,68 +487,107 @@
                 </div>
             </div>
 
-            <!--时间选择模态框-->
-            <div class="modal fade" id="timeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="timeModalLabel">请选择查询时间段</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body" style="max-height: 400px; overflow: auto;">
-                            <table class="table text-center model-table">
-                                <tr>
-                                    <td class="text-right" style="width: 40%">开始时间:
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日" />
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-right" style="width: 40%">结束时间:
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日" />
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <!--时间选择模态框-->
+    <div class="modal fade" id="timeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title float-left" id="timeModalLabel">请选择查询时间段</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height: 400px; overflow: auto;">
+                    <table class="table text-center model-table">
+                        <tr>
+                            <td class="text-right" style="width: 40%">开始时间:
+                            </td>
+                            <td class="text-left">
+                                <div class="jeinpbox">
+                                    <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" style="width: 40%">结束时间:
+                            </td>
+                            <td class="text-left">
+                                <div class="jeinpbox">
+                                    <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             
                             <button type="button" class="btn btn-info" id="btnOK">确认</button>
-                        </div>
-                    </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- 主界面页脚部分 -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <!-- 版权内容 -->
-                    <div class="copyright text-center">
-                        &copy;
+    <%-- 报表查询条件 --%>
+    <div class="modal fade" id="bbModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" style="max-width: 450px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title float-left" id="bbModalLabel">请选择查询条件</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table model-table">
+                        <tr>
+                            <td class="text-right"><span>请选择组织:</span></td>
+                            <td>
+                                <select class="selectpicker" data-live-search="true" title="请选择组织" id="bbsource">
+                                    <option value="">请选择组织</option>
+                                    <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                        {%>
+                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                    <%} %>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><span>请输入单据编号:</span></td>
+                            <td>
+                                <input type="text" id="singleHeadId" class="" placeholder="请输入单据编号">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info btn-sm" id="check">查看</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主界面页脚部分 -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <!-- 版权内容 -->
+            <div class="copyright text-center">
+                &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        &nbsp;版权归云南新华书店图书有限公司所有
+                &nbsp;版权归云南新华书店图书有限公司所有
                         <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
-                    </div>
-                </div>
-            </footer>
+            </div>
         </div>
+    </footer>
+    </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!-- 左侧导航栏所需js -->

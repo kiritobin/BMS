@@ -207,7 +207,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcBook||funcBookStock)
+                    <%if (funcBook || funcBookStock)
                         { %>
                     <li class="nav-item active">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
@@ -335,6 +335,10 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">基础信息</a></li>
+                    <li class="active">书籍库存查看</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -346,23 +350,23 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="supplier" placeholder="请输入供应商">
+                                                <input type="text" value="" class="" id="isbn" placeholder="请输入ISBN">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="stock" placeholder="请输入库存数量" readonly="readonly" data-toggle="modal" data-target="#numberModal">
+                                                <input type="text" value="" class="" id="bookName" placeholder="请输入书名">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="isbn" placeholder="请输入ISBN">
+                                                <input type="text" value="" class="" id="stock" placeholder="请输入库存数量" readonly="readonly" data-toggle="modal" data-target="#numberModal">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookName" placeholder="请输入书名">
+                                                <input type="text" value="" class="" id="price" placeholder="请输入定价" readonly="readonly" data-toggle="modal" data-target="#priceModal">
                                             </div>
                                             <%if (user.RoleId.RoleName == "超级管理员")
                                                 { %>
                                             <div class="btn-group" role="group">
-                                               <%-- <input type="text" value="" class="searchOne" id="area" placeholder="请输入组织名称">--%>
+                                                <%-- <input type="text" value="" class="searchOne" id="area" placeholder="请输入组织名称">--%>
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="area">
-                                                    <option value="">全部</option>
+                                                    <option value="">全部组织</option>
                                                     <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                         {%>
                                                     <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -371,7 +375,14 @@
                                             </div>
                                             <%} %>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="price" placeholder="请输入定价" readonly="readonly" data-toggle="modal" data-target="#priceModal">
+                                                <select class="modal_select selectpicker collectionStatus" title="请选择供应商" data-live-search="true" id="supplier">
+                                                    <option value="">全部供应商</option>
+                                                    <%for (int i = 0; i < dsSupplier.Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsSupplier.Rows[i]["supplier"] %>"><%=dsSupplier.Rows[i]["supplier"] %></option>
+                                                    <%} %>
+                                                </select>
+                                                <%--<input type="text" value="" class="" id="supplier" placeholder="请输入供应商">--%>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
@@ -439,7 +450,7 @@
                                                         <tr>
                                                             <td class="text-right">方式：</td>
                                                             <td colspan="2" class="text-left">
-                                                                <div style="margin-top:8px">
+                                                                <div style="margin-top: 8px">
                                                                     <label class="radio-inline">
                                                                         <input type="radio" name="optionsRadios" id="less" value="小于" checked>
                                                                         小于
@@ -463,7 +474,7 @@
                                                     </table>
                                                 </div>
                                                 <div class="modal-footer">
-                                                     <button type="button" id="btn_clear" class="btn btn-success btn-sm" style="margin-right:10px">
+                                                    <button type="button" id="btn_clear" class="btn btn-success btn-sm" style="margin-right: 10px">
                                                         清除
                                                     </button>
                                                     <button type="button" id="btn_number" class="btn btn-success btn-sm">
@@ -488,7 +499,7 @@
                                                         <tr>
                                                             <td class="text-right">方式：</td>
                                                             <td colspan="2" class="text-left">
-                                                                <div style="margin-top:8px">
+                                                                <div style="margin-top: 8px">
                                                                     <label class="radio-inline">
                                                                         <input type="radio" name="priceRadios" id="priceless" value="小于" checked>
                                                                         小于
@@ -505,14 +516,14 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-right">请输入单价：</td>
+                                                            <td class="text-right">请输入定价：</td>
                                                             <td class="text-left" colspan="2">
                                                                 <input type="number" value="" id="inputprice"></td>
                                                         </tr>
                                                     </table>
                                                 </div>
                                                 <div class="modal-footer">
-                                                     <button type="button" id="price_clear" class="btn btn-success btn-sm" style="margin-right:10px">
+                                                    <button type="button" id="price_clear" class="btn btn-success btn-sm" style="margin-right: 10px">
                                                         清除
                                                     </button>
                                                     <button type="button" id="price_ok" class="btn btn-success btn-sm">

@@ -16,7 +16,7 @@ namespace bms.Web.BasicInfor
     {
         public string userName, regionName, roleName;
         public int totalCount, intPageCount, pageSize = 20, row, count = 0;
-        public DataSet ds, dsRegion, dsPer;
+        public DataSet ds, dsRegion, dsPer,dsUser;
         RoleBll roleBll = new RoleBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         UserBll userBll = new UserBll();
@@ -30,7 +30,6 @@ namespace bms.Web.BasicInfor
             roleName = user.RoleId.RoleName;
             permission();
             getData();
-            dsRegion = regionBll.select();
             string op = Request["op"];
             if (op == "add")
             {
@@ -38,7 +37,7 @@ namespace bms.Web.BasicInfor
                 string nowDt = nowTime.ToString("yyyy-MM-dd");
                 long count = 0;
                 //判断数据库中是否已经有记录
-                DataSet backds = wareBll.getAllTime(1);
+                DataSet backds = wareBll.getAllTime(2);
                 if (backds != null && backds.Tables[0].Rows.Count > 0)
                 {
                     for (int i = 0; i < backds.Tables[0].Rows.Count; i++)
@@ -148,7 +147,7 @@ namespace bms.Web.BasicInfor
             }
             if (regionName != "" && regionName != null)
             {
-                    search += " and regionName like '%" + regionName + "%'";
+                    search += " and userRegionName like '%" + regionName + "%'";
             }
             if (userName != "" && userName != null)
             {
@@ -164,7 +163,7 @@ namespace bms.Web.BasicInfor
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,regionName,userName,allBillCount,allTotalPrice,allRealPrice,time";
+            tbd.StrColumnlist = "singleHeadId,userRegionName,userName,allBillCount,allTotalPrice,allRealPrice,time";
             tbd.IntPageSize = pageSize;
             if (user.RoleId.RoleName == "超级管理员")
             {
@@ -177,7 +176,10 @@ namespace bms.Web.BasicInfor
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
-
+            //获取组织
+            dsRegion = regionBll.select();
+            //获取操作员
+            dsUser = regionBll.selectUser();
             //生成table
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             int count = ds.Tables[0].Rows.Count;
@@ -186,7 +188,7 @@ namespace bms.Web.BasicInfor
             {
                 DataRow dr = dt.Rows[i];
                 sb.Append("<tr><td>" + dr["singleHeadId"].ToString() + "</td>");
-                sb.Append("<td>" + dr["regionName"].ToString() + "</td>");
+                sb.Append("<td>" + dr["userRegionName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["userName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allBillCount"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");

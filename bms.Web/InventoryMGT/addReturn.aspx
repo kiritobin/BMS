@@ -340,6 +340,11 @@
 
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="#">库存管理</a></li>
+                    <li><a href="returnManagement.aspx">退货管理</a></li>
+                    <li class="active">退货添加</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -379,7 +384,7 @@
                                                         <nobr>出版社</nobr>
                                                     </td>
                                                     <td>
-                                                        <nobr>商品数量</nobr>
+                                                        <nobr>数量</nobr>
                                                     </td>
                                                     <td>
                                                         <nobr>单价</nobr>

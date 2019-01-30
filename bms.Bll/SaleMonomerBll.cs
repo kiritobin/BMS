@@ -94,6 +94,18 @@ namespace bms.Bll
 
         }
         /// <summary>
+        /// 统计品种数
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头id</param>
+        /// <returns></returns>
+        public int getperkinds(string saleTaskId, string saleHeadId)
+        {
+            return SaleMonomerdao.getperkinds(saleTaskId, saleHeadId);
+
+        }
+
+        /// <summary>
         /// 获取书籍种类
         /// </summary>
         /// <param name="strWhere">条件</param>
@@ -133,6 +145,23 @@ namespace bms.Bll
         public Result Insert(SaleMonomer salemonomer)
         {
             int row = SaleMonomerdao.Insert(salemonomer);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
+        }
+        /// <summary>
+        /// 预采单体添加
+        /// </summary>
+        /// <param name="salemonomer">单体实体</param>
+        /// <returns>返回结果</returns>
+        public Result perInsert(SaleMonomer salemonomer)
+        {
+            int row = SaleMonomerdao.perInsert(salemonomer);
             if (row > 0)
             {
                 return Result.添加成功;
@@ -207,9 +236,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="condition">条件</param>
         /// <returns>数据集</returns>
-        public DataSet wechatSummary(string condition)
+        public DataSet wechatPerSummary(string condition,int state)
         {
-            DataSet ds = SaleMonomerdao.wechatSummary(condition);
+            DataSet ds = SaleMonomerdao.wechatPerSummary(condition,state);
             if (ds!=null ||ds.Tables[0].Rows.Count>0)
             {
                 return ds;
@@ -265,7 +294,23 @@ namespace bms.Bll
                 return Result.更新失败;
             }
         }
-
+        /// <summary>
+        /// 更新预采单头
+        /// </summary>
+        /// <param name="salehead">单头实体</param>
+        /// <returns></returns>
+        public Result wechatupdatePerHead(SaleHead salehead)
+        {
+            int row = SaleMonomerdao.wechatupdatePerHead(salehead);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
         /// <summary>
         /// 更新销售单头状态
         /// </summary>
@@ -431,6 +476,25 @@ namespace bms.Bll
         public DataSet getsalemonDetail(string saleHeadId, string saleId, string bookNum)
         {
             DataSet ds = SaleMonomerdao.getsalemonDetail(saleHeadId, saleId, bookNum);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// 获取该书籍在此预采单头中的已购数量
+        /// </summary>
+        /// <param name="saleHeadId">预采单头</param>
+        /// <param name="saleId">销售任务</param>
+        /// <param name="bookNum">书号</param>
+        /// <returns></returns>
+        public DataSet getPersalemonDetail(string saleHeadId, string saleId, string bookNum)
+        {
+            DataSet ds = SaleMonomerdao.getPersalemonDetail(saleHeadId, saleId, bookNum);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return ds;

@@ -354,11 +354,18 @@
                                                 <input type="text" id="bill" class="searchOne" placeholder="请输入销售任务单据编号">
                                             </div>--%>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="region" class="searchOne" placeholder="请输入销退单据编号">
+                                                <input type="text" id="region" class="" placeholder="请输入销退单据编号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="customer" class="searchOne" placeholder="请输入客户名称">
-                                                <button class="btn btn-info btn-sm" id="btn-search">查询</button>
+                                                <select class="modal_select selectpicker" title="请选择客户" data-live-search="true" id="customer">
+                                                    <option value="">全部客户</option>
+                                                    <%for (int i = 0; i < dsCustom.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option><%=dsCustom.Tables[0].Rows[i]["customerName"] %></option>
+                                                    <%} %>
+                                                </select>
+                                                <%--<input type="text" id="customer" class="" placeholder="请输入客户名称">--%>
+                                                <button class="btn btn-info btn-sm" style="height:43px;" id="btn-search">查询</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="btn-add">添加</button>
@@ -374,17 +381,17 @@
                                             <thead>
                                                 <tr>
                                                     <!--<th>任务单据编号</th>-->
-                                                    <th>销退单据编号</th>
-                                                    <th>操作员</th>
-                                                    <th>客户</th>
-                                                    <th>状态</th>
-                                                    <th>品种数</th>
-                                                    <th>总数量</th>
-                                                    <th>默认折扣</th>
-                                                    <th>码洋</th>
-                                                    <th>实洋</th>
-                                                    <th>制单时间</th>
-                                                    <th>操作</th>
+                                                    <th><nobr>销退单据编号</nobr></th>
+                                                    <th><nobr>操作员</nobr></th>
+                                                    <th><nobr>客户</nobr></th>
+                                                    <th><nobr>状态</nobr></th>
+                                                    <th><nobr>品种</nobr></th>
+                                                    <th><nobr>数量</nobr></th>
+                                                    <th><nobr>折扣</nobr></th>
+                                                    <th><nobr>码洋</nobr></th>
+                                                    <th><nobr>实洋</nobr></th>
+                                                    <th><nobr>制单时间</nobr></th>
+                                                    <th><nobr>操作</nobr></th>
                                                 </tr>
                                                 <%=getData() %>
                                         </table>

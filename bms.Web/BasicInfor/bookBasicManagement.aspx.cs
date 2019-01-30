@@ -21,6 +21,7 @@ namespace bms.Web.BasicInfor
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount,row,funCount;
         public string search = "", last, num,userName,regionName;
         public DataSet ds, dsPer;
+        public DataTable dsSupplier;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply,funcRetail, isAdmin, funcBookStock;
         DataTable except = new DataTable();//接受差集
         BookBasicBll bookbll = new BookBasicBll();
@@ -69,7 +70,7 @@ namespace bms.Web.BasicInfor
                 }
                 else
                 {
-                    Response.Write("在其他表中有关联不能删除");
+                    Response.Write("此资料已有关联订单，无法删除！");
                     Response.End();
                 }
             }
@@ -337,6 +338,8 @@ namespace bms.Web.BasicInfor
             string bookName = Request["bookName"];
             string bookNum = Request["bookNum"];
             string bookISBN = Request["bookISBN"];
+            string discount = Request["discount"];
+            string discount2 = Request["discount2"];
             string bookGys = Request["bookGys"];
             if (bookName != "" && bookName != null)
             {
@@ -369,6 +372,94 @@ namespace bms.Web.BasicInfor
                 else
                 {
                     search += " and isbn like '%" + bookISBN + "%'";
+                }
+            }
+            if (discount != "" && discount != null)
+            {
+                string[] sArray = discount.Split('于');
+                string type = sArray[0];
+                string number = sArray[1];
+                try
+                {
+                    if (search == "" || search == null)
+                    {
+                        if (type == "小")
+                        {
+                            search = "remarks < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            search = "remarks = '" + number + "'";
+                        }
+                        else
+                        {
+                            search = "remarks > '" + number + "'";
+                        }
+                    }
+                    else
+                    {
+                        if (type == "小")
+                        {
+                            search += " and remarks < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            search += " and remarks = '" + number + "'";
+                        }
+                        else
+                        {
+                            search += " and remarks > '" + number + "'";
+                        }
+                    }
+                }
+                catch
+                {
+                    Response.Write("数据库存在不符合格式的数据");
+                    Response.End();
+                }
+            }
+            if (discount2 != "" && discount2 != null)
+            {
+                string[] sArray = discount2.Split('于');
+                string type = sArray[0];
+                string number = sArray[1];
+                try
+                {
+                    if (search == "" || search == null)
+                    {
+                        if (type == "小")
+                        {
+                            search = "author < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            search = "author = '" + number + "'";
+                        }
+                        else
+                        {
+                            search = "author > '" + number + "'";
+                        }
+                    }
+                    else
+                    {
+                        if (type == "小")
+                        {
+                            search += " and author < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            search += " and author = '" + number + "'";
+                        }
+                        else
+                        {
+                            search += " and author > '" + number + "'";
+                        }
+                    }
+                }
+                catch
+                {
+                    Response.Write("数据库存在不符合格式的数据");
+                    Response.End();
                 }
             }
             if (bookGys != "" && bookGys != null)
@@ -424,7 +515,9 @@ namespace bms.Web.BasicInfor
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
-
+            //获取供应商
+            //获取供应商
+            dsSupplier = bookbll.selectSupplier();
             //生成table
             StringBuilder sb = new StringBuilder();
             int j = ds.Tables[0].Rows.Count;

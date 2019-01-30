@@ -41,11 +41,14 @@ $(document).ready(function () {
             var bookName = $("#bookName").val();
             var bookArea = $("#area").find("option:selected").text();
             var bookISBN = $("#isbn").val();
-            var supplier = $("#supplier").val();
+            var supplier = $("#supplier").find("option:selected").text();
             var stockNumber = $("#stock").val();
             var price = $("#price").val();
-            if (bookArea == "全部") {
+            if (bookArea == "全部组织") {
                 bookArea = "";
+            }
+            if (supplier == "全部供应商") {
+                supplier = "";
             }
             $.ajax({
                 type: 'Post',
@@ -74,11 +77,14 @@ $(document).ready(function () {
         var bookName = $("#bookName").val();
         var bookArea = $("#area").find("option:selected").text();;
         var bookISBN = $("#isbn").val();
-        var supplier = $("#supplier").val();
+        var supplier = $("#supplier").find("option:selected").text();
         var stockNumber = $("#stock").val();
         var price = $("#price").val();
-        if (bookArea=="全部") {
+        if (bookArea == "全部组织") {
             bookArea = "";
+        }
+        if (supplier == "全部供应商") {
+            supplier = "";
         }
         $.ajax({
             type: 'Post',
@@ -171,10 +177,10 @@ $(document).ready(function () {
     $("#price_ok").click(function () {
         var type = $("input[name='priceRadios']:checked").val();
         var price = $("#inputprice").val();
-        if (number == "" || number == null) {
+        if (type == "" || type == null) {
             swal({
                 title: "提示",
-                text: "请输入数量",
+                text: "请选择类型",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',
@@ -183,10 +189,10 @@ $(document).ready(function () {
                 allowOutsideClick: false
             });
         }
-        else if (type == "" || type == null) {
+        else if (price == "" || price == null) {
             swal({
                 title: "提示",
-                text: "请选择类型",
+                text: "请输入定价",
                 type: "warning",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: '确定',

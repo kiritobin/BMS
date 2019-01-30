@@ -120,13 +120,24 @@ $("#search").keypress(function (e) {
                                 url: 'retailBack.aspx',
                                 data: {
                                     isbn: isbn,
+                                    headId: sessionStorage.getItem("retailId"),
                                     op: 'choose'
                                 },
                                 dataType: 'text',
                                 success: function (succ) {
-                                    $("#myModal").modal("show");
-                                    $("#table2 tr:not(:first)").empty(); //清空table处首行
-                                    $("#table2").append(succ); //加载table
+                                    if (succ == "此书不属于此零售单中") {
+                                        swal({
+                                            title: "ISBN:" + isbn,
+                                            text: "不属于此零售单中",
+                                            buttonsStyling: false,
+                                            confirmButtonClass: "btn btn-warning",
+                                            type: "warning"
+                                        }).catch(swal.noop);
+                                    } else {
+                                        $("#myModal").modal("show");
+                                        $("#table2 tr:not(:first)").empty(); //清空table处首行
+                                        $("#table2").append(succ); //加载table
+                                    }
                                 }
                             })
                         } else {
@@ -280,8 +291,8 @@ $("#insert").click(function () {
         success: function (data) {
             if (data == "库存不足") {
                 swal({
-                    title: "无库存",
-                    text: "无库存",
+                    title: "错误提示",
+                    text: "查询不到库存信息，无法退货",
                     buttonsStyling: false,
                     confirmButtonClass: "btn btn-warning",
                     type: "warning"

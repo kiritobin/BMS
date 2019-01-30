@@ -26,9 +26,15 @@ $(document).ready(function () {
         nextContent: '下页',
         callback: function (api) {
             var ID = $("#ID").val();
-            var region = $("#region").val();
-            var user = $("#user").val();
+            var region = $("#region").find("option:selected").text();
+            var user = $("#user").find("option:selected").text();
             var time = $("#time").val();
+            if (region == "全部收货组织") {
+                region = "";
+            }
+            if (user == "全部操作员") {
+                user = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'returnManagement.aspx',
@@ -175,9 +181,15 @@ $("#btnAdd").click(function () {
 //查询
 $("#btn-search").click(function () {
     var ID = $("#ID").val();
-    var region = $("#region").val();
-    var user = $("#user").val();
+    var region = $("#region").find("option:selected").text();
+    var user = $("#user").find("option:selected").text();
     var time = $("#time").val();
+    if (region == "全部收货组织") {
+        region = "";
+    }
+    if (user == "全部操作员") {
+        user = "";
+    }
     $.ajax({
         type: 'Post',
         url: 'returnManagement.aspx',
@@ -227,6 +239,28 @@ $("#btn-search").click(function () {
     })
 });
 
+//查看报表
+$("#check").click(function () {
+    var source = $("#bbsource").find("option:selected").text();
+    var singleHeadId = $("#singleHeadId").val().trim();
+    if (singleHeadId == "") {
+        singleHeadId = "null";
+    }
+    if (source == "" && singleHeadId == "") {
+        swal({
+            title: "温馨提示:)",
+            text: "请先选择组织或输入单据编号",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-success",
+            type: "warning",
+            allowOutsideClick: false
+        })
+    }
+    else {
+        window.location.href = "/InventoryMGT/inventoryStatistics.aspx?type=TH&&region=" + source + "&&singleHeadId=" + singleHeadId;
+    }
+});
+
 
 $("#table").delegate(".btn-add", "click", function () {
     var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
@@ -261,6 +295,7 @@ $("#table").delegate(".btn-search", "click", function () {
 
 //删除
 $("#table").delegate(".btn-delete", "click", function () {
+    var ID = $(this).prev().val();
     swal({
         title: "温馨提示:)",
         text: "删除后将无法恢复,您确定要删除吗？？？",
@@ -275,7 +310,6 @@ $("#table").delegate(".btn-delete", "click", function () {
         buttonsStyling: false,
         allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
     }).then(function () {
-        var ID = $(".btn-delete").prev().val();
         $.ajax({
             type: 'Post',
             url: 'returnManagement.aspx',

@@ -332,6 +332,10 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">团采管理</a></li>
+                    <li class="active">零退管理</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -353,10 +357,10 @@
                                                 <tr>
                                                     <th>序号</th>
                                                     <th>零售编号</th>
-                                                    <th>品种数</th>
+                                                    <th>品种</th>
                                                     <th>数量</th>
-                                                    <th>总码洋</th>
-                                                    <th>总实洋</th>
+                                                    <th>码洋</th>
+                                                    <th>实洋</th>
                                                     <th>制单时间</th>
                                                     <th>操作</th>
                                                 </tr>

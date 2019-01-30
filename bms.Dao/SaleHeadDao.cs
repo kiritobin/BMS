@@ -76,6 +76,19 @@ namespace bms.Dao
             return row;
         }
         /// <summary>
+        /// 添加预采销售单头
+        /// </summary>
+        /// <param name="task">销售单头实体</param>
+        /// <returns>受影响行数</returns>
+        public int perInsert(SaleHead salehead)
+        {
+            string cmdText = "insert into t_salehead_copy(saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,userId,regionId,dateTime,state) values(@saleHeadId,@saleTaskId,@kindsNum,@number,@allTotalPrice,@allRealPrice,@userId,@regionId,@dateTime,@state)";
+            string[] param = { "@saleHeadId", "@saleTaskId", "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@userId", "@regionId", "@dateTime", "@state" };
+            object[] values = { salehead.SaleHeadId, salehead.SaleTaskId, salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.UserId, salehead.RegionId, salehead.DateTime, salehead.State };
+            int row = db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
+        }
+        /// <summary>
         /// 假删除销售单头
         /// </summary>
         /// <param name="saleTaskId">销售任务ID</param>
@@ -144,6 +157,24 @@ namespace bms.Dao
                 return null;
             }
         }
+        /// <summary>
+        /// 获取操作员
+        /// </summary>
+        /// <returns></returns>
+        public DataSet slectCzy()
+        {
+            string comText = "select distinct userName from V_SaleHead order by convert(userName using gbk) collate gbk_chinese_ci";
+            DataSet ds = db.FillDataSet(comText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// 根据销售任务id，销售单头,该销售单头下的所有销售单体
         /// </summary>

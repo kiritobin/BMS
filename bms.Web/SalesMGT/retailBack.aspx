@@ -29,9 +29,9 @@
                 <div class="col-sm-4 col-lg-3">
                     <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
                 </div>
-                 <div class="col-sm-2">
+                 <%--<div class="col-sm-2">
                     <input type="text" id="search" style="height:100px;font-size:30px;" class="topSearch">
-                </div>
+                </div>--%>
             </div>
             <div class="card">
                 <div class="card-header card-header-danger">
@@ -107,10 +107,11 @@
 
                         <!-- 右侧功能区 -->
                         <div class="col-md-4">
-                            <div class="retailList">
+                            <%--<div class="retailList">
                                 <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
-                            </div>
+                            </div>--%>
                             <div class="row" id="retailBtn">
+                                <input type="text" id="search" style="height:100px;font-size:30px;" class="topSearch">
                                 <div class="text-white" id="scanning" data-toggle="modal" data-target="#myModal1">
                                     <button class="btn btn-info btnText">扫  描</button>
                                 </div>

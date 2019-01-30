@@ -333,6 +333,11 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">团采管理</a></li>
+                    <li><a href="retailBackManagement.aspx">零退管理</a></li>
+                    <li class="active">零退查询</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -410,7 +415,7 @@
                                                     <td>单价</td>
                                                     <td>数量</td>
                                                     <td>码洋</td>
-                                                    <td>实际折扣</td>
+                                                    <td>折扣</td>
                                                     <td>实洋</td>
                                                     <td>采集时间</td>
                                                 </tr>

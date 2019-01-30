@@ -351,13 +351,27 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="ID" class="searchOne" placeholder="请输入销售编号">
+                                                <input type="text" id="ID" class="" placeholder="请输入销售编号">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="regionName" class="searchOne" placeholder="请输入组织名称">
+                                                <select class="selectpicker" data-live-search="true" title="请选择组织名称" id="regionName">
+                                                <option value="">全部组织</option>
+                                                <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                    {%>
+                                                <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                <%} %>
+                                            </select>
+                                                <%--<input type="text" id="regionName" class="searchOne" placeholder="请输入组织名称">--%>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" id="userName" class="searchOne" placeholder="请输入操作员名称">
+                                                <select class="selectpicker" data-live-search="true" title="请选择操作员" id="userName">
+                                                    <option value="">全部操作员</option>
+                                                    <%for (int i = 0; i < dsUser.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option><%=dsUser.Tables[0].Rows[i]["userName"] %></option>
+                                                    <%} %>
+                                                </select>
+                                                <%--<input type="text" id="userName" class="searchOne" placeholder="请输入操作员名称">--%>
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                             <%if (type == "add")
@@ -370,7 +384,7 @@
                                             </div>
                                             <% } %>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info" onclick="window.location.href='salesTaskStatistics.aspx'" style="height: 35px">销售统计</button>
+                                                <button class="btn btn-info" onclick="window.location.href='salesTaskStatistics.aspx'" style="height: 41px">销售统计</button>
                                             </div>
                                             <%--<div class="btn-group" role="group">
                                                 <button class="btn btn-success btn-sm" id="btn_succAll">结算</button>
@@ -389,8 +403,8 @@
                                                     <td>任务编号</td>
                                                     <td>状态</td>
                                                     <td>组织名称</td>
-                                                    <td>操作员名称</td>
-                                                    <td>品种数</td>
+                                                    <td>操作员</td>
+                                                    <td>品种</td>
                                                     <td>码洋</td>
                                                     <td>实洋</td>
                                                     <td>制单时间</td>

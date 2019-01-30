@@ -15,9 +15,10 @@ namespace bms.Web.SalesMGT
         sellOffHeadBll soBll = new sellOffHeadBll();
         UserBll uBll = new UserBll();
         SellOffMonomerBll smBll = new SellOffMonomerBll();
+        LibraryCollectionBll libraryCollectionBll = new LibraryCollectionBll();
         protected int totalCount,intPageCount;
         protected string userName,regionName;
-        public DataSet cutds, dsPer;
+        public DataSet dsCustom, dsPer;
         protected double discount;
         RoleBll roleBll = new RoleBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
@@ -108,6 +109,8 @@ namespace bms.Web.SalesMGT
             tb.IntPageNum = currentPage;
             tb.StrWhere = search;
             ds = uBll.selectByPage(tb, out totalCount, out intPageCount);
+            //获取客户
+            dsCustom = libraryCollectionBll.getCustomer();
             StringBuilder strb = new StringBuilder();
             int row = 0;//判断销退单头中是否有单体
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)

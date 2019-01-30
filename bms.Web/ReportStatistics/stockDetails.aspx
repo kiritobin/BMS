@@ -332,6 +332,11 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">报表统计</a></li>
+                    <li><a href="stockStatistics.aspx">入库统计</a></li>
+                    <li class="active">入库明细</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -343,20 +348,20 @@
                                     <div class="card-header" style="padding-right: 0px;">
                                         <form class="form-inline">
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入ISBN" style="width: 130px;" id="isbn" />
+                                                <input type="text" class="" placeholder="请输入ISBN" style="width: 130px; height: 34px" id="isbn" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price" />
+                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px; height: 34px" id="price"  readonly="readonly" data-toggle="modal" data-target="#priceModal" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入折扣" style="width: 130px;" id="discount" />
+                                                <input type="text" class="" placeholder="请输入折扣" style="width: 130px; height: 34px" id="discount" />
                                             </div>
                                             &nbsp;
                                             <div class="btn-group" role="group" style="width: 165px !important;">
                                                 <select class="modal_select selectpicker collectionStatus" data-live-search="true" title="请选择制单员" id="user">
-                                                    <option value="">全部</option>
+                                                    <option value="">全部制单员</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
                                                         for (int i = 0; i < count; i++)
                                                         {%>
@@ -366,7 +371,7 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入时间段" id="time" data-toggle="modal" data-target="#myModal" />
+                                                <input type="text" class="" placeholder="请输入时间段" style="width: 130px; height: 34px" id="time" data-toggle="modal" data-target="#myModal" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
@@ -503,6 +508,57 @@
                     </div>
                 </div>
             </div>
+
+            <%-- 定价 --%>
+            <div class="modal fade modal-mini modal-primary" id="priceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog" style="max-width: 580px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">按定价查询</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <table class="table text-center" id="table_priceModal">
+                                <tr>
+                                    <td class="text-right">方式：</td>
+                                    <td colspan="2" class="text-left">
+                                        <div style="margin-top: 8px">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="priceRadios" id="priceless" value="小于" checked>
+                                                小于
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="priceRadios" checked="checked" style="margin-left: 20px" id="priceequal" value="等于">
+                                                等于
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="priceRadios" style="margin-left: 20px" id="pricebig" value="大于">
+                                                大于
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">请输入定价：</td>
+                                    <td class="text-left" colspan="2">
+                                        <input type="number" value="" id="inputprice"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="price_clear" class="btn btn-success btn-sm" style="margin-right: 10px">
+                                清除
+                            </button>
+                            <button type="button" id="price_ok" class="btn btn-success btn-sm">
+                                确定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="table-responsive" id="printContent">
                 <p>
                     <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>

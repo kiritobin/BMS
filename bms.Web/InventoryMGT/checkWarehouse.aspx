@@ -338,6 +338,11 @@
 
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">库存管理</a></li>
+                    <li><a href="warehouseManagement.aspx">出库管理</a></li>
+                    <li class="active">出库查询</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -415,7 +420,7 @@
                                                             <nobr>书名</nobr>
                                                         </td>
                                                         <td>
-                                                            <nobr>商品数量</nobr>
+                                                            <nobr>数量</nobr>
                                                         </td>
                                                         <td>
                                                             <nobr>单价</nobr>

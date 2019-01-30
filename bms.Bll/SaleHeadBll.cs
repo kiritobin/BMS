@@ -32,6 +32,25 @@ namespace bms.Bll
             }
         }
 
+        /// <summary>
+        /// 销售预采单头添加
+        /// </summary>
+        /// <param name="salehead">销售单头实体</param>
+        /// <returns>返回结果</returns>
+        public Result perInsert(SaleHead salehead)
+        {
+            int row = saleHeaddao.perInsert(salehead);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
+        }
+
+
         public string SelectTaskByheadId(string saleHeadId)
         {
             return saleHeaddao.SelectTaskByheadId(saleHeadId);
@@ -113,6 +132,15 @@ namespace bms.Bll
                 return null;
             }
         }
+        /// <summary>
+        /// 获取操作员
+        /// </summary>
+        /// <returns></returns>
+        public DataSet selectCzy()
+        {
+            return saleHeaddao.slectCzy();
+        }
+
         /// <summary>
         /// 获取制单日期
         /// </summary>

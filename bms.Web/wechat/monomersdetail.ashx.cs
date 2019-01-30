@@ -59,7 +59,7 @@ namespace bms.Web.wechat
                 tb.StrWhere = "saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' group by bookNum,bookName,ISBN,unitPrice HAVING allnumber!=0";
             }
 
-            DataSet summaryds = salemonbll.wechatSummary(tb.StrWhere);
+            DataSet summaryds = salemonbll.wechatPerSummary(tb.StrWhere,3);
 
             DataSet ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
 

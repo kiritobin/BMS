@@ -17,7 +17,7 @@ namespace bms.Web.SalesMGT
     public partial class salesManagement : System.Web.UI.Page
     {
         public int totalCount, intPageCount, pageSize = 20, SettlementAllCount;
-        DataSet ds, dsPer;
+        public DataSet ds, dsPer,dsRegion,dsUser;
         SaleHeadBll saleheadbll = new SaleHeadBll();
         BookBasicBll bookbll = new BookBasicBll();
         StockBll stockbll = new StockBll();
@@ -26,6 +26,7 @@ namespace bms.Web.SalesMGT
         replenishMentBll replenBll = new replenishMentBll();
         replenishMentHead rsHead = new replenishMentHead();
         SaleMonomerBll salemonbll = new SaleMonomerBll();
+        RegionBll regionBll = new RegionBll();
         public string type, userName, regionName, saleTaskid, finishTime = "";
         RoleBll roleBll = new RoleBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
@@ -589,6 +590,10 @@ namespace bms.Web.SalesMGT
             tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
             //获取展示的客户数据
             ds = saleheadbll.selectBypage(tb, out totalCount, out intPageCount);
+            //获取组织
+            dsRegion = regionBll.select();
+            //获取操作员
+            dsUser = saleheadbll.selectCzy();
             //获取客户下拉数据
             //customerds = custBll.select();
             //生成table

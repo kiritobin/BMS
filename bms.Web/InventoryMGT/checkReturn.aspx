@@ -336,6 +336,11 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">库存管理</a></li>
+                    <li><a href="returnManagement.aspx">退货管理</a></li>
+                    <li class="active">退货查询</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -385,12 +390,12 @@
                                                             <td>序号</td>
                                                             <td>ISBN号</td>
                                                             <td>书名</td>
-                                                            <td>商品数量</td>
+                                                            <td>数量</td>
                                                             <td>单价</td>
                                                             <td>折扣</td>
                                                             <td>码洋</td>
                                                             <td>实洋</td>
-                                                            <td>货架名</td>
+                                                            <td>货架</td>
                                                         </tr>
                                                     </thead>
                                                     <%=getData() %>

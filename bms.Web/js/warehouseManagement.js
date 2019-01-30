@@ -54,9 +54,15 @@ $(document).ready(function () {
         nextContent: '下页',
         callback: function (api) {
             var ID = $("#ID").val();
-            var region = $("#region").val();
-            var user = $("#user").val();
+            var region = $("#region").find("option:selected").text();
+            var user = $("#user").find("option:selected").text();
             var time = $("#time").val();
+            if (region == "全部收货组织") {
+                regionName = "";
+            }
+            if (user == "全部操作员") {
+                userName = "";
+            }
             $.ajax({
                 type: 'Post',
                 url: 'warehouseManagement.aspx',
@@ -176,9 +182,15 @@ $("#btnAdd").click(function () {
 //查询
 $("#btn-search").click(function () {
     var ID = $("#ID").val();
-    var region = $("#region").val();
-    var user = $("#user").val();
+    var region = $("#region").find("option:selected").text();
+    var user = $("#user").find("option:selected").text();
     var time = $("#time").val();
+    if (region == "全部收货组织") {
+        regionName = "";
+    }
+    if (user == "全部操作员") {
+        userName = "";
+    }
     $.ajax({
         type: 'Post',
         url: 'warehouseManagement.aspx',
@@ -227,6 +239,28 @@ $("#btn-search").click(function () {
             });
         }
     })
+});
+
+//查看报表
+$("#check").click(function () {
+    var source = $("#bbsource").find("option:selected").text();
+    var singleHeadId = $("#singleHeadId").val().trim();
+    if (singleHeadId == "") {
+        singleHeadId = "null";
+    }
+    if (source == "" && singleHeadId == "") {
+        swal({
+            title: "温馨提示:)",
+            text: "请先选择组织或输入单据编号",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-success",
+            type: "warning",
+            allowOutsideClick: false
+        })
+    }
+    else {
+        window.location.href = "/InventoryMGT/inventoryStatistics.aspx?type=CK&&region=" + source + "&&singleHeadId=" + singleHeadId;
+    }
 });
 
 //删除

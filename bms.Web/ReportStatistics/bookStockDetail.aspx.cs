@@ -62,17 +62,50 @@ namespace bms.Web.ReportStatistics
             string fileName = name;
             if (isbn != null && isbn != "")
             {
-                fileName += "-" + isbn;
                 strWhere += " and isbn='" + isbn + "'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                fileName += "-" + price;
-                strWhere += " and uPrice=" + price;
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "price > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and price > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    strWhere += " and uPrice=" + price;
+            //}
             if (discount != null && discount != "")
             {
-                fileName += "-" + discount;
                 strWhere += " and discount=" + discount;
             }
             if (bookName != null && bookName != "")
@@ -163,10 +196,46 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and isbn like '%" + isbn + "%'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                strWhere += " and price='" + price + "'";
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "price > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and price > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    strWhere += " and price='" + price + "'";
+            //}
             if (bookName != null && bookName != "")
             {
                 strWhere += " and bookName like '%" + bookName + "%'";
@@ -288,17 +357,51 @@ namespace bms.Web.ReportStatistics
             string fileName = name;
             if (isbn != null && isbn != "")
             {
-                fileName += "-" + isbn;
                 strWhere += " and isbn='" + isbn + "'";
             }
-            if (price != null && price != "")
+            if (price != "" && price != null)
             {
-                fileName += "-" + price;
-                strWhere += " and uPrice=" + price;
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "price > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and price > '" + number + "'";
+                    }
+                }
             }
+            //if (price != null && price != "")
+            //{
+            //    fileName += "-" + price;
+            //    strWhere += " and uPrice=" + price;
+            //}
             if (discount != null && discount != "")
             {
-                fileName += "-" + discount;
                 strWhere += " and discount=" + discount;
             }
             if (bookName != null && bookName != "")
