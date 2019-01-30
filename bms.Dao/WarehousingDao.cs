@@ -361,7 +361,8 @@ namespace bms.Dao
 
         public DataSet getKinds(int type,string where)
         {
-            string cmdText = "SELECT SUM(NUMBER) AS sl,COUNT(DISTINCT bookNum) as pz,sum(realPrice) as sy,sum(totalPrice) as my FROM v_monomer WHERE "+where+" and SINGLEHEADID IN (SELECT singleHeadId FROM t_singlehead WHERE TYPE=@type)";
+            //string cmdText = "SELECT SUM(NUMBER) AS sl,COUNT(DISTINCT bookNum) as pz,sum(realPrice) as sy,sum(totalPrice) as my FROM v_monomer WHERE "+where+" and SINGLEHEADID IN (SELECT singleHeadId FROM t_singlehead WHERE TYPE=@type)";
+            string cmdText = "SELECT SUM(NUMBER) AS sl,COUNT(DISTINCT bookNum) as pz,sum(realPrice) as sy,sum(totalPrice) as my FROM v_monomer WHERE " + where + " and  TYPE=@type";
             string[] param = { "@type" };
             object[] values = { type };
             DataSet ds = db.FillDataSet(cmdText, param, values);
