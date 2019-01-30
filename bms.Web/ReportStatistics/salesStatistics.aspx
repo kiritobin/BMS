@@ -333,6 +333,10 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li class="active">销售统计</li>
+                    <li><a href="#">销售明细</a></li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">

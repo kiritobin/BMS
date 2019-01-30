@@ -332,6 +332,10 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="retailStatistics.aspx">零售统计</a></li>
+                    <li class="active">零售明细</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -347,7 +351,7 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price"   readonly="readonly" data-toggle="modal" data-target="#priceModal" />
+                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price" readonly="readonly" data-toggle="modal" data-target="#priceModal" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">

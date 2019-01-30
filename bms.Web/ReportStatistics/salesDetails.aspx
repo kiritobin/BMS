@@ -332,6 +332,10 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="salesStatistics.aspx">销售统计</a></li>
+                    <li class="active">销售明细</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
