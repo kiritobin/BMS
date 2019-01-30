@@ -163,10 +163,10 @@ $("#btn-search").click(function () {
 
 //删除用户
 $("#table").delegate(".btn-danger", "click", function () {
-    var account = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+    var account = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
     swal({
         title: '温馨提示:)',
-        text: '确定要删除账号为：' + account + '的用户吗？',
+        text: '确定要删除账号为：' + account + '的单据吗？',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: '是的，删掉它!',
@@ -188,7 +188,7 @@ $("#table").delegate(".btn-danger", "click", function () {
                 if (succ == "删除成功") {
                     swal({
                         title: "温馨提示:)",
-                        text: "用户删除成功",
+                        text: "单据删除成功",
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-success",
                         type: "success",
@@ -199,7 +199,7 @@ $("#table").delegate(".btn-danger", "click", function () {
                 } else {
                     swal({
                         title: "温馨提示:)",
-                        text: "用户删除失败",
+                        text: "单据删除失败",
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-success",
                         type: "warning",
@@ -315,3 +315,7 @@ function logout() {
         });
     })
 }
+//弹出模态框获取焦点事件
+$('#myModal').on('shown.bs.modal', function (e) {
+    $('#remarks').focus();
+});

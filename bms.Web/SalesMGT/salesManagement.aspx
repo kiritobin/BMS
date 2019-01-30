@@ -377,7 +377,7 @@
                                             <%if (type == "add")
                                                 {%>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" id="btn_add">添加</button>
+                                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn_add">添加</button>
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" id="finish">完成</button>
@@ -408,6 +408,7 @@
                                                     <td>码洋</td>
                                                     <td>实洋</td>
                                                     <td>制单时间</td>
+                                                    <td>备注</td>
                                                     <td>操作</td>
                                                 </tr>
                                             </thead>
@@ -425,6 +426,34 @@
                     </div>
                 </div>
             </div>
+            
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                    <div class="modal-dialog" style="max-width: 400px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title float-left" id="myModalLabel">销售添加</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close">
+                                    <i class="fa fa-close"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table model-table">
+                                    <tr>
+                                        <td class="text-right"><span>
+                                            <nobr>备注:</nobr>
+                                        </span></td>
+                                        <td class="text-right">
+                                            <input type="text" id="remarks" class="remark" placeholder="请输入备注">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-info btn-sm" id="btnAdd">添加</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <!-- 主界面页脚部分 -->
             <footer class="footer">
                 <div class="container-fluid">

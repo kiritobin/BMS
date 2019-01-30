@@ -264,7 +264,7 @@ $("#check").click(function () {
 
 
 $("#table").delegate(".btn-add", "click", function () {
-    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
     $.ajax({
         type: 'Post',
         url: 'returnManagement.aspx',
@@ -279,7 +279,7 @@ $("#table").delegate(".btn-add", "click", function () {
     });
 })
 $("#table").delegate(".btn-search", "click", function () {
-    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
     $.ajax({
         type: 'Post',
         url: 'returnManagement.aspx',
@@ -349,4 +349,8 @@ $("#table").delegate(".btn-delete", "click", function () {
             }
         })
     })
+});
+//弹出模态框获取焦点事件
+$('#myModal').on('shown.bs.modal', function (e) {
+    $('#remarks').focus();
 });

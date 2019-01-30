@@ -167,6 +167,11 @@ namespace bms.Web.SalesMGT
                 //获取销售任务的状态
                 SaleHeadBll saleheadbll = new SaleHeadBll();
                 SaleHead salehead = new SaleHead();
+                string remarks = Request["remarks"];
+                if (remarks == "" || remarks == null)
+                {
+                    remarks = "";
+                }
                 string saleId = Session["saleId"].ToString();
                 string SaleHeadId;
                 int count = saleheadbll.getCount();
@@ -213,6 +218,7 @@ namespace bms.Web.SalesMGT
                 salehead.RegionId = user.ReginId.RegionId;
                 salehead.DateTime = DateTime.Now.ToLocalTime();
                 salehead.State = 0;
+                salehead.Remarks = remarks;
                 Result result = saleheadbll.Insert(salehead);
                 if (result == Result.添加成功)
                 {
@@ -584,7 +590,7 @@ namespace bms.Web.SalesMGT
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleHead";
             tb.OrderBy = "saleHeadId";
-            tb.StrColumnlist = "saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,userName,regionName,dateTime,state";
+            tb.StrColumnlist = "remarks,saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,userName,regionName,dateTime,state";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
@@ -631,6 +637,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allTotalPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allRealPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["dateTime"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["remarks"].ToString() + "</td>");
                 strb.Append("<td>");
                 //if (state == "未结算")
                 //{

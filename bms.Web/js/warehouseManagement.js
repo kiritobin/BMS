@@ -321,3 +321,7 @@ $("#table").delegate(".btn-delete", "click", function () {
         })
     })
 });
+//弹出模态框获取焦点事件
+$('#myModal').on('shown.bs.modal', function (e) {
+    $('#remarks').focus();
+});
