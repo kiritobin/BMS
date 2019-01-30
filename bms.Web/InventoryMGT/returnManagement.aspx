@@ -341,6 +341,10 @@
 
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">库存管理</a></li>
+                    <li class="active">退货管理</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -387,7 +391,7 @@
                                             <div class="btn-group" role="group">
                                                 <%--<a href="/InventoryMGT/inventoryStatistics.aspx?type=TH">
                                                   </a>--%>
-                                                <button class="btn btn-info btn-sm" style="height: 41px" id="tjbb">统计报表</button>
+                                                <button class="btn btn-info btn-sm" style="height: 41px" id="tjbb" data-toggle="modal" data-target="#bbModal">统计报表</button>
                                             </div>
                                         </div>
                                     </div>

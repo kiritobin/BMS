@@ -333,6 +333,7 @@
             <!-- 主界面内容 -->
             <div class="content">
                 <ul class="breadcrumb">
+                    <li><a href="javascript:;">报表统计</a></li>
                     <li><a href="salesStatistics.aspx">销售统计</a></li>
                     <li class="active">销售明细</li>
                 </ul>

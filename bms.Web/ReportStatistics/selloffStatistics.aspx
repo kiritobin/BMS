@@ -330,8 +330,8 @@
             <!-- 主界面内容 -->
             <div class="content">
                 <ul class="breadcrumb">
+                    <li><a href="javascript:;">报表统计</a></li>
                     <li class="active">销退统计</li>
-                    <li><a href="#">销退明细</a></li>
                 </ul>
                 <div class="container-fluid">
                     <div class="row">

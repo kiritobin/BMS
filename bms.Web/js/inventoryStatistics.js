@@ -48,6 +48,9 @@ $(document).ready(function () {
         $('#resource').attr('title', "请输入来源组织");
         $("#change").text("请选择来源组织");
         $("button[data-id='resource']>.filter-option-inner-inner").text("请选择来源组织");
+        $("#rkgl").text("入库管理");
+        $("#rktj").text("入库统计");
+        $('#rkgl').attr('href', 'stockManagement.aspx'); 
     }
     else if (type == "CK") {
         $("#tjType").html("出&nbsp;库&nbsp;统&nbsp;计");
@@ -55,6 +58,9 @@ $(document).ready(function () {
         $('#resource').attr('title', "请输入收货组织");
         $("#change").text("请选择收货组织");
         $("button[data-id='resource']>.filter-option-inner-inner").html("请选择收货组织");
+        $("#rkgl").text("出库管理");
+        $("#rktj").text("出库统计");
+        $('#rkgl').attr('href', 'warehouseManagement.aspx'); 
     }
     else if (type == "TH") {
         $("#tjType").html("退&nbsp;货&nbsp;统&nbsp;计");
@@ -62,6 +68,9 @@ $(document).ready(function () {
         $("#change").text("请选择收货组织");
         $('#resource').attr('title', "请输入收货组织");
         $("button[data-id='resource']>.filter-option-inner-inner").text("请选择收货组织");
+        $("#rkgl").text("退货管理");
+        $("#rktj").text("退货统计");
+        $('#rkgl').attr('href', 'returnManagement.aspx'); 
     }
 
     var bookIsbn = $("#bookIsbn").val();

@@ -333,6 +333,11 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">团采管理</a></li>
+                    <li><a href="retailManagement.aspx">零售管理</a></li>
+                    <li class="active">零售查询</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
