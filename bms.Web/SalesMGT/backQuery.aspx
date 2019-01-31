@@ -29,11 +29,11 @@
                         <li><a href="javascript:;">团采管理</a></li>
                         <li><a href="tradeManagement.aspx">销售管理</a></li>
                         <li><a href="javascript:;" onclick="history.go(-1)">销退管理</a></li>
-                        <li class="active">添加销退单体</li>
+                        <li class="active" id="type">添加销退单体</li>
                     </ul>
                     <div class="card">
                         <div class="container-fluid">
-                            <h3 class="text-center"><strong>添&nbsp;加&nbsp;销&nbsp;退&nbsp;单&nbsp;体</strong></h3>
+                            <h3 class="text-center"><strong id="title">添&nbsp;加&nbsp;销&nbsp;退&nbsp;单&nbsp;体</strong></h3>
                             <hr />
                         </div>
                         <div class="card-body">
