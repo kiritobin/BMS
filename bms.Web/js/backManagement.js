@@ -102,7 +102,7 @@
             },
             dataType: 'text',
             success: function (succ) {
-                window.location.href = 'backQuery.aspx';
+                window.location.href = 'backQuery.aspx?type=searchMonomer';
             }
         })
     })
@@ -121,7 +121,7 @@
             dataType: 'text',
             success: function (succ) {
                 if (succ == "处理中") {
-                    window.location.href = 'backQuery.aspx';
+                    window.location.href = 'backQuery.aspx?type=addMonomer';
                 } else {
                     swal({
                         title: "温馨提示",

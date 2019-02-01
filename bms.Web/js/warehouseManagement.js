@@ -129,6 +129,7 @@ $("#close").click(function () {
 //添加退货单头
 $("#btnAdd").click(function () {
     var regionId = $("#regionId").val();
+    var remarks = $("#remarks").val().trim();
     if (regionId == "") {
         swal({
             title: "温馨提示:)",
@@ -143,6 +144,7 @@ $("#btnAdd").click(function () {
             url: 'warehouseManagement.aspx',
             data: {
                 regionId: regionId,
+                remarks: remarks,
                 op: "add"
             },
             datatype: 'text',
@@ -241,6 +243,28 @@ $("#btn-search").click(function () {
     })
 });
 
+//查看报表
+$("#check").click(function () {
+    var source = $("#bbsource").find("option:selected").text();
+    var singleHeadId = $("#singleHeadId").val().trim();
+    if (singleHeadId == "") {
+        singleHeadId = "null";
+    }
+    if (source == "" && singleHeadId == "") {
+        swal({
+            title: "温馨提示:)",
+            text: "请先选择组织或输入单据编号",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-success",
+            type: "warning",
+            allowOutsideClick: false
+        })
+    }
+    else {
+        window.location.href = "/InventoryMGT/inventoryStatistics.aspx?type=CK&&region=" + source + "&&singleHeadId=" + singleHeadId;
+    }
+});
+
 //删除
 $("#table").delegate(".btn-delete", "click", function () {
     var ID = $(this).prev().val();
@@ -296,4 +320,8 @@ $("#table").delegate(".btn-delete", "click", function () {
             }
         })
     })
+});
+//弹出模态框获取焦点事件
+$('#myModal').on('shown.bs.modal', function (e) {
+    $('#remarks').focus();
 });

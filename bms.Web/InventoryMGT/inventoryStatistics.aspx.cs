@@ -25,6 +25,20 @@ namespace bms.Web.InventoryMGT
         protected void Page_Load(object sender, EventArgs e)
         {
             string tjType = Request.QueryString["type"];
+            string tjRegion = Request["region"];
+            string tjHeadId = Request["singleHeadId"];
+            string defaultWhere = "";
+            if((tjRegion != "null" && tjRegion != "") && (tjHeadId == "null" || tjHeadId == ""))
+            {
+                defaultWhere = "regionName='" + tjRegion + "'";
+            }else if((tjRegion == "null" || tjRegion == "") && (tjHeadId != "null" && tjHeadId != ""))
+            {
+                defaultWhere = "singleHeadId='" + tjHeadId + "'";
+            }
+            else
+            {
+                defaultWhere = "regionName='" + tjRegion + "' and singleHeadId='" + tjHeadId + "'";
+            }
             int type=0;
             if (tjType=="CK")
             {
@@ -45,7 +59,7 @@ namespace bms.Web.InventoryMGT
             string userId = user.UserId;
             DataSet ds = roleBll.selectRole(userId);
             string roleName = ds.Tables[0].Rows[0]["roleName"].ToString();
-            DataSet dataSet = warehousingBll.getKinds(type);
+            DataSet dataSet = warehousingBll.getKinds(type,defaultWhere);
             sjNum = dataSet.Tables[0].Rows[0]["pz"].ToString();
             sbNum = dataSet.Tables[0].Rows[0]["sl"].ToString();
             total = dataSet.Tables[0].Rows[0]["my"].ToString();

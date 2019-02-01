@@ -27,7 +27,7 @@ namespace bms.Web.ReportStatistics
                 permission();
                 type = Request.QueryString["type"];
                 name = Request.QueryString["name"];
-                if(type == null || type== "" || name == "" || name == null)
+                if(type == null || type== "" || name == null)
                 {
                     type = Session["type"].ToString();
                     name = Session["name"].ToString();

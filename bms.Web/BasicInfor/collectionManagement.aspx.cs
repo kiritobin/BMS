@@ -140,7 +140,7 @@ namespace bms.Web.CustomerMGT
             int count = sArray.Length - 1;
             if (sArray[count] == "xls"|| sArray[count] == "xlsx")
             {
-                dt1 = ExcelHelp.excelToDtByNpoi(path,"excel");
+                dt1 = ExcelHelp.excelToDt(path,"excel");
                 dt1.Columns.Add("id").SetOrdinal(0);
                 row = dt1.Rows.Count; //获取总数
                 DataColumn dc = new DataColumn("客户ID", typeof(string));

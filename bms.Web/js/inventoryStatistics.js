@@ -1,10 +1,4 @@
-﻿function GetQueryString(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
-}
-
-//时间选择器
+﻿//时间选择器
 jeDate("#startTime", {
     theme: {
         bgcolor: "#D91600",
@@ -22,15 +16,41 @@ jeDate("#endTime", {
     format: "YYYY-MM-DD"
 });
 
+//地址栏获取
+//console.log(getUrlParam(location.href,"参数名"));
+function getUrlParam(url, name) {
+    var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+    var matcher = pattern.exec(url);
+    var items = null;
+    if (null != matcher) {
+        try {
+            items = decodeURIComponent(decodeURIComponent(matcher[1]));
+        } catch (e) {
+            try {
+                items = decodeURIComponent(matcher[1]);
+            } catch (e) {
+                items = matcher[1];
+            }
+        }
+    }
+    return items;
+}  
+
 $(document).ready(function () {
+    var region = getUrlParam(location.href, "region");
+    var singleHeadId = getUrlParam(location.href, "singleHeadId");
+    
     //出入退
-    var type = GetQueryString("type");
+    var type = getUrlParam(location.href, "type");
     if (type == "RK") {
         $("#tjType").html("入&nbsp;库&nbsp;统&nbsp;计");
         $("#diff").text("来源组织");
         $('#resource').attr('title', "请输入来源组织");
         $("#change").text("请选择来源组织");
         $("button[data-id='resource']>.filter-option-inner-inner").text("请选择来源组织");
+        $("#rkgl").text("入库管理");
+        $("#rktj").text("入库统计");
+        $('#rkgl').attr('href', 'stockManagement.aspx'); 
     }
     else if (type == "CK") {
         $("#tjType").html("出&nbsp;库&nbsp;统&nbsp;计");
@@ -38,6 +58,9 @@ $(document).ready(function () {
         $('#resource').attr('title', "请输入收货组织");
         $("#change").text("请选择收货组织");
         $("button[data-id='resource']>.filter-option-inner-inner").html("请选择收货组织");
+        $("#rkgl").text("出库管理");
+        $("#rktj").text("出库统计");
+        $('#rkgl').attr('href', 'warehouseManagement.aspx'); 
     }
     else if (type == "TH") {
         $("#tjType").html("退&nbsp;货&nbsp;统&nbsp;计");
@@ -45,6 +68,9 @@ $(document).ready(function () {
         $("#change").text("请选择收货组织");
         $('#resource').attr('title', "请输入收货组织");
         $("button[data-id='resource']>.filter-option-inner-inner").text("请选择收货组织");
+        $("#rkgl").text("退货管理");
+        $("#rktj").text("退货统计");
+        $('#rkgl').attr('href', 'returnManagement.aspx'); 
     }
 
     var bookIsbn = $("#bookIsbn").val();
@@ -52,7 +78,7 @@ $(document).ready(function () {
     var supplier = $("#supplier").val();
     var time = $("#time").val();
     var userName = $("#userName").val();
-    var region = $("#region").val();
+    //var region = $("#region").val();
     var resource = $("#resource").val();
 
     $('.paging').pagination({
@@ -67,9 +93,13 @@ $(document).ready(function () {
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            var bookName = $("#bookName").val();
             var bookIsbn = $("#bookIsbn").val();
-            var btnISBN = $("#bookISBN").val();
+            var bookName = $("#bookName").val();
+            var supplier = $("#supplier").val();
+            var time = $("#time").val();
+            var userName = $("#userName").val();
+            //var region = $("#region").val();
+            var resource = $("#resource").val();
             if (supplier == "全部供应商") {
                 supplier = "";
             }
@@ -77,7 +107,7 @@ $(document).ready(function () {
                 region = "";
             }
             if (userName == "全部制单员") {
-                region = "";
+                userName = "";
             }
             if (resource == "全部来源组织" || "全部收货组织") {
                 resource = "";
@@ -150,7 +180,7 @@ $(document).ready(function () {
         var supplier = $("#supplier").find("option:selected").text();
         var time = $("#time").val();
         var userName = $("#userName").find("option:selected").text();
-        var region = $("#region").find("option:selected").text();
+        //var region = $("#region").find("option:selected").text();
         var resource = $("#resource").find("option:selected").text();
         if (supplier == "全部供应商") {
             supplier = "";
@@ -159,7 +189,7 @@ $(document).ready(function () {
             region = "";
         }
         if (userName == "全部制单员") {
-            region = "";
+            userName = "";
         }
         if (resource == "全部来源组织" || "全部收货组织") {
             resource = "";
@@ -196,9 +226,13 @@ $(document).ready(function () {
                     prevContent: '上页',
                     nextContent: '下页',
                     callback: function (api) {
-                        var bookName = $("#bookName").val();
                         var bookIsbn = $("#bookIsbn").val();
-                        var btnISBN = $("#bookISBN").val();
+                        var bookName = $("#bookName").val();
+                        var supplier = $("#supplier").val();
+                        var time = $("#time").val();
+                        var userName = $("#userName").val();
+                        //var region = $("#region").val();
+                        var resource = $("#resource").val();
                         $.ajax({
                             type: 'Post',
                             url: 'inventoryStatistics.aspx',

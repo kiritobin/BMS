@@ -11,6 +11,10 @@ namespace bms.Model
     public class SaleHead
     {
         /// <summary>
+        /// 备注
+        /// </summary>
+        private string remarks;
+        /// <summary>
         /// 销售单头Id
         /// </summary>
         private string saleHeadId;
@@ -67,6 +71,21 @@ namespace bms.Model
         /// </summary>
         private string openid;
 
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remarks
+        {
+            get
+            {
+                return remarks;
+            }
+
+            set
+            {
+                remarks = value;
+            }
+        }
         /// <summary>
         /// 销售单头Id
         /// </summary>
@@ -283,6 +302,7 @@ namespace bms.Model
         /// <summary>
         /// 参数构造函数
         /// </summary>
+        /// <param name="remarks">备注</param>
         /// <param name="saleHeadId">销售单头ID</param>
         /// <param name="saleTaskId">销售任务Id</param>
         /// <param name="kindsNum">品种数</param>
@@ -297,8 +317,9 @@ namespace bms.Model
         /// <param name="dateTime">制单时间</param>
         /// <param name="payType">零售支付状态</param>
         /// <param name="openid">零售客户唯一标示</param>
-        public SaleHead(string saleHeadId, string saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, string userId,string userName, int state, int regionId, string regionName, DateTime dateTime,string payType,string openid)
+        public SaleHead(string remarks,string saleHeadId, string saleTaskId, int kindsNum, int number, double allTotalPrice, double allRealPrice, string userId,string userName, int state, int regionId, string regionName, DateTime dateTime,string payType,string openid)
         {
+            this.Remarks = remarks;
             SaleHeadId = saleHeadId;
             SaleTaskId = saleTaskId;
             KindsNum = kindsNum;

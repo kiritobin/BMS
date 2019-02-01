@@ -77,6 +77,11 @@ namespace bms.Web.InventoryMGT
                     count = 1;
                 }
                 string source = Request["source"];
+                string remarks = Request["remarks"];
+                if (remarks == "" || remarks == null)
+                {
+                    remarks = "";
+                }
                 SingleHead single = new SingleHead();
                 Region region = new Region();
                 region.RegionId = Convert.ToInt32(source);
@@ -85,6 +90,7 @@ namespace bms.Web.InventoryMGT
                 single.Time = DateTime.Now;
                 single.Type = 1;
                 single.User = user;
+                single.Remarks = remarks;
                 Result row = wareBll.insertHead(single);
                 if (row == Result.添加成功)
                 {
@@ -155,7 +161,7 @@ namespace bms.Web.InventoryMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
             tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,regionId,time,regionName,userName,allBillCount,allTotalPrice,allRealPrice";
+            tbd.StrColumnlist = "remarks,singleHeadId,regionId,time,regionName,userName,allBillCount,allTotalPrice,allRealPrice";
             tbd.IntPageSize = pageSize;
             if (roleName == "超级管理员")
             {
@@ -185,6 +191,7 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<td>" + dr["allRealPrice"].ToString() + "</td >");
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td >");
                 sb.Append("<td>" + dr["time"].ToString() + "</td >");
+                sb.Append("<td>" + dr["remarks"].ToString() + "</td >");
                 sb.Append("<td>");
                 if (dr["allBillCount"].ToString() != "0" && dr["allBillCount"].ToString() != "")
                 {

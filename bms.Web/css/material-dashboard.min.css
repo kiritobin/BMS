@@ -23119,3 +23119,10 @@ select.bs-select-hidden, select.selectpicker {
         display: none !important;
     }
 }
+
+/*Ãæ°üÐ¼µ¼º½*/
+.breadcrumb > li + li:before {
+    color: #CCCCCC;
+    content: "/ ";
+    padding: 0 5px;
+}

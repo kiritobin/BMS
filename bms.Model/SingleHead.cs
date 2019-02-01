@@ -8,6 +8,7 @@ namespace bms.Model
     public class SingleHead
     {
         private string singleHeadId;
+        private string remarks;
         private DateTime time;
         private Region region;
         private User user;
@@ -28,6 +29,21 @@ namespace bms.Model
             set
             {
                 singleHeadId = value;
+            }
+        }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remarks
+        {
+            get
+            {
+                return remarks;
+            }
+
+            set
+            {
+                remarks = value;
             }
         }
         /// <summary>
@@ -147,6 +163,7 @@ namespace bms.Model
         /// 单头参数构造函数
         /// </summary>
         /// <param name="singleHeadId">单头id</param>
+        /// <param name="remarks">备注</param>
         /// <param name="time">制单时间</param>
         /// <param name="regionId">地区id'</param>
         /// <param name="userId">用户id</param>
@@ -155,9 +172,10 @@ namespace bms.Model
         /// <param name="allTotalPrice">总码洋</param>
         /// <param name="allRealPrice">总实洋</param>
         /// <param name="type">状态（0为出库，1为入库）</param>
-        public SingleHead(string singleHeadId, DateTime time, Region region, User user, int allBillCount, double allTotalPrice, double allRealPrice, int type)
+        public SingleHead(string singleHeadId,string remarks, DateTime time, Region region, User user, int allBillCount, double allTotalPrice, double allRealPrice, int type)
         {
             this.SingleHeadId = singleHeadId;
+            this.Remarks = remarks;
             this.Time = time;
             this.region = region;
             this.User = user;

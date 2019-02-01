@@ -291,8 +291,8 @@ $("#insert").click(function () {
         success: function (data) {
             if (data == "库存不足") {
                 swal({
-                    title: "无库存",
-                    text: "无库存",
+                    title: "错误提示",
+                    text: "查询不到库存信息，无法退货",
                     buttonsStyling: false,
                     confirmButtonClass: "btn btn-warning",
                     type: "warning"

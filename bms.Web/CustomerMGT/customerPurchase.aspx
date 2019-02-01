@@ -1,12 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="customerPurchase.aspx.cs" Inherits="bms.Web.CustomerMGT.customerPurchase" %>
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
-<!--<![endif]-->
 
 <head>
     <meta charset="utf-8">
@@ -52,16 +47,23 @@
                                     <div class="card-header from-group">
                                         <div class="input-group">
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="isbnSearch" placeholder="请输入ISBN">
+                                                <input type="text" value="" class="" id="isbnSearch" placeholder="请输入ISBN">
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="bookSearch" placeholder="请输入书名">
+                                                <input type="text" value="" class="" id="bookSearch" placeholder="请输入书名">
                                             </div>
                                             <div class="btn-group" role="group">
                                                 <input type="text" class="" placeholder="请输入时间段" readonly="readonly" id="time" data-toggle="modal" data-target="#myModal" />
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <input type="text" value="" class="searchOne" id="goodsSearch" placeholder="请输入团采地点">
+                                                <select id="goodsSearch" class="selectpicker" data-live-search="true" title="请选择团采地点">
+                                                    <option value="">请选择团采地点</option>
+                                                    <%for (int i = 0; i < dtRegion.Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dtRegion.Rows[i]["regionName"] %>"><%=dtRegion.Rows[i]["regionName"] %></option>
+                                                    <%} %>
+                                                </select>
+                                                <%--<input type="text" value="" class="searchOne" id="goodsSearch" placeholder="请输入团采地点">--%>
                                                 <button class="btn btn-info btn-sm" id="btn-search">查询</button>
                                             </div>
                                         </div>
@@ -102,7 +104,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <%=getData() %>
+                                            <%=getData()%>
                                         </table>
                                         <table class="table table_stock text-center">
                                             <tr class="text-nowrap">
@@ -110,24 +112,24 @@
                                                     <span>书籍种数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=kindsNum %>" class="form-control" disabled id="bookKinds">
+                                                    <input type="text" value="" class="form-control" disabled id="bookKinds">
                                                 </td>
                                                 <td>
                                                     <span>书本总数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=allNum %>" class="form-control" disabled id="allBookCount"></td>
+                                                    <input type="text" value="" class="form-control" disabled id="allBookCount"></td>
                                                 <td>
                                                     <span>总码洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=Convert.ToDouble(allTotalPrice).ToString("F2") %>" class="form-control" disabled id="alltotalprice">
+                                                    <input type="text" value="" class="form-control" disabled id="alltotalprice">
                                                 </td>
                                                 <td>
                                                     <span>总实洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=Convert.ToDouble(allRealPrice).ToString("F2") %>" class="form-control" disabled id="allreadprice">
+                                                    <input type="text" value="" class="form-control" disabled id="allreadprice">
                                                 </td>
                                             </tr>
                                         </table>
@@ -217,5 +219,6 @@
     <script src="../js/public.js"></script>
     <script src="../js/checkLogined.js"></script>
     <script src="../js/bootstrap-selectpicker.js"></script>
+    <script src="../js/defaults-zh_CN.js"></script>
 </body>
 </html>

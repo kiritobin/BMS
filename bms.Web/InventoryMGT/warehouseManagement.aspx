@@ -341,6 +341,10 @@
 
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">库存管理</a></li>
+                    <li class="active">出库管理</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -382,8 +386,9 @@
                                                 <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add" style="height: 41px">添加</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <a href="/InventoryMGT/inventoryStatistics.aspx?type=CK">
-                                                    <button class="btn btn-info btn-sm" style="height: 41px" id="tjbb">统计报表</button></a>
+                                                <%--<a href="/InventoryMGT/inventoryStatistics.aspx?type=CK">
+                                                    <button class="btn btn-info btn-sm" style="height: 41px" id="tjbb" data-toggle="modal" data-target="#bbModal">统计报表</button></a>--%>
+                                                <button class="btn btn-info btn-sm" style="height: 41px" id="tjbb" data-toggle="modal" data-target="#bbModal">统计报表</button>
                                             </div>
                                         </div>
                                     </div>
@@ -400,6 +405,7 @@
                                                     <th>码洋</th>
                                                     <th>实洋</th>
                                                     <th>制单时间</th>
+                                                    <th>备注</th>
                                                     <th>操作</th>
                                                 </tr>
                                             </thead>
@@ -419,7 +425,7 @@
             </div>
             <!--添加模态框-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" style="max-width: 350px;">
+                <div class="modal-dialog" style="max-width: 400px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title float-left" id="myModalLabel">出库添加</h4>
@@ -441,6 +447,14 @@
                                             <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"].ToString() %>"><%=dsRegion.Tables[0].Rows[i]["regionName"].ToString() %></option>
                                             <%} %>
                                         </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"><span>
+                                        <nobr>备注:</nobr>
+                                    </span></td>
+                                    <td class="text-right">
+                                        <input type="text" id="remarks" class="remark" placeholder="请输入备注">
                                     </td>
                                 </tr>
                             </table>
@@ -494,6 +508,45 @@
                             <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             
                             <button type="button" class="btn btn-info" id="btnOK">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%-- 报表查询条件 --%>
+            <div class="modal fade" id="bbModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog" style="max-width: 450px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title float-left" id="bbModalLabel">请选择查询条件</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table model-table">
+                                <tr>
+                                    <td class="text-right"><span>请选择组织:</span></td>
+                                    <td>
+                                        <select class="selectpicker" data-live-search="true" title="请选择组织" id="bbsource">
+                                            <option value="">请选择组织</option>
+                                            <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                {%>
+                                            <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                            <%} %>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"><span>请输入单据编号:</span></td>
+                                    <td>
+                                        <input type="text" id="singleHeadId" class="" placeholder="请输入单据编号">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info btn-sm" id="check">查看</button>
                         </div>
                     </div>
                 </div>

@@ -125,6 +125,7 @@ function logout() {
 //添加退货单头
 $("#btnAdd").click(function () {
     var regionId = $("#regionId").val().trim();
+    var remarks = $("#remarks").val().trim();
     if (regionId == "" || regionId == null) {
         swal({
             title: "温馨提示:)",
@@ -136,13 +137,13 @@ $("#btnAdd").click(function () {
             buttonsStyling: false,
             allowOutsideClick: false
         })
-    }
-    else {
+    }else {
         $.ajax({
             type: 'Post',
             url: 'returnManagement.aspx',
             data: {
                 regionId: regionId,
+                remarks: remarks,
                 op: "add"
             },
             datatype: 'text',
@@ -239,9 +240,31 @@ $("#btn-search").click(function () {
     })
 });
 
+//查看报表
+$("#check").click(function () {
+    var source = $("#bbsource").find("option:selected").text();
+    var singleHeadId = $("#singleHeadId").val().trim();
+    if (singleHeadId == "") {
+        singleHeadId = "null";
+    }
+    if (source == "" && singleHeadId == "") {
+        swal({
+            title: "温馨提示:)",
+            text: "请先选择组织或输入单据编号",
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-success",
+            type: "warning",
+            allowOutsideClick: false
+        })
+    }
+    else {
+        window.location.href = "/InventoryMGT/inventoryStatistics.aspx?type=TH&&region=" + source + "&&singleHeadId=" + singleHeadId;
+    }
+});
+
 
 $("#table").delegate(".btn-add", "click", function () {
-    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
     $.ajax({
         type: 'Post',
         url: 'returnManagement.aspx',
@@ -256,7 +279,7 @@ $("#table").delegate(".btn-add", "click", function () {
     });
 })
 $("#table").delegate(".btn-search", "click", function () {
-    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+    var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
     $.ajax({
         type: 'Post',
         url: 'returnManagement.aspx',
@@ -273,6 +296,7 @@ $("#table").delegate(".btn-search", "click", function () {
 
 //删除
 $("#table").delegate(".btn-delete", "click", function () {
+    var ID = $(this).prev().val();
     swal({
         title: "温馨提示:)",
         text: "删除后将无法恢复,您确定要删除吗？？？",
@@ -287,7 +311,6 @@ $("#table").delegate(".btn-delete", "click", function () {
         buttonsStyling: false,
         allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
     }).then(function () {
-        var ID = $(".btn-delete").prev().val();
         $.ajax({
             type: 'Post',
             url: 'returnManagement.aspx',
@@ -326,4 +349,8 @@ $("#table").delegate(".btn-delete", "click", function () {
             }
         })
     })
+});
+//弹出模态框获取焦点事件
+$('#myModal').on('shown.bs.modal', function (e) {
+    $('#remarks').focus();
 });

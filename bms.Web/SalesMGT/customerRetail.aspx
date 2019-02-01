@@ -26,7 +26,7 @@
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4 col-lg-3" onclick="javascript:history.back(-1);">
+                <div class="col-sm-4 col-lg-3">
                     <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
                 </div>
                 <%--<div class="col-sm-2">

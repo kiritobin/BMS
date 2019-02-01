@@ -335,12 +335,16 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">权限管理</a></li>
+                    <li class="active">货架管理</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">架位管理</h4>
+                                    <h4 class="card-title ">货架管理</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-header from-group">

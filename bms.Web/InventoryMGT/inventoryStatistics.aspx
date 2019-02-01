@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="inventoryStatistics.aspx.cs" Inherits="bms.Web.InventoryMGT.inventoryStatistics" %>
+
 <%="" %>
 <!DOCTYPE html>
 
@@ -27,9 +28,15 @@
 
 <body>
     <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container-fluid">
+                    <p></p>
+                    <ul class="breadcrumb">
+                        <li><a href="javascript:;">库存管理</a></li>
+                        <li><a href="stockManagement.aspx" id="rkgl">入库管理</a></li>
+                        <li class="active" id="rktj">入库统计</li>
+                    </ul>
                     <div class="card">
                         <div class="container-fluid">
                             <h3 class="text-center"><strong id="tjType">入&nbsp;库&nbsp;统&nbsp;计</strong></h3>
@@ -45,7 +52,7 @@
                                         <input type="text" value="" class="" id="bookName" placeholder="请输入书名">
                                     </div>
                                     <div class="btn-group" role="group">
-                                         <input type="text" value="" class="" readonly="readonly" id="time" placeholder="请输入时间" data-toggle="modal" data-target="#timeModal">
+                                        <input type="text" value="" class="" readonly="readonly" id="time" placeholder="请输入时间" data-toggle="modal" data-target="#timeModal">
                                     </div>
                                     <div class="btn-group" role="group">
                                         <select class="modal_select selectpicker" title="请选择供应商" data-live-search="true" id="supplier">
@@ -77,9 +84,7 @@
                                         </select>
                                         <%--<input type="text" value="" class="" id="resource" placeholder="请输入来源组织">--%>
                                     </div>
-                                    <%if (isAdmin)
-                                        { %>
-                                    <div class="btn-group" role="group">
+                                    <%--<div class="btn-group" role="group">
                                         <select class="modal_select selectpicker" title="请选择组织" data-live-search="true" id="region">
                                             <option>全部组织</option>
                                             <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
@@ -87,9 +92,7 @@
                                             <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
                                             <%} %>
                                         </select>
-                                        <%--<input type="text" value="" class="" id="region" placeholder="请输入组织名称">--%>
-                                    </div>
-                                    <%} %>
+                                    </div>--%>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>
@@ -189,52 +192,52 @@
             </div>
         </div>
 
-         <!--时间选择模态框-->
-            <div class="modal fade" id="timeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title float-left" id="timeModalLabel">请选择查询时间段</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body" style="max-height: 400px; overflow: auto;">
-                            <table class="table text-center model-table">
-                                <tr>
-                                    <td class="text-right" style="width: 40%">开始时间:
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日" />
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-right" style="width: 40%">结束时间:
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="jeinpbox">
-                                            <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日" />
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <!--时间选择模态框-->
+        <div class="modal fade" id="timeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left" id="timeModalLabel">请选择查询时间段</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="fa fa-close"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="max-height: 400px; overflow: auto;">
+                        <table class="table text-center model-table">
+                            <tr>
+                                <td class="text-right" style="width: 40%">开始时间:
+                                </td>
+                                <td class="text-left">
+                                    <div class="jeinpbox">
+                                        <input type="text" class="jeinput text-center" readonly="readonly" id="startTime" placeholder="年--月--日" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right" style="width: 40%">结束时间:
+                                </td>
+                                <td class="text-left">
+                                    <div class="jeinpbox">
+                                        <input type="text" class="jeinput text-center" readonly="readonly" id="endTime" placeholder="年--月--日" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">例：开始时间2018-10-26,结束时间2018-10-29;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">只统计26、27、28;&nbsp;&nbsp;&nbsp;不统计29</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" id="modalClose">清空</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             
                             <button type="button" class="btn btn-info" id="btnOK">确认</button>
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
         <!-- 主界面页脚部分 -->
         <footer class="footer">

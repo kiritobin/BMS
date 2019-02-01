@@ -1,4 +1,14 @@
 ﻿$(document).ready(function () {
+    var type = getUrlParam(location.href, "type");
+    if (type == "searchMonomer") {
+        $("#type").text("销退明细");
+        $("#title").html("销&nbsp;退&nbsp;明&nbsp;细");
+    }
+    if (type =="addMonomer") {
+        $("#type").text("添加销退");
+        $("#title").html("添&nbsp;加&nbsp;销&nbsp;退&nbsp;单&nbsp;体");
+    }
+
     $("#pname").text("");
     //sessionStorage.removeItem("save");
     //导出
@@ -111,11 +121,11 @@
         $("#pname").text("");
     })
     //只允许输入数字
-    $("#table").delegate("#inputISBN", "keyup", function (e) {
-        $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
-    }).bind("paste", function () {  //CTR+V事件处理    
-        $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
-    }).css("ime-mode", "disabled");
+    //$("#table").delegate("#inputISBN", "keyup", function (e) {
+    //    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
+    //}).bind("paste", function () {  //CTR+V事件处理    
+    //    $(this).val($(this).val().replace(/[^\r\n0-9]/g, ''));
+    //}).css("ime-mode", "disabled");
     $("#table").delegate("#inputCount", "keyup", function (e) {
         $(this).val($(this).val().replace(/[^\r\n\-0-9]/g, ''));//允许输入“-”运算符号
     }).bind("paste", function () {  //CTR+V事件处理    
@@ -444,3 +454,23 @@ window.onload = function () {
     //禁止后退键  作用于IE、Chrome
     document.onkeydown = banBackSpace;
 }
+
+//地址栏获取
+//console.log(getUrlParam(location.href,"参数名"));
+function getUrlParam(url, name) {
+    var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+    var matcher = pattern.exec(url);
+    var items = null;
+    if (null != matcher) {
+        try {
+            items = decodeURIComponent(decodeURIComponent(matcher[1]));
+        } catch (e) {
+            try {
+                items = decodeURIComponent(matcher[1]);
+            } catch (e) {
+                items = matcher[1];
+            }
+        }
+    }
+    return items;
+}  

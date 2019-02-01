@@ -24,5 +24,15 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(sql, param, value);
             return ds;
         }
+        /// <summary>
+        /// 获取团采地点
+        /// </summary>
+        /// <returns></returns>
+        public DataSet getRegionSaleMonomer()
+        {
+            string sql = @"select distinct regionName from V_SaleMonomer order by convert(regionName using gbk) collate gbk_chinese_ci";
+            DataSet ds = db.FillDataSet(sql, null, null);
+            return ds;
+        }
     }
 }

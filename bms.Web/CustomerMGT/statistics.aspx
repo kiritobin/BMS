@@ -337,12 +337,16 @@
             </nav>
             <!-- 主界面内容 -->
             <div class="content">
+                <ul class="breadcrumb">
+                    <li><a href="javascript:;">团采管理</a></li>
+                    <li class="active">大屏配置</li>
+                </ul>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">大屏统计设置</h4>
+                                    <h4 class="card-title ">大屏配置</h4>
                                 </div>
                                 <div class="card-body text-center" style="height: 500px;">
                                     <table class="timetable">
