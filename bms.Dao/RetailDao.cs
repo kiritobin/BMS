@@ -20,13 +20,17 @@ namespace bms.Dao
             string cmdText;
             if (state == 2)
             {
-                cmdText = "select retailHeadId,dateTime from T_RetailHead where state=2 ORDER BY retailHeadId desc";
+                cmdText = "select retailHeadId,dateTime from T_RetailHead where state=2 ORDER BY dateTime desc";
             }
             else
             {
-                cmdText = "select retailHeadId,dateTime from T_RetailHead where state=0 or state=1 ORDER BY retailHeadId desc";
+                cmdText = "select retailHeadId,dateTime from T_RetailHead where state=0 or state=1 ORDER BY dateTime desc";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
+            if (ds.Tables[0].Rows.Count <= 0 || ds == null)
+            {
+                ds = null;
+            }
             return ds;
         }
 
