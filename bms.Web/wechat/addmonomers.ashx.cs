@@ -308,7 +308,7 @@ namespace bms.Web.wechat
             double allreadprice;
 
             int allkinds = int.Parse(salemonbll.getperkinds(saleId, SaleHeadId).ToString());
-            DataSet ds = salemonbll.calculationSaleHead(SaleHeadId, saleId);
+            DataSet ds = salemonbll.calculationPerSaleHead(SaleHeadId, saleId);
             if (ds == null)
             {
                 allnumber = 0;

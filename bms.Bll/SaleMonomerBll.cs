@@ -466,6 +466,29 @@ namespace bms.Bll
                 return null;
             }
         }
+
+
+        ///
+        /// <summary>
+        /// 计算预采单头
+        /// </summary>
+        /// <param name="saleHeadId">预采单头id</param>
+        /// <param name="saleId">销售任务ID</param>
+        /// <returns></returns>
+        public DataSet calculationPerSaleHead(string saleHeadId, string saleId)
+        {
+            DataSet ds = SaleMonomerdao.calculationSaleHead(saleHeadId, saleId);
+            string sign = ds.Tables[0].Rows[0]["数量"].ToString();
+            if (sign != null && sign != "")
+            {
+                return ds;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// 获取该书籍在此销售单头中的已购数量
         /// </summary>
