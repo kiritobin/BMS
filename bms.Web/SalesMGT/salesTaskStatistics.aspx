@@ -26,6 +26,12 @@
 <body style="page-break-before: always;">
     <div class="content" id="all">
         <div class="container-fluid">
+            <ul class="breadcrumb">
+                <li><a href="javascript:;">团采管理</a></li>
+                <li><a href="tradeManagement.aspx">销售管理</a></li>
+                <li><a href="javascript:;" onclick="history.go(-1);">添加销售</a></li>
+                <li class="active">销售计划统计</li>
+            </ul>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">

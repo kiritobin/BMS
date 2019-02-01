@@ -650,13 +650,30 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet calculationSaleHead(string saleHeadId, string saleId)
         {
-            string cmdtext = @"SELECT sum(A.allNum) as 数量,sum(A.alltotalPrice) as 总码洋,sum(A.allrealPrice) as 总实洋 from((select bookNum, ISBN, sum(number) as allNum, sum(totalPrice) as alltotalPrice, sum(realPrice) as allrealPrice from T_SaleMonomer where saleHeadId = @saleHeadId and saleTaskId = @saleId GROUP BY booknum, ISBN HAVING allNum != 0) as A)";
+            string cmdtext = @"SELECT sum(A.allNum) as 数量,sum(A.alltotalPrice) as 总码洋,sum(A.allrealPrice) as 总实洋 from((select bookNum, ISBN, sum(number) as allNum, sum(totalPrice) as alltotalPrice, sum(realPrice) as allrealPrice from T_SaleMonomer_copy where saleHeadId = @saleHeadId and saleTaskId = @saleId GROUP BY booknum, ISBN HAVING allNum != 0) as A)";
             //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
             string[] param = { "@saleHeadId", "@saleId" };
             object[] values = { saleHeadId, saleId };
             DataSet ds = db.FillDataSet(cmdtext, param, values);
             return ds;
         }
+
+        /// <summary>
+        /// 计算预采单头
+        /// </summary>
+        /// <param name="saleHeadId">预采单头id</param>
+        /// <param name="saleId">销售任务ID</param>
+        /// <returns></returns>
+        public DataSet calculationPerSaleHead(string saleHeadId, string saleId)
+        {
+            string cmdtext = @"SELECT sum(A.allNum) as 数量,sum(A.alltotalPrice) as 总码洋,sum(A.allrealPrice) as 总实洋 from((select bookNum, ISBN, sum(number) as allNum, sum(totalPrice) as alltotalPrice, sum(realPrice) as allrealPrice from T_SaleMonomer_copy where saleHeadId = @saleHeadId and saleTaskId = @saleId GROUP BY booknum, ISBN HAVING allNum != 0) as A)";
+            //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
+            string[] param = { "@saleHeadId", "@saleId" };
+            object[] values = { saleHeadId, saleId };
+            DataSet ds = db.FillDataSet(cmdtext, param, values);
+            return ds;
+        }
+
         /// <summary>
         /// 获取该书籍在此销售单头中的已购数量
         /// </summary>

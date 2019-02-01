@@ -280,20 +280,21 @@ $(document).ready(function () {
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        if (name == "" || name == null) {
-            swal({
-                title: "提示",
-                text: groupbyType +"为空，请联系管理员查找原因",
-                type: "warning",
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: '确定',
-                confirmButtonClass: 'btn btn-success',
-                buttonsStyling: false,
-                allowOutsideClick: false
-            });
-        } else {
-            window.location.href = "sellOffDetail.aspx?type=" + groupbyType + "&&name=" + name;
-        }
+        window.location.href = "sellOffDetail.aspx?type=" + groupbyType + "&&name=" + name;
+        //if (name == "" || name == null) {
+        //    swal({
+        //        title: "提示",
+        //        text: groupbyType +"为空，请联系管理员查找原因",
+        //        type: "warning",
+        //        confirmButtonColor: '#3085d6',
+        //        confirmButtonText: '确定',
+        //        confirmButtonClass: 'btn btn-success',
+        //        buttonsStyling: false,
+        //        allowOutsideClick: false
+        //    });
+        //} else {
+        //    window.location.href = "sellOffDetail.aspx?type=" + groupbyType + "&&name=" + name;
+        //}
     })
 
     //点击查询按钮时
