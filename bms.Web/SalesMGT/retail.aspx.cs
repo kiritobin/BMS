@@ -291,30 +291,21 @@ namespace bms.Web.SalesMGT
             DataSet backds = retailBll.getAllTime(0);
             if (backds != null && backds.Tables[0].Rows.Count > 0)
             {
-                for (int i = 0; i < backds.Tables[0].Rows.Count; i++)
+                string time = backds.Tables[0].Rows[0]["dateTime"].ToString();
+                DateTime dt = Convert.ToDateTime(time);
+                string sqlTime = dt.ToString("yyyy-MM-dd");
+                if (sqlTime == nowDt)
                 {
-                    string time = backds.Tables[0].Rows[i]["dateTime"].ToString();
-                    DateTime dt = Convert.ToDateTime(time);
-                    string sqlTime = dt.ToString("yyyy-MM-dd");
-                    if (sqlTime == nowDt)
+                    //count += 1;
+                    string id = backds.Tables[0].Rows[0]["retailHeadId"].ToString();
+                    int st1 = Convert.ToInt32(id.Substring(10));
+                    if (st1 <= 0)
                     {
-                        //count += 1;
-                        string id = backds.Tables[0].Rows[i]["retailHeadId"].ToString();
-                        int st1 = Convert.ToInt32(id.Substring(10));
-                        if (st1 <= 0)
-                        {
-                            st1 = 0;
-                        }
-                        count = st1 + 1;
-                        break;
+                        st1 = 0;
                     }
-                    else
-                    {
-                        count = 1;
-                        break;
-                    }
+                    count = st1 + 1;
                 }
-                if(count == 0)
+                else
                 {
                     count = 1;
                 }

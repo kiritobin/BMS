@@ -27,7 +27,7 @@
                     <img src="../imgs/YNXH-LOGO.png" id="topImg" class="img-fluid" alt="Cinque Terre">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" id="search" style="height:100px;font-size:30px;" class="topSearch">
+                    <input type="text" id="search" style="height:100px;font-size:30px;background-color:#eee;" class="topSearch">
                 </div>
                 <div class="col-sm-6 text-right">
                     <button class="col-sm-6 btnText" style="background-color: #eee; border: 0; color: #eee;" id="preRecord"></button>
