@@ -74,7 +74,7 @@ namespace bms.Dao
         /// <returns></returns>
         public int getperkinds(string saleTaskId, string saleHeadId)
         {
-            string cmdText = "select bookNum,number from v_persalemonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            string cmdText = "select bookNum,number from v_persalemonomer where deleteState=0 and saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
             string[] param = { "@saleTaskId", "@saleHeadId" };
             object[] values = { saleTaskId, saleHeadId };
             float sltemp = 0;
@@ -443,7 +443,7 @@ namespace bms.Dao
         /// 获取销售单体中的数据统计
         /// </summary>
         /// <returns>返回数据集</returns>
-        public DataSet SelectBookRanking(DateTime startTime, DateTime endTime, string regionName,string type)
+        public DataSet SelectBookRanking(DateTime startTime, DateTime endTime, string regionName, string type)
         {
             string typeString = null;
             string sql = null;
@@ -650,7 +650,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet calculationSaleHead(string saleHeadId, string saleId)
         {
-            string cmdtext = @"SELECT sum(A.allNum) as 数量,sum(A.alltotalPrice) as 总码洋,sum(A.allrealPrice) as 总实洋 from((select bookNum, ISBN, sum(number) as allNum, sum(totalPrice) as alltotalPrice, sum(realPrice) as allrealPrice from T_SaleMonomer_copy where saleHeadId = @saleHeadId and saleTaskId = @saleId GROUP BY booknum, ISBN HAVING allNum != 0) as A)";
+            string cmdtext = @"SELECT sum(A.allNum) as 数量,sum(A.alltotalPrice) as 总码洋,sum(A.allrealPrice) as 总实洋 from((select bookNum, ISBN, sum(number) as allNum, sum(totalPrice) as alltotalPrice, sum(realPrice) as allrealPrice from T_SaleMonomer where saleHeadId = @saleHeadId and saleTaskId = @saleId GROUP BY booknum, ISBN HAVING allNum != 0) as A)";
             //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
             string[] param = { "@saleHeadId", "@saleId" };
             object[] values = { saleHeadId, saleId };
@@ -666,7 +666,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet calculationPerSaleHead(string saleHeadId, string saleId)
         {
-            string cmdtext = @"SELECT sum(A.allNum) as 数量,sum(A.alltotalPrice) as 总码洋,sum(A.allrealPrice) as 总实洋 from((select bookNum, ISBN, sum(number) as allNum, sum(totalPrice) as alltotalPrice, sum(realPrice) as allrealPrice from T_SaleMonomer_copy where saleHeadId = @saleHeadId and saleTaskId = @saleId GROUP BY booknum, ISBN HAVING allNum != 0) as A)";
+            string cmdtext = @"SELECT sum(A.allNum) as 数量,sum(A.alltotalPrice) as 总码洋,sum(A.allrealPrice) as 总实洋 from((select bookNum, ISBN, sum(number) as allNum, sum(totalPrice) as alltotalPrice, sum(realPrice) as allrealPrice from T_SaleMonomer_copy where deleteState=0 and saleHeadId = @saleHeadId and saleTaskId = @saleId GROUP BY booknum, ISBN HAVING allNum != 0) as A)";
             //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
             string[] param = { "@saleHeadId", "@saleId" };
             object[] values = { saleHeadId, saleId };
@@ -700,7 +700,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet getPersalemonDetail(string saleHeadId, string saleId, string bookNum)
         {
-            string cmdtext = "select bookNum,ISBN,sum(number) as number from v_persalemonomer where saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum GROUP BY bookNum,ISBN;";
+            string cmdtext = "select bookNum,ISBN,sum(number) as number from v_persalemonomer where deleteState=0 and saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum GROUP BY bookNum,ISBN;";
             //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
             string[] param = { "@saleHeadId", "@saleId", "@bookNum" };
             object[] values = { saleHeadId, saleId, bookNum };
@@ -782,21 +782,57 @@ namespace bms.Dao
                 return sum = Convert.ToInt32(sumstring);
             }
         }
+
+        /// <summary>
+        /// 微信预采删除
+        /// </summary>
+        /// <param name="condition">条件</param>
+        /// <returns>数据集</returns>
+        public int wechatPerDel(string condition, int state)
+        {
+            string cmdtext;
+            int rows;
+            if (state == 3)
+            {
+                cmdtext = "update t_salemonomer_copy set deleteState=1 where " + condition;
+                rows = db.ExecuteNoneQuery(cmdtext,null,null);
+                
+                //cmdtext = @"select * from t_salemonomer_copy where " + condition;
+                //DataSet bookds = db.FillDataSet(cmdtext, null, null);
+                //if (bookds != null && bookds.Tables[0].Rows.Count > 0)
+                //{
+                //    for (int i = 0; i > bookds.Tables[0].Rows.Count; i++)
+                //    {
+                //        cmdtext = @" * from t_salemonomer_copy where " + condition;
+                //        int rows = db.ExecuteNoneQuery(cmdtext, null, null);
+                //    }
+                //}
+
+            }
+            else
+            {
+                cmdtext = @"select count(a.bookNum) as kinds,sum(a.allrealPrice) as allrealPrice,sum(a.totalPrice) as totalPrice,sum(allnumber) as allnumber from (select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice ,sum(totalPrice) as totalPrice from v_salemonomer where  " + condition + ") as a";
+                rows = db.ExecuteNoneQuery(cmdtext, null, null);
+            }
+            //DataSet ds = db.FillDataSet(cmdtext, null, null);
+            return rows;
+        }
+
         /// <summary>
         /// 微信预采汇总
         /// </summary>
         /// <param name="condition">条件</param>
         /// <returns>数据集</returns>
-        public DataSet wechatPerSummary(string condition , int state)
+        public DataSet wechatPerSummary(string condition, int state)
         {
             string cmdtext;
-            if (state==3)
+            if (state == 3)
             {
-                 cmdtext = @"select count(a.bookNum) as kinds,sum(a.allrealPrice) as allrealPrice,sum(a.totalPrice) as totalPrice,sum(allnumber) as allnumber from (select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice ,sum(totalPrice) as totalPrice from v_persalemonomer where  " + condition + ") as a";
+                cmdtext = @"select count(a.bookNum) as kinds,sum(a.allrealPrice) as allrealPrice,sum(a.totalPrice) as totalPrice,sum(allnumber) as allnumber from (select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice ,sum(totalPrice) as totalPrice from v_persalemonomer where  " + condition + ") as a";
             }
             else
             {
-                 cmdtext = @"select count(a.bookNum) as kinds,sum(a.allrealPrice) as allrealPrice,sum(a.totalPrice) as totalPrice,sum(allnumber) as allnumber from (select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice ,sum(totalPrice) as totalPrice from v_salemonomer where  " + condition + ") as a";
+                cmdtext = @"select count(a.bookNum) as kinds,sum(a.allrealPrice) as allrealPrice,sum(a.totalPrice) as totalPrice,sum(allnumber) as allnumber from (select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice ,sum(totalPrice) as totalPrice from v_salemonomer where  " + condition + ") as a";
             }
             DataSet ds = db.FillDataSet(cmdtext, null, null);
             return ds;
@@ -834,6 +870,20 @@ namespace bms.Dao
         public int SelectcountbyHeadID(string HeadId, string saletaskId)
         {
             string comText = "select COUNT(saleIdMonomerId) from t_salemonomer where saleHeadId=@HeadId and saleTaskId=@saletaskId";
+            string[] param = { "@HeadId", "@saletaskId" };
+            object[] values = { HeadId, saletaskId };
+            int row = Convert.ToInt32(db.ExecuteScalar(comText, param, values));
+            return row;
+        }
+        /// <summary>
+        /// 微信小程序根据销售单头ID和销售任务id获取单体数量
+        /// </summary>
+        /// <param name="HeadId">销售单头ID</param>
+        /// <param name="saletaskId">销售任务id</param>
+        /// <returns></returns>
+        public int WeChatSelectcountbyHeadID(string HeadId, string saletaskId)
+        {
+            string comText = "select COUNT(saleIdMonomerId) from t_salemonomer_copy where saleHeadId=@HeadId and saleTaskId=@saletaskId";
             string[] param = { "@HeadId", "@saletaskId" };
             object[] values = { HeadId, saletaskId };
             int row = Convert.ToInt32(db.ExecuteScalar(comText, param, values));

@@ -43,20 +43,20 @@ namespace bms.Web.wechat
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "V_SaleMonomer";
-            tb.OrderBy = "dateTime";
-            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(totalPrice) as alltotalPrice,userName,customerName,regionName";
+            tb.StrTable = "(select * FROM v_persalemonomer ORDER BY dateTime desc) table1";
+            tb.OrderBy = "dateTime desc";
+            tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(totalPrice) as alltotalPrice,userName,customerName,regionName,max(dateTime) as dateTime";
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             if (opeartion != null && opeartion != "")
             {
-                string condition = " and (bookName like '" + opeartion + "%' or ISBN like'" + opeartion + "%')";
-                tb.StrWhere = "saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' " + condition + " group by bookNum,bookName,ISBN,unitPrice HAVING allnumber!=0";
+                string condition = " and (bookName like '%" + opeartion + "%' or ISBN like'%" + opeartion + "%')";
+                tb.StrWhere = "deleteState=0 and saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' " + condition + " group by bookNum,bookName,ISBN,unitPrice HAVING allnumber!=0";
             }
             else
             {
-                tb.StrWhere = "saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' group by bookNum,bookName,ISBN,unitPrice HAVING allnumber!=0";
+                tb.StrWhere = "deleteState=0 and saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' group by bookNum,bookName,ISBN,unitPrice HAVING allnumber!=0";
             }
 
             DataSet summaryds = salemonbll.wechatPerSummary(tb.StrWhere,3);
@@ -64,6 +64,7 @@ namespace bms.Web.wechat
             DataSet ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
 
             DataTable dt = new DataTable();
+            dt.Columns.Add("bookNum", typeof(string));
             dt.Columns.Add("number", typeof(Int32));
             dt.Columns.Add("bookName", typeof(string));
             dt.Columns.Add("allnumber", typeof(long));
@@ -74,7 +75,7 @@ namespace bms.Web.wechat
             for (int i = 0; i < count; i++)
             {
                 int number = (i + 1 + ((currentPage - 1) * pageSize));
-                dt.Rows.Add(Convert.ToInt32(number), ds.Tables[0].Rows[i]["bookName"].ToString(), Convert.ToInt64(ds.Tables[0].Rows[i]["allnumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["unitPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["alltotalPrice"].ToString()));
+                dt.Rows.Add(ds.Tables[0].Rows[i]["bookNum"].ToString(), Convert.ToInt32(number), ds.Tables[0].Rows[i]["bookName"].ToString(), Convert.ToInt64(ds.Tables[0].Rows[i]["allnumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["unitPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["alltotalPrice"].ToString()));
             }
             Page page = new Page();
 

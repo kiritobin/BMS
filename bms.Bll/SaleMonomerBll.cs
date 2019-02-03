@@ -65,6 +65,16 @@ namespace bms.Bll
             return SaleMonomerdao.SelectcountbyHeadID(HeadId, saletaskId);
         }
         /// <summary>
+        /// 微信小程序根据销售单头ID和销售任务id获取单体数量
+        /// </summary>
+        /// <param name="HeadId">销售单头ID</param>
+        /// <param name="saletaskId">销售任务id</param>
+        /// <returns></returns>
+        public int WeChatSelectcountbyHeadID(string HeadId, string saletaskId)
+        {
+            return SaleMonomerdao.WeChatSelectcountbyHeadID(HeadId, saletaskId);
+        }
+        /// <summary>
         /// 根据销售单头ID真删除销售单头包括单体
         /// </summary>
         /// <param name="saleHeadId">销售单头ID</param>
@@ -232,17 +242,38 @@ namespace bms.Bll
         }
 
         /// <summary>
+        /// 微信预采删除
+        /// </summary>
+        /// <param name="condition">条件</param>
+        /// <returns>数据集</returns>
+        public Result wechatPerDel(string condition, int state)
+        {
+            int rows = SaleMonomerdao.wechatPerDel(condition, state);
+            if (rows > 0)
+            {
+                return Result.删除成功;
+            }
+            else
+            {
+                return Result.删除失败;
+
+            }
+        }
+
+
+        /// <summary>
         /// 微信汇总
         /// </summary>
         /// <param name="condition">条件</param>
         /// <returns>数据集</returns>
-        public DataSet wechatPerSummary(string condition,int state)
+        public DataSet wechatPerSummary(string condition, int state)
         {
-            DataSet ds = SaleMonomerdao.wechatPerSummary(condition,state);
-            if (ds!=null ||ds.Tables[0].Rows.Count>0)
+            DataSet ds = SaleMonomerdao.wechatPerSummary(condition, state);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
                 return ds;
-            } else
+            }
+            else
             {
                 return null;
             }
@@ -383,7 +414,7 @@ namespace bms.Bll
         /// 查询销售单体中的数据统计
         /// </summary>
         /// <returns></returns>
-        public DataSet SelectBookRanking(DateTime startTime, DateTime endTime, string regionName,string type)
+        public DataSet SelectBookRanking(DateTime startTime, DateTime endTime, string regionName, string type)
         {
             DataSet ds = SaleMonomerdao.SelectBookRanking(startTime, endTime, regionName, type);
             return ds;
@@ -477,7 +508,7 @@ namespace bms.Bll
         /// <returns></returns>
         public DataSet calculationPerSaleHead(string saleHeadId, string saleId)
         {
-            DataSet ds = SaleMonomerdao.calculationSaleHead(saleHeadId, saleId);
+            DataSet ds = SaleMonomerdao.calculationPerSaleHead(saleHeadId, saleId);
             string sign = ds.Tables[0].Rows[0]["数量"].ToString();
             if (sign != null && sign != "")
             {
@@ -589,7 +620,7 @@ namespace bms.Bll
         /// <returns></returns>
         public DataSet GroupCount(DateTime startTime, DateTime endTime, string regionName, string type)
         {
-            DataSet ds = SaleMonomerdao.GroupCount(startTime, endTime, regionName,type);
+            DataSet ds = SaleMonomerdao.GroupCount(startTime, endTime, regionName, type);
             return ds;
         }
 
@@ -604,7 +635,7 @@ namespace bms.Bll
         /// <returns></returns>
         public DataSet groupCustomer(DateTime startTime, DateTime endTime, string regionName, string type)
         {
-            DataSet ds = SaleMonomerdao.groupCustomer(startTime, endTime, regionName,type);
+            DataSet ds = SaleMonomerdao.groupCustomer(startTime, endTime, regionName, type);
             return ds;
         }
         /// <summary>
@@ -630,7 +661,7 @@ namespace bms.Bll
         public DataTable ExportExcels(string strWhere)
         {
             DataTable excel = new DataTable();
-            
+
             excel.Columns.Add("书号");
             excel.Columns.Add("书名");
             excel.Columns.Add("ISBN");
@@ -640,7 +671,7 @@ namespace bms.Bll
             excel.Columns.Add("出版社");
             excel.Columns.Add("销售折扣");
             DataTable dt = SaleMonomerdao.ExportExcel(strWhere);
-            if (dt!=null)
+            if (dt != null)
             {
                 DataRowCollection count = dt.Rows;
                 foreach (DataRow row in count)
@@ -709,7 +740,7 @@ namespace bms.Bll
             excel.Columns.Add("备注2");
             excel.Columns.Add("备注3");
             DataTable dt = SaleMonomerdao.exportDel(groupbyType, strWhere);
-            if (dt!=null)
+            if (dt != null)
             {
                 DataRowCollection count = dt.Rows;
                 foreach (DataRow row in count)

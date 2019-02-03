@@ -58,13 +58,23 @@ namespace bms.Web.wechat
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "t_salehead_copy";
+            string type = context.Request["type"];
+            if (type == "team")
+            {
+                tb.StrTable = "t_salehead";
+                tb.StrWhere = "deleteState=0 and state!=3 and saleTaskId='" + saleTaskId + "'";
+            }
+            else
+            {
+                tb.StrTable = "t_salehead_copy";
+                tb.StrWhere = "deleteState=0 and state=3 and saleTaskId='" + saleTaskId + "'";
+            }
             tb.OrderBy = "saleHeadId";
             tb.StrColumnlist = "saleHeadId,kindsNum,number,allRealPrice";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             //tb.StrWhere = "deleteState=0 and (state=0 or state=1) and saleTaskId='" + saleTaskId + "'";
-            tb.StrWhere = "deleteState=0 and state=3 and saleTaskId='" + saleTaskId + "'";
+
             //获取展示的客户数据
             DataSet ds = saleheadlbll.selectBypage(tb, out totalCount, out intPageCount);
             string json = JsonHelper.ToJson(ds.Tables[0]);
@@ -84,8 +94,16 @@ namespace bms.Web.wechat
             SaleHeadBll saleheadbll = new SaleHeadBll();
             SaleHead salehead = new SaleHead();
             string SaleHeadId;
-            int count = saleheadbll.getCount();
-
+            int count;
+            string type = context.Request["type"];
+            if (type == "team")
+            {
+                count = saleheadbll.getCount();
+            }
+            else
+            {
+                count = saleheadbll.WeChatcountHead();
+            }
             if (count > 0)
             {
                 string time = saleheadbll.getSaleHeadTime();
@@ -128,7 +146,16 @@ namespace bms.Web.wechat
             salehead.RegionId = 67;
             salehead.DateTime = DateTime.Now.ToLocalTime();
             salehead.State = 3;
-            Result result = saleheadbll.perInsert(salehead);
+            Result result;
+            if (type == "team")
+            {
+                result = saleheadbll.Insert(salehead);
+            }
+            else
+            {
+                result = saleheadbll.perInsert(salehead);
+            }
+
             if (result == Result.添加成功)
             {
                 context.Response.Write("添加成功");
@@ -146,8 +173,17 @@ namespace bms.Web.wechat
             string salehead = context.Request["saleheadID"];
             string saleTaskId = context.Request["saletaskID"];
             SaleMonomerBll salemonbll = new SaleMonomerBll();
-            int count = salemonbll.SelectcountbyHeadID(salehead, saleTaskId);
-            if (count==0)
+            string type = context.Request["type"];
+            int count;
+            if (type == "team")
+            {
+                count = salemonbll.SelectcountbyHeadID(salehead, saleTaskId);
+            }
+            else
+            {
+                count = salemonbll.WeChatSelectcountbyHeadID(salehead, saleTaskId);
+            }
+            if (count == 0)
             {
                 Result result = salemonbll.realDelete(saleTaskId, salehead);
                 if (result == Result.删除成功)
@@ -160,12 +196,13 @@ namespace bms.Web.wechat
                     context.Response.Write("删除失败");
                     context.Response.End();
                 }
-            } else
+            }
+            else
             {
                 context.Response.Write("已有数据不能删除");
                 context.Response.End();
             }
-               
+
         }
     }
 }

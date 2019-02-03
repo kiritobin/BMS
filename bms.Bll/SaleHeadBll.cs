@@ -74,6 +74,25 @@ namespace bms.Bll
             }
 
         }
+
+        /// <summary>
+        /// 微信小程序判断单头编号
+        /// </summary>
+        /// <param name="saleHeadId">销售任务ID</param>
+        /// <returns></returns>
+        public int WeChatcountHead()
+        {
+            int count = saleHeaddao.WeChatcountHead();
+            if (count > 0)
+            {
+                return count;
+            }
+            else
+            {
+                return count = 0;
+            }
+        }
+
         /// <summary>
         /// 删除单头
         /// </summary>

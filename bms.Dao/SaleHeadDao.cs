@@ -61,6 +61,17 @@ namespace bms.Dao
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, null, null));
             return row;
         }
+        /// <summary>
+        /// 微信小程序判断单头编号
+        /// </summary>
+        /// <param name="saleHeadId">销售任务ID</param>
+        /// <returns></returns>
+        public int WeChatcountHead()
+        {
+            string cmdText = "select count(saleHeadId) from T_SaleHead_copy";
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, null, null));
+            return row;
+        }
 
         /// <summary>
         /// 添加销售单头
