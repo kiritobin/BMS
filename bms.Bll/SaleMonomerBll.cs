@@ -35,6 +35,25 @@ namespace bms.Bll
                 return count;
             }
         }
+        
+        /// <summary>
+        /// 查询该预采单头下是否有单体
+        /// </summary>
+        /// <param name="saleHeadId">销售单头ID</param>
+        /// <returns></returns>
+        public int SelectByPerSaleHeadId(string saleHeadId)
+        {
+            int count = SaleMonomerdao.SelectByPerSaleHeadId(saleHeadId);
+            if (count == 0)
+            {
+                return count = 0;
+            }
+            else
+            {
+                return count;
+            }
+        }
+
         /// <summary>
         /// 删除销售单头
         /// </summary>
@@ -313,7 +332,12 @@ namespace bms.Bll
                 return Result.更新失败;
             }
         }
-        public Result wechatSummary(SaleHead salehead)
+        /// <summary>
+        /// 更新团采单头
+        /// </summary>
+        /// <param name="salehead"></param>
+        /// <returns></returns>
+        public Result wechatupdateHead(SaleHead salehead)
         {
             int row = SaleMonomerdao.wechatupdateHead(salehead);
             if (row > 0)
@@ -361,6 +385,27 @@ namespace bms.Bll
                 return Result.更新失败;
             }
         }
+       
+        /// <summary>
+        /// 更新预采单头状态
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头</param>
+        /// <param name="state">状态 0新创单据 1采集中 2已完成</param>
+        /// <returns>受影响行数</returns>
+        public Result updatePerHeadstate(string saleTaskId, string saleHeadId, int state)
+        {
+            int row = SaleMonomerdao.updatePerHeadstate(saleTaskId, saleHeadId, state);
+            if (row > 0)
+            {
+                return Result.更新成功;
+            }
+            else
+            {
+                return Result.更新失败;
+            }
+        }
+
 
         /// <summary>
         /// 根据单头获取单体

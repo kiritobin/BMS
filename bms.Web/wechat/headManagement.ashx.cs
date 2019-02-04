@@ -53,6 +53,7 @@ namespace bms.Web.wechat
             //获取分页数据
             int currentPage = Convert.ToInt32(context.Request["page"]);
             string saleTaskId = context.Request["saleTaskId"].ToString();
+            int userId = Convert.ToInt32(context.Request["userId"].ToString());
             if (currentPage == 0)
             {
                 currentPage = 1;
@@ -62,12 +63,12 @@ namespace bms.Web.wechat
             if (type == "team")
             {
                 tb.StrTable = "t_salehead";
-                tb.StrWhere = "deleteState=0 and state!=3 and saleTaskId='" + saleTaskId + "'";
+                tb.StrWhere = "deleteState=0 and userId=" + userId + " and state!=3 and saleTaskId='" + saleTaskId + "'";
             }
             else
             {
                 tb.StrTable = "t_salehead_copy";
-                tb.StrWhere = "deleteState=0 and state=3 and saleTaskId='" + saleTaskId + "'";
+                tb.StrWhere = "deleteState=0 and userId=" + userId + " and state=3 and saleTaskId='" + saleTaskId + "'";
             }
             tb.OrderBy = "saleHeadId";
             tb.StrColumnlist = "saleHeadId,kindsNum,number,allRealPrice";
@@ -145,14 +146,15 @@ namespace bms.Web.wechat
             salehead.UserId = customeID;
             salehead.RegionId = 67;
             salehead.DateTime = DateTime.Now.ToLocalTime();
-            salehead.State = 3;
             Result result;
             if (type == "team")
             {
+                salehead.State = 0;
                 result = saleheadbll.Insert(salehead);
             }
             else
             {
+                salehead.State = 3;
                 result = saleheadbll.perInsert(salehead);
             }
 

@@ -407,7 +407,7 @@ namespace bms.Web.SalesMGT
                     if (count == 0)
                     {
                         saleIdmonomerId = 1;
-                        salemonbll.updateHeadstate(saleId, SaleHeadId, saleIdmonomerId);
+                        salemonbll.updateHeadstate(saleId, SaleHeadId, 1);
                     }
                     else
                     {

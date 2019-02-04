@@ -12,6 +12,7 @@ namespace bms.Dao
     {
 
         MySqlHelp db = new MySqlHelp();
+
         /// <summary>
         /// 查询该单头下是否有单体
         /// </summary>
@@ -34,6 +35,27 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 查询该预采单头下是否有单体
+        /// </summary>
+        /// <param name="saleHeadId">单头id</param>
+        /// <returns>行数</returns>
+
+        public int SelectByPerSaleHeadId(string saleHeadId)
+        {
+            string cmdText = "select count(saleIdMonomerId) from T_SaleMonomer_copy where saleHeadId=@saleHeadId";
+            string[] param = { "@saleHeadId" };
+            object[] values = { saleHeadId };
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            if (row > 0)
+            {
+                return row;
+            }
+            else
+            {
+                return row = 0;
+            }
+        }
+        /// <summary>
         /// 统计种数
         /// </summary>
         /// <param name="saleTaskId">销售任务id</param>
@@ -41,7 +63,7 @@ namespace bms.Dao
         /// <returns></returns>
         public int getkinds(string saleTaskId, string saleHeadId)
         {
-            string cmdText = "select bookNum,number from V_SaleMonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            string cmdText = "select bookNum,number from V_SaleMonomer where deleteState=0 and saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
             string[] param = { "@saleTaskId", "@saleHeadId" };
             object[] values = { saleTaskId, saleHeadId };
             float sltemp = 0;
@@ -352,7 +374,7 @@ namespace bms.Dao
         }
         public int wechatupdateHead(SaleHead salehead)
         {
-            string cmdTexts = "update T_SaleHead set state=3,kindsNum=@kindsNum,number=@number,allTotalPrice=@allTotalPrice,allRealPrice=@allRealPrice where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            string cmdTexts = "update T_SaleHead set state=1,kindsNum=@kindsNum,number=@number,allTotalPrice=@allTotalPrice,allRealPrice=@allRealPrice where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
             string[] parames = { "@kindsNum", "@number", "@allTotalPrice", "@allRealPrice", "@saleTaskId", "@saleHeadId" };
             object[] value = { salehead.KindsNum, salehead.Number, salehead.AllTotalPrice, salehead.AllRealPrice, salehead.SaleTaskId, salehead.SaleHeadId };
             int row = db.ExecuteNoneQuery(cmdTexts, parames, value);
@@ -388,6 +410,21 @@ namespace bms.Dao
             return row;
         }
 
+        /// <summary>
+        /// 更新预采单头状态
+        /// </summary>
+        /// <param name="saleTaskId">销售任务id</param>
+        /// <param name="saleHeadId">销售单头</param>
+        /// <param name="state">状态 0新创单据 1采集中 2已完成</param>
+        /// <returns>受影响行数</returns>
+        public int updatePerHeadstate(string saleTaskId, string saleHeadId, int state)
+        {
+            string cmdTexts = "update T_SaleHead_copy set state=@state where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
+            string[] parames = { "@state", "@saleTaskId", "@saleHeadId" };
+            object[] value = { state, saleTaskId, saleHeadId };
+            int row = db.ExecuteNoneQuery(cmdTexts, parames, value);
+            return row;
+        }
 
         /// <summary>
         /// 通过书号查询在单体中是否存在记录
@@ -683,7 +720,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet getsalemonDetail(string saleHeadId, string saleId, string bookNum)
         {
-            string cmdtext = "select bookNum,ISBN,sum(number) as number from v_salemonomer where saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum GROUP BY bookNum,ISBN;";
+            string cmdtext = "select bookNum,ISBN,sum(number) as number from v_salemonomer where deleteState=0 and saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum GROUP BY bookNum,ISBN HAVING number!=0;";
             //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
             string[] param = { "@saleHeadId", "@saleId", "@bookNum" };
             object[] values = { saleHeadId, saleId, bookNum };
@@ -700,7 +737,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet getPersalemonDetail(string saleHeadId, string saleId, string bookNum)
         {
-            string cmdtext = "select bookNum,ISBN,sum(number) as number from v_persalemonomer where deleteState=0 and saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum GROUP BY bookNum,ISBN;";
+            string cmdtext = "select bookNum,ISBN,sum(number) as number from v_persalemonomer where deleteState=0 and saleTaskId=@saleId and saleHeadId=@saleHeadId and bookNum=@bookNum GROUP BY bookNum,ISBN HAVING number!=0;";
             //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
             string[] param = { "@saleHeadId", "@saleId", "@bookNum" };
             object[] values = { saleHeadId, saleId, bookNum };
@@ -792,40 +829,30 @@ namespace bms.Dao
         {
             string cmdtext;
             int rows;
+            ///3为预采（数据采集）
             if (state == 3)
             {
                 cmdtext = "update t_salemonomer_copy set deleteState=1 where " + condition;
-                rows = db.ExecuteNoneQuery(cmdtext,null,null);
-                
-                //cmdtext = @"select * from t_salemonomer_copy where " + condition;
-                //DataSet bookds = db.FillDataSet(cmdtext, null, null);
-                //if (bookds != null && bookds.Tables[0].Rows.Count > 0)
-                //{
-                //    for (int i = 0; i > bookds.Tables[0].Rows.Count; i++)
-                //    {
-                //        cmdtext = @" * from t_salemonomer_copy where " + condition;
-                //        int rows = db.ExecuteNoneQuery(cmdtext, null, null);
-                //    }
-                //}
-
+                rows = db.ExecuteNoneQuery(cmdtext, null, null);
             }
             else
             {
-                cmdtext = @"select count(a.bookNum) as kinds,sum(a.allrealPrice) as allrealPrice,sum(a.totalPrice) as totalPrice,sum(allnumber) as allnumber from (select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice ,sum(totalPrice) as totalPrice from v_salemonomer where  " + condition + ") as a";
+                cmdtext = "update t_salemonomer set deleteState=1 where " + condition;
                 rows = db.ExecuteNoneQuery(cmdtext, null, null);
             }
-            //DataSet ds = db.FillDataSet(cmdtext, null, null);
+
             return rows;
         }
 
         /// <summary>
-        /// 微信预采汇总
+        /// 微信汇总
         /// </summary>
         /// <param name="condition">条件</param>
         /// <returns>数据集</returns>
         public DataSet wechatPerSummary(string condition, int state)
         {
             string cmdtext;
+            //3为预采
             if (state == 3)
             {
                 cmdtext = @"select count(a.bookNum) as kinds,sum(a.allrealPrice) as allrealPrice,sum(a.totalPrice) as totalPrice,sum(allnumber) as allnumber from (select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice ,sum(totalPrice) as totalPrice from v_persalemonomer where  " + condition + ") as a";

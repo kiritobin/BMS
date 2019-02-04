@@ -19,7 +19,7 @@ namespace bms.Web.wechat
         public int totalCount, intPageCount, pageSize = 15;
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         BookBasicBll bookbll = new BookBasicBll();
-
+        string teamtype;
         public bool IsReusable
         {
             get
@@ -31,6 +31,8 @@ namespace bms.Web.wechat
         public void ProcessRequest(HttpContext context)
         {
             string op = context.Request["op"];
+            teamtype = context.Request["opreationType"];
+
             if (op == "load")
             {
                 updateSalehead(context);
@@ -63,7 +65,16 @@ namespace bms.Web.wechat
             string saleheadId = context.Request["saleheadID"];
             string bookNum = context.Request["bookNum"];
             string condition = "saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' and bookNum='" + bookNum + "'";
-            Result res = salemonbll.wechatPerDel(condition, 3);
+            Result res;
+            if (teamtype=="team")
+            {
+                res = salemonbll.wechatPerDel(condition, 1);
+            } else
+            {
+                res = salemonbll.wechatPerDel(condition, 3);
+            }
+
+           
             if (res == Result.删除成功)
             {
                 context.Response.Write("删除成功");
@@ -88,7 +99,15 @@ namespace bms.Web.wechat
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "(select * FROM v_persalemonomer ORDER BY dateTime desc) table1";
+            if (teamtype == "team")
+            {
+                tb.StrTable = "(select * FROM v_salemonomer ORDER BY dateTime desc) table1";
+            }
+            else
+            {
+                tb.StrTable = "(select * FROM v_persalemonomer ORDER BY dateTime desc) table1";
+            }
+
             tb.OrderBy = "dateTime desc";
             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(totalPrice) as alltotalPrice,userName,customerName,regionName,max(dateTime) as dateTime";
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought";
@@ -103,7 +122,17 @@ namespace bms.Web.wechat
             {
                 tb.StrWhere = "deleteState=0 and saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' group by bookNum,bookName,ISBN,unitPrice HAVING allnumber!=0";
             }
-            DataSet summaryds = salemonbll.wechatPerSummary(tb.StrWhere, 3);
+
+            DataSet summaryds;
+            if (teamtype == "team")
+            {
+                summaryds = salemonbll.wechatPerSummary(tb.StrWhere, 1);
+            }
+            else
+            {
+                summaryds = salemonbll.wechatPerSummary(tb.StrWhere, 3);
+            }
+
             DataSet ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
 
             DataTable dt = new DataTable();
@@ -120,8 +149,8 @@ namespace bms.Web.wechat
                 int number = (i + 1 + ((currentPage - 1) * pageSize));
                 dt.Rows.Add(ds.Tables[0].Rows[i]["bookNum"].ToString(), Convert.ToInt32(number), ds.Tables[0].Rows[i]["bookName"].ToString(), Convert.ToInt64(ds.Tables[0].Rows[i]["allnumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["unitPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["alltotalPrice"].ToString()));
             }
-            Page page = new Page();
 
+            Page page = new Page();
             page.data = JsonHelper.ToJson(dt, "detail");
             page.summarydata = JsonHelper.ToJson(summaryds.Tables[0], "summar");
             page.currentPage = currentPage;
@@ -144,7 +173,6 @@ namespace bms.Web.wechat
                 Result libresult = library.Selectbook(customerId, ISBN);
                 if (libresult == Result.记录不存在 || type == "continue")
                 {
-
                     string saleId = context.Request["saletaskID"];
                     SaleTaskBll saletaskbll = new SaleTaskBll();
                     DataSet limtds = saletaskbll.SelectBysaleTaskId(saleId);
@@ -221,7 +249,15 @@ namespace bms.Web.wechat
             int number = Convert.ToInt32(context.Request["number"]);
             string bookNum = context.Request["bookNum"].ToString();
             string type = context.Request["type"];
-            DataSet bookNumds = salemonbll.getPersalemonDetail(SaleHeadId, saleId, bookNum);
+            DataSet bookNumds;
+            if (teamtype == "team")
+            {
+                bookNumds = salemonbll.getsalemonDetail(SaleHeadId, saleId, bookNum);
+            }
+            else
+            {
+                bookNumds = salemonbll.getPersalemonDetail(SaleHeadId, saleId, bookNum);
+            }
             if (bookNumds != null && bookNumds.Tables[0].Rows.Count > 0 && type != "continue")
             {
                 context.Response.Write("已购买");
@@ -267,7 +303,16 @@ namespace bms.Web.wechat
             string saleId = context.Request["saletaskID"];
             int number = Convert.ToInt32(context.Request["number"]);
             string bookNum = context.Request["bookNum"].ToString();
-            DataSet bookNumds = salemonbll.getPersalemonDetail(SaleHeadId, saleId, bookNum);
+            DataSet bookNumds;
+            if (teamtype == "team")
+            {
+                bookNumds = salemonbll.getsalemonDetail(SaleHeadId, saleId, bookNum);
+            }
+            else
+            {
+                bookNumds = salemonbll.getPersalemonDetail(SaleHeadId, saleId, bookNum);
+            }
+
             if (number < 0)
             {
                 number = Math.Abs(number);
@@ -328,11 +373,27 @@ namespace bms.Web.wechat
             book = Bookbll.SelectById(bookNum);
             string saleHeadId = SaleHeadId;
             int saleIdmonomerId;
-            int count = salemonbll.SelectBySaleHeadId(saleHeadId);
+            int count;
+            if (teamtype == "team")
+            {
+                count = salemonbll.SelectBySaleHeadId(saleHeadId);
+            }
+            else
+            {
+                count = salemonbll.SelectByPerSaleHeadId(saleHeadId);
+            }
+
             if (count == 0)
             {
                 saleIdmonomerId = 1;
-                salemonbll.updateHeadstate(saleId, SaleHeadId, saleIdmonomerId);
+                if (teamtype == "team")
+                {
+                    salemonbll.updateHeadstate(saleId, SaleHeadId, 1);
+                }
+                else
+                {
+                    salemonbll.updatePerHeadstate(saleId, SaleHeadId, 1);
+                }
             }
             else
             {
@@ -357,7 +418,16 @@ namespace bms.Web.wechat
                 Datetime = Time,
                 SaleTaskId = saleId
             };
-            Result res = salemonbll.perInsert(newSalemon);
+            Result res;
+            if (teamtype == "team")
+            {
+                res = salemonbll.Insert(newSalemon);
+            }
+            else
+            {
+                res = salemonbll.perInsert(newSalemon);
+            }
+
             string op = context.Request["op"];
             if (res == Result.添加成功)
             {
@@ -402,8 +472,18 @@ namespace bms.Web.wechat
             double alltotalprice;
             double allreadprice;
 
-            int allkinds = int.Parse(salemonbll.getperkinds(saleId, SaleHeadId).ToString());
-            DataSet ds = salemonbll.calculationPerSaleHead(SaleHeadId, saleId);
+            DataSet ds;
+            int allkinds;
+            if (teamtype == "team")
+            {
+                allkinds = int.Parse(salemonbll.getkinds(saleId, SaleHeadId).ToString());
+                ds = salemonbll.calculationSaleHead(SaleHeadId, saleId);
+            }
+            else
+            {
+                allkinds = int.Parse(salemonbll.getperkinds(saleId, SaleHeadId).ToString());
+                ds = salemonbll.calculationPerSaleHead(SaleHeadId, saleId);
+            }
             if (ds == null)
             {
                 allnumber = 0;
@@ -424,7 +504,17 @@ namespace bms.Web.wechat
             salehead.Number = allnumber;
             salehead.AllTotalPrice = alltotalprice;
             salehead.AllRealPrice = allreadprice;
-            Result res = salemonbll.wechatupdatePerHead(salehead);
+
+            Result res;
+            if (teamtype == "team")
+            {
+                res = salemonbll.wechatupdateHead(salehead);
+            }
+            else
+            {
+                res = salemonbll.wechatupdatePerHead(salehead);
+            }
+
             return res;
         }
 

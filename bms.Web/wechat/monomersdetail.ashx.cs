@@ -16,9 +16,11 @@ namespace bms.Web.wechat
     {
         public int totalCount, intPageCount, pageSize = 15;
         SaleMonomerBll salemonbll = new SaleMonomerBll();
+        string teamtype;
         public void ProcessRequest(HttpContext context)
         {
             string op = context.Request["op"];
+            teamtype = context.Request["opreationType"];
             if (op == "load")
             {
                 Load(context);
@@ -43,7 +45,16 @@ namespace bms.Web.wechat
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "(select * FROM v_persalemonomer ORDER BY dateTime desc) table1";
+            if (teamtype == "team")
+            {
+                tb.StrTable = "(select * FROM v_salemonomer ORDER BY dateTime desc) table1";
+            }
+            else
+            {
+                tb.StrTable = "(select * FROM v_persalemonomer ORDER BY dateTime desc) table1";
+            }
+
+
             tb.OrderBy = "dateTime desc";
             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(totalPrice) as alltotalPrice,userName,customerName,regionName,max(dateTime) as dateTime";
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought";
@@ -59,7 +70,16 @@ namespace bms.Web.wechat
                 tb.StrWhere = "deleteState=0 and saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' group by bookNum,bookName,ISBN,unitPrice HAVING allnumber!=0";
             }
 
-            DataSet summaryds = salemonbll.wechatPerSummary(tb.StrWhere,3);
+            DataSet summaryds;
+            if (teamtype == "team")
+            {
+                summaryds = salemonbll.wechatPerSummary(tb.StrWhere, 1);
+            }
+            else
+            {
+                summaryds = salemonbll.wechatPerSummary(tb.StrWhere, 3);
+            }
+
 
             DataSet ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
 
@@ -80,7 +100,7 @@ namespace bms.Web.wechat
             Page page = new Page();
 
             page.data = JsonHelper.ToJson(dt, "detail");
-            page.summarydata= JsonHelper.ToJson(summaryds.Tables[0], "summar");
+            page.summarydata = JsonHelper.ToJson(summaryds.Tables[0], "summar");
             page.currentPage = currentPage;
             page.totalCount = totalCount;
             page.intPageCount = intPageCount;
