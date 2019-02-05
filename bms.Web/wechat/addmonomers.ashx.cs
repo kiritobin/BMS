@@ -19,6 +19,7 @@ namespace bms.Web.wechat
         public int totalCount, intPageCount, pageSize = 15;
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         BookBasicBll bookbll = new BookBasicBll();
+        SaleTaskBll saletaskbll = new SaleTaskBll();
         string teamtype;
         public bool IsReusable
         {
@@ -168,12 +169,13 @@ namespace bms.Web.wechat
             DataSet bookds = bookbll.SelectByIsbn(ISBN);
             if (bookds != null)
             {
-                string customerId = context.Request["customerId"];
+                string saleId = context.Request["saletaskID"];
+                string customerId = saletaskbll.getCustomerId(saleId);
                 LibraryCollectionBll library = new LibraryCollectionBll();
                 Result libresult = library.Selectbook(customerId, ISBN);
                 if (libresult == Result.记录不存在 || type == "continue")
                 {
-                    string saleId = context.Request["saletaskID"];
+                   
                     SaleTaskBll saletaskbll = new SaleTaskBll();
                     DataSet limtds = saletaskbll.SelectBysaleTaskId(saleId);
                     string copy = limtds.Tables[0].Rows[0]["defaultCopy"].ToString();
