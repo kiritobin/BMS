@@ -14,17 +14,52 @@ namespace bms.Web.wechat
 {
     using System.Collections;
     using System.Web.Security;
+    using System.Web.SessionState;
     using Result = Enums.OpResult;
     /// <summary>
     /// login 的摘要说明
     /// </summary>
-    public class login : IHttpHandler
+    public class login : IHttpHandler, IRequiresSessionState
     {
         LoginBll loginBll = new LoginBll();
         RSACryptoService rsa = new RSACryptoService();
         CustomerBll ctBll = new CustomerBll();
         UserBll userBll = new UserBll();
-        public void ProcessRequest(HttpContext context)
+
+        //单点登录判断
+        public static void isLogined(string userId ,HttpContext httpContext)
+        {
+            Hashtable hOnline = (Hashtable)httpContext.Application["Online"];
+            if (hOnline != null)
+            {
+                int i = 0;
+                while (i < hOnline.Count)
+                {
+                    IDictionaryEnumerator idE = hOnline.GetEnumerator();
+                    string strKey = "";
+                    while (idE.MoveNext())
+                    {
+                        if (idE.Value != null && idE.Value.ToString().Equals(userId))
+                        {
+                            strKey = idE.Key.ToString();
+                            hOnline[strKey] = "Offline";
+                            break;
+                        }
+                    }
+                    i = i + 1;
+                }
+            }
+            else
+            {
+                hOnline = new Hashtable();
+            }
+            hOnline[httpContext.Session.SessionID] = userId;
+            httpContext.Application.Lock();
+            httpContext.Application["Online"] = hOnline;
+            httpContext.Application.UnLock();
+        }
+
+    public void ProcessRequest(HttpContext context)
         {
             string op = context.Request["op"];
             if (op == "login")
@@ -37,7 +72,8 @@ namespace bms.Web.wechat
         private void userlogin(HttpContext context) {
 
             string account = context.Request["userName"];
-            string pwd = context.Request["pwd"];
+            string rePwd = context.Request["pwd"];
+            string pwd = RSACryptoService.DecryptByAES(rePwd);
             User user = loginBll.getPwdByUserId(account);
             string userPwd = rsa.Decrypt(user.Pwd);
             Result row = userBll.isUser(account);
@@ -51,6 +87,13 @@ namespace bms.Web.wechat
                 loginmsg logs = new loginmsg();
                 if (user.UserId.ToString() == account && userPwd == pwd)
                 {
+                    context.Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
+                    FormsAuthenticationTicket Ticket = new FormsAuthenticationTicket(1, account, DateTime.Now, DateTime.Now.AddDays(1), true, "staff"); //建立身份验证票对象 
+                    string HashTicket = FormsAuthentication.Encrypt(Ticket); //加密序列化验证票为字符串 
+                    HttpCookie UserCookie = new HttpCookie(FormsAuthentication.FormsCookieName, HashTicket); //生成Cookie 
+                    context.Response.Cookies.Add(UserCookie); //票据写入Cookie
+                    isLogined(account, context);
+
                     logs.msg = "登录成功";
                     logs.customID = user.UserId.ToString();
                     string json = JsonHelper.JsonSerializerBySingleData(logs);

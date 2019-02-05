@@ -78,7 +78,7 @@ namespace bms.Web
                         Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
                         FormsAuthenticationTicket Ticket = new FormsAuthenticationTicket(1, account, DateTime.Now, DateTime.Now.AddDays(1), true, "staff"); //建立身份验证票对象 
                         string HashTicket = FormsAuthentication.Encrypt(Ticket); //加密序列化验证票为字符串 
-                        Session["HashTicket"] = HashTicket;
+                        //Session["HashTicket"] = HashTicket;
                         HttpCookie UserCookie = new HttpCookie(FormsAuthentication.FormsCookieName, HashTicket); //生成Cookie 
                         Context.Response.Cookies.Add(UserCookie); //票据写入Cookie
                         isLogined(account);
