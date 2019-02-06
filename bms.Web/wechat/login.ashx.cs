@@ -94,6 +94,7 @@ namespace bms.Web.wechat
                     context.Response.Cookies.Add(UserCookie); //票据写入Cookie
                     isLogined(account, context);
 
+                    logs.sid = RSACryptoService.EncryptByAES(context.Session.SessionID);
                     logs.msg = "登录成功";
                     logs.customID = user.UserId.ToString();
                     string json = JsonHelper.JsonSerializerBySingleData(logs);

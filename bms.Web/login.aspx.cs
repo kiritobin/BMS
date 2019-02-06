@@ -35,7 +35,7 @@ namespace bms.Web
                         {
                             //already login              
                             strKey = idE.Key.ToString();
-                            hOnline[strKey] = "XXXXXX";
+                            hOnline[strKey] = "Offline";
                             break;
                         }
                     }
@@ -46,6 +46,7 @@ namespace bms.Web
             {
                 hOnline = new Hashtable();
             }
+
             hOnline[Session.SessionID] = id;
             Application.Lock();
             Application["Online"] = hOnline;

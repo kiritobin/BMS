@@ -24,5 +24,10 @@ namespace bms.Web.wechat
         public string msgds { get; set; }
 
         public string summaryds { get; set; }
+
+        /// <summary>
+        /// sessionId
+        /// </summary>
+        public string sid { get; set; }
     }
 }
