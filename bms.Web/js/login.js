@@ -13,6 +13,18 @@
             allowOutsideClick: false
         })
     }
+    else if (url == "error") {
+        swal({
+            title: "注意",
+            text: "会话失败，请重新登录！",
+            type: "warning",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '确定',
+            confirmButtonClass: 'btn btn-success',
+            buttonsStyling: false,
+            allowOutsideClick: false
+        })
+    }
     else {
         //用户名输入框获取焦点
         $("#userName").focus();

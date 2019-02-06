@@ -33,23 +33,29 @@ function checkLogin() {
             }
         },
         error: function (XMLHttpRequest, textStatus) { //请求失败
-            swal({
-                title: "注意",
-                text: "会话失败，请重新登录！",
-                type: "warning",
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: '确定',
-                confirmButtonClass: 'btn btn-success',
-                buttonsStyling: false,
-                allowOutsideClick: false
-            }).then(function () {
-                if (url == "/welcomePage.aspx") {
-                    window.location.href = "login.aspx";
-                }
-                else {
-                    window.location.href = "../login.aspx";
-                }
-            });
+            if (url == "/welcomePage.aspx") {
+                window.location.href = "login.aspx?logout=error";
+            }
+            else {
+                window.location.href = "../login.aspx?logout=error";
+            }
+            //swal({
+            //    title: "注意",
+            //    text: "会话失败，请重新登录！",
+            //    type: "warning",
+            //    confirmButtonColor: '#3085d6',
+            //    confirmButtonText: '确定',
+            //    confirmButtonClass: 'btn btn-success',
+            //    buttonsStyling: false,
+            //    allowOutsideClick: false
+            //}).then(function () {
+            //    if (url == "/welcomePage.aspx") {
+            //        window.location.href = "login.aspx";
+            //    }
+            //    else {
+            //        window.location.href = "../login.aspx";
+            //    }
+            //});
         }
     });
 }
