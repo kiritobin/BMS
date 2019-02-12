@@ -78,6 +78,9 @@ namespace bms.Web.wechat
            
             if (res == Result.删除成功)
             {
+                //删除成功更新单头
+                updateSalehead(context);
+
                 context.Response.Write("删除成功");
                 context.Response.End();
             }

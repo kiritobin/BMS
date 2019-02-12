@@ -94,13 +94,13 @@ namespace bms.Bll
             return SaleMonomerdao.WeChatSelectcountbyHeadID(HeadId, saletaskId);
         }
         /// <summary>
-        /// 根据销售单头ID真删除销售单头包括单体
+        /// 根据销售单头ID和销售任务更新销售单头删除状态
         /// </summary>
         /// <param name="saleHeadId">销售单头ID</param>
         /// <returns>0不成功</returns>
-        public Result realDeleteHeadAndMon(string saleTaskId, string saleHeadId)
+        public Result DeleteHead(string saleTaskId, string saleHeadId,string type)
         {
-            int row = SaleMonomerdao.realDeleteHeadAndMon(saleTaskId, saleHeadId);
+            int row = SaleMonomerdao.DeleteHead(saleTaskId, saleHeadId, type);
             if (row == 0)
             {
                 return Result.删除失败;
