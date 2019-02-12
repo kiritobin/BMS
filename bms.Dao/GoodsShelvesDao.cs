@@ -33,6 +33,7 @@ namespace bms.Dao
             string cmdText = "DELETE FROM t_goodsshelves WHERE goodsShelvesId = @goodsShelvesId";
             String[] param = { "@goodsShelvesId" };
             String[] values = { goodsShelvesId };
+            int row = Convert.ToInt32(db.ExecuteNoneQuery(cmdText, param, values));
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
 

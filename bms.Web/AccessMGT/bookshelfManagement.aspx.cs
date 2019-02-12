@@ -175,7 +175,7 @@ namespace bms.Web.BasicInfor
         {
             string shelfId = Request["shelfId"];
             Result row;
-            if (shelvesbll.isDelete("v_goodsshelves", "goodsShelvesId", shelfId) == Result.关联引用)
+            if (shelvesbll.isDelete("t_monomers", "shelvesId", shelfId) == Result.关联引用)
             {
                 row = Result.关联引用;
             }
