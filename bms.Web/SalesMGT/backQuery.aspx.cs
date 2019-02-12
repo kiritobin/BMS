@@ -349,9 +349,9 @@ namespace bms.Web.SalesMGT
             sb.Append("<thead>");//表头
             sb.Append("<tr>");
             sb.Append("<td>" + "序号" + "</td>");
-            sb.Append("<td>" + "ISBN号" + "</td>");
+            sb.Append("<td>" + "商品编号" + "</td>");
             sb.Append("<td>" + "书号" + "</td>");
-            sb.Append("<td>" + "书名" + "</td>");
+            sb.Append("<td>" + "商品名称" + "</td>");
             sb.Append("<td>" + "单价" + "</td>");
             sb.Append("<td>" + "数量" + "</td>");
             sb.Append("<td>" + "折扣" + "</td>");
