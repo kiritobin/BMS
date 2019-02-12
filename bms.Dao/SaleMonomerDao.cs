@@ -329,35 +329,26 @@ namespace bms.Dao
             return row;
         }
         /// <summary>
-        /// 根据销售单头ID真删除销售单头包括单体
+        /// 根据销售单头ID和销售任务更新销售单头删除状态
         /// </summary>
         /// <param name="saleHeadId">销售单头ID</param>
-        /// <returns>0不成功</returns>
-        public int realDeleteHeadAndMon(string saleTaskId, string saleHeadId)
+        /// <returns></returns>
+        public int DeleteHead(string saleTaskId, string saleHeadId, string type)
         {
-            string cmdMon = "delete from t_salemonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
-            String[] param1 = { "@saleTaskId", "@saleHeadId" };
-            String[] values2 = { saleTaskId, saleHeadId };
-            int monrow = db.ExecuteNoneQuery(cmdMon, param1, values2);
-            if (monrow != 0)
+            string cmdtext;
+            if (type == "team")
             {
-                string cmdText = "delete from T_SaleHead where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
-                String[] param = { "@saleTaskId", "@saleHeadId" };
-                String[] values = { saleTaskId, saleHeadId };
-                int headrow = db.ExecuteNoneQuery(cmdText, param, values);
-                if (monrow != 0)
-                {
-                    return headrow;
-                }
-                else
-                {
-                    return headrow = 0;
-                }
+                cmdtext = "update t_salehead set deleteState=1 where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
             }
             else
             {
-                return monrow = 0;
+                cmdtext = "update t_salehead_copy set deleteState=1 where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId";
             }
+
+            String[] param = { "@saleTaskId", "@saleHeadId" };
+            String[] values = { saleTaskId, saleHeadId };
+            int monrow = db.ExecuteNoneQuery(cmdtext, param, values);
+            return monrow;
         }
         /// <summary>
         /// 更新单头 总数量 品种数，码洋，实洋
@@ -687,7 +678,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet calculationSaleHead(string saleHeadId, string saleId)
         {
-            string cmdtext = @"SELECT sum(A.allNum) as 数量,sum(A.alltotalPrice) as 总码洋,sum(A.allrealPrice) as 总实洋 from((select bookNum, ISBN, sum(number) as allNum, sum(totalPrice) as alltotalPrice, sum(realPrice) as allrealPrice from T_SaleMonomer where saleHeadId = @saleHeadId and saleTaskId = @saleId GROUP BY booknum, ISBN HAVING allNum != 0) as A)";
+            string cmdtext = @"SELECT sum(A.allNum) as 数量,sum(A.alltotalPrice) as 总码洋,sum(A.allrealPrice) as 总实洋 from((select bookNum, ISBN, sum(number) as allNum, sum(totalPrice) as alltotalPrice, sum(realPrice) as allrealPrice from T_SaleMonomer where deleteState=0 and saleHeadId = @saleHeadId and saleTaskId = @saleId GROUP BY booknum, ISBN HAVING allNum != 0) as A)";
             //string cmdtext = "select sum(realPrice) from T_SaleMonomer where saleHeadId=@saleHeadId and saleTaskId=@saleId";
             string[] param = { "@saleHeadId", "@saleId" };
             object[] values = { saleHeadId, saleId };
@@ -896,7 +887,7 @@ namespace bms.Dao
         /// <returns></returns>
         public int SelectcountbyHeadID(string HeadId, string saletaskId)
         {
-            string comText = "select COUNT(saleIdMonomerId) from t_salemonomer where saleHeadId=@HeadId and saleTaskId=@saletaskId";
+            string comText = "SELECT count(number) from (select saleIdMonomerId,sum(number) as number from t_salemonomer where deleteState=0 and saleHeadId=@HeadId and saleTaskId=@saletaskId GROUP BY bookNum,isbn,unitPrice,realDiscount HAVING number!=0) as a";
             string[] param = { "@HeadId", "@saletaskId" };
             object[] values = { HeadId, saletaskId };
             int row = Convert.ToInt32(db.ExecuteScalar(comText, param, values));
@@ -910,7 +901,7 @@ namespace bms.Dao
         /// <returns></returns>
         public int WeChatSelectcountbyHeadID(string HeadId, string saletaskId)
         {
-            string comText = "select COUNT(saleIdMonomerId) from t_salemonomer_copy where saleHeadId=@HeadId and saleTaskId=@saletaskId";
+            string comText = "SELECT count(number) from (select saleIdMonomerId,sum(number) as number from t_salemonomer_copy where deleteState=0 and saleHeadId=@HeadId and saleTaskId=@saletaskId GROUP BY bookNum,isbn,unitPrice,realDiscount HAVING number!=0) as a";
             string[] param = { "@HeadId", "@saletaskId" };
             object[] values = { HeadId, saletaskId };
             int row = Convert.ToInt32(db.ExecuteScalar(comText, param, values));

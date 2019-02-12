@@ -187,7 +187,16 @@ namespace bms.Web.wechat
             }
             if (count == 0)
             {
-                Result result = salemonbll.realDelete(saleTaskId, salehead);
+                Result result;
+                if (type == "team")
+                {
+                    result = salemonbll.DeleteHead(saleTaskId, salehead, type);
+                }
+                else
+                {
+                    result = salemonbll.DeleteHead(saleTaskId, salehead,"");
+                }
+
                 if (result == Result.删除成功)
                 {
                     context.Response.Write("删除成功");
