@@ -120,7 +120,20 @@
                         }).then(function () {
                             window.location.reload();
                         })
-                    } else {
+                    }
+                    else if (succ == "已关联引用，无法删除") {
+                        swal({
+                            title: "温馨提示",
+                            text: "已关联引用，无法删除",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        })
+                    }
+                    else {
                         swal({
                             title: "温馨提示",
                             text: "删除失败",

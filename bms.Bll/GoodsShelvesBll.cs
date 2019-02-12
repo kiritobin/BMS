@@ -35,7 +35,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="goodsShelvesId">书架id</param>
         /// <returns>返回结果</returns>
-        public Result Delete(int goodsShelvesId)
+        public Result Delete(string goodsShelvesId)
         {
             int row = shelvesdao.Delete(goodsShelvesId);
             if (row > 0)
@@ -47,6 +47,29 @@ namespace bms.Bll
                 return Result.删除失败;
             }
         }
+        /// <summary>
+        /// 真删除书架的方法
+        /// </summary>
+        /// <param name="goodsShelvesId"></param>
+        /// <returns></returns>
+        public Result DeleteTrue(string goodsShelvesId)
+        {
+            int row = shelvesdao.DeleteTrue(goodsShelvesId);
+            if (row > 0)
+            {
+                return Result.删除成功;
+            }
+            else
+            {
+                return Result.删除失败;
+            }
+        }
+
+        //public int DeleteTrue(string goodsShelvesId)
+        //{
+        //    return shelvesdao.DeleteTrue(goodsShelvesId);
+        //}
+
         /// <summary>
         /// 查询所有数据
         /// </summary>

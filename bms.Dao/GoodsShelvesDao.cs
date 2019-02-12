@@ -16,13 +16,26 @@ namespace bms.Dao
         /// </summary>
         /// <param name="goodsShelvesId">货架id</param>
         /// <returns>受影响行数</returns>
-        public int Delete(int goodsShelvesId)
+        public int Delete(string goodsShelvesId)
         {
             string cmdText = "update T_GoodsShelves set deleteState = 1 where goodsShelvesId=@goodsShelvesId";
             String[] param = { "@goodsShelvesId" };
             String[] values = { goodsShelvesId.ToString() };
             return db.ExecuteNoneQuery(cmdText, param, values);
         }
+        /// <summary>
+        /// 真货架删除
+        /// </summary>
+        /// <param name="goodsShelvesId"></param>
+        /// <returns></returns>
+        public int DeleteTrue(string goodsShelvesId)
+        {
+            string cmdText = "DELETE FROM t_goodsshelves WHERE goodsShelvesId = @goodsShelvesId";
+            String[] param = { "@goodsShelvesId" };
+            String[] values = { goodsShelvesId };
+            return db.ExecuteNoneQuery(cmdText, param, values);
+        }
+
         /// <summary>
         /// 添加
         /// </summary>

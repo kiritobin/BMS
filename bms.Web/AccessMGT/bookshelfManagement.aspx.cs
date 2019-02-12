@@ -109,11 +109,11 @@ namespace bms.Web.BasicInfor
             }
             if (op == "del")
             {
-                int shelfId = int.Parse(Request["shelfId"]);
-                //Result result = isDelete();
-                //if (result == Result.记录不存在)
-                //{
-                    Result row = shelvesbll.Delete(shelfId);
+                string shelfId = Request["shelfId"];
+                Result result = isDelete();
+                if (result==Result.记录不存在)
+                {
+                    Result row = shelvesbll.DeleteTrue(shelfId);
                     if (row == Result.删除成功)
                     {
                         Response.Write("删除成功");
@@ -124,12 +124,12 @@ namespace bms.Web.BasicInfor
                         Response.Write("删除失败");
                         Response.End();
                     }
-                //}
-                //else
-                //{
-                //    Response.Write("在其它表里关联引用，不能删除");
-                //    Response.End();
-                //}
+                }
+                else
+                {
+                    Response.Write("已关联引用，无法删除");
+                    Response.End();
+                }
             }
             if (op == "logout")
             {
@@ -175,15 +175,7 @@ namespace bms.Web.BasicInfor
         {
             string shelfId = Request["shelfId"];
             Result row;
-            if (shelvesbll.isDelete("T_Monomers", "goodsShelvesId", shelfId) == Result.关联引用)
-            {
-                row = Result.关联引用;
-            }
-            else
-            {
-                row = Result.记录不存在;
-            }
-            if (shelvesbll.isDelete("T_Stock", "goodsShelvesId", shelfId) == Result.关联引用)
+            if (shelvesbll.isDelete("v_goodsshelves", "goodsShelvesId", shelfId) == Result.关联引用)
             {
                 row = Result.关联引用;
             }
@@ -211,20 +203,20 @@ namespace bms.Web.BasicInfor
             string search;
             if ((region == "" || region == null) && (goods == "" || goods == null))
             {
-                search = "deleteState=0";
+                search = "";
             }
             else if ((goods != null || goods != "") && (region == "" || region == null))
             {
 
-                search = String.Format("shelvesName like '%{0}%' and deleteState=0", goods);
+                search = String.Format("shelvesName like '%{0}%'", goods);
             }
             else if ((goods == null || goods == "") && (region != "" || region != null))
             {
-                search = String.Format("regionName like '%{0}%' and deleteState=0", region);
+                search = String.Format("regionName like '%{0}%'", region);
             }
             else
             {
-                search = String.Format("regionName like '%{0}%' and shelvesName like '%{1}%' and deleteState=0", region, goods);
+                search = String.Format("regionName like '%{0}%' and shelvesName like '%{1}%'", region, goods);
             }
 
             TableBuilder tb = new TableBuilder();
@@ -250,6 +242,7 @@ namespace bms.Web.BasicInfor
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * PageSize)) + "</td>");
+                strb.Append("<td style='display:none;'>" + ds.Tables[0].Rows[i]["goodsShelvesId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["shelvesName"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
                 strb.Append("<td>" + "<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "</button>" + " </td></tr>");
@@ -263,58 +256,10 @@ namespace bms.Web.BasicInfor
             }
             return strb.ToString();
         }
-
-        //excel读到table
-        private DataTable excelToDt()
-        {
-            int regId;
-            if (user.RoleId.RoleName == "超级管理员")
-            {
-                regId = Convert.ToInt32(Request["regId"]);
-            }
-            else
-            {
-                regId = user.ReginId.RegionId;
-            }
-            DataTable dt1 = new DataTable();
-            string path = Session["path"].ToString();
-            string strConn = "";
-            //文件类型判断
-            string[] sArray = path.Split('.');
-            int count = sArray.Length - 1;
-            if (sArray[count] == "xls")
-            {
-                strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-            }
-            else if (sArray[count] == "xlsx")
-            {
-                strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-            }
-            OleDbConnection conn = new OleDbConnection(strConn);
-            try
-            {
-                conn.Open();
-                string strExcel1 = "select 货架名称 from [Sheet1$]";
-                OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
-                oda1.Fill(dt1);
-                DataColumn dc = new DataColumn("地区ID", typeof(int));
-                dc.DefaultValue = regId; 
-                dt1.Columns.Add(dc);
-
-                row = dt1.Rows.Count; //获取总数
-                //GetDistinctSelf(dt1, "货架名称");
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-                Response.End();
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return dt1;
-        }
+        /// <summary>
+        /// excel读到table
+        /// </summary>
+        /// <returns></returns>
         private DataTable npioDt()
         {
             DataTable dt1 = new DataTable();
@@ -343,8 +288,14 @@ namespace bms.Web.BasicInfor
             }
             return dt1;
         }
-        //某字段table去重方法
-        private DataTable GetDistinctSelf(DataTable SourceDt, string field1,string field2)
+
+        /// <summary>
+        /// 某字段table去重方法
+        /// </summary>
+        /// <param name="SourceDt"></param>
+        /// <param name="field1"></param>
+        /// <returns></returns>
+        private DataTable GetDistinctSelf(DataTable SourceDt, string field1)
         {
             int j = SourceDt.Rows.Count;
             if (j > 1)
@@ -355,8 +306,7 @@ namespace bms.Web.BasicInfor
                 {
                     DataRow dr = SourceDt.Rows[i];
                     string a = dr[field1].ToString();
-                    string b = dr[field2].ToString();
-                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{1}' or {2}='{3}'", field1, a,field2,b));
+                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{1}'", field1, a));
                     if (rows.Length > 1)
                     {
                         SourceDt.Rows.RemoveAt(i);
@@ -371,7 +321,9 @@ namespace bms.Web.BasicInfor
             return SourceDt;
         }
 
-        //取差集
+        /// <summary>
+        /// 取差集 导入dt
+        /// </summary>
         private void differentDt()
         {
             //excel = excelToDt();
@@ -390,13 +342,15 @@ namespace bms.Web.BasicInfor
             if (j <= 0)
             {
                 //except = excelToDt();
-                except=GetDistinctSelf(excel, "货架编号", "货架名称");
+                except=GetDistinctSelf(excel, "货架编号");
+                //except = excelDt(excel);
             }
             else
             {
-                except.Columns.Add("id", typeof(string));
-                except.Columns.Add("货架名称", typeof(string));
-                except.Columns.Add("地区ID", typeof(string));
+                except = excelDt(excel);
+                //except.Columns.Add("id", typeof(string));
+                //except.Columns.Add("货架名称", typeof(string));
+                //except.Columns.Add("地区ID", typeof(string));
                 DataSet dataSet = shelvesbll.isGoodsShelves(regId);
                 DataRowCollection count = excel.Rows;
                 foreach (DataRow row in count)//遍历excel数据集
@@ -419,26 +373,21 @@ namespace bms.Web.BasicInfor
                 }
             }
         }
+
         /// <summary>
-        /// 半角转全角
+        /// 两次查重
         /// </summary>
-        /// <param name="input">需要转换的字符串</param>
+        /// <param name="dt"></param>
         /// <returns></returns>
-        private String ToSBC(String input)
+        private DataTable excelDt (DataTable dt)
         {
-            char[] c = input.ToCharArray();
-            for (int i = 0; i < c.Length; i++)
-            {
-                if (c[i] == 32)
-                {
-                    c[i] = (char)12288;
-                    continue;
-                }
-                if (c[i] < 127)
-                    c[i] = (char)(c[i] + 65248);
-            }
-            return new String(c);
+            DataTable dataTable = new DataTable();
+            dataTable = GetDistinctSelf(dt, "货架编号");
+            DataTable table = dataTable;
+            table = GetDistinctSelf(table, "货架名称");
+            return table;
         }
+
         protected void permission()
         {
             FunctionBll functionBll = new FunctionBll();
