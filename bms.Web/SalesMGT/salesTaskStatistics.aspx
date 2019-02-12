@@ -266,10 +266,10 @@
                             <nobr>书号</nobr>
                         </td>
                         <td>
-                            <nobr>ISBN</nobr>
+                            <nobr>商品编号</nobr>
                         </td>
                         <td>
-                            <nobr>书名</nobr>
+                            <nobr>商品名称</nobr>
                         </td>
                         <td>
                             <nobr>单价</nobr>
