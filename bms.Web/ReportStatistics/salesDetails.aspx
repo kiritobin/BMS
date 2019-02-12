@@ -577,13 +577,13 @@
                                 <nobr>序号</nobr>
                             </th>
                             <th>
-                                <nobr>ISBN</nobr>
+                                <nobr>商品编号</nobr>
                             </th>
                             <th>
                                 <nobr>书号</nobr>
                             </th>
                             <th>
-                                <nobr>书名</nobr>
+                                <nobr>商品名称</nobr>
                             </th>
                             <th>
                                 <nobr>定价</nobr>

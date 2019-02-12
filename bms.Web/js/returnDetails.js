@@ -440,13 +440,13 @@ function AddTitle() {
     LODOP.ADD_PRINT_TEXT(15, 102, 355, 30, "退货明细");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 15, 100, 20, "ISBN");
+    LODOP.ADD_PRINT_TEXT(50, 15, 100, 20, "商品编号");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 120, 150, 20, "书号");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 220, 250, 20, "书名");
+    LODOP.ADD_PRINT_TEXT(50, 220, 250, 20, "商品名称");
     LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
     LODOP.SET_PRINT_STYLEA(5, "Bold", 1);
     LODOP.ADD_PRINT_TEXT(50, 415, 100, 20, "定价");
