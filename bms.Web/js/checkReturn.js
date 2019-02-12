@@ -99,8 +99,8 @@ $(document).ready(function () {
                     //LODOP.PREVIEW();
                     //window.location.reload();
                     LODOP = getLodop();
-                    LODOP.PRINT_INITA(0, 0, 577, 10000, $("#shRegion").val() + "   新华书店有限公司   退货单");
-                    LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#shRegion").val() + "   新华书店有限公司   退货单");
+                    LODOP.PRINT_INITA(0, 0, 577, 10000, $("#shRegion").val() + "   退货单");
+                    LODOP.ADD_PRINT_TEXT(30, 200, 600, 30, $("#shRegion").val() + "   退货单");
                     LODOP.SET_PRINT_PAGESIZE(3, 2000, 50, "");
                     LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
                     LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
@@ -119,8 +119,8 @@ $(document).ready(function () {
 
                     //---------表格明细--------
                     LODOP.ADD_PRINT_TEXT(210, 20, 50, 20, "序号");
-                    LODOP.ADD_PRINT_TEXT(210, 70, 100, 20, "ISBN号");
-                    LODOP.ADD_PRINT_TEXT(210, 170, 300, 20, "书名");
+                    LODOP.ADD_PRINT_TEXT(210, 70, 100, 20, "商品编号");
+                    LODOP.ADD_PRINT_TEXT(210, 170, 300, 20, "商品名称");
                     LODOP.ADD_PRINT_TEXT(210, 440, 40, 20, "数量");
                     LODOP.ADD_PRINT_TEXT(210, 480, 50, 20, "单价");
                     LODOP.ADD_PRINT_TEXT(210, 530, 50, 20, "折扣");
@@ -217,7 +217,7 @@ $("#export").click(function () {
 })
 
 $("#a4").click(function () {
-    var name = $("#shRegion").val() + "   新华书店有限公司    ";
+    var name = $("#shRegion").val();
     $.ajax({
         type: 'Post',
         url: 'checkReturn.aspx',
