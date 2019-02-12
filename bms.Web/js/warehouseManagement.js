@@ -188,10 +188,10 @@ $("#btn-search").click(function () {
     var user = $("#user").find("option:selected").text();
     var time = $("#time").val();
     if (region == "全部收货组织") {
-        regionName = "";
+        region = "";
     }
     if (user == "全部操作员") {
-        userName = "";
+        user = "";
     }
     $.ajax({
         type: 'Post',

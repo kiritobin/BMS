@@ -29,7 +29,7 @@ $(document).ready(function () {
             var region = $("#region").find("option:selected").text();
             var user = $("#user").find("option:selected").text();
             var time = $("#time").val();
-            if (region == "全部收货组织") {
+            if (region == "全部退货组织") {
                 region = "";
             }
             if (user == "全部操作员") {
@@ -185,7 +185,7 @@ $("#btn-search").click(function () {
     var region = $("#region").find("option:selected").text();
     var user = $("#user").find("option:selected").text();
     var time = $("#time").val();
-    if (region == "全部收货组织") {
+    if (region == "全部退货组织") {
         region = "";
     }
     if (user == "全部操作员") {

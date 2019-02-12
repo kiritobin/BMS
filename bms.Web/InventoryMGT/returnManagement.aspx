@@ -366,7 +366,7 @@
                                             <%} %>
                                             <div class="btn-group" role="group">
                                                 <select class="selectpicker" data-live-search="true" title="请选择退货组织" id="region">
-                                                    <option value="">请选择退货组织</option>
+                                                    <option value="">全部退货组织</option>
                                                     <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                         {%>
                                                     <option><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
