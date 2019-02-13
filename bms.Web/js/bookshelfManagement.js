@@ -281,16 +281,16 @@
                                     op: "check"
                                 },
                                 dataType: 'text',
-                                beforeSend: function (XMLHttpRequest) { //开始请求
-                                    $("#myModalLabe1").html("正在读取数据");
-                                    $("#img").attr("src", "../imgs/loading.gif");
-                                    $("#myModal1").modal("show");
-                                    $("#close").hide();
-                                    show = "fail";
-                                },
+                                //beforeSend: function (XMLHttpRequest) { //开始请求
+                                //    $("#myModalLabe1").html("正在读取数据");
+                                //    $("#img").attr("src", "../imgs/loading.gif");
+                                //    $("#myModal1").modal("show");
+                                //    $("#close").hide();
+                                //    show = "fail";
+                                //},
                                 success: function (succ) {
                                     $("#myModal1").modal("hide");
-                                    $("#close").show();
+                                    $("#close2").show();
                                     $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
                                     $("#img").attr("src", "../imgs/loading.gif");
                                     if (succ == "重复数据") {
@@ -306,6 +306,7 @@
                                     }
                                     else if (succ == "上传成功") {
                                         show = "succ";
+                                        
                                         swal({
                                             title: "温馨提示:)",
                                             text: succ,
@@ -314,6 +315,7 @@
                                             type: "success",
                                             allowOutsideClick: false
                                         })
+                                        $("#myModal1").modal("hide");
                                     }
                                     else {
                                         show = "fail";
