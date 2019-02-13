@@ -116,8 +116,8 @@ namespace bms.DBHelper
             int j = SourceDt.Rows.Count;
             if (j > 1)
             {
-                int k = j - 2;
-                int i = 1;
+                int k = j - 1;
+                int i = 0;
                 while (i <= k)
                 {
                     DataRow dr = SourceDt.Rows[i];

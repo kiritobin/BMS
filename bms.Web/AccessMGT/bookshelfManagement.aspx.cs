@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.BasicInfor
 {
+    using bms.DBHelper;
     using Model;
     using System.Data.OleDb;
     using System.Text;
@@ -145,8 +146,8 @@ namespace bms.Web.BasicInfor
                 DataTable dtInsert = new DataTable();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
-                differentDt();
-                dtInsert = except; //赋给新table
+                
+                dtInsert = differentDt(); //赋给新table
                 TimeSpan ts = watch.Elapsed;
                 dtInsert.TableName = "T_GoodsShelves"; //导入的表名
                 int a = userBll.BulkInsert(dtInsert);
@@ -260,7 +261,7 @@ namespace bms.Web.BasicInfor
         /// excel读到table
         /// </summary>
         /// <returns></returns>
-        private DataTable npioDt()
+        private DataTable excelToDt()
         {
             DataTable dt1 = new DataTable();
             int regId;
@@ -275,7 +276,7 @@ namespace bms.Web.BasicInfor
             string path = Session["path"].ToString();
             try
             {
-                dt1 = ExcelHelper.GetDataTable(path);
+                dt1 = ExcelHelp.excelToDt(path,"excel");
                 DataColumn dc = new DataColumn("地区ID", typeof(int));
                 dc.DefaultValue = regId;
                 dt1.Columns.Add(dc);
@@ -289,45 +290,20 @@ namespace bms.Web.BasicInfor
             return dt1;
         }
 
-        /// <summary>
-        /// 某字段table去重方法
-        /// </summary>
-        /// <param name="SourceDt"></param>
-        /// <param name="field1"></param>
-        /// <returns></returns>
-        private DataTable GetDistinctSelf(DataTable SourceDt, string field1)
-        {
-            int j = SourceDt.Rows.Count;
-            if (j > 1)
-            {
-                int k = j - 2;
-                int i = 1;
-                while (i <= k)
-                {
-                    DataRow dr = SourceDt.Rows[i];
-                    string a = dr[field1].ToString();
-                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{1}'", field1, a));
-                    if (rows.Length > 1)
-                    {
-                        SourceDt.Rows.RemoveAt(i);
-                        k = k - 1;
-                    }
-                    else
-                    {
-                        i++;
-                    }
-                }
-            }
-            return SourceDt;
-        }
 
         /// <summary>
         /// 取差集 导入dt
         /// </summary>
-        private void differentDt()
+        private DataTable differentDt()
         {
-            //excel = excelToDt();
-            excel = npioDt();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("id", typeof(string));
+            dt.Columns.Add("货架名称", typeof(string));
+            dt.Columns.Add("地区ID", typeof(string));
+
+            DataTable dt1 = DataTableHelper.GetDistinctSelf(excelToDt(), "货架名称");
+            DataTable dt2 = DataTableHelper.GetDistinctSelf(dt1, "货架编号");
+
             int regId;
             if (user.RoleId.RoleName == "超级管理员")
             {
@@ -341,28 +317,23 @@ namespace bms.Web.BasicInfor
             //数据库无数据时直接导入excel
             if (j <= 0)
             {
-                //except = excelToDt();
-                except=GetDistinctSelf(excel, "货架编号");
-                //except = excelDt(excel);
+                dt = dt2;
             }
             else
             {
-                except = excelDt(excel);
-                //except.Columns.Add("id", typeof(string));
-                //except.Columns.Add("货架名称", typeof(string));
-                //except.Columns.Add("地区ID", typeof(string));
-                DataSet dataSet = shelvesbll.isGoodsShelves(regId);
-                DataRowCollection count = excel.Rows;
+                
+                DataTable dataSet = shelvesbll.isGoodsShelves(regId).Tables[0];
+                DataRowCollection count = dt2.Rows;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
                     try
                     {
                         string goodsShelvesId = row[0].ToString();
                         string goodsName = row[1].ToString();
-                        DataRow[] rows = dataSet.Tables[0].Select(string.Format("goodsShelvesId='{0}' or shelvesName='{1}'", goodsShelvesId,goodsName));
+                        DataRow[] rows = dataSet.Select(string.Format("goodsShelvesId='{0}' or shelvesName='{1}'", goodsShelvesId,goodsName));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
-                            except.Rows.Add(row[0], row[1], row[2]);
+                            dt.Rows.Add(row[0], row[1], row[2]);
                         }
                     }
                     catch (Exception ex)
@@ -372,20 +343,7 @@ namespace bms.Web.BasicInfor
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// 两次查重
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
-        private DataTable excelDt (DataTable dt)
-        {
-            DataTable dataTable = new DataTable();
-            dataTable = GetDistinctSelf(dt, "货架编号");
-            DataTable table = dataTable;
-            table = GetDistinctSelf(table, "货架名称");
-            return table;
+            return dt;
         }
 
         protected void permission()

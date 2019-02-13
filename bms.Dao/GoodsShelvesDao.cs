@@ -34,7 +34,7 @@ namespace bms.Dao
             String[] param = { "@goodsShelvesId" };
             String[] values = { goodsShelvesId };
             int row = Convert.ToInt32(db.ExecuteNoneQuery(cmdText, param, values));
-            return db.ExecuteNoneQuery(cmdText, param, values);
+            return row;
         }
 
         /// <summary>
