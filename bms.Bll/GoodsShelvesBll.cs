@@ -88,6 +88,15 @@ namespace bms.Bll
             return shelvesdao.isGoodsShelves(regionId);
         }
         /// <summary>
+        /// 判断货架存在
+        /// </summary>
+        /// <param name="regionId"></param>
+        /// <returns></returns>
+        public int isgoodsId(int regionId)
+        {
+            return shelvesdao.isgoodsId(regionId);
+        }
+        /// <summary>
         /// 查询货架名是否重复
         /// </summary>
         /// <param name="shelves">货架实体对象</param>

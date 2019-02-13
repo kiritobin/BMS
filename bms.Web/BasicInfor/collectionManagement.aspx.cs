@@ -63,6 +63,7 @@ namespace bms.Web.CustomerMGT
                 }
                 else
                 {
+                    Session.Remove("path");
                     //Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据");
                     Response.Write("导入失败，远程服务器未响应");
                     Response.End();

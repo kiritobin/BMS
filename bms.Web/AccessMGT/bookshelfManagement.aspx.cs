@@ -24,8 +24,6 @@ namespace bms.Web.BasicInfor
         GoodsShelvesBll shelvesbll = new GoodsShelvesBll();
         RegionBll rbll = new RegionBll();
         UserBll userBll = new UserBll();
-        DataTable except = new DataTable();//接受差集
-        DataTable excel = new DataTable();
         RoleBll roleBll = new RoleBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail,isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
@@ -162,9 +160,14 @@ namespace bms.Web.BasicInfor
                 }
                 else
                 {
+                    Session.Remove("path");
                     Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据，重复数据有"+cf);
                     Response.End();
                 }
+            }
+            if (op=="check")
+            {
+                check();
             }
         }
 
@@ -301,8 +304,8 @@ namespace bms.Web.BasicInfor
             dt.Columns.Add("货架名称", typeof(string));
             dt.Columns.Add("地区ID", typeof(string));
 
-            DataTable dt1 = DataTableHelper.GetDistinctSelf(excelToDt(), "货架名称");
-            DataTable dt2 = DataTableHelper.GetDistinctSelf(dt1, "货架编号");
+            //DataTable dt1 = DataTableHelper.GetDistinctSelf(excelToDt(), "货架名称");
+            //DataTable dt2 = DataTableHelper.GetDistinctSelf(dt1, "货架编号");
 
             int regId;
             if (user.RoleId.RoleName == "超级管理员")
@@ -313,17 +316,16 @@ namespace bms.Web.BasicInfor
             {
                 regId = user.ReginId.RegionId;
             }
-            int j = shelvesbll.isGoodsShelves(regId).Tables[0].Rows.Count;
+            int j = shelvesbll.isgoodsId(regId);
             //数据库无数据时直接导入excel
             if (j <= 0)
             {
-                dt = dt2;
+                dt = excelToDt();
             }
             else
             {
-                
                 DataTable dataSet = shelvesbll.isGoodsShelves(regId).Tables[0];
-                DataRowCollection count = dt2.Rows;
+                DataRowCollection count = excelToDt().Rows;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
                     try
@@ -344,6 +346,35 @@ namespace bms.Web.BasicInfor
                 }
             }
             return dt;
+        }
+        /// <summary>
+        /// 判断重复数据
+        /// </summary>
+        public void check()
+        {
+            string path = Session["path"].ToString();
+            DataTable dt = ExcelHelp.excelToDt(path,"excel");
+            string[] huojiaId = {"货架编号"};
+            
+            if (DataTableHelper.isRepeatDt(dt, huojiaId))
+            {
+                Response.Write("重复数据");
+                Response.End();
+            }
+            else
+            {
+                string[] huojiaName = { "货架名称" };
+                if (DataTableHelper.isRepeatDt(dt, huojiaName))
+                {
+                    Response.Write("重复数据");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("上传成功");
+                    Response.End();
+                }
+            }
         }
 
         protected void permission()

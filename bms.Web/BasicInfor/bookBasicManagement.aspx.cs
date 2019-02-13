@@ -186,46 +186,6 @@ namespace bms.Web.BasicInfor
             return SourceDt;
         }
 
-        //excel读到table
-        private DataTable excelToDt()
-        {
-            DataTable dt1 = new DataTable();
-            string path = Session["path"].ToString();
-            string strConn = "";
-            //文件类型判断
-            string[] sArray = path.Split('.');
-            int count = sArray.Length - 1;
-            if (sArray[count] == "xls")
-            {
-                strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
-            }
-            else if (sArray[count] == "xlsx")
-            {
-                strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-            }
-            OleDbConnection conn = new OleDbConnection(strConn);
-            try
-            {
-                conn.Open();
-                string strExcel1 = "select * from [Sheet1$]";
-                OleDbDataAdapter oda1 = new OleDbDataAdapter(strExcel1, strConn);
-                dt1.Columns.Add("id"); //匹配列，与结构一致
-                oda1.Fill(dt1);
-                row = dt1.Rows.Count; //获取总数
-                //GetDistinctSelf(dt1, "ISBN", "书名", "单价");
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-                Response.End() ;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return dt1;
-        }
-
         //书号算法并生成datatable列
         private DataTable addBookId()
         {

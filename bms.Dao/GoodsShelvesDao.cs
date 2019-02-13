@@ -91,6 +91,21 @@ namespace bms.Dao
             }
         }
         /// <summary>
+        /// 判断货架存在
+        /// </summary>
+        /// <param name="regionId"></param>
+        /// <returns></returns>
+        public int isgoodsId(int regionId)
+        {
+            string cmdText = "select count(goodsShelvesId) from T_GoodsShelves where regionId = @regionId";
+            String[] param = { "@regionId" };
+            String[] values = { regionId.ToString() };
+            int row = Convert.ToInt32(db.ExecuteScalar(cmdText,param,values));
+            return row;
+            
+        }
+
+        /// <summary>
         /// 通过地区id和货架名查货架id
         /// </summary>
         /// <param name="regionId"></param>

@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    var show = "";
+
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -258,7 +260,6 @@
                 dataType: 'json', //返回值类型 一般设置为json
                 success: function (data, status)  //服务器成功响应处理函数
                 {
-                    console.log(data.msg);
                     sessionStorage.setItem("succ", data.msg);
                     if (typeof (data.error) != 'undefined') {
                         if (data.error != '') {
@@ -273,16 +274,60 @@
                                 allowOutsideClick: false
                             })
                         } else {
-                            swal({
-                                title: "提示",
-                                text: data.msg,
-                                type: "success",
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: '确定',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false,
-                                allowOutsideClick: false
-                            })
+                            $.ajax({
+                                type: 'Post',
+                                url: 'bookshelfManagement.aspx',
+                                data: {
+                                    op: "check"
+                                },
+                                dataType: 'text',
+                                beforeSend: function (XMLHttpRequest) { //开始请求
+                                    $("#myModalLabe1").html("正在读取数据");
+                                    $("#img").attr("src", "../imgs/loading.gif");
+                                    $("#myModal1").modal("show");
+                                    $("#close").hide();
+                                    show = "fail";
+                                },
+                                success: function (succ) {
+                                    $("#myModal1").modal("hide");
+                                    $("#close").show();
+                                    $("#myModalLabe1").html("正在导入，请保持网络畅通，导入过程中请勿关闭页面");
+                                    $("#img").attr("src", "../imgs/loading.gif");
+                                    if (succ == "重复数据") {
+                                        show = "fail";
+                                        swal({
+                                            title: "温馨提示:)",
+                                            text: "存在重复记录，请修改后上传",
+                                            buttonsStyling: false,
+                                            confirmButtonClass: "btn btn-success",
+                                            type: "warning",
+                                            allowOutsideClick: false
+                                        })
+                                    }
+                                    else if (succ == "上传成功") {
+                                        show = "succ";
+                                        swal({
+                                            title: "温馨提示:)",
+                                            text: succ,
+                                            buttonsStyling: false,
+                                            confirmButtonClass: "btn btn-success",
+                                            type: "success",
+                                            allowOutsideClick: false
+                                        })
+                                    }
+                                    else {
+                                        show = "fail";
+                                        swal({
+                                            title: "温馨提示:)",
+                                            text: succ,
+                                            buttonsStyling: false,
+                                            confirmButtonClass: "btn btn-success",
+                                            type: "warning",
+                                            allowOutsideClick: false
+                                        })
+                                    }
+                                }
+                            });
                         }
                     }
                 },
@@ -338,7 +383,7 @@
                 allowOutsideClick: false
             })
         }
-        else if (sessionStorage.getItem("succ") != "上传成功") {
+        else if (sessionStorage.getItem("succ") != "上传成功" || show == "fail") {
             swal({
                 title: "提示",
                 text: "文件未上传成功",
