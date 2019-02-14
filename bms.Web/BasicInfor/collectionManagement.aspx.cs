@@ -139,7 +139,7 @@ namespace bms.Web.CustomerMGT
             //文件类型判断
             string[] sArray = path.Split('.');
             int count = sArray.Length - 1;
-            if (sArray[count] == "xls"|| sArray[count] == "xlsx")
+            if (sArray[count].ToLower() == "xls"|| sArray[count].ToLower() == "xlsx")
             {
                 dt1 = ExcelHelp.excelToDt(path,"excel");
                 dt1.Columns.Add("id").SetOrdinal(0);
@@ -180,7 +180,7 @@ namespace bms.Web.CustomerMGT
                 //    conn.Close();
                 //}
             }
-            else if (sArray[count] == "iso")
+            else if (sArray[count].ToLower() == "iso")
             {
                 string fisbn = Request["fisbn"];
                 string sisbn = Request["sisbn"];
