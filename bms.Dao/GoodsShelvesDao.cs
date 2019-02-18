@@ -34,7 +34,7 @@ namespace bms.Dao
             String[] param = { "@goodsShelvesId" };
             String[] values = { goodsShelvesId };
             int row = Convert.ToInt32(db.ExecuteNoneQuery(cmdText, param, values));
-            return row;
+            return db.ExecuteNoneQuery(cmdText, param, values);
         }
 
         /// <summary>
@@ -46,15 +46,15 @@ namespace bms.Dao
         {
             string cmdText = "insert into T_GoodsShelves(goodsShelvesId,shelvesName,regionId) values(@goodsShelvesId,@shelvesName,@regionId)";
             String[] param = { "@goodsShelvesId", "@shelvesName", "@regionId" };
-            String[] values = { shelves.GoodsShelvesId,shelves.ShelvesName,shelves.RegionId.RegionId.ToString() };
+            String[] values = { shelves.GoodsShelvesId, shelves.ShelvesName, shelves.RegionId.RegionId.ToString() };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
-       /// <summary>
-       /// 根据地区id查询货架
-       /// </summary>
-       /// <param name="regionId">地区id</param>
-       /// <returns></returns>
+        /// <summary>
+        /// 根据地区id查询货架
+        /// </summary>
+        /// <param name="regionId">地区id</param>
+        /// <returns></returns>
         public DataSet Select(int regionId)
         {
             string cmdText = "select goodsShelvesId,shelvesName,regionId,regionName from V_GoodsShelves where regionId = @regionId";
@@ -91,31 +91,16 @@ namespace bms.Dao
             }
         }
         /// <summary>
-        /// 判断货架存在
-        /// </summary>
-        /// <param name="regionId"></param>
-        /// <returns></returns>
-        public int isgoodsId(int regionId)
-        {
-            string cmdText = "select count(goodsShelvesId) from T_GoodsShelves where regionId = @regionId";
-            String[] param = { "@regionId" };
-            String[] values = { regionId.ToString() };
-            int row = Convert.ToInt32(db.ExecuteScalar(cmdText,param,values));
-            return row;
-            
-        }
-
-        /// <summary>
         /// 通过地区id和货架名查货架id
         /// </summary>
         /// <param name="regionId"></param>
         /// <param name="shelvesName"></param>
         /// <returns></returns>
-        public DataSet SelectByIdName(int regionId,string shelvesName)
+        public DataSet SelectByIdName(int regionId, string shelvesName)
         {
             string cmdText = "select goodsShelvesId from T_GoodsShelves where regionId = @regionId and shelvesName=@shelvesName";
             String[] param = { "@regionId", "@shelvesName" };
-            String[] values = { regionId.ToString(),shelvesName };
+            String[] values = { regionId.ToString(), shelvesName };
             DataSet ds = db.FillDataSet(cmdText, param, values);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
@@ -127,7 +112,7 @@ namespace bms.Dao
             }
         }
         /// <summary>
-        /// 查询货架id是否重复
+        /// 查询货架名是否重复
         /// </summary>
         /// <param name="shelves">货架实体对象</param>
         /// <returns></returns>
@@ -135,10 +120,30 @@ namespace bms.Dao
         {
             //货架ID
             string cmdText = "select count(goodsShelvesId) from T_GoodsShelves where goodsShelvesId=@goodsShelvesId";
-            String[] param = { "@goodsShelvesId"};
+            String[] param = { "@goodsShelvesId" };
             String[] values = { shelves.GoodsShelvesId };
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
-            return row;
+            //货架名称
+            string cmdTexts = "select count(goodsShelvesId) from T_GoodsShelves where regionId = @regionId and shelvesName=@shelvesName";
+            String[] parames = { "@shelvesName", "@regionId" };
+            String[] valuess = { shelves.ShelvesName, shelves.RegionId.RegionId.ToString() };
+            int rows = Convert.ToInt32(db.ExecuteScalar(cmdTexts, parames, valuess));
+            if (row > 0 && rows > 0)//都重复
+            {
+                return 2;
+            }
+            else if (row > 0 && rows <= 0)//货架ID重复
+            {
+                return 1;
+            }
+            else if (rows > 0 && row <= 0)//货架名称重复
+            {
+                return -1;
+            }
+            else//都不重复
+            {
+                return 0;
+            }
         }
     }
 }

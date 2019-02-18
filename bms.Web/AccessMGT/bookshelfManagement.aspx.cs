@@ -9,7 +9,6 @@ using System.Web.UI.WebControls;
 
 namespace bms.Web.BasicInfor
 {
-    using bms.DBHelper;
     using Model;
     using System.Data.OleDb;
     using System.Text;
@@ -17,15 +16,17 @@ namespace bms.Web.BasicInfor
     using Result = Enums.OpResult;
     public partial class bookshelfManagement : System.Web.UI.Page
     {
-        public string userName,regionName;
-        public int totalCount, intPageCount, PageSize=10,row;
+        public string userName, regionName;
+        public int totalCount, intPageCount, PageSize = 10, row;
         public User user = new User();
-        public DataSet regionDs, ds,dsPer;
+        public DataSet regionDs, ds, dsPer;
         GoodsShelvesBll shelvesbll = new GoodsShelvesBll();
         RegionBll rbll = new RegionBll();
         UserBll userBll = new UserBll();
+        DataTable except = new DataTable();//接受差集
+        DataTable excel = new DataTable();
         RoleBll roleBll = new RoleBll();
-        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail,isAdmin, funcBookStock;
+        protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
@@ -55,8 +56,8 @@ namespace bms.Web.BasicInfor
                     ShelvesName = shelfName,
                     RegionId = reg
                 };
-                Result row = shelvesbll.selectByName(shelves);
-                if(row == Result.记录不存在)
+                int row = shelvesbll.selectByName(shelves);
+                if (row == 0)
                 {
                     Result result = shelvesbll.Insert(shelves);
                     if (result == Result.添加成功)
@@ -70,22 +71,21 @@ namespace bms.Web.BasicInfor
                         Response.End();
                     }
                 }
-                else if(row == Result.记录存在)
+                else if (row == 1)
                 {
                     Response.Write("货架编号已存在");
                     Response.End();
                 }
-                //else if (row == -1)
-                //{
-                //    Response.Write("货架名称已存在");
-                //    Response.End();
-                //}
-                //else
-                //{
-                //    Response.Write("货架编号，货架名称已存在");
-                //    Response.End();
-                //}
-
+                else if (row == -1)
+                {
+                    Response.Write("货架名称已存在");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("货架编号，货架名称已存在");
+                    Response.End();
+                }
                 //Result row = shelvesbll.selectByName(shelves);
                 //if (row == Result.记录不存在)
                 //{
@@ -111,7 +111,7 @@ namespace bms.Web.BasicInfor
             {
                 string shelfId = Request["shelfId"];
                 Result result = isDelete();
-                if (result==Result.记录不存在)
+                if (result == Result.记录不存在)
                 {
                     Result row = shelvesbll.DeleteTrue(shelfId);
                     if (row == Result.删除成功)
@@ -140,13 +140,13 @@ namespace bms.Web.BasicInfor
                 //设置Cookie的过期时间为上个月今天
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddMonths(-1);
             }
-            if (op=="import")
+            if (op == "import")
             {
                 DataTable dtInsert = new DataTable();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
-                
-                dtInsert = differentDt(); //赋给新table
+                differentDt();
+                dtInsert = except; //赋给新table
                 TimeSpan ts = watch.Elapsed;
                 dtInsert.TableName = "T_GoodsShelves"; //导入的表名
                 int a = userBll.BulkInsert(dtInsert);
@@ -161,14 +161,9 @@ namespace bms.Web.BasicInfor
                 }
                 else
                 {
-                    Session.Remove("path");
-                    Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据，重复数据有"+cf);
+                    Response.Write("导入失败，总数据有" + row + "条，共导入" + a + "条数据，重复数据有" + cf);
                     Response.End();
                 }
-            }
-            if (op=="check")
-            {
-                check();
             }
         }
 
@@ -236,7 +231,7 @@ namespace bms.Web.BasicInfor
             }
             else
             {
-                if (search=="")
+                if (search == "" || search == null)
                 {
                     tb.StrWhere = "regionId=" + user.ReginId.RegionId;
                 }
@@ -254,8 +249,8 @@ namespace bms.Web.BasicInfor
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * PageSize)) + "</td>");
+                strb.Append("<td style='display:none;'>" + ds.Tables[0].Rows[i]["goodsShelvesId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["shelvesName"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["goodsShelvesId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
                 strb.Append("<td>" + "<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "</button>" + " </td></tr>");
             }
@@ -272,7 +267,7 @@ namespace bms.Web.BasicInfor
         /// excel读到table
         /// </summary>
         /// <returns></returns>
-        private DataTable excelToDt()
+        private DataTable npioDt()
         {
             DataTable dt1 = new DataTable();
             int regId;
@@ -287,7 +282,7 @@ namespace bms.Web.BasicInfor
             string path = Session["path"].ToString();
             try
             {
-                dt1 = ExcelHelp.excelToDt(path,"excel");
+                dt1 = ExcelHelper.GetDataTable(path);
                 DataColumn dc = new DataColumn("地区ID", typeof(int));
                 dc.DefaultValue = regId;
                 dt1.Columns.Add(dc);
@@ -301,20 +296,45 @@ namespace bms.Web.BasicInfor
             return dt1;
         }
 
+        /// <summary>
+        /// 某字段table去重方法
+        /// </summary>
+        /// <param name="SourceDt"></param>
+        /// <param name="field1"></param>
+        /// <returns></returns>
+        private DataTable GetDistinctSelf(DataTable SourceDt, string field1)
+        {
+            int j = SourceDt.Rows.Count;
+            if (j > 1)
+            {
+                int k = j - 2;
+                int i = 1;
+                while (i <= k)
+                {
+                    DataRow dr = SourceDt.Rows[i];
+                    string a = dr[field1].ToString();
+                    DataRow[] rows = SourceDt.Select(string.Format("{0}='{1}'", field1, a));
+                    if (rows.Length > 1)
+                    {
+                        SourceDt.Rows.RemoveAt(i);
+                        k = k - 1;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+            return SourceDt;
+        }
 
         /// <summary>
         /// 取差集 导入dt
         /// </summary>
-        private DataTable differentDt()
+        private void differentDt()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("id", typeof(string));
-            dt.Columns.Add("货架名称", typeof(string));
-            dt.Columns.Add("地区ID", typeof(string));
-
-            //DataTable dt1 = DataTableHelper.GetDistinctSelf(excelToDt(), "货架名称");
-            //DataTable dt2 = DataTableHelper.GetDistinctSelf(dt1, "货架编号");
-
+            //excel = excelToDt();
+            excel = npioDt();
             int regId;
             if (user.RoleId.RoleName == "超级管理员")
             {
@@ -324,26 +344,32 @@ namespace bms.Web.BasicInfor
             {
                 regId = user.ReginId.RegionId;
             }
-            int j = shelvesbll.isgoodsId(regId);
+            int j = shelvesbll.isGoodsShelves(regId).Tables[0].Rows.Count;
             //数据库无数据时直接导入excel
             if (j <= 0)
             {
-                dt = excelToDt();
+                //except = excelToDt();
+                except = GetDistinctSelf(excel, "货架编号");
+                //except = excelDt(excel);
             }
             else
             {
-                DataTable dataSet = shelvesbll.isGoodsShelves(regId).Tables[0];
-                DataRowCollection count = excelToDt().Rows;
+                except = excelDt(excel);
+                //except.Columns.Add("id", typeof(string));
+                //except.Columns.Add("货架名称", typeof(string));
+                //except.Columns.Add("地区ID", typeof(string));
+                DataSet dataSet = shelvesbll.isGoodsShelves(regId);
+                DataRowCollection count = excel.Rows;
                 foreach (DataRow row in count)//遍历excel数据集
                 {
                     try
                     {
                         string goodsShelvesId = row[0].ToString();
                         string goodsName = row[1].ToString();
-                        DataRow[] rows = dataSet.Select(string.Format("goodsShelvesId='{0}' or shelvesName='{1}'", goodsShelvesId,goodsName));
+                        DataRow[] rows = dataSet.Tables[0].Select(string.Format("goodsShelvesId='{0}' or shelvesName='{1}'", goodsShelvesId, goodsName));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
-                            dt.Rows.Add(row[0], row[1], row[2]);
+                            except.Rows.Add(row[0], row[1], row[2]);
                         }
                     }
                     catch (Exception ex)
@@ -353,36 +379,20 @@ namespace bms.Web.BasicInfor
                     }
                 }
             }
-            return dt;
         }
+
         /// <summary>
-        /// 判断重复数据
+        /// 两次查重
         /// </summary>
-        public void check()
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        private DataTable excelDt(DataTable dt)
         {
-            string path = Session["path"].ToString();
-            DataTable dt = ExcelHelp.excelToDt(path,"excel");
-            string[] huojiaId = {"货架编号"};
-            
-            if (DataTableHelper.isRepeatDt(dt, huojiaId))
-            {
-                Response.Write("重复数据");
-                Response.End();
-            }
-            else
-            {
-                string[] huojiaName = { "货架名称" };
-                if (DataTableHelper.isRepeatDt(dt, huojiaName))
-                {
-                    Response.Write("重复数据");
-                    Response.End();
-                }
-                else
-                {
-                    Response.Write("上传成功");
-                    Response.End();
-                }
-            }
+            DataTable dataTable = new DataTable();
+            dataTable = GetDistinctSelf(dt, "货架编号");
+            DataTable table = dataTable;
+            table = GetDistinctSelf(table, "货架名称");
+            return table;
         }
 
         protected void permission()
@@ -402,9 +412,9 @@ namespace bms.Web.BasicInfor
             {
                 isAdmin = true;
             }
-            for (int i=0;i<dsPer.Tables[0].Rows.Count;i++)
+            for (int i = 0; i < dsPer.Tables[0].Rows.Count; i++)
             {
-                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) ==1)
+                if (Convert.ToInt32(dsPer.Tables[0].Rows[i]["functionId"]) == 1)
                 {
                     funcOrg = true;
                 }
