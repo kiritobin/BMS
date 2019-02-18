@@ -466,6 +466,7 @@
                                 </tr>
                                 <%} %>
                                 <tr>
+                                    <td class="text-right"><span>货架名称:</span></td>
                                     <td>
                                         <input type="text" value="" class="modal_search" id="shelfName" placeholder="请输入货架名称">
                                     </td>
@@ -475,7 +476,6 @@
                                     <td>
                                         <input type="text" value="" class="modal_search" id="shelfNo" placeholder="请输入货架编号">
                                     </td>
-                                    <td class="text-right"><span>货架名称:</span></td>
                                 </tr>
                             </table>
                         </div>

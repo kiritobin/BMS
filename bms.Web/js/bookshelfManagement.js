@@ -82,7 +82,7 @@
 
     //删除按钮事件
     $("#table").delegate(".btn_delete", "click", function () {
-        var shelId = $(this).parent().prev().prev().prev().text();
+        var shelId = $(this).parent().prev().prev().text();
         //弹窗
         swal({
             title: "温馨提示:)",
