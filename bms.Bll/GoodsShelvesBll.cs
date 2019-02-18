@@ -101,18 +101,18 @@ namespace bms.Bll
         /// </summary>
         /// <param name="shelves">货架实体对象</param>
         /// <returns></returns>
-        public int selectByName(GoodsShelves shelves)
+        public Result selectByName(GoodsShelves shelves)
         {
-            return shelvesdao.selectByName(shelves);
-            //int row = shelvesdao.selectByName(shelves);
-            //if (row>0)
-            //{
-            //    return Result.记录存在;
-            //}
-            //else
-            //{
-            //    return Result.记录不存在;
-            //}
+            //return shelvesdao.selectByName(shelves);
+            int row = shelvesdao.selectByName(shelves);
+            if (row > 0)
+            {
+                return Result.记录存在;
+            }
+            else
+            {
+                return Result.记录不存在;
+            }
         }
 
         /// <summary>

@@ -127,7 +127,7 @@ namespace bms.Dao
             }
         }
         /// <summary>
-        /// 查询货架名是否重复
+        /// 查询货架id是否重复
         /// </summary>
         /// <param name="shelves">货架实体对象</param>
         /// <returns></returns>
@@ -138,27 +138,7 @@ namespace bms.Dao
             String[] param = { "@goodsShelvesId"};
             String[] values = { shelves.GoodsShelvesId };
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
-            //货架名称
-            string cmdTexts = "select count(goodsShelvesId) from T_GoodsShelves where regionId = @regionId and shelvesName=@shelvesName";
-            String[] parames = { "@shelvesName", "@regionId" };
-            String[] valuess = { shelves.ShelvesName, shelves.RegionId.RegionId.ToString() };
-            int rows = Convert.ToInt32(db.ExecuteScalar(cmdTexts, parames, valuess));
-            if (row > 0 && rows > 0)//都重复
-            {
-                return 2;
-            }
-            else if (row > 0 && rows <= 0)//货架ID重复
-            {
-                return 1;
-            }
-            else if (rows > 0 && row <= 0)//货架名称重复
-            {
-                return -1;
-            }
-            else//都不重复
-            {
-                return 0;
-            }
+            return row;
         }
     }
 }

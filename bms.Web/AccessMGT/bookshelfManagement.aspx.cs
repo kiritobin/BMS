@@ -55,8 +55,8 @@ namespace bms.Web.BasicInfor
                     ShelvesName = shelfName,
                     RegionId = reg
                 };
-                int row = shelvesbll.selectByName(shelves);
-                if(row == 0)
+                Result row = shelvesbll.selectByName(shelves);
+                if(row == Result.记录不存在)
                 {
                     Result result = shelvesbll.Insert(shelves);
                     if (result == Result.添加成功)
@@ -70,21 +70,22 @@ namespace bms.Web.BasicInfor
                         Response.End();
                     }
                 }
-                else if(row == 1)
+                else if(row == Result.记录存在)
                 {
                     Response.Write("货架编号已存在");
                     Response.End();
                 }
-                else if (row == -1)
-                {
-                    Response.Write("货架名称已存在");
-                    Response.End();
-                }
-                else
-                {
-                    Response.Write("货架编号，货架名称已存在");
-                    Response.End();
-                }
+                //else if (row == -1)
+                //{
+                //    Response.Write("货架名称已存在");
+                //    Response.End();
+                //}
+                //else
+                //{
+                //    Response.Write("货架编号，货架名称已存在");
+                //    Response.End();
+                //}
+
                 //Result row = shelvesbll.selectByName(shelves);
                 //if (row == Result.记录不存在)
                 //{
@@ -332,7 +333,7 @@ namespace bms.Web.BasicInfor
                     {
                         string goodsShelvesId = row[0].ToString();
                         string goodsName = row[1].ToString();
-                        DataRow[] rows = dataSet.Select(string.Format("goodsShelvesId='{0}' or shelvesName='{1}'", goodsShelvesId,goodsName));
+                        DataRow[] rows = dataSet.Select(string.Format("goodsShelvesId='{0}'", goodsShelvesId,goodsName));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
                             dt.Rows.Add(row[0], row[1], row[2]);
@@ -363,17 +364,8 @@ namespace bms.Web.BasicInfor
             }
             else
             {
-                string[] huojiaName = { "货架名称" };
-                if (DataTableHelper.isRepeatDt(dt, huojiaName))
-                {
-                    Response.Write("重复数据");
-                    Response.End();
-                }
-                else
-                {
-                    Response.Write("上传成功");
-                    Response.End();
-                }
+                Response.Write("上传成功");
+                Response.End();
             }
         }
 
