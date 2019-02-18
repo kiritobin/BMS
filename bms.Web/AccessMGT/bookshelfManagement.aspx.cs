@@ -254,8 +254,8 @@ namespace bms.Web.BasicInfor
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * PageSize)) + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["goodsShelvesId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["shelvesName"].ToString() + "</td>");
+                strb.Append("<td>" + ds.Tables[0].Rows[i]["goodsShelvesId"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["regionName"].ToString() + "</td>");
                 strb.Append("<td>" + "<button class='btn btn-danger btn-sm btn_delete'>" + "<i class='fa fa-trash-o fa-lg'></i>" + "</button>" + " </td></tr>");
             }
