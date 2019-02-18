@@ -236,7 +236,14 @@ namespace bms.Web.BasicInfor
             }
             else
             {
-                tb.StrWhere = "regionId=" + user.ReginId.RegionId + " and " + search;
+                if (search=="")
+                {
+                    tb.StrWhere = "regionId=" + user.ReginId.RegionId;
+                }
+                else
+                {
+                    tb.StrWhere = "regionId=" + user.ReginId.RegionId + " and " + search;
+                }
             }
             //获取展示的客户数据
             ds = shelvesbll.selectByPage(tb, out totalCount, out intPageCount);

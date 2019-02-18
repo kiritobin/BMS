@@ -148,15 +148,23 @@
     })
     //添加按钮事件
     $("#btnAdd").click(function () {
+        var index = "";
         var roleName = $("#roleName").val().trim();
-        var region;
+        var goodsId = $("#model-select-region").val();
+        var region="";
         if (roleName == "超级管理员") {
             region = $("#model-select-region").find("option:selected").val().trim();
+            if (goodsId == "") {
+                index = "false";
+            }
+            else {
+                index = "true";
+            }
         } else {
             region = "";
         }
         var shelfNo = $("#shelfNo").val().trim();
-        var shelfName = $("#shelfName").val().trim();
+        var shelfName = $("#shelfName").val();
         if (shelfNo == "") {
             swal({
                 title: "温馨提示:)",
@@ -169,6 +177,15 @@
             swal({
                 title: "温馨提示:)",
                 text: "货架名称不能为空，请您输入货架名称!",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
+        else if (index=="false") {
+            swal({
+                title: "温馨提示:)",
+                text: "货架所在地区不能为空!",
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"
