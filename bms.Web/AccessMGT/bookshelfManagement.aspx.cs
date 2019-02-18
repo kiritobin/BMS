@@ -340,7 +340,7 @@ namespace bms.Web.BasicInfor
                     {
                         string goodsShelvesId = row[0].ToString();
                         string goodsName = row[1].ToString();
-                        DataRow[] rows = dataSet.Select(string.Format("goodsShelvesId='{0}'", goodsShelvesId,goodsName));
+                        DataRow[] rows = dataSet.Select(string.Format("goodsShelvesId='{0}' or shelvesName='{1}'", goodsShelvesId,goodsName));
                         if (rows.Length == 0)//判断如果DataRow.Length为0，即该行excel数据不存在于表A中，就插入到dt3
                         {
                             dt.Rows.Add(row[0], row[1], row[2]);
@@ -371,8 +371,17 @@ namespace bms.Web.BasicInfor
             }
             else
             {
-                Response.Write("上传成功");
-                Response.End();
+                string[] huojiaName = { "货架名称" };
+                if (DataTableHelper.isRepeatDt(dt, huojiaName))
+                {
+                    Response.Write("重复数据");
+                    Response.End();
+                }
+                else
+                {
+                    Response.Write("上传成功");
+                    Response.End();
+                }
             }
         }
 
