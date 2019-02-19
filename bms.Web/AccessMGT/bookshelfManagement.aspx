@@ -373,8 +373,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>序号</th>
-                                                    <th>货架名称</th>
                                                     <th>货架编号</th>
+                                                    <th>货架名称</th>
                                                     <th>组织名称</th>
                                                     <th>操作</th>
                                                 </tr>
@@ -466,13 +466,13 @@
                                 </tr>
                                 <%} %>
                                 <tr>
-                                    <td class="text-right"><span>货架名称:</span></td>
+                                    <td class="text-right"><span>货架编号:</span></td>
                                     <td>
                                         <input type="text" value="" class="modal_search" id="shelfName" placeholder="请输入货架名称">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-right"><span>货架编号:</span></td>
+                                    <td class="text-right"><span>货架名称:</span></td>
                                     <td>
                                         <input type="text" value="" class="modal_search" id="shelfNo" placeholder="请输入货架编号">
                                     </td>
