@@ -331,13 +331,17 @@ $("#table").delegate(".count","keypress" ,function (e) {
 })
 $("#table").delegate(".count", "change", function (e) {
     var count = $(this).val().trim();
+    var gId = $(this).parent().next().next().next().next().next().next();
     $(this).text(count);
     var price = $(this).parent().next().text();
     var discount = $(this).parent().next().next().text();
     var total = $(this).parent().next().next().next();
+    var goods = $(this).parent().prev().children().val();
+    gId.text(goods);
     var real = $(this).parent().next().next().next().next();
     total.text((count * price).toFixed(2));
     real.text((count * price * discount * 0.01).toFixed(2));
+
 });
 //下拉列表改变
 $("#table").delegate(".goods", "change", function () {
@@ -370,6 +374,9 @@ $("#table").delegate(".discount", "change", function () {
             }
         })
 });
+
+
+
 //删除当前行
 $("#table").delegate(".btn-danger", "click", function () {
     $(this).parent().parent().remove();

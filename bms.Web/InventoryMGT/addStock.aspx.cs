@@ -595,7 +595,7 @@ namespace bms.Web.InventoryMGT
                         bookBasic.Isbn = drow["ISBN号"].ToString();
                         bookBasic.BookNum = drow["书号"].ToString();
                         Stock stock = new Stock();
-                        stock.StockNum = Convert.ToInt32(drow["商品数量"]);
+                        stock.StockNum = Convert.ToInt32(drow["数量"]);
                         stock.ISBN = bookBasic;
                         stock.BookNum = bookBasic;
                         stock.RegionId = user.ReginId;
@@ -638,7 +638,7 @@ namespace bms.Web.InventoryMGT
                                 SingleHead single = new SingleHead();
                                 single.SingleHeadId = Session["id"].ToString();
                                 monomers.SingleHeadId = single;
-                                count = Convert.ToInt32(drow["商品数量"]);
+                                count = Convert.ToInt32(drow["数量"]);
                                 counts = counts + count;
                                 total = Convert.ToDouble(drow["码洋"]);
                                 allTotal = allTotal + total;
@@ -710,7 +710,7 @@ namespace bms.Web.InventoryMGT
                         {
                             //写入库存
                             int rows = stockBll.getStockNum(drow["书号"].ToString(), goodsShelf, user.ReginId.RegionId);
-                            Result result = stockBll.update(Convert.ToInt32(drow["商品数量"]) + rows, goodsShelf, drow["书号"].ToString());
+                            Result result = stockBll.update(Convert.ToInt32(drow["数量"]) + rows, goodsShelf, drow["书号"].ToString());
                             if (result == Result.更新失败)
                             {
                                 Response.Write("添加失败");
@@ -741,7 +741,7 @@ namespace bms.Web.InventoryMGT
                                 SingleHead single = new SingleHead();
                                 single.SingleHeadId = Session["id"].ToString();
                                 monomers.SingleHeadId = single;
-                                count = Convert.ToInt32(drow["商品数量"]);
+                                count = Convert.ToInt32(drow["数量"]);
                                 counts = counts + count;
                                 total = Convert.ToDouble(drow["码洋"]);
                                 allTotal = allTotal + total;

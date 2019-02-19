@@ -271,8 +271,8 @@ namespace bms.Web.InventoryMGT
                 {
                     DataRow drow = dataTable.Rows[i];
                     string bookNum = drow["书号"].ToString();
-                    count = Convert.ToInt32(drow["商品数量"]);
-                    int billCount = Convert.ToInt32(drow["商品数量"]);
+                    count = Convert.ToInt32(drow["数量"]);
+                    int billCount = Convert.ToInt32(drow["数量"]);
                     string goodsId = "0";//货架ID
                     DataSet dsGoods = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
                     for (int j = 0; j < dsGoods.Tables[0].Rows.Count; j++)
@@ -326,14 +326,14 @@ namespace bms.Web.InventoryMGT
                     monomers.BookNum = book;
                     monomers.Discount = Convert.ToDouble(drow["折扣"]);
                     monomers.MonomersId = Convert.ToInt32(drow["单据编号"]);
-                    monomers.Number = Convert.ToInt32(drow["商品数量"]);
+                    monomers.Number = Convert.ToInt32(drow["数量"]);
                     monomers.TotalPrice = Convert.ToDouble(drow["码洋"]);
                     monomers.RealPrice = Convert.ToDouble(drow["实洋"]);
                     monomers.ShelvesId = goodsId;//货架ID
                     SingleHead single = new SingleHead();
                     single.SingleHeadId = Session["singleHeadId"].ToString();
                     monomers.SingleHeadId = single;
-                    count = Convert.ToInt32(drow["商品数量"]);
+                    count = Convert.ToInt32(drow["数量"]);
                     counts = counts + count;
                     total = Convert.ToDouble(drow["码洋"]);
                     allTotal = allTotal + total;
