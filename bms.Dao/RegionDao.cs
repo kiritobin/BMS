@@ -94,13 +94,13 @@ namespace bms.Dao
             return row;
         }
         /// <summary>
-        /// 查找是否组织名称是否存在
+        /// 查找组织名称是否存在
         /// </summary>
         /// <param name="regionName">组织名称</param>
         /// <returns></returns>
         public int isExit(string regionName)
         {
-            string cmdText = "select count(regionName) from T_Region where regionName=@regionName";
+            string cmdText = "select count(regionName) from T_Region where regionName=@regionName and deleteState=0";
             string[] param = { "@regionName" };
             object[] values = { regionName };
             int row = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
