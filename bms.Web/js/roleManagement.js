@@ -204,55 +204,71 @@ $(".paging").pagination({
         var roleName = $("#editRoleName").val().trim();
         if (sessionStorage.getItem("editFun") == "true") {
             var obj = $("input[name=checkboxEdit]");//获取复选框
+            var flag = false;
             var strs = "";
             if (obj.length > 0) {
                 for (var j = 0; j < obj.length; j++) {
                     if (obj[j].checked == true) {
                         var str = obj[j].value + "?";
                         strs = strs + str;
+                        flag = true;
                     }
                 }
-                $.ajax({
-                    type: 'Post',
-                    url: 'roleManagement.aspx',
-                    data: {
-                        rows: sessionStorage.getItem("rows"),
-                        roleId: sessionStorage.getItem("roleId"),
-                        oldName: sessionStorage.getItem("roleName"),
-                        roleName: roleName,
-                        funIds: strs,
-                        op: "editFun"
-                    },
-                    dataType: 'text',
-                    success: function (succ) {
-                        if (succ == "更新成功") {
-                            swal({
-                                title: succ,
-                                text: succ,
-                                type: "success",
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: '确定',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false,
-                                allowOutsideClick: false
-                            }).then(function () {
-                                window.location.reload();
-                            })
-                        } else {
-                            swal({
-                                title: succ,
-                                text: succ,
-                                type: "warning",
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: '确定',
-                                confirmButtonClass: 'btn btn-success',
-                                buttonsStyling: false,
-                                allowOutsideClick: false
-                            }).then(function () {
-                            })
+                if (flag == true) {
+                    $.ajax({
+                        type: 'Post',
+                        url: 'roleManagement.aspx',
+                        data: {
+                            rows: sessionStorage.getItem("rows"),
+                            roleId: sessionStorage.getItem("roleId"),
+                            oldName: sessionStorage.getItem("roleName"),
+                            roleName: roleName,
+                            funIds: strs,
+                            op: "editFun"
+                        },
+                        dataType: 'text',
+                        success: function (succ) {
+                            if (succ == "更新成功") {
+                                swal({
+                                    title: succ,
+                                    text: succ,
+                                    type: "success",
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: '确定',
+                                    confirmButtonClass: 'btn btn-success',
+                                    buttonsStyling: false,
+                                    allowOutsideClick: false
+                                }).then(function () {
+                                    window.location.reload();
+                                })
+                            } else {
+                                swal({
+                                    title: succ,
+                                    text: succ,
+                                    type: "warning",
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: '确定',
+                                    confirmButtonClass: 'btn btn-success',
+                                    buttonsStyling: false,
+                                    allowOutsideClick: false
+                                }).then(function () {
+                                })
+                            }
                         }
-                    }
-                })
+                    })
+                } else {
+                    swal({
+                        title: "未选择任何项",
+                        text: "请至少选择一项权限",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    }).then(function () {
+                    })
+                }
             } else {
                 swal({
                     title: "未选择任何项",
