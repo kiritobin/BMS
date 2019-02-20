@@ -335,6 +335,8 @@ $(".paging").pagination({
 
     //删除职位
     $("#table").delegate(".btn-delete", "click", function () {
+        var rows = $(this).prev().prev().prev().prev().val();
+        var roleId = $(this).prev().prev().prev().val();
         swal({
             title: "温馨提示:)",
             text: "删除后将无法恢复，您确定要删除吗？？？",
@@ -349,8 +351,6 @@ $(".paging").pagination({
             buttonsStyling: false,
             allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
         }).then(function () {
-            var rows = $(".btn-delete").prev().prev().prev().prev().val();
-            var roleId = $(".btn-delete").prev().prev().prev().val();
             $.ajax({
                 type: 'Post',
                 url: 'roleManagement.aspx',
