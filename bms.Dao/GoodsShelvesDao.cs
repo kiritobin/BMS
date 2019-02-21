@@ -90,6 +90,7 @@ namespace bms.Dao
                 return null;
             }
         }
+
         /// <summary>
         /// 通过地区id和货架名查货架id
         /// </summary>
