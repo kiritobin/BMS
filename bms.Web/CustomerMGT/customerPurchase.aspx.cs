@@ -165,7 +165,7 @@ namespace bms.Web.CustomerMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SaleMonomer";
             tbd.OrderBy = "saleIdMonomerId";
-            tbd.StrColumnlist = "bookName,ISBN,saleIdMonomerId,unitPrice,number,totalPrice,realPrice,realDiscount,dateTime,regionName";
+            tbd.StrColumnlist = "bookName,ISBN,saleHeadId,saleHeadId,saleIdMonomerId,unitPrice,number,totalPrice,realPrice,realDiscount,dateTime,regionName";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = search;
             tbd.IntPageNum = currentPage;
@@ -180,7 +180,7 @@ namespace bms.Web.CustomerMGT
             for (int i = 0; i < j; i++)
             {
                 DataRow dr = ds.Tables[0].Rows[i];
-                sb.Append("<tr><td>" + dr["saleIdMonomerId"].ToString() + "</td >");
+                sb.Append("<tr><td>" + dr["saleHeadId"].ToString() + "</td >");
                 sb.Append("<td>" + dr["ISBN"].ToString() + "</td >");
                 sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["unitPrice"].ToString() + "</td >");

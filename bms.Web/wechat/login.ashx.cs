@@ -71,6 +71,7 @@ namespace bms.Web.wechat
 
         private void userlogin(HttpContext context) {
 
+            loginmsg logs = new loginmsg();
             string account = context.Request["userName"];
             string rePwd = context.Request["pwd"];
             string pwd = RSACryptoService.DecryptByAES(rePwd);
@@ -79,12 +80,14 @@ namespace bms.Web.wechat
             Result row = userBll.isUser(account);
             if (row == Result.记录不存在)
             {
-                context.Response.Write("该账号不存在");
+                logs.msg = "该账号不存在";
+                string json = JsonHelper.JsonSerializerBySingleData(logs);
+                context.Response.Write(json);
                 context.Response.End();
             }
             else
             {
-                loginmsg logs = new loginmsg();
+                
                 if (user.UserId.ToString() == account && userPwd == pwd)
                 {
                     context.Response.Cookies[FormsAuthentication.FormsCookieName].Value = null;
