@@ -284,6 +284,7 @@ $(document).ready(function () {
     //查看详情
     $("#table").delegate(".look", "click", function (e) {
         var groupby = $("#groupby").find("option:selected").text();
+        var looktime = $("#time").val();
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
@@ -294,7 +295,7 @@ $(document).ready(function () {
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        window.location.href = "returnDetails.aspx?type=" + groupbyType + "&&name=" + name;
+        window.location.href = "returnDetails.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime;
         //if (name == "" || name == null) {
         //    swal({
         //        title: "提示",

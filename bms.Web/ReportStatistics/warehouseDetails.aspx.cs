@@ -171,6 +171,7 @@ namespace bms.Web.ReportStatistics
             string discount = Request["discount"];
             string user = Request["user"];
             string time = Request["time"];
+            string looktime = Request["looktime"];
             if (isbn != null && isbn != "")
             {
                 strWhere += " and isbn like '%" + isbn + "%'";
@@ -230,6 +231,17 @@ namespace bms.Web.ReportStatistics
                 string endTime = sArray[1];
                 strWhere += " and time BETWEEN'" + startTime + "' and '" + endTime + "'";
             }
+            if (time == null || time == "")
+            {
+                if (looktime != null && looktime != "")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and time BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
+            }
+            
             strWhere += " and type=0 group by bookNum,userName,"+type;
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
@@ -305,6 +317,7 @@ namespace bms.Web.ReportStatistics
             string discount = Request.QueryString["discount"];
             string user = Request.QueryString["user"];
             string time = Request.QueryString["time"];
+            string looktime = Request.QueryString["looktime"];
             string strWhere = groupType;
             string fileName = name;
             if (isbn != null && isbn != "")
@@ -362,8 +375,26 @@ namespace bms.Web.ReportStatistics
             }
             if (time != null && time != "")
             {
-                strWhere += " and time='" + time + "'";
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                strWhere += " and time BETWEEN'" + startTime + "' and '" + endTime + "'";
             }
+            if (time == null || time == "")
+            {
+                if (looktime != null && looktime != "")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and time BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
+            }
+            //if (time != null && time != "")
+            //{
+            //    strWhere += " and time='" + time + "'";
+            //}
+
             string Name = fileName + "-出库明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
             DataTable dt = wareBll.ExportExcelDetail(strWhere, type, 0);
             if (dt != null && dt.Rows.Count > 0)

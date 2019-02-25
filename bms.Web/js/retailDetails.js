@@ -15,6 +15,27 @@ jeDate("#endTime", {
     multiPane: true,
     format: "YYYY-MM-DD"
 });
+
+//地址栏获取
+//console.log(getUrlParam(location.href,"参数名"));
+function getUrlParam(url, name) {
+    var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+    var matcher = pattern.exec(url);
+    var items = null;
+    if (null != matcher) {
+        try {
+            items = decodeURIComponent(decodeURIComponent(matcher[1]));
+        } catch (e) {
+            try {
+                items = decodeURIComponent(matcher[1]);
+            } catch (e) {
+                items = matcher[1];
+            }
+        }
+    }
+    return items;
+} 
+
 //获取地址栏参数
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -42,6 +63,7 @@ $(document).ready(function () {
             var discount = $("#discount").val();
             var user = $("#user").val();
             var time = $("#time").val();
+            var looktime = getUrlParam(location.href, "looktime");
             var payment = $("#payment").val();
             $.ajax({
                 type: 'Post',
@@ -53,6 +75,7 @@ $(document).ready(function () {
                     discount: discount,
                     user: user,
                     time: time,
+                    looktime: looktime,
                     payment: payment,
                     op: "paging"
                 },
@@ -108,6 +131,7 @@ $(document).ready(function () {
         var discount = $("#discount").val();
         var user = $("#user").val();
         var time = $("#time").val();
+        var looktime = getUrlParam(location.href, "looktime");
         var payment = $("#payment").val();
         $.ajax({
             type: 'Post',
@@ -118,6 +142,7 @@ $(document).ready(function () {
                 discount: discount,
                 user: user,
                 time: time,
+                looktime: looktime,
                 payment: payment,
                 op: "paging"
             },
@@ -147,6 +172,7 @@ $(document).ready(function () {
                                 discount: discount,
                                 user: user,
                                 time: time,
+                                looktime: looktime,
                                 payment: payment,
                                 op: "paging"
                             },
@@ -169,8 +195,9 @@ $(document).ready(function () {
         var discount = $("#discount").val();
         var user = $("#user").val();
         var time = $("#time").val();
+        var looktime = getUrlParam(location.href, "looktime");
         var payment = $("#payment").val();
-        window.location.href = "retailDetails.aspx?op=export&&isbn=" + isbn + "&&price=" + price + "&&discount=" + discount + "&&user=" + user + "&&time=" + time + "&&payment=" + payment;
+        window.location.href = "retailDetails.aspx?op=export&&isbn=" + isbn + "&&price=" + price + "&&discount=" + discount + "&&user=" + user + "&&time=" + time + "&&payment=" + payment + "&&looktime=" + looktime;
     })
     //返回上一页
     $("#back").click(function () {
@@ -185,6 +212,7 @@ $(document).ready(function () {
         var user = $("#user").val();
         var time = $("#time").val();
         var payment = $("#payment").val();
+        var looktime = getUrlParam(location.href, "looktime");
         //alert(t);
         if (t <= 1) {
             swal({
@@ -208,6 +236,7 @@ $(document).ready(function () {
                     discount: discount,
                     user: user,
                     time: time,
+                    looktime: looktime,
                     payment: payment,
                     op: "print"
                 },
@@ -267,6 +296,7 @@ $(document).ready(function () {
         var discount = $("#discount").val();
         var user = $("#user").val();
         var time = $("#time").val();
+        var looktime = getUrlParam(location.href, "looktime");
         var payment = $("#payment").val();
         $.ajax({
             type: 'Post',
@@ -277,6 +307,7 @@ $(document).ready(function () {
                 discount: discount,
                 user: user,
                 time: time,
+                looktime: looktime,
                 payment: payment,
                 op: "print"
             },

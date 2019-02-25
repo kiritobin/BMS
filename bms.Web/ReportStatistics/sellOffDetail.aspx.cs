@@ -85,6 +85,7 @@ namespace bms.Web.ReportStatistics
             string discount = Request["discount"];
             string user = Request["user"];
             string time = Request["time"];
+            string looktime = Request["looktime"];
             string state = Request["state"];
             if (isbn != null && isbn != "")
             {
@@ -144,6 +145,16 @@ namespace bms.Web.ReportStatistics
                 string startTime = sArray[0];
                 string endTime = sArray[1];
                 strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+            }
+            if (time == "" || time == null)
+            {
+                if (looktime != null && looktime != "")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
             }
             strWhere += " group by bookNum";
             //获取分页数据
@@ -232,6 +243,7 @@ namespace bms.Web.ReportStatistics
             string discount = Request["discount"];
             string user = Request["user"];
             string time = Request["time"];
+            string looktime = Request["looktime"];
             string state = Request["state"];
             if (isbn != null && isbn != "")
             {
@@ -291,6 +303,16 @@ namespace bms.Web.ReportStatistics
                 string startTime = sArray[0];
                 string endTime = sArray[1];
                 strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+            }
+            if (time == "" || time == null)
+            {
+                if (looktime != null && looktime != "")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
             }
 
             string Name = name + "-销退明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
@@ -412,6 +434,7 @@ namespace bms.Web.ReportStatistics
             string discount = Request["discount"];
             string user = Request["user"];
             string time = Request["time"];
+            string looktime = Request["looktime"];
             string state = Request["state"];
             if (isbn != null && isbn != "")
             {
@@ -471,6 +494,16 @@ namespace bms.Web.ReportStatistics
                 string startTime = sArray[0];
                 string endTime = sArray[1];
                 strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+            }
+            if (time == "" || time == null)
+            {
+                if (looktime != null && looktime != "")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
             }
 
             DataTable dt = sellBll.ExportExcels(strWhere, type);

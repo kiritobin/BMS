@@ -58,6 +58,7 @@ namespace bms.Web.ReportStatistics
             string discount = Request["discount"];
             string user = Request["user"];
             string time = Request["time"];
+            string looktime = Request["looktime"];
             string payment = Request["payment"];
             string strWhere = groupType;
             if (isbn != null && isbn != "")
@@ -115,7 +116,21 @@ namespace bms.Web.ReportStatistics
             }
             if (time != null && time != "")
             {
-                strWhere += " and dateTime='" + time + "'";
+                //strWhere += " and dateTime='" + time + "'";
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+            }
+            if (time == "" || time == null)
+            {
+                if (looktime != null && looktime != "")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
             }
             if (payment != null && payment != "")
             {
@@ -165,6 +180,7 @@ namespace bms.Web.ReportStatistics
             string discount = Request["discount"];
             string user = Request["user"];
             string time = Request["time"];
+            string looktime = Request["looktime"];
             string payment = Request["payment"];
             if (isbn != null && isbn != "")
             {
@@ -224,6 +240,16 @@ namespace bms.Web.ReportStatistics
                 string startTime = sArray[0];
                 string endTime = sArray[1];
                 strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+            }
+            if (time == "" || time == null)
+            {
+                if (looktime != null && looktime != "")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
             }
             if (payment != null && payment != "")
             {
@@ -305,6 +331,7 @@ namespace bms.Web.ReportStatistics
             string discount = Request.QueryString["discount"];
             string user = Request.QueryString["user"];
             string time = Request.QueryString["time"];
+            string looktime = Request.QueryString["looktime"];
             string payment = Request.QueryString["payment"];
             string strWhere = groupType;
             string fileName = name;
@@ -363,7 +390,21 @@ namespace bms.Web.ReportStatistics
             }
             if (time != null && time != "")
             {
-                strWhere += " and dateTime='" + time + "'";
+                //strWhere += " and dateTime='" + time + "'";
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+            }
+            if (time == "" || time == null)
+            {
+                if (looktime != null && looktime != "")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
             }
             if (payment != null && payment != "")
             {

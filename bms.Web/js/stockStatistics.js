@@ -120,7 +120,7 @@ $(document).ready(function () {
                     groupbyType: groupbyType,
                     supplier: supplier,
                     regionName: regionName,
-                    time:time,
+                    time: time,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -283,6 +283,7 @@ $(document).ready(function () {
     })
     //查看详情
     $("#table").delegate(".look", "click", function (e) {
+        var looktime = $("#time").val();
         var groupby = $("#groupby").find("option:selected").text();
         var groupbyType;
         if (groupby == "供应商") {
@@ -294,7 +295,7 @@ $(document).ready(function () {
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        window.location.href = "stockDetails.aspx?type=" + groupbyType + "&&name=" + name;
+        window.location.href = "stockDetails.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime;
         //if (name == "" || name == null) {
         //    swal({
         //        title: "提示",

@@ -15,6 +15,27 @@ jeDate("#endTime", {
     multiPane: true,
     format: "YYYY-MM-DD"
 });
+
+//地址栏获取
+//console.log(getUrlParam(location.href,"参数名"));
+function getUrlParam(url, name) {
+    var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+    var matcher = pattern.exec(url);
+    var items = null;
+    if (null != matcher) {
+        try {
+            items = decodeURIComponent(decodeURIComponent(matcher[1]));
+        } catch (e) {
+            try {
+                items = decodeURIComponent(matcher[1]);
+            } catch (e) {
+                items = matcher[1];
+            }
+        }
+    }
+    return items;
+}  
+
 $(document).ready(function () {
     $("#printContent").hide();
     $(".paging").pagination({
@@ -32,6 +53,7 @@ $(document).ready(function () {
             var discount = $("#discount").val();
             var user = $("#user").val();
             var time = $("#time").val();
+            var looktime = getUrlParam(location.href, "looktime");
             $.ajax({
                 type: 'Post',
                 url: 'returnDetails.aspx',
@@ -42,6 +64,7 @@ $(document).ready(function () {
                     discount: discount,
                     user: user,
                     time: time,
+                    looktime: looktime,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -96,6 +119,7 @@ $(document).ready(function () {
         var discount = $("#discount").val();
         var user = $("#user").val();
         var time = $("#time").val();
+        var looktime = getUrlParam(location.href, "looktime");
         $.ajax({
             type: 'Post',
             url: 'returnDetails.aspx',
@@ -133,6 +157,7 @@ $(document).ready(function () {
                                 discount: discount,
                                 user: user,
                                 time: time,
+                                looktime: looktime,
                                 op: "paging"
                             },
                             dataType: 'text',
@@ -154,7 +179,8 @@ $(document).ready(function () {
         var discount = $("#discount").val();
         var user = $("#user").val();
         var time = $("#time").val();
-        window.location.href = "returnDetails.aspx?op=export&&isbn=" + isbn + "&&price=" + price + "&&discount=" + discount + "&&user=" + user + "&&time=" + time;
+        var looktime = getUrlParam(location.href, "looktime");
+        window.location.href = "returnDetails.aspx?op=export&&isbn=" + isbn + "&&price=" + price + "&&discount=" + discount + "&&user=" + user + "&&time=" + time + "&&looktime=" + looktime;
     })
     //返回上一页
     $("#back").click(function () {
@@ -170,6 +196,7 @@ $(document).ready(function () {
         var discount = $("#discount").val();
         var user = $("#user").val();
         var time = $("#time").val();
+        var looktime = getUrlParam(location.href, "looktime");
         var t = $("#table").find('tr').length;
         //alert(t);
         if (t <= 1) {
@@ -196,6 +223,7 @@ $(document).ready(function () {
                     discount: discount,
                     user: user,
                     time: time,
+                    looktime: looktime,
                     op: "print"
                 },
                 dataType: 'text',
@@ -257,6 +285,7 @@ $(document).ready(function () {
         var discount = $("#discount").val();
         var user = $("#user").val();
         var time = $("#time").val();
+        var looktime = getUrlParam(location.href, "looktime");
         $.ajax({
             type: 'Post',
             url: 'returnDetails.aspx',
@@ -268,6 +297,7 @@ $(document).ready(function () {
                 discount: discount,
                 user: user,
                 time: time,
+                looktime: looktime,
                 op: "print"
             },
             dataType: 'text',

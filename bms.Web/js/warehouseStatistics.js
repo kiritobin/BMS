@@ -75,6 +75,26 @@ window.onload = function () {
 //    });
 //});
 
+//地址栏获取
+//console.log(getUrlParam(location.href,"参数名"));
+function getUrlParam(url, name) {
+    var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+    var matcher = pattern.exec(url);
+    var items = null;
+    if (null != matcher) {
+        try {
+            items = decodeURIComponent(decodeURIComponent(matcher[1]));
+        } catch (e) {
+            try {
+                items = decodeURIComponent(matcher[1]);
+            } catch (e) {
+                items = matcher[1];
+            }
+        }
+    }
+    return items;
+}  
+
 $(document).ready(function () {
     $("#printContent").hide();//隐藏打印内容
     $("#print_table").hide();
@@ -284,6 +304,7 @@ $(document).ready(function () {
     //查看详情
     $("#table").delegate(".look", "click", function (e) {
         var groupby = $("#groupby").find("option:selected").text();
+        var looktime = $("#time").val();
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
@@ -294,7 +315,7 @@ $(document).ready(function () {
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        window.location.href = "warehouseDetails.aspx?type=" + groupbyType + "&&name=" + name;
+        window.location.href = "warehouseDetails.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime;
         //if (name == "" || name == null) {
         //    swal({
         //        title: "提示",

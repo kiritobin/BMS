@@ -295,6 +295,7 @@ $(document).ready(function () {
 
     //查看详情
     $("#table").delegate(".look", "click", function (e) {
+        var looktime = $("#time").val();
         var groupby = $("#groupby").find("option:selected").text();
         var groupbyType;
         if (groupby == "组织") {
@@ -305,7 +306,7 @@ $(document).ready(function () {
             groupbyType = "payment";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        window.location.href = "retailDetails.aspx?type=" + groupbyType + "&&name=" + name;
+        window.location.href = "retailDetails.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime;
         //if (name == "" || name == null) {
         //    swal({
         //        title: "提示",

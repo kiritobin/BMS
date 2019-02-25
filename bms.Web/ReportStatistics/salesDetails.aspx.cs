@@ -77,6 +77,7 @@ namespace bms.Web.ReportStatistics
             string discount = Request["discount"];
             string user = Request["user"];
             string time = Request["time"];
+            string looktime = Request["looktime"];
             string state = Request["state"];
             if (isbn != null && isbn != "")
             {
@@ -137,6 +138,17 @@ namespace bms.Web.ReportStatistics
                 string endTime = sArray[1];
                 strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
             }
+            if (time == "" || time == null)
+            {
+                if (looktime != null && looktime != "")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
+            }
+
             if (state != null && state != "" && state != "-1")
             {
                 if (state == "1")
@@ -252,6 +264,7 @@ namespace bms.Web.ReportStatistics
             string discount = Request["discount"];
             string user = Request["user"];
             string time = Request["time"];
+            string looktime = Request["looktime"];
             string state = Request["state"];
             if (isbn != null && isbn != "")
             {
@@ -311,6 +324,16 @@ namespace bms.Web.ReportStatistics
                 string startTime = sArray[0];
                 string endTime = sArray[1];
                 strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+            }
+            if (time == "" || time == null)
+            {
+                if (looktime != null && looktime != "")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
             }
             if (state != null && state != "" && state != "-1")
             {
@@ -361,6 +384,7 @@ namespace bms.Web.ReportStatistics
             string discount = Request["discount"];
             string user = Request["user"];
             string time = Request["time"];
+            string looktime = Request["looktime"];
             string state = Request["state"];
             if (isbn != null && isbn != "")
             {
@@ -420,6 +444,16 @@ namespace bms.Web.ReportStatistics
                 string startTime = sArray[0];
                 string endTime = sArray[1];
                 strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+            }
+            if (time == "" || time == null)
+            {
+                if (looktime != null && looktime != "")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
             }
             if (state != null && state != "" && state != "-1")
             {
