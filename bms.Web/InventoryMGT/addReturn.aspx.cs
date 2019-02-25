@@ -321,6 +321,7 @@ namespace bms.Web.InventoryMGT
                     book.Isbn = drow["ISBN号"].ToString();
                     book.Price = Convert.ToDouble(drow["单价"]);
                     book.BookNum = drow["书号"].ToString();
+                    monomers.Type = 2;
                     monomers.Isbn = book;
                     monomers.UPrice = book;
                     monomers.BookNum = book;
