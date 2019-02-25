@@ -511,7 +511,7 @@
             </div>
 
             <%-- 报表查询条件 --%>
-            <div class="modal fade" id="bbModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+<%--            <div class="modal fade" id="bbModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" style="max-width: 450px;">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -547,7 +547,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--%>
 
             <!-- 主界面页脚部分 -->
             <footer class="footer">
