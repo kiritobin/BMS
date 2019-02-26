@@ -131,7 +131,40 @@ namespace bms.Dao
         }
 
         /// <summary>
-        /// 根据当天时间获取单头编号
+        /// 获取数据采集制单日期
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getPerSaleHeadTime()
+        {
+            string comText = "select dateTime from T_SaleHead_copy order by dateTime desc";
+            DataSet ds = db.FillDataSet(comText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                string time = ds.Tables[0].Rows[0]["dateTime"].ToString();
+                return time.Substring(0, 10);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 数据采集根据当天时间获取单头编号
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getPerSaleHeadIdByTime(string nowtime)
+        {
+            //SELECT saleTaskId from t_saletask where startTime like  ORDER BY startTime desc
+            string comText = "select saleHeadId from T_SaleHead_copy where dateTime like '" + nowtime + "%' order by saleHeadId desc";
+            DataSet ds = db.FillDataSet(comText, null, null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                string saleHeadId = ds.Tables[0].Rows[0]["saleHeadId"].ToString();
+                return saleHeadId;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 团采根据当天时间获取单头编号
         /// </summary>
         /// <returns>时间字符串</returns>
         public string getSaleHeadIdByTime(string nowtime)
