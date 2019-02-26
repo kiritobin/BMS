@@ -24,7 +24,7 @@ namespace bms.Web.InventoryMGT
         protected string sbNum, sjNum, total, real, title;
         protected void Page_Load(object sender, EventArgs e)
         {
-            string tjType = Request.QueryString["type"];
+            string tjType = Request["type"];
             string tjRegion = Request["region"];
             string tjHeadId = Request["singleHeadId"];
             string tjuserName = Request["userName"];
@@ -142,68 +142,74 @@ namespace bms.Web.InventoryMGT
             {
                 type = 2;
             }
-            string tjRegion = Request["region"];
-            string tjuserName = Request["userName"];
-            string tjHeadId = Request["singleHeadId"];
-            string tjtime = Request["time"];
-            if (tjRegion != "null" && tjRegion != "" && tjRegion != null)
+            if ((bookIsbn == "" || bookIsbn == null) && (bookName == "" || bookName == null) && (supplier == "" || supplier == null) && (time == "" || time == null) && (userName == "" || userName == null) && (region == "" || region == null) && (resource == "" || resource == null))
             {
-                where += " and regionName='" + tjRegion + "'";
+                string tjRegion = Request["region"];
+                string tjuserName = Request["userName"];
+                string tjHeadId = Request["singleHeadId"];
+                string tjtime = Request["time"];
+                if (tjRegion != "null" && tjRegion != "" && tjRegion != null)
+                {
+                    where += " and regionName='" + tjRegion + "'";
+                }
+                if (tjuserName != "null" && tjuserName != "" && tjuserName != null)
+                {
+                    where += " and userName='" + tjuserName + "'";
+                }
+                if (tjHeadId != "null" && tjHeadId != "" && tjHeadId != null)
+                {
+                    where += " and singleHeadId='" + tjHeadId + "'";
+                }
+                if (tjtime != "null" && tjtime != "" && tjtime != null)
+                {
+                    string[] sArray = tjtime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    where += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
+                }
             }
-            if (tjuserName != "null" && tjuserName != "" && tjuserName != null)
+            else
             {
-                where += " and userName='" + tjuserName + "'";
-            }
-            if (tjHeadId != "null" && tjHeadId != "" && tjHeadId != null)
-            {
-                where += " and singleHeadId='" + tjHeadId + "'";
-            }
-            if (tjtime != "null" && tjtime != "" && tjtime != null)
-            {
-                string[] sArray = tjtime.Split('至');
-                string startTime = sArray[0];
-                string endTime = sArray[1];
-                where += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
-            }
-            if (bookIsbn != null && bookIsbn != "")
-            {
-                where += " and isbn='" + bookIsbn + "'";
-            }
-            if (bookName != null && bookName != "")
-            {
-                where += " and bookName like '%" + bookName + "%'";
-            }
-            if (supplier != null && supplier != "")
-            {
-                where += " and supplier='" + supplier + "'";
-            }
-            if (time != null && time != "")
-            {
-                string[] sArray = time.Split('至');
-                string startTime = sArray[0];
-                string endTime = sArray[1];
-                where += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
-            }
-            //if (time != null && time != "")
-            //{
-            //    where += " and time like '" + time + "%'";
-            //}
-            if (userName != null && userName != "")
-            {
-                where += " and userName='" + userName + "'";
-            }
-            if (region != null && region != "")
-            {
-                where += " and userRegion='" + region + "'";
-            }
-            if (resource != null && resource != "")
-            {
-                where += " and regionName='" + resource + "'";
-            }
-            currentPage = Convert.ToInt32(Request["page"]);
-            if (currentPage == 0)
-            {
-                currentPage = 1;
+                if (bookIsbn != null && bookIsbn != "")
+                {
+                    where += " and isbn='" + bookIsbn + "'";
+                }
+                if (bookName != null && bookName != "")
+                {
+                    where += " and bookName like '%" + bookName + "%'";
+                }
+                if (supplier != null && supplier != "")
+                {
+                    where += " and supplier='" + supplier + "'";
+                }
+                if (time != null && time != "")
+                {
+                    string[] sArray = time.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    where += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
+                }
+                //if (time != null && time != "")
+                //{
+                //    where += " and time like '" + time + "%'";
+                //}
+                if (userName != null && userName != "")
+                {
+                    where += " and userName='" + userName + "'";
+                }
+                if (region != null && region != "")
+                {
+                    where += " and userRegion='" + region + "'";
+                }
+                if (resource != null && resource != "")
+                {
+                    where += " and regionName='" + resource + "'";
+                }
+                currentPage = Convert.ToInt32(Request["page"]);
+                if (currentPage == 0)
+                {
+                    currentPage = 1;
+                }
             }
             string userId = user.UserId;
             //TableBuilder tbd = new TableBuilder();
@@ -271,7 +277,7 @@ namespace bms.Web.InventoryMGT
             string op = Request["op"];
             if (op == "paging")
             {
-                Response.Write(sb.ToString());
+                Response.Write(sb.ToString()+"|:"+ sjNum + "|:"+ sbNum + "|:"+ total + "|:" + real);
                 Response.End();
             }
             return sb.ToString();

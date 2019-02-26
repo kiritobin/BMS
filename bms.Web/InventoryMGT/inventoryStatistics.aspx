@@ -156,24 +156,24 @@
                                                     <span>书籍种数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=sjNum %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=sjNum %>" id ="sjNum" class="form-control" disabled>
                                                 </td>
                                                 <td>
                                                     <span>书本总数:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=sbNum %>" class="form-control" disabled></td>
+                                                    <input type="text" value="<%=sbNum %>" id ="sbNum" class="form-control" disabled></td>
                                                 <td>
                                                     <span>总码洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=total %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=total %>" id ="total" class="form-control" disabled>
                                                 </td>
                                                 <td>
                                                     <span>总实洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=real %>" class="form-control" disabled>
+                                                    <input type="text" value="<%=real %>" id ="real" class="form-control" disabled>
                                                 </td>
                                             </tr>
                                         </table>

@@ -87,6 +87,8 @@ namespace bms.Web.wechat
                             }
                             bookDs.Tables[0].Columns.Add("number", typeof(string));
                             bookDs.Tables[0].Rows[0]["number"] = "1";
+                            bookDs.Tables[0].Columns.Add("focus", typeof(bool));
+                            bookDs.Tables[0].Rows[0]["focus"] = false;
                             bookDs.Tables[0].Columns.Add("totalPrice", typeof(string));
                             bookDs.Tables[0].Rows[0]["totalPrice"] = bookDs.Tables[0].Rows[0]["price"].ToString();
                             bookDs.Tables[0].Columns.Add("totalReal", typeof(string));
@@ -166,6 +168,8 @@ namespace bms.Web.wechat
                         }
                         bookDs.Tables[0].Columns.Add("number", typeof(string));
                         bookDs.Tables[0].Rows[0]["number"] = "1";
+                        bookDs.Tables[0].Columns.Add("focus", typeof(bool));
+                        bookDs.Tables[0].Rows[0]["focus"] = false;
                         bookDs.Tables[0].Columns.Add("totalPrice", typeof(string));
                         bookDs.Tables[0].Rows[0]["totalPrice"] = bookDs.Tables[0].Rows[0]["price"].ToString();
                         bookDs.Tables[0].Columns.Add("totalReal", typeof(string));
@@ -232,6 +236,8 @@ namespace bms.Web.wechat
                     }
                     bookDs.Tables[0].Columns.Add("number", typeof(string));
                     bookDs.Tables[0].Rows[0]["number"] = "1";
+                    bookDs.Tables[0].Columns.Add("focus", typeof(bool));
+                    bookDs.Tables[0].Rows[0]["focus"] = false;
                     bookDs.Tables[0].Columns.Add("totalPrice", typeof(string));
                     bookDs.Tables[0].Rows[0]["totalPrice"] = bookDs.Tables[0].Rows[0]["price"].ToString();
                     bookDs.Tables[0].Columns.Add("totalReal", typeof(string));

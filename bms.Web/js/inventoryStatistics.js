@@ -210,8 +210,13 @@ $(document).ready(function () {
             },
             dataType: 'text',
             success: function (data) {
+                var datas = data.split("|:");
                 $("#table tr:not(:first)").remove(); //清空table处首行
-                $("#table").append(data); //加载table
+                $("#table").append(datas[0]); //加载table
+                $("#sjNum").val(datas[1]);
+                $("#sbNum").val(datas[2]);
+                $("#total").val(datas[3]);
+                $("#real").val(datas[4]);
                 $("#intPageCount").remove();
                 $(".paging").empty();
                 $('.paging').pagination({
@@ -250,8 +255,13 @@ $(document).ready(function () {
                             },
                             dataType: 'text',
                             success: function (data) {
+                                var datas = data.split("|:");
                                 $("#table tr:not(:first)").remove(); //清空table处首行
-                                $("#table").append(data); //加载table
+                                $("#table").append(datas[0]); //加载table
+                                $("#sjNum").val(datas[1]);
+                                $("#sbNum").val(datas[2]);
+                                $("#total").val(datas[3]);
+                                $("#real").val(datas[4]);
                                 $("#intPageCount").remove();
                             }
                         });
