@@ -107,13 +107,30 @@ namespace bms.Web.wechat
             }
             if (count > 0)
             {
-                string time = saleheadbll.getSaleHeadTime();
+                string time;
+                if (type == "team")
+                {
+                    time = saleheadbll.getSaleHeadTime();
+                }
+                else
+                {
+                    time = saleheadbll.getPerSaleHeadTime();
+                }
                 string nowTime = DateTime.Now.ToLocalTime().ToString();
                 string equalsTime = nowTime.Substring(0, 10);
                 if (time.Equals(equalsTime))
                 {
+                    string getheadId;
                     nowTime = DateTime.Now.ToString("yyyy-MM-dd");
-                    string getheadId = saleheadbll.getSaleHeadIdByTime(nowTime);
+                    if (type == "team")
+                    {
+                        getheadId = saleheadbll.getSaleHeadIdByTime(nowTime);
+                    }
+                    else
+                    {
+                         getheadId = saleheadbll.getPerSaleHeadIdByTime(nowTime);
+                    }
+                        
                     if (getheadId == "" || getheadId == null)
                     {
                         count = 1;
