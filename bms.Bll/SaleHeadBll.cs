@@ -170,6 +170,25 @@ namespace bms.Bll
         }
 
         /// <summary>
+        /// 获取数据采集制单日期
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getPerSaleHeadTime()
+        {
+            return saleHeaddao.getPerSaleHeadTime();
+        }
+
+
+        /// <summary>
+        /// 数据采集根据当天时间获取单头编号
+        /// </summary>
+        /// <returns>时间字符串</returns>
+        public string getPerSaleHeadIdByTime(string nowtime)
+        {
+            return saleHeaddao.getPerSaleHeadIdByTime(nowtime);
+        }
+
+        /// <summary>
         /// 根据当天时间获取单头编号
         /// </summary>
         /// <returns>时间字符串</returns>
