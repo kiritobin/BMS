@@ -27,17 +27,58 @@ namespace bms.Web.InventoryMGT
             string tjType = Request.QueryString["type"];
             string tjRegion = Request["region"];
             string tjHeadId = Request["singleHeadId"];
+            string tjuserName = Request["userName"];
+            string tjtime = Request["time"];
             string defaultWhere = "";
-            if((tjRegion != "null" && tjRegion != "") && (tjHeadId == "null" || tjHeadId == ""))
+            if(tjRegion != "null" && tjRegion != "" && tjRegion != null)
             {
-                defaultWhere = "regionName='" + tjRegion + "'";
-            }else if((tjRegion == "null" || tjRegion == "") && (tjHeadId != "null" && tjHeadId != ""))
-            {
-                defaultWhere = "singleHeadId='" + tjHeadId + "'";
+                if (defaultWhere == "")
+                {
+                    defaultWhere += "regionName='" + tjRegion + "'";
+                }
+                else
+                {
+                    defaultWhere += " and regionName='" + tjRegion + "'";
+                }
             }
-            else
+            if (tjHeadId != "null" && tjHeadId != "" && tjHeadId != null)
             {
-                defaultWhere = "regionName='" + tjRegion + "' and singleHeadId='" + tjHeadId + "'";
+                if (defaultWhere == "")
+                {
+                    defaultWhere += "singleHeadId='" + tjHeadId + "'";
+                }
+                else
+                {
+                    defaultWhere += " and singleHeadId='" + tjHeadId + "'";
+                }
+            }
+            if (tjuserName != "null" && tjuserName != "" && tjuserName != null)
+            {
+                if (defaultWhere == "")
+                {
+                    defaultWhere += "userName='" + tjuserName + "'";
+                }
+                else
+                {
+                    defaultWhere += " and userName='" + tjuserName + "'";
+                }
+            }
+            if (tjtime != "null" && tjtime != "" && tjtime != null)
+            {
+                if (defaultWhere == "")
+                {
+                    string[] sArray = tjtime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    defaultWhere += "time BETWEEN '" + startTime + "' and '" + endTime + "'";
+                }
+                else
+                {
+                    string[] sArray = tjtime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    defaultWhere += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
+                }
             }
             int type=0;
             if (tjType=="CK")
@@ -101,7 +142,30 @@ namespace bms.Web.InventoryMGT
             {
                 type = 2;
             }
-            if(bookIsbn != null && bookIsbn != "")
+            string tjRegion = Request["region"];
+            string tjuserName = Request["userName"];
+            string tjHeadId = Request["singleHeadId"];
+            string tjtime = Request["time"];
+            if (tjRegion != "null" && tjRegion != "" && tjRegion != null)
+            {
+                where += " and regionName='" + tjRegion + "'";
+            }
+            if (tjuserName != "null" && tjuserName != "" && tjuserName != null)
+            {
+                where += " and userName='" + tjuserName + "'";
+            }
+            if (tjHeadId != "null" && tjHeadId != "" && tjHeadId != null)
+            {
+                where += " and singleHeadId='" + tjHeadId + "'";
+            }
+            if (tjtime != "null" && tjtime != "" && tjtime != null)
+            {
+                string[] sArray = tjtime.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                where += " and time BETWEEN '" + startTime + "' and '" + endTime + "'";
+            }
+            if (bookIsbn != null && bookIsbn != "")
             {
                 where += " and isbn='" + bookIsbn + "'";
             }

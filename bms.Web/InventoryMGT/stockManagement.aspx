@@ -386,9 +386,9 @@
                                                 <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" style="height: 41px" id="btn-add">添加</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <%--<a href="/InventoryMGT/inventoryStatistics.aspx?type=RK">
-                                                    <button class="btn btn-info btn-sm" style="height: 41px" id="tjbb">统计报表</button></a>--%>
-                                                <button class="btn btn-info btn-sm" style="height: 41px" id="tjbb" data-toggle="modal" data-target="#bbModal">统计报表</button>
+                                                <%--<a href="/InventoryMGT/inventoryStatistics.aspx?type=RK"></a>--%>
+                                                    <button class="btn btn-info btn-sm" style="height: 41px" id="tjbb">统计报表</button>
+                                                <%--<button class="btn btn-info btn-sm" style="height: 41px" id="tjbb" data-toggle="modal" data-target="#bbModal">统计报表</button>--%>
                                             </div>
                                         </div>
                                     </div>
