@@ -77,7 +77,7 @@ namespace bms.Web.InventoryMGT
                     sb.Append("<td>" + drc[i]["totalPrice"].ToString() + "</td >");
                     sb.Append("<td>" + drc[i]["realPrice"].ToString() + "</td >");
                     sb.Append("<td>" + drc[i]["discount"].ToString() + "</td >");
-                    sb.Append("<td>" + drc[i]["shelvesName"].ToString() + "</td ></tr >");
+                    sb.Append("<td>" + drc[i]["shelvesId"].ToString() + "</td ></tr >");
                 }
                 Response.Write(sb);
                 Response.End();
@@ -125,7 +125,7 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["discount"].ToString() + "</td>");
-                sb.Append("<td>" + dr["shelvesName"].ToString() + "</td></tr>");
+                sb.Append("<td>" + dr["shelvesId"].ToString() + "</td></tr>");
             }
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             sb.Append("<input type='hidden' value='" + ds.Tables[0].Rows[0]["regionName"].ToString() + "' id='sourceRegin' />");

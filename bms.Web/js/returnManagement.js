@@ -241,16 +241,18 @@ $("#btn-search").click(function () {
 });
 
 //查看报表
-$("#check").click(function () {
-    var source = $("#bbsource").find("option:selected").text();
-    var singleHeadId = $("#singleHeadId").val().trim();
+$("#tjbb").click(function () {
+    var singleHeadId = $("#ID").val();
+    var regionName = $("#region").find("option:selected").text();
+    var userName = $("#user").find("option:selected").text();
+    var time = $("#time").val();
     if (singleHeadId == "") {
         singleHeadId = "null";
     }
-    if (source == "" && singleHeadId == "") {
+    if (regionName == "" && singleHeadId == "" && userName == "" && time == "") {
         swal({
             title: "温馨提示:)",
-            text: "请先选择组织或输入单据编号",
+            text: "请先选择统计报表条件",
             buttonsStyling: false,
             confirmButtonClass: "btn btn-success",
             type: "warning",
@@ -258,9 +260,31 @@ $("#check").click(function () {
         })
     }
     else {
-        window.location.href = "/InventoryMGT/inventoryStatistics.aspx?type=TH&&region=" + source + "&&singleHeadId=" + singleHeadId;
+        window.location.href = "/InventoryMGT/inventoryStatistics.aspx?type=TH&&region=" + regionName + "&&singleHeadId=" + singleHeadId + "&&userName=" + userName + "&&time=" + time;
     }
+
 });
+//查看报表
+//$("#check").click(function () {
+//    var source = $("#bbsource").find("option:selected").text();
+//    var singleHeadId = $("#singleHeadId").val().trim();
+//    if (singleHeadId == "") {
+//        singleHeadId = "null";
+//    }
+//    if (source == "" && singleHeadId == "") {
+//        swal({
+//            title: "温馨提示:)",
+//            text: "请先选择组织或输入单据编号",
+//            buttonsStyling: false,
+//            confirmButtonClass: "btn btn-success",
+//            type: "warning",
+//            allowOutsideClick: false
+//        })
+//    }
+//    else {
+//        window.location.href = "/InventoryMGT/inventoryStatistics.aspx?type=TH&&region=" + source + "&&singleHeadId=" + singleHeadId;
+//    }
+//});
 
 
 $("#table").delegate(".btn-add", "click", function () {
@@ -354,3 +378,4 @@ $("#table").delegate(".btn-delete", "click", function () {
 $('#myModal').on('shown.bs.modal', function (e) {
     $('#remarks').focus();
 });
+

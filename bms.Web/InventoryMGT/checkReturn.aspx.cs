@@ -61,7 +61,7 @@ namespace bms.Web.InventoryMGT
                     sb.Append("<td>" + drc[i]["discount"].ToString() + "</td >");
                     sb.Append("<td>" + drc[i]["totalPrice"].ToString() + "</td >");
                     sb.Append("<td>" + drc[i]["realPrice"].ToString() + "</td >");
-                    sb.Append("<td>" + drc[i]["shelvesName"].ToString() + "</td ></tr >");
+                    sb.Append("<td>" + drc[i]["shelvesId"].ToString() + "</td ></tr >");
                 }
                 Response.Write(sb);
                 Response.End();
@@ -96,7 +96,7 @@ namespace bms.Web.InventoryMGT
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_Monomer";
             tbd.OrderBy = "monId";
-            tbd.StrColumnlist = "monId,singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName,bookName";
+            tbd.StrColumnlist = "monId,singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesId,shelvesName,bookName";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "deleteState=0 and singleHeadId='" + headId + "'";
             tbd.IntPageNum = currentPage;
@@ -117,7 +117,7 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<td>" + drc[i]["discount"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["totalPrice"].ToString() + "</td >");
                 sb.Append("<td>" + drc[i]["realPrice"].ToString() + "</td >");
-                sb.Append("<td>" + drc[i]["shelvesName"].ToString() + "</td ></tr >");
+                sb.Append("<td>" + drc[i]["shelvesId"].ToString() + "</td ></tr >");
             }
             sb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             string op = Request["op"];
