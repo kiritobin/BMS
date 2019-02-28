@@ -94,6 +94,8 @@ namespace bms.Web.SalesMGT
             //查看
             if (op == "look")
             {
+                string type = Request["type"];
+                Session["type"] = type;
                 Session["saleheadId"] = saleheadId;
                 Session["saleType"] = "look";
                 Response.Write("成功");
@@ -235,8 +237,17 @@ namespace bms.Web.SalesMGT
             if (op == "del")
             {
                 string salehead = Request["ID"];
+                string headstate = Request["state"];
                 SaleMonomerBll salemonbll = new SaleMonomerBll();
-                int state = salemonbll.saleheadstate(saleTaskid, salehead);
+                int state;
+                if (headstate=="预采")
+                {
+                     state = salemonbll.perSaleheadstate(saleTaskid, salehead);
+                } else
+                {
+                     state = salemonbll.saleheadstate(saleTaskid, salehead);
+                }
+                
                 if (state == 0)
                 {
                     Result result = salemonbll.realDelete(saleTaskid, salehead);
@@ -263,7 +274,7 @@ namespace bms.Web.SalesMGT
                 }
                 else if (state == 3)
                 {
-                    int count = salemonbll.SelectcountbyHeadID(salehead, saleTaskid);
+                    int count = salemonbll.WeChatSelectcountbyHeadID(salehead, saleTaskid);
                     if (count > 0)
                     {
                         Response.Write("该预采单已有数据,不能删除");
@@ -271,7 +282,7 @@ namespace bms.Web.SalesMGT
                     }
                     else
                     {
-                        Result result = salemonbll.realDelete(saleTaskid, salehead);
+                        Result result = salemonbll.DeleteHead(saleTaskid, salehead,"copy");
                         if (result == Result.删除成功)
                         {
                             Response.Write("删除成功");
@@ -588,7 +599,7 @@ namespace bms.Web.SalesMGT
                 search = String.Format(" saleHeadId like '%{0}%' and regionName like '{1}' and userName like '%{2}%'", saleHeadId, regionName, userName);
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "V_SaleHead";
+            tb.StrTable = "v_allsalehead";
             tb.OrderBy = "saleHeadId";
             tb.StrColumnlist = "remarks,saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,userName,regionName,dateTime,state";
             tb.IntPageSize = pageSize;

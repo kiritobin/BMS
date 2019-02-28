@@ -17,11 +17,12 @@ namespace bms.Web.SalesMGT
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         SaleHeadBll saleHeadbll = new SaleHeadBll();
         public DataSet ds, headBasicds;
-        public string saleheadId, saletaskId, time, userName, customerName;
+        public string saleheadId, saletaskId, time, userName, customerName,type;
         public int allkinds, allnumber;
         public double alltotalprice, allreadprice;
         protected void Page_Load(object sender, EventArgs e)
         {
+            type = Session["type"].ToString();
             string exportOp = Request.QueryString["op"];
             if (exportOp == "export")
             {
@@ -38,9 +39,18 @@ namespace bms.Web.SalesMGT
         //获取单头信息
         public void getSaleHeadBasic()
         {
-            headBasicds = saleHeadbll.getSaleHeadBasic(saletaskId, saleheadId);
-            allkinds = int.Parse(salemonbll.getkinds(saletaskId, saleheadId).ToString());
-            DataSet ds = salemonbll.calculationSaleHead(saleheadId, saletaskId);
+            DataSet ds;
+            if (type=="copy")
+            {
+                headBasicds = saleHeadbll.getPerSaleHeadBasic(saletaskId, saleheadId);
+                allkinds = int.Parse(salemonbll.getperkinds(saletaskId, saleheadId).ToString());
+                ds = salemonbll.calculationPerSaleHead(saleheadId, saletaskId);
+            } else
+            {
+                headBasicds = saleHeadbll.getSaleHeadBasic(saletaskId, saleheadId);
+                allkinds = int.Parse(salemonbll.getkinds(saletaskId, saleheadId).ToString());
+                ds = salemonbll.calculationSaleHead(saleheadId, saletaskId);
+            }
             if (ds == null)
             {
                 allnumber = 0;
@@ -67,14 +77,20 @@ namespace bms.Web.SalesMGT
         {
             saleheadId = Session["saleheadId"].ToString();
             saletaskId = Session["saleId"].ToString();
-
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "V_SaleMonomer";
+            if (type=="copy")
+            {
+                tb.StrTable = "V_perSaleMonomer";
+            } else
+            {
+                tb.StrTable = "V_SaleMonomer";
+            }
+            
             tb.OrderBy = "dateTime";
             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice,userName,customerName,regionName";
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought";

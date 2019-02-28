@@ -516,6 +516,7 @@ $(document).ready(function () {
                     data: {
                         ID: ID,
                         taskId: taskId,
+                        state:state,
                         op: 'del'
                     },
                     dataType: 'text',
@@ -597,6 +598,7 @@ $(document).ready(function () {
                     data: {
                         ID: ID,
                         taskId: taskId,
+                        state: state,
                         op: 'del'
                     },
                     dataType: 'text',
@@ -693,20 +695,28 @@ $(document).ready(function () {
     //看
     $("#table").delegate(".look", "click", function () {
         var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
-        $.ajax({
-            type: 'Post',
-            url: 'salesManagement.aspx',
-            data: {
-                ID: ID,
-                op: 'look'
-            },
-            dataType: 'text',
-            success: function (succ) {
-                if (succ == "成功") {
-                    window.location.href = "../SalesMGT/searchSalesDetail.aspx";
+        var salestate = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var type;
+        if (salestate == "预采") {
+            type = "copy";
+        } else {
+            type = "other";
+        }
+            $.ajax({
+                type: 'Post',
+                url: 'salesManagement.aspx',
+                data: {
+                    ID: ID,
+                    type: type,
+                    op: 'look'
+                },
+                dataType: 'text',
+                success: function (succ) {
+                    if (succ == "成功") {
+                        window.location.href = "../SalesMGT/searchSalesDetail.aspx";
+                    }
                 }
-            }
-        })
+            })
     })
 })
 //弹出模态框获取焦点事件

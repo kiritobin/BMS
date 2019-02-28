@@ -83,6 +83,7 @@ namespace bms.Bll
         {
             return SaleMonomerdao.SelectcountbyHeadID(HeadId, saletaskId);
         }
+
         /// <summary>
         /// 微信小程序根据销售单头ID和销售任务id获取单体数量
         /// </summary>
@@ -123,7 +124,7 @@ namespace bms.Bll
 
         }
         /// <summary>
-        /// 统计品种数
+        /// 统计预采品种数
         /// </summary>
         /// <param name="saleTaskId">销售任务id</param>
         /// <param name="saleHeadId">销售单头id</param>
@@ -162,6 +163,27 @@ namespace bms.Bll
                 return state = 4;
             }
         }
+        //
+        /// <summary>
+        /// 根据预采销售单头ID查询该销售单的状态
+        /// </summary>
+        /// <param name="saleHeadId">销售单头ID</param>
+        /// <returns>状态</returns>
+        public int perSaleheadstate(string saleTaskId, string saleHeadId)
+        {
+            DataSet ds = SaleMonomerdao.perSaleheadstate(saleTaskId, saleHeadId);
+            int state;
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return state = Convert.ToInt32(ds.Tables[0].Rows[0]["state"].ToString());
+            }
+            else
+            {
+                return state = 4;
+            }
+        }
+
+
         public DataSet checkStock(string singleHeadId)
         {
             return SaleMonomerdao.checkStock(singleHeadId);
