@@ -493,11 +493,11 @@ namespace bms.Dao
                 string[] sArray = time.Split('至');
                 startTime = sArray[0];
                 endTime = sArray[1];
-                cmdText = "select bookNum, SUM(number) as 数量 from v_monomer where " + groupbyType + " = @strWhere and type=@type and time BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                cmdText = "select bookNum, SUM(number) as 数量 from v_monomer where " + groupbyType + " = @strWhere and type=@type and time BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum";
             }
             else
             {
-                cmdText = "select bookNum, SUM(number) as 数量 from v_monomer where " + groupbyType + " = @strWhere and type=@type GROUP BY bookNum HAVING 数量!=0";
+                cmdText = "select bookNum, SUM(number) as 数量 from v_monomer where " + groupbyType + " = @strWhere and type=@type GROUP BY bookNum";
             }
             
             string[] param = { "@strWhere", "@type" };

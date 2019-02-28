@@ -190,7 +190,7 @@ namespace bms.Web.ReportStatistics
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_monomer";
             tb.OrderBy = "convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
-            tb.StrColumnlist = groupbyType + ", sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
+            tb.StrColumnlist = groupbyType + ", sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice,count(bookNum) as kindsNum";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             if (strWhere == "" || strWhere == null)
@@ -217,8 +217,7 @@ namespace bms.Web.ReportStatistics
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<td>" + dr["" + groupbyType + ""].ToString() + "</td>");
                 condition = dr["" + groupbyType + ""].ToString();
-                kinds = wareBll.getkindsGroupBy(condition, groupbyType, time, 0).ToString();
-                strb.Append("<td>" + kinds + "</td>");
+                strb.Append("<td>" + dr["kindsNum"].ToString() + "</td>");
                 strb.Append("<td>" + dr["allNumber"].ToString() + "</td>");
                 strb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
                 strb.Append("<td>" + dr["allRealPrice"].ToString() + "</td>");
