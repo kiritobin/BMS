@@ -255,7 +255,7 @@ namespace bms.Web.ReportStatistics
                     strWhere += " and time BETWEEN'" + startTime + "' and '" + endTime + "'";
                 }
             }
-            strWhere += " and type=2 group by bookNum,userName"+type;
+            strWhere += " and type=2 group by bookNum,userName,"+type;
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)

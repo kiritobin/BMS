@@ -275,7 +275,7 @@ $("#tjbb").click(function () {
     if (singleHeadId=="") {
         singleHeadId = "null";
     }
-    if (regionName == "" && singleHeadId == "" && userName == "" && time == "") {
+    if (regionName == "" && (singleHeadId == "" || singleHeadId=="null") && userName == "" && time == "") {
         swal({
             title: "温馨提示:)",
             text: "请先选择统计报表条件",

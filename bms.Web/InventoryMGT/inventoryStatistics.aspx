@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="btn-group" role="group">
                                         <select class="modal_select selectpicker" title="请选择供应商" data-live-search="true" id="supplier">
-                                            <option>全部供应商</option>
+                                            <option>请选择供应商</option>
                                             <%for (int i = 0; i < dsSupplier.Rows.Count; i++)
                                                 {%>
                                             <option value="<%=dsSupplier.Rows[i]["supplier"] %>"><%=dsSupplier.Rows[i]["supplier"] %></option>
@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="btn-group" role="group">
                                         <select class="modal_select selectpicker" title="请选择制单员" data-live-search="true" id="userName">
-                                            <option>全部制单员</option>
+                                            <option>请选择制单员</option>
                                             <%for (int i = 0; i < dsUser.Rows.Count; i++)
                                                 {%>
                                             <option><%=dsUser.Rows[i]["userName"] %></option>
@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="btn-group" role="group">
                                         <select class="modal_select selectpicker" title="<%=title %>" data-live-search="true" id="resource">
-                                            <option id="change">全部<%=title %></option>
+                                            <option id="change">请选择<%=title %></option>
                                             <%for (int i = 0; i < dsSource.Rows.Count; i++)
                                                 {%>
                                             <option><%=dsSource.Rows[i]["regionName"] %></option>

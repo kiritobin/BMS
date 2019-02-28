@@ -100,16 +100,16 @@ $(document).ready(function () {
             var userName = $("#userName").val();
             //var region = $("#region").val();
             var resource = $("#resource").val();
-            if (supplier == "全部供应商") {
+            if (supplier == "请选择供应商") {
                 supplier = "";
             }
-            if (region == "全部组织") {
+            if (region == "请选择组织") {
                 region = "";
             }
-            if (userName == "全部制单员") {
+            if (userName == "请选择制单员") {
                 userName = "";
             }
-            if (resource == "全部来源组织" || "全部收货组织") {
+            if (resource == "请选择来源组织" || "请选择收货组织") {
                 resource = "";
             }
             $.ajax({
@@ -182,16 +182,16 @@ $(document).ready(function () {
         var userName = $("#userName").find("option:selected").text();
         //var region = $("#region").find("option:selected").text();
         var resource = $("#resource").find("option:selected").text();
-        if (supplier == "全部供应商") {
+        if (supplier == "请选择供应商") {
             supplier = "";
         }
-        if (region == "全部组织") {
+        if (region == "请选择组织") {
             region = "";
         }
-        if (userName == "全部制单员") {
+        if (userName == "请选择制单员") {
             userName = "";
         }
-        if (resource == "全部来源组织" || "全部收货组织") {
+        if (resource == "请选择来源组织" || "请选择收货组织") {
             resource = "";
         }
         $.ajax({
