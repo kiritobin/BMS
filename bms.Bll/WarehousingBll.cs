@@ -352,7 +352,7 @@ namespace bms.Bll
             excel.Columns.Add("数量");
             excel.Columns.Add("码洋");
             excel.Columns.Add("实洋");
-            excel.Columns.Add("销售折扣");
+            excel.Columns.Add("进货折扣");
             excel.Columns.Add("制单日期");
             excel.Columns.Add("制单人");
             excel.Columns.Add("供应商");
@@ -426,7 +426,7 @@ namespace bms.Bll
             excel.Columns.Add("数量");
             excel.Columns.Add("码洋");
             excel.Columns.Add("实洋");
-            excel.Columns.Add("折扣");
+            excel.Columns.Add("进货折扣");
             excel.Columns.Add("供应商");
             excel.Columns.Add("制单时间");
             excel.Columns.Add("制单员"); 

@@ -573,11 +573,11 @@ namespace bms.Dao
             //所选分组条件如客户 ISBN    书号 书名  定价 数量  码洋 实洋  销折 采集日期    采集人用户名 采集状态（销售单或预采单）			供应商
             if (strWhere != "" && strWhere != null)
             {
-                cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,time as 制单日期,userName as 制单人, supplier as 供应商, regionName as " + regionName + ",dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_monomer where type=" + type + " and " + strWhere + ",booknum,userName order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
+                cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,author as 进货折扣,time as 制单日期,userName as 制单人, supplier as 供应商, regionName as " + regionName + ",dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_monomer where type=" + type + " and " + strWhere + ",booknum,userName order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
             }
             else
             {
-                cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,time as 制单日期,userName as 制单人, supplier as 供应商, regionName as " + regionName + ",dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_monomer where type=" + type + " GROUP BY " + groupbyType + ",booknum,userName order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
+                cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,author as 进货折扣,time as 制单日期,userName as 制单人, supplier as 供应商, regionName as " + regionName + ",dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_monomer where type=" + type + " GROUP BY " + groupbyType + ",booknum,userName order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
@@ -638,7 +638,7 @@ namespace bms.Dao
             {
                 regionName = "入库来源";
             }
-            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,discount as 折扣,supplier as 供应商, DATE_FORMAT(time,'%Y-%m-%d %H:%i:%s') as 制单时间,userName as 制单员,regionName as "+ regionName + ",dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_monomer where type=" + type+ strWhere + " group by bookNum,userName," + groupType + " order by convert(" + groupType + " using gbk) collate gbk_chinese_ci";
+            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,uPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,author as 进货折扣,supplier as 供应商, DATE_FORMAT(time,'%Y-%m-%d %H:%i:%s') as 制单时间,userName as 制单员,regionName as " + regionName + ",dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_monomer where type=" + type+ strWhere + " group by bookNum,userName," + groupType + " order by convert(" + groupType + " using gbk) collate gbk_chinese_ci";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
             int count = ds.Tables[0].Rows.Count;
