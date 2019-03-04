@@ -17,7 +17,7 @@ namespace bms.Web.SalesMGT
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         SaleHeadBll saleHeadbll = new SaleHeadBll();
         public DataSet ds, headBasicds;
-        public string saleheadId, saletaskId, time, userName, customerName,type;
+        public string saleheadId, saletaskId, time, userName, customerName, type;
         public int allkinds, allnumber;
         public double alltotalprice, allreadprice;
         protected void Page_Load(object sender, EventArgs e)
@@ -40,12 +40,13 @@ namespace bms.Web.SalesMGT
         public void getSaleHeadBasic()
         {
             DataSet ds;
-            if (type=="copy")
+            if (type == "copy")
             {
                 headBasicds = saleHeadbll.getPerSaleHeadBasic(saletaskId, saleheadId);
                 allkinds = int.Parse(salemonbll.getperkinds(saletaskId, saleheadId).ToString());
                 ds = salemonbll.calculationPerSaleHead(saleheadId, saletaskId);
-            } else
+            }
+            else
             {
                 headBasicds = saleHeadbll.getSaleHeadBasic(saletaskId, saleheadId);
                 allkinds = int.Parse(salemonbll.getkinds(saletaskId, saleheadId).ToString());
@@ -68,8 +69,17 @@ namespace bms.Web.SalesMGT
             //allnumber = int.Parse(headBasicds.Tables[0].Rows[0]["number"].ToString());
             //alltotalprice = double.Parse(headBasicds.Tables[0].Rows[0]["allTotalPrice"].ToString());
             //allreadprice = double.Parse(headBasicds.Tables[0].Rows[0]["allRealPrice"].ToString());
-            time = headBasicds.Tables[0].Rows[0]["dateTime"].ToString();
-            userName = headBasicds.Tables[0].Rows[0]["userName"].ToString();
+            if (headBasicds != null)
+            {
+                time = headBasicds.Tables[0].Rows[0]["dateTime"].ToString();
+                userName = headBasicds.Tables[0].Rows[0]["userName"].ToString();
+            }
+            else
+            {
+                time = "空";
+                userName = "无";
+            }
+
         }
 
         //获取基础数据
@@ -83,14 +93,15 @@ namespace bms.Web.SalesMGT
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            if (type=="copy")
+            if (type == "copy")
             {
                 tb.StrTable = "V_perSaleMonomer";
-            } else
+            }
+            else
             {
                 tb.StrTable = "V_SaleMonomer";
             }
-            
+
             tb.OrderBy = "dateTime";
             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice,userName,customerName,regionName";
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought";

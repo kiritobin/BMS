@@ -214,13 +214,13 @@ namespace bms.Dao
             String[] param = { "@saleTaskId", "@saleHeadId" };
             String[] values = { saleTaskId, saleHeadId };
             DataSet ds = db.FillDataSet(comText, param, values);
-            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            if (ds.Tables.Count == 1 && ds.Tables[0].Rows.Count == 0)
             {
-                return ds;
+                return null;
             }
             else
             {
-                return null;
+                return ds;
             }
         }
 
