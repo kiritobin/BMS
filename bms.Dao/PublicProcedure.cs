@@ -83,14 +83,16 @@ namespace bms.Dao
             MySqlParameter[] values =
             {
                 new MySqlParameter("@inRegionName",MySqlDbType.VarChar),
+                new MySqlParameter("@inShelvesId",MySqlDbType.Int32),
                 new MySqlParameter("@inShelvesName",MySqlDbType.VarChar),
                 new MySqlParameter("@count",MySqlDbType.Int32)
             };
             values[0].Value = tabInsert.InRegionName;
-            values[1].Value = tabInsert.InShelvesName;
-            values[2].Direction = ParameterDirection.Output;
+            values[1].Value = tabInsert.InShelvesId;
+            values[2].Value = tabInsert.InShelvesName;
+            values[3].Direction = ParameterDirection.Output;
             ArrayList array = db.ExecuteSp(strSql.ToString(), values);
-            count = Convert.ToInt32(values[2].Value);
+            count = Convert.ToInt32(values[3].Value);
             //int outNum = int.Parse(array.ToString());
             return count;
         }

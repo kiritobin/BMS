@@ -8,6 +8,7 @@ namespace bms.Model
     public class TableInsertion
     {
         private string inRegionName;
+        private int inShelvesId;
         private string inShelvesName;
         private int outCount;
 
@@ -15,9 +16,10 @@ namespace bms.Model
         {
         }
 
-        public TableInsertion(string inRegionName, string inShelvesName, int outCount)
+        public TableInsertion(string inRegionName, int inShelvesId, string inShelvesName, int outCount)
         {
             this.inRegionName = inRegionName;
+            this.inShelvesId = inShelvesId;
             this.inShelvesName = inShelvesName;
             this.outCount = outCount;
         }
@@ -32,6 +34,18 @@ namespace bms.Model
             set
             {
                 inRegionName = value;
+            }
+        }
+
+        public int InShelvesId
+        {
+            get
+            {
+                return inShelvesId;
+            }
+            set
+            {
+                inShelvesId = value;
             }
         }
 

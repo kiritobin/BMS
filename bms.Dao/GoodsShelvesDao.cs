@@ -146,5 +146,28 @@ namespace bms.Dao
                 return 0;
             }
         }
+        /// <summary>
+        /// 获取货架名为未上架的最大货架id
+        /// </summary>
+        /// <returns>返回得到的最大的货架ID</returns>
+        public string getMaxShelvesId()
+        {
+            string sql = "select max(goodsShelvesId) from t_goodsshelves where shelvesName='未上架'";
+            string id = db.ExecuteScalar(sql, null, null).ToString();
+            return id;
+        }
+        /// <summary>
+        /// 利用获取的流水号查寻是否有重复的，避免报错
+        /// </summary>
+        /// <param name="shelvesId">货架流水号</param>
+        /// <returns></returns>
+        public int isExitID(int shelvesId)
+        {
+            string sql = @"select count(goodsShelvesId) from t_goodsshelves where goodsShelvesId=@goodsShelvesId";
+            string[] param = { "@goodsShelvesId" };
+            object[] values = { shelvesId };
+            string rs = db.ExecuteScalar(sql, param, values).ToString();
+            return int.Parse(rs);
+        }
     }
 }
