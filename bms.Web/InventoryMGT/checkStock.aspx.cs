@@ -99,8 +99,8 @@ namespace bms.Web.InventoryMGT
             }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_Monomer";
-            tbd.OrderBy = "singleHeadId";
-            tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesId,shelvesName,bookName,regionName";
+            tbd.OrderBy = "time desc";
+            tbd.StrColumnlist = "singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesId,shelvesName,bookName,regionName,time";
             tbd.IntPageSize = pageSize;
             tbd.StrWhere = "deleteState=0 and singleHeadId='" + HeadId + "'";
             tbd.IntPageNum = currentPage;

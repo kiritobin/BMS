@@ -83,7 +83,7 @@ namespace bms.Dao
         /// <returns>数据集</returns>
         public SaleHead GetHead(string retailHeadId)
         {
-            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,userName,retailHeadId,dateTime,regionName,payment from V_RetailHead where retailHeadId=@retailHeadId and deleteState!=1";
+            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,userName,retailHeadId,dateTime,regionName,payment from V_RetailHead where retailHeadId=@retailHeadId and deleteState!=1 order by dateTime";
             string[] param = { "@retailHeadId" };
             object[] values = { retailHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);

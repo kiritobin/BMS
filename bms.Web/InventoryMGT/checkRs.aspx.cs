@@ -158,7 +158,7 @@ namespace bms.Web.InventoryMGT
             }
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_ReplenishMentMononer";
-            tb.OrderBy = "rsMononerID";
+            tb.OrderBy = "dateTime desc";
             tb.StrColumnlist = "rsMononerID,bookNum,bookName,sum(count) as allnumber,dateTime";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;

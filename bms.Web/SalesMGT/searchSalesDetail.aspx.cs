@@ -102,7 +102,7 @@ namespace bms.Web.SalesMGT
                 tb.StrTable = "V_SaleMonomer";
             }
 
-            tb.OrderBy = "dateTime";
+            tb.OrderBy = "dateTime desc";
             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice,userName,customerName,regionName";
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,realDiscount,realPrice,dateTime,alreadyBought";
             tb.IntPageSize = pageSize;
