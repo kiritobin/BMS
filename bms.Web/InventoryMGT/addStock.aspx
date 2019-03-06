@@ -419,7 +419,7 @@
                                             <tr class="first">
                                                 <td>1</td>
                                                 <td>
-                                                    <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1" maxlength="13"></textarea>
+                                                    <textarea class="isbn textareaISBN" autofocus="autofocus" rows="1"></textarea>
                                                 </td>
                                                 <td></td>
                                                 <td></td>

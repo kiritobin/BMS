@@ -17,7 +17,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet Select(string sellOffHeadId)
         {
-            string cmdText = "select sellOffHead,sellOffMonomerId,bookNum,isbn,price,count,totalPrice,realDiscount,realPrice,dateTime,bookName from v_selloffmonomer where sellOffHead=@sellOffHeadId";
+            string cmdText = "select sellOffHead,sellOffMonomerId,bookNum,isbn,price,count,totalPrice,realDiscount,realPrice,dateTime,bookName from v_selloffmonomer where sellOffHead=@sellOffHeadId order by dateTime desc";
             string[] param = { "@sellOffHeadId" };
             object[] values = { sellOffHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
