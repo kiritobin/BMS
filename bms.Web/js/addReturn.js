@@ -50,6 +50,7 @@ $("#table").delegate(".discount", "keyup", function (e) {
 $("#table").delegate(".isbn", "keypress", function (e) {
     if (e.keyCode == 13) {
         //$(".count").text('0');
+        var _this = this;
         var sid = $(this).parent().prev().text().trim();
         var isbn = $(this).val().trim();
         var count = $(this).parent().next().next().next().next().children().val();
@@ -63,6 +64,7 @@ $("#table").delegate(".isbn", "keypress", function (e) {
                 confirmButtonClass: "btn btn-warning",
                 type: "warning"
             }).catch(swal.noop);
+            _this.val("");
         }
             //else if (count == "" || count == null) {
             //    $(this).parent().next().next().next().children().focus();
@@ -98,6 +100,7 @@ $("#table").delegate(".isbn", "keypress", function (e) {
                             confirmButtonClass: "btn btn-warning",
                             type: "warning"
                         }).catch(swal.noop);
+                        _this.val("");
                     }
                     else if (data == "已添加过此图书") {
                         swal({
