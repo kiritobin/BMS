@@ -57,7 +57,7 @@ namespace bms.Web.SalesMGT
                     {
                         string time = saleBll.getSaleTaskTime();
                         string nowTime = DateTime.Now.ToLocalTime().ToString();
-                        string equalsTime = nowTime.Substring(0, 10);
+                        string equalsTime = DateTime.Now.ToLocalTime().ToString("yyyyMMdd");
                         if (time.Equals(equalsTime))
                         {
                             nowTime = DateTime.Now.ToString("yyyy-MM-dd");
@@ -89,8 +89,12 @@ namespace bms.Web.SalesMGT
                     Customer customer = new Customer();
                     customer.CustomerId = custmerID;
                     int numberLimit = Convert.ToInt32(Request["numberLimit"]);
-                    int priceLimit = Convert.ToInt32(Request["priceLimit"]);
-                    int totalPriceLimit = Convert.ToInt32(Request["totalPriceLimit"]);
+
+                    string strPriceLimit = Request["priceLimit"].ToString() +".00";
+                    double priceLimit = Convert.ToDouble(strPriceLimit);
+
+                    string strTotalPriceLimit = Request["totalPriceLimit"].ToString() + ".00";
+                    double totalPriceLimit = Convert.ToDouble(strTotalPriceLimit);
                     double defaultDiscount = double.Parse(Request["defaultDiscount"]);
                     string defaultCopy = Request["defaultCopy"].ToString();
                     string userId = user.UserId;
@@ -306,7 +310,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + defaultDiscount + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["numberLimit"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["defaultCopy"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["priceLimit"].ToString() + "</td>");
+                strb.Append("<td>" + (ds.Tables[0].Rows[i]["priceLimit"].ToString()+".00") + "</td>");
                 strb.Append("<td><nobr>" + ds.Tables[0].Rows[i]["startTime"].ToString() + "</nobr></td>");
                 strb.Append("<td><nobr>" + time + "</nobr></td>");
                 strb.Append("<td style='width:100px;'>" + "<button class='btn btn-success btn-sm btn_sale'>销售</button>");

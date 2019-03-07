@@ -265,8 +265,8 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(comText, null, null);
             if (ds != null || ds.Tables[0].Rows.Count > 0)
             {
-                string time = ds.Tables[0].Rows[0]["startTime"].ToString();
-                return time.Substring(0, 10);
+                string time = Convert.ToDateTime(ds.Tables[0].Rows[0]["startTime"]).ToString("yyyyMMdd");
+                return time;
             }
             return null;
         }
@@ -486,7 +486,7 @@ namespace bms.Dao
         ///根据当天时间 获取所有销售任务的总实洋，书籍总数，总码洋 地区
         /// </summary>
         /// <returns>数据集</returns>
-        public DataSet getAllpriceRegion(int regionId,string dateTime)
+        public DataSet getAllpriceRegion(int regionId, string dateTime)
         {
             //string cmdText = "select count(bookNum) as allKinds,sum(allNum) as allNum,sum(allPrice) as allPrice,sum(allRealPrice) as allRealPrice from (select sm.ISBN,sm.bookNum,book.bookName,sm.unitPrice,sum(sm.number) as allNum,sum(sm.realPrice) as allRealPrice,sum(sm.totalPrice) as allPrice,head.state,sm.dateTime,us.userID,us.userName,ct.customerID,ct.customerName,rg.regionName from t_salemonomer as sm,t_bookbasicdata as book,t_user as us,t_customer as ct,t_salehead as head,t_saletask as task,t_region as rg where (head.state=1 or head.state=2) and sm.saleTaskId = task.saleTaskId and task.userId = us.userID and sm.bookNum = book.bookNum AND sm.ISBN = book.ISBN and task.customerId = ct.customerID and us.regionId = rg.regionId and head.userId = us.userID AND head.regionId = rg.regionId AND head.saleTaskId = task.saleTaskId AND sm.saleHeadId = head.saleHeadId and rg.regionId=@regionId and sm.dateTime like '@dateTime%' GROUP BY sm.bookNum) as statics";
             //string[] param = { "@regionId","@dateTime" };

@@ -36,7 +36,7 @@
         var allprice = $(this).val();
         var defaultCopy = $(this).parent().prev().prev().prev().prev().prev().text().trim();
         $("#defaultDiscount").val(defaultDiscount);
-        $("#allpricemlimited").val(allprice);
+        $("#allpricemlimited").val(allprice+".00");
         $("#numberlimited").val(number);
         $("#pricelimited").val(price);
         $("#defaultCopyed").val(defaultCopy);
