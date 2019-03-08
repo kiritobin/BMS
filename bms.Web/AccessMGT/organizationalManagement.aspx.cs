@@ -117,17 +117,28 @@ namespace bms.Web.AccessMGT
         /// </summary>
         public void Insert()
         {
+            GoodsShelvesBll gBll = new GoodsShelvesBll();
+            int id = gBll.getMaxShelvesId();
             string reName = Request["name"];
             string shelvese = "未上架";
-            TableInsertion tb = new TableInsertion()
+            int shelvesId = id;
+            bool isExitId = true;
+            do
             {
-                InRegionName = reName,
-                InShelvesName = shelvese,
-                OutCount = count
-            };
+                shelvesId += 1;
+                isExitId = gBll.isExitID(shelvesId);
+            }
+            while (isExitId);
             Result result = regionBll.isExit(reName);
             if (result == Result.记录不存在)
             {
+                TableInsertion tb = new TableInsertion()
+                {
+                    InShelvesId = shelvesId,
+                    InRegionName = reName,
+                    InShelvesName = shelvese,
+                    OutCount = count
+                };
                 Result row = regionBll.InsertManyTable(tb, out count);
                 if (row == Result.添加成功)
                 {

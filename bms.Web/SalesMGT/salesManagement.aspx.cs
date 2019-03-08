@@ -181,7 +181,7 @@ namespace bms.Web.SalesMGT
                 {
                     string time = saleheadbll.getSaleHeadTime();
                     string nowTime = DateTime.Now.ToLocalTime().ToString();
-                    string equalsTime = nowTime.Substring(0, 10);
+                    string equalsTime = DateTime.Now.ToLocalTime().ToString("yyyyMMdd");
                     if (time.Equals(equalsTime))
                     {
                         nowTime = DateTime.Now.ToString("yyyy-MM-dd");

@@ -429,27 +429,27 @@
                                 <tr>
                                     <td class="text-right">码洋上限:</td>
                                     <td>
-                                        <input type="text" id="allpricemlimited" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" id="allpricemlimited" maxlength="8" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td class="text-right">最大采购数:</td>
                                     <td>
-                                        <input type="text" id="numberlimited" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" id="numberlimited" maxlength="6" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td class="text-right">默认折扣:</td>
                                     <td>
-                                        <input type="text" id="defaultDiscount" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" id="defaultDiscount" maxlength="3" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td class="text-right">单价上限:</td>
                                     <td>
-                                        <input type="text" id="pricelimited" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" id="pricelimited" maxlength="5" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td class="text-right">默认复本:</td>
                                     <td>
-                                        <input type="text" id="defaultCopyed" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" id="defaultCopyed" maxlength="5" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                             </table>
                         </div>
@@ -486,31 +486,31 @@
                                 <tr>
                                     <td class="text-right"><span>最大采购数:</span></td>
                                     <td>
-                                        <input type="text" class="modal_search_add" id="billCount" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
+                                        <input type="text" class="modal_search_add" id="billCount" maxlength="6" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-right"><span>单价上限:</span></td>
                                     <td>
-                                        <input type="text" class="modal_search_add" id="totalPrice" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
+                                        <input type="text" class="modal_search_add" id="totalPrice" maxlength="5" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-right"><span>码洋上限:</span></td>
                                     <td>
-                                        <input type="text" class="modal_search_add" id="realPrice" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
+                                        <input type="text" class="modal_search_add" id="realPrice" maxlength="8" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-right"><span>默认折扣:</span></td>
                                     <td>
-                                        <input type="text" class="modal_search_add" id="Price" maxlength="4" oninput="value=value.replace(/[^\d]/g,'')">
+                                        <input type="text" class="modal_search_add" id="Price" maxlength="3" oninput="value=value.replace(/[^\d]/g,'')">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-right">默认复本:</td>
                                     <td>
-                                        <input type="text" class="modal_search_add" id="defaultCopy" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" class="modal_search_add" maxlength="5" id="defaultCopy" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                             </table>
                         </div>

@@ -111,7 +111,7 @@
                     } else {
                         swal({
                             title: '温馨提示:)',
-                            text: data,
+                            text: "添加失败",
                             type: 'error',
                             confirmButtonClass: "btn btn-info",
                             buttonsStyling: false,

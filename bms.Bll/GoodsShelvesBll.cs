@@ -147,5 +147,38 @@ namespace bms.Bll
                 return Result.记录不存在;
             }
         }
+        /// <summary>
+        /// 获取货架名为未上架的最大货架id
+        /// </summary>
+        /// <returns>返回得到的最大的货架ID</returns>
+        public int getMaxShelvesId()
+        {
+            string id = shelvesdao.getMaxShelvesId();
+            if(id=="0" || id=="" || id == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return int.Parse(id);
+            }
+        }
+        /// <summary>
+        /// 利用获取的流水号查寻是否有重复的，避免报错
+        /// </summary>
+        /// <param name="shelvesId">货架流水号</param>
+        /// <returns></returns>
+        public bool isExitID(int shelvesId)
+        {
+            int count = shelvesdao.isExitID(shelvesId);
+            if (count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
