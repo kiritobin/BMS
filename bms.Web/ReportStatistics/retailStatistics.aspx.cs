@@ -204,7 +204,8 @@ namespace bms.Web.ReportStatistics
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_retailmonomer";
-            tb.OrderBy = "convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
+            //tb.OrderBy = "convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
+            tb.OrderBy = "datetime desc";
             tb.StrColumnlist = groupbyType + ", sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;

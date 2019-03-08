@@ -165,7 +165,8 @@ namespace bms.Web.ReportStatistics
             }
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_selloff";
-            tb.OrderBy = "bookNum";
+            //tb.OrderBy = "bookNum";
+            tb.OrderBy = "dateTime desc";
             tb.StrColumnlist = "isbn,bookNum,bookName,price,sum(count) as number, sum(totalPrice) as totalPrice,sum(realPrice) as realPrice,realDiscount,dateTime,userName,state,supplier";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;

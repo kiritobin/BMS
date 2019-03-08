@@ -168,8 +168,10 @@ namespace bms.Web.ReportStatistics
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "v_salemonomer";
-            tb.OrderBy = "id";
+           tb.StrTable = "v_salemonomer";
+            
+           // tb.OrderBy = "id";
+            tb.OrderBy = "dateTime desc";
             tb.StrColumnlist = "id,isbn,bookNum,bookName,price,sum(number) as number, sum(totalPrice) as totalPrice,sum(realPrice) as realPrice,realDiscount,dateTime,userName,state,supplier";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;

@@ -251,7 +251,8 @@ namespace bms.Web.ReportStatistics
             }
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_monomer";
-            tb.OrderBy = type;
+            //tb.OrderBy = type;
+            tb.OrderBy = "time desc";
             tb.StrColumnlist = "isbn,bookNum,bookName,uPrice,sum(number) as number, sum(totalPrice) as totalPrice,sum(realPrice) as realPrice,discount,time,userName,regionName,supplier";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
