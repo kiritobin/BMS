@@ -148,7 +148,7 @@ namespace bms.Web.ReportStatistics
             }
             if (time == "" || time == null)
             {
-                if (looktime != null && looktime != "")
+                if (looktime != null && looktime != "" && looktime != "null")
                 {
                     string[] sArray = looktime.Split('至');
                     string startTime = sArray[0];
@@ -307,7 +307,7 @@ namespace bms.Web.ReportStatistics
             }
             if (time == "" || time == null)
             {
-                if (looktime != null && looktime != "")
+                if (looktime != null && looktime != "" && looktime != "null")
                 {
                     string[] sArray = looktime.Split('至');
                     string startTime = sArray[0];
@@ -498,7 +498,7 @@ namespace bms.Web.ReportStatistics
             }
             if (time == "" || time == null)
             {
-                if (looktime != null && looktime != "")
+                if (looktime != null && looktime != "" && looktime != "null")
                 {
                     string[] sArray = looktime.Split('至');
                     string startTime = sArray[0];
