@@ -825,7 +825,12 @@ $("#zhen").click(function () {
             $(".swal2-container").remove();
             $("#print_table tr:not(:first)").remove(); //清空table处首行
             $("#print_table").append(data); //加载table 
-            MyPreview();
+            try {
+                MyPreview();
+            }
+            catch{
+                window.location.href = "/CLodop_Setup_for_Win32NT.html";
+            }
         },
         error: function (XMLHttpRequest, textStatus) { //请求失败
             $(".swal2-container").remove();

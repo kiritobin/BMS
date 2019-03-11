@@ -573,7 +573,12 @@ $("#zhen").click(function () {
                 $("#printShowType").text("客户");
             }
             group = groupbyType;
-            MyPreview();
+            try {
+                MyPreview();
+            }
+            catch{
+                window.location.href = "/CLodop_Setup_for_Win32NT.html";
+            }
         },
         error: function (XMLHttpRequest, textStatus) { //请求失败
             $(".swal2-container").remove();
