@@ -493,7 +493,7 @@
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
                             <th>序号</th>
-                            <th>供应商</th>
+                            <th id="printShowType">供应商</th>
                             <th>品种</th>
                             <th>数量</th>
                             <th>码洋</th>

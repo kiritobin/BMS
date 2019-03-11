@@ -76,8 +76,8 @@ window.onload = function () {
 //});
 
 $(document).ready(function () {
-    $("#printContent").hide();//隐藏打印内容
-    $("#print_table").hide();
+    //$("#printContent").hide();//隐藏打印内容
+    //$("#print_table").hide();
     $('.paging').pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,
@@ -471,6 +471,7 @@ $(document).ready(function () {
 })
 
 $("#a4").click(function () {
+    var groupbyType = $("#groupby").find("option:selected").text();
     $.ajax({
         type: 'Post',
         url: 'returnStatistics.aspx',
@@ -495,6 +496,14 @@ $("#a4").click(function () {
             $("#printTable tr:not(:first)").remove();
             $("#printTable").append(data);
             $('#printContent').show();
+            if (groupbyType == "供应商") {
+                $("#printShowType").text("供应商");
+            }
+            else if (groupbyType == "组织") {
+                $("#printShowType").text("组织");
+            } else if (groupbyType == "客户") {
+                $("#printShowType").text("客户");
+            }
             $("#printContent").jqprint();
             $('#printContent').hide();
         },
@@ -555,6 +564,15 @@ $("#zhen").click(function () {
             $(".swal2-container").remove();
             $("#printTable tr:not(:first)").remove(); //清空table处首行
             $("#printTable").append(data); //加载table
+            if (groupbyType == "供应商") {
+                $("#printShowType").text("供应商");
+            }
+            else if (groupbyType == "组织") {
+                $("#printShowType").text("组织");
+            } else if (groupbyType == "客户") {
+                $("#printShowType").text("客户");
+            }
+            group = groupbyType;
             MyPreview();
         },
         error: function (XMLHttpRequest, textStatus) { //请求失败
@@ -615,12 +633,6 @@ function logout() {
         });
     })
 }
-
-var group = $("#printTable").find('tr').eq(0).find('th').eq(1).text().trim();
-var kinds = $("#printTable").find('tr').eq(0).find('th').eq(2).text().trim();
-var num = $("#printTable").find('tr').eq(0).find('th').eq(3).text().trim();
-var totalPrice = $("#printTable").find('tr').eq(0).find('th').eq(4).text().trim();
-var realPrice = $("#printTable").find('tr').eq(0).find('th').eq(5).text().trim();
 var LODOP; //声明为全局变量
 function MyPreview() {
     AddTitle();
@@ -672,6 +684,11 @@ function MyPreview() {
     LODOP.SET_PRINT_PAGESIZE(3, 1500, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
     LODOP.PREVIEW();
 };
+var group = $("#printTable").find('tr').eq(0).find('th').eq(1).text().trim();
+var kinds = $("#printTable").find('tr').eq(0).find('th').eq(2).text().trim();
+var num = $("#printTable").find('tr').eq(0).find('th').eq(3).text().trim();
+var totalPrice = $("#printTable").find('tr').eq(0).find('th').eq(4).text().trim();
+var realPrice = $("#printTable").find('tr').eq(0).find('th').eq(5).text().trim();
 function AddTitle() {
     LODOP = getLodop();
     LODOP.PRINT_INIT("退货统计");

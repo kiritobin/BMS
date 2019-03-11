@@ -469,6 +469,7 @@ $(document).ready(function () {
 })
 
 $("#a4").click(function () {
+    var groupby = $("#groupby").find("option:selected").text();
     $.ajax({
         type: 'Post',
         url: 'selloffStatistics.aspx',
@@ -493,6 +494,14 @@ $("#a4").click(function () {
             $("#print_table tr:not(:first)").remove(); //清空table处首行
             $("#print_table").append(data); //加载tab
             $('#printContent').show();
+            if (groupby == "供应商") {
+                $("#printShowType").text("供应商");
+            }
+            else if (groupby == "组织") {
+                $("#printShowType").text("组织");
+            } else if (groupby == "客户") {
+                $("#printShowType").text("客户");
+            }
             $("#printContent").jqprint();
             $('#printContent').hide();
 

@@ -491,6 +491,7 @@ $(document).ready(function () {
 })
 
 $("#a4").click(function () {
+    var groupby = $("#groupby").find("option:selected").text();
     $.ajax({
         type: 'Post',
         url: 'warehouseStatistics.aspx',
@@ -515,6 +516,12 @@ $("#a4").click(function () {
             $("#printTable tr:not(:first)").remove();
             $("#printTable").append(data);
             $('#printContent').show();
+            if (groupby == "供应商") {
+                $("#printShowType").text("供应商");
+            }
+            else if (groupby == "组织") {
+                $("#printShowType").text("组织");
+            }
             $("#printContent").jqprint();
             $('#printContent').hide();
         },
