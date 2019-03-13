@@ -468,11 +468,11 @@ namespace bms.Dao
             }
             if (strWhere != "" && strWhere != null)
             {
-                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,unitPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,dateTime as 交易日期,userName as 收银员,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_retailmonomer where " + strWhere + ",booknum,userName,supplier order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
+                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,unitPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,dateTime as 交易日期,userName as 收银员,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_retailmonomer where " + strWhere + ",booknum,userName,supplier order by dateTime desc";
             }
             else
             {
-                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,unitPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,dateTime as 交易日期,userName as 收银员,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_retailmonomer GROUP BY " + groupbyType + ",booknum,userName,supplier order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
+                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,unitPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,dateTime as 交易日期,userName as 收银员,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_retailmonomer GROUP BY " + groupbyType + ",booknum,userName,supplier order by dateTime desc";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
@@ -500,12 +500,12 @@ namespace bms.Dao
             if (groupbyType == "payment")
             {
                 exportdt.Columns.Add("支付方式", typeof(string));
-                cmdText = "select payment, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_retailmonomer where " + strWhere + " order by allTotalPrice desc";
+                cmdText = "select payment, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_retailmonomer where " + strWhere + " order by dateTime desc";
             }
             else if (groupbyType == "regionName")
             {
                 exportdt.Columns.Add("地区名称", typeof(string));
-                cmdText = "select regionName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_retailmonomer where " + strWhere + " order by allTotalPrice desc";
+                cmdText = "select regionName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_retailmonomer where " + strWhere + " order by dateTime desc";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             exportdt.Columns.Add("书籍种数", typeof(long));
@@ -556,7 +556,7 @@ namespace bms.Dao
         /// <returns>返回一个DataTable的选题记录集合</returns>
         public DataTable ExportExcel(string strWhere, string type)
         {
-            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,unitPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,supplier as 供应商, DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 交易时间,userName as 收银员,payment as 支付方式,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_retailmonomer where " + strWhere + " group by bookNum,userName,supplier," + type + " order by convert(" + type + " using gbk) collate gbk_chinese_ci";
+            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,unitPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,supplier as 供应商, DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 交易时间,userName as 收银员,payment as 支付方式,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_retailmonomer where " + strWhere + " group by bookNum,userName,supplier," + type + " order by dateTime desc";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
             int count = ds.Tables[0].Rows.Count;

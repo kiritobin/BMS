@@ -37,7 +37,7 @@ namespace bms.Dao
         /// <returns>返回一个DataTable的选题记录集合</returns>
         public DataTable ExportExcel(string strWhere,string type)
         {
-            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,price as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 销售折扣,supplier as 供应商, DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 采集时间,userName as 采集人,state,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_salemonomer where " + strWhere+" group by bookNum,userName,"+ type + " HAVING 数量!=0 order by convert(" + type + " using gbk) collate gbk_chinese_ci";
+            String cmdText = "select ISBN,bookNum as 书号,bookName as 书名,price as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 销售折扣,author as 进货折扣,supplier as 供应商, DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 采集时间,userName as 采集人,state,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_salemonomer where " + strWhere+" group by bookNum,userName,"+ type + " HAVING 数量!=0 order by dateTime desc";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
             int count = ds.Tables[0].Rows.Count;

@@ -167,7 +167,7 @@ namespace bms.Web.SalesMGT
                 monRow["realDiscount"] = discount;
                 monRow["number"] = 1;
                 monRow["totalPrice"] = uPrice;
-                monRow["realPrice"] = uPrice * discount;
+                monRow["realPrice"] = uPrice * discount*0.01;
                 monTable.Rows.Add(monRow);
                 StringBuilder sb = new StringBuilder();
                 int counts = monTable.Rows.Count;
@@ -231,6 +231,7 @@ namespace bms.Web.SalesMGT
                         string st1 = id.Substring(10);
                         long rowes = long.Parse(st1) + 1;
                         count = rowes;
+                        break;
                     }
                 }
                 if(count == 0)
