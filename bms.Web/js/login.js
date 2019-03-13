@@ -1,9 +1,13 @@
-﻿$(document).ready(function () {
-    isIE();
-    function isIE() {
-        if (!!window.ActiveXObject || "ActiveXObject" in window)
-            window.location.href = "../chrome/ChromeDownload.html";
+﻿function isGoogle() {
+    var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+    if (!isChrome) {
+        window.location.href = "chrome/ChromeDownload.html";
     }
+}
+
+
+$(document).ready(function () {
+    isGoogle();
     var url = getUrlParam(location.href, "logout");
     if (url == "force") {
         swal({

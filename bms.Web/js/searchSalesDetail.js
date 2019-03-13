@@ -57,7 +57,7 @@
                 try {
                     MyPreview();
                 }
-                catch{
+                catch(err) {
                     window.location.href = "/CLodop_Setup_for_Win32NT.html";
                 }
             },
@@ -219,7 +219,6 @@ function MyPreview() {
         LODOP.ADD_PRINT_LINE(225, 695, 200, 695, 0, 1);//7
         LODOP.ADD_PRINT_LINE(225, 755, 200, 755, 0, 1);//8
         LODOP.ADD_PRINT_LINE(225, 800, 200, 800, 0, 1);//9
-        //LODOP.ADD_PRINT_LINE(225, 730, 200, 730, 0, 1);//10
         LODOP.ADD_PRINT_LINE(225, 14, 225, 800, 0, 1);//二线(行)
 
         //--行内容

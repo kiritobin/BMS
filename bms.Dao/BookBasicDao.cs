@@ -248,5 +248,41 @@ namespace bms.Dao
                 return null;
             }
         }
+
+        /// <summary>
+        /// 基础数据导出
+        /// </summary>
+        /// <returns></returns>
+        public DataTable excelBook(string search)
+        {
+            if (search == "")
+            {
+                String sql = @"select bookNum as '书号',ISBN,bookName as '书名',publishTime as '出版日期',price as '定价',supplier as '出版社',catalog as '预收数量',author as '进货折扣',remarks as '销售折扣',dentification as '备注' from t_bookbasicdata";
+                DataSet ds = db.FillDataSet(sql, null, null);
+                if (ds != null || ds.Tables[0].Rows.Count > 0)
+                {
+                    DataTable dt = ds.Tables[0];
+                    return dt;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                String sql = @"select bookNum as '书号',ISBN,bookName as '书名',publishTime as '出版日期',price as '定价',supplier as '出版社',catalog as '预收数量',author as '进货折扣',remarks as '销售折扣',dentification as '备注' from t_bookbasicdata where " +search;
+                DataSet ds = db.FillDataSet(sql, null, null);
+                if (ds != null || ds.Tables[0].Rows.Count > 0)
+                {
+                    DataTable dt = ds.Tables[0];
+                    return dt;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }
