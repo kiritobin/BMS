@@ -1,9 +1,11 @@
-﻿$(document).ready(function () {
-    isIE();
-    function isIE() {
-        if (!!window.ActiveXObject || "ActiveXObject" in window)
-            window.location.href = "../chrome/ChromeDownload.html";
-    }
+﻿function isIE360() {
+    if (!!window.ActiveXObject || "ActiveXObject" in window || window.navigator.userAgent.indexOf('AppleWebKit') != -1)
+        window.location.href = "../chrome/ChromeDownload.html";
+}
+
+
+$(document).ready(function () {
+    isIE360();
     var url = getUrlParam(location.href, "logout");
     if (url == "force") {
         swal({
