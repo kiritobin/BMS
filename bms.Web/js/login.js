@@ -1,11 +1,13 @@
-﻿function isIE360() {
-    if (!!window.ActiveXObject || "ActiveXObject" in window || window.navigator.userAgent.indexOf('AppleWebKit') != -1)
-        window.location.href = "../chrome/ChromeDownload.html";
+﻿function isGoogle() {
+    var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+    if (!isChrome) {
+        window.location.href = "chrome/ChromeDownload.html";
+    }
 }
 
 
 $(document).ready(function () {
-    isIE360();
+    isGoogle();
     var url = getUrlParam(location.href, "logout");
     if (url == "force") {
         swal({
