@@ -463,6 +463,7 @@ $(document).ready(function () {
 })
 
 $("#a4").click(function () {
+    var groupby = $("#groupby").find("option:selected").text();
     $.ajax({
         type: 'Post',
         url: 'retailStatistics.aspx',
@@ -487,6 +488,12 @@ $("#a4").click(function () {
             $("#print_table tr:not(:first)").remove();
             $("#print_table").append(data);
             $('#printContent').show();
+            if (groupby == "支付方式") {
+                $("#printShowType").text("支付方式");
+            }
+            else if (groupby == "组织") {
+                $("#printShowType").text("组织");
+            }
             $("#printContent").jqprint();
             $('#printContent').hide();
         },
@@ -545,7 +552,12 @@ $("#zhen").click(function () {
             $(".swal2-container").remove();
             $("#print_table tr:not(:first)").remove(); //清空table处首行
             $("#print_table").append(data); //加载table 
-            MyPreview();
+            try {
+                MyPreview();
+            }
+            catch{
+                window.location.href = "/CLodop_Setup_for_Win32NT.html";
+            }
         },
         error: function (XMLHttpRequest, textStatus) { //请求失败
             $(".swal2-container").remove();
