@@ -64,7 +64,7 @@ namespace bms.Web.wechat
             string isbn = context.Request["isbn"];
             if (isbn != null && isbn != "")
             {
-                DataSet bookDs = retailBll.SelectByIsbn(isbn);
+                DataTable bookDs = retailBll.SelectByIsbn(isbn);
                 if (bookDs == null)
                 {
                     retailM.type = "ISBN不存在";
@@ -74,26 +74,26 @@ namespace bms.Web.wechat
                 }
                 else
                 {
-                    int count = bookDs.Tables[0].Rows.Count;
+                    int count = bookDs.Rows.Count;
                     if (bookDs != null && count > 0)
                     {
                         if (count == 1)
                         {
                             retailM.type = "一号一书";
                             double discount = 100;
-                            if (bookDs.Tables[0].Rows[0]["discount"].ToString() != null && bookDs.Tables[0].Rows[0]["discount"].ToString() != "")
+                            if (bookDs.Rows[0]["discount"].ToString() != null && bookDs.Rows[0]["discount"].ToString() != "")
                             {
-                                discount = Convert.ToDouble(bookDs.Tables[0].Rows[0]["discount"]);
+                                discount = Convert.ToDouble(bookDs.Rows[0]["discount"]);
                             }
-                            bookDs.Tables[0].Columns.Add("number", typeof(string));
-                            bookDs.Tables[0].Rows[0]["number"] = "1";
-                            bookDs.Tables[0].Columns.Add("focus", typeof(bool));
-                            bookDs.Tables[0].Rows[0]["focus"] = false;
-                            bookDs.Tables[0].Columns.Add("totalPrice", typeof(string));
-                            bookDs.Tables[0].Rows[0]["totalPrice"] = bookDs.Tables[0].Rows[0]["price"].ToString();
-                            bookDs.Tables[0].Columns.Add("totalReal", typeof(string));
-                            bookDs.Tables[0].Rows[0]["totalReal"] = (Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]) * discount * 0.01).ToString();
-                            string data = JsonHelper.ToJson(bookDs.Tables[0], "retail");
+                            bookDs.Columns.Add("number", typeof(string));
+                            bookDs.Rows[0]["number"] = "1";
+                            bookDs.Columns.Add("focus", typeof(bool));
+                            bookDs.Rows[0]["focus"] = false;
+                            bookDs.Columns.Add("totalPrice", typeof(string));
+                            bookDs.Rows[0]["totalPrice"] = bookDs.Rows[0]["price"].ToString();
+                            bookDs.Columns.Add("totalReal", typeof(string));
+                            bookDs.Rows[0]["totalReal"] = (Convert.ToDouble(bookDs.Rows[0]["price"]) * discount * 0.01).ToString();
+                            string data = JsonHelper.ToJson(bookDs, "retail");
                             retailM.data = data;
                             string json = JsonHelper.JsonSerializerBySingleData(retailM);
                             context.Response.Write(json);
@@ -123,7 +123,7 @@ namespace bms.Web.wechat
             string isbn = context.Request["isbn"];
             if (isbn != null && isbn != "")
             {
-                DataSet bookDs = retailBll.SelectByIsbn(isbn);
+                DataTable bookDs = retailBll.SelectByIsbn(isbn);
                 if (bookDs == null)
                 {
                     retailM.type = "ISBN不存在";
@@ -133,17 +133,17 @@ namespace bms.Web.wechat
                 }
                 else
                 {
-                    int counts = bookDs.Tables[0].Rows.Count;
+                    int counts = bookDs.Rows.Count;
                     StringBuilder sb = new StringBuilder();
                     int i = 0;
                     while (i < counts)
                     {
-                        DataRow dr = bookDs.Tables[0].Rows[i];
+                        DataRow dr = bookDs.Rows[i];
                         string bookNum = dr["bookNum"].ToString();
                         int stockNum = stockBll.selectStockNum(dr["bookNum"].ToString());
                         if (stockNum <= 0)
                         {
-                            bookDs.Tables[0].Rows.RemoveAt(i);
+                            bookDs.Rows.RemoveAt(i);
                             counts--;
                         }
                         else
@@ -162,19 +162,19 @@ namespace bms.Web.wechat
                     {
                         retailM.type = "一号一书";
                         double discount = 100;
-                        if (bookDs.Tables[0].Rows[0]["discount"].ToString() != null && bookDs.Tables[0].Rows[0]["discount"].ToString() != "")
+                        if (bookDs.Rows[0]["discount"].ToString() != null && bookDs.Rows[0]["discount"].ToString() != "")
                         {
-                            discount = Convert.ToDouble(bookDs.Tables[0].Rows[0]["discount"]);
+                            discount = Convert.ToDouble(bookDs.Rows[0]["discount"]);
                         }
-                        bookDs.Tables[0].Columns.Add("number", typeof(string));
-                        bookDs.Tables[0].Rows[0]["number"] = "1";
-                        bookDs.Tables[0].Columns.Add("focus", typeof(bool));
-                        bookDs.Tables[0].Rows[0]["focus"] = false;
-                        bookDs.Tables[0].Columns.Add("totalPrice", typeof(string));
-                        bookDs.Tables[0].Rows[0]["totalPrice"] = bookDs.Tables[0].Rows[0]["price"].ToString();
-                        bookDs.Tables[0].Columns.Add("totalReal", typeof(string));
-                        bookDs.Tables[0].Rows[0]["totalReal"] = (Convert.ToDouble(bookDs.Tables[0].Rows[0]["price"]) * discount * 0.01).ToString();
-                        string data = JsonHelper.ToJson(bookDs.Tables[0], "retail");
+                        bookDs.Columns.Add("number", typeof(string));
+                        bookDs.Rows[0]["number"] = "1";
+                        bookDs.Columns.Add("focus", typeof(bool));
+                        bookDs.Rows[0]["focus"] = false;
+                        bookDs.Columns.Add("totalPrice", typeof(string));
+                        bookDs.Rows[0]["totalPrice"] = bookDs.Rows[0]["price"].ToString();
+                        bookDs.Columns.Add("totalReal", typeof(string));
+                        bookDs.Rows[0]["totalReal"] = (Convert.ToDouble(bookDs.Rows[0]["price"]) * discount * 0.01).ToString();
+                        string data = JsonHelper.ToJson(bookDs, "retail");
                         retailM.data = data;
                         string json = JsonHelper.JsonSerializerBySingleData(retailM);
                         context.Response.Write(json);
@@ -183,23 +183,23 @@ namespace bms.Web.wechat
                     else
                     {
                         retailM.type = "一号多书数据";
-                        bookDs.Tables[0].Columns.Add("totalPrice", typeof(string));
-                        bookDs.Tables[0].Columns.Add("number", typeof(string));
-                        bookDs.Tables[0].Columns.Add("totalReal", typeof(string));
-                        bookDs.Tables[0].Columns.Add("color", typeof(string));
-                        for (int j = 0; j < bookDs.Tables[0].Rows.Count; j++)
+                        bookDs.Columns.Add("totalPrice", typeof(string));
+                        bookDs.Columns.Add("number", typeof(string));
+                        bookDs.Columns.Add("totalReal", typeof(string));
+                        bookDs.Columns.Add("color", typeof(string));
+                        for (int j = 0; j < bookDs.Rows.Count; j++)
                         {
                             double discount = 100;
-                            if (bookDs.Tables[0].Rows[j]["discount"].ToString() != null && bookDs.Tables[0].Rows[j]["discount"].ToString() != "")
+                            if (bookDs.Rows[j]["discount"].ToString() != null && bookDs.Rows[j]["discount"].ToString() != "")
                             {
-                                discount = Convert.ToDouble(bookDs.Tables[0].Rows[j]["discount"]);
+                                discount = Convert.ToDouble(bookDs.Rows[j]["discount"]);
                             }
-                            bookDs.Tables[0].Rows[j]["number"] = "1";
-                            bookDs.Tables[0].Rows[j]["totalPrice"] = bookDs.Tables[0].Rows[j]["price"].ToString();
-                            bookDs.Tables[0].Rows[j]["totalReal"] = (Convert.ToDouble(bookDs.Tables[0].Rows[j]["price"]) * discount * 0.01).ToString();
-                            bookDs.Tables[0].Rows[j]["color"] = "";
+                            bookDs.Rows[j]["number"] = "1";
+                            bookDs.Rows[j]["totalPrice"] = bookDs.Rows[j]["price"].ToString();
+                            bookDs.Rows[j]["totalReal"] = (Convert.ToDouble(bookDs.Rows[j]["price"]) * discount * 0.01).ToString();
+                            bookDs.Rows[j]["color"] = "";
                         }
-                        string data = JsonHelper.ToJson(bookDs.Tables[0], "retail");
+                        string data = JsonHelper.ToJson(bookDs, "retail");
                         retailM.data = data;
                         string json = JsonHelper.JsonSerializerBySingleData(retailM);
                         context.Response.Write(json);
@@ -265,6 +265,8 @@ namespace bms.Web.wechat
         {
             string openid = context.Request["openid"];
             string json = context.Request["data"];
+            string[] list = json.Split('[');
+            string[] newList = list[1].Split(']');
             DataTable dataTable = jsonToDt(json);
             string kindNum = context.Request["kindNum"];
             string totalNumber = context.Request["totalNumber"];

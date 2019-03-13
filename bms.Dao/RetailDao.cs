@@ -569,7 +569,7 @@ namespace bms.Dao
         /// </summary>
         /// <param name="ISBN">ISBN</param>
         /// <returns></returns>
-        public DataSet SelectByIsbn(string ISBN)
+        public DataTable SelectByIsbn(string ISBN)
         {
             MySqlHelp db = new MySqlHelp();
             string comTexts = "select count(bookNum) from T_BookBasicData where ISBN=@ISBN";
@@ -586,15 +586,50 @@ namespace bms.Dao
                 string[] param = { "@ISBN" };
                 object[] values = { ISBN };
                 DataSet ds = db.FillDataSet(comText, param, values);
-                if (ds != null || ds.Tables[0].Rows.Count > 0)
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
-                    return ds;
+                    DataTable excel = new DataTable();
+                    excel.Columns.Add("bookNum");
+                    excel.Columns.Add("ISBN");
+                    excel.Columns.Add("price");
+                    excel.Columns.Add("discount");
+                    excel.Columns.Add("bookName");
+                    DataRowCollection count = ds.Tables[0].Rows;
+                    foreach (DataRow row1 in count)
+                    {
+                        string bookName = ToDBC(row1[4].ToString());
+                        excel.Rows.Add(row1[0], row1[1], row1[2], row1[3], bookName);
+                    }
+                    return excel;
                 }
                 else
                 {
                     return null;
                 }
             }
+        }
+
+        /// <summary>
+        /// 全转半
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ToDBC(string input)
+        {
+            char[] array = input.ToCharArray();
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == 12288)
+                {
+                    array[i] = (char)32;
+                    continue;
+                }
+                if (array[i] > 65280 && array[i] < 65375)
+                {
+                    array[i] = (char)(array[i] - 65248);
+                }
+            }
+            return new string(array);
         }
 
         /// <summary>

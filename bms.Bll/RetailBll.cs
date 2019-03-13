@@ -437,7 +437,7 @@ namespace bms.Bll
         /// </summary>
         /// <param name="ISBN">ISBN</param>
         /// <returns></returns>
-        public DataSet SelectByIsbn(string ISBN)
+        public DataTable SelectByIsbn(string ISBN)
         {
             return dao.SelectByIsbn(ISBN);
         }
