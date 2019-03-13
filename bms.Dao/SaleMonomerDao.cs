@@ -1127,11 +1127,11 @@ namespace bms.Dao
             }
             if (strWhere != "" && strWhere != null)
             {
-                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,price as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,author as 进货折扣,DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 采集日期,userName as 采集人用户名, state as 采集状态,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_salemonomer where " + strWhere + ",booknum,userName HAVING 数量!=0 order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
+                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,price as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,author as 进货折扣,DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 采集日期,userName as 采集人用户名, state as 采集状态,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_salemonomer where " + strWhere + ",booknum,userName HAVING 数量!=0 order by dateTime desc";
             }
             else
             {
-                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,price as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,author as 进货折扣,DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 采集日期,userName as 采集人用户名, state as 采集状态,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_salemonomer GROUP BY " + groupbyType + ",booknum,userName HAVING 数量!=0 order by convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
+                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,price as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,remarks as 销售折扣,author as 进货折扣,DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 采集日期,userName as 采集人用户名, state as 采集状态,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_salemonomer GROUP BY " + groupbyType + ",booknum,userName HAVING 数量!=0 order by dateTime desc";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
