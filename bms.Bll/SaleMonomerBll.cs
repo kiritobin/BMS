@@ -798,6 +798,7 @@ namespace bms.Bll
             excel.Columns.Add("码洋");
             excel.Columns.Add("实洋");
             excel.Columns.Add("销售折扣");
+            excel.Columns.Add("进货折扣");
             excel.Columns.Add("采集日期");
             excel.Columns.Add("采集人用户名");
             excel.Columns.Add("采集状态");
@@ -822,7 +823,7 @@ namespace bms.Bll
                         state = "现采";
                     }
                     string bookName = ToDBC(row[3].ToString());
-                    excel.Rows.Add(row[0], row[1], row[2], bookName, row[4], row[5], row[6], row[7], row[8], row[9], row[10], state, row[12], row[13], row[14], row[15], row[16]);
+                    excel.Rows.Add(row[0], row[1], row[2], bookName, row[4], row[5], row[6], row[7], row[8], row[9], row[10], state, row[12], row[13], row[14], row[15], row[16], row[17]);
                 }
             }
             return excel;
