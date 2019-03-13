@@ -1,5 +1,11 @@
 ﻿$(document).ready(function () {
-
+    isIE();
+    function isIE() {
+        if (!!window.ActiveXObject || "ActiveXObject" in window)
+            alert("是");
+        else
+            alert("否");
+    }
     var url = getUrlParam(location.href, "logout");
     if (url == "force") {
         swal({
