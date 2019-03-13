@@ -1,5 +1,9 @@
 ﻿$(document).ready(function () {
-
+    isIE();
+    function isIE() {
+        if (!!window.ActiveXObject || "ActiveXObject" in window)
+            window.location.href = "../chrome/ChromeDownload.html";
+    }
     var url = getUrlParam(location.href, "logout");
     if (url == "force") {
         swal({

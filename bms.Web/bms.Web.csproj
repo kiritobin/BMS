@@ -829,6 +829,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Customer\" />
+    <Folder Include="download\书籍基础数据导出\" />
     <Folder Include="download\入库明细导出\" />
     <Folder Include="download\出库明细导出\" />
     <Folder Include="download\报表导出\入库报表导出\" />

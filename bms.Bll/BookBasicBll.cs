@@ -181,5 +181,58 @@ namespace bms.Bll
         {
             return basicDao.selectSource();
         }
+
+        /// <summary>
+        ///导出书籍基础数据
+        /// </summary>
+        /// <returns></returns>
+        public DataTable excelBook(string search)
+        {
+            DataTable excel = new DataTable();
+            excel.Columns.Add("书号");
+            excel.Columns.Add("ISBN");
+            excel.Columns.Add("书名");
+            excel.Columns.Add("出版日期");
+            excel.Columns.Add("定价");
+            excel.Columns.Add("出版社");
+            excel.Columns.Add("预收数量");
+            excel.Columns.Add("进货折扣");
+            excel.Columns.Add("销售折扣");
+            excel.Columns.Add("备注");
+            DataTable dt = basicDao.excelBook(search);
+            if (dt != null)
+            {
+                DataRowCollection count = dt.Rows;
+                foreach (DataRow row in count)
+                {
+                    string bookName = ToDBC(row[2].ToString());
+                    excel.Rows.Add(row[0], row[1], bookName, row[3], row[4], row[5], row[6], row[7], row[8], row[9]);
+                }
+            }
+            return excel;
+        }
+
+        /// <summary>
+        /// 全转半
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ToDBC(string input)
+        {
+            char[] array = input.ToCharArray();
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == 12288)
+                {
+                    array[i] = (char)32;
+                    continue;
+                }
+                if (array[i] > 65280 && array[i] < 65375)
+                {
+                    array[i] = (char)(array[i] - 65248);
+                }
+            }
+            return new string(array);
+        }
     }
 }

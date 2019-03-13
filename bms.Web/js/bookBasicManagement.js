@@ -568,6 +568,21 @@ $("#btn-search").click(function () {
         }
     });
 });
+
+//导出
+$("#btn-out").click(function () {
+    var bookName = $("#bookName").val();
+    var bookNum = $("#bookNum").val();
+    var bookISBN = $("#bookISBN").val();
+    var bookGys = $("#bookGys").find("option:selected").text();
+    var discount = $("#bookDiscount").val();
+    var discount2 = $("#bookDiscount2").val();
+    if (bookGys == "全部供应商") {
+        bookGys = "";
+    }
+    window.location.href = "bookBasicManagement.aspx?op=export&&bookName=" + bookName + "&&bookNum=" + bookNum + "&&bookISBN=" + bookISBN + "&&bookGys=" + bookGys + "&&discount=" + discount + "&&discount2=" + discount2;
+})
+
 //点击删除
 $("#table").delegate(".btn-delete", "click", function () {
     var bookNum = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();

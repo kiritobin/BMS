@@ -78,6 +78,10 @@ namespace bms.Web.BasicInfor
             {
                 test();
             }
+            if(op== "export")
+            {
+                excelBook();
+            }
             string action = Request["action"];
             if (action == "import")
             {
@@ -966,6 +970,182 @@ namespace bms.Web.BasicInfor
             dtNpoi.Columns.Add("id").SetOrdinal(0);
             row = dtNpoi.Rows.Count;
             return dtNpoi;
+        }
+
+        /// <summary>
+        /// //导出列表方法
+        /// </summary>
+        /// <param name="s_path">文件路径</param>
+        public void downloadfile(string s_path)
+        {
+            System.IO.FileInfo file = new System.IO.FileInfo(s_path);
+            HttpContext.Current.Response.ContentType = "application/ms-download";
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.AddHeader("Content-Type", "application/octet-stream");
+            HttpContext.Current.Response.Charset = "utf-8";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(file.Name, System.Text.Encoding.UTF8));
+            HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
+            HttpContext.Current.Response.WriteFile(file.FullName);
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.End();
+        }
+        /// <summary>
+        /// 导出
+        /// </summary>
+        public void excelBook()
+        {
+            string bookName = Request["bookName"];
+            string bookNum = Request["bookNum"];
+            string bookISBN = Request["bookISBN"];
+            string discount = Request["discount"];
+            string discount2 = Request["discount2"];
+            string bookGys = Request["bookGys"];
+            string fileName = "";
+            string strExcel = "";
+            if (bookName != "" && bookName != null)
+            {
+                if (strExcel == "" || strExcel == null)
+                {
+                    strExcel = "bookName like '%" + bookName + "%'";
+                }
+                else
+                {
+                    strExcel += " and bookName like '%" + bookName + "%'";
+                }
+            }
+            if (bookNum != "" && bookNum != null)
+            {
+                if (strExcel == "" || strExcel == null)
+                {
+                    strExcel = "bookNum like '%" + bookNum + "%'";
+                }
+                else
+                {
+                    strExcel += " and bookNum like '%" + bookNum + "%'";
+                }
+            }
+            if (bookISBN != "" && bookISBN != null)
+            {
+                if (strExcel == "" || strExcel == null)
+                {
+                    strExcel = "isbn like '%" + bookISBN + "%'";
+                }
+                else
+                {
+                    strExcel += " and isbn like '%" + bookISBN + "%'";
+                }
+            }
+            if (discount != "" && discount != null)
+            {
+                string[] sArray = discount.Split('于');
+                string type = sArray[0];
+                string number = sArray[1];
+                try
+                {
+                    if (strExcel == "" || strExcel == null)
+                    {
+                        if (type == "小")
+                        {
+                            strExcel = "remarks < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            strExcel = "remarks = '" + number + "'";
+                        }
+                        else
+                        {
+                            strExcel = "remarks > '" + number + "'";
+                        }
+                    }
+                    else
+                    {
+                        if (type == "小")
+                        {
+                            strExcel += " and remarks < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            strExcel += " and remarks = '" + number + "'";
+                        }
+                        else
+                        {
+                            strExcel += " and remarks > '" + number + "'";
+                        }
+                    }
+                }
+                catch
+                {
+                    Response.Write("数据库存在不符合格式的数据");
+                    Response.End();
+                }
+            }
+            if (discount2 != "" && discount2 != null)
+            {
+                string[] sArray = discount2.Split('于');
+                string type = sArray[0];
+                string number = sArray[1];
+                try
+                {
+                    if (strExcel == "" || strExcel == null)
+                    {
+                        if (type == "小")
+                        {
+                            strExcel = "author < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            strExcel = "author = '" + number + "'";
+                        }
+                        else
+                        {
+                            strExcel = "author > '" + number + "'";
+                        }
+                    }
+                    else
+                    {
+                        if (type == "小")
+                        {
+                            strExcel += " and author < '" + number + "'";
+                        }
+                        else if (type == "等")
+                        {
+                            strExcel += " and author = '" + number + "'";
+                        }
+                        else
+                        {
+                            strExcel += " and author > '" + number + "'";
+                        }
+                    }
+                }
+                catch
+                {
+                    Response.Write("数据库存在不符合格式的数据");
+                    Response.End();
+                }
+            }
+            if (bookGys != "" && bookGys != null)
+            {
+                if (strExcel == "" || strExcel == null)
+                {
+                    strExcel += "supplier like '%" + bookGys + "%'";
+                }
+                else
+                {
+                    strExcel += " and supplier like '%" + bookGys + "%'";
+                }
+            }
+            string Name = fileName + "-书籍基础数据-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            DataTable dt = bookbll.excelBook(strExcel);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                ExcelHelp.dtToExcelForXlsxByNpoi(dt, Name);
+            }
+            else
+            {
+                Response.Write("<script>alert('没有数据，不能执行导出操作!');</script>");
+                Response.End();
+            }
         }
     }
 }
