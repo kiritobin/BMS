@@ -231,6 +231,10 @@ $("#btnAdd").click(function () {
 //修改数量
 $("#table").delegate(".number", "change", function (e) {
     var number = parseInt($(this).val());
+    if (number <= 0) {
+        number = 1;
+        $(this).val(1);
+    }
     var max = $(this).parent().next().next().next().next().next().next().text();
     if (number > max) {
         swal({
@@ -302,9 +306,6 @@ $("#insert").click(function () {
                     title: "退货成功:)",
                     text: "退货成功",
                     type: "success",
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
                     confirmButtonText: '确定',
                     confirmButtonClass: 'btn btn-success',
                     buttonsStyling: false,

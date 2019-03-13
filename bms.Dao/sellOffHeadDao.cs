@@ -149,7 +149,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataTable ExportExcel(string strWhere)
         {
-            String cmdText = "select sellOffHead as 单据编号,bookNum as 书号,bookName as 书名,isbn as ISBN,price as 单价,sum(count) as 数量 ,sum(totalPrice) as 码洋,sum(realPrice) as 实洋 from v_selloffmonomer where sellOffHead=@strWhere group by bookNum,bookName,isbn,price";
+            String cmdText = "select sellOffHead as 单据编号,bookNum as 书号,bookName as 书名,isbn as ISBN,price as 单价,sum(count) as 数量 ,sum(totalPrice) as 码洋,sum(realPrice) as 实洋 from v_selloffmonomer where sellOffHead=@strWhere group by bookNum,bookName,isbn,price order by dateTime desc";
             string[] param = { "@strWhere" };
             object[] values = { strWhere };
             DataSet ds = db.FillDataSet(cmdText, param, values);

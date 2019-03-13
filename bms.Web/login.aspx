@@ -86,7 +86,7 @@
                             document.write(new Date().getFullYear())
                         </script>
                         &nbsp;版权归云南新华书店图书有限公司所有
-                        <p>建议使用<a href="../chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
+                        <p>建议使用<a href="chrome/ChromeDownload.html">Google浏览器</a>浏览网页</p>
                     </div>
                 </div>
             </footer>

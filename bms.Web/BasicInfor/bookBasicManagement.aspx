@@ -386,6 +386,9 @@
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="btn-add">导入</button>
                                             </div>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-info btn-sm" id="btn-out">导出</button>
+                                            </div>
                                             <%} %>
                                         </div>
                                     </div>

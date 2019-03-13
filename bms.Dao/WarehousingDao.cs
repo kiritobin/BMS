@@ -264,7 +264,7 @@ namespace bms.Dao
         /// <returns>返回一个DataTable的选题记录集合</returns>
         public DataTable ExportExcel(string strWhere)
         {
-            String cmdText = "select singleHeadId as 单据编号,bookNum as 书号,ISBN as ISBN号,bookName as 书名,sum(number) as 商品数量,uPrice as 单价,discount as 折扣,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,shelvesName as 货架 from V_Monomer where singleHeadId=@strWhere group by bookNum,bookName,ISBN,uPrice";
+            String cmdText = "select singleHeadId as 单据编号,bookNum as 书号,ISBN as ISBN号,bookName as 书名,sum(number) as 商品数量,uPrice as 单价,discount as 折扣,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,shelvesName as 货架 from V_Monomer where singleHeadId=@strWhere group by bookNum,bookName,ISBN,uPrice order by time desc";
             string[] param = { "@strWhere"};
             object[] values = { strWhere};
             DataSet ds = db.FillDataSet(cmdText, param, values);
@@ -524,12 +524,12 @@ namespace bms.Dao
             if (groupbyType == "supplier")
             {
                 exportdt.Columns.Add("供应商", typeof(string));
-                cmdText = "select supplier, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " order by allTotalPrice desc";
+                cmdText = "select supplier, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " order by time desc";
             }
             else if (groupbyType == "regionName")
             {
                 exportdt.Columns.Add("地区名称", typeof(string));
-                cmdText = "select regionName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " order by allTotalPrice desc";
+                cmdText = "select regionName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_monomer where " + strWhere + " order by time desc";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             exportdt.Columns.Add("书籍种数", typeof(long));
