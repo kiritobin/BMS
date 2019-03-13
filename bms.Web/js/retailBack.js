@@ -231,6 +231,10 @@ $("#btnAdd").click(function () {
 //修改数量
 $("#table").delegate(".number", "change", function (e) {
     var number = parseInt($(this).val());
+    if (number <= 0) {
+        number = 1;
+        $(this).val(1);
+    }
     var max = $(this).parent().next().next().next().next().next().next().text();
     if (number > max) {
         swal({
