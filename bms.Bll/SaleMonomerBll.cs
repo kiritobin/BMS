@@ -725,6 +725,37 @@ namespace bms.Bll
             return SaleMonomerdao.ExportExcel(strWhere);
         }
 
+
+        /// <summary>
+        /// 预采导出
+        /// </summary>
+        /// <param name="strWhere">条件</param>
+        /// <returns></returns>
+        public DataTable ExportExcelsCopy(string strWhere)
+        {
+            DataTable excel = new DataTable();
+
+            excel.Columns.Add("书号");
+            excel.Columns.Add("书名");
+            excel.Columns.Add("ISBN");
+            excel.Columns.Add("单价");
+            excel.Columns.Add("数量");
+            excel.Columns.Add("码洋");
+            excel.Columns.Add("出版社");
+            excel.Columns.Add("销售折扣");
+            DataTable dt = SaleMonomerdao.ExportExcelCopy(strWhere);
+            if (dt != null)
+            {
+                DataRowCollection count = dt.Rows;
+                foreach (DataRow row in count)
+                {
+                    string bookName = ToDBC(row[1].ToString());
+                    excel.Rows.Add(row[0], bookName, row[2], row[3], row[4], row[5], row[6], row[7]);
+                }
+            }
+            return excel;
+        }
+
         public DataTable ExportExcels(string strWhere)
         {
             DataTable excel = new DataTable();

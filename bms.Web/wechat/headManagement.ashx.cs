@@ -91,7 +91,6 @@ namespace bms.Web.wechat
         {
             string customeID = context.Request["customID"];
             string saleId = context.Request["saletaskID"];
-
             SaleHeadBll saleheadbll = new SaleHeadBll();
             SaleHead salehead = new SaleHead();
             string SaleHeadId;
@@ -117,7 +116,7 @@ namespace bms.Web.wechat
                     time = saleheadbll.getPerSaleHeadTime();
                 }
                 string nowTime = DateTime.Now.ToLocalTime().ToString();
-                string equalsTime = nowTime.Substring(0, 10);
+                string equalsTime = DateTime.Now.ToLocalTime().ToString("yyyyMMdd");
                 if (time.Equals(equalsTime))
                 {
                     string getheadId;

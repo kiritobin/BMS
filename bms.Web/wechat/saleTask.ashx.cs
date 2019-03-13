@@ -48,7 +48,8 @@ namespace bms.Web.wechat
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleTask";
             tb.OrderBy = "saleTaskId";
-            tb.StrColumnlist = "saleTaskId,defaultDiscount,defaultCopy,priceLimit,numberLimit,totalPriceLimit,startTime,finishTime,userId,userName,customerName,regionId";
+            // tb.StrColumnlist = "saleTaskId,defaultDiscount,defaultCopy,priceLimit,numberLimit,totalPriceLimit,startTime,finishTime,userId,userName,customerName,regionId";
+            tb.StrColumnlist = "saleTaskId,customerName";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             //tb.StrWhere = "deleteState=0 and (state=0 or state=1) and saleTaskId='" + saleTaskId + "'";
@@ -63,7 +64,42 @@ namespace bms.Web.wechat
             }
             //获取展示的客户数据
             DataSet ds = taskbll.selectBypage(tb, out totalCount, out intPageCount);
-            string json = JsonHelper.ToJson(ds.Tables[0], "detail");
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("saleTaskId");
+            dt.Columns.Add("customerName");
+            DataTable datadt = ds.Tables[0];
+            if (datadt != null)
+            {
+                for (int i = 0; i < datadt.Rows.Count; i++)
+                {
+                    string taskid = datadt.Rows[i]["saleTaskId"].ToString();
+                    string saleTaskid = taskid.Insert(12, "\n");
+                    string name = datadt.Rows[i]["customerName"].ToString();
+                    string customerName;
+                    //for (int k=0;k< name.Length;k++)
+                    //{
+                    //    if (name.Length >= k*7)
+                    //    {
+                    //        customerName = name.Insert(7, "\n");
+                    //    }
+                    //    else
+                    //    {
+                    //        customerName = name;
+                    //    }
+                    //}
+                    if (name.Length >= 7)
+                    {
+                        customerName = name.Insert(7, "\n");
+                    }
+                    else
+                    {
+                        customerName = name;
+                    }
+                    dt.Rows.Add(saleTaskid, customerName);
+                }
+            }
+            string json = JsonHelper.ToJson(dt, "detail");
             context.Response.Write(json);
             context.Response.End();
         }

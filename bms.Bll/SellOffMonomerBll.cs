@@ -158,6 +158,11 @@ namespace bms.Bll
             DataSet ds = dao.getRetailRank(startTime,endTime,regionName);
             return ds;
         }
+
+        public DataSet searchSalesDetailCopy(string saletaskId, string saleheadId)
+        {
+            return dao.searchSalesDetailCopy(saletaskId, saleheadId);
+        }
         public DataSet searchSalesDetail(string saletaskId, string saleheadId)
         {
             return dao.searchSalesDetail(saletaskId, saleheadId);

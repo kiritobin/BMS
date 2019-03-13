@@ -311,17 +311,10 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleTaskId">销售任务ID</param>
         /// <returns>数据集</returns>
-        public DataSet getSaleTaskStatistics(string saleTaskId, string state)
+        public DataSet getSaleTaskStatistics(string saleTaskId)
         {
             string comText;
-            if (state == "3")
-            {
-                comText = "SELECT sum(c.number) as number,sum(c.totalPrice) as totalPrice,sum(c.realPrice) as realPrice from t_saletask as A ,t_salehead as B, t_salemonomer as C where a.saleTaskId=b.saleTaskId and b.saleHeadId=c.saleHeadId and a.saleTaskId=c.saleTaskId and c.saleTaskId=@saleTaskId and B.state=3";
-            }
-            else
-            {
-                comText = "SELECT sum(c.number) as number,sum(c.totalPrice) as totalPrice,sum(c.realPrice) as realPrice from t_saletask as A ,t_salehead as B, t_salemonomer as C where a.saleTaskId=b.saleTaskId and b.saleHeadId=c.saleHeadId and a.saleTaskId=c.saleTaskId and c.saleTaskId=@saleTaskId and (B.state=1 or B.state=2)";
-            }
+            comText = "SELECT sum(number) as number,sum(totalPrice) as totalPrice,sum(realPrice) as realPrice from v_allsalemonomer where saleTaskId=@saleTaskId";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             DataSet ds = db.FillDataSet(comText, param, values);
@@ -367,17 +360,9 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleTaskId">销售任务id</param>
         /// <returns></returns>
-        public int getkindsBySaleTaskId(string saleTaskId, string state)
+        public int getkindsBySaleTaskId(string saleTaskId)
         {
-            string cmdText;
-            if (state == "3")
-            {
-                cmdText = "SELECT c.bookNum,c.number from t_saletask as A ,t_salehead as B, t_salemonomer as C where a.saleTaskId=b.saleTaskId and b.saleHeadId=c.saleHeadId and a.saleTaskId=c.saleTaskId and c.saleTaskId=@saleTaskId and B.state=3";
-            }
-            else
-            {
-                cmdText = "SELECT c.bookNum,c.number from t_saletask as A ,t_salehead as B, t_salemonomer as C where a.saleTaskId=b.saleTaskId and b.saleHeadId=c.saleHeadId and a.saleTaskId=c.saleTaskId and c.saleTaskId=@saleTaskId and B.state !=3";
-            }
+            string cmdText = "SELECT bookNum,number from v_allsalemonomer where saleTaskId=@saleTaskId";
             string[] param = { "@saleTaskId" };
             object[] values = { saleTaskId };
             float sltemp = 0;
@@ -409,7 +394,7 @@ namespace bms.Dao
         /// <returns>0该客户还没有销售任务,1该客户已有销售任务但未完成,2已完成，可以添加</returns>
         public string getcustomermsg(int CustmerId, int regionId)
         {
-            string cmdText = "select startTime,finishTime from V_SaleTask where customerId=@CustmerId and regionId=@regionId ";
+            string cmdText = "select startTime,finishTime from V_SaleTask where customerId=@CustmerId and regionId=@regionId and deleteState=0";
             string[] param = { "@CustmerId", "@regionId" };
             object[] values = { CustmerId, regionId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
@@ -535,17 +520,10 @@ namespace bms.Dao
         /// </summary>
         /// <param name="strWhere">查询条件</param>
         /// <returns></returns>
-        public DataTable ExportExcel(string strWhere, string state)
+        public DataTable ExportExcel(string strWhere)
         {
-            String cmdText;
-            if (state == "3")
-            {
-                cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer where saleTaskId='" + strWhere + "' and state=3 group by bookNum,bookName,ISBN,unitPrice";
-            }
-            else
-            {
-                cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer where saleTaskId='" + strWhere + "' and state <>3 group by bookNum,bookName,ISBN,unitPrice";
-            }
+            String  cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣,state as 单据状态 from v_allsalemonomer where saleTaskId='" + strWhere + "'  group by bookNum,bookName,ISBN,unitPrice";
+      
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
             if (ds != null && ds.Tables[0].Rows.Count > 0)
@@ -555,15 +533,6 @@ namespace bms.Dao
             return dt;
         }
 
-        public DataTable ExportExcel(string cmdText)
-        {
-            DataSet ds = db.FillDataSet(cmdText, null, null);
-            DataTable dt = null;
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
-            {
-                dt = ds.Tables[0];
-            }
-            return dt;
-        }
+      
     }
 }

@@ -1037,13 +1037,30 @@ namespace bms.Dao
         }
 
         /// <summary>
+        /// 预采导出表格
+        /// </summary>
+        /// <param name="strWhere">查询条件</param>
+        /// <returns></returns>
+        public DataTable ExportExcelCopy(string strWhere)
+        {
+            String cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer_copy where saleHeadId='" + strWhere + "' group by bookNum,bookName,ISBN,unitPrice HAVING 数量!=0 ORDER BY dateTime desc";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            DataTable dt = null;
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                dt = ds.Tables[0];
+            }
+            return dt;
+        }
+
+        /// <summary>
         /// 导出表格
         /// </summary>
         /// <param name="strWhere">查询条件</param>
         /// <returns></returns>
         public DataTable ExportExcel(string strWhere)
         {
-            String cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer where saleHeadId='" + strWhere + "' group by bookNum,bookName,ISBN,unitPrice  HAVING 数量!=0";
+            String cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer where saleHeadId='" + strWhere + "' group by bookNum,bookName,ISBN,unitPrice HAVING 数量!=0 ORDER BY dateTime desc";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
             if (ds != null && ds.Tables[0].Rows.Count > 0)

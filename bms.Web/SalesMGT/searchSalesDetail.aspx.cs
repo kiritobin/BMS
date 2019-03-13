@@ -166,7 +166,17 @@ namespace bms.Web.SalesMGT
         public void export()
         {
             string name = "销售明细" + Session["saleheadId"].ToString() + "-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = salemonbll.ExportExcels(Session["saleheadId"].ToString());
+            TableBuilder tb = new TableBuilder();
+            DataTable dt;
+            if (type == "copy")
+            {
+                dt = salemonbll.ExportExcelsCopy(Session["saleheadId"].ToString());
+            }
+            else
+            {
+                dt = salemonbll.ExportExcels(Session["saleheadId"].ToString());
+            }
+
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/销售明细导出/" + name + ".xlsx");
@@ -192,7 +202,16 @@ namespace bms.Web.SalesMGT
             {
                 StringBuilder sb = new StringBuilder();
                 SellOffMonomerBll sellOffMonomerBll = new SellOffMonomerBll();
-                DataSet dataSet = sellOffMonomerBll.searchSalesDetail(saletaskId, saleheadId);
+                DataSet dataSet;
+                if (type == "copy")
+                {
+                    dataSet = sellOffMonomerBll.searchSalesDetailCopy(saletaskId, saleheadId);
+                }
+                else
+                {
+                    dataSet = sellOffMonomerBll.searchSalesDetail(saletaskId, saleheadId);
+                }
+                dataSet = sellOffMonomerBll.searchSalesDetail(saletaskId, saleheadId);
                 DataRowCollection drc = dataSet.Tables[0].Rows;
                 int datacount = dataSet.Tables[0].Rows.Count;
                 for (int i = 0; i < datacount; i++)

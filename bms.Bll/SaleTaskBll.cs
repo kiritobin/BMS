@@ -285,9 +285,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="saleTaskId">销售任务ID</param>
         /// <returns>数据集</returns>
-        public DataSet getSaleTaskStatistics(string saleTaskId,string state)
+        public DataSet getSaleTaskStatistics(string saleTaskId)
         {
-            return saleDao.getSaleTaskStatistics(saleTaskId, state);
+            return saleDao.getSaleTaskStatistics(saleTaskId);
         }
         /// <summary>
         /// 根据销售任务id获取操作员
@@ -312,9 +312,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="saleTaskId">销售任务id</param>
         /// <returns></returns>
-        public int getkindsBySaleTaskId(string saleTaskId, string state)
+        public int getkindsBySaleTaskId(string saleTaskId)
         {
-            return saleDao.getkindsBySaleTaskId(saleTaskId, state);
+            return saleDao.getkindsBySaleTaskId(saleTaskId);
         }
         /// <summary>
         /// 根据客户id获取他是否有过销售任务
@@ -359,26 +359,8 @@ namespace bms.Bll
         /// </summary>
         /// <param name="strWhere">查询条件</param>
         /// <returns></returns>
-        public DataTable ExportExcel(string strWhere, string state)
+        public DataTable ExportExcels(string strWhere)
         {
-            DataTable dt = saleDao.ExportExcel(strWhere, state);
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                return dt;
-            }
-            return null;
-        }
-        public DataTable ExportExcels(string strWhere, string state)
-        {
-            string cmdText;
-            if (state == "3")
-            {
-                cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer where saleTaskId='" + strWhere + "' and state=3 group by bookNum,bookName,ISBN,unitPrice";
-            }
-            else
-            {
-                cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer where saleTaskId='" + strWhere + "' and state <>3 group by bookNum,bookName,ISBN,unitPrice";
-            }
             DataTable excel = new DataTable();
             excel.Columns.Add("书号");
             excel.Columns.Add("书名");
@@ -388,14 +370,24 @@ namespace bms.Bll
             excel.Columns.Add("码洋");
             excel.Columns.Add("出版社");
             excel.Columns.Add("销售折扣");
-            DataTable dt = saleDao.ExportExcel(cmdText);
+            excel.Columns.Add("单据状态");
+            DataTable dt = saleDao.ExportExcel(strWhere);
             if (dt!=null)
             {
                 DataRowCollection count = dt.Rows;
                 foreach (DataRow row in count)
                 {
                     string bookName = ToDBC(row[1].ToString());
-                    excel.Rows.Add(row[0], bookName, row[2], row[3], row[4], row[5], row[6],row[7]);
+                    string state;
+                    if (row[1].ToString() == "3")
+                    {
+                        state = "预采";
+                    }
+                    else
+                    {
+                        state = "现采";
+                    }
+                    excel.Rows.Add(row[0], bookName, row[2], row[3], row[4], row[5], row[6],row[7], state);
                 }
             }
             return excel;
