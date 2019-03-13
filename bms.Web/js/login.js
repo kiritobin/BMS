@@ -2,9 +2,7 @@
     isIE();
     function isIE() {
         if (!!window.ActiveXObject || "ActiveXObject" in window)
-            alert("是");
-        else
-            alert("否");
+            window.location.href = "../chrome/ChromeDownload.html";
     }
     var url = getUrlParam(location.href, "logout");
     if (url == "force") {
