@@ -108,7 +108,19 @@
                             sessionStorage.setItem("add", "添加成功");
                             //window.location.reload();
                         })
-                    } else {
+                    }
+                    else if (data == "该组织已经存在") {
+                        swal({
+                            title: "温馨提示:)",
+                            text: "该组织已经存在",
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-info",
+                            type: "error",
+                            allowOutsideClick: false
+                        }).then(function () {
+                        })
+                    }
+                    else {
                         swal({
                             title: '温馨提示:)',
                             text: "添加失败",
