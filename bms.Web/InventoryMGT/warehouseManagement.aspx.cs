@@ -160,7 +160,7 @@ namespace bms.Web.BasicInfor
             }
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
-            tbd.OrderBy = "singleHeadId";
+            tbd.OrderBy = "time desc";
             tbd.StrColumnlist = "remarks,singleHeadId,regionName,userName,allBillCount,allTotalPrice,allRealPrice,time,jsRegionId";
             tbd.IntPageSize = pageSize;
             if (roleName == "超级管理员")

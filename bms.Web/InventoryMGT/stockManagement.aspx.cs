@@ -160,7 +160,7 @@ namespace bms.Web.InventoryMGT
             //获取分页数据
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "V_SingleHead";
-            tbd.OrderBy = "singleHeadId";
+            tbd.OrderBy = "time desc";
             tbd.StrColumnlist = "remarks,singleHeadId,regionId,time,regionName,userName,allBillCount,allTotalPrice,allRealPrice";
             tbd.IntPageSize = pageSize;
             if (roleName == "超级管理员")

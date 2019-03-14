@@ -45,7 +45,7 @@ namespace bms.Web.SalesMGT
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_RetailMonomer";
-            tb.OrderBy = "retailMonomerId";
+            tb.OrderBy = "dateTime desc";
             tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number,totalPrice,realDiscount,dateTime,realPrice";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;

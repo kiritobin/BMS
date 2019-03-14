@@ -70,7 +70,7 @@ namespace bms.Web.SalesMGT
             }
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "T_RetailHead";
-            tb.OrderBy = "retailHeadId";
+            tb.OrderBy = "dateTime desc";
             tb.StrColumnlist = "retailHeadId,kindsNum,number,allTotalPrice,allRealPrice,dateTime,payment";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
