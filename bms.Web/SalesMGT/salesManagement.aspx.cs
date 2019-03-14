@@ -600,7 +600,7 @@ namespace bms.Web.SalesMGT
             }
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_allsalehead";
-            tb.OrderBy = "saleHeadId";
+            tb.OrderBy = "dateTime desc";
             tb.StrColumnlist = "remarks,saleHeadId,saleTaskId,kindsNum,number,allTotalPrice,allRealPrice,userName,regionName,dateTime,state";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;

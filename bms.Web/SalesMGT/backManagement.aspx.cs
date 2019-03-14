@@ -103,7 +103,7 @@ namespace bms.Web.SalesMGT
             }
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SellOffHead";
-            tb.OrderBy = "saleTaskId";
+            tb.OrderBy = "makingTime desc";
             tb.StrColumnlist = "sellOffHeadID,saleTaskId,kinds,count,totalPrice,realPrice,userName,customerName,makingTime,defaultDiscount,state";
             tb.IntPageSize = pagesize;
             tb.IntPageNum = currentPage;
