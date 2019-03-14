@@ -112,35 +112,15 @@ namespace bms.Web.AccessMGT
             }
             return sb.ToString();
         }
-        /// <summary>
-        /// 添加组织，同时为添加的组织分配名为未上架的货架
-        /// </summary>
+
         public void Insert()
         {
-            GoodsShelvesBll gBll = new GoodsShelvesBll();
-            int id = gBll.getMaxShelvesId();
             string reName = Request["name"];
-            string shelvese = "未上架";
-            int shelvesId = id;
-            bool isExitId = true;
-            do
-            {
-                shelvesId += 1;
-                isExitId = gBll.isExitID(shelvesId);
-            }
-            while (isExitId);
             Result result = regionBll.isExit(reName);
-            if (result == Result.记录不存在)
+            if(result == Result.记录不存在)
             {
-                TableInsertion tb = new TableInsertion()
-                {
-                    InShelvesId = shelvesId,
-                    InRegionName = reName,
-                    InShelvesName = shelvese,
-                    OutCount = count
-                };
-                Result row = regionBll.InsertManyTable(tb, out count);
-                if (row == Result.添加成功)
+                Result rsInsert = regionBll.insert(reName);
+                if (rsInsert == Result.添加成功)
                 {
                     Response.Write("添加成功");
                     Response.End();
@@ -153,10 +133,56 @@ namespace bms.Web.AccessMGT
             }
             else
             {
-                Response.Write("该名称已经存在");
+                Response.Write("该组织已经存在");
                 Response.End();
             }
         }
+
+        /// <summary>
+        /// 添加组织，同时为添加的组织分配名为未上架的货架
+        /// </summary>
+        //public void Insert()
+        //{
+        //    GoodsShelvesBll gBll = new GoodsShelvesBll();
+        //    int id = gBll.getMaxShelvesId();
+        //    string reName = Request["name"];
+        //    string shelvese = "未上架";
+        //    int shelvesId = id;
+        //    bool isExitId = true;
+        //    do
+        //    {
+        //        shelvesId += 1;
+        //        isExitId = gBll.isExitID(shelvesId);
+        //    }
+        //    while (isExitId);
+        //    Result result = regionBll.isExit(reName);
+        //    if (result == Result.记录不存在)
+        //    {
+        //        TableInsertion tb = new TableInsertion()
+        //        {
+        //            InShelvesId = shelvesId,
+        //            InRegionName = reName,
+        //            InShelvesName = shelvese,
+        //            OutCount = count
+        //        };
+        //        Result row = regionBll.InsertManyTable(tb, out count);
+        //        if (row == Result.添加成功)
+        //        {
+        //            Response.Write("添加成功");
+        //            Response.End();
+        //        }
+        //        else
+        //        {
+        //            Response.Write("添加失败");
+        //            Response.End();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Response.Write("该名称已经存在");
+        //        Response.End();
+        //    }
+        //}
         /// <summary>
         /// 更新地区
         /// </summary>
