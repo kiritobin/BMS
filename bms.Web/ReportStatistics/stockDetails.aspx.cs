@@ -407,7 +407,7 @@ namespace bms.Web.ReportStatistics
                 strb.Append("<td>" + dr["数量"].ToString() + "</td>");
                 strb.Append("<td>" + dr["码洋"].ToString() + "</td>");
                 strb.Append("<td>" + dr["实洋"].ToString() + "</td>");
-                strb.Append("<td>" + dr["折扣"].ToString() + "</td>");
+                strb.Append("<td>" + dr["进货折扣"].ToString() + "</td>");
                 strb.Append("<td>" + dr["供应商"].ToString() + "</td>");
                 strb.Append("<td>" + dr["制单时间"].ToString() + "</td>");
                 strb.Append("<td>" + dr["制单员"].ToString() + "</td>");
