@@ -204,7 +204,7 @@ namespace bms.Web.SalesMGT
             }
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_allsalemonomer";
-            tb.OrderBy = "dateTime";
+            tb.OrderBy = "dateTime desc";
             //tb.StrColumnlist = "bookNum,bookName,ISBN,unitPrice,number ,realPrice ,totalPrice,regionName,supplier,author";
 
             tb.StrColumnlist = "state,bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,sum(totalPrice) as totalPrice,regionName,supplier,author";
