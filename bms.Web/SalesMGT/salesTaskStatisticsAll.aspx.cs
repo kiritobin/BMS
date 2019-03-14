@@ -166,7 +166,7 @@ namespace bms.Web.SalesMGT
             }
             TableBuilder tb = new TableBuilder();
             tb.StrTable = @"t_salemonomer as sm,t_bookbasicdata as book,t_user as us,t_customer as ct,t_salehead as head,t_saletask as task,t_region as rg ";
-            tb.OrderBy = @"sm.dateTime";
+            tb.OrderBy = @"sm.dateTime desc";
             tb.StrColumnlist = @" sm.ISBN,sm.bookNum,book.bookName,sm.unitPrice,sum(sm.number) as allNum,sum(sm.totalPrice) as allPrice,head.state,sm.dateTime,us.userID,us.userName,ct.customerID,ct.customerName,rg.regionName";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;

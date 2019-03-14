@@ -281,7 +281,7 @@ namespace bms.Web.SalesMGT
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "V_SaleTask";
-            tb.OrderBy = "saleTaskId";
+            tb.OrderBy = "startTime desc";
             tb.StrColumnlist = "saleTaskId,defaultDiscount,defaultCopy,priceLimit,numberLimit,totalPriceLimit,startTime,finishTime,userId,userName,customerName,regionId";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
