@@ -412,7 +412,7 @@ function MyPreview() {
     var j = $("#print_table").find("tr").length;
     var row = $("#print_table").find('tr');
     for (i = 1; i < j; i++) {
-        LODOP.ADD_PRINT_TEXT(iCurLine, 15, 100, 20, row.eq(i).find('td').eq(1).text().trim());
+        LODOP.ADD_PRINT_TEXT(iCurLine, 6, 90, 20, row.eq(i).find('td').eq(1).text().trim());
         LODOP.ADD_PRINT_TEXT(iCurLine, 100, 150, 20, row.eq(i).find('td').eq(2).text().trim());
         if (row.eq(i).find('td').eq(3).text().trim().length > 19) {
             LODOP.ADD_PRINT_TEXT(iCurLine, 220, 200, 20, row.eq(i).find('td').eq(3).text().trim());
@@ -446,9 +446,9 @@ function MyPreview() {
         }
         LODOP.ADD_PRINT_TEXT(iCurLine, 805, 85, 20, row.eq(i).find('td').eq(12).text().trim());
         iCurLine = iCurLine + 45;//每行占25px
-        LODOP.ADD_PRINT_LINE(iCurLine - 5, 14, iCurLine - 5, 900, 0, 1);//横线
+        LODOP.ADD_PRINT_LINE(iCurLine - 5, 5, iCurLine - 5, 900, 0, 1);//横线
         //竖线
-        LODOP.ADD_PRINT_LINE(iCurLine - 50, 14, iCurLine - 50 + 45, 14, 0, 1);
+        LODOP.ADD_PRINT_LINE(iCurLine - 50, 5, iCurLine - 50 + 45, 5, 0, 1);
         LODOP.ADD_PRINT_LINE(iCurLine - 50, 95, iCurLine - 50 + 45, 95, 0, 1);
         LODOP.ADD_PRINT_LINE(iCurLine - 50, 215, iCurLine - 50 + 45, 215, 0, 1);
         LODOP.ADD_PRINT_LINE(iCurLine - 50, 410, iCurLine - 50 + 45, 410, 0, 1);
@@ -463,10 +463,10 @@ function MyPreview() {
         LODOP.ADD_PRINT_LINE(iCurLine - 50, 900, iCurLine - 50 + 45, 900, 0, 1);
     }
     //LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 860, 0, 1);
-    LODOP.ADD_PRINT_LINE(iCurLine, 14, iCurLine, 14, 0, 1);
+    LODOP.ADD_PRINT_LINE(iCurLine, 5, iCurLine, 5, 0, 1);
     //LODOP.ADD_PRINT_TEXT(iCurLine + 5, 20, 300, 20, "打印时间：" + (new Date()).toLocaleDateString() + " " + (new Date()).toLocaleTimeString());
     //LODOP.ADD_PRINT_TEXT(iCurLine + 5, 346, 150, 20, "合计金额：" + document.getElementById("HJ").value);
-    LODOP.SET_PRINT_PAGESIZE(3, 2000, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
+    LODOP.SET_PRINT_PAGESIZE(3, 2200, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
     LODOP.PREVIEW();
 };
 function AddTitle() {
@@ -475,7 +475,7 @@ function AddTitle() {
     LODOP.ADD_PRINT_TEXT(8, 379, 91, 26, "入库明细");
     LODOP.SET_PRINT_STYLEA(0, "FontSize", 12);
     LODOP.SET_PRINT_STYLEA(0, "Bold", 1);
-    LODOP.ADD_PRINT_TEXT(50, 15, 100, 20, "商品编号");
+    LODOP.ADD_PRINT_TEXT(50, 6, 100, 20, "商品编号");
     LODOP.ADD_PRINT_TEXT(50, 120, 150, 20, "书号");
     LODOP.ADD_PRINT_TEXT(50, 220, 250, 20, "商品名称");
     LODOP.ADD_PRINT_TEXT(50, 415, 100, 20, "定价");
@@ -488,10 +488,10 @@ function AddTitle() {
     LODOP.ADD_PRINT_TEXT(50, 730, 100, 20, "制单日期");
     LODOP.ADD_PRINT_TEXT(50, 805, 100, 20, "入库来源");
     //横线
-    LODOP.ADD_PRINT_LINE(45, 14, 45, 900, 0, 1);
-    LODOP.ADD_PRINT_LINE(75, 14, 75, 900, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 5, 45, 900, 0, 1);
+    LODOP.ADD_PRINT_LINE(75, 5, 75, 900, 0, 1);
     //竖线
-    LODOP.ADD_PRINT_LINE(45, 14, 75, 14, 0, 1);
+    LODOP.ADD_PRINT_LINE(45, 5, 75, 5, 0, 1);
     LODOP.ADD_PRINT_LINE(45, 95, 75, 95, 0, 1);
     LODOP.ADD_PRINT_LINE(45, 215, 75, 215, 0, 1);
     LODOP.ADD_PRINT_LINE(45, 410, 75, 410, 0, 1);

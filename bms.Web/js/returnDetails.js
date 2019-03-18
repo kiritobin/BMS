@@ -413,7 +413,7 @@ function MyPreview() {
     var row = $("#print_table").find('tr');
     for (i = 1; i < j; i++) {
         LODOP.ADD_PRINT_TEXT(iCurLine, 15, 100, 20, row.eq(i).find('td').eq(1).text().trim());
-        LODOP.ADD_PRINT_TEXT(iCurLine, 100, 150, 20, row.eq(i).find('td').eq(2).text().trim());
+        LODOP.ADD_PRINT_TEXT(iCurLine, 100, 125, 20, row.eq(i).find('td').eq(2).text().trim());
         if (row.eq(i).find('td').eq(3).text().trim().length > 19) {
             LODOP.ADD_PRINT_TEXT(iCurLine, 220, 200, 20, row.eq(i).find('td').eq(3).text().trim());
             LODOP.SET_PRINT_STYLEA(0, "FontSize", 6);
