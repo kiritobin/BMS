@@ -265,8 +265,6 @@ namespace bms.Web.wechat
         {
             string openid = context.Request["openid"];
             string json = context.Request["data"];
-            string[] list = json.Split('[');
-            string[] newList = list[1].Split(']');
             DataTable dataTable = jsonToDt(json);
             string kindNum = context.Request["kindNum"];
             string totalNumber = context.Request["totalNumber"];
