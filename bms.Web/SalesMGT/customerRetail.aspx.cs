@@ -413,7 +413,10 @@ namespace bms.Web.SalesMGT
                         sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                         sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
                         sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
-                        sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                        //sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                        sb.Append("<td><div class='gw_num' style='width:100%'><em class='jian' style='height:100%;width:40%;'>-</em>");
+                        sb.Append("<input type = 'text' min='1' value='" + dr["number"].ToString() + "' class='num' readonly='readonly' style='width:20%;height:100%'/>");
+                        sb.Append("<em class='add' style='height:100%;width:40%;'>+</em></div></td>");
                         sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
                         sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
                         sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
@@ -445,21 +448,21 @@ namespace bms.Web.SalesMGT
             double price = monomer.UnitPrice;
             double realDiscount = monomer.RealDiscount;
             double total=0, real=0;
-            if (type == "jia")
-            {
-                total = oldTotal + price;
-                real = oldReal + (price * realDiscount * 0.01);
-            }
-            else if(type == "jian")
-            {
-                total = oldTotal - price;
-                real = oldReal - (price * realDiscount * 0.01);
-            }
+            //if (type == "jia")
+            //{
+            //    total = oldTotal + price;
+            //    real = oldReal + (price * realDiscount * 0.01);
+            //}
+            //else if(type == "jian")
+            //{
+            //    total = oldTotal - price;
+            //    real = oldReal - (price * realDiscount * 0.01);
+            //}
             SaleMonomer sale = new SaleMonomer();
             sale.SaleIdMonomerId = retailId;
             sale.Number = number;
-            sale.TotalPrice = total;
-            sale.RealPrice = real;
+            sale.TotalPrice = number* price;
+            sale.RealPrice = number * price* realDiscount*0.01;
             sale.SaleHeadId = headId;
             Result change = retailBll.UpdateNumber(sale);
             if (change == Result.更新成功)
@@ -499,7 +502,7 @@ namespace bms.Web.SalesMGT
             }
             else
             {
-                Response.Write("更新成功");
+                Response.Write("更新失败|:");
                 Response.End();
             }
         }
