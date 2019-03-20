@@ -136,25 +136,25 @@ namespace bms.Web.wechat
                     if (getheadId == "" || getheadId == null)
                     {
                         count = 1;
-                        SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        SaleHeadId = "WXS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                     }
                     else
                     {
                         string js = getheadId.Remove(0, getheadId.Length - 6);
                         count = Convert.ToInt32(js) + 1;
-                        SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        SaleHeadId = "WXS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                     }
                 }
                 else
                 {
                     count = 1;
-                    SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                    SaleHeadId = "WXS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                 }
             }
             else
             {
                 count = 1;
-                SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                SaleHeadId = "WXS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
             }
             salehead.SaleHeadId = SaleHeadId;
             salehead.SaleTaskId = saleId;
