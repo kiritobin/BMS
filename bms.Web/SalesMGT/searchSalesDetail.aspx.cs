@@ -211,7 +211,6 @@ namespace bms.Web.SalesMGT
                 {
                     dataSet = sellOffMonomerBll.searchSalesDetail(saletaskId, saleheadId);
                 }
-                dataSet = sellOffMonomerBll.searchSalesDetail(saletaskId, saleheadId);
                 DataRowCollection drc = dataSet.Tables[0].Rows;
                 int datacount = dataSet.Tables[0].Rows.Count;
                 for (int i = 0; i < datacount; i++)

@@ -168,7 +168,7 @@ namespace bms.Web.ReportStatistics
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-           tb.StrTable = "v_salemonomer";
+           tb.StrTable = "v_allsalemonomer";
             
            // tb.OrderBy = "id";
             tb.OrderBy = "dateTime desc";

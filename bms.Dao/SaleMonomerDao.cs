@@ -144,35 +144,35 @@ namespace bms.Dao
                 {
                     if ((time != "" && time != null) && (state != null && state != ""))
                     {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere and (state=1 or state=2) and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                        cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and (state=1 or state=2) and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
                     }
                     else
                     {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere and (state=1 or state=2) GROUP BY bookNum HAVING 数量!=0";
+                        cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and (state=1 or state=2) GROUP BY bookNum HAVING 数量!=0";
                     }
                 }
                 else
                 {
                     if ((time != "" && time != null) && (state != null && state != ""))
                     {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere and state=" + state + " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                        cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and state=" + state + " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
                     }
                     else
                     {
                         if ((time != "" && time != null))
                         {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                            cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
                         }
                         else
                         {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere and state=" + state + " GROUP BY bookNum HAVING 数量!=0";
+                            cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and state=" + state + " GROUP BY bookNum HAVING 数量!=0";
                         }
                     }
                 }
             }
             else
             {
-                cmdText = "select bookNum, SUM(number) as 数量 from V_SaleMonomer where " + type + " = @strWhere GROUP BY bookNum HAVING 数量!=0";
+                cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere GROUP BY bookNum HAVING 数量!=0";
             }
             string[] param = { "@strWhere", "@state" };
             object[] values = { strWhere, state };
@@ -1043,7 +1043,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataTable ExportExcelCopy(string strWhere)
         {
-            String cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_salemonomer_copy where saleHeadId='" + strWhere + "' group by bookNum,bookName,ISBN,unitPrice HAVING 数量!=0 ORDER BY dateTime desc";
+            String cmdText = "select bookNum as 书号,bookName as 书名,ISBN as ISBN,unitPrice as 单价,sum(number) as 数量 ,sum(totalPrice) as 码洋,supplier as 出版社,author as 销售折扣 from v_persalemonomer where saleHeadId='" + strWhere + "' group by bookNum,bookName,ISBN,unitPrice HAVING 数量!=0 ORDER BY dateTime desc";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
             if (ds != null && ds.Tables[0].Rows.Count > 0)

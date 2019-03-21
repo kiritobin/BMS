@@ -143,7 +143,7 @@ namespace bms.Dao
         }
         public DataSet searchSalesDetailCopy(string saletaskId, string saleheadId)
         {
-            string sql = "select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice,userName from V_SaleMonomer_copy where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId group by bookNum,bookName,ISBN,unitPrice,realDiscount ORDER BY dateTime desc";
+            string sql = "select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice,userName from V_perSaleMonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId group by bookNum,bookName,ISBN,unitPrice,realDiscount ORDER BY dateTime desc";
             string[] param = { "@saletaskId", "@saleheadId" };
             object[] values = { saletaskId, saleheadId };
             DataSet ds = db.FillDataSet(sql, param, values);

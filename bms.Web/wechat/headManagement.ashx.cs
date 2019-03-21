@@ -91,6 +91,9 @@ namespace bms.Web.wechat
         {
             string customeID = context.Request["customID"];
             string saleId = context.Request["saletaskID"];
+            UserBll user = new UserBll();
+            DataSet userds = user.selectByUserId(customeID);
+            int regionId = Convert.ToInt32(userds.Tables[0].Rows[0]["regionId"]);
             SaleHeadBll saleheadbll = new SaleHeadBll();
             SaleHead salehead = new SaleHead();
             string SaleHeadId;
@@ -127,31 +130,31 @@ namespace bms.Web.wechat
                     }
                     else
                     {
-                         getheadId = saleheadbll.getPerSaleHeadIdByTime(nowTime);
+                        getheadId = saleheadbll.getPerSaleHeadIdByTime(nowTime);
                     }
-                        
+
                     if (getheadId == "" || getheadId == null)
                     {
                         count = 1;
-                        SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        SaleHeadId = "WXS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                     }
                     else
                     {
                         string js = getheadId.Remove(0, getheadId.Length - 6);
                         count = Convert.ToInt32(js) + 1;
-                        SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                        SaleHeadId = "WXS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                     }
                 }
                 else
                 {
                     count = 1;
-                    SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                    SaleHeadId = "WXS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
                 }
             }
             else
             {
                 count = 1;
-                SaleHeadId = "XS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+                SaleHeadId = "WXS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
             }
             salehead.SaleHeadId = SaleHeadId;
             salehead.SaleTaskId = saleId;
@@ -160,7 +163,7 @@ namespace bms.Web.wechat
             salehead.AllTotalPrice = 0;
             salehead.AllRealPrice = 0;
             salehead.UserId = customeID;
-            salehead.RegionId = 67;
+            salehead.RegionId = regionId;
             salehead.DateTime = DateTime.Now.ToLocalTime();
             Result result;
             if (type == "team")
@@ -210,7 +213,7 @@ namespace bms.Web.wechat
                 }
                 else
                 {
-                    result = salemonbll.DeleteHead(saleTaskId, salehead,"");
+                    result = salemonbll.DeleteHead(saleTaskId, salehead, "");
                 }
 
                 if (result == Result.删除成功)

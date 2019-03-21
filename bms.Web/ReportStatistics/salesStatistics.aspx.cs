@@ -340,7 +340,7 @@ namespace bms.Web.reportStatistics
             //string search = "";
 
             TableBuilder tb = new TableBuilder();
-            tb.StrTable = "v_salemonomer";
+            tb.StrTable = "v_allsalemonomer";
             tb.OrderBy = "convert("+ groupbyType + " using gbk) collate gbk_chinese_ci";
             tb.StrColumnlist = groupbyType + ", sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
             tb.IntPageSize = pageSize;
