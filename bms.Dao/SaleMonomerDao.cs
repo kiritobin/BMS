@@ -234,7 +234,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet checkStock(string singleHeadId)
         {
-            string cmdText = "select singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName,bookName from V_Monomer where singleHeadId=@singleHeadId and deleteState=0 order by time desc";
+            string cmdText = "select singleHeadId,ISBN,number,uPrice,discount,totalPrice,realPrice,shelvesName,bookName,shelvesId from V_Monomer where singleHeadId=@singleHeadId and deleteState=0 order by time desc";
             string[] param = { "@singleHeadId" };
             object[] values = { singleHeadId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
