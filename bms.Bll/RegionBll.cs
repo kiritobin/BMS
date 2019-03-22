@@ -132,6 +132,16 @@ namespace bms.Bll
             }
         }
         /// <summary>
+        /// 根据组织名称获取组织ID
+        /// </summary>
+        /// <param name="regionName">组织名称</param>
+        /// <returns>regionId 组织ID</returns>
+        public int getRegionIdByName(string regionName)
+        {
+            int regionId = regionDao.getRegionIdByName(regionName);
+            return regionId;
+        }
+        /// <summary>
         /// 更新组织
         /// </summary>
         /// <param name="region">组织实体</param>

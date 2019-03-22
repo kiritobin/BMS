@@ -23,6 +23,7 @@ namespace bms.Web.AccessMGT
         RegionBll regionBll = new RegionBll();
         UserBll userBll = new UserBll();
         RoleBll roleBll = new RoleBll();
+        RSACryptoService rsa = new RSACryptoService();
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
@@ -115,15 +116,64 @@ namespace bms.Web.AccessMGT
 
         public void Insert()
         {
+            int roleId = 0;
+            string roleName = "微信零售";
+            int row = roleBll.selectByroleName(roleName);
+            if (row == 0)
+            {
+                Role role = new Role();
+                role.RoleName = roleName;
+                Result insert = roleBll.Insert(role);
+                if (insert == Result.添加成功)
+                {
+                    roleId = roleBll.selectByroleName(roleName);
+                    string sqlText = "(" + roleId + "," + 14 + ")";
+                    Result inserts = roleBll.InsertPer(sqlText, roleId, "添加");
+                    if (inserts == Result.添加失败)
+                    {
+                        Response.Write("添加失败");
+                        Response.End();
+                    }
+                }
+            }
+            else
+            {
+                roleId = row;
+            }
             string reName = Request["name"];
             Result result = regionBll.isExit(reName);
-            if(result == Result.记录不存在)
+            if (result == Result.记录不存在)
             {
                 Result rsInsert = regionBll.insert(reName);
                 if (rsInsert == Result.添加成功)
                 {
-                    Response.Write("添加成功");
-                    Response.End();
+                    int regionId = regionBll.getRegionIdByName(reName);
+                    Region region = new Region();
+                    region.RegionId = Convert.ToInt32(regionId);
+                    Role userRole = new Role();
+                    userRole.RoleId = roleId;
+                    User user = new User();
+                    user.UserId = regionId+"01";
+                    user.UserName = reName+"微信零售";
+                    user.Pwd = rsa.Encrypt("000000");
+                    user.ReginId = region;
+                    user.RoleId = userRole;
+                    Result rows = userBll.Insert(user);
+                    if (rows == Result.记录存在)
+                    {
+                        Response.Write("添加失败");
+                        Response.End();
+                    }
+                    else if (rows == Result.添加失败)
+                    {
+                        Response.Write("添加失败");
+                        Response.End();
+                    }
+                    else
+                    {
+                        Response.Write("添加成功");
+                        Response.End();
+                    }
                 }
                 else
                 {

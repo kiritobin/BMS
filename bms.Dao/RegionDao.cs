@@ -107,6 +107,19 @@ namespace bms.Dao
             return row;
         }
         /// <summary>
+        /// 根据组织名称获取组织ID
+        /// </summary>
+        /// <param name="regionName">组织名称</param>
+        /// <returns>regionId 组织ID</returns>
+        public int getRegionIdByName(string regionName)
+        {
+            string cmdText = "select regionId from T_Region where regionName=@regionName and deleteState=0";
+            string[] param = { "@regionName" };
+            object[] values = { regionName };
+            int regionId = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+            return regionId;
+        }
+        /// <summary>
         /// 更新组织
         /// </summary>
         /// <param name="region">组织实体</param>

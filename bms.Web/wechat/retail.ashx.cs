@@ -5,7 +5,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -22,6 +24,7 @@ namespace bms.Web.wechat
         SaleHead single = new SaleHead();
         StockBll stockBll = new StockBll();
         RetailBll retailBll = new RetailBll();
+        RegionBll regionBll = new RegionBll();
         retailM retailM = new retailM();
         public void ProcessRequest(HttpContext context)
         {
@@ -50,9 +53,56 @@ namespace bms.Web.wechat
             {
                 checkDetail(context);
             }
-            if (op == "del")
+            if(op == "del")
             {
                 del(context);
+            }
+            if(op == "getRegion")
+            {
+                DataSet ds = regionBll.select();
+                if(ds!=null && ds.Tables[0].Rows.Count > 0)
+                {
+                    retailM.type = "有数据";
+                    List<string> list = new List<string>();
+                    for(int i=0;i< ds.Tables[0].Rows.Count; i++)
+                    {
+                        string regionName = ds.Tables[0].Rows[i]["regionName"].ToString();
+                        list.Add(regionName);
+                    }
+                    //string data = JsonHelper.ToJson(ds.Tables[0], "retail");
+                    string data = ListToJson(list);
+                    retailM.data = data;
+                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                    context.Response.Write(json);
+                    context.Response.End();
+                }
+                else
+                {
+                    retailM.type = "无数据";
+                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                    context.Response.Write(json);
+                    context.Response.End();
+                }
+            }
+            if(op == "regionSubmit")
+            {
+                string regionName = context.Request["region"];
+                int regionId = regionBll.getRegionIdByName(regionName);
+                if (regionId <= 0)
+                {
+                    retailM.type = "未查询到相关组织信息";
+                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                    context.Response.Write(json);
+                    context.Response.End();
+                }
+                else
+                {
+                    context.Session["regionId"] = regionId;
+                    retailM.type = "成功";
+                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                    context.Response.Write(json);
+                    context.Response.End();
+                }
             }
         }
         /// <summary>
@@ -309,6 +359,7 @@ namespace bms.Web.wechat
             {
                 count = 1;
             }
+            string regionId = context.Session["regionId"].ToString();
             string retailHeadId = "LS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
             single.AllRealPrice = Convert.ToDouble(totalReal);
             single.AllTotalPrice = Convert.ToDouble(totalPrice);
@@ -316,7 +367,7 @@ namespace bms.Web.wechat
             single.Number = Convert.ToInt32(totalNumber);
             single.RegionId = 67;
             single.SaleHeadId = retailHeadId;
-            single.UserId = "99999";
+            single.UserId = regionId+"01";
             single.DateTime = DateTime.Now;
             single.State = 0;
             single.PayType = "未支付";
@@ -524,6 +575,34 @@ namespace bms.Web.wechat
             {
                 return false;
             }
+        }
+        /// <summary>
+        /// List数组 转换成Json字符串
+        /// </summary>
+        /// <typeparam name="T">list数组类型</typeparam>
+        /// <param name="list">list数组</param>
+        /// <returns></returns>
+        public string ListToJson<T>(List<T> list)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[");
+            int row = list.Count;
+            for(int i=0;i< row; i++)
+            {
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
+                MemoryStream ms = new MemoryStream();
+                ser.WriteObject(ms, list[i]);
+                StreamReader reader = new StreamReader(ms);
+                ms.Position = 0;
+                string str = reader.ReadToEnd();
+                reader.Close();
+                ms.Close();
+                sb.Append(str);
+                sb.Append(",");
+            }
+            sb.Remove(sb.Length - 1, 1);
+            sb.Append("]");
+            return sb.ToString();
         }
     }
 }
