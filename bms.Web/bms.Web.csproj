@@ -288,6 +288,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="wechat\insertUserByRegin.aspx" />
     <Content Include="welcomePage.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -748,6 +749,13 @@
     </Compile>
     <Compile Include="wechat\headManagement.ashx.cs">
       <DependentUpon>headManagement.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="wechat\insertUserByRegin.aspx.cs">
+      <DependentUpon>insertUserByRegin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="wechat\insertUserByRegin.aspx.designer.cs">
+      <DependentUpon>insertUserByRegin.aspx</DependentUpon>
     </Compile>
     <Compile Include="wechat\login.ashx.cs">
       <DependentUpon>login.ashx</DependentUpon>

@@ -97,8 +97,8 @@ namespace bms.Web.wechat
                 }
                 else
                 {
-                    context.Session["regionId"] = regionId;
                     retailM.type = "成功";
+                    retailM.data = regionId.ToString();
                     string json = JsonHelper.JsonSerializerBySingleData(retailM);
                     context.Response.Write(json);
                     context.Response.End();
@@ -320,6 +320,7 @@ namespace bms.Web.wechat
             string totalNumber = context.Request["totalNumber"];
             string totalPrice = context.Request["totalPrice"];
             string totalReal = context.Request["totalReal"];
+            string regionId = context.Request["regionId"];
             DateTime nowTime = DateTime.Now;
             string nowDt = nowTime.ToString("yyyy-MM-dd");
             long count = 0;
@@ -359,13 +360,12 @@ namespace bms.Web.wechat
             {
                 count = 1;
             }
-            string regionId = context.Session["regionId"].ToString();
             string retailHeadId = "LS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
             single.AllRealPrice = Convert.ToDouble(totalReal);
             single.AllTotalPrice = Convert.ToDouble(totalPrice);
             single.KindsNum = Convert.ToInt32(kindNum);
             single.Number = Convert.ToInt32(totalNumber);
-            single.RegionId = 67;
+            single.RegionId = Convert.ToInt32(regionId);
             single.SaleHeadId = retailHeadId;
             single.UserId = regionId+"01";
             single.DateTime = DateTime.Now;
