@@ -293,7 +293,7 @@ namespace bms.Web.wechat
             string totalNumber = context.Request["totalNumber"];
             string totalPrice = context.Request["totalPrice"];
             string totalReal = context.Request["totalReal"];
-            string regionId = context.Request["regionId"];
+            string userId = context.Request["userId"];
             DateTime nowTime = DateTime.Now;
             string nowDt = nowTime.ToString("yyyy-MM-dd");
             long count = 0;
@@ -338,9 +338,9 @@ namespace bms.Web.wechat
             single.AllTotalPrice = Convert.ToDouble(totalPrice);
             single.KindsNum = Convert.ToInt32(kindNum);
             single.Number = Convert.ToInt32(totalNumber);
-            single.RegionId = Convert.ToInt32(regionId);
+            single.RegionId = Convert.ToInt32(userId.Substring(0, userId.Length-3));
             single.SaleHeadId = retailHeadId;
-            single.UserId = regionId+"01";
+            single.UserId = userId;
             single.DateTime = DateTime.Now;
             single.State = 0;
             single.PayType = "未支付";
