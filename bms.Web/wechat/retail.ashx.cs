@@ -24,7 +24,7 @@ namespace bms.Web.wechat
         SaleHead single = new SaleHead();
         StockBll stockBll = new StockBll();
         RetailBll retailBll = new RetailBll();
-        RegionBll regionBll = new RegionBll();
+        UserBll userBll = new UserBll();
         retailM retailM = new retailM();
         public void ProcessRequest(HttpContext context)
         {
@@ -57,38 +57,11 @@ namespace bms.Web.wechat
             {
                 del(context);
             }
-            if(op == "getRegion")
-            {
-                DataSet ds = regionBll.select();
-                if(ds!=null && ds.Tables[0].Rows.Count > 0)
-                {
-                    retailM.type = "有数据";
-                    List<string> list = new List<string>();
-                    for(int i=0;i< ds.Tables[0].Rows.Count; i++)
-                    {
-                        string regionName = ds.Tables[0].Rows[i]["regionName"].ToString();
-                        list.Add(regionName);
-                    }
-                    //string data = JsonHelper.ToJson(ds.Tables[0], "retail");
-                    string data = ListToJson(list);
-                    retailM.data = data;
-                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
-                    context.Response.Write(json);
-                    context.Response.End();
-                }
-                else
-                {
-                    retailM.type = "无数据";
-                    string json = JsonHelper.JsonSerializerBySingleData(retailM);
-                    context.Response.Write(json);
-                    context.Response.End();
-                }
-            }
             if(op == "regionSubmit")
             {
-                string regionName = context.Request["region"];
-                int regionId = regionBll.getRegionIdByName(regionName);
-                if (regionId <= 0)
+                string userId = context.Request["userId"];
+                Result isUser = userBll.isUser(userId);
+                if (isUser == Result.记录不存在)
                 {
                     retailM.type = "未查询到相关组织信息";
                     string json = JsonHelper.JsonSerializerBySingleData(retailM);
@@ -98,7 +71,7 @@ namespace bms.Web.wechat
                 else
                 {
                     retailM.type = "成功";
-                    retailM.data = regionId.ToString();
+                    retailM.data = userId;
                     string json = JsonHelper.JsonSerializerBySingleData(retailM);
                     context.Response.Write(json);
                     context.Response.End();
