@@ -12,6 +12,18 @@ namespace bms.Web.wechat
         /// </summary>
         public string data { get; set; }
         /// <summary>
+        /// 用户id
+        /// </summary>
+        public string userid { get; set; }
+        /// <summary>
+        /// 组织id
+        /// </summary>
+        public string regionId { get; set; }
+        /// <summary>
+        /// 组织名称
+        /// </summary>
+        public string regionName { get; set; }
+        /// <summary>
         /// 数据成功类型
         /// </summary>
         public string type { get; set; }

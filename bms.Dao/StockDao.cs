@@ -148,8 +148,23 @@ namespace bms.Dao
             string cmdText = "select sum(stockNum) as stockNum from T_Stock where bookNum=@bookNum and regionId=@regionId";
             String[] param = { "@bookNum" ,"@regionId" };
             String[] values = { bookNum, regionId.ToString() };
-            int count = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
-            return count;
+            DataSet ds = db.FillDataSet(cmdText, param, values);
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                string count = ds.Tables[0].Rows[0]["stockNum"].ToString();
+                if(count != null && count != "")
+                {
+                    return Convert.ToInt32(count);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         /// <summary>
