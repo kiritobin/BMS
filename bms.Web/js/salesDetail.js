@@ -95,6 +95,18 @@
             var number = $(this).val().trim();
             var discount = $(this).parent().next().children().val().trim();
             var allprice = number * price;
+            if (number == "0" || number == "-0") {
+                swal({
+                    title: "温馨提示:)",
+                    text: "数量不能为0",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                })
+            }
             if (number == "" || number == null) {
                 swal({
                     title: "温馨提示:)",
