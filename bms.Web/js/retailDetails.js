@@ -471,6 +471,7 @@ function MyPreview() {
     //LODOP.ADD_PRINT_TEXT(iCurLine + 5, 20, 300, 20, "打印时间：" + (new Date()).toLocaleDateString() + " " + (new Date()).toLocaleTimeString());
     //LODOP.ADD_PRINT_TEXT(iCurLine + 5, 346, 150, 20, "合计金额：" + document.getElementById("HJ").value);
     LODOP.SET_PRINT_PAGESIZE(3, 2200, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
+    LODOP.SET_PRINT_MODE("PRINT_PAGE_PERCENT","Full-Width");
     LODOP.PREVIEW();
 };
 function AddTitle() {
