@@ -546,7 +546,7 @@ namespace bms.Web.SalesMGT
             int isnull = 0;
             strbook.Append("<thead>");
             strbook.Append("<tr>");
-            strbook.Append("<th>" + "<div class='pretty inline much'><input type = 'radio' disabled='disabled' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
+            strbook.Append("<th style='border-top: 1px solid #ddd;'>" + "<div class='pretty inline much'><input type = 'radio' disabled='disabled' name='radio'><label><i class='mdi mdi-check'></i></label></div>" + "</th>");
             strbook.Append("<th>" + "ISBN" + "</th>");
             strbook.Append("<th>" + "书号" + "</th>");
             strbook.Append("<th>" + "书名" + "</th>");
