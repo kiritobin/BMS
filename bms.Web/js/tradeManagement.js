@@ -30,7 +30,7 @@
     $("#table").delegate(".edited", "click", function () {
         var saleId = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
         sessionStorage.setItem("saleid", saleId);
-        var defaultDiscount = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        var defaultDiscount = $(this).parent().prev().prev().prev().prev().prev().prev().text().trim();
         var number = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text().trim();
         var price = $(this).parent().prev().prev().prev().prev().text().trim();
         var allprice = $(this).val();
