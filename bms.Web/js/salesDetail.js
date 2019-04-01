@@ -106,8 +106,7 @@
                     buttonsStyling: false,
                     allowOutsideClick: false
                 })
-            }
-            if (number == "" || number == null) {
+            }else if (number == "" || number == null) {
                 swal({
                     title: "温馨提示:)",
                     text: "数量不能为空",
@@ -118,7 +117,7 @@
                     buttonsStyling: false,
                     allowOutsideClick: false
                 })
-            } if (discount == "" || discount == null) {
+            } else if (discount == "" || discount == null) {
                 swal({
                     title: "温馨提示:)",
                     text: "折扣不能为空",
