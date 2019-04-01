@@ -256,6 +256,7 @@ function MyPreview() {
         }
         //------------end-------------
         LODOP.SET_SHOW_MODE("HIDE_PAPER_BOARD", true);
+        LODOP.SET_PRINT_MODE("PRINT_PAGE_PERCENT", "Full-Width");
         LODOP.PREVIEW();//打印预览	
         //window.location.reload();
     }

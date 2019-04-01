@@ -287,6 +287,7 @@ function MyPreview() {
             LODOP.ADD_PRINT_LINE(250 + 25 * i, 14, 250 + 25 * i, 685, 0, 1);
         }
         //------------end-------------
+        LODOP.SET_PRINT_MODE("PRINT_PAGE_PERCENT","Full-Width");
         LODOP.PREVIEW();//打印预览
     }
 }
