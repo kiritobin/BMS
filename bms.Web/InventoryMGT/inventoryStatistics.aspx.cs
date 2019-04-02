@@ -34,11 +34,11 @@ namespace bms.Web.InventoryMGT
             {
                 if (defaultWhere == "")
                 {
-                    defaultWhere += "regionName='" + tjRegion + "'";
+                    defaultWhere += "singleregion='" + tjRegion + "'";
                 }
                 else
                 {
-                    defaultWhere += " and regionName='" + tjRegion + "'";
+                    defaultWhere += " and singleregion='" + tjRegion + "'";
                 }
             }
             if (tjHeadId != "null" && tjHeadId != "" && tjHeadId != null)
@@ -122,7 +122,7 @@ namespace bms.Web.InventoryMGT
             string supplier = Request["supplier"];
             string time = Request["time"];
             string userName = Request["userName"];
-            string region = Request["region"];
+            string userregion = Request["userregion"];
             string resource = Request["resource"];
 
             User user = (User)Session["user"];
@@ -142,7 +142,7 @@ namespace bms.Web.InventoryMGT
             {
                 type = 2;
             }
-            if ((bookIsbn == "" || bookIsbn == null) && (bookName == "" || bookName == null) && (supplier == "" || supplier == null) && (time == "" || time == null) && (userName == "" || userName == null) && (region == "" || region == null) && (resource == "" || resource == null))
+            if ((bookIsbn == "" || bookIsbn == null) && (bookName == "" || bookName == null) && (supplier == "" || supplier == null) && (time == "" || time == null) && (userName == "" || userName == null) && (userregion == "" || userregion == null) && (resource == "" || resource == null))
             {
                 string tjRegion = Request["region"];
                 string tjuserName = Request["userName"];
@@ -197,9 +197,9 @@ namespace bms.Web.InventoryMGT
                 {
                     where += " and userName='" + userName + "'";
                 }
-                if (region != null && region != "")
+                if (userregion != null && userregion != "")
                 {
-                    where += " and userRegion='" + region + "'";
+                    where += " and userRegion='" + userregion + "'";
                 }
                 if (resource != null && resource != "")
                 {
@@ -212,28 +212,13 @@ namespace bms.Web.InventoryMGT
                 }
             }
             string userId = user.UserId;
-            //TableBuilder tbd = new TableBuilder();
-            //tbd.StrTable = "T_Monomers AS A,T_SingleHead AS B,T_User AS C ,T_BookBasicData AS D,t_region as E";
-            //tbd.OrderBy = "A.ID";
-            //if (isAdmin)
-            //{
-            //    tbd.StrColumnlist = "C.userName,D.bookName,A.ISBN,A.bookNum,sum(A.number) as number,sum(A.totalPrice) as totalPrice ,sum(A.realPrice) as realPrice,E.regionName,D.supplier,B.time,E.regionName as userRegionName";
-            //    tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and E.regionId=C.regionId and A.type="+ type + where + " group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
-            //}
-            //else
-            //{
-            //    tbd.StrColumnlist = "C.userName,D.bookName,A.ISBN,A.bookNum,sum(A.number) as number,sum(A.totalPrice) as totalPrice ,sum(A.realPrice) as realPrice,E.regionName,D.supplier,B.time";
-            //    tbd.StrWhere = "B.userId=C.userID and A.bookNum=D.bookNum and B.regionId=E.regionId and C.regionId=E.regionId and C.regionId="+ regionId + where + " and A.type="+type+" group by C.userName,D.bookName,A.ISBN,A.bookNum,E.regionName";
-            //}
-            //tbd.IntPageSize = pageSize;
-            //tbd.IntPageNum = currentPage;
             TableBuilder tbd = new TableBuilder();
             tbd.StrTable = "v_stockstatistics";
             tbd.OrderBy = "id";
             if (isAdmin)
             {
                 tbd.StrColumnlist = "id,type,userName,bookName,ISBN,bookNum,sum(number) as number,sum(totalPrice) as totalPrice ,sum(realPrice) as realPrice,regionName,supplier,time,userRegion";
-                tbd.StrWhere = "type=" + type + where + " group by userName,bookName,ISBN,bookNum,userRegion,regionName";
+                tbd.StrWhere = "type=" + type + where + " group by userName,bookName,ISBN,bookNum,regionName,userRegion";
             }
             else
             {

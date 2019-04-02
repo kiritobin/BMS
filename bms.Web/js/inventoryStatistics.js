@@ -37,7 +37,7 @@ function getUrlParam(url, name) {
 }  
 
 $(document).ready(function () {
-    var region = getUrlParam(location.href, "region");
+    var resource = getUrlParam(location.href, "region");
     var singleHeadId = getUrlParam(location.href, "singleHeadId");
     
     //出入退
@@ -78,8 +78,8 @@ $(document).ready(function () {
     var supplier = $("#supplier").val();
     var time = $("#time").val();
     var userName = $("#userName").val();
-    //var region = $("#region").val();
-    var resource = $("#resource").val();
+    var userregion = $("#region").val();
+    //var resource = $("#resource").val();
 
     $('.paging').pagination({
         //totalData: $("#totalCount").val(),
@@ -98,13 +98,13 @@ $(document).ready(function () {
             var supplier = $("#supplier").val();
             var time = $("#time").val();
             var userName = $("#userName").val();
-            //var region = $("#region").val();
+            var userregion = $("#region").val();
             var resource = $("#resource").val();
             if (supplier == "请选择供应商") {
                 supplier = "";
             }
-            if (region == "请选择组织") {
-                region = "";
+            if (userregion == "请选择组织") {
+                userregion = "";
             }
             if (userName == "请选择制单员") {
                 userName = "";
@@ -123,7 +123,7 @@ $(document).ready(function () {
                     supplier: supplier,
                     time: time,
                     userName: userName,
-                    region: region,
+                    userregion: userregion,
                     resource: resource,
                     op: "paging"
                 },
@@ -180,13 +180,13 @@ $(document).ready(function () {
         var supplier = $("#supplier").find("option:selected").text();
         var time = $("#time").val();
         var userName = $("#userName").find("option:selected").text();
-        //var region = $("#region").find("option:selected").text();
+        var userregion = $("#region").find("option:selected").text();
         var resource = $("#resource").find("option:selected").text();
         if (supplier == "请选择供应商") {
             supplier = "";
         }
-        if (region == "请选择组织") {
-            region = "";
+        if (userregion == "请选择组织") {
+            userregion = "";
         }
         if (userName == "请选择制单员") {
             userName = "";
@@ -204,7 +204,7 @@ $(document).ready(function () {
                 supplier: supplier,
                 time: time,
                 userName: userName,
-                region: region,
+                userregion: userregion,
                 resource: resource,
                 op: "paging"
             },
@@ -236,7 +236,7 @@ $(document).ready(function () {
                         var supplier = $("#supplier").val();
                         var time = $("#time").val();
                         var userName = $("#userName").val();
-                        //var region = $("#region").val();
+                        var userregion = $("#userregion").val();
                         var resource = $("#resource").val();
                         $.ajax({
                             type: 'Post',
@@ -249,7 +249,7 @@ $(document).ready(function () {
                                 supplier: supplier,
                                 time: time,
                                 userName: userName,
-                                region: region,
+                                userregion: userregion,
                                 resource: resource,
                                 op: "paging"
                             },
