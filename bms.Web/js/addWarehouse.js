@@ -72,6 +72,15 @@ $("#table").delegate(".isbn", "keypress", function (e) {
             }).catch(swal.noop);
             _this.val("");
         }
+        else if (count==0) {
+            swal({
+                title: "温馨提示:)",
+                text: "数量不能为空",
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-warning",
+                type: "warning"
+            }).catch(swal.noop);
+        }
         //else if (count == "" || count == null) {
         //    $(this).parent().next().next().next().children().focus();
         //    alert("商品数量不能为空");
