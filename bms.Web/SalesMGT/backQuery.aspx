@@ -97,7 +97,7 @@
                                     </table>
                                     <%} %>
                                     <div>
-                                        <table class="table mostTable table-bordered text-center" id="table">
+                                        <table class="table mostTable table-bordered text-center table-head" id="table">
                                             <%=GetData() %>
                                         </table>
                                         <table class="table table_stock text-right">
