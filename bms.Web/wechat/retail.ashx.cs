@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
@@ -81,6 +82,10 @@ namespace bms.Web.wechat
                     context.Response.Write(json);
                     context.Response.End();
                 }
+            }
+            if (op == "getOpenid")
+            {
+                getOponid(context);
             }
         }
         /// <summary>
@@ -597,6 +602,28 @@ namespace bms.Web.wechat
             sb.Remove(sb.Length - 1, 1);
             sb.Append("]");
             return sb.ToString();
+        }
+        /// <summary>
+        /// 获取微信openid
+        /// </summary>
+        /// <param name="context"></param>
+        public void getOponid(HttpContext context)
+        {
+            string js_code = context.Request["js_code"];
+            string serviceAddress = "https://api.weixin.qq.com/sns/jscode2session?appid=wx1c7c98a39f0501b6&secret=b12cb19870e0fc79c88b8d6eddfb39f0&js_code=" + js_code + "&grant_type=authorization_code";
+            //string serviceAddress = "https://api.weixin.qq.com/sns/jscode2session?appid=wxee22244e7c97740f&secret=f34c6d3996e5e836eab33eb3f81819b5&js_code=" + js_code + "&grant_type=authorization_code";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(serviceAddress);
+            request.Method = "GET";
+            request.ContentType = "text/html;charset=UTF-8";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream myResponseStream = response.GetResponseStream();
+            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.UTF8);
+            string retString = myStreamReader.ReadToEnd();
+            myStreamReader.Close();
+            myResponseStream.Close();
+            string json = JsonHelper.JsonSerializerBySingleData(retString);
+            context.Response.Write(json);
+            context.Response.End();
         }
     }
 }
