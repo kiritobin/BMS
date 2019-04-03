@@ -56,7 +56,8 @@
                                         <button class="btn btn-info btn-sm" id="export">导出</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="print" data-toggle="modal" data-target="#printmodel">打印</button>
+                                        <button class="btn btn-info btn-sm" id="print">打印</button>
+                                        <%--<button class="btn btn-info btn-sm" id="print" data-toggle="modal" data-target="#printmodel">打印</button>--%>
                                     </div>
                                     <%} %>
                                     <%

@@ -294,7 +294,7 @@ $(document).ready(function () {
             })
         }
     })
-    $("#a4").click(function () {
+    $("#print").click(function () {
         var t = $("#table").find('tr').length;
         var isbn = $("#isbn").val();
         var price = $("#price").val();

@@ -285,7 +285,7 @@ $(document).ready(function () {
             })
         }
     })
-    $("#a4").click(function () {
+    $("#print").click(function () {
 
         var type = GetQueryString("type");
         var _n = GetQueryString("name")

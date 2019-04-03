@@ -94,7 +94,7 @@ $("#zhen").click(function () {
     })
 })
 
-$("#a4").click(function () {
+$("#print").click(function () {
     //var name = $("#region").val() + "   新华书店有限公司    ";
     var name = $("#region").val();
     $.ajax({
