@@ -239,7 +239,7 @@ namespace bms.Web.AccessMGT
                         for (int i = 0; i < functions.Length; i++)
                         {
                             int functionId = Convert.ToInt32(functions[i]);
-                            value = "values(" + roleId + "," + functionId + "),";
+                            value = "(" + roleId + "," + functionId + "),";
                             values = values + value;
                         }
                         sqlText = values.Substring(0, values.Length - 1);
@@ -251,8 +251,20 @@ namespace bms.Web.AccessMGT
                         }
                         else
                         {
-                            Response.Write("更新成功");
-                            Response.End();
+                            Role role = new Role();
+                            role.RoleId = Convert.ToInt32(roleId);
+                            role.RoleName = roleName;
+                            Result edit = roleBll.Update(role);
+                            if (edit == Result.更新成功)
+                            {
+                                Response.Write("更新成功");
+                                Response.End();
+                            }
+                            else
+                            {
+                                Response.Write("更新失败");
+                                Response.End();
+                            }
                         }
                     }
                     else
@@ -260,19 +272,6 @@ namespace bms.Web.AccessMGT
                         Response.Write("更新失败");
                         Response.End();
                     }
-                }
-                Role role = new Role();
-                role.RoleId = Convert.ToInt32(roleId);
-                role.RoleName = roleName;
-                Result edit = roleBll.Update(role);
-                if (edit == Result.更新成功)
-                {
-                    
-                }
-                else
-                {
-                    Response.Write("更新失败");
-                    Response.End();
                 }
             }
             else
