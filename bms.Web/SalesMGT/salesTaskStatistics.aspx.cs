@@ -69,9 +69,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + dt.Rows[i][1] + "</td>");
                 strb.Append("<td>" + dt.Rows[i][3] + "</td>");
                 strb.Append("<td>" + dt.Rows[i][4] + "</td>");
-                strb.Append("<td>" + dt.Rows[i][5] + "</td>");
-                strb.Append("<td>" + dt.Rows[i][6] + "</td>");
-                strb.Append("<td>" + dt.Rows[i][7] + "</td></tr>");
+                strb.Append("<td>" + dt.Rows[i][5] + "</td></tr>");
             }
             return strb.ToString();
         }
@@ -210,7 +208,7 @@ namespace bms.Web.SalesMGT
             tb.StrColumnlist = "state,bookNum,bookName,ISBN,unitPrice,sum(number) as allnumber ,sum(realPrice) as allrealPrice,sum(totalPrice) as totalPrice,regionName,supplier,author";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = " saleTaskId='" + saletaskId + "' group by bookNum,bookName,ISBN,unitPrice";
+            tb.StrWhere = " saleTaskId='" + saletaskId + "' group by bookNum,bookName,ISBN,unitPrice having allnumber!=0";
             //获取展示的客户数据
             ds = salemonbll.selectBypage(tb, out totalCount, out intPageCount);
             //生成table
