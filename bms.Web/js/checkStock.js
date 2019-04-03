@@ -119,7 +119,7 @@ $(document).ready(function () {
     })
 })
 
-$("#a4").click(function () {
+$("#print").click(function () {
     var name = $("#sourceRegin").val();
     $.ajax({
         type: 'Post',

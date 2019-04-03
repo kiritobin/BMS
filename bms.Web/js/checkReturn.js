@@ -126,7 +126,7 @@ $("#export").click(function () {
     window.location.href = "checkReturn.aspx?op=export";
 })
 
-$("#a4").click(function () {
+$("#print").click(function () {
     var name = $("#shRegion").val();
     $.ajax({
         type: 'Post',
