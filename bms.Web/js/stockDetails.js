@@ -188,100 +188,101 @@ $(document).ready(function () {
         window.location.href = "stockStatistics.aspx";
     })
 
-    $("#zhen").click(function () {
-        var type = GetQueryString("type");
-        var _n = GetQueryString("name")
-        var name = decodeURI(_n);
-        var isbn = $("#isbn").val();
-        var price = $("#price").val();
-        var discount = $("#discount").val();
-        var user = $("#user").val();
-        var time = $("#time").val();
-        var looktime = getUrlParam(location.href, "looktime");
-        var t = $("#table").find('tr').length;
-        if (t <= 1) {
-            swal({
-                title: "提示",
-                text: "请先查询你要打印的内容",
-                type: "warning",
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: '确定',
-                confirmButtonClass: 'btn btn-warning',
-                buttonsStyling: false,
-                allowOutsideClick: false
-            });
-        }
-        else {
-            $.ajax({
-                type: 'Post',
-                url: 'stockDetails.aspx',
-                data: {
-                    type: type,
-                    name: name,
-                    isbn: isbn,
-                    price: price,
-                    discount: discount,
-                    user: user,
-                    time: time,
-                    looktime: looktime,
-                    op: "print"
-                },
-                dataType: 'text',
-                beforeSend: function (XMLHttpRequest) { //开始请求
-                    swal({
-                        text: "正在获取数据",
-                        imageUrl: "../imgs/load.gif",
-                        imageHeight: 100,
-                        imageWidth: 100,
-                        width: 180,
-                        showConfirmButton: false,
-                        allowOutsideClick: false
-                    });
-                },
-                success: function (data) {
-                    $(".swal2-container").remove();
-                    $("#print_table tr:not(:first)").remove(); //清空table处首行
-                    $("#print_table").append(data); //加载table
-                    try {
-                        MyPreview();
-                    }
-                    catch{
-                        window.location.href = "/CLodop_Setup_for_Win32NT.html";
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus) { //请求失败
-                    $(".swal2-container").remove();
-                    if (textStatus == 'timeout') {
-                        var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
-                        xmlhttp.abort();
-                        swal({
-                            title: "提示",
-                            text: "请求超时",
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        });
-                    } else if (textStatus == "error") {
-                        swal({
-                            title: "提示",
-                            text: "服务器内部错误",
-                            type: "warning",
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: '确定',
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            allowOutsideClick: false
-                        });
-                    }
-                }
-            })
-        }
-    })
+    //$("#zhen").click(function () {
+    //    var type = GetQueryString("type");
+    //    var _n = GetQueryString("name")
+    //    var name = decodeURI(_n);
+    //    var isbn = $("#isbn").val();
+    //    var price = $("#price").val();
+    //    var discount = $("#discount").val();
+    //    var user = $("#user").val();
+    //    var time = $("#time").val();
+    //    var looktime = getUrlParam(location.href, "looktime");
+    //    var t = $("#table").find('tr').length;
+    //    if (t <= 1) {
+    //        swal({
+    //            title: "提示",
+    //            text: "请先查询你要打印的内容",
+    //            type: "warning",
+    //            confirmButtonColor: '#3085d6',
+    //            confirmButtonText: '确定',
+    //            confirmButtonClass: 'btn btn-warning',
+    //            buttonsStyling: false,
+    //            allowOutsideClick: false
+    //        });
+    //    }
+    //    else {
+    //        $.ajax({
+    //            type: 'Post',
+    //            url: 'stockDetails.aspx',
+    //            data: {
+    //                type: type,
+    //                name: name,
+    //                isbn: isbn,
+    //                price: price,
+    //                discount: discount,
+    //                user: user,
+    //                time: time,
+    //                looktime: looktime,
+    //                op: "print"
+    //            },
+    //            dataType: 'text',
+    //            beforeSend: function (XMLHttpRequest) { //开始请求
+    //                swal({
+    //                    text: "正在获取数据",
+    //                    imageUrl: "../imgs/load.gif",
+    //                    imageHeight: 100,
+    //                    imageWidth: 100,
+    //                    width: 180,
+    //                    showConfirmButton: false,
+    //                    allowOutsideClick: false
+    //                });
+    //            },
+    //            success: function (data) {
+    //                $(".swal2-container").remove();
+    //                $("#print_table tr:not(:first)").remove(); //清空table处首行
+    //                $("#print_table").append(data); //加载table
+    //                try {
+    //                    MyPreview();
+    //                }
+    //                catch{
+    //                    window.location.href = "/CLodop_Setup_for_Win32NT.html";
+    //                }
+    //            },
+    //            error: function (XMLHttpRequest, textStatus) { //请求失败
+    //                $(".swal2-container").remove();
+    //                if (textStatus == 'timeout') {
+    //                    var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+    //                    xmlhttp.abort();
+    //                    swal({
+    //                        title: "提示",
+    //                        text: "请求超时",
+    //                        type: "warning",
+    //                        confirmButtonColor: '#3085d6',
+    //                        confirmButtonText: '确定',
+    //                        confirmButtonClass: 'btn btn-success',
+    //                        buttonsStyling: false,
+    //                        allowOutsideClick: false
+    //                    });
+    //                } else if (textStatus == "error") {
+    //                    swal({
+    //                        title: "提示",
+    //                        text: "服务器内部错误",
+    //                        type: "warning",
+    //                        confirmButtonColor: '#3085d6',
+    //                        confirmButtonText: '确定',
+    //                        confirmButtonClass: 'btn btn-success',
+    //                        buttonsStyling: false,
+    //                        allowOutsideClick: false
+    //                    });
+    //                }
+    //            }
+    //        })
+    //    }
+    //})
 
-    $("#print").click(function () {
+    $("#a4").click(function () {
+        $("#changeprint").attr("href", "../css/a4print.css");
         var type = GetQueryString("type");
         var _n = GetQueryString("name")
         var name = decodeURI(_n);
@@ -357,7 +358,83 @@ $(document).ready(function () {
             }
         })
     })
-
+    $("#zhen").click(function () {
+        $("#changeprint").attr("href", "../css/duolianprint.css");
+        var type = GetQueryString("type");
+        var _n = GetQueryString("name")
+        var name = decodeURI(_n);
+        var isbn = $("#isbn").val();
+        var price = $("#price").val();
+        var discount = $("#discount").val();
+        var user = $("#user").val();
+        var time = $("#time").val();
+        var looktime = getUrlParam(location.href, "looktime");
+        $.ajax({
+            type: 'Post',
+            url: 'stockDetails.aspx',
+            data: {
+                type: type,
+                name: name,
+                isbn: isbn,
+                price: price,
+                discount: discount,
+                user: user,
+                time: time,
+                looktime: looktime,
+                op: "print"
+            },
+            dataType: 'text',
+            beforeSend: function (XMLHttpRequest) { //开始请求
+                swal({
+                    text: "正在获取数据",
+                    imageUrl: "../imgs/load.gif",
+                    imageHeight: 100,
+                    imageWidth: 100,
+                    width: 180,
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            },
+            success: function (data) {
+                $("#pname").html("<h3>入库明细</h3>");
+                $(".swal2-container").remove();
+                $("#print_table tr:not(:first)").remove(); //清空table处首行
+                $("#print_table").append(data); //加载table
+                $('#printContent').show();
+                $("#printContent").jqprint();
+                $('#printContent').hide();
+            },
+            error: function (XMLHttpRequest, textStatus) { //请求失败
+                $(".swal2-container").remove();
+                $('#printContent').hide();
+                if (textStatus == 'timeout') {
+                    var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                    xmlhttp.abort();
+                    swal({
+                        title: "提示",
+                        text: "请求超时",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                } else if (textStatus == "error") {
+                    swal({
+                        title: "提示",
+                        text: "服务器内部错误",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                }
+            }
+        })
+    })
     $("#price_ok").click(function () {
         var type = $("input[name='priceRadios']:checked").val();
         var price = $("#inputprice").val();

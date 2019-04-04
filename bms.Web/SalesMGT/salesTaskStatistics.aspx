@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
     <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css">
+    <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
 </head>
 
 <body style="page-break-before: always;">
@@ -50,8 +51,8 @@
                                         <button class="btn btn-info" id="btn_search">查询</button>
                                     </div>--%>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="print">打印</button>
-                                        <%--<button class="btn btn-info btn-sm" id="print" data-toggle="modal" data-target="#printmodel">打印</button>--%>
+                                        <%--<button class="btn btn-info btn-sm" id="print">打印</button>--%>
+                                        <button class="btn btn-info btn-sm" id="print" data-toggle="modal" data-target="#printmodel">打印</button>
                                     </div>
                                     <div class="btn-group" role="group">
                                         <button class="btn btn-info btn-sm" id="excel">导出</button>
@@ -263,9 +264,9 @@
                         <td class="bbb">
                             <nobr>序号</nobr>
                         </td>
-                        <td>
+                     <%--   <td>
                             <nobr>书号</nobr>
-                        </td>
+                        </td>--%>
                         <td>
                             <nobr>商品编号</nobr>
                         </td>

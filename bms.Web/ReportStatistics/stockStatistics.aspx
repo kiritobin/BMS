@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/jedate.css" />
+    <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
     <script src="../js/jedate.min.js"></script>
 </head>
 <body>
@@ -487,7 +488,7 @@
             <!-- 打印内容 -->
             <div id="printContent" class="table-responsive">
                 <p>
-                    <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
+                    <h2 class="table-responsive" style="text-align: center"><span id="pname"></span></h2>
                 </p>
                 <table class="table mostTable table-bordered text-center" id="printTable">
                     <thead>
