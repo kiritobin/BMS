@@ -120,7 +120,7 @@
             window.location.href = "/CLodop_Setup_for_Win32NT.html";
         }
     })
-    $("#a4").click(function () {
+    $("#print").click(function () {
         $("#pname").text($("#XSRW").val() + "   销退单");
         $("#print_content").jqprint();
         $("#pname").text("");

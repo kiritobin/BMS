@@ -503,7 +503,8 @@ namespace bms.Dao
             if (type == "销售")
             {
                 typeString = "(state=1 or state=2) and";
-                sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_salemonomer where " + typeString + " dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
+                //sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_salemonomer where " + typeString + " dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
+                sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_allsalemonomer where " + typeString + " dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
                 string[] param = { "@startTime", "@endTime", "@regionName" };
                 object[] values = { startTime, endTime, regionName };
                 DataSet ds = db.FillDataSet(sql, param, values);
@@ -512,7 +513,7 @@ namespace bms.Dao
             else if (type == "预采")
             {
                 typeString = "state=3 and";
-                sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_salemonomer where " + typeString + " dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
+                sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_allsalemonomer where " + typeString + " dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
                 string[] param = { "@startTime", "@endTime", "@regionName" };
                 object[] values = { startTime, endTime, regionName };
                 DataSet ds = db.FillDataSet(sql, param, values);
@@ -520,7 +521,7 @@ namespace bms.Dao
             }
             else
             {
-                sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_salemonomer where dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
+                sql = @"select bookNum,unitPrice,sum(number) as allNum,sum(totalPrice) as allPrice,bookName,dateTime from v_allsalemonomer where dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allNum desc LIMIT 0,10;";
                 string[] param = { "@startTime", "@endTime", "@regionName" };
                 object[] values = { startTime, endTime, regionName };
                 DataSet ds = db.FillDataSet(sql, param, values);
@@ -945,7 +946,7 @@ namespace bms.Dao
             if (type == "销售")
             {
                 typeString = "(state=1 or state=2) and";
-                sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_salemonomer where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
+                sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_allsalemonomer where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
                 string[] param = { "@startTime", "@endTime", "@regionName" };
                 object[] values = { startTime, endTime, regionName };
                 DataSet ds = db.FillDataSet(sql, param, values);
@@ -954,7 +955,7 @@ namespace bms.Dao
             else if (type == "预采")
             {
                 typeString = "state=3 and";
-                sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_salemonomer  where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
+                sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_allsalemonomer  where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
                 string[] param = { "@startTime", "@endTime", "@regionName" };
                 object[] values = { startTime, endTime, regionName };
                 DataSet ds = db.FillDataSet(sql, param, values);
@@ -962,7 +963,7 @@ namespace bms.Dao
             }
             else
             {
-                sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_salemonomer where dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
+                sql = @"select count(*) as totalBooks,sum(allCount) as allCount,sum(allPrice) as allPrice from ((select dateTime,bookNum,sum(number) as allCount,sum(totalPrice) as allPrice,regionName from v_allsalemonomer where dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY bookNum ORDER BY allCount desc) as temp)";
                 string[] param = { "@startTime", "@endTime", "@regionName" };
                 object[] values = { startTime, endTime, regionName };
                 DataSet ds = db.FillDataSet(sql, param, values);
@@ -987,7 +988,7 @@ namespace bms.Dao
             if (type == "销售")
             {
                 typeString = "(state=1 or state=2) and";
-                sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_salemonomer  where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
+                sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_allsalemonomer  where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
                 string[] param = { "@startTime", "@endTime", "@regionName" };
                 object[] values = { startTime, endTime, regionName };
                 DataSet ds = db.FillDataSet(sql, param, values);
@@ -996,7 +997,7 @@ namespace bms.Dao
             else if (type == "预采")
             {
                 typeString = "state=3 and";
-                sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_salemonomer  where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
+                sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_allsalemonomer  where " + typeString + " dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
                 string[] param = { "@startTime", "@endTime", "@regionName" };
                 object[] values = { startTime, endTime, regionName };
                 DataSet ds = db.FillDataSet(sql, param, values);
@@ -1004,7 +1005,7 @@ namespace bms.Dao
             }
             else
             {
-                sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_salemonomer where dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
+                sql = @"select customerName,SUM(number) as allCount,SUM(totalPrice) as allPrice,regionName from v_allsalemonomer where dateTime between @startTime and  @endTime and regionName=@regionName GROUP BY customerID ORDER BY allCount desc LIMIT 0,10";
                 string[] param = { "@startTime", "@endTime", "@regionName" };
                 object[] values = { startTime, endTime, regionName };
                 DataSet ds = db.FillDataSet(sql, param, values);
@@ -1026,14 +1027,34 @@ namespace bms.Dao
         //    DataSet ds = db.FillDataSet(sql, null, null);
         //    return ds;
         //}
-        public int customerKinds(DateTime startTime, DateTime endTime, string regionName, string customerName)
+        public int customerKinds(DateTime startTime, DateTime endTime, string regionName, string customerName ,string type)
         {
             //string cmdText = @"select count(bookNum) as customerKinds from ((select customerName, bookNum, SUM(number) as allCount, SUM(totalPrice) as allPrice from v_salemonomer  where (state = 1 or state = 2) and customerName = @customerName GROUP BY bookNum) as temp)";
-            string cmdText = @"select count(bookNum) as customerKinds from ((select customerName, bookNum, SUM(number) as allCount, SUM(totalPrice) as allPrice from v_salemonomer  where (state = 1 or state = 2) and dateTime BETWEEN @startTime and @endTime and regionName=@regionName and customerName = @customerName GROUP BY bookNum) as temp)";
-            string[] param = { "@startTime", "@endTime", "@regionName", "@customerName" };
-            object[] values = { startTime, endTime, regionName, customerName };
-            int kinds = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
-            return kinds;
+            if (type == "销售")
+            {
+                //string typeString = "(state=1 or state=2) and";
+                string cmdText = @"select count(bookNum) as customerKinds from ((select customerName, bookNum, SUM(number) as allCount, SUM(totalPrice) as allPrice from v_allsalemonomer  where (state = 1 or state = 2) and dateTime BETWEEN @startTime and @endTime and regionName=@regionName and customerName = @customerName GROUP BY bookNum) as temp)";
+                string[] param = { "@startTime", "@endTime", "@regionName", "@customerName" };
+                object[] values = { startTime, endTime, regionName, customerName };
+                int kinds = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+                return kinds;
+            }
+            else if (type == "预采")
+            {
+                string cmdText = @"select count(bookNum) as customerKinds from ((select customerName, bookNum, SUM(number) as allCount, SUM(totalPrice) as allPrice from v_allsalemonomer  where state = 3 and dateTime BETWEEN @startTime and @endTime and regionName=@regionName and customerName = @customerName GROUP BY bookNum) as temp)";
+                string[] param = { "@startTime", "@endTime", "@regionName", "@customerName" };
+                object[] values = { startTime, endTime, regionName, customerName };
+                int kinds = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+                return kinds;
+            }
+            else
+            {
+                string cmdText = @"select count(bookNum) as customerKinds from ((select customerName, bookNum, SUM(number) as allCount, SUM(totalPrice) as allPrice from v_allsalemonomer  where dateTime BETWEEN @startTime and @endTime and regionName=@regionName and customerName = @customerName GROUP BY bookNum) as temp)";
+                string[] param = { "@startTime", "@endTime", "@regionName", "@customerName" };
+                object[] values = { startTime, endTime, regionName, customerName };
+                int kinds = Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
+                return kinds;
+            }
         }
 
         /// <summary>

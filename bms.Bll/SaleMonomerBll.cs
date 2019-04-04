@@ -709,9 +709,9 @@ namespace bms.Bll
         /// 客户所购品种数
         /// </summary>
         /// <returns></returns>
-        public int customerKinds(DateTime startTime, DateTime endTime, string regionName, string customerName)
+        public int customerKinds(DateTime startTime, DateTime endTime, string regionName, string customerName, string type)
         {
-            int ds = SaleMonomerdao.customerKinds(startTime, endTime, regionName, customerName);
+            int ds = SaleMonomerdao.customerKinds(startTime, endTime, regionName, customerName, type);
             return ds;
         }
 

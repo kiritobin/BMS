@@ -214,7 +214,7 @@
             })
         }
     })
-    $("#a4").click(function () {
+    $("#print").click(function () {
         var isbn = $("#isbn").val();
         var price = $("#price").val();
         var discount = $("#discount").val();

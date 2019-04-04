@@ -348,15 +348,15 @@ namespace bms.Web.SalesMGT
             StringBuilder sb = new StringBuilder();
             sb.Append("<thead>");//表头
             sb.Append("<tr>");
-            sb.Append("<td>" + "序号" + "</td>");
-            sb.Append("<td>" + "商品编号" + "</td>");
-            sb.Append("<td>" + "书号" + "</td>");
-            sb.Append("<td>" + "商品名称" + "</td>");
-            sb.Append("<td>" + "单价" + "</td>");
-            sb.Append("<td>" + "数量" + "</td>");
-            sb.Append("<td>" + "折扣" + "</td>");
-            sb.Append("<td>" + "码洋" + "</td>");
-            sb.Append("<td>" + "实洋" + "</td>");
+            sb.Append("<td><nobr>" + "序号" + "</nobr></td>");
+            sb.Append("<td><nobr>" + "商品编号" + "</nobr></td>");
+            sb.Append("<td><nobr>" + "书号" + "</nobr></td>");
+            sb.Append("<td><nobr>" + "商品名称" + "</nobr></td>");
+            sb.Append("<td><nobr>" + "单价" + "</nobr></td>");
+            sb.Append("<td><nobr>" + "数量" + "</nobr></td>");
+            sb.Append("<td><nobr>" + "折扣" + "</nobr></td>");
+            sb.Append("<td><nobr>" + "码洋" + "</nobr></td>");
+            sb.Append("<td><nobr>" + "实洋" + "</nobr></td>");
             sb.Append("</tr>");
             sb.Append("</thead>");
             sb.Append("<tbody>");//表体
