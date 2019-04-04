@@ -99,7 +99,9 @@
     <Content Include="chrome\chromedev_x86-v71.0.3573.0.exe" />
     <Content Include="chrome\ChromeDownload.html" />
     <Content Include="CLodop_Setup_for_Win32NT.html" />
+    <Content Include="css\a4print.css" />
     <Content Include="css\bootstrap-select.css" />
+    <Content Include="css\duolianprint.css" />
     <Content Include="css\jedate.css" />
     <Content Include="css\material-dashboard.min.css" />
     <Content Include="css\materialdesignicons.min.css" />

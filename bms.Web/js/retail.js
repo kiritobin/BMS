@@ -351,29 +351,33 @@ $("#insert").click(function () {
                     //    width: 10,//设置条之间的宽度
                     //    height: 50,//高度
                     //});
-                    var status = "";
-                    var LODOP = getLodop();
-                    //LODOP.SET_LICENSES("", "3C5743518A25D4EEFBB1CCB8C6FF9A49", "C94CEE276DB2187AE6B65D56B3FC2848", "");
-                    //LODOP.ADD_PRINT_HTM(0, 50, 900, 850, document.getElementById("ticket").innerHTML);
-                    //LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                    //LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
-                    //LODOP.PREVIEW();
-                    LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
-                    LODOP.On_Return = function (TaskID, Value) {
-                        status = Value;
-                    };
-                    if (status != "" || status != null) {
-                        LODOP.ADD_PRINT_HTM(0, 50, 900, 500, document.getElementById("ticket").innerHTML);
-                        LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
-                        LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
+                    try {
+                        var status = "";
+                        var LODOP = getLodop();
+                        //LODOP.SET_LICENSES("", "3C5743518A25D4EEFBB1CCB8C6FF9A49", "C94CEE276DB2187AE6B65D56B3FC2848", "");
+                        //LODOP.ADD_PRINT_HTM(0, 50, 900, 850, document.getElementById("ticket").innerHTML);
+                        //LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                        //LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
                         //LODOP.PREVIEW();
-                        LODOP.PRINT();
-                        $("#preRecord").text(sessionStorage.getItem("preRecord"));
-                        window.location.reload();
-                        sessionStorage.removeItem("kind");
-                        sessionStorage.removeItem("number");
-                        sessionStorage.removeItem("totalPrice");
-                        sessionStorage.removeItem("realPrice");
+                        LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS", true);
+                        LODOP.On_Return = function (TaskID, Value) {
+                            status = Value;
+                        };
+                        if (status != "" || status != null) {
+                            LODOP.ADD_PRINT_HTM(0, 50, 900, 500, document.getElementById("ticket").innerHTML);
+                            LODOP.SET_PRINTER_INDEX("BTP-U60(U) 1");
+                            LODOP.SET_PRINT_PAGESIZE(1, 700, 900, "");
+                            //LODOP.PREVIEW();
+                            LODOP.PRINT();
+                            $("#preRecord").text(sessionStorage.getItem("preRecord"));
+                            window.location.reload();
+                            sessionStorage.removeItem("kind");
+                            sessionStorage.removeItem("number");
+                            sessionStorage.removeItem("totalPrice");
+                            sessionStorage.removeItem("realPrice");
+                        }
+                    } catch (err) {
+                        window.location.href = "/CLodop_Setup_for_Win32NT.html";
                     }
                 }
             }
