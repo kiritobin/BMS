@@ -386,18 +386,18 @@
                                                 </tr>
                                             </table>
                                             <div class="table-responsive">
-                                                <table class="table mostTable table-bordered text-center" id="table">
+                                                <table class="table mostTable table-bordered text-center" style="font-size:18px;" id="table">
                                                     <thead>
                                                         <tr>
-                                                            <td>序号</td>
-                                                            <td>ISBN号</td>
-                                                            <td>书名</td>
-                                                            <td>数量</td>
-                                                            <td>单价</td>
-                                                            <td>折扣</td>
-                                                            <td>码洋</td>
-                                                            <td>实洋</td>
-                                                            <td>货架</td>
+                                                            <td><nobr>序号</nobr></td>
+                                                            <td><nobr>ISBN号</nobr></td>
+                                                            <td><nobr>书名</nobr></td>
+                                                            <td><nobr>数量</nobr></td>
+                                                            <td><nobr>单价</nobr></td>
+                                                            <td><nobr>折扣</nobr></td>
+                                                            <td><nobr>码洋</nobr></td>
+                                                            <td><nobr>实洋</nobr></td>
+                                                            <td><nobr>货架</nobr></td>
                                                         </tr>
                                                     </thead>
                                                     <%=getData() %>
