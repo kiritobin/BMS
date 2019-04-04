@@ -23127,22 +23127,4 @@ select.bs-select-hidden, select.selectpicker {
     content: "/ ";
     padding: 0 5px;
 }
-/*¥Ú”°“≥√º“≥Ω≈*/
-@page {
-    size: auto;
-    margin: 0mm 8mm 0mm 8mm;
-}
 
-#print_table {
-    width: 75%;
-}
-
-.table_stock {
-    width: 79%;
-}
-.table-head {
-    width: 79%;
-}
-#printTable {
-    width: 79%;
-}

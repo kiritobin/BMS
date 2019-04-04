@@ -57,69 +57,133 @@ $(document).ready(function () {
             });
         }
     });
-    $("#zhen").click(function () {
-        $.ajax({
-            type: 'Post',
-            url: 'checkStock.aspx',
-            data: {
-                op: 'print'
-            },
-            dataType: 'text',
-            beforeSend: function (XMLHttpRequest) { //开始请求
+    //$("#zhen").click(function () {
+    //    $.ajax({
+    //        type: 'Post',
+    //        url: 'checkStock.aspx',
+    //        data: {
+    //            op: 'print'
+    //        },
+    //        dataType: 'text',
+    //        beforeSend: function (XMLHttpRequest) { //开始请求
+    //            swal({
+    //                text: "正在获取数据",
+    //                imageUrl: "../imgs/load.gif",
+    //                imageHeight: 100,
+    //                imageWidth: 100,
+    //                width: 180,
+    //                showConfirmButton: false,
+    //                allowOutsideClick: false
+    //            });
+    //        },
+    //        success: function (data) {
+    //            $(".swal2-container").remove();
+    //            $("#print_table tr:not(:first)").remove();
+    //            $("#print_table").append(data);
+    //            try {
+    //                MyPreview();
+    //            }
+    //            catch{
+    //                window.location.href = "/CLodop_Setup_for_Win32NT.html";
+    //            }
+    //        },
+    //        error: function (XMLHttpRequest, textStatus) { //请求失败
+    //            $(".swal2-container").remove();
+    //            if (textStatus == 'timeout') {
+    //                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+    //                xmlhttp.abort();
+    //                swal({
+    //                    title: "提示",
+    //                    text: "请求超时",
+    //                    type: "warning",
+    //                    confirmButtonColor: '#3085d6',
+    //                    confirmButtonText: '确定',
+    //                    confirmButtonClass: 'btn btn-success',
+    //                    buttonsStyling: false,
+    //                    allowOutsideClick: false
+    //                });
+    //            } else if (textStatus == "error") {
+    //                swal({
+    //                    title: "提示",
+    //                    text: "服务器内部错误",
+    //                    type: "warning",
+    //                    confirmButtonColor: '#3085d6',
+    //                    confirmButtonText: '确定',
+    //                    confirmButtonClass: 'btn btn-success',
+    //                    buttonsStyling: false,
+    //                    allowOutsideClick: false
+    //                });
+    //            }
+    //        }
+    //    })
+    //})
+})
+
+$("#a4").click(function () {
+    $("#changeprint").attr("href", "../css/a4print.css");
+    var name = $("#sourceRegin").val();
+    $.ajax({
+        type: 'Post',
+        url: 'checkStock.aspx',
+        data: {
+            op: 'print'
+        },
+        dataType: 'text',
+        beforeSend: function (XMLHttpRequest) { //开始请求
+            swal({
+                text: "正在获取数据",
+                imageUrl: "../imgs/load.gif",
+                imageHeight: 100,
+                imageWidth: 100,
+                width: 180,
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        },
+        success: function (data) {
+            $("#pname").text(name);
+            $(".swal2-container").remove();
+            $("#print_table tr:not(:first)").remove();
+            $("#print_table").append(data);
+            $('#print_table').show();
+            $('#a4t').show();
+            $("#a4t").jqprint();
+            $('#a4t').hide();
+        },
+        error: function (XMLHttpRequest, textStatus) { //请求失败
+            $(".swal2-container").remove();
+            $('#a4t').hide();
+            if (textStatus == 'timeout') {
+                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                xmlhttp.abort();
                 swal({
-                    text: "正在获取数据",
-                    imageUrl: "../imgs/load.gif",
-                    imageHeight: 100,
-                    imageWidth: 100,
-                    width: 180,
-                    showConfirmButton: false,
+                    title: "提示",
+                    text: "请求超时",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
                     allowOutsideClick: false
                 });
-            },
-            success: function (data) {
-                $(".swal2-container").remove();
-                $("#print_table tr:not(:first)").remove();
-                $("#print_table").append(data);
-                try {
-                    MyPreview();
-                }
-                catch{
-                    window.location.href = "/CLodop_Setup_for_Win32NT.html";
-                }
-            },
-            error: function (XMLHttpRequest, textStatus) { //请求失败
-                $(".swal2-container").remove();
-                if (textStatus == 'timeout') {
-                    var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
-                    xmlhttp.abort();
-                    swal({
-                        title: "提示",
-                        text: "请求超时",
-                        type: "warning",
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: '确定',
-                        confirmButtonClass: 'btn btn-success',
-                        buttonsStyling: false,
-                        allowOutsideClick: false
-                    });
-                } else if (textStatus == "error") {
-                    swal({
-                        title: "提示",
-                        text: "服务器内部错误",
-                        type: "warning",
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: '确定',
-                        confirmButtonClass: 'btn btn-success',
-                        buttonsStyling: false,
-                        allowOutsideClick: false
-                    });
-                }
+            } else if (textStatus == "error") {
+                swal({
+                    title: "提示",
+                    text: "服务器内部错误",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
             }
-        })
+        }
     })
 })
 
-$("#print").click(function () {
+$("#zhen").click(function () {
+    $("#changeprint").attr("href", "../css/duolianprint.css");
     var name = $("#sourceRegin").val();
     $.ajax({
         type: 'Post',

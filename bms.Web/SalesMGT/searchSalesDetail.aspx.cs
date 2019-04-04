@@ -217,7 +217,7 @@ namespace bms.Web.SalesMGT
                 {
                     sb.Append("<tr><td>" + (i + 1) + "</td>");
                     sb.Append("<td>" + dataSet.Tables[0].Rows[i]["ISBN"] + "</td>");
-                    sb.Append("<td>" + dataSet.Tables[0].Rows[i]["bookNum"] + "</td>");
+                    //sb.Append("<td>" + dataSet.Tables[0].Rows[i]["bookNum"] + "</td>");
                     sb.Append("<td>" + dataSet.Tables[0].Rows[i]["bookName"] + "</td>");
                     sb.Append("<td>" + dataSet.Tables[0].Rows[i]["unitPrice"] + "</td>");
                     sb.Append("<td>" + dataSet.Tables[0].Rows[i]["allnumber"] + "</td>");

@@ -247,9 +247,9 @@
                         <td>
                             <nobr>商品编号</nobr>
                         </td>
-                        <td>
+<%--                        <td>
                             <nobr>书号</nobr>
-                        </td>
+                        </td>--%>
                         <td>
                             <nobr>商品名称</nobr>
                         </td>

@@ -1,0 +1,98 @@
+﻿/*打印页眉页脚*/
+@page {
+    size: 5mm;
+    margin: 0mm 6mm 0mm 6mm;
+}
+
+#RKId {
+    width: 190px;
+}
+
+#CKId{
+    width:190px;
+}
+#operator {
+    width: 120px;
+}
+#test2 {
+    width: 150px;
+}
+
+#print_table {
+    font-size: 18px;
+    width: 90%;
+}
+
+    #print_table tr td:nth-child(4) {
+        font-size: 22px;
+        width: 1%;
+    }
+
+    #print_table tr td:nth-child(1) {
+        font-size: 22px;
+        width: 1%;
+    }
+
+    #print_table tr td:nth-child(2) {
+        font-size: 22px;
+        width: 2%;
+    }
+
+    #print_table tr td:nth-child(3) {
+        font-size: 22px;
+        width: 15%;
+    }
+
+    #print_table tr td:nth-child(5) {
+        font-size: 22px;
+        width: 1%;
+    }
+
+    #print_table tr td:nth-child(6) {
+        font-size: 22px;
+        width: 1%;
+    }
+
+    #print_table tr td:nth-child(7) {
+        font-size: 22px;
+        width: 5%;
+    }
+
+    #print_table tr td:nth-child(8) {
+        font-size: 22px;
+        width: 2%;
+    }
+
+    #print_table tr td:nth-child(9) {
+        font-size: 22px;
+        width: 2%;
+    }
+
+
+.table_stock {
+    width: 85%;
+}
+
+    .table_stock td {
+        font-size: 20px;
+    }
+
+        .table_stock td input {
+            font-size: 20px;
+        }
+
+.table-head {
+    width: 88%;
+}
+
+.tablehead td {
+    font-size: 20px;
+}
+
+    .tablehead td input {
+        font-size: 20px;
+    }
+
+#printTable {
+    width: 88%;
+}
