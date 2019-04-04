@@ -79,7 +79,7 @@ namespace bms.Web.SalesMGT
                 string custName = ds.Tables[0].Rows[i]["customerName"].ToString();
                 strb.Append("<tr><td>" + (i + 1).ToString() + "</td>");
                 strb.Append("<td>" + custName + "</td>");
-                strb.Append("<td>" + smBll.customerKinds(startTime, endTime, regionName,custName) + "</td>");
+                strb.Append("<td>" + smBll.customerKinds(startTime, endTime, regionName,custName,type) + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["allCount"].ToString() + "</td>");
                 strb.Append("<td>" + double.Parse(ds.Tables[0].Rows[i]["allPrice"].ToString()).ToString("F2") + "</td></tr>");
             }

@@ -111,7 +111,7 @@
     <script>
         function reload() {
             //window.location.reload();
-            window.location.href = "booksOut.aspx?regionName=" + $("#rName").val();
+            window.location.href = "salesRanking.aspx?regionName=" + $("#rName").val();
         }
         setTimeout("reload()", 10000);
         window.onload = function () {

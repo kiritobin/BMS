@@ -4,7 +4,7 @@
         pnColor: "#FF6653"
     },
     multiPane: true,
-    format: "YYYY-MM-DD"
+    format: "YYYY-MM-DD hh:mm:ss"
 });
 jeDate("#endTime", {
     theme: {
@@ -12,7 +12,7 @@ jeDate("#endTime", {
         pnColor: "#FF6653"
     },
     multiPane: true,
-    format: "YYYY-MM-DD"
+    format: "YYYY-MM-DD hh:mm:ss"
 });
 //退出系统
 function logout() {
