@@ -147,7 +147,7 @@ namespace bms.Web.ReportStatistics
                 DataRow dr = dt.Rows[i];
                 strb.Append("<tr><td>" + (i + 1) + "</td>");
                 strb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                strb.Append("<td>" + dr["书号"].ToString() + "</td>");
+                //strb.Append("<td>" + dr["书号"].ToString() + "</td>");
                 strb.Append("<td>" + dr["书名"].ToString() + "</td>");
                 strb.Append("<td>" + dr["单价"].ToString() + "</td>");
                 strb.Append("<td>" + dr["供应商"].ToString() + "</td>");

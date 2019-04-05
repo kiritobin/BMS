@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
+    <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
 </head>
 
 <body>
@@ -358,8 +359,8 @@
                                                 <button class="btn btn-info btn-sm" id="export">导出</button>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-info btn-sm" id="print">打印</button>
-                                                <%--<button class="btn btn-info btn-sm" id="print" data-toggle="modal" data-target="#printmodel">打印</button>--%>
+                                                <%--<button class="btn btn-info btn-sm" id="print">打印</button>--%>
+                                                <button class="btn btn-info btn-sm" id="print" data-toggle="modal" data-target="#printmodel">打印</button>
                                             </div>
                                         </div>
                                         <div id="content">
@@ -385,18 +386,18 @@
                                                 </tr>
                                             </table>
                                             <div class="table-responsive">
-                                                <table class="table mostTable table-bordered text-center" id="table">
+                                                <table class="table mostTable table-bordered text-center" style="font-size:18px;" id="table">
                                                     <thead>
                                                         <tr>
-                                                            <td>序号</td>
-                                                            <td>ISBN号</td>
-                                                            <td>书名</td>
-                                                            <td>数量</td>
-                                                            <td>单价</td>
-                                                            <td>折扣</td>
-                                                            <td>码洋</td>
-                                                            <td>实洋</td>
-                                                            <td>货架</td>
+                                                            <td><nobr>序号</nobr></td>
+                                                            <td><nobr>ISBN号</nobr></td>
+                                                            <td><nobr>书名</nobr></td>
+                                                            <td><nobr>数量</nobr></td>
+                                                            <td><nobr>单价</nobr></td>
+                                                            <td><nobr>折扣</nobr></td>
+                                                            <td><nobr>码洋</nobr></td>
+                                                            <td><nobr>实洋</nobr></td>
+                                                            <td><nobr>货架</nobr></td>
                                                         </tr>
                                                     </thead>
                                                     <%=getData() %>
@@ -471,7 +472,7 @@
             <h3 class="table-responsive" style="text-align: center"><span id="pname"></span>退货单</h3>
         </p>
         <table class="table text-center table_stock">
-            <tr>
+            <tr class="text-nowrap">
                 <td class="td_text"><span class="span-text">单据编号:</span></td>
                 <td class="td_width">
                     <input type="text" value="<%=shId %>" class="form-control" disabled></td>
@@ -479,7 +480,7 @@
                 <td class="td_width">
                     <input type="text" value="<%=shOperator %>" class="form-control" disabled></td>
             </tr>
-            <tr>
+            <tr class="text-nowrap">
                 <td class="td_text"><span class="span-text">退货组织:</span></td>
                 <td class="td_width">
                     <input type="text" value="<%=shRegionName %>" class="form-control" disabled></td>
@@ -490,7 +491,7 @@
                     </div>
                 </td>
             </tr>
-            <tr>
+            <tr class="text-nowrap">
                 <td class="td_text"><span class="span-text">单据总数:</span></td>
                 <td class="td_width">
                     <input type="text" value="<%=shCount %>" class="form-control" disabled></td>

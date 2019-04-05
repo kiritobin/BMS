@@ -81,7 +81,7 @@ namespace bms.Web.InventoryMGT
                 shRegionName = shDt.Rows[0]["regionName"].ToString();
                 shTotalPrice = shDt.Rows[0]["allTotalPrice"].ToString();
                 shRealPrice = shDt.Rows[0]["allRealPrice"].ToString();
-                shTime = Convert.ToDateTime(shDt.Rows[0]["time"]).ToString("yyyy年MM月dd日 HH:mm:ss");
+                shTime = Convert.ToDateTime(shDt.Rows[0]["time"]).ToString("yyyy年MM月dd日");
             }
         }
 

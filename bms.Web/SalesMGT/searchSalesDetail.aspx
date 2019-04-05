@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
     <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css">
+    <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
 </head>
 
 <body>
@@ -56,8 +57,8 @@
                                         <button class="btn btn-info btn-sm" id="export">导出</button>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-info btn-sm" id="print">打印</button>
-                                        <%--<button class="btn btn-info btn-sm" id="print" data-toggle="modal" data-target="#printmodel">打印</button>--%>
+                                        <%--<button class="btn btn-info btn-sm" id="print">打印</button>--%>
+                                        <button class="btn btn-info btn-sm" id="print" data-toggle="modal" data-target="#printmodel">打印</button>
                                     </div>
                                     <%--<div class="btn-group" role="group">
                                         <button class="btn btn-info btn-sm" onclick="window.location.href='salesTaskStatistics.aspx'">统计销售任务</button>
@@ -195,7 +196,7 @@
                         <span>单据编号:</span>
                     </td>
                     <td>
-                        <input value="<%=saleheadId.ToString() %>" class="form-control" disabled>
+                        <input value="<%=saleheadId.ToString() %>" class="form-control" disabled id="xsbh">
                     </td>
                     <td>
                         <span>操作员:</span>
@@ -208,7 +209,7 @@
                     </td>
                     <td>
                         <div class="jeinpbox">
-                            <input type="text" value="<%=time %>" class="form-control" disabled>
+                            <input type="text" value="<%=time %>" class="form-control" disabled id="xsrq">
                         </div>
                     </td>
                 </tr>
@@ -247,9 +248,9 @@
                         <td>
                             <nobr>商品编号</nobr>
                         </td>
-                        <td>
+<%--                        <td>
                             <nobr>书号</nobr>
-                        </td>
+                        </td>--%>
                         <td>
                             <nobr>商品名称</nobr>
                         </td>

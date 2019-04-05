@@ -22,8 +22,7 @@
     <link rel="stylesheet" href="../css/materialdesignicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
 </head>
-     <%--style="overflow:hidden;"--%>
-<body>
+<body style="overflow:hidden;">
     <div class="retail-content">
         <div class="container-fluid">
             <div class="row">
@@ -40,10 +39,10 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-8 text-right">
+                        <div class="col-md-9 text-right">
                             <div class="text-right retailTime">时间：<span id="time"></span></div>
                         </div>
-                        <div class="table-responsive col-md-8">
+                        <div class="table-responsive col-md-9">
                             <div style="height: 600px; display: block; overflow-y: auto;">
                                 <table class="table mostTable table-bordered retailTable text-center test" id="table">
                                     <thead>
@@ -97,20 +96,20 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <%--<div class="retailList">
                                 <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
                             </div>--%>
-                            <div class="row" id="retailBtn">
-                                <input type="text" id="search" style="height:100px;font-size:30px;" class="topSearch">
+                            <div id="retailBtn">
+                                <input type="text" id="search" style="height:100px;width:240px;font-size :30px;" class="topSearch">
                                 <div class="text-white" id="scanning" data-toggle="modal" data-target="#myModal1">
-                                    <button class="btn btn-info btnText">扫  描</button>
+                                    <button class="btn btn-info btnText" style="height:90px;width:240px;border-radius: 15px;">扫  描</button>
                                 </div>
                                 <div class="text-white" id="Settlement" data-toggle="modal">
-                                    <button class="btn btn-success btnText">收  银</button>
+                                    <button class="btn btn-success btnText" style="height:90px;width:240px;border-radius: 15px;">收  银</button>
                                 </div>
                                 <div class="text-white" onclick="javascript:history.back(-1);">
-                                    <button class="btn btn-danger btnText">返  回</button>
+                                    <button class="btn btn-danger btnText" style="height:90px;width:240px;border-radius: 15px;">返  回</button>
                                 </div>
                             </div>
                         </div>

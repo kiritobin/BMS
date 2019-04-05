@@ -64,7 +64,7 @@ namespace bms.Web.SalesMGT
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 strb.Append("<tr><td>" + (i + 1) + "</td>");
-                strb.Append("<td>" + dt.Rows[i][2] + "</td>");
+                //strb.Append("<td>" + dt.Rows[i][2] + "</td>");
                 strb.Append("<td>" + dt.Rows[i][0] + "</td>");
                 strb.Append("<td>" + dt.Rows[i][1] + "</td>");
                 strb.Append("<td>" + dt.Rows[i][3] + "</td>");
