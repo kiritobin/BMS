@@ -577,6 +577,36 @@
                 <p>
                     <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
                 </p>
+                <table class="table table_stock text-center">
+                    <tr class="text-nowrap">
+                        <td>
+                            <%if (type == "payment")
+                                { %>
+                            <span>支付方式:</span>
+                            <% }
+                                else{%>
+                            <span>组织名称:</span>
+                            <%} %>
+                        </td>
+                        <td>
+                            <input value="<%=name %>" class="form-control" disabled id="XSnum">
+                        </td>
+                        <td>
+                            <span>操作员:</span>
+                        </td>
+                        <td>
+                            <input value="<%=userName %>" class="form-control" disabled id="operator">
+                        </td>
+                        <td>
+                            <span>制单日期:</span>
+                        </td>
+                        <td>
+                            <div class="jeinpbox">
+                                <input type="text" value="<%=DateTime.Now %>" class="form-control" disabled id="test2">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
                 <table class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">

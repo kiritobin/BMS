@@ -19,6 +19,7 @@ namespace bms.Web.ReportStatistics
         public int totalCount, intPageCount, pageSize = 20;
         public DataSet dsUser = null;
         public string type = "", name = "", groupType = "", userName, regionName;
+        public DateTime dateOfMade;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -142,18 +143,18 @@ namespace bms.Web.ReportStatistics
             {
                 sb.Append("<tr>");
                 sb.Append("<td>" + (i + 1) + "</td>");
-                sb.Append("<td>" + dt.Rows[i][0] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][1] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][2] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][3] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][4] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][5] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][6] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][7] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][9] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][10] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][8] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][11] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["ISBN"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["书号"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["书名"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["单价"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["供应商"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["数量"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["码洋"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["实洋"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["折扣"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["交易时间"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["收银员"] + "</td>");
+                sb.Append("<td>" + dt.Rows[i]["支付方式"] + "</td>");
                 sb.Append("</tr>");
             }
             return sb.ToString();
