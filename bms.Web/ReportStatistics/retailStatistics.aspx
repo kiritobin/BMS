@@ -354,7 +354,7 @@
                                                     <option value="payType">支付方式</option>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupregion" style="width: 180px;display:none">
+                                            <div class="btn-group" id="groupregion" style="width: 180px; display: none">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="region">
                                                     <option value="">全部组织</option>
                                                     <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
@@ -363,7 +363,7 @@
                                                     <%} %>
                                                 </select>
                                             </div>
-                                            <div class="btn-group" id="groupPayType" style="width: 180px;display:none">
+                                            <div class="btn-group" id="groupPayType" style="width: 180px; display: none">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择支付方式" id="payType">
                                                     <option value="">全部支付方式</option>
                                                     <option value="未支付">未支付</option>

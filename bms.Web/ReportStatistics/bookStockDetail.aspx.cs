@@ -19,6 +19,7 @@ namespace bms.Web.ReportStatistics
         public int totalCount, intPageCount, pageSize = 20;
         public DataSet dsUser = null;
         public string type = "", name = "", groupType = "", userName, regionName;
+        public int bookKinds, allBookCount;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,6 +40,7 @@ namespace bms.Web.ReportStatistics
                 }
             }
             getData();
+            census();
             permission();
             string exportOp = Request.QueryString["op"];
             if (exportOp == "export")
@@ -50,7 +52,107 @@ namespace bms.Web.ReportStatistics
                 Print();
             }
         }
-
+        public void census()
+        {
+            string isbn = Request["isbn"];
+            string price = Request["price"];
+            string discount = Request["discount"];
+            string bookName = Request["bookName"];
+            string stockNumber = Request["stockNumber"];
+            string strWhere = groupType;
+            string fileName = name;
+            if (isbn != null && isbn != "")
+            {
+                strWhere += " and isbn='" + isbn + "'";
+            }
+            if (price != "" && price != null)
+            {
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "price > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and price > '" + number + "'";
+                    }
+                }
+            }
+            //if (price != null && price != "")
+            //{
+            //    strWhere += " and uPrice=" + price;
+            //}
+            if (discount != null && discount != "")
+            {
+                strWhere += " and discount=" + discount;
+            }
+            if (bookName != null && bookName != "")
+            {
+                strWhere += " and bookName like '%" + bookName + "%'";
+            }
+            if (stockNumber != "" && stockNumber != null)
+            {
+                string[] sArray = stockNumber.Split('于');
+                string type = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type == "小")
+                    {
+                        strWhere = " and stockNum < '" + number + "'";
+                    }
+                    else if (type == "等")
+                    {
+                        strWhere = " and stockNum = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = " and stockNum > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type == "小")
+                    {
+                        strWhere += " and stockNum < '" + number + "'";
+                    }
+                    else if (type == "等")
+                    {
+                        strWhere += " and stockNum = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and stockNum > '" + number + "'";
+                    }
+                }
+            }
+            DataTable printDt = stockBll.census(strWhere, groupType);
+            bookKinds = int.Parse(printDt.Rows[0]["品种数量"].ToString());
+            allBookCount = int.Parse(printDt.Rows[0]["总数"].ToString());
+        }
         public String Print()
         {
             string isbn = Request["isbn"];
@@ -148,6 +250,9 @@ namespace bms.Web.ReportStatistics
                     }
                 }
             }
+            //DataTable printDt = stockBll.census(strWhere, groupType);
+            //bookKinds = int.Parse(printDt.Rows[0]["品种数量"].ToString());
+            //allBookCount = int.Parse(printDt.Rows[0]["总数"].ToString());
             DataTable dt = stockBll.ExportExcelDetail(strWhere, type);
             StringBuilder strb = new StringBuilder();
             int dscount = dt.Rows.Count;
@@ -156,15 +261,15 @@ namespace bms.Web.ReportStatistics
                 DataRow dr = dt.Rows[i];
                 //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i) + "</td>");
-                strb.Append("<td>" + dr[0].ToString() + "</td>");
-                strb.Append("<td>" + dr[1].ToString() + "</td>");
-                strb.Append("<td>" + dr[2].ToString() + "</td>");
-                strb.Append("<td>" + dr[3].ToString() + "</td>");
-                strb.Append("<td>" + dr[4].ToString() + "</td>");
-                strb.Append("<td>" + dr[5].ToString() + "</td>");
-                strb.Append("<td>" + dr[6].ToString() + "</td>");
-                strb.Append("<td>" + dr[7].ToString() + "</td>");
-                strb.Append("<td>" + dr[8].ToString() + "</td></tr>");
+                strb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                strb.Append("<td>" + dr["书号"].ToString() + "</td>");
+                strb.Append("<td>" + dr["书名"].ToString() + "</td>");
+                strb.Append("<td>" + dr["单价"].ToString() + "</td>");
+                strb.Append("<td>" + dr["供应商"].ToString() + "</td>");
+                strb.Append("<td>" + dr["数量"].ToString() + "</td>");
+                strb.Append("<td>" + dr["进货折扣"].ToString() + "</td>");
+                strb.Append("<td>" + dr["销售折扣"].ToString() + "</td>");
+                strb.Append("<td>" + dr["组织名称"].ToString() + "</td></tr>");
             }
             Response.Write(strb.ToString());
             Response.End();

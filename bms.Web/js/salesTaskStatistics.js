@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $("#print_table").hide();
+    $("#printtable").hide();
     $('#a4t').hide();
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
@@ -54,8 +54,8 @@ $("#excel").click(function () {
 //        },
 //        success: function (data) {
 //            $(".swal2-container").remove();
-//            $("#print_table tr:not(:first)").remove();
-//            $("#print_table").append(data);
+//            $("#printtable tr:not(:first)").remove();
+//            $("#printtable").append(data);
 //            try {
 //                MyPreview();
 //            }
@@ -119,9 +119,9 @@ $("#a4").click(function () {
         success: function (data) {
             $("#pname").text(name);
             $(".swal2-container").remove();
-            $("#print_table tr:not(:first)").remove();
-            $("#print_table").append(data);
-            $('#print_table').show();
+            $("#printtable tr:not(:first)").remove();
+            $("#printtable").append(data);
+            $('#printtable').show();
             $('#a4t').show();
             $("#a4t").jqprint();
             $('#a4t').hide();
@@ -182,9 +182,9 @@ $("#zhen").click(function () {
         success: function (data) {
             $("#pname").text(name);
             $(".swal2-container").remove();
-            $("#print_table tr:not(:first)").remove();
-            $("#print_table").append(data);
-            $('#print_table').show();
+            $("#printtable tr:not(:first)").remove();
+            $("#printtable").append(data);
+            $('#printtable').show();
             $('#a4t').show();
             $("#a4t").jqprint();
             $('#a4t').hide();
@@ -283,9 +283,9 @@ function MyPreview() {
         LODOP.ADD_PRINT_LINE(225, 14, 225, 755, 0, 1);//二线(行)
 
         //--行内容
-        var j = $("#print_table").find("tr").length;
+        var j = $("#printtable").find("tr").length;
         for (i = 0; i < j; i++) {
-            var row = $("#print_table").find('tr').eq(i + 1).find('td');
+            var row = $("#printtable").find('tr').eq(i + 1).find('td');
             LODOP.ADD_PRINT_TEXT(235 + 25 * i, 20, 50, 20, (i + 1));
             LODOP.ADD_PRINT_TEXT(235 + 25 * i, 70, 100, 20, row.eq(1).text().trim());
             LODOP.ADD_PRINT_TEXT(235 + 25 * i, 170, 120, 20, row.eq(2).text().trim());

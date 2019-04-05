@@ -1,8 +1,9 @@
 ﻿/*打印页眉页脚*/
 @page {
     size: 5mm;
-    margin: 0mm 6mm 0mm 6mm;
+    margin: 0mm 7mm 0mm 7mm;
 }
+
 #XSnum {
     width: 190px;
 }
@@ -87,7 +88,7 @@
     }
 
 .table_stock {
-    width: 85%;
+    width: 80% !important;
 }
 
     .table_stock td {
@@ -114,6 +115,13 @@
 .table-head {
     width: 88%;
 }
+    .table-head td {
+        font-size: 20px;
+    }
+    .table-head td input{
+        font-size: 20px;
+    }
+
 
 .tablehead td {
     font-size: 20px;
@@ -128,10 +136,10 @@
 }
 
 #xsbh {
-    width: 200%;
+    width: 190px;
 }
 #xsrq {
-    width: 250%;
+    width: 200px;
 }
 
 #printTable {
@@ -141,4 +149,32 @@
 
     #printTable th {
         font-size: 27px;
+    }
+#printtable tr td:nth-child(4) {
+    font-size: 22px;
+    width: 1%;
+}
+
+    #printtable tr td:nth-child(1) {
+        font-size: 22px;
+        width: 1%;
+    }
+
+    #printtable tr td:nth-child(2) {
+        font-size: 22px;
+        width: 2%;
+    }
+
+    #printtable tr td:nth-child(3) {
+        font-size: 22px;
+        width: 15%;
+    }
+
+    #printtable tr td:nth-child(5) {
+        font-size: 22px;
+        width: 1%;
+    }
+    #printtable tr td:nth-child(6) {
+        font-size: 22px;
+        width: 1%;
     }
