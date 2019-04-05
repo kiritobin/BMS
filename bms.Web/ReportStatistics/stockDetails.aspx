@@ -353,7 +353,7 @@
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px; height: 34px" id="price"  readonly="readonly" data-toggle="modal" data-target="#priceModal" />
+                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px; height: 34px" id="price" readonly="readonly" data-toggle="modal" data-target="#priceModal" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
@@ -565,6 +565,14 @@
                 <p>
                     <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
                 </p>
+                <%if (type == "regionName")
+                            { %>
+                <p><h4 class="table-responsive" style="text-align: center">入库来源:<span id="region"></span></h4></p>
+                <%}
+                        else
+                        { %>
+                <p><h4 class="table-responsive" style="text-align: center">供应商:<span id="supplier"></span></h4></p>
+                <%} %>
                 <table class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
@@ -574,7 +582,7 @@
                             <th>
                                 <nobr>商品编号</nobr>
                             </th>
-<%--                            <th>
+                            <%--                            <th>
                                 <nobr>书号</nobr>
                             </th>--%>
                             <th>
@@ -582,9 +590,6 @@
                             </th>
                             <th>
                                 <nobr>定价</nobr>
-                            </th>
-                            <th>
-                                <nobr>供应商</nobr>
                             </th>
                             <th>
                                 <nobr>数量</nobr>
@@ -604,9 +609,18 @@
                             <th>
                                 <nobr>制单员</nobr>
                             </th>
+                            <%if (type == "regionName")
+                                { %>
+                            <th>
+                                <nobr>供应商</nobr>
+                            </th>
+                            <%}
+                            else
+                            { %>
                             <th>
                                 <nobr>入库来源</nobr>
                             </th>
+                            <%} %>
                         </tr>
                     </thead>
                 </table>

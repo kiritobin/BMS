@@ -563,6 +563,14 @@
                 <p>
                     <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
                 </p>
+                <%if (type == "regionName")
+                            { %>
+                <p><h4 class="table-responsive" style="text-align: center">接收组织:   <span id="region"></span></h4></p>
+                <%}
+                        else
+                        { %>
+                <p><h4 class="table-responsive" style="text-align: center">供应商:   <span id="supplier"></span></h4></p>
+                <%} %>
                 <table class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
@@ -582,9 +590,6 @@
                                 <nobr>定价</nobr>
                             </th>
                             <th>
-                                <nobr>供应商</nobr>
-                            </th>
-                            <th>
                                 <nobr>数量</nobr>
                             </th>
                             <th>
@@ -602,9 +607,18 @@
                             <th>
                                 <nobr>制单员</nobr>
                             </th>
+                            <%if (type == "regionName")
+                                { %>
+                            <th>
+                                <nobr>供应商</nobr>
+                            </th>
+                            <%}
+                            else
+                            { %>
                             <th>
                                 <nobr>接收组织</nobr>
                             </th>
+                            <%} %>
                         </tr>
                     </thead>
                 </table>

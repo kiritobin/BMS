@@ -320,9 +320,15 @@ $(document).ready(function () {
             },
             success: function (data) {
                 $("#pname").html("<h3>入库明细</h3>");
+                var datas = data.split(":|");
+                if (datas[1] == "regionName") {
+                    $("#region").html(datas[2]);
+                } else {
+                    $("#supplier").html(datas[2]);
+                }
                 $(".swal2-container").remove();
                 $("#print_table tr:not(:first)").remove(); //清空table处首行
-                $("#print_table").append(data); //加载table
+                $("#print_table").append(datas[0]); //加载table
                 $('#printContent').show();
                 $("#printContent").jqprint();
                 $('#printContent').hide();
@@ -397,9 +403,15 @@ $(document).ready(function () {
             },
             success: function (data) {
                 $("#pname").html("<h3>入库明细</h3>");
+                var datas = data.split(":|");
+                if (datas[1] == "regionName") {
+                    $("#region").html(datas[2]);
+                } else {
+                    $("#supplier").html(datas[2]);
+                }
                 $(".swal2-container").remove();
                 $("#print_table tr:not(:first)").remove(); //清空table处首行
-                $("#print_table").append(data); //加载table
+                $("#print_table").append(datas[0]); //加载table
                 $('#printContent').show();
                 $("#printContent").jqprint();
                 $('#printContent').hide();
