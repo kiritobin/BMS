@@ -40,6 +40,7 @@ namespace bms.Web.ReportStatistics
                 }
             }
             getData();
+            census();
             permission();
             string exportOp = Request.QueryString["op"];
             if (exportOp == "export")
@@ -51,7 +52,107 @@ namespace bms.Web.ReportStatistics
                 Print();
             }
         }
-
+        public void census()
+        {
+            string isbn = Request["isbn"];
+            string price = Request["price"];
+            string discount = Request["discount"];
+            string bookName = Request["bookName"];
+            string stockNumber = Request["stockNumber"];
+            string strWhere = groupType;
+            string fileName = name;
+            if (isbn != null && isbn != "")
+            {
+                strWhere += " and isbn='" + isbn + "'";
+            }
+            if (price != "" && price != null)
+            {
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "price > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and price < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and price = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and price > '" + number + "'";
+                    }
+                }
+            }
+            //if (price != null && price != "")
+            //{
+            //    strWhere += " and uPrice=" + price;
+            //}
+            if (discount != null && discount != "")
+            {
+                strWhere += " and discount=" + discount;
+            }
+            if (bookName != null && bookName != "")
+            {
+                strWhere += " and bookName like '%" + bookName + "%'";
+            }
+            if (stockNumber != "" && stockNumber != null)
+            {
+                string[] sArray = stockNumber.Split('于');
+                string type = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type == "小")
+                    {
+                        strWhere = " and stockNum < '" + number + "'";
+                    }
+                    else if (type == "等")
+                    {
+                        strWhere = " and stockNum = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = " and stockNum > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type == "小")
+                    {
+                        strWhere += " and stockNum < '" + number + "'";
+                    }
+                    else if (type == "等")
+                    {
+                        strWhere += " and stockNum = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and stockNum > '" + number + "'";
+                    }
+                }
+            }
+            DataTable printDt = stockBll.census(strWhere, groupType);
+            bookKinds = int.Parse(printDt.Rows[0]["品种数量"].ToString());
+            allBookCount = int.Parse(printDt.Rows[0]["总数"].ToString());
+        }
         public String Print()
         {
             string isbn = Request["isbn"];

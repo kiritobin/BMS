@@ -453,6 +453,17 @@ namespace bms.Bll
         }
 
         /// <summary>
+        /// 零售明细打印统计
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public DataTable census(string strWhere, string type)
+        {
+            return dao.census(strWhere, type);
+        }
+
+        /// <summary>
         /// 小程序零售单头添加
         /// </summary>
         /// <param name="salehead">销售单头实体</param>

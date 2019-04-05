@@ -18,7 +18,7 @@ namespace bms.Web.ReportStatistics
         RetailBll retailBll = new RetailBll();
         public int totalCount, intPageCount, pageSize = 20;
         public DataSet dsUser = null;
-        public string type = "", name = "", groupType = "", userName, regionName;
+        public string type = "", name = "", groupType = "", userName, regionName, bookKinds, allBookCount, allPricePrint, realPricePrint;
         public DateTime dateOfMade;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
@@ -39,6 +39,7 @@ namespace bms.Web.ReportStatistics
                 }
             }
             getData();
+            census();
             permission();
             string exportOp = Request.QueryString["op"];
             if (exportOp == "export")
@@ -52,6 +53,102 @@ namespace bms.Web.ReportStatistics
                 Response.End();
             }
         }
+        
+        /// <summary>
+        /// 打印统计
+        /// </summary>
+        public void census()
+        {
+            string isbn = Request["isbn"];
+            string price = Request["price"];
+            string discount = Request["discount"];
+            string user = Request["user"];
+            string time = Request["time"];
+            string looktime = Request["looktime"];
+            string payment = Request["payment"];
+            string strWhere = groupType;
+            if (isbn != null && isbn != "")
+            {
+                strWhere += " and isbn='" + isbn + "'";
+            }
+            if (price != "" && price != null)
+            {
+                string[] sArray = price.Split('于');
+                string type1 = sArray[0];
+                string number = sArray[1];
+                if (strWhere == "" || strWhere == null)
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere = "unitPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere = "unitPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere = "unitPrice > '" + number + "'";
+                    }
+                }
+                else
+                {
+                    if (type1 == "小")
+                    {
+                        strWhere += " and unitPrice < '" + number + "'";
+                    }
+                    else if (type1 == "等")
+                    {
+                        strWhere += " and unitPrice = '" + number + "'";
+                    }
+                    else
+                    {
+                        strWhere += " and unitPrice > '" + number + "'";
+                    }
+                }
+            }
+            //if (price != null && price != "")
+            //{
+            //    fileName += "-" + price;
+            //    strWhere += " and unitPrice=" + price;
+            //}
+            if (discount != null && discount != "")
+            {
+                strWhere += " and realDiscount=" + discount;
+            }
+            if (user != null && user != "")
+            {
+                strWhere += " and userName='" + user + "'";
+            }
+            if (time != null && time != "")
+            {
+                //strWhere += " and dateTime='" + time + "'";
+                string[] sArray = time.Split('至');
+                string startTime = sArray[0];
+                string endTime = sArray[1];
+                strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+            }
+            if (time == "" || time == null)
+            {
+                if (looktime != null && looktime != "" && looktime != "null")
+                {
+                    string[] sArray = looktime.Split('至');
+                    string startTime = sArray[0];
+                    string endTime = sArray[1];
+                    strWhere += " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "'";
+                }
+            }
+            if (payment != null && payment != "")
+            {
+                strWhere += " and payment='" + payment + "'";
+            }
+            DataTable dt = retailBll.census(strWhere, type);
+            bookKinds = dt.Rows[0]["品种数"].ToString();
+            allBookCount = dt.Rows[0]["总数量"].ToString();
+            allPricePrint = dt.Rows[0]["总码洋"].ToString();
+            realPricePrint = dt.Rows[0]["总实洋"].ToString();
+        }
+
         public String Print()
         {
             string isbn = Request["isbn"];
@@ -144,7 +241,7 @@ namespace bms.Web.ReportStatistics
                 sb.Append("<tr>");
                 sb.Append("<td>" + (i + 1) + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["ISBN"] + "</td>");
-                sb.Append("<td>" + dt.Rows[i]["书号"] + "</td>");
+                //sb.Append("<td>" + dt.Rows[i]["书号"] + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["书名"] + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["单价"] + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["供应商"] + "</td>");

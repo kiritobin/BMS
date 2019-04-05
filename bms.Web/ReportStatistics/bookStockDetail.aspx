@@ -481,20 +481,20 @@
                             </div>
                         </td>
                     </tr>
-                    <!--<tr class="text-nowrap">
+                    <tr class="text-nowrap">
                         <td>
                             <span>书籍种数:</span>
                         </td>
                         <td>
-                            <input value="<%--=bookKinds --%>" class="form-control" disabled id="bookKinds">
+                            <input value="<%=bookKinds %>" class="form-control" disabled id="bookKinds">
                         </td>
                         <td>
                             <span>书本总数:</span>
                         </td>
                         <td>
-                            <input value="<%--=allBookCount --%>" class="form-control" disabled id="allBookCount">
+                            <input value="<%=allBookCount %>" class="form-control" disabled id="allBookCount">
                         </td>
-                    </tr>-->
+                    </tr>
                 </table>
                 <table class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
