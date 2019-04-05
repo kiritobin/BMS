@@ -301,65 +301,66 @@
     })
 
     //打印
-    //$("#print").click(function () {
-    //    $("#printTable").show();
-    //    if (!$("#table td:visible").length) {
-    //        swal({
-    //            title: "无查询条件或无数据",
-    //            text: "若以选择条件请先点击查询再打印",
-    //            type: "warning",
-    //            confirmButtonColor: '#3085d6',
-    //            confirmButtonText: '确定',
-    //            confirmButtonClass: 'btn btn-success',
-    //            buttonsStyling: false,
-    //            allowOutsideClick: false
-    //        });
-    //    }
-    //    else {
-    //        var groupby = $("#groupby").find("option:selected").text();
-    //        var supplier = $("#supplier").find("option:selected").text();
-    //        var regionName = $("#region").find("option:selected").text();
-    //        var groupbyType;
-    //        if (groupby == "供应商") {
-    //            groupbyType = "supplier";
-    //            if (supplier == "全部供应商") {
-    //                supplier = "";
-    //            }
-    //            regionName = "";
-    //        }
-    //        else if (groupby == "组织") {
-    //            groupbyType = "regionName";
-    //            if (regionName == "全部组织") {
-    //                regionName = "";
-    //            }
-    //            supplier = "";
-    //        } else {
-    //            groupbyType = "state";
-    //            supplier = "";
-    //            regionName = "";
-    //        }
-    //        if (groupbyType == "state") {
-    //            swal({
-    //                title: "提示",
-    //                text: "请选择分组方式",
-    //                type: "warning",
-    //                confirmButtonColor: '#3085d6',
-    //                confirmButtonText: '确定',
-    //                confirmButtonClass: 'btn btn-success',
-    //                buttonsStyling: false,
-    //                allowOutsideClick: false
-    //            });
-    //        }
-    //        else {
-    //            $("#printmodel").modal("show");
-    //        }
-    //        //window.location.href = "bookStock.aspx?op=print&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName;
-    //    }
-    //})
+    $("#print").click(function () {
+        $("#printTable").show();
+        if (!$("#table td:visible").length) {
+            swal({
+                title: "无查询条件或无数据",
+                text: "若以选择条件请先点击查询再打印",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-success',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        }
+        else {
+            var groupby = $("#groupby").find("option:selected").text();
+            var supplier = $("#supplier").find("option:selected").text();
+            var regionName = $("#region").find("option:selected").text();
+            var groupbyType;
+            if (groupby == "供应商") {
+                groupbyType = "supplier";
+                if (supplier == "全部供应商") {
+                    supplier = "";
+                }
+                regionName = "";
+            }
+            else if (groupby == "组织") {
+                groupbyType = "regionName";
+                if (regionName == "全部组织") {
+                    regionName = "";
+                }
+                supplier = "";
+            } else {
+                groupbyType = "state";
+                supplier = "";
+                regionName = "";
+            }
+            if (groupbyType == "state") {
+                swal({
+                    title: "提示",
+                    text: "请选择分组方式",
+                    type: "warning",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '确定',
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    allowOutsideClick: false
+                });
+            }
+            else {
+                $("#printmodel").modal("show");
+            }
+            //window.location.href = "bookStock.aspx?op=print&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName;
+        }
+    })
 
 })
 
-$("#print").click(function () {
+$("#a4").click(function () {
+    $("#changeprint").attr("href", "../css/a4print.css");
     var groupby = $("#groupby").find("option:selected").text();
     var supplier = $("#supplier").find("option:selected").text();
     var regionName = $("#region").find("option:selected").text();
@@ -459,6 +460,7 @@ $("#print").click(function () {
     }
 })
 $("#zhen").click(function () {
+    $("#changeprint").attr("href", "../css/duolianprint.css");
     var groupby = $("#groupby").find("option:selected").text();
     var supplier = $("#supplier").find("option:selected").text();
     var regionName = $("#region").find("option:selected").text();
@@ -481,76 +483,175 @@ $("#zhen").click(function () {
         supplier = "";
         regionName = "";
     }
-    $.ajax({
-        type: 'Post',
-        url: 'bookStock.aspx',
-        data: {
-            op: "print",
-            groupbyType: groupbyType,
-            supplier: supplier,
-            regionName: regionName
-        },
-        dataType: 'text',
-        beforeSend: function (XMLHttpRequest) { //开始请求
-            swal({
-                text: "正在获取数据",
-                imageUrl: "../imgs/load.gif",
-                imageHeight: 100,
-                imageWidth: 100,
-                width: 180,
-                showConfirmButton: false,
-                allowOutsideClick: false
-            });
-        },
-        success: function (data) {
-            if (groupby == "供应商") {
-                $("#printshowType").text("供应商");
-                $("#printshowType2").text("组织名称");
-            }
-            else if (groupby == "组织") {
-                $("#printshowType").text("组织名称");
-                $("#printshowType2").text("供应商");
-            }
-            $(".swal2-container").remove();
-            $("#printTable tr:not(:first)").remove(); //清空table处首行
-            $("#printTable").append(data); //加载table
-            try {
-                MyPreview();
-            }
-            catch{
-                window.location.href = "/CLodop_Setup_for_Win32NT.html";
-            }
-        },
-        error: function (XMLHttpRequest, textStatus) { //请求失败
-            $(".swal2-container").remove();
-            if (textStatus == 'timeout') {
-                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
-                xmlhttp.abort();
+    if (!$("#table td:visible").length) {
+        swal({
+            title: "无查询条件或无数据",
+            text: "若以选择条件请先点击查询再打印",
+            type: "warning",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '确定',
+            confirmButtonClass: 'btn btn-success',
+            buttonsStyling: false,
+            allowOutsideClick: false
+        });
+    }
+    else {
+        $.ajax({
+            type: 'Post',
+            url: 'bookStock.aspx',
+            data: {
+                op: "print",
+                groupbyType: groupbyType,
+                supplier: supplier,
+                regionName: regionName
+            },
+            dataType: 'text',
+            beforeSend: function (XMLHttpRequest) { //开始请求
                 swal({
-                    title: "提示",
-                    text: "请求超时",
-                    type: "warning",
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '确定',
-                    confirmButtonClass: 'btn btn-success',
-                    buttonsStyling: false,
+                    text: "正在获取数据",
+                    imageUrl: "../imgs/load.gif",
+                    imageHeight: 100,
+                    imageWidth: 100,
+                    width: 180,
+                    showConfirmButton: false,
                     allowOutsideClick: false
                 });
-            } else if (textStatus == "error") {
-                swal({
-                    title: "提示",
-                    text: "服务器内部错误",
-                    type: "warning",
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '确定',
-                    confirmButtonClass: 'btn btn-success',
-                    buttonsStyling: false,
-                    allowOutsideClick: false
-                });
+            },
+            success: function (data) {
+                $("#pname").html("<h3>库存统计</h3>");
+                $(".swal2-container").remove();
+                $("#printTable tr:not(:first)").remove();
+                $("#printTable").append(data);
+                $('#printContent').show();
+                $("#printContent").jqprint();
+                $('#printContent').hide();
+            },
+            error: function (XMLHttpRequest, textStatus) { //请求失败
+                $(".swal2-container").remove();
+                $('#printTable').hide();
+                $('#printContent').hide();
+                if (textStatus == 'timeout') {
+                    var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                    xmlhttp.abort();
+                    swal({
+                        title: "提示",
+                        text: "请求超时",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                } else if (textStatus == "error") {
+                    swal({
+                        title: "提示",
+                        text: "服务器内部错误",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                }
             }
-        }
-    });
+        })
+    }
 })
+//$("#zhen").click(function () {
+//    var groupby = $("#groupby").find("option:selected").text();
+//    var supplier = $("#supplier").find("option:selected").text();
+//    var regionName = $("#region").find("option:selected").text();
+//    var groupbyType;
+//    if (groupby == "供应商") {
+//        groupbyType = "supplier";
+//        if (supplier == "全部供应商") {
+//            supplier = "";
+//        }
+//        regionName = "";
+//    }
+//    else if (groupby == "组织") {
+//        groupbyType = "regionName";
+//        if (regionName == "全部组织") {
+//            regionName = "";
+//        }
+//        supplier = "";
+//    } else {
+//        groupbyType = "state";
+//        supplier = "";
+//        regionName = "";
+//    }
+//    $.ajax({
+//        type: 'Post',
+//        url: 'bookStock.aspx',
+//        data: {
+//            op: "print",
+//            groupbyType: groupbyType,
+//            supplier: supplier,
+//            regionName: regionName
+//        },
+//        dataType: 'text',
+//        beforeSend: function (XMLHttpRequest) { //开始请求
+//            swal({
+//                text: "正在获取数据",
+//                imageUrl: "../imgs/load.gif",
+//                imageHeight: 100,
+//                imageWidth: 100,
+//                width: 180,
+//                showConfirmButton: false,
+//                allowOutsideClick: false
+//            });
+//        },
+//        success: function (data) {
+//            if (groupby == "供应商") {
+//                $("#printshowType").text("供应商");
+//                $("#printshowType2").text("组织名称");
+//            }
+//            else if (groupby == "组织") {
+//                $("#printshowType").text("组织名称");
+//                $("#printshowType2").text("供应商");
+//            }
+//            $(".swal2-container").remove();
+//            $("#printTable tr:not(:first)").remove(); //清空table处首行
+//            $("#printTable").append(data); //加载table
+//            try {
+//                MyPreview();
+//            }
+//            catch{
+//                window.location.href = "/CLodop_Setup_for_Win32NT.html";
+//            }
+//        },
+//        error: function (XMLHttpRequest, textStatus) { //请求失败
+//            $(".swal2-container").remove();
+//            if (textStatus == 'timeout') {
+//                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+//                xmlhttp.abort();
+//                swal({
+//                    title: "提示",
+//                    text: "请求超时",
+//                    type: "warning",
+//                    confirmButtonColor: '#3085d6',
+//                    confirmButtonText: '确定',
+//                    confirmButtonClass: 'btn btn-success',
+//                    buttonsStyling: false,
+//                    allowOutsideClick: false
+//                });
+//            } else if (textStatus == "error") {
+//                swal({
+//                    title: "提示",
+//                    text: "服务器内部错误",
+//                    type: "warning",
+//                    confirmButtonColor: '#3085d6',
+//                    confirmButtonText: '确定',
+//                    confirmButtonClass: 'btn btn-success',
+//                    buttonsStyling: false,
+//                    allowOutsideClick: false
+//                });
+//            }
+//        }
+//    });
+//})
 
 window.onload = function () {
     $("#groupsupplier").hide();
