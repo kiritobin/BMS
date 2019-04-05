@@ -24,7 +24,7 @@
 
 #print_table {
     font-size: 18px;
-    width: 86%;
+    width: 85%;
 }
 #print_table th{
     font-size: 25px;
@@ -178,3 +178,13 @@
         font-size: 22px;
         width: 1%;
     }
+#printTabled {
+    font-size: 25px;
+    width: 86% !important;
+}
+#printTabled th{
+    font-size: 25px;
+}
+#printTabled td{
+    font-size: 25px;
+}

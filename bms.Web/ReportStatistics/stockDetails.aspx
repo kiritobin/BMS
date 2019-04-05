@@ -563,11 +563,11 @@
 
             <div class="table-responsive" id="printContent">
                 <p>
-                    <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
+                    <h2 class="table-responsive" style="text-align: center"><span id="pname"></span></h2>
                 </p>
                 <%if (type == "regionName")
                             { %>
-                <p><h4 class="table-responsive" style="text-align: center">入库来源:<span id="region"></span></h4></p>
+                <p><h3 class="table-responsive" style="text-align: center">入库来源:<span id="region"></span></h3></p>
                 <%}
                         else
                         { %>

@@ -484,7 +484,7 @@
                 <p>
                     <h2 class="table-responsive" style="text-align: center"><span id="pname"></span></h2>
                 </p>
-                <table class="table mostTable table-bordered text-center" id="printTable">
+                <table class="table mostTable table-bordered text-center" id="printTabled">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
                             <th>序号</th>

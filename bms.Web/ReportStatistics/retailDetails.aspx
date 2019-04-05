@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../css/bootstrap-select.css" />
     <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" href="../css/jedate.css" />
+    <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
     <script src="../js/jedate.min.js"></script>
 </head>
 <body>
@@ -387,8 +388,8 @@
                                             <div class="form-group form-group-sm">
                                                 <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
                                                 <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
-                                                <button type="button" class="btn btn-sm btn-info" id="print">打印</button>
-                                                <%--<button type="button" class="btn btn-sm btn-info" id="print" data-toggle="modal" data-target="#printmodel">打印</button>--%>
+                                                <%--<button type="button" class="btn btn-sm btn-info" id="print">打印</button>--%>
+                                                <button type="button" class="btn btn-sm btn-info" id="print" data-toggle="modal" data-target="#printmodel">打印</button>
                                                 <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
                                         </form>
@@ -632,6 +633,9 @@
                             <input type="text" value="<%=allPricePrint %>" class="form-control" disabled>
                             <%} %>
                         </td>
+                        
+                    </tr>
+                    <tr class="text-nowrap">
                         <td>
                             <span>总实洋:</span>
                         </td>

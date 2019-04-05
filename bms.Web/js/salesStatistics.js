@@ -771,8 +771,8 @@ $("#a4").click(function () {
             success: function (data) {
                 $("#pname").html("<h3>销售统计</h3>");
                 $(".swal2-container").remove();
-                $("#printTable tr:not(:first)").remove();
-                $("#printTable").append(data);
+                $("#printTabled tr:not(:first)").remove();
+                $("#printTabled").append(data);
                 $('#printContent').show();
                 if (groupby == "供应商") {
                     $("#printShowType").text("供应商");
@@ -787,7 +787,7 @@ $("#a4").click(function () {
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败
                 $(".swal2-container").remove();
-                $('#printTable').hide();
+                $('#printTabled').hide();
                 $('#printContent').hide();
                 if (textStatus == 'timeout') {
                     var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
@@ -857,8 +857,8 @@ $("#zhen").click(function () {
             success: function (data) {
                 $("#pname").html("<h3>销售统计</h3>");
                 $(".swal2-container").remove();
-                $("#printTable tr:not(:first)").remove();
-                $("#printTable").append(data);
+                $("#printTabled tr:not(:first)").remove();
+                $("#printTabled").append(data);
                 $('#printContent').show();
                 if (groupby == "供应商") {
                     $("#printShowType").text("供应商");
@@ -873,7 +873,7 @@ $("#zhen").click(function () {
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败
                 $(".swal2-container").remove();
-                $('#printTable').hide();
+                $('#printTabled').hide();
                 $('#printContent').hide();
                 if (textStatus == 'timeout') {
                     var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");

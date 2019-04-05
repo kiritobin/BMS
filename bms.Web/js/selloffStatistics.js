@@ -506,8 +506,8 @@ $("#a4").click(function () {
             success: function (data) {
                 $("#pname").html("<h3>销退统计</h3>");
                 $(".swal2-container").remove();
-                $("#printTable tr:not(:first)").remove(); //清空table处首行
-                $("#printTable").append(data); //加载tab
+                $("#printTabled tr:not(:first)").remove(); //清空table处首行
+                $("#printTabled").append(data); //加载tab
                 $('#printContent').show();
                 if (groupby == "供应商") {
                     $("#printShowType").text("供应商");
@@ -523,7 +523,7 @@ $("#a4").click(function () {
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败
                 $(".swal2-container").remove();
-                $('#printTable').hide();
+                $('#printTabled').hide();
                 $('#printContent').hide();
                 if (textStatus == 'timeout') {
                     var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
@@ -592,8 +592,8 @@ $("#zhen").click(function () {
             success: function (data) {
                 $("#pname").html("<h3>销退统计</h3>");
                 $(".swal2-container").remove();
-                $("#printTable tr:not(:first)").remove(); //清空table处首行
-                $("#printTable").append(data); //加载tab
+                $("#printTabled tr:not(:first)").remove(); //清空table处首行
+                $("#printTabled").append(data); //加载tab
                 $('#printContent').show();
                 if (groupby == "供应商") {
                     $("#printShowType").text("供应商");
@@ -609,7 +609,7 @@ $("#zhen").click(function () {
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败
                 $(".swal2-container").remove();
-                $('#printTable').hide();
+                $('#printTabled').hide();
                 $('#printContent').hide();
                 if (textStatus == 'timeout') {
                     var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
@@ -795,8 +795,8 @@ var LODOP; //声明为全局变量
 function MyPreview() {
     AddTitle();
     var iCurLine = 75;//标题行之后的数据从位置80px开始打印
-    var j = $("#printTable").find("tr").length;
-    var row = $("#printTable").find('tr');
+    var j = $("#printTabled").find("tr").length;
+    var row = $("#printTabled").find('tr');
     for (i = 1; i < j; i++) {
         LODOP.ADD_PRINT_TEXT(iCurLine, 15, 50, 20, i);
         if (row.eq(i).find('td').eq(1).text().trim().length > 12) {

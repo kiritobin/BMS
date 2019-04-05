@@ -1,7 +1,7 @@
 ﻿/*打印页眉页脚*/
 @page {
     size: 5mm;
-    margin: 0mm 7mm 0mm 7mm;
+    margin: 0mm 8mm 0mm 8mm;
 }
 #XSnum {
     width: 190px;
@@ -135,4 +135,11 @@
 }
 #printTable th{
     font-size: 27px;
+}
+#printTabled th {
+    font-size: 25px;
+}
+
+#printTabled td {
+    font-size: 25px;
 }

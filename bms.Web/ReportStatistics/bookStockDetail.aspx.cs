@@ -260,9 +260,9 @@ namespace bms.Web.ReportStatistics
             {
                 DataRow dr = dt.Rows[i];
                 //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
-                strb.Append("<tr><td>" + (i) + "</td>");
+                strb.Append("<tr><td>" + (i+1) + "</td>");
                 strb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                strb.Append("<td>" + dr["书号"].ToString() + "</td>");
+                //strb.Append("<td>" + dr["书号"].ToString() + "</td>");
                 strb.Append("<td>" + dr["书名"].ToString() + "</td>");
                 strb.Append("<td>" + dr["单价"].ToString() + "</td>");
                 strb.Append("<td>" + dr["供应商"].ToString() + "</td>");

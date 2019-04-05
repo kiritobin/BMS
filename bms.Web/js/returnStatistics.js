@@ -519,8 +519,8 @@ $("#a4").click(function () {
             success: function (data) {
                 $("#pname").html("<h3>退货统计</h3>");
                 $(".swal2-container").remove();
-                $("#printTable tr:not(:first)").remove();
-                $("#printTable").append(data);
+                $("#printTabled tr:not(:first)").remove();
+                $("#printTabled").append(data);
                 $('#printContent').show();
                 if (groupbyType == "供应商") {
                     $("#printShowType").text("供应商");
@@ -535,7 +535,7 @@ $("#a4").click(function () {
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败
                 $(".swal2-container").remove();
-                $('#printTable').hide();
+                $('#printTabled').hide();
                 $('#printContent').hide();
                 if (textStatus == 'timeout') {
                     var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
@@ -615,8 +615,8 @@ $("#zhen").click(function () {
             success: function (data) {
                 $("#pname").html("<h3>退货统计</h3>");
                 $(".swal2-container").remove();
-                $("#printTable tr:not(:first)").remove();
-                $("#printTable").append(data);
+                $("#printTabled tr:not(:first)").remove();
+                $("#printTabled").append(data);
                 $('#printContent').show();
                 if (groupbyType == "供应商") {
                     $("#printShowType").text("供应商");
@@ -631,7 +631,7 @@ $("#zhen").click(function () {
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败
                 $(".swal2-container").remove();
-                $('#printTable').hide();
+                $('#printTabled').hide();
                 $('#printContent').hide();
                 if (textStatus == 'timeout') {
                     var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
@@ -685,8 +685,8 @@ $("#zhen").click(function () {
 //        },
 //        success: function (data) {
 //            $(".swal2-container").remove();
-//            $("#printTable tr:not(:first)").remove(); //清空table处首行
-//            $("#printTable").append(data); //加载table
+//            $("#printTabled tr:not(:first)").remove(); //清空table处首行
+//            $("#printTabled").append(data); //加载table
 //            if (groupbyType == "供应商") {
 //                $("#printShowType").text("供应商");
 //            }
@@ -765,8 +765,8 @@ var LODOP; //声明为全局变量
 function MyPreview() {
     AddTitle();
     var iCurLine = 75;//标题行之后的数据从位置80px开始打印
-    var j = $("#printTable").find("tr").length;
-    var row = $("#printTable").find('tr');
+    var j = $("#printTabled").find("tr").length;
+    var row = $("#printTabled").find('tr');
     for (i = 1; i < j; i++) {
         //LODOP.ADD_PRINT_TEXT(iCurLine, 15, 50, 20, i);
         //LODOP.ADD_PRINT_TEXT(iCurLine, 70, 200, 20, row.eq(i).find('td').eq(1).text().trim());
@@ -812,11 +812,11 @@ function MyPreview() {
     LODOP.SET_PRINT_PAGESIZE(3, 1500, 100, "");//这里3表示纵向打印且纸高“按内容的高度”；1385表示纸宽138.5mm；45表示页底空白4.5mm
     LODOP.PREVIEW();
 };
-var group = $("#printTable").find('tr').eq(0).find('th').eq(1).text().trim();
-var kinds = $("#printTable").find('tr').eq(0).find('th').eq(2).text().trim();
-var num = $("#printTable").find('tr').eq(0).find('th').eq(3).text().trim();
-var totalPrice = $("#printTable").find('tr').eq(0).find('th').eq(4).text().trim();
-var realPrice = $("#printTable").find('tr').eq(0).find('th').eq(5).text().trim();
+var group = $("#printTabled").find('tr').eq(0).find('th').eq(1).text().trim();
+var kinds = $("#printTabled").find('tr').eq(0).find('th').eq(2).text().trim();
+var num = $("#printTabled").find('tr').eq(0).find('th').eq(3).text().trim();
+var totalPrice = $("#printTabled").find('tr').eq(0).find('th').eq(4).text().trim();
+var realPrice = $("#printTabled").find('tr').eq(0).find('th').eq(5).text().trim();
 function AddTitle() {
     LODOP = getLodop();
     LODOP.PRINT_INIT("退货统计");

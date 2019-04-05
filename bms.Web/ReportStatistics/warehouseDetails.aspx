@@ -561,15 +561,15 @@
 
             <div class="table-responsive" id="printContent">
                 <p>
-                    <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
+                    <h2 class="table-responsive" style="text-align: center"><span id="pname"></span></h2>
                 </p>
                 <%if (type == "regionName")
                             { %>
-                <p><h4 class="table-responsive" style="text-align: center">接收组织:   <span id="region"></span></h4></p>
+                <p><h3 class="table-responsive" style="text-align: center">接收组织:   <span id="region"></span></h3></p>
                 <%}
                         else
                         { %>
-                <p><h4 class="table-responsive" style="text-align: center">供应商:   <span id="supplier"></span></h4></p>
+                <p><h3 class="table-responsive" style="text-align: center">供应商:   <span id="supplier"></span></h3></p>
                 <%} %>
                 <table class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
