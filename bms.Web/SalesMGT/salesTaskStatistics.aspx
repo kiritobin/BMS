@@ -250,6 +250,9 @@
                     <td>
                         <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
                     </td>
+                    
+                </tr>
+                <tr class="text-nowrap">
                     <td>
                         <span>总实洋:</span>
                     </td>
@@ -258,7 +261,7 @@
                     </td>
                 </tr>
             </table>
-            <table class="table mostTable table-bordered text-center" id="print_table">
+            <table class="table mostTable table-bordered text-center" id="printtable">
                 <thead>
                     <tr>
                         <td class="bbb">

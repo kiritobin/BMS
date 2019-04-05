@@ -104,7 +104,7 @@
                                         </table>
                                         <table class="table table_stock text-right">
                                             <tr class="text-nowrap">
-                                                <td>总合计：</td>
+                                               
                                                 <td>
                                                     <span>总品种:</span>
                                                 </td>

@@ -231,6 +231,9 @@
                     <td>
                         <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
                     </td>
+                    
+                </tr>
+                <tr class="text-nowrap">
                     <td>
                         <span>总实洋:</span>
                     </td>

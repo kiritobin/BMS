@@ -1,9 +1,11 @@
 ﻿/*打印页眉页脚*/
 @page {
     size: 5mm;
-    margin: 0mm 6mm 0mm 6mm;
+    margin: 0mm 7mm 0mm 7mm;
 }
-
+#XSnum {
+    width: 190px;
+}
 #RKId {
     width: 190px;
 }
@@ -103,22 +105,30 @@
             font-size: 20px;
         }
 
-
-.tablehead td {
+.table-head td {
     font-size: 20px;
 }
 
-    .tablehead td input {
+    .table-head td input {
         font-size: 20px;
     }
 
 
+.tablehead td {
+    font-size: 18px;
+}
+
+    .tablehead td input {
+        font-size: 18px;
+    }
+
+
 #xsbh {
-    width: 200%;
+    width: 190px;
 }
 
 #xsrq {
-    width: 250%;
+    width: 200px;
 }
 #printTable {
     font-size: 25px;
