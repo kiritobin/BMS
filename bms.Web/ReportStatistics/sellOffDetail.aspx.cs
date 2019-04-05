@@ -18,10 +18,18 @@ namespace bms.Web.ReportStatistics
         SaleMonomerBll salemonBll = new SaleMonomerBll();
         SalesDetailsBll detailsBll = new SalesDetailsBll();
         SellOffMonomerBll sellBll = new SellOffMonomerBll();
+        SaleTaskBll saletaskbll = new SaleTaskBll();
         public int totalCount, intPageCount, pageSize = 20;
         public DataSet dsUser = null;
         public DataSet dsPer;
-        string type = "", name = "", groupType = "";
+
+        //统计字段
+        public string saletaskId, stauserName, customerName, startTime, finishTime, userName, regionName;
+        public string stasupplier, staregionName, stacustomerName;
+        public int allkinds, allnumber;
+        public double alltotalprice, allreadprice;
+
+        public string type = "", name = "", groupType = "";
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         public void Page_Load(object sender, EventArgs e)
         {
@@ -40,7 +48,20 @@ namespace bms.Web.ReportStatistics
                     Session["name"] = name;
                 }
             }
+            if (type == "supplier")
+            {
+                stasupplier = name;
+            }
+            else if (type == "regionName")
+            {
+                staregionName = name;
+            }
+            else if (type == "customerName")
+            {
+                stacustomerName = name;
+            }
             getData();
+            getBasic();
             permission();
             string op = Request["op"];
             if (op == "logout")
@@ -61,6 +82,57 @@ namespace bms.Web.ReportStatistics
             {
                 Response.Write(Print());
                 Response.End();
+            }
+        }
+
+
+
+        /// <summary>
+        /// 获取统计信息
+        /// </summary>
+        public void getBasic()
+        {
+            string strwhere = Session["strWhere"].ToString();
+
+            saletaskId = saletaskbll.getSaleTaskid(strwhere);
+
+            DataSet ds = saletaskbll.getSaleTaskStatistics(saletaskId);
+            if (ds != null)
+            {
+                string number = ds.Tables[0].Rows[0]["number"].ToString();
+                if (number == "" || number == null)
+                {
+                    allnumber = 0;
+                    alltotalprice = 0;
+                    allreadprice = 0;
+                }
+                else
+                {
+                    allnumber = int.Parse(ds.Tables[0].Rows[0]["number"].ToString());
+                    alltotalprice = double.Parse(ds.Tables[0].Rows[0]["totalPrice"].ToString());
+                    allreadprice = double.Parse(ds.Tables[0].Rows[0]["realPrice"].ToString());
+                }
+            }
+            //统计种数
+            allkinds = saletaskbll.getkindsBySaleTaskId(saletaskId);
+            DataSet userds = saletaskbll.getcustomerName(saletaskId);
+            if (userds != null)
+            {
+                //stasupplier, staregionName, ;
+                userName = userds.Tables[0].Rows[0]["userName"].ToString();
+                stacustomerName = userds.Tables[0].Rows[0]["customerName"].ToString();
+                //startTime = userds.Tables[0].Rows[0]["startTime"].ToString();
+                startTime = Convert.ToDateTime(userds.Tables[0].Rows[0]["startTime"].ToString()).ToString("yyyy年MM月dd日");
+                finishTime = userds.Tables[0].Rows[0]["finishTime"].ToString();
+                regionName = userds.Tables[0].Rows[0]["regionName"].ToString();
+                if (finishTime == "" || finishTime == null)
+                {
+                    finishTime = "此销售任务还未结束";
+                }
+                else
+                {
+                    finishTime = Convert.ToDateTime(finishTime).ToString("yyyy年MM月dd日");
+                }
             }
         }
         public String getData()
@@ -171,6 +243,7 @@ namespace bms.Web.ReportStatistics
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = strWhere;
+            Session["strWhere"] = strWhere;
             //获取展示的客户数据
             ds = salemonBll.selectBypage(tb, out totalCount, out intPageCount);
             StringBuilder strb = new StringBuilder();
@@ -514,7 +587,7 @@ namespace bms.Web.ReportStatistics
                 sb.Append("<tr>");
                 sb.Append("<td>" + (i + 1) + "</td>");
                 sb.Append("<td>" + dt.Rows[i][0] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][1] + "</td>");
+                //sb.Append("<td>" + dt.Rows[i][1] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][2] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][3] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][4] + "</td>");
@@ -522,8 +595,22 @@ namespace bms.Web.ReportStatistics
                 sb.Append("<td>" + dt.Rows[i][6] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][7] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][9] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][10] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][8] + "</td>");
+                if (type == "customerName")
+                {
+                    sb.Append("<td>" + dt.Rows[i][8] + "</td>");
+                }
+                if (type == "regionName")
+                {
+                    sb.Append("<td>" + dt.Rows[i][10] + "</td>");
+                    sb.Append("<td>" + dt.Rows[i][8] + "</td>");
+                }
+                if (type == "supplier")
+                {
+                    sb.Append("<td>" + dt.Rows[i][10] + "</td>");
+                }
+               
+                    
+                
                 sb.Append("</tr>");
             }
             return sb.ToString();

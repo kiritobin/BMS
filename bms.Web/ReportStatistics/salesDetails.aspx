@@ -205,7 +205,7 @@
                         </div>
                     </li>
                     <%} %>
-                    <%if (funcBook||funcBookStock)
+                    <%if (funcBook || funcBookStock)
                         { %>
                     <li class="nav-item">
                         <a class="nav-link" href="#baseManage" data-toggle="collapse">
@@ -348,18 +348,18 @@
                                     <div class="card-header" style="padding-right: 0px;">
                                         <form class="form-inline">
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入ISBN" style="width:130px;" id="isbn" />
+                                                <input type="text" class="" placeholder="请输入ISBN" style="width: 130px;" id="isbn" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入定价" style="width:130px;" id="price"  readonly="readonly" data-toggle="modal" data-target="#priceModal"  />
+                                                <input type="text" class="" placeholder="请输入定价" style="width: 130px;" id="price" readonly="readonly" data-toggle="modal" data-target="#priceModal" />
                                             </div>
                                             &nbsp;
                                             <div class="form-group form-group-sm">
-                                                <input type="text" class="" placeholder="请输入销售折扣" style="width:130px;" id="discount" />
+                                                <input type="text" class="" placeholder="请输入销售折扣" style="width: 130px;" id="discount" />
                                             </div>
                                             &nbsp;
-                                            <div class="btn-group" role="group" style="width:165px;">
+                                            <div class="btn-group" role="group" style="width: 165px;">
                                                 <select class="modal_select selectpicker collectionStatus" id="user">
                                                     <option value="0">全部采集人</option>
                                                     <%int count = dsUser.Tables[0].Rows.Count;
@@ -370,7 +370,7 @@
                                                 </select>
                                             </div>
                                             &nbsp;
-                                            <div class="btn-group" role="group" style="width:180px;">
+                                            <div class="btn-group" role="group" style="width: 180px;">
                                                 <select class="modal_select selectpicker collectionStatus" id="state">
                                                     <option value="-1">全部采集状态</option>
                                                     <option value="0">新单据</option>
@@ -393,6 +393,84 @@
                                         </form>
                                     </div>
                                     <div class="table-responsive">
+                                        <table class="table table_stock text-center">
+                                            <tr class="text-nowrap">
+                                                <%if (type == "customerName")
+                                                    {%>
+                                                <td>
+                                                    <span>销售任务编号:</span>
+                                                </td>
+                                                <td>
+                                                    <input value="<%=saletaskId.ToString() %>" class="form-control" disabled id="XSRWnum" />
+                                                </td>
+                                                <%}%>
+
+                                                <%if (type == "supplier")
+                                                    {%>
+                                                <td>
+                                                    <span>所属供应商:</span>
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" value="<%=stasupplier%>" class="form-control" disabled id="">
+                                                </td>
+                                                <td>
+                                                    <span>所属组织:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=regionName %>" class="form-control" disabled id="">
+                                                </td>
+                                                <%}%>
+                                                <%else if (type == "regionName")
+                                                    {%>
+                                                <td>
+                                                    <span>所属组织:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=staregionName %>" class="form-control" disabled id="">
+                                                </td>
+                                                <%}%>
+                                                <%else
+                                                    { %>
+
+                                                <td>
+                                                    <span>所属客户:</span>
+                                                </td>
+                                                <td>
+                                                    <input value="<%=stacustomerName %>" class="form-control" disabled id="customer">
+                                                </td>
+                                                <td>
+                                                    <span>所属组织:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=regionName %>" class="form-control" disabled id="">
+                                                </td>
+                                                <%} %>
+                                            </tr>
+                                            <tr class="text-nowrap">
+                                                <%if (type == "customerName")
+                                                    {%>
+                                                <td>
+                                                    <span>操作员:</span>
+                                                </td>
+                                                <td>
+                                                    <input value="<%=userName %>" class="form-control" disabled id="operator">
+                                                </td>
+                                                <td>
+                                                    <span>开始日期:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=startTime %>" class="form-control" disabled id="">
+                                                </td>
+                                                <td>
+                                                    <span>结束日期:</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<%=finishTime %>" class="form-control" disabled id="endTime">
+                                                </td>
+                                                <%}%>
+                                            </tr>
+                                        </table>
                                         <table class="table mostTable table-bordered text-center" id="table">
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
@@ -571,6 +649,84 @@
                 <p>
                     <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
                 </p>
+                <table class="table table_stock text-center">
+                    <tr class="text-nowrap">
+                        <%if (type == "customerName")
+                            {%>
+                        <td>
+                            <span>销售任务编号:</span>
+                        </td>
+                        <td>
+                            <input value="<%=saletaskId.ToString() %>" class="form-control" disabled id="XSRWnum" />
+                        </td>
+                        <%}%>
+                        <%if (type == "supplier")
+                            {%>
+                        <td>
+                            <span>所属供应商:</span>
+                        </td>
+
+                        <td>
+                            <input type="text" value="<%=stasupplier%>" class="form-control" disabled id="">
+                        </td>
+                        <td>
+                            <span>所属组织:</span>
+                        </td>
+                        <td>
+                            <input type="text" value="<%=regionName %>" class="form-control" disabled id="">
+                        </td>
+                        <%}%>
+                        <%else if (type == "regionName")
+                            {%>
+                        <td>
+                            <span>所属组织:</span>
+                        </td>
+                        <td>
+                            <input type="text" value="<%=staregionName %>" class="form-control" disabled id="">
+                        </td>
+                        <%}%>
+                        <%else
+                            { %>
+
+                        <td>
+                            <span>所属客户:</span>
+                        </td>
+                        <td>
+                            <input value="<%=stacustomerName %>" class="form-control" disabled id="customer">
+                        </td>
+                        <td>
+                            <span>所属组织:</span>
+                        </td>
+                        <td>
+                            <input type="text" value="<%=regionName %>" class="form-control" disabled id="">
+                        </td>
+                        <%} %>
+                    </tr>
+                    <tr class="text-nowrap">
+                        <%if (type == "customerName")
+                            {%>
+                        <td>
+                            <span>操作员:</span>
+                        </td>
+                        <td>
+                            <input value="<%=userName %>" class="form-control" disabled id="operator" />
+                        </td>
+                        <td>
+                            <span>开始日期:</span>
+                        </td>
+                        <td>
+                            <input type="text" value="<%=startTime %>" class="form-control" disabled id="">
+                        </td>
+                        <td>
+                            <span>结束日期:</span>
+                        </td>
+                        <td>
+                            <input type="text" value="<%=finishTime %>" class="form-control" disabled id="endTime">
+                        </td>
+                        <%}%>
+                    </tr>
+                </table>
+
                 <table class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
@@ -580,9 +736,9 @@
                             <th>
                                 <nobr>商品编号</nobr>
                             </th>
-                            <th>
+                            <%--<th>
                                 <nobr>书号</nobr>
-                            </th>
+                            </th>--%>
                             <th>
                                 <nobr>商品名称</nobr>
                             </th>
@@ -602,14 +758,29 @@
                                 <nobr>销售折扣</nobr>
                             </th>
                             <th>
-                                <nobr>销退日期</nobr>
+                                <nobr>销售日期</nobr>
                             </th>
+                            <%if (type == "customerName")
+                                {%>
+                             <th>
+                                <nobr>供应商</nobr>
+                            </th>
+                            <%}%>
+                             <%if (type == "regionName")
+                                {%>
                             <th>
                                 <nobr>操作员</nobr>
                             </th>
                             <th>
                                 <nobr>供应商</nobr>
                             </th>
+                            <%} %>
+                             <%if (type == "supplier")
+                                {%>
+                            <th>
+                                <nobr>操作员</nobr>
+                            </th>
+                            <%} %>
                             <th>
                                 <nobr>采集状态</nobr>
                             </th>

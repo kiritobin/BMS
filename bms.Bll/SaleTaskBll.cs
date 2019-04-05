@@ -280,6 +280,18 @@ namespace bms.Bll
         {
             return saleDao.getSaleFinishTime(saleId);
         }
+
+
+        /// <summary>
+        /// 获取销售任务id
+        /// </summary>
+        /// <param name="strwhere">strwhere 条件</param>
+        /// <returns>销售任务id</returns>
+        public string getSaleTaskid(string strwhere)
+        {
+            return saleDao.getSaleTaskid(strwhere);
+        }
+
         /// <summary>
         /// 根据销售任务ID，统计销售任务的总数量，总码洋，总实洋
         /// </summary>
