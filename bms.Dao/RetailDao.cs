@@ -565,6 +565,22 @@ namespace bms.Dao
         }
 
         /// <summary>
+        /// 零售明细打印统计
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public DataTable census(string strWhere, string type)
+        {
+            String cmdText = "select count(书号) as 品种数,sum(数量) as 总数量,sum(码洋) as 总码洋,sum(实洋) as 总实洋 from((select ISBN,bookNum as 书号,bookName as 书名,unitPrice as 单价,sum(number) as 数量, sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,supplier as 供应商, DATE_FORMAT(dateTime,'%Y-%m-%d %H:%i:%s') as 交易时间,userName as 收银员,payment as 支付方式,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_retailmonomer where " + strWhere + " group by bookNum,userName,supplier," + type + " order by dateTime desc) as temp)";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            DataTable dt = null;
+            int count = ds.Tables[0].Rows.Count;
+            dt = ds.Tables[0];
+            return dt;
+        }
+
+        /// <summary>
         /// 根据ISBN查找书号，单价，折扣
         /// </summary>
         /// <param name="ISBN">ISBN</param>

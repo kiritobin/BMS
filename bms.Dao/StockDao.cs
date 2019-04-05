@@ -205,5 +205,21 @@ namespace bms.Dao
             dt = ds.Tables[0];
             return dt;
         }
+
+        /// <summary>
+        /// 书籍库存打印统计
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <param name="groupType"></param>
+        /// <returns></returns>
+        public DataTable census(string strWhere, string groupType)
+        {
+            String cmdText = "select count(书号) as 品种数量,sum(数量) as 总数 from((select ISBN,bookNum as 书号,bookName as 书名,price as 单价,sum(stockNum) as 数量, author as 进货折扣,remarks as 销售折扣,supplier as 供应商, regionName as 组织名称,shelvesName as 货架名称,goodsShelvesId as 货架编号,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_stock where " + strWhere + " group by bookNum," + groupType + " order by " + groupType + ") as temp)";
+            DataSet ds = db.FillDataSet(cmdText, null, null);
+            DataTable dt = null;
+            int count = ds.Tables[0].Rows.Count;
+            dt = ds.Tables[0];
+            return dt;
+        }
     }
 }

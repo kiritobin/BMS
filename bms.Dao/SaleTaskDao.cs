@@ -306,6 +306,31 @@ namespace bms.Dao
                 return null;
             }
         }
+
+
+        /// <summary>
+        /// 获取销售任务id
+        /// </summary>
+        /// <param name="strwhere">strwhere 条件</param>
+        /// <returns>销售任务id</returns>
+        public string getSaleTaskid(string strwhere)
+        {
+            string comText;
+            comText = "SELECT saleTaskId from v_allsalemonomer where "+strwhere;
+
+            DataSet ds = db.FillDataSet(comText,null , null);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                return ds.Tables[0].Rows[0]["saleTaskId"].ToString();
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+
         /// <summary>
         /// 根据销售任务ID，统计销售任务的总数量，总码洋，总实洋
         /// </summary>

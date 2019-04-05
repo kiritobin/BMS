@@ -16,9 +16,18 @@ namespace bms.Web.ReportStatistics
         DataSet ds, dsPer;
         SaleMonomerBll salemonBll = new SaleMonomerBll();
         SalesDetailsBll detailsBll = new SalesDetailsBll();
+        SaleTaskBll saletaskbll = new SaleTaskBll();
         public int totalCount, intPageCount, pageSize = 20;
-        public DataSet dsUser=null;
-        public string type = "", name = "",groupType="", userName, regionName;
+        public DataSet dsUser = null;
+        //统计字段
+        public string saletaskId, stauserName, customerName, startTime, finishTime;
+
+        public string stasupplier, staregionName, stacustomerName;
+        public int allkinds, allnumber;
+        public double alltotalprice, allreadprice;
+
+
+        public string type = "", name = "", groupType = "", userName, regionName;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,7 +36,7 @@ namespace bms.Web.ReportStatistics
                 permission();
                 type = Request.QueryString["type"];
                 name = Request.QueryString["name"];
-                if(type == null || type== "" || name == null)
+                if (type == null || type == "" || name == null)
                 {
                     type = Session["type"].ToString();
                     name = Session["name"].ToString();
@@ -38,7 +47,22 @@ namespace bms.Web.ReportStatistics
                     Session["name"] = name;
                 }
             }
+            if (type == "supplier")
+            {
+                stasupplier = name;
+            }
+            else if (type == "regionName")
+            {
+                staregionName = name;
+            }
+            else if (type == "customerName")
+            {
+                stacustomerName = name;
+            }
+
+
             getData();
+            getBasic();
             string exportOp = Request.QueryString["op"];
             if (exportOp == "export")
             {
@@ -49,6 +73,54 @@ namespace bms.Web.ReportStatistics
             {
                 Response.Write(Print());
                 Response.End();
+            }
+        }
+        /// <summary>
+        /// 获取统计信息
+        /// </summary>
+        public void getBasic()
+        {
+            string strwhere = Session["strWhere"].ToString();
+
+            saletaskId = saletaskbll.getSaleTaskid(strwhere);
+
+            DataSet ds = saletaskbll.getSaleTaskStatistics(saletaskId);
+            if (ds != null)
+            {
+                string number = ds.Tables[0].Rows[0]["number"].ToString();
+                if (number == "" || number == null)
+                {
+                    allnumber = 0;
+                    alltotalprice = 0;
+                    allreadprice = 0;
+                }
+                else
+                {
+                    allnumber = int.Parse(ds.Tables[0].Rows[0]["number"].ToString());
+                    alltotalprice = double.Parse(ds.Tables[0].Rows[0]["totalPrice"].ToString());
+                    allreadprice = double.Parse(ds.Tables[0].Rows[0]["realPrice"].ToString());
+                }
+            }
+            //统计种数
+            allkinds = saletaskbll.getkindsBySaleTaskId(saletaskId);
+            DataSet userds = saletaskbll.getcustomerName(saletaskId);
+            if (userds != null)
+            {
+                //stasupplier, staregionName, ;
+                userName = userds.Tables[0].Rows[0]["userName"].ToString();
+                stacustomerName = userds.Tables[0].Rows[0]["customerName"].ToString();
+                //startTime = userds.Tables[0].Rows[0]["startTime"].ToString();
+                startTime = Convert.ToDateTime(userds.Tables[0].Rows[0]["startTime"].ToString()).ToString("yyyy年MM月dd日");
+                finishTime = userds.Tables[0].Rows[0]["finishTime"].ToString();
+                regionName = userds.Tables[0].Rows[0]["regionName"].ToString();
+                if (finishTime == "" || finishTime == null)
+                {
+                    finishTime = "此销售任务还未结束";
+                }
+                else
+                {
+                    finishTime = Convert.ToDateTime(finishTime).ToString("yyyy年MM月dd日");
+                }
             }
         }
         /// <summary>
@@ -140,7 +212,7 @@ namespace bms.Web.ReportStatistics
             }
             if (time == "" || time == null)
             {
-                if (looktime != null && looktime != "" && looktime!="null")
+                if (looktime != null && looktime != "" && looktime != "null")
                 {
                     string[] sArray = looktime.Split('至');
                     string startTime = sArray[0];
@@ -168,14 +240,15 @@ namespace bms.Web.ReportStatistics
                 currentPage = 1;
             }
             TableBuilder tb = new TableBuilder();
-           tb.StrTable = "v_allsalemonomer";
-            
-           // tb.OrderBy = "id";
+            tb.StrTable = "v_allsalemonomer";
+
+            // tb.OrderBy = "id";
             tb.OrderBy = "dateTime desc";
             tb.StrColumnlist = "id,isbn,bookNum,bookName,price,sum(number) as number, sum(totalPrice) as totalPrice,sum(realPrice) as realPrice,realDiscount,dateTime,userName,state,supplier";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             tb.StrWhere = strWhere;
+            Session["strWhere"] = strWhere;
             //获取展示的客户数据
             ds = salemonBll.selectBypage(tb, out totalCount, out intPageCount);
             StringBuilder strb = new StringBuilder();
@@ -197,11 +270,11 @@ namespace bms.Web.ReportStatistics
                 strb.Append("<td>" + dr["dateTime"].ToString() + "</td>");
                 strb.Append("<td>" + dr["userName"].ToString() + "</td>");
                 states = dr["state"].ToString();
-                if(states == "0")
+                if (states == "0")
                 {
                     stateName = "新建单据";
                 }
-                else if(states == "1"|| states == "2")
+                else if (states == "1" || states == "2")
                 {
                     stateName = "现采";
                 }
@@ -350,7 +423,7 @@ namespace bms.Web.ReportStatistics
             }
 
             string Name = name + "-销售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
-            DataTable dt = detailsBll.ExportExcels(strWhere,type);
+            DataTable dt = detailsBll.ExportExcels(strWhere, type);
             if (dt != null && dt.Rows.Count > 0)
             {
                 var path = Server.MapPath("~/download/报表导出/销售报表导出/" + Name + ".xlsx");
@@ -476,7 +549,7 @@ namespace bms.Web.ReportStatistics
                 sb.Append("<tr>");
                 sb.Append("<td>" + (i + 1) + "</td>");
                 sb.Append("<td>" + dt.Rows[i][0] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][1] + "</td>");
+                //sb.Append("<td>" + dt.Rows[i][1] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][2] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][3] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][4] + "</td>");
@@ -484,8 +557,20 @@ namespace bms.Web.ReportStatistics
                 sb.Append("<td>" + dt.Rows[i][6] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][7] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][10] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][11] + "</td>");
-                sb.Append("<td>" + dt.Rows[i][9] + "</td>");
+
+                if (type == "customerName")
+                {
+                    sb.Append("<td>" + dt.Rows[i][9] + "</td>");
+                }
+                if (type == "regionName")
+                {
+                    sb.Append("<td>" + dt.Rows[i][11] + "</td>");
+                    sb.Append("<td>" + dt.Rows[i][9] + "</td>");
+                }
+                if (type == "supplier")
+                {
+                    sb.Append("<td>" + dt.Rows[i][11] + "</td>");
+                }
                 sb.Append("<td>" + dt.Rows[i][16] + "</td>");
                 sb.Append("</tr>");
             }

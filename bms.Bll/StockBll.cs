@@ -217,5 +217,17 @@ namespace bms.Bll
             }
             return new string(array);
         }
+
+        /// <summary>
+        /// 书籍库存打印统计
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <param name="groupType"></param>
+        /// <returns></returns>
+        public DataTable census(string strWhere, string groupType)
+        {
+            DataTable dt = stockDao.census(strWhere, groupType);
+            return dt;
+        }
     }
 }

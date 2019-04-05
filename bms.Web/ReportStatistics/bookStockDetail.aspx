@@ -452,6 +452,50 @@
                 <p>
                     <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
                 </p>
+                <table class="table table_stock text-center">
+                    <tr class="text-nowrap">
+                        <td>
+                            <%if (type == "supplier")
+                                { %>
+                            <span>供应商:</span>
+                            <% }
+                                else{%>
+                            <span>组织名称:</span>
+                            <%} %>
+                        </td>
+                        <td>
+                            <input value="<%=name %>" class="form-control" disabled id="XSnum">
+                        </td>
+                        <td>
+                            <span>操作员:</span>
+                        </td>
+                        <td>
+                            <input value="<%=userName %>" class="form-control" disabled id="operator">
+                        </td>
+                        <td>
+                            <span>制单日期:</span>
+                        </td>
+                        <td>
+                            <div class="jeinpbox">
+                                <input type="text" value="<%=DateTime.Now %>" class="form-control" disabled id="test2">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="text-nowrap">
+                        <td>
+                            <span>书籍种数:</span>
+                        </td>
+                        <td>
+                            <input value="<%=bookKinds %>" class="form-control" disabled id="bookKinds">
+                        </td>
+                        <td>
+                            <span>书本总数:</span>
+                        </td>
+                        <td>
+                            <input value="<%=allBookCount %>" class="form-control" disabled id="allBookCount">
+                        </td>
+                    </tr>
+                </table>
                 <table class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">

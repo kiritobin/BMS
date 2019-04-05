@@ -577,6 +577,76 @@
                 <p>
                     <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
                 </p>
+                <table class="table table_stock text-center">
+                    <tr class="text-nowrap">
+                        <td>
+                            <%if (type == "payment")
+                                { %>
+                            <span>支付方式:</span>
+                            <% }
+                                else
+                                {%>
+                            <span>组织名称:</span>
+                            <%} %>
+                        </td>
+                        <td>
+                            <input value="<%=name %>" class="form-control" disabled id="XSnum">
+                        </td>
+                        <td>
+                            <span>操作员:</span>
+                        </td>
+                        <td>
+                            <input value="<%=userName %>" class="form-control" disabled id="operator">
+                        </td>
+                        <td>
+                            <span>制单日期:</span>
+                        </td>
+                        <td>
+                            <div class="jeinpbox">
+                                <input type="text" value="<%=DateTime.Now %>" class="form-control" disabled id="test2">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="text-nowrap">
+                        <td>
+                            <span>书籍种数:</span>
+                        </td>
+                        <td>
+                            <input type="text" value="<%=bookKinds %>" class="form-control" disabled>
+                        </td>
+                        <td>
+                            <span>书本总数:</span>
+                        </td>
+                        <td>
+                            <input type="text" value="<%=allBookCount %>" class="form-control" disabled></td>
+                        <td>
+                            <span>总码洋:</span>
+                        </td>
+                        <td>
+                            <%if (allPricePrint != null && allPricePrint != "")
+                                {%>
+                            <input type="text" value="<%=Convert.ToDouble(allPricePrint).ToString("F2") %>" class="form-control" disabled>
+                            <%}
+                            else
+                            { %>
+                            <input type="text" value="<%=allPricePrint %>" class="form-control" disabled>
+                            <%} %>
+                        </td>
+                        <td>
+                            <span>总实洋:</span>
+                        </td>
+                        <td>
+                            <%if (realPricePrint != null && realPricePrint != "")
+                                {%>
+                            <input type="text" value="<%=Convert.ToDouble(realPricePrint).ToString("F2") %>" class="form-control" disabled>
+                            <%}
+                            else
+                            { %>
+                            <input type="text" value="<%=realPricePrint %>" class="form-control" disabled>
+                            <%} %>
+                        </td>
+                    </tr>
+                </table>
                 <table class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
@@ -586,9 +656,9 @@
                             <th>
                                 <nobr>商品编号</nobr>
                             </th>
-                            <th>
+                            <%--<th>
                                 <nobr>书号</nobr>
-                            </th>
+                            </th>--%>
                             <th>
                                 <nobr>商品名称</nobr>
                             </th>
