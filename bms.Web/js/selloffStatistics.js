@@ -447,28 +447,29 @@ $(document).ready(function () {
     })
 
     //打印
-    //$("#print").click(function () {
-    //    var t = $("#table").find('tr').length;
-    //    //alert(t);
-    //    if (t <= 1) {
-    //        swal({
-    //            title: "提示",
-    //            text: "请先查询你要打印的内容",
-    //            type: "warning",
-    //            confirmButtonColor: '#3085d6',
-    //            confirmButtonText: '确定',
-    //            confirmButtonClass: 'btn btn-warning',
-    //            buttonsStyling: false,
-    //            allowOutsideClick: false
-    //        });
-    //    }
-    //    else {
-    //        $("#printmodel").modal("show");
-    //    }
-    //})
+    $("#print").click(function () {
+        var t = $("#table").find('tr').length;
+        //alert(t);
+        if (t <= 1) {
+            swal({
+                title: "提示",
+                text: "请先查询你要打印的内容",
+                type: "warning",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-warning',
+                buttonsStyling: false,
+                allowOutsideClick: false
+            });
+        }
+        else {
+            $("#printmodel").modal("show");
+        }
+    })
 })
 
-$("#print").click(function () {
+$("#a4").click(function () {
+    $("#changeprint").attr("href", "../css/a4print.css");
     var groupby = $("#groupby").find("option:selected").text();
     var t = $("#table").find('tr').length;
     if (t <= 1) {
@@ -505,8 +506,8 @@ $("#print").click(function () {
             success: function (data) {
                 $("#pname").html("<h3>销退统计</h3>");
                 $(".swal2-container").remove();
-                $("#print_table tr:not(:first)").remove(); //清空table处首行
-                $("#print_table").append(data); //加载tab
+                $("#printTable tr:not(:first)").remove(); //清空table处首行
+                $("#printTable").append(data); //加载tab
                 $('#printContent').show();
                 if (groupby == "供应商") {
                     $("#printShowType").text("供应商");
@@ -522,7 +523,7 @@ $("#print").click(function () {
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败
                 $(".swal2-container").remove();
-                $('#print_table').hide();
+                $('#printTable').hide();
                 $('#printContent').hide();
                 if (textStatus == 'timeout') {
                     var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
@@ -554,65 +555,151 @@ $("#print").click(function () {
     }
 })
 $("#zhen").click(function () {
-    $.ajax({
-        type: 'Post',
-        url: 'selloffStatistics.aspx',
-        data: {
-            op: "print"
-        },
-        dataType: 'text',
-        beforeSend: function (XMLHttpRequest) { //开始请求
-            swal({
-                text: "正在获取数据",
-                imageUrl: "../imgs/load.gif",
-                imageHeight: 100,
-                imageWidth: 100,
-                width: 180,
-                showConfirmButton: false,
-                allowOutsideClick: false
-            });
-        },
-        success: function (data) {
-            $(".swal2-container").remove();
-            $("#print_table tr:not(:first)").remove(); //清空table处首行
-            $("#print_table").append(data); //加载table
-            try {
-                MyPreview();
-            }
-            catch{
-                window.location.href = "/CLodop_Setup_for_Win32NT.html";
-            }
-        },
-        error: function (XMLHttpRequest, textStatus) { //请求失败
-            $(".swal2-container").remove();
-            if (textStatus == 'timeout') {
-                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
-                xmlhttp.abort();
+    $("#changeprint").attr("href", "../css/duolianprint.css");
+    var groupby = $("#groupby").find("option:selected").text();
+    var t = $("#table").find('tr').length;
+    if (t <= 1) {
+        swal({
+            title: "提示",
+            text: "请先查询你要打印的内容",
+            type: "warning",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '确定',
+            confirmButtonClass: 'btn btn-warning',
+            buttonsStyling: false,
+            allowOutsideClick: false
+        });
+    }
+    else {
+        $.ajax({
+            type: 'Post',
+            url: 'selloffStatistics.aspx',
+            data: {
+                op: 'print'
+            },
+            dataType: 'text',
+            beforeSend: function (XMLHttpRequest) { //开始请求
                 swal({
-                    title: "提示",
-                    text: "请求超时",
-                    type: "warning",
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '确定',
-                    confirmButtonClass: 'btn btn-success',
-                    buttonsStyling: false,
+                    text: "正在获取数据",
+                    imageUrl: "../imgs/load.gif",
+                    imageHeight: 100,
+                    imageWidth: 100,
+                    width: 180,
+                    showConfirmButton: false,
                     allowOutsideClick: false
                 });
-            } else if (textStatus == "error") {
-                swal({
-                    title: "提示",
-                    text: "服务器内部错误",
-                    type: "warning",
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '确定',
-                    confirmButtonClass: 'btn btn-success',
-                    buttonsStyling: false,
-                    allowOutsideClick: false
-                });
+            },
+            success: function (data) {
+                $("#pname").html("<h3>销退统计</h3>");
+                $(".swal2-container").remove();
+                $("#printTable tr:not(:first)").remove(); //清空table处首行
+                $("#printTable").append(data); //加载tab
+                $('#printContent').show();
+                if (groupby == "供应商") {
+                    $("#printShowType").text("供应商");
+                }
+                else if (groupby == "组织") {
+                    $("#printShowType").text("组织");
+                } else if (groupby == "客户") {
+                    $("#printShowType").text("客户");
+                }
+                $("#printContent").jqprint();
+                $('#printContent').hide();
+
+            },
+            error: function (XMLHttpRequest, textStatus) { //请求失败
+                $(".swal2-container").remove();
+                $('#printTable').hide();
+                $('#printContent').hide();
+                if (textStatus == 'timeout') {
+                    var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                    xmlhttp.abort();
+                    swal({
+                        title: "提示",
+                        text: "请求超时",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                } else if (textStatus == "error") {
+                    swal({
+                        title: "提示",
+                        text: "服务器内部错误",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                }
             }
-        }
-    })
+        })
+    }
 })
+//$("#zhen").click(function () {
+//    $.ajax({
+//        type: 'Post',
+//        url: 'selloffStatistics.aspx',
+//        data: {
+//            op: "print"
+//        },
+//        dataType: 'text',
+//        beforeSend: function (XMLHttpRequest) { //开始请求
+//            swal({
+//                text: "正在获取数据",
+//                imageUrl: "../imgs/load.gif",
+//                imageHeight: 100,
+//                imageWidth: 100,
+//                width: 180,
+//                showConfirmButton: false,
+//                allowOutsideClick: false
+//            });
+//        },
+//        success: function (data) {
+//            $(".swal2-container").remove();
+//            $("#print_table tr:not(:first)").remove(); //清空table处首行
+//            $("#print_table").append(data); //加载table
+//            try {
+//                MyPreview();
+//            }
+//            catch{
+//                window.location.href = "/CLodop_Setup_for_Win32NT.html";
+//            }
+//        },
+//        error: function (XMLHttpRequest, textStatus) { //请求失败
+//            $(".swal2-container").remove();
+//            if (textStatus == 'timeout') {
+//                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+//                xmlhttp.abort();
+//                swal({
+//                    title: "提示",
+//                    text: "请求超时",
+//                    type: "warning",
+//                    confirmButtonColor: '#3085d6',
+//                    confirmButtonText: '确定',
+//                    confirmButtonClass: 'btn btn-success',
+//                    buttonsStyling: false,
+//                    allowOutsideClick: false
+//                });
+//            } else if (textStatus == "error") {
+//                swal({
+//                    title: "提示",
+//                    text: "服务器内部错误",
+//                    type: "warning",
+//                    confirmButtonColor: '#3085d6',
+//                    confirmButtonText: '确定',
+//                    confirmButtonClass: 'btn btn-success',
+//                    buttonsStyling: false,
+//                    allowOutsideClick: false
+//                });
+//            }
+//        }
+//    })
+//})
 
 //退出系统
 function logout() {
@@ -708,8 +795,8 @@ var LODOP; //声明为全局变量
 function MyPreview() {
     AddTitle();
     var iCurLine = 75;//标题行之后的数据从位置80px开始打印
-    var j = $("#print_table").find("tr").length;
-    var row = $("#print_table").find('tr');
+    var j = $("#printTable").find("tr").length;
+    var row = $("#printTable").find('tr');
     for (i = 1; i < j; i++) {
         LODOP.ADD_PRINT_TEXT(iCurLine, 15, 50, 20, i);
         if (row.eq(i).find('td').eq(1).text().trim().length > 12) {
