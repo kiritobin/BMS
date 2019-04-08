@@ -15,7 +15,7 @@
 }
 
 #operator {
-    width: 120px;
+    width: 118px;
 }
 
 #test2 {
@@ -90,27 +90,27 @@
 
     .table_stock td {
         width: 100px;
-        font-size: 20px;
+        font-size: 18px;
     }
 
         .table_stock td input {
-            font-size: 20px;
+            font-size: 18px;
         }
 
     .table_stock td {
-        font-size: 20px;
+        font-size: 18px;
     }
 
         .table_stock td input {
-            font-size: 20px;
+            font-size: 18px;
         }
 
 .table-head td {
-    font-size: 20px;
+    font-size: 18px;
 }
 
     .table-head td input {
-        font-size: 20px;
+        font-size: 18px;
     }
 
 
