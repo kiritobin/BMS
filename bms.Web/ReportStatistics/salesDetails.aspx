@@ -668,13 +668,15 @@
                         </td>
 
                         <td>
-                            <input type="text" value="<%=stasupplier%>" class="form-control" disabled id="">
+                            <%--<input type="text" value="<%=stasupplier%>" class="form-control" disabled id="">--%>
+                            <div><%=stasupplier%></div>
                         </td>
                         <td>
                             <span>所属组织:</span>
                         </td>
                         <td>
-                            <input type="text" value="<%=regionName %>" class="form-control" disabled id="">
+                            <div><%=regionName%></div>
+                            <%--<input type="text" value="<%=regionName %>" class="form-control" disabled id="">--%>
                         </td>
                         <%}%>
                         <%else if (type == "regionName")
@@ -683,7 +685,8 @@
                             <span>所属组织:</span>
                         </td>
                         <td>
-                            <input type="text" value="<%=staregionName %>" class="form-control" disabled id="">
+                            <%--<input type="text" value="<%=staregionName %>" class="form-control" disabled id="">--%>
+                            <div><%=staregionName %></div>
                         </td>
                         <%}%>
                         <%else
@@ -693,13 +696,15 @@
                             <span>所属客户:</span>
                         </td>
                         <td>
-                            <input value="<%=stacustomerName %>" class="form-control" disabled id="customer">
+                            <%--<input value="<%=stacustomerName %>" class="form-control" disabled id="customer">--%>
+                            <div id="customer"><%=stacustomerName %></div>
                         </td>
                         <td>
                             <span>所属组织:</span>
                         </td>
                         <td>
-                            <input type="text" value="<%=regionName %>" class="form-control" disabled id="">
+                            <%--<input type="text" value="<%=regionName %>" class="form-control" disabled id="">--%>
+                            <div><%=regionName %></div>
                         </td>
                         <%} %>
                     </tr>
@@ -710,25 +715,28 @@
                             <span>操作员:</span>
                         </td>
                         <td>
-                            <input value="<%=userName %>" class="form-control" disabled id="operator" />
+                            <%--<input value="<%=userName %>" class="form-control" disabled id="operator" />--%>
+                            <div id="operator"><%=userName %></div>
                         </td>
                         <td>
                             <span>开始日期:</span>
                         </td>
                         <td>
-                            <input type="text" value="<%=startTime %>" class="form-control" disabled id="">
+                            <%--<input type="text" value="<%=startTime %>" class="form-control" disabled id="">--%>
+                            <div><%=startTime %></div>
                         </td>
                         <td>
                             <span>结束日期:</span>
                         </td>
                         <td>
-                            <input type="text" value="<%=finishTime %>" class="form-control" disabled id="endTime">
+                            <%--<input type="text" value="<%=finishTime %>" class="form-control" disabled id="endTime">--%>
+                            <div id="endTime"><%=finishTime %></div>
                         </td>
                         <%}%>
                     </tr>
                 </table>
 
-                <table class="table mostTable table-bordered text-center" id="print_table">
+                <table border="1" cellspacing="0" class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
                             <th>
