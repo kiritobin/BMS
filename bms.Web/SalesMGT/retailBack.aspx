@@ -49,12 +49,12 @@
                         </div>
                     </div>--%>
                     <div class="row">
-                        <div class="col-md-8 text-right">
+                        <div class="col-md-9 text-right">
                             <div class="text-left retailTime"><span id="retailID"></span></div>
                             <div class="text-right retailTime">时间：<span id="time"></span></div>
                         </div>
                         <!-- 左侧数据表 -->
-                        <div class="table-responsive col-md-8">
+                        <div class="table-responsive col-md-9">
                             <div style="height: 500px; display: block; overflow-y: auto;">
                                 <table class="table mostTable retailTable table-bordered text-center test" id="table">
                                     <thead>
@@ -106,26 +106,26 @@
                         </div>
 
                         <!-- 右侧功能区 -->
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <%--<div class="retailList">
                                 <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
                             </div>--%>
-                            <div class="row" id="retailBtn">
-                                <input type="text" id="search" style="height:100px;font-size:30px;" class="topSearch">
+                            <div id="retailBtn">
+                                <input type="text" id="search" style="height:100px;width:240px;font-size :30px;" class="topSearch">
                                 <div class="text-white" id="scanning" data-toggle="modal" data-target="#myModal1">
-                                    <button class="btn btn-info btnText">扫  描</button>
+                                    <button class="btn btn-info btnText" style="height:90px;width:240px;border-radius: 15px;">扫  描</button>
                                 </div>
                                 <div class="text-white" id="insert">
-                                    <button class="btn btn-success btnText">提  交</button>
+                                    <button class="btn btn-success btnText" style="height:90px;width:240px;border-radius: 15px;">提  交</button>
                                 </div>
                                 <div class="text-white" onclick="javascript:history.back(-1);">
-                                    <button class="btn btn-danger btnText">返  回</button>
+                                    <button class="btn btn-danger btnText" style="height:90px;width:240px;border-radius: 15px;">返  回</button>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 合计模块 -->
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <fieldset>
                                 <legend>
                                     <b>合计</b>

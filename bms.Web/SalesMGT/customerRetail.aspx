@@ -114,7 +114,7 @@
                             </div>
                         </div>
                         <!-- 合计模块 -->
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <fieldset>
                                 <legend>
                                     <b>合计</b>
