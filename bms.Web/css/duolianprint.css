@@ -1,7 +1,7 @@
 ﻿/*打印页眉页脚*/
 @page {
     size: 5mm;
-    margin: 0mm 7mm 0mm 7mm;
+    margin: 0mm 4mm 0mm 4mm;
 }
 
 #XSnum {
@@ -23,76 +23,79 @@
 }
 
 #print_table {
+    font-family:"宋体";
     font-size: 18px;
-    width: 85%;
+    width: 70%;
 }
 #print_table th{
     font-size: 25px;
 }
 
     #print_table tr td:nth-child(4) {
-        font-size: 22px;
+        font-size: 20px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(1) {
-        font-size: 22px;
+        font-size: 20px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(2) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 20px;
+        width: 1%;
     }
 
     #print_table tr td:nth-child(3) {
-        font-size: 22px;
-        width: 15%;
+        font-size: 20px;
+        width: 3%;
     }
 
     #print_table tr td:nth-child(5) {
-        font-size: 22px;
+        font-size: 20px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(6) {
-        font-size: 22px;
+        font-size: 20px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(7) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 20px;
+        width: 1%;
     }
 
     #print_table tr td:nth-child(8) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 20px;
+        width: 1%;
     }
 
     #print_table tr td:nth-child(9) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 20px;
+        width: 1%;
     }
     #print_table tr td:nth-child(10) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 20px;
+        width: 1%;
     }
     #print_table tr td:nth-child(11) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 20px;
+        width: 1%;
     }
     #print_table tr td:nth-child(12) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 20px;
+        width: 1%;
     }
 
 .table_stock {
-    width: 80% !important;
+    font-family: "宋体";
+    width: 70% !important;
 }
 
     .table_stock td {
-        width:100px;
+        font-family: "宋体";
+        width: 100px;
         font-size: 20px;
     }
 
@@ -101,10 +104,12 @@
         }
 
 .table_stock {
+    font-family: "宋体";
     width: 85%;
 }
 
     .table_stock td {
+        font-family: "宋体";
         font-size: 20px;
     }
 
@@ -113,9 +118,10 @@
         }
 
 .table-head {
-    width: 88%;
+    width: 70%;
 }
     .table-head td {
+        font-family: "宋体";
         font-size: 20px;
     }
     .table-head td input{
@@ -124,6 +130,7 @@
 
 
 .tablehead td {
+    font-family: "宋体";
     font-size: 20px;
 }
 
@@ -132,7 +139,8 @@
     }
 
 #printTable {
-    width: 88%;
+    font-family: "宋体";
+    width: 70%;
 }
 
 #xsbh {
@@ -143,8 +151,9 @@
 }
 
 #printTable {
-    width: 88%;
-    font-size: 25px;
+    font-family: "宋体";
+    width: 70%;
+    font-size: 22px;
 }
 
     #printTable th {
@@ -167,7 +176,7 @@
 
     #printtable tr td:nth-child(3) {
         font-size: 22px;
-        width: 15%;
+        width: 8%;
     }
 
     #printtable tr td:nth-child(5) {
@@ -179,12 +188,14 @@
         width: 1%;
     }
 #printTabled {
+    font-family: "宋体";
     font-size: 25px;
-    width: 86% !important;
+    width: 70% !important;
 }
 #printTabled th{
-    font-size: 25px;
+    font-size: 22px;
 }
-#printTabled td{
-    font-size: 25px;
-}
+    #printTabled td {
+        font-family: "宋体";
+        font-size: 22px;
+    }
