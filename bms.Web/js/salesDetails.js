@@ -596,7 +596,7 @@ function AddTitle() {
 function dayin() {
     var LODOP; //声明为全局变量 
     LODOP = getLodop();
-    LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单一");
+    LODOP.PRINT_INIT("销售明细");
     //var printStyleCss = "<link rel='stylesheet' type='text/css' href='../css/materialdesignicons.min.css'>";
     var strBodyStyle = "<style>#print_table input{ background:white}#pname{margin-left:-800px}#print_table{width:45%;}#print_table td{border: 1px;border-style: solid;border-color: #666666;} #print_table tr td:nth-child(1){font-size:15px;width:1%;}#print_table tr td:nth-child(2){font-size:15px;width:1%;}#print_table tr td:nth-child(3){font-size:15px;width:5%;}#print_table tr td:nth-child(4){font-size:15px;width:1%;}#print_table tr td:nth-child(5){font-size:15px;width:1%;}#print_table tr td:nth-child(7){font-size:15px;width:1%;}#print_table tr td:nth-child(8){font-size:15px;width:1%;}#print_table tr td:nth-child(6){font-size:15px;width:1%;}</style>";
     var strFormHtml = strBodyStyle + "<body>" + document.getElementById("printContent").innerHTML + "</body>";
