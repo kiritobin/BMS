@@ -390,12 +390,31 @@ $(document).ready(function () {
                 });
             },
             success: function (data) {
-                $("#pname").html("<h3>销售明细</h3>");
+                //$("#pname").html("<h3>销售明细</h3>");
+                //$(".swal2-container").remove();
+                //$("#print_table tr:not(:first)").remove(); //清空table处首行
+                //$("#print_table").append(data); //加载table
+                //$('#printContent').show();
+                //$("#printContent").jqprint();
+                //$('#printContent').hide();
+
                 $(".swal2-container").remove();
                 $("#print_table tr:not(:first)").remove(); //清空table处首行
                 $("#print_table").append(data); //加载table
                 $('#printContent').show();
-                $("#printContent").jqprint();
+                //$("#printContent").jqprint();
+                var LODOP; //声明为全局变量 
+                LODOP = getLodop();
+                LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单一");
+                LODOP.SET_PRINT_STYLE("FontSize", 18);
+                LODOP.SET_PRINT_STYLE("Bold", 1);
+                LODOP.ADD_PRINT_TEXT(10, 500, 260, 39, "打印页面部分内容");
+                //var strBodyStyle = "<style>table td{ border: 1 solid #000000;text-align:center; };table,tr,th{ border: 1 solid #000000}</style>";
+                var strBodyStyle = "<style>#pname{margin-left:-800px}#print_table{width:45%}#print_table td{border: 1px;border-style: solid;border-color: #666666;} #print_table tr td:nth-child(1){font-size:18px;width:1%;}#print_table tr td:nth-child(2){font-size:18px;width:1%;}#print_table tr td:nth-child(3){font-size:18px;width:5%;}#print_table tr td:nth-child(4){font-size:18px;width:1%;}#print_table tr td:nth-child(5){font-size:18px;width:1%;}#print_table tr td:nth-child(7){font-size:18px;width:1%;}#print_table tr td:nth-child(6){font-size:18px;width:1%;}</style>";
+                var strFormHtml = strBodyStyle + "<body>" + document.getElementById("printContent").innerHTML + "</body>";
+                LODOP.ADD_PRINT_HTM(50, 10, 2000, 700, strFormHtml);
+                LODOP.SET_PRINT_MODE("PRINT_PAGE_PERCENT", "Full-Width");
+                LODOP.PREVIEW();
                 $('#printContent').hide();
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败
