@@ -216,7 +216,7 @@ $("#zhen").click(function () {
             $("#print_table").append(data);
             $('#print_table').show();
             $('#a4t').show();
-            $("#a4t").jqprint();
+            $("#a4t").jqprint({ importCSS: true });
             $('#a4t').hide();
         },
         error: function (XMLHttpRequest, textStatus) { //请求失败

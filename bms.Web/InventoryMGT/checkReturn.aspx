@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
-    <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
+    <link rel="stylesheet" id="changeprint" href="../css/a4print.css" media="print">
 </head>
 
 <body>
@@ -475,35 +475,48 @@
             <tr class="text-nowrap">
                 <td class="td_text"><span class="span-text">单据编号:</span></td>
                 <td class="td_width">
-                    <input type="text" value="<%=shId %>" class="form-control" disabled></td>
+                    <%--<input type="text" value="<%=shId %>" class="form-control" disabled>--%>
+                    <div><%=shId %></div>
+                </td>
                 <td class="td_text"><span class="span-text">操作员:</span></td>
                 <td class="td_width">
-                    <input type="text" value="<%=shOperator %>" class="form-control" disabled></td>
+                    <%--<input type="text" value="<%=shOperator %>" class="form-control" disabled>--%>
+                    <div><%=shOperator %></div>
+                </td>
             </tr>
             <tr class="text-nowrap">
                 <td class="td_text"><span class="span-text">退货组织:</span></td>
                 <td class="td_width">
-                    <input type="text" value="<%=shRegionName %>" class="form-control" disabled></td>
+                    <%--<input type="text" value="<%=shRegionName %>" class="form-control" disabled>--%>
+                    <div><%=shRegionName %></div>
+                </td>
                 <td class="td_text"><span class="span-text">制单日期:</span></td>
                 <td class="td_width">
                     <div class="jeinpbox">
-                        <input type="text" value="<%=shTime %>" class="jeinput form-control" disabled>
+                        <%--<input type="text" value="<%=shTime %>" class="jeinput form-control" disabled>--%>
+                        <div><%=shTime %></div>
                     </div>
                 </td>
             </tr>
             <tr class="text-nowrap">
                 <td class="td_text"><span class="span-text">单据总数:</span></td>
                 <td class="td_width">
-                    <input type="text" value="<%=shCount %>" class="form-control" disabled></td>
+                    <%--<input type="text" value="<%=shCount %>" class="form-control" disabled>--%>
+                    <div><%=shCount %></div>
+                </td>
                 <td class="td_text"><span class="span-text">总码洋:</span></td>
                 <td class="td_width">
-                    <input type="text" value="<%=shTotalPrice %>" class="form-control" disabled></td>
+                    <%--<input type="text" value="<%=shTotalPrice %>" class="form-control" disabled>--%>
+                    <div><%=shTotalPrice %></div>
+                </td>
                 <td class="td_text"><span class="span-text">总实洋:</span></td>
                 <td class="td_width">
-                    <input type="text" value="<%=shRealPrice %>" class="form-control" disabled></td>
+                    <%--<input type="text" value="<%=shRealPrice %>" class="form-control" disabled>--%>
+                    <div><%=shRealPrice %></div>
+                </td>
             </tr>
         </table>
-        <table class="table mostTable table-bordered text-center" id="print_table">
+        <table border="1" cellspacing="0" class="table mostTable table-bordered text-center" id="print_table">
             <thead>
                 <tr>
                     <td>序号</td>

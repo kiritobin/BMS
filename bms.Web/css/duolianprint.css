@@ -1,190 +1,198 @@
 ﻿/*打印页眉页脚*/
 @page {
-    size: 5mm;
-    margin: 0mm 7mm 0mm 7mm;
+    size: 3mm;
+    margin: 0mm 4mm 0mm 4mm;
 }
 
-#XSnum {
-    width: 190px;
-}
 
-#RKId {
-    width: 190px;
-}
-
-#CKId{
-    width:190px;
-}
 #operator {
-    width: 120px;
+    width: 118px;
 }
-#test2 {
+/*#test2 {
     width: 180px;
-}
+}*/
 
+#pname{
+    margin-left:-130px;
+}
 #print_table {
-    font-size: 18px;
-    width: 85%;
+    font-family:"黑体";
+    font-size: 16px;
+    width: 80%;
 }
-#print_table th{
-    font-size: 25px;
-}
+    #print_table td {
+        text-align: center;
+    }
+    #print_table th {
+        text-align: center;
+        font-size: 16px;
+    }
 
     #print_table tr td:nth-child(4) {
-        font-size: 22px;
+        font-size: 16px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(1) {
-        font-size: 22px;
+        font-size: 16px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(2) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 16px;
+        width: 1%;
     }
 
     #print_table tr td:nth-child(3) {
-        font-size: 22px;
-        width: 15%;
+        font-size: 16px;
+        width: 6%;
     }
 
     #print_table tr td:nth-child(5) {
-        font-size: 22px;
+        font-size: 16px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(6) {
-        font-size: 22px;
+        font-size: 16px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(7) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 16px;
+        width: 1%;
     }
 
     #print_table tr td:nth-child(8) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 16px;
+        width: 1%;
     }
 
     #print_table tr td:nth-child(9) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 16px;
+        width: 1%;
     }
     #print_table tr td:nth-child(10) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 16px;
+        width: 1%;
     }
     #print_table tr td:nth-child(11) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 16px;
+        width: 1%;
     }
     #print_table tr td:nth-child(12) {
-        font-size: 22px;
-        width: 2%;
+        font-size: 16px;
+        width: 1%;
     }
 
 .table_stock {
+    font-family: "黑体";
     width: 80% !important;
 }
 
     .table_stock td {
-        width:100px;
-        font-size: 20px;
+        font-family: "黑体";
+        /*width: 100px;*/
+        font-size: 16px;
     }
 
         .table_stock td input {
-            font-size: 20px;
+            font-size: 16px;
         }
 
 .table_stock {
-    width: 85%;
+    font-family: "黑体";
+    width: 80%;
 }
 
     .table_stock td {
-        font-size: 20px;
+        font-family: "黑体";
+        font-size: 16px;
     }
 
         .table_stock td input {
-            font-size: 20px;
+            font-size: 16px;
         }
 
 .table-head {
-    width: 88%;
+    width: 80%;
 }
     .table-head td {
-        font-size: 20px;
+        font-family: "黑体";
+        font-size: 16px;
     }
     .table-head td input{
-        font-size: 20px;
+        font-size: 16px;
     }
 
 
 .tablehead td {
-    font-size: 20px;
+    font-family: "黑体";
+    font-size: 16px;
 }
 
     .tablehead td input {
-        font-size: 20px;
+        font-size: 16px;
     }
 
 #printTable {
-    width: 88%;
+    font-family: "黑体";
+    width: 80%;
 }
 
-#xsbh {
+/*#xsbh {
     width: 190px;
 }
 #xsrq {
     width: 200px;
-}
+}*/
 
 #printTable {
-    width: 88%;
-    font-size: 25px;
+    font-family: "黑体";
+    width: 80%;
+    font-size: 16px;
 }
 
     #printTable th {
-        font-size: 27px;
+        font-size: 16px;
     }
 #printtable tr td:nth-child(4) {
-    font-size: 22px;
+    font-size: 16px;
     width: 1%;
 }
 
     #printtable tr td:nth-child(1) {
-        font-size: 22px;
+        font-size: 16px;
         width: 1%;
     }
 
     #printtable tr td:nth-child(2) {
-        font-size: 22px;
+        font-size: 16px;
         width: 2%;
     }
 
     #printtable tr td:nth-child(3) {
-        font-size: 22px;
-        width: 15%;
+        font-size: 16px;
+        width: 8%;
     }
 
     #printtable tr td:nth-child(5) {
-        font-size: 22px;
+        font-size: 16px;
         width: 1%;
     }
     #printtable tr td:nth-child(6) {
-        font-size: 22px;
+        font-size: 16px;
         width: 1%;
     }
 #printTabled {
-    font-size: 25px;
-    width: 86% !important;
+    text-align: center;
+    font-size: 16px;
+    width: 80% !important;
 }
 #printTabled th{
-    font-size: 25px;
+    font-size: 16px;
 }
-#printTabled td{
-    font-size: 25px;
-}
+    #printTabled td {
+        text-align: center;
+        font-size: 16px;
+    }

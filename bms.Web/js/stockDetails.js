@@ -413,7 +413,7 @@ $(document).ready(function () {
                 $("#print_table tr:not(:first)").remove(); //清空table处首行
                 $("#print_table").append(datas[0]); //加载table
                 $('#printContent').show();
-                $("#printContent").jqprint();
+                $("#printContent").jqprint({ importCSS: true });
                 $('#printContent').hide();
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败

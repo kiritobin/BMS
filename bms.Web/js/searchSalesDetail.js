@@ -184,8 +184,9 @@ $("#zhen").click(function () {
             $("#print_table tr:not(:first)").remove();
             $("#print_table").append(data);
             $('#print_table').show();
+            //dayin();
             $('#a4t').show();
-            $("#a4t").jqprint();
+            $("#a4t").jqprint({importCSS:true});
             $('#a4t').hide();
         },
         error: function (XMLHttpRequest, textStatus) { //请求失败
@@ -324,4 +325,18 @@ function MyPreview() {
         LODOP.PREVIEW();//打印预览	
         //window.location.reload();
     }
+}
+
+function dayin() {
+    var LODOP; //声明为全局变量 
+    LODOP = getLodop();
+    var name = $("#region").val();
+    LODOP.PRINT_INIT(name);
+    //var printStyleCss = "<link rel='stylesheet' type='text/css' href='../css/materialdesignicons.min.css'>";
+    var strBodyStyle = "<style>#print_table input{ background:white}#pname{margin-left:-800px}#print_table{width:45%;}#print_table td{border: 1px;border-style: solid;border-color: #666666;} #print_table tr td:nth-child(1){font-size:15px;width:1%;}#print_table tr td:nth-child(2){font-size:15px;width:1%;}#print_table tr td:nth-child(3){font-size:15px;width:5%;}#print_table tr td:nth-child(4){font-size:15px;width:1%;}#print_table tr td:nth-child(5){font-size:15px;width:1%;}#print_table tr td:nth-child(7){font-size:15px;width:1%;}#print_table tr td:nth-child(6){font-size:15px;width:1%;}</style>";
+    var strFormHtml = strBodyStyle + "<body>" + document.getElementById("a4t").innerHTML + "</body>";    LODOP.SET_PRINT_PAGESIZE(1, 240, 280, "多联");
+    LODOP.ADD_PRINT_HTM(25, 20, 1500, 700, strFormHtml);
+
+
+    LODOP.PREVIEW();
 }

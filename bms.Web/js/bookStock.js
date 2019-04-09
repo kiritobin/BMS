@@ -523,7 +523,7 @@ $("#zhen").click(function () {
                 $("#printTabled tr:not(:first)").remove();
                 $("#printTabled").append(data);
                 $('#printContent').show();
-                $("#printContent").jqprint();
+                $("#printContent").jqprint({importCSS:true});
                 $('#printContent').hide();
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败

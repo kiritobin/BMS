@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/jedate.css" />
-    <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
+    <link rel="stylesheet" id="changeprint" href="../css/a4print.css" media="print">
     <script src="../js/jedate.min.js"></script>
 </head>
 <body>
@@ -490,7 +490,7 @@
                 <p>
                     <h2 class="table-responsive" style="text-align: center"><span id="pname"></span></h2>
                 </p>
-                <table class="table mostTable table-bordered text-center" id="printTabled">
+                <table border="1" cellspacing="0" class="table mostTable table-bordered text-center" id="printTabled">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
                             <th>序号</th>

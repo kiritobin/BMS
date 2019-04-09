@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
-    <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
+    <link rel="stylesheet" id="changeprint" href="../css/a4print.css" media="print">
 </head>
 
 <body>
@@ -495,7 +495,8 @@
                             <span>单据编号:</span>
                         </td>
                         <td>
-                            <input value="<%=putId %>" class="form-control" disabled>
+                            <%--<input value="<%=putId %>" class="form-control" disabled>--%>
+                            <div><%=putId %></div>
                         </td>
                         <td></td>
                         <td></td>
@@ -503,7 +504,8 @@
                             <span>操作员:</span>
                         </td>
                         <td>
-                            <input value="<%=putOperator %>" class="form-control" disabled>
+                            <%--<input value="<%=putOperator %>" class="form-control" disabled>--%>
+                            <div><%=putOperator %></div>
                         </td>
                     </tr>
                     <tr class="text-nowrap">
@@ -511,7 +513,9 @@
                             <span>入库来源:</span>
                         </td>
                         <td>
-                            <input type="text" value="<%=putRegionName %>" class="form-control" disabled></td>
+                            <%--<input type="text" value="<%=putRegionName %>" class="form-control" disabled>--%>
+                            <div><%=putRegionName %></div>
+                        </td>
                         <td></td>
                         <td></td>
                         <td>
@@ -519,7 +523,8 @@
                         </td>
                         <td>
                             <div class="jeinpbox">
-                                <input type="text" value="<%=putTime %>" class="form-control" disabled>
+                                <%--<input type="text" value="<%=putTime %>" class="form-control" disabled>--%>
+                                <div><%=putTime %></div>
                             </div>
                         </td>
                     </tr>
@@ -528,23 +533,26 @@
                             <span>单据总数:</span>
                         </td>
                         <td>
-                            <input type="text" value="<%=putCount %>" class="form-control" disabled>
+                            <%--<input type="text" value="<%=putCount %>" class="form-control" disabled>--%>
+                            <div><%=putCount %></div>
                         </td>
                         <td>
                             <span>总码洋:</span>
                         </td>
                         <td>
-                            <input type="text" value="<%=putTotalPrice %>" class="form-control" disabled>
+                            <%--<input type="text" value="<%=putTotalPrice %>" class="form-control" disabled>--%>
+                            <div><%=putTotalPrice %></div>
                         </td>
                         <td>
                             <span>总实洋:</span>
                         </td>
                         <td>
-                            <input type="text" value="<%=putRealPrice %>" class="form-control" disabled>
+                            <%--<input type="text" value="<%=putRealPrice %>" class="form-control" disabled>--%>
+                            <div><%=putRealPrice %></div>
                         </td>
                     </tr>
                 </table>
-                <table class="table mostTable table-bordered text-center" id="print_table">
+                <table border="1" cellspacing="0" class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr>
                             <td>

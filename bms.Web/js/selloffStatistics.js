@@ -603,7 +603,7 @@ $("#zhen").click(function () {
                 } else if (groupby == "客户") {
                     $("#printShowType").text("客户");
                 }
-                $("#printContent").jqprint();
+                $("#printContent").jqprint({ importCSS: true });
                 $('#printContent').hide();
 
             },

@@ -3,7 +3,7 @@
     size: 5mm;
     margin: 0mm 8mm 0mm 8mm;
 }
-#XSnum {
+/*#XSnum {
     width: 190px;
 }
 #RKId {
@@ -15,131 +15,149 @@
 }
 
 #operator {
-    width: 120px;
-}
+    width: 118px;
+}*/
 
 #test2 {
     width: 180px;
 }
 
 #print_table {
-    font-size: 18px;
+    font-size: 16px;
 }
     #print_table th {
-        font-size: 25px;
+        font-size: 16px;
+    }
+    #print_table td {
+        text-align: center;
     }
 
     #print_table tr td:nth-child(4) {
-        font-size: 22px;
+        font-size: 16px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(1) {
-        font-size: 22px;
+        font-size: 16px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(2) {
-        font-size: 22px;
+        font-size: 16px;
         width: 2%;
     }
 
     #print_table tr td:nth-child(3) {
-        font-size: 22px;
-        width: 15%;
+        font-size: 16px;
+        width: 10%;
     }
 
     #print_table tr td:nth-child(5) {
-        font-size: 22px;
+        font-size: 16px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(6) {
-        font-size: 22px;
+        font-size: 16px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(7) {
-        font-size: 22px;
+        font-size: 16px;
         width: 2%;
     }
 
     #print_table tr td:nth-child(8) {
-        font-size: 22px;
+        font-size: 16px;
         width: 2%;
     }
 
     #print_table tr td:nth-child(9) {
-        font-size: 22px;
+        font-size: 16px;
         width: 2%;
     }
     #print_table tr td:nth-child(10) {
-        font-size: 22px;
+        font-size: 16px;
         width: 2%;
     }
 
     #print_table tr td:nth-child(11) {
-        font-size: 22px;
+        font-size: 16px;
         width: 2%;
     }
     #print_table tr td:nth-child(12) {
-        font-size: 22px;
+        font-size: 16px;
         width: 2%;
     }
 
 
     .table_stock td {
-        width: 100px;
-        font-size: 20px;
+        /*width: 100px;*/
+        font-size: 16px;
     }
 
         .table_stock td input {
-            font-size: 20px;
+            font-size: 16px;
         }
 
     .table_stock td {
-        font-size: 20px;
+        font-size: 16px;
     }
 
         .table_stock td input {
-            font-size: 20px;
+            font-size: 16px;
         }
 
 .table-head td {
-    font-size: 20px;
+    font-size: 16px;
 }
 
     .table-head td input {
-        font-size: 20px;
+        font-size: 16px;
     }
 
-
 .tablehead td {
-    font-size: 18px;
+    font-size: 16px;
 }
 
     .tablehead td input {
-        font-size: 18px;
+        font-size: 16px;
+    }
+    .tablehead td div {
+        font-size: 16px;
     }
 
 
-#xsbh {
+/*#xsbh {
     width: 190px;
 }
 
 #xsrq {
     width: 200px;
-}
+}*/
+
 #printTable {
-    font-size: 25px;
-}
-#printTable th{
-    font-size: 27px;
-}
-#printTabled th {
-    font-size: 25px;
+    font-family: "黑体";
+    width: 80%;
 }
 
-#printTabled td {
-    font-size: 25px;
+#printTable {
+    font-size: 16px;
 }
+#printTable th{
+    font-size: 16px;
+}
+#printTabled {
+    text-align: center;
+    font-size: 16px;
+    width: 100% !important;
+}
+
+    #printTabled th {
+        font-size: 16px;
+    }
+
+    #printTabled td {
+        text-align: center;
+        font-size: 16px;
+    }

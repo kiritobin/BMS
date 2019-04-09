@@ -620,7 +620,7 @@ $("#zhen").click(function () {
                 else if (groupby == "组织") {
                     $("#printShowType").text("组织");
                 }
-                $("#printContent").jqprint();
+                $("#printContent").jqprint({ importCSS: true });
                 $('#printContent').hide();
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败

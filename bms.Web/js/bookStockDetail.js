@@ -320,7 +320,7 @@
                 $("#print_table tr:not(:first)").remove(); //清空table处首行
                 $("#print_table").append(data); //加载table
                 $('#printContent').show();
-                $("#printContent").jqprint();
+                $("#printContent").jqprint({importCSS:true});
                 $('#printContent').hide();
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败

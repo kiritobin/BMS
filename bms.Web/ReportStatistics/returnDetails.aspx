@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../css/bootstrap-select.css" />
     <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" href="../css/jedate.css" />
-    <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
+    <link rel="stylesheet" id="changeprint" href="../css/a4print.css" media="print">
     <script src="../js/jedate.min.js"></script>
 </head>
 <body>
@@ -573,7 +573,7 @@
                         { %>
                 <p><h3 class="table-responsive" style="text-align: center">供应商:   <span id="supplier"></span></h3></p>
                 <%} %>
-                <table class="table mostTable table-bordered text-center" id="print_table">
+                <table border="1" cellspacing="0" class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
                             <th>
