@@ -186,8 +186,8 @@ $("#zhen").click(function () {
             $('#print_table').show();
             //dayin();
             $('#a4t').show();
-            $("#a4t").jqprint();
-            //$('#a4t').hide();
+            $("#a4t").jqprint({importCSS:true});
+            $('#a4t').hide();
         },
         error: function (XMLHttpRequest, textStatus) { //请求失败
             $(".swal2-container").remove();

@@ -356,7 +356,7 @@ $(document).ready(function () {
         })
     })
     $("#zhen").click(function () {
-        //$("#changeprint").attr("href", "../css/duolianprint.css");
+        $("#changeprint").attr("href", "../css/duolianprint.css");
         var isbn = $("#isbn").val();
         var price = $("#price").val();
         var discount = $("#discount").val();
@@ -395,14 +395,14 @@ $(document).ready(function () {
                 $("#print_table tr:not(:first)").remove(); //清空table处首行
                 $("#print_table").append(data); //加载table
                 $('#printContent').show();
-                //$("#printContent").jqprint();
+                $("#printContent").jqprint();
                 $('#printContent').hide();
 
                 //$(".swal2-container").remove();
                 //$("#print_table tr:not(:first)").remove(); //清空table处首行
                 //$("#print_table").append(data); //加载table
                 //$('#printContent').show();
-                dayin();
+                //dayin();
                 //$("#printContent").jqprint();
                 //var LODOP; //声明为全局变量 
                 //LODOP = getLodop();
