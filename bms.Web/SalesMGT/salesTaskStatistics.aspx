@@ -199,19 +199,22 @@
                         <span>销售任务编号:</span>
                     </td>
                     <td>
-                        <input value="<%=saletaskId.ToString() %>" class="form-control" disabled>
+                        <%--<input value="<%=saletaskId.ToString() %>" class="form-control" disabled>--%>
+                        <div><%=saletaskId.ToString() %></div>
                     </td>
                     <td>
                         <span>所属客户:</span>
                     </td>
                     <td>
-                        <input value="<%=customerName %>" class="form-control" disabled>
+                        <%--<input value="<%=customerName %>" class="form-control" disabled>--%>
+                        <div><%=customerName %></div>
                     </td>
                     <td>
                         <span>操作员:</span>
                     </td>
                     <td>
-                        <input value="<%=userName %>" class="form-control" disabled>
+                        <%--<input value="<%=userName %>" class="form-control" disabled>--%>
+                        <div><%=userName %></div>
                     </td>
                 </tr>
                 <tr class="text-nowrap">
@@ -220,7 +223,8 @@
                     </td>
                     <td>
                         <div class="jeinpbox">
-                            <input type="text" value="<%=startTime %>" class="form-control" disabled>
+                            <%--<input type="text" value="<%=startTime %>" class="form-control" disabled>--%>
+                            <div><%=startTime %></div>
                         </div>
                     </td>
                     <td>
@@ -228,7 +232,8 @@
                     </td>
                     <td>
                         <div class="jeinpbox">
-                            <input type="text" value="<%=finishTime %>" class="form-control" disabled>
+                            <%--<input type="text" value="<%=finishTime %>" class="form-control" disabled>--%>
+                            <div><%=finishTime %></div>
                         </div>
                     </td>
                 </tr>
@@ -237,18 +242,22 @@
                         <span>书籍种数:</span>
                     </td>
                     <td>
-                        <input type="text" value="<%=allkinds %>" class="form-control" disabled>
+                        <%--<input type="text" value="<%=allkinds %>" class="form-control" disabled>--%>
+                        <div><%=allkinds %></div>
                     </td>
                     <td>
                         <span>书本总数:</span>
                     </td>
                     <td>
-                        <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
+                        <%--<input type="text" value="<%=allnumber %>" class="form-control" disabled>--%>
+                        <div><%=allnumber %></div>
+                    </td>
                     <td>
                         <span>总码洋:</span>
                     </td>
                     <td>
-                        <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
+                        <%--<input type="text" value="<%=alltotalprice %>" class="form-control" disabled>--%>
+                        <div><%=alltotalprice %></div>
                     </td>
                     
                 </tr>
@@ -257,11 +266,12 @@
                         <span>总实洋:</span>
                     </td>
                     <td>
-                        <input type="text" value="<%=allreadprice %>" class="form-control" disabled>
+                        <%--<input type="text" value="<%=allreadprice %>" class="form-control" disabled>--%>
+                        <div><%=allreadprice %></div>
                     </td>
                 </tr>
             </table>
-            <table class="table mostTable table-bordered text-center" id="printtable">
+            <table border="1" cellspacing="0" class="table mostTable table-bordered text-center" id="printtable">
                 <thead>
                     <tr>
                         <td class="bbb">
