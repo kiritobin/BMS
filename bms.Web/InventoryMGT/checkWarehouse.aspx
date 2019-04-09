@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="checkWarehouse.aspx.cs" Inherits="bms.Web.InventoryMGT.w" %>
+﻿f<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="checkWarehouse.aspx.cs" Inherits="bms.Web.InventoryMGT.w" %>
 
 <!DOCTYPE html>
 
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../css/zgz.css">
     <link rel="stylesheet" href="../css/lgd.css">
     <link rel="stylesheet" href="../css/qc.css">
-    <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
+    <link rel="stylesheet" id="changeprint" href="../css/a4print.css" media="print">
 </head>
 
 <body>

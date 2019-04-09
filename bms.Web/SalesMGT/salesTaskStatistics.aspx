@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
     <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css">
-    <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
+    <link rel="stylesheet" id="changeprint" href="../css/a4print.css" media="print">
 </head>
 
 <body style="page-break-before: always;">

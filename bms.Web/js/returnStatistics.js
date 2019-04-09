@@ -626,7 +626,7 @@ $("#zhen").click(function () {
                 } else if (groupbyType == "客户") {
                     $("#printShowType").text("客户");
                 }
-                $("#printContent").jqprint();
+                $("#printContent").jqprint({importCSS:true});
                 $('#printContent').hide();
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败

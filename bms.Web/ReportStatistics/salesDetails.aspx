@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../css/bootstrap-select.css" />
     <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" href="../css/jedate.css" />
-     <link rel="stylesheet" id="changeprint" href="../css/a4print.css">
+     <link rel="stylesheet" id="changeprint" href="../css/a4print.css" media="print">
     <script src="../js/jedate.min.js"></script>
 </head>
 <body>
