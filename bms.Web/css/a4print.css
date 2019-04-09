@@ -128,23 +128,36 @@
     }
 
 
-#xsbh {
+/*#xsbh {
     width: 190px;
 }
 
 #xsrq {
     width: 200px;
+}*/
+
+#printTable {
+    font-family: "黑体";
+    width: 80%;
 }
+
 #printTable {
     font-size: 16px;
 }
 #printTable th{
     font-size: 16px;
 }
-#printTabled th {
+#printTabled {
+    text-align: center;
     font-size: 16px;
+    width: 100% !important;
 }
 
-#printTabled td {
-    font-size: 16px;
-}
+    #printTabled th {
+        font-size: 16px;
+    }
+
+    #printTabled td {
+        text-align: center;
+        font-size: 16px;
+    }

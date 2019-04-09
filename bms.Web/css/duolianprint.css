@@ -185,7 +185,7 @@
         width: 1%;
     }
 #printTabled {
-    font-family: "黑体";
+    text-align: center;
     font-size: 16px;
     width: 80% !important;
 }
@@ -193,6 +193,6 @@
     font-size: 16px;
 }
     #printTabled td {
-        font-family: "黑体";
+        text-align: center;
         font-size: 16px;
     }

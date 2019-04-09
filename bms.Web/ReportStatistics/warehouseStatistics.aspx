@@ -490,7 +490,7 @@
                 <p>
                     <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
                 </p>
-                <table class="table mostTable table-bordered text-center" id="printTabled">
+                <table border="1" cellspacing="0" class="table mostTable table-bordered text-center" id="printTabled">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
                             <th>序号</th>
