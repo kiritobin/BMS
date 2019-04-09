@@ -28,6 +28,9 @@
     #print_table th {
         font-size: 12px;
     }
+    #print_table td {
+        text-align: center;
+    }
 
     #print_table tr td:nth-child(4) {
         font-size: 12px;
@@ -46,7 +49,7 @@
 
     #print_table tr td:nth-child(3) {
         font-size: 12px;
-        width: 15%;
+        width: 10%;
     }
 
     #print_table tr td:nth-child(5) {
