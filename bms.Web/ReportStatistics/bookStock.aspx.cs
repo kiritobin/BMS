@@ -116,9 +116,9 @@ namespace bms.Web.ReportStatistics
             {
                 DataRow dr = dt.Rows[i];
                 strb.Append("<tr><td>" + (i + 1) + "</td>");
-                strb.Append("<td>" + dr[0].ToString() + "</td>");
-                strb.Append("<td>" + dr[1].ToString() + "</td>");
                 strb.Append("<td>" + dr[2].ToString() + "</td>");
+                strb.Append("<td>" + dr[1].ToString() + "</td>");
+                strb.Append("<td>" + dr[0].ToString() + "</td>");
                 strb.Append("<td>" + dr[3].ToString() + "</td>");
                 //strb.Append("<td>" + dr[4].ToString() + "</td></tr>");
             }

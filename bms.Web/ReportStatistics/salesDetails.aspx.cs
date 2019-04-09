@@ -247,7 +247,7 @@ namespace bms.Web.ReportStatistics
             tb.StrColumnlist = "id,isbn,bookNum,bookName,price,sum(number) as number, sum(totalPrice) as totalPrice,sum(realPrice) as realPrice,realDiscount,dateTime,userName,state,supplier";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
-            tb.StrWhere = strWhere;
+            tb.StrWhere = strWhere + " having number!=0";
             Session["strWhere"] = strWhere;
             //获取展示的客户数据
             ds = salemonBll.selectBypage(tb, out totalCount, out intPageCount);
