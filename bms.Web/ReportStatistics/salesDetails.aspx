@@ -647,9 +647,9 @@
             </div>
 
             <div class="table-responsive" id="printContent">
-                <%--<p>
+                <p>
                     <h3 class="table-responsive" style="text-align: center"><span id="pname"></span></h3>
-                </p>--%>
+                </p>
                 <table class="table table_stock text-center">
                     <tr class="text-nowrap">
                         <%if (type == "customerName")

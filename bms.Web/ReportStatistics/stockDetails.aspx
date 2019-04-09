@@ -573,7 +573,7 @@
                         { %>
                 <p><h4 class="table-responsive" style="text-align: center">供应商:<span id="supplier"></span></h4></p>
                 <%} %>
-                <table class="table mostTable table-bordered text-center" id="print_table">
+                <table border="1" cellspacing="0" class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
                             <th>
