@@ -187,7 +187,7 @@ $("#zhen").click(function () {
             //dayin();
             $('#a4t').show();
             $("#a4t").jqprint();
-            $('#a4t').hide();
+            //$('#a4t').hide();
         },
         error: function (XMLHttpRequest, textStatus) { //请求失败
             $(".swal2-container").remove();

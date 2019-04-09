@@ -10318,7 +10318,7 @@ textarea {
 }
 
 .form-control[disabled], .form-group .form-control[disabled], fieldset[disabled] .form-control, fieldset[disabled] .form-group .form-control {
-    width: 182px;
+    width: 120px;
     background-color: transparent;
     cursor: not-allowed;
     border-bottom: 1px dotted #d2d2d2;
