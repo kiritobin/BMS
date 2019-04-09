@@ -91,21 +91,21 @@
     }
 
 
+
     .table_stock td {
-        /*width: 100px;*/
-        font-size: 16px;
+        font-size: 18px;
     }
 
         .table_stock td input {
-            font-size: 16px;
+            font-size: 18px;
         }
 
-    .table_stock td {
-        font-size: 16px;
-    }
+        .table_stock td div {
+            font-size: 20px;
+        }
 
-        .table_stock td input {
-            font-size: 16px;
+        .table_stock td span {
+            font-size: 19px;
         }
 
 .table-head td {
