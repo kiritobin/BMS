@@ -125,7 +125,7 @@
         setTimeout(function () { change(); }, 2000)
         $("#changeprint").attr("href", "../css/a4print.css");
         $("#pname").text($("#XSRW").val() + "   销退单");
-        $("#print_content").jqprint();
+        $("#print_content").jqprint({ importCSS: true });
         $("#pname").text("");
     })
     $("#zhen").click(function () {
