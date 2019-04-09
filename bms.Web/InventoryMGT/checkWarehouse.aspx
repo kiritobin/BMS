@@ -489,7 +489,8 @@
                             <span>单据编号:</span>
                         </td>
                         <td>
-                            <input type="text" class="form-control" disabled value="<%=shId %>" />
+                            <%--<input type="text" class="form-control" disabled value="<%=shId %>" />--%>
+                            <div><%=shId %></div>
                         </td>
                         <td></td>
                         <td></td>
@@ -497,7 +498,8 @@
                             <span>操作员:</span>
                         </td>
                         <td>
-                            <input type="text" class="form-control" disabled value="<%=shOperator %>" />
+                            <%--<input type="text" class="form-control" disabled value="<%=shOperator %>" />--%>
+                            <div><%=shOperator %></div>
                         </td>
                     </tr>
                     <tr class="text-nowrap">
@@ -505,7 +507,8 @@
                             <span>接收组织:</span>
                         </td>
                         <td>
-                            <input type="text" class="form-control" disabled value="<%=shRegionName %>" />
+                            <%--<input type="text" class="form-control" disabled value="<%=shRegionName %>" />--%>
+                            <div><%=shRegionName %></div>
                         </td>
                         <td></td>
                         <td></td>
@@ -514,7 +517,8 @@
                         </td>
                         <td>
                             <div class="jeinpbox">
-                                <input type="text" class="jeinput form-control" disabled value="<%=shTime %>" />
+                                <%--<input type="text" class="jeinput form-control" disabled value="<%=shTime %>" />--%>
+                                <div><%=shTime %></div>
                             </div>
                         </td>
                     </tr>
@@ -523,23 +527,26 @@
                             <span>单据总数:</span>
                         </td>
                         <td>
-                            <input type="text" class="form-control" disabled value="<%=shCount %>">
+                            <%--<input type="text" class="form-control" disabled value="<%=shCount %>">--%>
+                            <div><%=shCount %></div>
                         </td>
                         <td>
                             <span>总码洋:</span>
                         </td>
                         <td>
-                            <input type="text" class="form-control" disabled value="<%=shTotalPrice %>">
+                            <%--<input type="text" class="form-control" disabled value="<%=shTotalPrice %>">--%>
+                            <div><%=shTotalPrice %></div>
                         </td>
                         <td>
                             <span>总实洋:</span>
                         </td>
                         <td>
-                            <input type="text" class="form-control" disabled value="<%=shRealPrice %>">
+                            <%--<input type="text" class="form-control" disabled value="<%=shRealPrice %>">--%>
+                            <div><%=shRealPrice %></div>
                         </td>
                     </tr>
                 </table>
-                <table class="table mostTable table-bordered text-center" id="print_table">
+                <table border="1" cellspacing="0" class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr>
                             <td>
