@@ -158,7 +158,7 @@ $("#a4").click(function () {
 })
 $("#zhen").click(function () {
     //var name = $("#region").val() + "   新华书店有限公司    ";
-    //$("#changeprint").attr("href", "../css/duolianprint.css");
+    $("#changeprint").attr("href", "../css/duolianprint.css");
     var name = $("#region").val();
     $.ajax({
         type: 'Post',
@@ -184,10 +184,10 @@ $("#zhen").click(function () {
             $("#print_table tr:not(:first)").remove();
             $("#print_table").append(data);
             $('#print_table').show();
-            dayin();
-            //$('#a4t').show();
-            //$("#a4t").jqprint();
-            //$('#a4t').hide();
+            //dayin();
+            $('#a4t').show();
+            $("#a4t").jqprint();
+            $('#a4t').hide();
         },
         error: function (XMLHttpRequest, textStatus) { //请求失败
             $(".swal2-container").remove();

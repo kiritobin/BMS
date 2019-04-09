@@ -196,23 +196,23 @@
                         <span>单据编号:</span>
                     </td>
                     <td>
-                        <%--<input value="<%=saleheadId.ToString() %>" class="form-control" disabled id="xsbh">--%>
-                        <div id="xsbh"><%=saleheadId.ToString() %></div>
+                        <input value="<%=saleheadId.ToString() %>" class="form-control" disabled id="xsbh">
+                        <%--<div id="xsbh"><%=saleheadId.ToString() %></div>--%>
                     </td>
                     <td>
                         <span>操作员:</span>
                     </td>
                     <td>
-                        <%--<input value="<%=userName %>" class="form-control" disabled>--%>
-                        <div><%=userName %></div>
+                        <input value="<%=userName %>" class="form-control" disabled>
+                        <%--<div><%=userName %></div>--%>
                     </td>
                     <td>
                         <span>制单日期:</span>
                     </td>
                     <td>
                         <div class="jeinpbox">
-                            <%--<input type="text" value="<%=time %>" class="form-control" disabled id="xsrq">--%>
-                            <div id="xsrq"><%=time %></div>
+                            <input type="text" value="<%=time %>" class="form-control" disabled id="xsrq">
+                            <%--<div id="xsrq"><%=time %></div>--%>
                         </div>
                     </td>
                 </tr>
@@ -221,21 +221,21 @@
                         <span>书籍种数:</span>
                     </td>
                     <td>
-                        <%--<input type="text" value="<%=allkinds %>" class="form-control" disabled>--%>
-                        <div><%=allkinds %></div>
+                        <input type="text" value="<%=allkinds %>" class="form-control" disabled>
+                        <%--<div><%=allkinds %></div>--%>
                     </td>
                     <td>
                         <span>书本总数:</span>
                     </td>
                     <td>
-                        <%--<input type="text" value="<%=allnumber %>" class="form-control" disabled></td>--%>
-                        <div><%=allnumber %></div>
+                        <input type="text" value="<%=allnumber %>" class="form-control" disabled></td>
+                        <%--<div><%=allnumber %></div>--%>
                     <td>
                         <span>总码洋:</span>
                     </td>
                     <td>
-                        <%--<input type="text" value="<%=alltotalprice %>" class="form-control" disabled>--%>
-                        <div><%=alltotalprice %></div>
+                        <input type="text" value="<%=alltotalprice %>" class="form-control" disabled>
+                        <%--<div><%=alltotalprice %></div>--%>
                     </td>
                     
                 </tr>
@@ -244,8 +244,8 @@
                         <span>总实洋:</span>
                     </td>
                     <td>
-                        <%--<input type="text" value="<%=allreadprice %>" class="form-control" disabled id="allreadprice">--%>
-                        <div><%=allreadprice %></div>
+                        <input type="text" value="<%=allreadprice %>" class="form-control" disabled id="allreadprice">
+                        <%--<div><%=allreadprice %></div>--%>
                     </td>
                 </tr>
             </table>

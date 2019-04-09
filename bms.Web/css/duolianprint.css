@@ -24,59 +24,59 @@
 
 #print_table {
     font-family:"黑体";
-    font-size: 18px;
-    width: 60%;
+    font-size: 12px;
+    width: 80%;
 }
 #print_table th{
-    font-size: 20px;
+    font-size: 12px;
 }
 
     #print_table tr td:nth-child(4) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(1) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(2) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(3) {
-        font-size: 18px;
+        font-size: 12px;
         width: 3%;
     }
 
     #print_table tr td:nth-child(5) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(6) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(7) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(8) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
 
     #print_table tr td:nth-child(9) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
     #print_table tr td:nth-child(10) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
     #print_table tr td:nth-child(11) {
@@ -84,45 +84,45 @@
         width: 1%;
     }
     #print_table tr td:nth-child(12) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
 
 .table_stock {
     font-family: "黑体";
-    width: 60% !important;
+    width: 80% !important;
 }
 
     .table_stock td {
         font-family: "黑体";
         width: 100px;
-        font-size: 18px;
+        font-size: 12px;
     }
 
         .table_stock td input {
-            font-size: 18px;
+            font-size: 12px;
         }
 
 .table_stock {
     font-family: "黑体";
-    width: 60%;
+    width: 80%;
 }
 
     .table_stock td {
         font-family: "黑体";
-        font-size: 18px;
+        font-size: 12px;
     }
 
         .table_stock td input {
-            font-size: 18px;
+            font-size: 12px;
         }
 
 .table-head {
-    width: 60%;
+    width: 80%;
 }
     .table-head td {
         font-family: "黑体";
-        font-size: 18px;
+        font-size: 12px;
     }
     .table-head td input{
         font-size: 18px;
@@ -131,16 +131,16 @@
 
 .tablehead td {
     font-family: "黑体";
-    font-size: 18px;
+    font-size: 12px;
 }
 
     .tablehead td input {
-        font-size: 18px;
+        font-size: 12px;
     }
 
 #printTable {
     font-family: "黑体";
-    width: 60%;
+    width: 80%;
 }
 
 #xsbh {
@@ -152,50 +152,50 @@
 
 #printTable {
     font-family: "黑体";
-    width: 60%;
-    font-size: 18px;
+    width: 80%;
+    font-size: 12px;
 }
 
     #printTable th {
-        font-size: 20px;
+        font-size: 12px;
     }
 #printtable tr td:nth-child(4) {
-    font-size: 18px;
+    font-size: 12px;
     width: 1%;
 }
 
     #printtable tr td:nth-child(1) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
 
     #printtable tr td:nth-child(2) {
-        font-size: 18px;
+        font-size: 12px;
         width: 2%;
     }
 
     #printtable tr td:nth-child(3) {
-        font-size: 18px;
+        font-size: 12px;
         width: 8%;
     }
 
     #printtable tr td:nth-child(5) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
     #printtable tr td:nth-child(6) {
-        font-size: 18px;
+        font-size: 12px;
         width: 1%;
     }
 #printTabled {
     font-family: "黑体";
-    font-size: 25px;
-    width: 60% !important;
+    font-size: 12px;
+    width: 80% !important;
 }
 #printTabled th{
-    font-size: 20px;
+    font-size: 12px;
 }
     #printTabled td {
         font-family: "黑体";
-        font-size: 18px;
+        font-size: 12px;
     }
