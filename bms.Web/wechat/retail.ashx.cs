@@ -138,6 +138,8 @@ namespace bms.Web.wechat
                                 bookDs.Rows[0]["totalPrice"] = bookDs.Rows[0]["price"].ToString();
                                 bookDs.Columns.Add("totalReal", typeof(string));
                                 bookDs.Rows[0]["totalReal"] = (Convert.ToDouble(bookDs.Rows[0]["price"]) * discount * 0.01).ToString();
+                                bookDs.Columns.Add("stockNum", typeof(string));
+                                bookDs.Rows[0]["stockNum"] = stockNum.ToString();
                                 string data = JsonHelper.ToJson(bookDs, "retail");
                                 retailM.data = data;
                                 string json = JsonHelper.JsonSerializerBySingleData(retailM);
@@ -145,10 +147,13 @@ namespace bms.Web.wechat
                                 context.Response.End();
                             }
                         }
-                        retailM.type = "一号多书";
-                        string strJson = JsonHelper.JsonSerializerBySingleData(retailM);
-                        context.Response.Write(strJson);
-                        context.Response.End();
+                        else
+                        {
+                            retailM.type = "一号多书";
+                            string strJson = JsonHelper.JsonSerializerBySingleData(retailM);
+                            context.Response.Write(strJson);
+                            context.Response.End();
+                        }
                     }
                     else
                     {
@@ -183,6 +188,7 @@ namespace bms.Web.wechat
                     int counts = bookDs.Rows.Count;
                     StringBuilder sb = new StringBuilder();
                     int i = 0;
+                    bookDs.Columns.Add("stockNum", typeof(string));
                     while (i < counts)
                     {
                         DataRow dr = bookDs.Rows[i];
@@ -195,6 +201,7 @@ namespace bms.Web.wechat
                         }
                         else
                         {
+                            bookDs.Rows[i]["stockNum"] = stockNum.ToString();
                             i++;
                         }
                     }
@@ -262,6 +269,7 @@ namespace bms.Web.wechat
         public void bookNum(HttpContext context)
         {
             string bookNum = context.Request["bookNum"];
+            string regionId = context.Request["regionId"];
             DataSet bookDs = retailBll.SelectByBookNum(bookNum);
             if (bookDs == null)
             {
@@ -281,6 +289,9 @@ namespace bms.Web.wechat
                     {
                         discount = Convert.ToDouble(bookDs.Tables[0].Rows[0]["discount"]);
                     }
+                    int stockNum = stockBll.selectStockNum(bookNum, Convert.ToInt32(regionId));
+                    bookDs.Tables[0].Columns.Add("stockNum", typeof(string));
+                    bookDs.Tables[0].Rows[0]["stockNum"] = stockNum.ToString();
                     bookDs.Tables[0].Columns.Add("number", typeof(string));
                     bookDs.Tables[0].Rows[0]["number"] = "1";
                     bookDs.Tables[0].Columns.Add("focus", typeof(bool));
@@ -611,7 +622,6 @@ namespace bms.Web.wechat
         {
             string js_code = context.Request["js_code"];
             string serviceAddress = "https://api.weixin.qq.com/sns/jscode2session?appid=wx1c7c98a39f0501b6&secret=b12cb19870e0fc79c88b8d6eddfb39f0&js_code=" + js_code + "&grant_type=authorization_code";
-            //string serviceAddress = "https://api.weixin.qq.com/sns/jscode2session?appid=wxee22244e7c97740f&secret=f34c6d3996e5e836eab33eb3f81819b5&js_code=" + js_code + "&grant_type=authorization_code";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(serviceAddress);
             request.Method = "GET";
             request.ContentType = "text/html;charset=UTF-8";
