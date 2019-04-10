@@ -81,7 +81,19 @@ namespace bms.Dao
             int row = int.Parse(db.ExecuteScalar(cmdText, param, values).ToString());
             return row;
         }
-
+        /// <summary>
+        ///根据销售任务id 查询地区id
+        /// </summary>
+        /// <param name="saleId">销售任务id</param>
+        /// <returns>影响行数</returns>
+        public int GetregionidBysaleid(string saleId)
+        {
+            string cmdText = "select regionid from v_saletask where saletaskid=@saleId";
+            string[] param = { "@saleId" };
+            object[] values = { saleId };
+            int row = int.Parse(db.ExecuteScalar(cmdText, param, values).ToString());
+            return row;
+        }
         /// <summary>
         /// 统计销售任务总种数
         /// </summary>

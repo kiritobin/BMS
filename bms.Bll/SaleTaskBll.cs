@@ -82,6 +82,17 @@ namespace bms.Bll
         }
 
         /// <summary>
+        ///根据销售任务id 查询地区id
+        /// </summary>
+        /// <param name="saleId">销售任务id</param>
+        /// <returns>影响行数</returns>
+        public int GetregionidBysaleid(string saleId)
+        {
+            return saleDao.GetregionidBysaleid(saleId);
+           
+        }
+
+        /// <summary>
         ///根据用户id获取他的所有销售记录
         /// </summary>
         /// <param name="customerId">客户id</param>
