@@ -402,7 +402,7 @@
                                                     <span>销售任务编号:</span>
                                                 </td>
                                                 <td>
-                                                    <input value="<%=saletaskId.ToString() %>" class="form-control" disabled id="XSRWnum" />
+                                                    <input style="width:150px;" value="<%=saletaskId.ToString() %>" class="form-control" disabled id="XSRWnum" />
                                                 </td>
                                                 <%}%>
 
