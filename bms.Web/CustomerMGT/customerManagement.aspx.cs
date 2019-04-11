@@ -123,7 +123,7 @@ namespace bms.Web.CustomerMGT
                 CustomerName = customerName,
                 RegionId = reg
             };
-            bool bl = cbll.SelectById(customerId);
+            bool bl = cbll.SelectById(customerId, customerName);
             if (bl == false)
             {
                 Result row = cbll.Insert(ct);
@@ -140,7 +140,7 @@ namespace bms.Web.CustomerMGT
             }
             else
             {
-                Response.Write("该账号已经存在");
+                Response.Write("该账号或者名称已存在");
                 Response.End();
             }
         }
