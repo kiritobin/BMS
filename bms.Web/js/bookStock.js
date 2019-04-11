@@ -284,11 +284,15 @@
     $("#groupby").change(function () {
         var groupby = $("#groupby").find("option:selected").text();
         if (groupby == "供应商") {
+            $("#printshowType").text("供应商");
+            $("#printshowType2").text("组织名称");
             $("#groupsupplier").show();
             $("#groupregion").hide();
             $('#groupregion').selectpicker('refresh');
         }
         else if (groupby == "组织") {
+            $("#printshowType").text("组织名称");
+            $("#printshowType2").text("供应商");
             $("#groupsupplier").hide();
             $("#groupregion").show();
         } else if (groupby == "客户") {
