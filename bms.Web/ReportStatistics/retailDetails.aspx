@@ -591,20 +591,23 @@
                             <%} %>
                         </td>
                         <td>
-                            <input value="<%=name %>" class="form-control" disabled id="XSnum">
+                            <%--<input value="<%=name %>" class="form-control" disabled id="XSnum">--%>
+                            <div id="XSnum"><%=name %></div>
                         </td>
                         <td>
                             <span>操作员:</span>
                         </td>
                         <td>
-                            <input value="<%=userName %>" class="form-control" disabled id="operator">
+                            <%--<input value="<%=userName %>" class="form-control" disabled id="operator">--%>
+                            <div id="operator"><%=userName %></div>
                         </td>
                         <td>
                             <span>制单日期:</span>
                         </td>
                         <td>
                             <div class="jeinpbox">
-                                <input type="text" value="<%=DateTime.Now %>" class="form-control" disabled id="test2">
+                                <%--<input type="text" value="<%=DateTime.Now %>" class="form-control" disabled id="test2">--%>
+                                <div id="test2"><%=DateTime.Now %></div>
                             </div>
                         </td>
                     </tr>
@@ -613,24 +616,29 @@
                             <span>书籍种数:</span>
                         </td>
                         <td>
-                            <input type="text" value="<%=bookKinds %>" class="form-control" disabled>
+                            <%--<input type="text" value="<%=bookKinds %>" class="form-control" disabled>--%>
+                            <div><%=bookKinds %></div>
                         </td>
                         <td>
                             <span>书本总数:</span>
                         </td>
                         <td>
-                            <input type="text" value="<%=allBookCount %>" class="form-control" disabled></td>
+                            <%--<input type="text" value="<%=allBookCount %>" class="form-control" disabled>--%>
+                            <div><%=allBookCount %></div>
+                        </td>
                         <td>
                             <span>总码洋:</span>
                         </td>
                         <td>
                             <%if (allPricePrint != null && allPricePrint != "")
                                 {%>
-                            <input type="text" value="<%=Convert.ToDouble(allPricePrint).ToString("F2") %>" class="form-control" disabled>
+                            <%--<input type="text" value="<%=Convert.ToDouble(allPricePrint).ToString("F2") %>" class="form-control" disabled>--%>
+                            <div><%=Convert.ToDouble(allPricePrint).ToString("F2") %></div>
                             <%}
                             else
                             { %>
-                            <input type="text" value="<%=allPricePrint %>" class="form-control" disabled>
+                            <%--<input type="text" value="<%=allPricePrint %>" class="form-control" disabled>--%>
+                            <div><%=allPricePrint %></div>
                             <%} %>
                         </td>
                         
@@ -642,16 +650,18 @@
                         <td>
                             <%if (realPricePrint != null && realPricePrint != "")
                                 {%>
-                            <input type="text" value="<%=Convert.ToDouble(realPricePrint).ToString("F2") %>" class="form-control" disabled>
+                            <%--<input type="text" value="<%=Convert.ToDouble(realPricePrint).ToString("F2") %>" class="form-control" disabled>--%>
+                            <div><%=Convert.ToDouble(realPricePrint).ToString("F2") %></div>
                             <%}
                             else
                             { %>
-                            <input type="text" value="<%=realPricePrint %>" class="form-control" disabled>
+                            <%--<input type="text" value="<%=realPricePrint %>" class="form-control" disabled>--%>
+                            <div><%=realPricePrint %></div>
                             <%} %>
                         </td>
                     </tr>
                 </table>
-                <table class="table mostTable table-bordered text-center" id="print_table">
+                <table border="1" cellspacing="0" class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
                             <th>

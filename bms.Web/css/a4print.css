@@ -90,25 +90,34 @@
         width: 2%;
     }
 
+.table_stock{
+    text-align:center;
+    width:100%;
+}
 
-    .table_stock td {
-        /*width: 100px;*/
-        font-size: 16px;
-    }
 
-        .table_stock td input {
-            font-size: 16px;
-        }
-
-    .table_stock td {
-        font-size: 16px;
-    }
+.table_stock td {
+    text-align: center;
+    font-size: 18px;
+}
 
         .table_stock td input {
-            font-size: 16px;
+            font-size: 18px;
         }
 
+        .table_stock td div {
+            font-size: 20px;
+        }
+
+        .table_stock td span {
+            font-size: 19px;
+        }
+.table-head {
+    text-align: center;
+    width: 100%;
+}
 .table-head td {
+    text-align:center;
     font-size: 16px;
 }
 
@@ -138,7 +147,7 @@
 
 #printTable {
     font-family: "黑体";
-    width: 80%;
+    width: 100%;
 }
 
 #printTable {

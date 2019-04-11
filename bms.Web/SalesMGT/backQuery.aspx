@@ -78,28 +78,31 @@
                                     <table class="table table_stock text-right">
                                         <tr class="text-nowrap">
                                             <td>
-                                                <span>任务单据编号:</span>
+                                                <span>单据编号:</span>
                                             </td>
                                             <td>
-                                                <input value="<%=Session["saleId"].ToString() %>" class="form-control" disabled id="XSRW">
+                                                <%--<input value="<%=Session["saleId"].ToString() %>" class="form-control" disabled id="XSRW">--%>
+                                                <div id="XSRW"><%=Session["saleId"].ToString() %></div>
                                             </td>
                                             <td>
                                                 <span>单头编号:</span>
                                             </td>
                                             <td>
-                                                <input value="<%=Session["sellId"].ToString() %>" class="form-control" disabled id="XT">
+                                                <%--<input value="<%=Session["sellId"].ToString() %>" class="form-control" disabled id="XT">--%>
+                                                <div id="XT"><%=Session["sellId"].ToString() %></div>
                                             </td>
                                             <td>
                                                 <span>制单时间:</span>
                                             </td>
                                             <td>
-                                                <input value="<%=staticsTime %>" class="form-control" disabled id="makeTime">
+                                                <%--<input value="<%=staticsTime %>" class="form-control" disabled id="makeTime">--%>
+                                                <div id="makeTime"><%=staticsTime %></div>
                                             </td>
                                         </tr>
                                     </table>
                                     <%} %>
                                     <div>
-                                        <table class="table mostTable table-bordered text-center table-head" id="table">
+                                        <table border="1" cellspacing="0" class="table mostTable table-bordered text-center table-head" id="table">
                                             <%=GetData() %>
                                         </table>
                                         <table class="table table_stock text-right">
@@ -109,24 +112,29 @@
                                                     <span>总品种:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=staticsKinds %>" class="form-control" disabled id="allKinds">
+                                                    <%--<input type="text" value="<%=staticsKinds %>" class="form-control" disabled id="allKinds">--%>
+                                                    <div id="allKinds"><%=staticsKinds %></div>
                                                 </td>
                                                 <td>
                                                     <span>总数量:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=staticsNumber %>" class="form-control" disabled id="allCount"></td>
+                                                    <%--<input type="text" value="<%=staticsNumber %>" class="form-control" disabled id="allCount">--%>
+                                                    <div id="allCount"><%=staticsNumber %></div>
+                                                </td>
                                                 <td>
                                                     <span>总码洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=staticsTotalPrice %>" class="form-control" disabled id="allTotalPrice">
+                                                    <%--<input type="text" value="<%=staticsTotalPrice %>" class="form-control" disabled id="allTotalPrice">--%>
+                                                    <div id="allTotalPrice"><%=staticsTotalPrice %></div>
                                                 </td>
                                                 <td>
                                                     <span>总实洋:</span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<%=staticsRealPrice %>" class="form-control" disabled id="allRealPrice">
+                                                    <%--<input type="text" value="<%=staticsRealPrice %>" class="form-control" disabled id="allRealPrice">--%>
+                                                    <div id="allRealPrice"><%=staticsRealPrice %></div>
                                                 </td>
                                             </tr>
                                         </table>

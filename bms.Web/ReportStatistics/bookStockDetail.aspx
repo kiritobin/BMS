@@ -465,20 +465,23 @@
                             <%} %>
                         </td>
                         <td>
-                            <input value="<%=name %>" class="form-control" disabled id="XSnum">
+                            <%--<input value="<%=name %>" class="form-control" disabled id="XSnum">--%>
+                            <div id="XSnum"><%=name %></div>
                         </td>
                         <td>
                             <span>操作员:</span>
                         </td>
                         <td>
-                            <input value="<%=userName %>" class="form-control" disabled id="operator">
+                            <%--<input value="<%=userName %>" class="form-control" disabled id="operator">--%>
+                            <div><%=userName %></div>
                         </td>
                         <td>
                             <span>制单日期:</span>
                         </td>
                         <td>
                             <div class="jeinpbox">
-                                <input type="text" value="<%=DateTime.Now %>" class="form-control" disabled id="test2">
+                                <%--<input type="text" value="<%=DateTime.Now %>" class="form-control" disabled id="test2">--%>
+                                <div id="test2"><%=DateTime.Now %></div>
                             </div>
                         </td>
                     </tr>
@@ -487,17 +490,19 @@
                             <span>书籍种数:</span>
                         </td>
                         <td>
-                            <input value="<%=bookKinds %>" class="form-control" disabled id="bookKinds">
+                            <%--<input value="<%=bookKinds %>" class="form-control" disabled id="bookKinds">--%>
+                            <div id="bookKinds"><%=bookKinds %></div>
                         </td>
                         <td>
                             <span>书本总数:</span>
                         </td>
                         <td>
-                            <input value="<%=allBookCount %>" class="form-control" disabled id="allBookCount">
+                            <%--<input value="<%=allBookCount %>" class="form-control" disabled id="allBookCount">--%>
+                            <div id="allBookCount"><%=allBookCount %></div>
                         </td>
                     </tr>
                 </table>
-                <table class="table mostTable table-bordered text-center" id="print_table">
+                <table border="1" cellspacing="0" class="table mostTable table-bordered text-center" id="print_table">
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
                             <th>

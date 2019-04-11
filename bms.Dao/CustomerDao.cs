@@ -42,11 +42,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="customerId">账号</param>
         /// <returns>符合条件的记录条数</returns>
-        public int SelectById(string customerId)
+        public int SelectById(string customerId,string customName)
         {
-            string cmdText = "select count(customerID) from T_Customer where customerID=@customerId";
-            string[] param = { "@customerId" };
-            string[] values = { customerId };
+            string cmdText = "select count(customerID) from T_Customer where customerID=@customerId or customerName=@customName";
+            string[] param = { "@customerId" , "@customName" };
+            string[] values = { customerId , customName };
             return Convert.ToInt32(db.ExecuteScalar(cmdText, param, values));
         }
         /// <summary>

@@ -93,11 +93,17 @@
     .table_stock td {
         font-family: "黑体";
         /*width: 100px;*/
-        font-size: 16px;
+        font-size: 20px;
     }
 
         .table_stock td input {
-            font-size: 16px;
+            font-size: 18px;
+        }
+        .table_stock td div {
+            font-size: 20px;
+        }
+        .table_stock td span {
+            font-size: 19px;
         }
 
 .table_stock {
@@ -115,9 +121,11 @@
         }
 
 .table-head {
+    text-align: center;
     width: 80%;
 }
     .table-head td {
+        text-align: center;
         font-family: "黑体";
         font-size: 16px;
     }

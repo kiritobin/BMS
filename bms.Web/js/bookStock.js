@@ -416,8 +416,8 @@ $("#a4").click(function () {
                     imageUrl: "../imgs/load.gif",
                     imageHeight: 100,
                     imageWidth: 100,
-                    width: 180,
-                    showConfirmButton: false,
+                    width: 280,
+                    showConfirmButton: true,
                     allowOutsideClick: false
                 });
             },
@@ -516,8 +516,8 @@ $("#zhen").click(function () {
                     imageUrl: "../imgs/load.gif",
                     imageHeight: 100,
                     imageWidth: 100,
-                    width: 180,
-                    showConfirmButton: false,
+                    width: 280,
+                    showConfirmButton: true,
                     allowOutsideClick: false
                 });
             },

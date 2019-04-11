@@ -20,6 +20,7 @@ namespace bms.Web.wechat
         SaleMonomerBll salemonbll = new SaleMonomerBll();
         BookBasicBll bookbll = new BookBasicBll();
         SaleTaskBll saletaskbll = new SaleTaskBll();
+        StockBll stobll = new StockBll();
         string teamtype;
         public bool IsReusable
         {
@@ -190,10 +191,14 @@ namespace bms.Web.wechat
                         dt.Columns.Add("rownum", typeof(int));
                         dt.Columns.Add("bookName", typeof(string));
                         dt.Columns.Add("unitPrice", typeof(double));
+                        dt.Columns.Add("count", typeof(int));
                         dt.Columns.Add("color", typeof(string));
                         for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
                         {
-                            dt.Rows.Add(bookds.Tables[0].Rows[i]["bookNum"].ToString(), Convert.ToInt32((i + 1)), bookds.Tables[0].Rows[i]["bookName"].ToString(), Convert.ToDouble(bookds.Tables[0].Rows[i]["price"].ToString()), "");
+                            int regionid = saletaskbll.GetregionidBysaleid(saleId);
+                            int count = stobll.selectStockNum(bookds.Tables[0].Rows[i]["bookNum"].ToString(), regionid);
+
+                            dt.Rows.Add(bookds.Tables[0].Rows[i]["bookNum"].ToString(), Convert.ToInt32((i + 1)), bookds.Tables[0].Rows[i]["bookName"].ToString(), Convert.ToDouble(bookds.Tables[0].Rows[i]["price"].ToString()), count, "");
                         }
 
                         Page page = new Page();
@@ -216,9 +221,12 @@ namespace bms.Web.wechat
                     {
                         book book = new book();
                         //bookNum,ISBN,price,author,bookName,supplier
+                        int regionid = saletaskbll.GetregionidBysaleid(saleId);
+                        int count = stobll.selectStockNum(bookds.Tables[0].Rows[0]["bookNum"].ToString(), regionid);
                         book.BookNum = bookds.Tables[0].Rows[0]["bookNum"].ToString();
                         book.BookName = bookds.Tables[0].Rows[0]["bookName"].ToString();
                         book.Price = double.Parse(bookds.Tables[0].Rows[0]["price"].ToString());
+                        book.count = count;
                         if (copy == "" || copy == null)
                         {
                             book.number = "0";
@@ -348,121 +356,215 @@ namespace bms.Web.wechat
             string saleId = context.Request["saletaskID"];
             int number = Convert.ToInt32(context.Request["number"]);
             string bookNum = context.Request["bookNum"];
-
-            BookBasicBll bookbll = new BookBasicBll();
-            BookBasicData bookData = bookbll.SelectById(bookNum);
             SaleTaskBll saletaskbll = new SaleTaskBll();
-            string remarks = bookData.Remarks;
-            string defaultdiscount;
-            string bookISBN = bookData.Isbn;
-            SaleTask task = saletaskbll.selectById(saleId);
-            defaultdiscount = task.DefaultDiscount.ToString();
-            if (defaultdiscount == "-1")
-            {
-                if (double.Parse(remarks) < 1)
-                {
-                    remarks = (double.Parse(remarks) * 100).ToString();
-                }
-            }
-            //if (remarks == "" || remarks == null)
-            //{
-            //    remarks = defaultdiscount;
-            //}
-            else
-            {
-                remarks = defaultdiscount;
-            }
-            double disCount = double.Parse(remarks);
-            BookBasicBll Bookbll = new BookBasicBll();
             BookBasicData book = new BookBasicData();
-            book = Bookbll.SelectById(bookNum);
-            string saleHeadId = SaleHeadId;
-            int saleIdmonomerId;
-            int count;
-            if (teamtype == "team")
-            {
-                count = salemonbll.SelectBySaleHeadId(saleHeadId);
-            }
-            else
-            {
-                count = salemonbll.SelectByPerSaleHeadId(saleHeadId);
-            }
-
-            if (count == 0)
-            {
-                saleIdmonomerId = 1;
-                if (teamtype == "team")
+            BookBasicBll bookbll = new BookBasicBll();
+            if (teamtype == "team") {
+                int regionid = saletaskbll.GetregionidBysaleid(saleId);
+                DataSet stockbook = stobll.SelectByBookNum(bookNum, regionid);
+               int allstockNum = 0;
+                for (int h = 0; h < stockbook.Tables[0].Rows.Count; h++)
                 {
-                    salemonbll.updateHeadstate(saleId, SaleHeadId, 1);
+                    allstockNum += Convert.ToInt32(stockbook.Tables[0].Rows[h]["stockNum"]);
+                }
+                if (number > allstockNum)
+                {
+                    context.Response.Write("库存数量不足，当前最大库存为：" + allstockNum);
+                    context.Response.End();
                 }
                 else
                 {
+                    BookBasicBll Bookbll = new BookBasicBll();
+                    book = Bookbll.SelectById(bookNum);
+                    string remarks = book.Remarks;
+                    string defaultdiscount;
+                    string bookISBN = book.Isbn;
+                    string saleHeadId = SaleHeadId;
+                    SaleTask task = saletaskbll.selectById(saleId);
+                    defaultdiscount = task.DefaultDiscount.ToString();
+                    if (defaultdiscount == "-1")
+                    {
+                        if (double.Parse(remarks) < 1)
+                        {
+                            remarks = (double.Parse(remarks) * 100).ToString();
+                        }
+                    }
+                    double disCount = double.Parse(remarks);
+                    int count = salemonbll.SelectBySaleHeadId(saleHeadId);
+                    int saleIdmonomerId;
+                    if (count == 0)
+                    {
+                        saleIdmonomerId = 1;
+                        salemonbll.updateHeadstate(saleId, SaleHeadId, 1);
+                    }
+                    else
+                    {
+                        saleIdmonomerId = count + 1;
+                    }
+                    int price = Convert.ToInt32(book.Price);
+                    int totalPrice = price * number;
+                    double realPrice = totalPrice * (disCount / 100);
+                    DateTime Time = DateTime.Now.ToLocalTime();
+                    SaleMonomer newSalemon = new SaleMonomer()
+                    {
+                        AlreadyBought = 0,
+                        SaleIdMonomerId = saleIdmonomerId,
+                        BookNum = bookNum,
+                        ISBN1 = bookISBN,
+                        SaleHeadId = saleHeadId,
+                        Number = number,
+                        UnitPrice = price,
+                        TotalPrice = totalPrice,
+                        RealPrice = realPrice,
+                        RealDiscount = disCount,
+                        Datetime = Time,
+                        SaleTaskId = saleId
+                    };
+
+                    for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
+                    {
+                        int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
+                        string goodsId = stockbook.Tables[0].Rows[j]["goodsShelvesId"].ToString();
+                        if (number <= stockNum)
+                        {
+                            int stockcount = stockNum - number;
+                            stobll.update(stockcount, goodsId, bookNum);
+
+                        }
+                        else
+                        {
+                            number = number - stockNum;
+                            stobll.update(0, goodsId, bookNum);
+                            if (number == 0)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    Result insertres=salemonbll.Insert(newSalemon); ;
+                    string op = context.Request["op"];
+                    if (insertres == Result.添加成功)
+                    {
+                        //更新单头
+                        updateSalehead(context);
+
+                        if (op == "change")
+                        {
+                            context.Response.Write("修改成功");
+                            context.Response.End();
+                        }
+                        else
+                        {
+                            context.Response.Write("添加成功");
+                            context.Response.End();
+                        }
+                    }
+                    else
+                    {
+                        if (op == "change")
+                        {
+                            context.Response.Write("修改失败");
+                            context.Response.End();
+                        }
+                        else
+                        {
+                            context.Response.Write("添加失败");
+                            context.Response.End();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                BookBasicData bookData = bookbll.SelectById(bookNum);
+                string remarks = bookData.Remarks;
+                string defaultdiscount;
+                string bookISBN = bookData.Isbn;
+                SaleTask task = saletaskbll.selectById(saleId);
+                defaultdiscount = task.DefaultDiscount.ToString();
+                if (defaultdiscount == "-1")
+                {
+                    if (double.Parse(remarks) < 1)
+                    {
+                        remarks = (double.Parse(remarks) * 100).ToString();
+                    }
+                }
+                //if (remarks == "" || remarks == null)
+                //{
+                //    remarks = defaultdiscount;
+                //}
+                else
+                {
+                    remarks = defaultdiscount;
+                }
+                double disCount = double.Parse(remarks);
+                book = bookbll.SelectById(bookNum);
+                string saleHeadId = SaleHeadId;
+                int saleIdmonomerId;
+                int  count = salemonbll.SelectByPerSaleHeadId(saleHeadId);
+                if (count == 0)
+                {
+                    saleIdmonomerId = 1;
                     salemonbll.updatePerHeadstate(saleId, SaleHeadId, 1);
                 }
-            }
-            else
-            {
-                saleIdmonomerId = count + 1;
-            }
-            int price = Convert.ToInt32(book.Price);
-            int totalPrice = price * number;
-            double realPrice = totalPrice * (disCount / 100);
-            DateTime Time = DateTime.Now.ToLocalTime();
-            SaleMonomer newSalemon = new SaleMonomer()
-            {
-                AlreadyBought = 0,
-                SaleIdMonomerId = saleIdmonomerId,
-                BookNum = bookNum,
-                ISBN1 = bookISBN,
-                SaleHeadId = saleHeadId,
-                Number = number,
-                UnitPrice = price,
-                TotalPrice = totalPrice,
-                RealPrice = realPrice,
-                RealDiscount = disCount,
-                Datetime = Time,
-                SaleTaskId = saleId
-            };
-            Result res;
-            if (teamtype == "team")
-            {
-                res = salemonbll.Insert(newSalemon);
-            }
-            else
-            {
-                res = salemonbll.perInsert(newSalemon);
-            }
-
-            string op = context.Request["op"];
-            if (res == Result.添加成功)
-            {
-                //更新单头
-                updateSalehead(context);
-
-                if (op == "change")
+                else
                 {
-                    context.Response.Write("修改成功");
-                    context.Response.End();
+                    saleIdmonomerId = count + 1;
+                }
+                int price = Convert.ToInt32(book.Price);
+                int totalPrice = price * number;
+                double realPrice = totalPrice * (disCount / 100);
+                DateTime Time = DateTime.Now.ToLocalTime();
+                SaleMonomer newSalemon = new SaleMonomer()
+                {
+                    AlreadyBought = 0,
+                    SaleIdMonomerId = saleIdmonomerId,
+                    BookNum = bookNum,
+                    ISBN1 = bookISBN,
+                    SaleHeadId = saleHeadId,
+                    Number = number,
+                    UnitPrice = price,
+                    TotalPrice = totalPrice,
+                    RealPrice = realPrice,
+                    RealDiscount = disCount,
+                    Datetime = Time,
+                    SaleTaskId = saleId
+                };
+                Result  res = salemonbll.perInsert(newSalemon);
+           
+
+                string op = context.Request["op"];
+                if (res == Result.添加成功)
+                {
+                    //更新单头
+                    updateSalehead(context);
+
+                    if (op == "change")
+                    {
+                        context.Response.Write("修改成功");
+                        context.Response.End();
+                    }
+                    else
+                    {
+                        context.Response.Write("添加成功");
+                        context.Response.End();
+                    }
                 }
                 else
                 {
-                    context.Response.Write("添加成功");
-                    context.Response.End();
+                    if (op == "change")
+                    {
+                        context.Response.Write("修改失败");
+                        context.Response.End();
+                    }
+                    else
+                    {
+                        context.Response.Write("添加失败");
+                        context.Response.End();
+                    }
                 }
             }
-            else
-            {
-                if (op == "change")
-                {
-                    context.Response.Write("修改失败");
-                    context.Response.End();
-                }
-                else
-                {
-                    context.Response.Write("添加失败");
-                    context.Response.End();
-                }
-            }
+           
         }
         /// <summary>
         /// 更新单头
@@ -530,6 +632,7 @@ namespace bms.Web.wechat
         public string number { get; set; }
         public string BookName { get; set; }
         public double Price { get; set; }
+        public int count { get; set; }
         public string type { get; set; }
     }
 }

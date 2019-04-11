@@ -62,9 +62,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="customerId">账号</param>
         /// <returns></returns>
-        public bool SelectById(string customerId)
+        public bool SelectById(string customerId,string customName)
         {
-            int count = customerDao.SelectById(customerId);
+            int count = customerDao.SelectById(customerId, customName);
             if (count > 0)
             {
                 return true;
