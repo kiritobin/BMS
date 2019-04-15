@@ -687,10 +687,10 @@ $("#discountEnd").keypress(function (e) {
                 sessionStorage.setItem("discount", 100);
             })
         }
-        else if (parseFloat(discount) <= 0) {
+        else if (parseFloat(discount) < 0) {
             swal({
                 title: "提示",
-                text: "折扣不能小于等于0",
+                text: "折扣不能小于0",
                 type: "warning",
                 showCancelButton: false,
                 confirmButtonColor: '#3085d6',
