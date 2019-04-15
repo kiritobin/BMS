@@ -670,26 +670,39 @@ $("#Settlement").click(function () {
 $("#discountEnd").keypress(function (e) {
     if (e.keyCode == 13) {
         var discount = $("#discountEnd").val().trim();
-        sessionStorage.setItem("discount", discount);
         var retailId = sessionStorage.getItem("retailId");
-        if (parseFloat(discount > 100)) {
+        if (parseFloat(discount) > 100) {
             swal({
-                title: "折扣不能为大于100",
-                text: "",
+                title: "提示",
+                text: "折扣不能为大于100",
+                type: "warning",
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-warning',
                 buttonsStyling: false,
-                confirmButtonClass: "btn btn-warning",
-                type: "warning"
-            }).catch(swal.noop);
+                allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+            }).then(function () {
+                $("#discountEnd").val("100")
+                sessionStorage.setItem("discount", 100);
+            })
         }
-            //else if (parseFloat(discount) <= 0) {
-            //    swal({
-            //        title: "折扣不能为0",
-            //        text: "",
-            //        buttonsStyling: false,
-            //        confirmButtonClass: "btn btn-warning",
-            //        type: "warning"
-            //    }).catch(swal.noop);
-            //}
+        else if (parseFloat(discount) < 0) {
+            swal({
+                title: "提示",
+                text: "折扣不能小于0",
+                type: "warning",
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '确定',
+                confirmButtonClass: 'btn btn-warning',
+                buttonsStyling: false,
+                allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
+            }).then(function () {
+                $("#discountEnd").val("100")
+                sessionStorage.setItem("discount", 100);
+            })
+        }
         else if (discount == "") {
             $("#copeEnd").focus();
             $(".discount").hide();
@@ -697,6 +710,7 @@ $("#discountEnd").keypress(function (e) {
             sessionStorage.setItem("content", "none");
         }
         else {
+            sessionStorage.setItem("discount", discount);
             $.ajax({
                 type: 'Post',
                 url: 'customerRetail.aspx',
