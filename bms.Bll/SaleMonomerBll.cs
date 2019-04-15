@@ -882,6 +882,16 @@ namespace bms.Bll
             }
             return new string(array);
         }
+        /// <summary>
+        /// 根据书号和销售任务id判断是否买过此书
+        /// </summary>
+        /// <param name="HeadId">销售单头ID</param>
+        /// <param name="saletaskId">销售任务id</param>
+        /// <returns>true 已存在</returns>
+        public Boolean isexites(string saletaskId, string booknum)
+        {
+            return SaleMonomerdao.isexites(saletaskId, booknum);
 
+        }
     }
 }

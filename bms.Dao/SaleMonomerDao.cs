@@ -1180,5 +1180,28 @@ namespace bms.Dao
             return dt;
         }
 
+        /// <summary>
+        /// 根据书号和销售任务id判断是否买过此书
+        /// </summary>
+        /// <param name="HeadId">销售单头ID</param>
+        /// <param name="saletaskId">销售任务id</param>
+        /// <returns>true 已存在</returns>
+        public  Boolean isexites(string saletaskId, string booknum)
+        {
+            string comText = "select count(bookNum) from v_allsalemonomer where bookNum=@booknum and saleTaskId=@saletaskId";
+            string[] param = { "@booknum", "@saletaskId" };
+            object[] values = { booknum, saletaskId };
+            int row = Convert.ToInt32(db.ExecuteScalar(comText, param, values));
+            if (row > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
     }
 }

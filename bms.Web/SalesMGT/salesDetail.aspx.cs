@@ -413,8 +413,8 @@ namespace bms.Web.SalesMGT
                     {
                         saleIdmonomerId = count + 1;
                     }
-                    int price = Convert.ToInt32(book.Price);
-                    int totalPrice = price * number;
+                    double price = Convert.ToInt32(book.Price);
+                    double totalPrice = price * number;
                     double realPrice = totalPrice * (disCount / 100);
                     DateTime Time = DateTime.Now.ToLocalTime();
                     SaleMonomer newSalemon = new SaleMonomer()

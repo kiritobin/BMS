@@ -68,15 +68,16 @@ namespace bms.Web.wechat
             string bookNum = context.Request["bookNum"];
             string condition = "saleTaskId='" + saletaskId + "' and saleHeadId='" + saleheadId + "' and bookNum='" + bookNum + "'";
             Result res;
-            if (teamtype=="team")
+            if (teamtype == "team")
             {
                 res = salemonbll.wechatPerDel(condition, 1);
-            } else
+            }
+            else
             {
                 res = salemonbll.wechatPerDel(condition, 3);
             }
 
-           
+
             if (res == Result.删除成功)
             {
                 //删除成功更新单头
@@ -179,7 +180,7 @@ namespace bms.Web.wechat
                 Result libresult = library.Selectbook(customerId, ISBN);
                 if (libresult == Result.记录不存在 || type == "continue")
                 {
-                   
+
                     SaleTaskBll saletaskbll = new SaleTaskBll();
                     DataSet limtds = saletaskbll.SelectBysaleTaskId(saleId);
                     string copy = limtds.Tables[0].Rows[0]["defaultCopy"].ToString();
@@ -253,7 +254,15 @@ namespace bms.Web.wechat
                 context.Response.End();
             }
         }
-
+        /// <summary>
+        /// 判断此书在此销售任务中是否已购买？
+        /// </summary>
+        /// <param name="saletaskid">销售任务id</param>
+        /// <param name="booknum">书号</param>
+        public Boolean isexites(string saletaskid, string booknum)
+        {
+            return salemonbll.isexites(saletaskid, booknum);
+        }
         private void addsale(HttpContext context)
         {
             SaleHeadBll saleheadbll = new SaleHeadBll();
@@ -262,7 +271,9 @@ namespace bms.Web.wechat
             int number = Convert.ToInt32(context.Request["number"]);
             string bookNum = context.Request["bookNum"].ToString();
             string type = context.Request["type"];
+            string saletype = context.Request["saletype"];
             DataSet bookNumds;
+
             if (teamtype == "team")
             {
                 bookNumds = salemonbll.getsalemonDetail(SaleHeadId, saleId, bookNum);
@@ -278,35 +289,43 @@ namespace bms.Web.wechat
             }
             else
             {
-                if (number < 0)
+                if (isexites(saleId, bookNum) && saletype != "continue")
                 {
-                    number = Math.Abs(number);
-                    if (bookNumds != null)
+                    context.Response.Write("以销售");
+                    context.Response.End();
+                }
+                else
+                {
+
+                    if (number < 0)
                     {
-                        int booknumber = int.Parse(bookNumds.Tables[0].Rows[0]["number"].ToString());
-                        if (number > booknumber)
+                        number = Math.Abs(number);
+                        if (bookNumds != null)
                         {
-                            context.Response.Write("输入的负数不能大于已购数量，已购数为:" + booknumber);
-                            context.Response.End();
+                            int booknumber = int.Parse(bookNumds.Tables[0].Rows[0]["number"].ToString());
+                            if (number > booknumber)
+                            {
+                                context.Response.Write("输入的负数不能大于已购数量，已购数为:" + booknumber);
+                                context.Response.End();
+                            }
+                            else
+                            {
+                                number = number * -1;
+                                addsalemon(context);
+                            }
                         }
                         else
                         {
-                            number = number * -1;
-                            addsalemon(context);
+                            context.Response.Write("该书籍没有购买过，数量不能为负数");
+                            context.Response.End();
                         }
                     }
                     else
                     {
-                        context.Response.Write("该书籍没有购买过，数量不能为负数");
-                        context.Response.End();
+                        addsalemon(context);
                     }
                 }
-                else
-                {
-                    addsalemon(context);
-                }
             }
-
         }
 
         private void changeNum(HttpContext context)
@@ -359,10 +378,11 @@ namespace bms.Web.wechat
             SaleTaskBll saletaskbll = new SaleTaskBll();
             BookBasicData book = new BookBasicData();
             BookBasicBll bookbll = new BookBasicBll();
-            if (teamtype == "team") {
+            if (teamtype == "team")
+            {
                 int regionid = saletaskbll.GetregionidBysaleid(saleId);
                 DataSet stockbook = stobll.SelectByBookNum(bookNum, regionid);
-               int allstockNum = 0;
+                int allstockNum = 0;
                 for (int h = 0; h < stockbook.Tables[0].Rows.Count; h++)
                 {
                     allstockNum += Convert.ToInt32(stockbook.Tables[0].Rows[h]["stockNum"]);
@@ -401,8 +421,8 @@ namespace bms.Web.wechat
                     {
                         saleIdmonomerId = count + 1;
                     }
-                    int price = Convert.ToInt32(book.Price);
-                    int totalPrice = price * number;
+                    double price = Convert.ToInt32(book.Price);
+                    double totalPrice = price * number;
                     double realPrice = totalPrice * (disCount / 100);
                     DateTime Time = DateTime.Now.ToLocalTime();
                     SaleMonomer newSalemon = new SaleMonomer()
@@ -441,7 +461,7 @@ namespace bms.Web.wechat
                             }
                         }
                     }
-                    Result insertres=salemonbll.Insert(newSalemon); ;
+                    Result insertres = salemonbll.Insert(newSalemon); ;
                     string op = context.Request["op"];
                     if (insertres == Result.添加成功)
                     {
@@ -501,7 +521,7 @@ namespace bms.Web.wechat
                 book = bookbll.SelectById(bookNum);
                 string saleHeadId = SaleHeadId;
                 int saleIdmonomerId;
-                int  count = salemonbll.SelectByPerSaleHeadId(saleHeadId);
+                int count = salemonbll.SelectByPerSaleHeadId(saleHeadId);
                 if (count == 0)
                 {
                     saleIdmonomerId = 1;
@@ -511,8 +531,8 @@ namespace bms.Web.wechat
                 {
                     saleIdmonomerId = count + 1;
                 }
-                int price = Convert.ToInt32(book.Price);
-                int totalPrice = price * number;
+                double price = Convert.ToDouble(book.Price);
+                double totalPrice = price * number;
                 double realPrice = totalPrice * (disCount / 100);
                 DateTime Time = DateTime.Now.ToLocalTime();
                 SaleMonomer newSalemon = new SaleMonomer()
@@ -530,8 +550,8 @@ namespace bms.Web.wechat
                     Datetime = Time,
                     SaleTaskId = saleId
                 };
-                Result  res = salemonbll.perInsert(newSalemon);
-           
+                Result res = salemonbll.perInsert(newSalemon);
+
 
                 string op = context.Request["op"];
                 if (res == Result.添加成功)
@@ -564,7 +584,7 @@ namespace bms.Web.wechat
                     }
                 }
             }
-           
+
         }
         /// <summary>
         /// 更新单头

@@ -153,14 +153,18 @@ namespace bms.Dao
         public string getPerSaleHeadIdByTime(string nowtime)
         {
             //SELECT saleTaskId from t_saletask where startTime like  ORDER BY startTime desc
-            string comText = "select saleHeadId from T_SaleHead_copy where dateTime like '" + nowtime + "%' and saleHeadId like 'WX%' order by saleHeadId desc";
+            string comText = "select saleHeadId from T_SaleHead_copy where dateTime like '" + nowtime + "%' and saleHeadId like '%X%' order by dateTime desc";
             DataSet ds = db.FillDataSet(comText, null, null);
-            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            if (ds.Tables.Count == 1 && ds.Tables[0].Rows.Count == 0)
             {
+                return null;
+
+            }
+            else {
                 string saleHeadId = ds.Tables[0].Rows[0]["saleHeadId"].ToString();
                 return saleHeadId;
             }
-            return null;
+          
         }
 
         /// <summary>
@@ -170,14 +174,18 @@ namespace bms.Dao
         public string getSaleHeadIdByTime(string nowtime)
         {
             //SELECT saleTaskId from t_saletask where startTime like  ORDER BY startTime desc
-            string comText = "select saleHeadId from T_SaleHead where dateTime like '" + nowtime + "%' and saleHeadId like 'WX%' order by saleHeadId desc";
+            string comText = "select saleHeadId from T_SaleHead where dateTime like '" + nowtime + "%' and saleHeadId like '%X%' order by dateTime desc";
             DataSet ds = db.FillDataSet(comText, null, null);
-            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            if (ds.Tables.Count == 1 && ds.Tables[0].Rows.Count == 0)
+            {
+                return null;
+
+            }
+            else
             {
                 string saleHeadId = ds.Tables[0].Rows[0]["saleHeadId"].ToString();
                 return saleHeadId;
             }
-            return null;
         }
 
         /// <summary>
