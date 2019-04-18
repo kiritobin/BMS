@@ -245,10 +245,10 @@ namespace bms.Web.SalesMGT
             }
             //添加单头
             string retailHeadId = "LT" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
-            single.AllRealPrice = allReal;
-            single.AllTotalPrice = allTotal;
+            single.AllRealPrice = 0-Math.Abs(allReal);
+            single.AllTotalPrice = 0 - Math.Abs(allTotal);
             single.KindsNum = Counts;
-            single.Number = rows;
+            single.Number = 0 - Math.Abs(rows);
             single.RegionId = user.ReginId.RegionId;
             single.SaleHeadId = retailHeadId;
             single.UserId = user.UserId;
