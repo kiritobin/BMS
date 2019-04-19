@@ -29,6 +29,7 @@ namespace bms.Web.SalesMGT
         RetailBll retailBll = new RetailBll();
         User user = new User();
         LoginBll loginBll = new LoginBll();
+        Common com = new Common();
         public List<string> bookNumList = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -284,7 +285,7 @@ namespace bms.Web.SalesMGT
                 allTotal = allTotal + total;
                 allReal = allReal + real;
             }
-            DateTime nowTime = DateTime.Now;
+            DateTime nowTime = Convert.ToDateTime(com.getDate());
             string nowDt = nowTime.ToString("yyyy-MM-dd");
             long count = 0;
             //判断数据库中是否已经有记录
@@ -314,7 +315,7 @@ namespace bms.Web.SalesMGT
             {
                 count = 1;
             }
-            string retailHeadId = "LS" + DateTime.Now.ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
+            string retailHeadId = "LS" + Convert.ToDateTime(com.getDate()).ToString("yyyyMMdd") + count.ToString().PadLeft(6, '0');
             single.AllRealPrice = allReal;
             single.AllTotalPrice = allTotal;
             single.KindsNum = Counts;
@@ -322,7 +323,7 @@ namespace bms.Web.SalesMGT
             single.RegionId = user.ReginId.RegionId;
             single.SaleHeadId = retailHeadId;
             single.UserId = user.UserId;
-            single.DateTime = DateTime.Now;
+            single.DateTime = Convert.ToDateTime(com.getDate());
             single.State = 0;
             single.PayType = "未支付";
             headID = retailHeadId;
@@ -344,7 +345,7 @@ namespace bms.Web.SalesMGT
                     monomers.TotalPrice = Convert.ToDouble(dr["码洋"]);
                     monomers.RealPrice = Convert.ToDouble(dr["实洋"]);
                     monomers.SaleHeadId = retailHeadId;
-                    monomers.Datetime = DateTime.Now;
+                    monomers.Datetime = Convert.ToDateTime(com.getDate());
                     Result mon = retailBll.InsertRetail(monomers);
                     if (mon == Result.添加失败)
                     {
