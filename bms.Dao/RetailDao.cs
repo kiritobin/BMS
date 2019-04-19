@@ -251,9 +251,9 @@ namespace bms.Dao
         /// <returns></returns>
         public int updateType(string headId, User user,string payType)
         {
-            string cmdText = "update T_RetailHead set state=1,dateTime=@dateTime,userId=@userId,payment=@payType where retailHeadId=@retailHeadId";
-            string[] param = { "@retailHeadId", "@dateTime", "@userId", "@payType" };
-            object[] values = { headId, DateTime.Now, user.UserId, payType };
+            string cmdText = "update T_RetailHead set state=1,userId=@userId,payment=@payType where retailHeadId=@retailHeadId";
+            string[] param = { "@retailHeadId", "@userId", "@payType" };
+            object[] values = { headId, user.UserId, payType };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
