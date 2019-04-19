@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    $("#ccustomer").text($("#customer").val());
     $(".paging").pagination({
         pageCount: $("#intPageCount").val(), //总页数
         jump: true,

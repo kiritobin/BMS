@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../css/demo.css">
     <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" type="text/css" href="../css/pretty.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css" >
+    <link rel="stylesheet" type="text/css" href="../css/materialdesignicons.min.css">
     <link rel="stylesheet" id="changeprint" href="../css/a4print.css" media="print">
 </head>
 
@@ -207,6 +207,12 @@
                         <div><%=userName %></div>
                     </td>
                     <td>
+                        <span>客户名称:</span>
+                    </td>
+                    <td>
+                        <div id="ccustomer"></div>
+                    </td>
+                    <td>
                         <span>制单日期:</span>
                     </td>
                     <td>
@@ -230,9 +236,9 @@
                     <td>
                         <%--<input type="text" value="<%=allnumber %>" class="form-control" disabled></td>--%>
                         <div><%=allnumber %></div>
-                    <td>
-                        <span>总码洋:</span>
-                    </td>
+                        <td>
+                            <span>总码洋:</span>
+                        </td>
                     <td>
                         <%--<input type="text" value="<%=alltotalprice %>" class="form-control" disabled>--%>
                         <div><%=alltotalprice %></div>
@@ -255,7 +261,7 @@
                         <td>
                             <nobr>商品编号</nobr>
                         </td>
-<%--                        <td>
+                        <%--                        <td>
                             <nobr>书号</nobr>
                         </td>--%>
                         <td>
