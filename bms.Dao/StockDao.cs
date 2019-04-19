@@ -53,7 +53,7 @@ namespace bms.Dao
              String[] param = { "@bookNum", "@regionId" };
              String[] values = { bookNum.ToString(), regionId.ToString() };
             DataSet ds = db.FillDataSet(cmdText, param, values);
-            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
                 return ds;
             }
