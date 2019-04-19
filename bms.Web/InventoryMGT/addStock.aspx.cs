@@ -84,7 +84,16 @@ namespace bms.Web.InventoryMGT
                 UserBll userBll = new UserBll();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
-                dtInsert = getBookNumByNpoi();
+                try
+                {
+                    dtInsert = getBookNumByNpoi();
+                }
+                catch
+                {
+                    Response.Write("  模板存在错误，请检查");
+                    Response.End();
+                }
+                
                 dtInsert.Columns.Remove("书名");
                 int j = dtInsert.Rows.Count;
                 TimeSpan ts = watch.Elapsed;
