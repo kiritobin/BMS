@@ -25,6 +25,7 @@ namespace bms.Web.SalesMGT
         GoodsShelvesBll goods = new GoodsShelvesBll();
         DataTable monTable = new DataTable();
         RetailBll retailBll = new RetailBll();
+        Common com = new Common();
         public List<long> bookNumList = new List<long>();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -305,7 +306,7 @@ namespace bms.Web.SalesMGT
                 monomers.TotalPrice = uPrice;
                 monomers.RealPrice = uPrice * discount;
                 monomers.SaleHeadId = headId;
-                monomers.Datetime = DateTime.Now;
+                monomers.Datetime = Convert.ToDateTime(com.getDate());
                 Result mon = retailBll.InsertRetail(monomers);
                 if (mon == Result.添加成功)
                 {
@@ -665,7 +666,7 @@ namespace bms.Web.SalesMGT
         /// </summary>
         public string insertHead()
         {
-            DateTime nowTime = DateTime.Now;
+            DateTime nowTime = Convert.ToDateTime(com.getDate());
             string nowDt = nowTime.ToString("yyyy-MM-dd");
             long counts = 0;
             //判断数据库中是否已经有记录
@@ -705,7 +706,7 @@ namespace bms.Web.SalesMGT
                 counts = 1;
             }
             User user = (User)Session["user"];
-            string retailHeadId = "LS" + DateTime.Now.ToString("yyyyMMdd") + counts.ToString().PadLeft(6, '0');
+            string retailHeadId = "LS" + Convert.ToDateTime(com.getDate()).ToString("yyyyMMdd") + counts.ToString().PadLeft(6, '0');
             single.AllRealPrice = 0;
             single.AllTotalPrice = 0;
             single.KindsNum = 0;
@@ -713,7 +714,7 @@ namespace bms.Web.SalesMGT
             single.RegionId = user.ReginId.RegionId;
             single.SaleHeadId = retailHeadId;
             single.UserId = user.UserId;
-            single.DateTime = DateTime.Now;
+            single.DateTime = Convert.ToDateTime(com.getDate());
             single.State = 0;
             single.PayType = "未支付";
             Result result = retailBll.InsertRetail(single);

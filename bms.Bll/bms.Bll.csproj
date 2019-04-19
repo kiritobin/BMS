@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookBasicBll.cs" />
+    <Compile Include="Common.cs" />
     <Compile Include="ConfigurationBll.cs" />
     <Compile Include="CustomerBll.cs" />
     <Compile Include="customerPurchaseBll.cs" />
@@ -84,6 +85,10 @@
     <ProjectReference Include="..\bms.Dao\bms.Dao.csproj">
       <Project>{6A1DA171-B4AD-4824-AA4E-E99D8F2C16BC}</Project>
       <Name>bms.Dao</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bms.DBHelper\bms.DBHelper.csproj">
+      <Project>{36160076-f9b7-4d74-aeea-5483b41abd75}</Project>
+      <Name>bms.DBHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\bms.Model\bms.Model.csproj">
       <Project>{71E48A40-E95D-47B8-A703-B98C07376615}</Project>
