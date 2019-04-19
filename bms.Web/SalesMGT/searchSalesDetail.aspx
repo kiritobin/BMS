@@ -212,15 +212,15 @@
                     <td>
                         <div id="ccustomer"></div>
                     </td>
-                    <td>
+<%--                    <td>
                         <span>制单日期:</span>
                     </td>
                     <td>
                         <div class="jeinpbox">
-                            <%--<input type="text" value="<%=time %>" class="form-control" disabled id="xsrq">--%>
+                            <input type="text" value="<%=time %>" class="form-control" disabled id="xsrq">
                             <div id="xsrq"><%=time %></div>
                         </div>
-                    </td>
+                    </td>--%>
                 </tr>
                 <tr class="text-nowrap">
                     <td>
