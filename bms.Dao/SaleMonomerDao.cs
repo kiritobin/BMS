@@ -1027,7 +1027,7 @@ namespace bms.Dao
         //    DataSet ds = db.FillDataSet(sql, null, null);
         //    return ds;
         //}
-        public int customerKinds(DateTime startTime, DateTime endTime, string regionName, string customerName ,string type)
+        public int customerKinds(DateTime startTime, DateTime endTime, string regionName, string customerName, string type)
         {
             //string cmdText = @"select count(bookNum) as customerKinds from ((select customerName, bookNum, SUM(number) as allCount, SUM(totalPrice) as allPrice from v_salemonomer  where (state = 1 or state = 2) and customerName = @customerName GROUP BY bookNum) as temp)";
             if (type == "销售")
@@ -1186,21 +1186,20 @@ namespace bms.Dao
         /// <param name="HeadId">销售单头ID</param>
         /// <param name="saletaskId">销售任务id</param>
         /// <returns>true 已存在</returns>
-        public  Boolean isexites(string saletaskId, string booknum)
+        public Boolean isexites(string saletaskId, string booknum)
         {
-            string comText = "select count(bookNum) from v_allsalemonomer where bookNum=@booknum and saleTaskId=@saletaskId";
+            //select sum(number) as number from v_allsalemonomer where bookNum='452084174700710268' and saleTaskId='XSRW20181225000001' HAVING number!=0
+
+            string comText = "select sum(number) as number from v_allsalemonomer where bookNum=@booknum and saleTaskId=@saletaskId HAVING number!=0";
             string[] param = { "@booknum", "@saletaskId" };
             object[] values = { booknum, saletaskId };
-            int row = Convert.ToInt32(db.ExecuteScalar(comText, param, values));
-            if (row > 0)
-            {
-                return true;
-            }
-            else
+            //ds.Tables.Count == 1 && ds.Tables[0].Rows.Count == 0
+            DataSet ds = db.FillDataSet(comText, param, values);
+            if (ds.Tables.Count == 1 && ds.Tables[0].Rows.Count == 0)
             {
                 return false;
             }
-
+            return true;
         }
 
     }
