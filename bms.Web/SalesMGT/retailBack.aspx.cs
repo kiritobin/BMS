@@ -269,9 +269,9 @@ namespace bms.Web.SalesMGT
                     monomers.BookNum = dr["书号"].ToString();
                     monomers.RealDiscount = Convert.ToDouble(dr["折扣"]);
                     monomers.SaleIdMonomerId = i + 1;
-                    monomers.Number = Convert.ToInt32(dr["数量"]);
-                    monomers.TotalPrice = Convert.ToDouble(dr["码洋"]);
-                    monomers.RealPrice = Convert.ToDouble(dr["实洋"]);
+                    monomers.Number = 0- Math.Abs(Convert.ToInt32(dr["数量"]));
+                    monomers.TotalPrice = 0- Math.Abs(Convert.ToDouble(dr["码洋"]));
+                    monomers.RealPrice = 0- Math.Abs(Convert.ToDouble(dr["实洋"]));
                     monomers.SaleHeadId = retailHeadId;
                     monomers.Datetime = DateTime.Now;
                     DataSet dsStock = stockBll.SelectByBookNum(monomers.BookNum, user.ReginId.RegionId);
