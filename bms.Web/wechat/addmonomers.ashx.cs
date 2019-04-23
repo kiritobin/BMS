@@ -198,24 +198,62 @@ namespace bms.Web.wechat
                         {
                             int regionid = saletaskbll.GetregionidBysaleid(saleId);
                             int count = stobll.selectStockNum(bookds.Tables[0].Rows[i]["bookNum"].ToString(), regionid);
-
+                            if (count == 0) continue;
                             dt.Rows.Add(bookds.Tables[0].Rows[i]["bookNum"].ToString(), Convert.ToInt32((i + 1)), bookds.Tables[0].Rows[i]["bookName"].ToString(), Convert.ToDouble(bookds.Tables[0].Rows[i]["price"].ToString()), count, "");
                         }
-
-                        Page page = new Page();
-                        if (copy == "" || copy == null)
+                        if (dt.Rows.Count == 1)
                         {
-                            page.number = "0";
+                            book book = new book();
+                            //bookNum,ISBN,price,author,bookName,supplier
+                            int regionid = saletaskbll.GetregionidBysaleid(saleId);
+                            int count = stobll.selectStockNum(dt.Rows[0]["bookNum"].ToString(), regionid);
+                            if (count != 0)
+                            {
+                                book.BookNum = bookds.Tables[0].Rows[0]["bookNum"].ToString();
+                                book.BookName = bookds.Tables[0].Rows[0]["bookName"].ToString();
+                                book.Price = double.Parse(bookds.Tables[0].Rows[0]["price"].ToString());
+                                book.count = count;
+                                if (copy == "" || copy == null)
+                                {
+                                    book.number = "0";
+                                }
+                                else
+                                {
+                                    book.number = copy;
+                                }
+                                string json = JsonHelper.JsonSerializerBySingleData(book);
+                                context.Response.Write(json);
+                                context.Response.End();
+                            }
+                            else
+                            {
+                                context.Response.Write("无数据");
+                                context.Response.End();
+                            }
+                        }
+                        else if (dt.Rows.Count != 0)
+                        {
+                            Page page = new Page();
+                            if (copy == "" || copy == null)
+                            {
+                                page.number = "0";
+                            }
+                            else
+                            {
+                                page.number = copy;
+                            }
+                            page.data = JsonHelper.ToJson(dt, "book");
+                            page.type = "books";
+                            string json = JsonHelper.JsonSerializerBySingleData(page);
+                            context.Response.Write(json);
+                            context.Response.End();
                         }
                         else
                         {
-                            page.number = copy;
+                            context.Response.Write("无数据");
+                            context.Response.End();
                         }
-                        page.data = JsonHelper.ToJson(dt, "book");
-                        page.type = "books";
-                        string json = JsonHelper.JsonSerializerBySingleData(page);
-                        context.Response.Write(json);
-                        context.Response.End();
+
                     }
                     //只有一条数据
                     else
@@ -224,21 +262,30 @@ namespace bms.Web.wechat
                         //bookNum,ISBN,price,author,bookName,supplier
                         int regionid = saletaskbll.GetregionidBysaleid(saleId);
                         int count = stobll.selectStockNum(bookds.Tables[0].Rows[0]["bookNum"].ToString(), regionid);
-                        book.BookNum = bookds.Tables[0].Rows[0]["bookNum"].ToString();
-                        book.BookName = bookds.Tables[0].Rows[0]["bookName"].ToString();
-                        book.Price = double.Parse(bookds.Tables[0].Rows[0]["price"].ToString());
-                        book.count = count;
-                        if (copy == "" || copy == null)
+                        if (count != 0)
                         {
-                            book.number = "0";
+                            book.BookNum = bookds.Tables[0].Rows[0]["bookNum"].ToString();
+                            book.BookName = bookds.Tables[0].Rows[0]["bookName"].ToString();
+                            book.Price = double.Parse(bookds.Tables[0].Rows[0]["price"].ToString());
+                            book.count = count;
+                            if (copy == "" || copy == null)
+                            {
+                                book.number = "0";
+                            }
+                            else
+                            {
+                                book.number = copy;
+                            }
+                            string json = JsonHelper.JsonSerializerBySingleData(book);
+                            context.Response.Write(json);
+                            context.Response.End();
                         }
                         else
                         {
-                            book.number = copy;
+                            context.Response.Write("无数据");
+                            context.Response.End();
                         }
-                        string json = JsonHelper.JsonSerializerBySingleData(book);
-                        context.Response.Write(json);
-                        context.Response.End();
+
                     }
                 }
                 else
