@@ -485,9 +485,9 @@ namespace bms.Bll
         /// </summary>
         /// <param name="openid">用户唯一标识</param>
         /// <returns></returns>
-        public DataSet selectHead(string openid)
+        public DataSet selectHead(string openid, int regionId)
         {
-            return dao.selectHead(openid);
+            return dao.selectHead(openid, regionId);
         }
 
         /// <summary>

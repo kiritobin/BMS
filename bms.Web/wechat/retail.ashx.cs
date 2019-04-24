@@ -431,9 +431,10 @@ namespace bms.Web.wechat
         public void openid(HttpContext context)
         {
             string openid = context.Request["openid"];
-            if(openid !=null && openid != "")
+            string regionid = context.Request["regionid"];
+            if (openid !=null && openid != "" && regionid != null && regionid != "")
             {
-                DataSet dsHead = retailBll.selectHead(openid);
+                DataSet dsHead = retailBll.selectHead(openid, Convert.ToInt32(regionid));
                 if(dsHead == null|| dsHead.Tables[0].Rows.Count <= 0)
                 {
                     retailM.type = "暂无订单信息";
@@ -450,6 +451,13 @@ namespace bms.Web.wechat
                     context.Response.Write(json);
                     context.Response.End();
                 }
+            }
+            else
+            {
+                retailM.type = "系统错误";
+                string json = JsonHelper.JsonSerializerBySingleData(retailM);
+                context.Response.Write(json);
+                context.Response.End();
             }
         }
         /// <summary>

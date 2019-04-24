@@ -700,11 +700,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="openid">用户唯一标识</param>
         /// <returns></returns>
-        public DataSet selectHead(string openid)
+        public DataSet selectHead(string openid,int regionId)
         {
-            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,retailHeadId,dateTime from V_RetailHead where openid=@openid and deleteState=0 ORDER BY dateTime desc";
-            string[] param = { "@openid" };
-            object[] values = { openid };
+            string cmdText = "select allTotalPrice,number,allRealPrice,kindsNum,retailHeadId,dateTime from V_RetailHead where openid=@openid and regionId=@regionId and deleteState=0 ORDER BY dateTime desc";
+            string[] param = { "@openid", "@regionId" };
+            object[] values = { openid, regionId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
             int count = ds.Tables[0].Rows.Count;
             if (ds == null || count <= 0)
