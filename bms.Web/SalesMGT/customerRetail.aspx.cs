@@ -86,25 +86,33 @@ namespace bms.Web.SalesMGT
                         string bookNum = dr["bookNum"].ToString();
                         int number = Convert.ToInt32(dr["number"]);
                         DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
-                        int rows = dsStock.Tables[0].Rows.Count;
-                        if (rows == 0)
+                        if (dsStock != null)
                         {
-                            Response.Write("此书籍无库存:|" + dr["bookName"]);
-                            Response.End();
+                            int rows = dsStock.Tables[0].Rows.Count;
+                            if (rows == 0)
+                            {
+                                Response.Write("此书籍无库存:|" + dr["bookName"]);
+                                Response.End();
+                            }
+                            else
+                            {
+                                int stockNum = 0, stockNums = 0;
+                                for (int j = 0; j < rows; j++)
+                                {
+                                    stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
+                                    stockNums = stockNums + stockNum;
+                                }
+                                if (stockNums < number)
+                                {
+                                    Response.Write("此书籍库存不足:|" + dr["bookName"] + "|," + stockNums);
+                                    Response.End();
+                                }
+                            }
                         }
                         else
                         {
-                            int stockNum = 0, stockNums=0;
-                            for (int j = 0; j < rows; j++)
-                            {
-                                stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
-                                stockNums = stockNums + stockNum;
-                            }
-                            if (stockNums < number)
-                            {
-                                Response.Write("此书籍库存不足:|" + dr["bookName"]+"|,"+ stockNums);
-                                Response.End();
-                            }
+                            Response.Write("此书籍无库存:|" + dr["bookName"]);
+                            Response.End();
                         }
                     }
                 }
