@@ -275,35 +275,29 @@ namespace bms.Web.SalesMGT
                     monomers.SaleHeadId = retailHeadId;
                     monomers.Datetime = DateTime.Now;
                     DataSet dsStock = stockBll.SelectByBookNum(monomers.BookNum, user.ReginId.RegionId);
-                    int rowes = dsStock.Tables[0].Rows.Count;
-                    if (rowes == 0)
+                    if (dsStock == null || dsStock.Tables[0].Rows.Count <= 0)
                     {
                         Response.Write("库存不足");
                         Response.End();
                     }
                     else
                     {
-                        for (int j = 0; j < rowes; j++)
+                        string goodsId = dsStock.Tables[0].Rows[0]["goodsShelvesId"].ToString();
+                        int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[0]["stockNum"]);
+                        Result stock = stockBll.update(stockNum + Math.Abs(monomers.Number), goodsId, monomers.BookNum);
+                        if (stock == Result.更新失败)
                         {
-                            string goodsId = dsStock.Tables[0].Rows[i]["goodsShelvesId"].ToString();
-                            int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[i]["stockNum"]);
-                            Result stock = stockBll.update(stockNum + monomers.Number, goodsId, monomers.BookNum);
-                            if (stock == Result.更新失败)
-                            {
-                                Response.Write("更新失败");
-                                Response.End();
-                            }
-                        }
-                        Result mon = retailBll.InsertRetail(monomers);
-                        if (mon == Result.添加成功)
-                        {
-                            Response.Write("添加成功");
+                            Response.Write("更新失败");
                             Response.End();
                         }
                         else
                         {
-                            Response.Write("添加失败");
-                            Response.End();
+                            Result mon = retailBll.InsertRetail(monomers);
+                            if (mon == Result.添加失败)
+                            {
+                                Response.Write("添加失败");
+                                Response.End();
+                            }
                         }
                     }
                 }

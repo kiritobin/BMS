@@ -122,24 +122,50 @@ namespace bms.Web.SalesMGT
                 string headId = Request["headId"];
                 string payType = Request["payType"];
                 DataSet dsEnd = retailBll.GetRetail(headId);
-                int row = dsEnd.Tables[0].Rows.Count;
-                for (int i = 0; i < row; i++)
+                if (dsEnd != null && dsEnd.Tables[0].Rows.Count>0)
                 {
-                    DataRow dr = dsEnd.Tables[0].Rows[i];
-                    string bookNum = dr["bookNum"].ToString();
-                    int number = Convert.ToInt32(dr["number"]);
-                    count = number;
-                    DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
-                    int rows = dsStock.Tables[0].Rows.Count;
-                    for (int j = 0; j < rows; j++)
+                    int row = dsEnd.Tables[0].Rows.Count;
+                    for (int i = 0; i < row; i++)
                     {
-                        number = count;
-                        int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
-                        string goodsId = dsStock.Tables[0].Rows[j]["goodsShelvesId"].ToString();
-                        if (stockNum > number)
+                        DataRow dr = dsEnd.Tables[0].Rows[i];
+                        string bookNum = dr["bookNum"].ToString();
+                        int number = Convert.ToInt32(dr["number"]);
+                        count = number;
+                        DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
+                        if (dsStock != null && dsStock.Tables[0].Rows.Count > 0)
                         {
-                            Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
-                            if (stock == Result.更新失败)
+                            int rows = dsStock.Tables[0].Rows.Count;
+                            for (int j = 0; j < rows; j++)
+                            {
+                                number = count;
+                                int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
+                                string goodsId = dsStock.Tables[0].Rows[j]["goodsShelvesId"].ToString();
+                                if (stockNum > number)
+                                {
+                                    Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
+                                    if (stock == Result.更新失败)
+                                    {
+                                        Response.Write("更新失败:|");
+                                        Response.End();
+                                    }
+                                }
+                                else
+                                {
+                                    count = number - stockNum;
+                                    Result stock = stockBll.update(0, goodsId, bookNum);
+                                    if (stock == Result.更新失败)
+                                    {
+                                        Response.Write("更新失败:|");
+                                        Response.End();
+                                    }
+                                    if (count == 0)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            Result end = retailBll.updateType(headId, user, payType);
+                            if (end == Result.更新失败)
                             {
                                 Response.Write("更新失败:|");
                                 Response.End();
@@ -147,27 +173,17 @@ namespace bms.Web.SalesMGT
                         }
                         else
                         {
-                            count = number - stockNum;
-                            Result stock = stockBll.update(0, goodsId, bookNum);
-                            if (stock == Result.更新失败)
-                            {
-                                Response.Write("更新失败:|");
-                                Response.End();
-                            }
-                            if (count == 0)
-                            {
-                                break;
-                            }
+                            Response.Write("此书籍无库存:|" + dr["bookName"].ToString());
+                            Response.End();
                         }
                     }
-                    Result end = retailBll.updateType(headId, user, payType);
-                    if (end == Result.更新失败)
-                    {
-                        Response.Write("更新失败:|");
-                        Response.End();
-                    }
+                    Pay(headId);
                 }
-                Pay(headId);
+                else
+                {
+                    Response.Write("此单据不存在:|");
+                    Response.End();
+                }
             }
         }
 
@@ -185,9 +201,9 @@ namespace bms.Web.SalesMGT
             {
                 BookBasicBll bookBasicBll = new BookBasicBll();
                 DataSet bookDs = bookBasicBll.SelectByIsbn(isbn);
-                int count = bookDs.Tables[0].Rows.Count;
                 if (bookDs != null && bookDs.Tables[0].Rows.Count > 0)
                 {
+                    int count = bookDs.Tables[0].Rows.Count;
                     if (count == 1)
                     {
                         string headId = "", bookNum = "";
@@ -330,34 +346,37 @@ namespace bms.Web.SalesMGT
                     {
                         StringBuilder sb = new StringBuilder();
                         DataSet dsNew = retailBll.GetRetail(headId);
-                        int counts = dsNew.Tables[0].Rows.Count;
-                        for (int i = 0; i < counts; i++)
+                        if (dsNew != null && dsNew.Tables[0].Rows.Count > 0)
                         {
-                            DataRow dr = dsNew.Tables[0].Rows[i];
-                            sb.Append("<tr><td>" + dr["retailMonomerId"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
-                            sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
-                            //sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
-                            sb.Append("<td><div class='gw_num' style='width:100%'><em class='jian' style='height:100%;width:40%;'>-</em>");
-                            sb.Append("<input type = 'text' min='1' value='" + dr["number"].ToString() + "' class='num' readonly='readonly' style='width:20%;height:100%'/>");
-                            sb.Append("<em class='add' style='height:100%;width:40%;'>+</em></div></td>");
-                            sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
-                            sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
-                            sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
-                            sb.Append("<td><button class='btn btn-danger btn-sm delete'><i class='fa fa-trash'></i></button></td></tr>");
-                        }
-                        if (addType == "other")
-                        {
-                            Response.Write(addType +"|:" + sb.ToString() + "|:" + newSale.KindsNum + "," + newSale.Number + "," + newSale.AllTotalPrice + "," + newSale.AllRealPrice + "|:" + headId);
-                            Response.End();
-                        }
-                        else
-                        {
-                            Response.Write(sb.ToString() + "|:" + newSale.KindsNum + "," + newSale.Number + "," + newSale.AllTotalPrice + "," + newSale.AllRealPrice + "|:" + headId);
-                            Response.End();
+                            int counts = dsNew.Tables[0].Rows.Count;
+                            for (int i = 0; i < counts; i++)
+                            {
+                                DataRow dr = dsNew.Tables[0].Rows[i];
+                                sb.Append("<tr><td>" + dr["retailMonomerId"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
+                                sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
+                                //sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                                sb.Append("<td><div class='gw_num' style='width:100%'><em class='jian' style='height:100%;width:40%;'>-</em>");
+                                sb.Append("<input type = 'text' min='1' value='" + dr["number"].ToString() + "' class='num' readonly='readonly' style='width:20%;height:100%'/>");
+                                sb.Append("<em class='add' style='height:100%;width:40%;'>+</em></div></td>");
+                                sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
+                                sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
+                                sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
+                                sb.Append("<td><button class='btn btn-danger btn-sm delete'><i class='fa fa-trash'></i></button></td></tr>");
+                            }
+                            if (addType == "other")
+                            {
+                                Response.Write(addType + "|:" + sb.ToString() + "|:" + newSale.KindsNum + "," + newSale.Number + "," + newSale.AllTotalPrice + "," + newSale.AllRealPrice + "|:" + headId);
+                                Response.End();
+                            }
+                            else
+                            {
+                                Response.Write(sb.ToString() + "|:" + newSale.KindsNum + "," + newSale.Number + "," + newSale.AllTotalPrice + "," + newSale.AllRealPrice + "|:" + headId);
+                                Response.End();
+                            }
                         }
                     }
                     else
@@ -412,32 +431,35 @@ namespace bms.Web.SalesMGT
                         Response.Write("记录不存在");
                         Response.End();
                     }
-                    StringBuilder sb = new StringBuilder();
-                    int counts = ds.Tables[0].Rows.Count;
-                    for (int i = 0; i < counts; i++)
+                    else
                     {
-                        DataRow dr = ds.Tables[0].Rows[i];
-                        sb.Append("<tr><td>" + dr["retailMonomerId"].ToString() + "</td>");
-                        sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
-                        sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
-                        sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
-                        sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
-                        //sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
-                        sb.Append("<td><div class='gw_num' style='width:100%'><em class='jian' style='height:100%;width:40%;'>-</em>");
-                        sb.Append("<input type = 'text' min='1' value='" + dr["number"].ToString() + "' class='num' readonly='readonly' style='width:20%;height:100%'/>");
-                        sb.Append("<em class='add' style='height:100%;width:40%;'>+</em></div></td>");
-                        sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
-                        sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
-                        sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
-                        sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
-                        sb.Append("<td><button class='btn btn-danger btn-sm delete'><i class='fa fa-trash'></i></button></td></tr>");
+                        StringBuilder sb = new StringBuilder();
+                        int counts = ds.Tables[0].Rows.Count;
+                        for (int i = 0; i < counts; i++)
+                        {
+                            DataRow dr = ds.Tables[0].Rows[i];
+                            sb.Append("<tr><td>" + dr["retailMonomerId"].ToString() + "</td>");
+                            sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
+                            sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
+                            sb.Append("<td>" + dr["unitPrice"].ToString() + "</td>");
+                            sb.Append("<td style='display:none'>" + dr["number"].ToString() + "</td>");
+                            //sb.Append("<td><input class='numberEnd' type='number' style='width:50px;border:none;' name='points',min='1' value='" + dr["number"].ToString() + "'/></td>");
+                            sb.Append("<td><div class='gw_num' style='width:100%'><em class='jian' style='height:100%;width:40%;'>-</em>");
+                            sb.Append("<input type = 'text' min='1' value='" + dr["number"].ToString() + "' class='num' readonly='readonly' style='width:20%;height:100%'/>");
+                            sb.Append("<em class='add' style='height:100%;width:40%;'>+</em></div></td>");
+                            sb.Append("<td>" + dr["realDiscount"].ToString() + "</td>");
+                            sb.Append("<td>" + dr["totalPrice"].ToString() + "</td>");
+                            sb.Append("<td>" + dr["realPrice"].ToString() + "</td>");
+                            sb.Append("<td style='display:none'>" + dr["bookNum"].ToString() + "</td>");
+                            sb.Append("<td><button class='btn btn-danger btn-sm delete'><i class='fa fa-trash'></i></button></td></tr>");
+                        }
+                        allReal = sale.AllRealPrice;
+                        allTotal = sale.AllTotalPrice;
+                        count = sale.Number;
+                        kind = counts;
+                        Response.Write("number:" + allTotal + "," + allReal + "," + count + "," + kind + "|:" + sb.ToString());
+                        Response.End();
                     }
-                    allReal = sale.AllRealPrice;
-                    allTotal = sale.AllTotalPrice;
-                    count = sale.Number;
-                    kind = counts;
-                    Response.Write("number:" + allTotal + "," + allReal + "," + count + "," + kind + "|:" + sb.ToString());
-                    Response.End();
                 }
             }
         }
@@ -651,23 +673,31 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public string Pay(string headId)
         {
-            DataSet dsPay = retailBll.GetRetail(headId);
             StringBuilder sb = new StringBuilder();
             DataSet dsNew = retailBll.GetRetail(headId);
-            int counts = dsNew.Tables[0].Rows.Count;
-            sb.Append("<tbody>");
-            for (int i = 0; i < counts; i++)
+            if (dsNew != null && dsNew.Tables[0].Rows.Count > 0)
             {
-                DataRow dr = dsNew.Tables[0].Rows[i];
-                sb.Append("<tr><td style='font-size:14px;'>" + dr["bookName"].ToString() + "</td>");
-                sb.Append("<td>" + dr["number"].ToString() + "</td>");
-                sb.Append("<td>" + dr["unitPrice"].ToString() + "</td></tr>");
-            }
-            sb.Append("</tbody>");
+                int counts = dsNew.Tables[0].Rows.Count;
+                sb.Append("<tbody>");
+                for (int i = 0; i < counts; i++)
+                {
+                    DataRow dr = dsNew.Tables[0].Rows[i];
+                    sb.Append("<tr><td style='font-size:14px;'>" + dr["bookName"].ToString() + "</td>");
+                    sb.Append("<td>" + dr["number"].ToString() + "</td>");
+                    sb.Append("<td>" + dr["unitPrice"].ToString() + "</td></tr>");
+                }
+                sb.Append("</tbody>");
 
-            Response.Write("更新成功:|"+sb.ToString());
-            Response.End();
-            return sb.ToString();
+                Response.Write("更新成功:|" + sb.ToString());
+                Response.End();
+                return sb.ToString();
+            }
+            else
+            {
+                Response.Write("更新失败:|");
+                Response.End();
+                return null;
+            }
         }
         /// <summary>
         /// 添加零售单头
