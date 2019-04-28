@@ -165,7 +165,7 @@ namespace bms.Web.SalesMGT
                 monRow["bookNum"] = bookNum;
                 monRow["bookName"] = bookName;
                 monRow["realDiscount"] = discount;
-                monRow["number"] = 1;
+                monRow["number"] = retail.Number;
                 monRow["totalPrice"] = uPrice;
                 monRow["realPrice"] = uPrice * discount*0.01;
                 monTable.Rows.Add(monRow);
