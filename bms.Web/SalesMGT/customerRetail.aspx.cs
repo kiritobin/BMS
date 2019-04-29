@@ -143,7 +143,11 @@ namespace bms.Web.SalesMGT
                                 if (stockNum > number)
                                 {
                                     Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
-                                    if (stock == Result.更新失败)
+                                    if (stock == Result.更新成功)
+                                    {
+                                        break;
+                                    }
+                                    else
                                     {
                                         Response.Write("更新失败:|");
                                         Response.End();
@@ -164,12 +168,6 @@ namespace bms.Web.SalesMGT
                                     }
                                 }
                             }
-                            Result end = retailBll.updateType(headId, user, payType);
-                            if (end == Result.更新失败)
-                            {
-                                Response.Write("更新失败:|");
-                                Response.End();
-                            }
                         }
                         else
                         {
@@ -177,7 +175,16 @@ namespace bms.Web.SalesMGT
                             Response.End();
                         }
                     }
-                    Pay(headId);
+                    Result end = retailBll.updateType(headId, user, payType);
+                    if (end == Result.更新成功)
+                    {
+                        Pay(headId);
+                    }
+                    else
+                    {
+                        Response.Write("更新失败:|");
+                        Response.End();
+                    }
                 }
                 else
                 {
