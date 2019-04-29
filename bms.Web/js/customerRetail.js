@@ -27,7 +27,7 @@ function pad(num, n) {
 //输入isbn后回车
 $("#search").keypress(function (e) {
     if (e.keyCode == 13) {
-            //回车事件触发
+        //回车事件触发
         if (e.keyCode == 13) {
             sessionStorage.setItem("ISBN", $("#search").val())
             var kind = $("#kind").text().trim();
@@ -802,15 +802,15 @@ $("#btnSettle").click(function () {
             type: "warning"
         }).catch(swal.noop);
     }
-    else if (parseFloat(discount) <= 0) {
+    else if (parseFloat(discount) < 0) {
         swal({
-            title: "折扣不能为0",
+            title: "折扣不能小于0",
             text: "",
             buttonsStyling: false,
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-        }
+    }
     else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
         swal({
             title: "实付金额不能为空或0",
