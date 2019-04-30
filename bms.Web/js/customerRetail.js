@@ -829,6 +829,7 @@ $("#btnSettle").click(function () {
             $(".noneDiscount").remove();
             sessionStorage.setItem("content", "show");
         }
+        $("#btnSettle").attr('disabled', true);
         $.ajax({
             type: 'Post',
             url: 'customerRetail.aspx',
@@ -839,6 +840,7 @@ $("#btnSettle").click(function () {
             },
             dataType: 'text',
             success: function (succ) {
+                $("#btnSettle").attr('disabled', false);
                 var datas = succ.split(":|");
                 var data = datas[0];
                 if (data == "此书籍库存不足") {
@@ -939,6 +941,15 @@ $("#btnSettle").click(function () {
                         window.location.href = "/CLodop_Setup_for_Win32NT.html";
                     }
                 }
+            }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $("#btnSettle").attr('disabled', false);
+                swal({
+                    title: "结算失败",
+                    text: "",
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-warning",
+                    type: "warning"
+                }).catch(swal.noop);
             }
         })
     }
