@@ -1201,6 +1201,16 @@ namespace bms.Dao
             }
             return true;
         }
-
+        /// <summary>
+        /// 添加销售单体，并更新库存
+        /// </summary>
+        /// <param name="saleText">添加单体语句</param>
+        /// <param name="stockText">查询库存语句</param>
+        /// <param name="sale">销售单体</param>
+        /// <returns></returns>
+        public int addsale(string saleText, string stockText, SaleMonomer sale)
+        {
+            return db.addsale(saleText, stockText, sale);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using bms.Model;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -337,5 +338,90 @@ namespace bms.DBHelper
                 CloseConn();
             }
         }
+
+        /// <summary>
+        /// 添加销售单体，并更新库存
+        /// </summary>
+        /// <param name="saleText">添加单体语句</param>
+        /// <param name="stockText">查询库存语句</param>
+        /// <param name="sale">销售单体</param>
+        /// <returns></returns>
+        public int addsale(string saleText,string stockText, SaleMonomer sale)
+        {
+            OpenConn();
+            int error = 1;
+            MySqlTransaction tran = sqlConn.BeginTransaction();
+            MySqlCommand myCmd;
+            myCmd= new MySqlCommand(saleText, sqlConn);
+            myCmd.Transaction = tran;
+            try
+            {
+                //添加单体信息
+                myCmd.ExecuteNonQuery();
+                //查询库存数据
+                MySqlCommand myCmdQueryBookss = new MySqlCommand(stockText, sqlConn);
+
+                MySqlDataAdapter myAdp = new MySqlDataAdapter(myCmdQueryBookss);
+                DataSet ds = new DataSet();
+                myAdp.Fill(ds);
+                int number = sale.Number;
+                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                {
+                    int stockNum = Convert.ToInt32(ds.Tables[0].Rows[j]["stockNum"]);
+                    string goodsId = ds.Tables[0].Rows[j]["goodsShelvesId"].ToString();
+                   
+                    if (number <= stockNum)
+                    {
+                        int stockcount = stockNum - number;
+                        //更新库存
+                        string upcmd ="update T_Stock set stockNum=" + stockcount + " where goodsShelvesId=" + goodsId + " and bookNum='"+sale.BookNum+"'";
+                        MySqlCommand myCmdupdate = new MySqlCommand(upcmd, sqlConn);
+                        try
+                        {
+                            myCmdupdate.ExecuteNonQuery();
+                            if ((number == stockNum)||number<0) break;
+                        }
+                        catch (Exception ex)
+                        {
+                            error = 0;
+                            throw ex;
+                        }
+                    }
+                    else
+                    {
+                        number = number - stockNum;
+                        MySqlCommand myCmdupdate = new MySqlCommand("update T_Stock set stockNum=" + 0 + " where goodsShelvesId=" + goodsId + " and bookNum='" + sale.BookNum+"'", sqlConn);
+                        try
+                        {
+                            myCmdupdate.ExecuteNonQuery();
+                        }
+                        catch (Exception ex)
+                        {
+                            error = 0;
+                            throw ex;
+                        }
+                        if (number == 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+                tran.Commit();
+                return error;
+            }
+            catch (Exception ex)
+            {
+                error = 0;
+                tran.Rollback();
+                return error;
+                throw ex;
+            }
+            finally
+            {
+                CloseConn();
+            }
+        }
+
     }
+
 }
