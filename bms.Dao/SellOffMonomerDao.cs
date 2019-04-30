@@ -96,7 +96,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet selctByBookNum(string bookNum,string saleTaskId)
         {
-            string sql = "select number from V_SaleMonomer where bookNum=@bookNum and saleTaskId=@saleTaskId";
+            string sql = "select number,state from v_allsalemonomer where bookNum=@bookNum and saleTaskId=@saleTaskId and state!=3";
             string[] param = { "@bookNum", "@saleTaskId" };
             object[] values = { bookNum,saleTaskId };
             DataSet ds = db.FillDataSet(sql, param, values);
