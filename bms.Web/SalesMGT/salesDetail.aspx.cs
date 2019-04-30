@@ -432,28 +432,28 @@ namespace bms.Web.SalesMGT
                         Datetime = Time,
                         SaleTaskId = saleId
                     };
+                    //for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
+                    //{
+                    //    int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
+                    //    string goodsId = stockbook.Tables[0].Rows[j]["goodsShelvesId"].ToString();
+                    //    if (number <= stockNum)
+                    //    {
+                    //        int stockcount = stockNum - number;
+                    //        stockbll.update(stockcount, goodsId, bookNum);
 
-                    for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
-                    {
-                        int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
-                        string goodsId = stockbook.Tables[0].Rows[j]["goodsShelvesId"].ToString();
-                        if (number <= stockNum)
-                        {
-                            int stockcount = stockNum - number;
-                            stockbll.update(stockcount, goodsId, bookNum);
+                    //    }
+                    //    else
+                    //    {
+                    //        number = number - stockNum;
+                    //        stockbll.update(0, goodsId, bookNum);
+                    //        if (number == 0)
+                    //        {
+                    //            break;
+                    //        }
+                    //    }
+                    //}
 
-                        }
-                        else
-                        {
-                            number = number - stockNum;
-                            stockbll.update(0, goodsId, bookNum);
-                            if (number == 0)
-                            {
-                                break;
-                            }
-                        }
-                    }
-                    Result res = salemonbll.Insert(newSalemon);
+                    Result res = salemonbll.addsale(RegionId, newSalemon);
                     if (res == Result.添加成功)
                     {
                         updateSalehead();

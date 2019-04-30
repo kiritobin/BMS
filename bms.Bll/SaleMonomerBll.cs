@@ -893,5 +893,26 @@ namespace bms.Bll
             return SaleMonomerdao.isexites(saletaskId, booknum);
 
         }
+        /// <summary>
+        /// 添加现采销售单体
+        /// </summary>
+        /// <param name="RegionId">地区id</param>
+        /// <param name="sale">销售单体</param>
+        /// <returns></returns>
+        public Result addsale(int RegionId, SaleMonomer sale)
+        {
+            string saleText= "insert into T_SaleMonomer set saleIdMonomerId="+sale.SaleIdMonomerId+",bookNum='"+sale.BookNum+"',ISBN='"+sale.ISBN1+"',saleHeadId='"+sale.SaleHeadId+"',number="+sale.Number+",unitPrice="+sale.UnitPrice+",totalPrice="+sale.TotalPrice+",realDiscount="+sale.RealDiscount+",realPrice="+sale.RealPrice+",dateTime='"+sale.Datetime+"',alreadyBought="+sale.AlreadyBought+",saleTaskId='"+sale.SaleTaskId+"'";
+            string stockText= "select goodsShelvesId,stockNum from T_Stock where bookNum = '"+sale.BookNum+"' and regionId = "+RegionId+" order by stockNum asc";
+          
+            int row= SaleMonomerdao.addsale(saleText, stockText, sale);
+            if (row > 0)
+            {
+                return Result.添加成功;
+            }
+            else
+            {
+                return Result.添加失败;
+            }
+        }
     }
 }

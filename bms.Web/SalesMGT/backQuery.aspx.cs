@@ -202,8 +202,16 @@ namespace bms.Web.SalesMGT
                     DataSet stds = smBll.getSaleTask(sellId);
                     string stId = Session["saleId"].ToString();
                     DataSet seds = smBll.getDisCount(stId,bookNo);
-                    string dc = seds.Tables[0].Rows[0]["realDiscount"].ToString();
-                    double discount = double.Parse(dc);//默认折扣
+                    string dc = null;
+                    if (seds.Tables[0].Rows.Count > 0)
+                    {
+                        dc = seds.Tables[0].Rows[0]["realDiscount"].ToString();
+                    }
+                    double discount = 0;//默认折扣
+                    if (dc != null)
+                    {
+                        discount = double.Parse(dc);
+                    }
 
                     int count = int.Parse(Request["count"]);//数量
                     double totalPrice = unitPrice * count;//码洋
@@ -220,21 +228,20 @@ namespace bms.Web.SalesMGT
                     //string stId = stds.Tables[0].Rows[0]["saleTaskId"].ToString();//销售任务Id
                     DataSet countds = smBll.selctByBookNum(bookNo, stId);
                     int num = 0;
-                    SellOffMonomer sm = new SellOffMonomer()
-                    {
-                        SellOffMonomerId = smId.ToString(),
-                        SellOffHeadId = headId,
-                        BookNum = long.Parse(bookNo),
-                        ISBN1 = isbn,
-                        Count = count,
-                        TotalPrice = totalPrice,
-                        RealPrice = realPrice,
-                        Price = unitPrice,
-                        Time = time,
-                        Discount = discount
-                    };
+                    SellOffMonomer sm = new SellOffMonomer();
+                    sm.SellOffMonomerId = smId.ToString();
+                    sm.SellOffHeadId = headId;
+                    sm.BookNum = long.Parse(bookNo);
+                    sm.ISBN1 = isbn;
+                    sm.Count = count;
+                    sm.TotalPrice = totalPrice;
+                    sm.RealPrice = realPrice;
+                    sm.Price = unitPrice;
+                    sm.Time = time;
+                    sm.Discount = discount;
                     DataSet smcountds = smBll.selecctSm(bookNo, sellId);
                     int allcount = 0;
+                    string state = null;
                     if (countds != null)//获取销售中的相应的数量
                     {
                         for (int i = 0; i < countds.Tables[0].Rows.Count; i++)
@@ -251,12 +258,11 @@ namespace bms.Web.SalesMGT
                     }
                     if (count > num || (count + allcount) > num)//判断销退数量是否大于销售数量
                     {
-                        Response.Write("数据过大");
+                        Response.Write("销退数量大于销售数量");
                         Response.End();
                     }
                     else
                     {
-
                         Result row = smBll.Insert(sm);
                         if (row == Result.添加成功)//先添加销退体
                         {

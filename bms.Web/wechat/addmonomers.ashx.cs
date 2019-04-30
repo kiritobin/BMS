@@ -488,27 +488,27 @@ namespace bms.Web.wechat
                         SaleTaskId = saleId
                     };
 
-                    for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
-                    {
-                        int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
-                        string goodsId = stockbook.Tables[0].Rows[j]["goodsShelvesId"].ToString();
-                        if (number <= stockNum)
-                        {
-                            int stockcount = stockNum - number;
-                            stobll.update(stockcount, goodsId, bookNum);
+                    //for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
+                    //{
+                    //    int stockNum = Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
+                    //    string goodsId = stockbook.Tables[0].Rows[j]["goodsShelvesId"].ToString();
+                    //    if (number <= stockNum)
+                    //    {
+                    //        int stockcount = stockNum - number;
+                    //        stobll.update(stockcount, goodsId, bookNum);
 
-                        }
-                        else
-                        {
-                            number = number - stockNum;
-                            stobll.update(0, goodsId, bookNum);
-                            if (number == 0)
-                            {
-                                break;
-                            }
-                        }
-                    }
-                    Result insertres = salemonbll.Insert(newSalemon); ;
+                    //    }
+                    //    else
+                    //    {
+                    //        number = number - stockNum;
+                    //        stobll.update(0, goodsId, bookNum);
+                    //        if (number == 0)
+                    //        {
+                    //            break;
+                    //        }
+                    //    }
+                    //}
+                    Result insertres = salemonbll.addsale(regionid,newSalemon); 
                     string op = context.Request["op"];
                     if (insertres == Result.添加成功)
                     {
