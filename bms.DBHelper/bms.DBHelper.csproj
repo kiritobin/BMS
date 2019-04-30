@@ -98,6 +98,7 @@
     <Content Include="bin\Debug\NPOI.OOXML.dll" />
     <Content Include="bin\Debug\NPOI.OpenXml4Net.dll" />
     <Content Include="bin\Debug\NPOI.OpenXmlFormats.dll" />
+    <Content Include="MySql.Data.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bms.Model\bms.Model.csproj">

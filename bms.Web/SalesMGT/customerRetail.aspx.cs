@@ -1,9 +1,13 @@
 ﻿using bms.Bll;
+using bms.DBHelper;
 using bms.Model;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -119,76 +123,113 @@ namespace bms.Web.SalesMGT
             }
             if(op == "end")
             {
-                string headId = Request["headId"];
-                string payType = Request["payType"];
-                DataSet dsEnd = retailBll.GetRetail(headId);
-                if (dsEnd != null && dsEnd.Tables[0].Rows.Count>0)
+                String strConn = ConfigurationManager.ConnectionStrings["sqlConn"].ConnectionString;
+                MySqlConnection sqlConn = new MySqlConnection(strConn);
+                MySqlTransaction tran = sqlConn.BeginTransaction();
+                try
                 {
-                    int row = dsEnd.Tables[0].Rows.Count;
-                    for (int i = 0; i < row; i++)
+                    if (sqlConn != null && sqlConn.State == ConnectionState.Closed)
                     {
-                        DataRow dr = dsEnd.Tables[0].Rows[i];
-                        string bookNum = dr["bookNum"].ToString();
-                        int number = Convert.ToInt32(dr["number"]);
-                        count = number;
-                        DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
-                        if (dsStock != null && dsStock.Tables[0].Rows.Count > 0)
+                        sqlConn.Open();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                try
+                {
+                    tran = sqlConn.BeginTransaction();
+                    string headId = Request["headId"];
+                    string payType = Request["payType"];
+                    DataSet dsEnd = retailBll.GetRetail(headId);
+                    if (dsEnd != null && dsEnd.Tables[0].Rows.Count > 0)
+                    {
+                        int row = dsEnd.Tables[0].Rows.Count;
+
+                        for (int i = 0; i < row; i++)
                         {
-                            int rows = dsStock.Tables[0].Rows.Count;
-                            for (int j = 0; j < rows; j++)
+                            DataRow dr = dsEnd.Tables[0].Rows[i];
+                            string bookNum = dr["bookNum"].ToString();
+                            int number = Convert.ToInt32(dr["number"]);
+                            count = number;
+                            DataSet dsStock = stockBll.SelectByBookNum(bookNum, user.ReginId.RegionId);
+                            if (dsStock != null && dsStock.Tables[0].Rows.Count > 0)
                             {
-                                number = count;
-                                int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
-                                string goodsId = dsStock.Tables[0].Rows[j]["goodsShelvesId"].ToString();
-                                if (stockNum > number)
+                                int rows = dsStock.Tables[0].Rows.Count;
+                                for (int j = 0; j < rows; j++)
                                 {
-                                    Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
-                                    if (stock == Result.更新成功)
+                                    number = count;
+                                    int stockNum = Convert.ToInt32(dsStock.Tables[0].Rows[j]["stockNum"]);
+                                    string goodsId = dsStock.Tables[0].Rows[j]["goodsShelvesId"].ToString();
+                                    if (stockNum > number)
                                     {
-                                        break;
+                                        Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
+                                        if (stock == Result.更新成功)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            tran.Rollback();
+                                            sqlConn.Close();
+                                            Response.Write("更新失败:|");
+                                            Response.End();
+                                        }
                                     }
                                     else
                                     {
-                                        Response.Write("更新失败:|");
-                                        Response.End();
-                                    }
-                                }
-                                else
-                                {
-                                    count = number - stockNum;
-                                    Result stock = stockBll.update(0, goodsId, bookNum);
-                                    if (stock == Result.更新失败)
-                                    {
-                                        Response.Write("更新失败:|");
-                                        Response.End();
-                                    }
-                                    if (count == 0)
-                                    {
-                                        break;
+                                        count = number - stockNum;
+                                        Result stock = stockBll.update(0, goodsId, bookNum);
+                                        if (stock == Result.更新失败)
+                                        {
+                                            tran.Rollback();
+                                            sqlConn.Close();
+                                            Response.Write("更新失败:|");
+                                            Response.End();
+                                        }
+                                        if (count == 0)
+                                        {
+                                            break;
+                                        }
                                     }
                                 }
                             }
+                            else
+                            {
+                                tran.Rollback();
+                                sqlConn.Close();
+                                Response.Write("此书籍无库存:|" + dr["bookName"].ToString());
+                                Response.End();
+                            }
+                        }
+                        Result end = retailBll.updateType(headId, user, payType);
+                        if (end == Result.更新成功)
+                        {
+                            Pay(headId);
+                            tran.Commit();
+                            sqlConn.Close();
                         }
                         else
                         {
-                            Response.Write("此书籍无库存:|" + dr["bookName"].ToString());
+                            tran.Rollback();
+                            sqlConn.Close();
+                            Response.Write("更新失败:|");
                             Response.End();
                         }
                     }
-                    Result end = retailBll.updateType(headId, user, payType);
-                    if (end == Result.更新成功)
-                    {
-                        Pay(headId);
-                    }
                     else
                     {
-                        Response.Write("更新失败:|");
+                        tran.Rollback();
+                        sqlConn.Close();
+                        Response.Write("此单据不存在:|");
                         Response.End();
                     }
-                }
-                else
+                }catch(Exception ex)
                 {
-                    Response.Write("此单据不存在:|");
+                    tran.Rollback();
+                    sqlConn.Close();
+                    Response.Write("更新失败:|");
                     Response.End();
                 }
             }
