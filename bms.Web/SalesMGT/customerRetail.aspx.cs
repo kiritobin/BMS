@@ -125,7 +125,7 @@ namespace bms.Web.SalesMGT
             {
                 String strConn = ConfigurationManager.ConnectionStrings["sqlConn"].ConnectionString;
                 MySqlConnection sqlConn = new MySqlConnection(strConn);
-                MySqlTransaction tran = sqlConn.BeginTransaction();
+                MySqlTransaction trans = null;
                 try
                 {
                     if (sqlConn != null && sqlConn.State == ConnectionState.Closed)
@@ -137,9 +137,11 @@ namespace bms.Web.SalesMGT
                 {
                     throw ex;
                 }
+                trans = sqlConn.BeginTransaction();
+                MySqlCommand cmd = sqlConn.CreateCommand();
+                cmd.Transaction = trans;
                 try
                 {
-                    tran = sqlConn.BeginTransaction();
                     string headId = Request["headId"];
                     string payType = Request["payType"];
                     DataSet dsEnd = retailBll.GetRetail(headId);
@@ -164,31 +166,29 @@ namespace bms.Web.SalesMGT
                                     string goodsId = dsStock.Tables[0].Rows[j]["goodsShelvesId"].ToString();
                                     if (stockNum > number)
                                     {
-                                        Result stock = stockBll.update(stockNum - count, goodsId, bookNum);
-                                        if (stock == Result.更新成功)
+                                        cmd.CommandText = "update T_Stock set stockNum="+ (stockNum - count) + " where goodsShelvesId="+ goodsId + " and bookNum='"+ bookNum+"'";
+                                        int kucun = cmd.ExecuteNonQuery();
+                                        if (kucun <= 0)
                                         {
-                                            break;
+                                            trans.Rollback();
+                                            Response.Write("更新失败:|");
                                         }
                                         else
                                         {
-                                            tran.Rollback();
-                                            sqlConn.Close();
-                                            Response.Write("更新失败:|");
-                                            Response.End();
+                                            break;
                                         }
                                     }
                                     else
                                     {
                                         count = number - stockNum;
-                                        Result stock = stockBll.update(0, goodsId, bookNum);
-                                        if (stock == Result.更新失败)
+                                        cmd.CommandText = "update T_Stock set stockNum=0 where goodsShelvesId=" + goodsId + " and bookNum='" + bookNum+"'";
+                                        int kucun = cmd.ExecuteNonQuery();
+                                        if (kucun <= 0)
                                         {
-                                            tran.Rollback();
-                                            sqlConn.Close();
+                                            trans.Rollback();
                                             Response.Write("更新失败:|");
-                                            Response.End();
                                         }
-                                        if (count == 0)
+                                        else if(count == 0)
                                         {
                                             break;
                                         }
@@ -197,39 +197,54 @@ namespace bms.Web.SalesMGT
                             }
                             else
                             {
-                                tran.Rollback();
-                                sqlConn.Close();
                                 Response.Write("此书籍无库存:|" + dr["bookName"].ToString());
-                                Response.End();
                             }
                         }
-                        Result end = retailBll.updateType(headId, user, payType);
-                        if (end == Result.更新成功)
+                        cmd.CommandText = "update T_RetailHead set state=1,userId="+ user.UserId + ",payment='"+ payType + "' where retailHeadId='"+ headId+"'";
+                        int kucun2 = cmd.ExecuteNonQuery();
+                        if (kucun2 <= 0)
                         {
-                            Pay(headId);
-                            tran.Commit();
-                            sqlConn.Close();
+                            trans.Rollback();
+                            Response.Write("更新失败:|");
                         }
                         else
                         {
-                            tran.Rollback();
-                            sqlConn.Close();
-                            Response.Write("更新失败:|");
-                            Response.End();
+                            StringBuilder sb = new StringBuilder();
+                            DataSet dsNew = retailBll.GetRetail(headId);
+                            if (dsNew != null && dsNew.Tables[0].Rows.Count > 0)
+                            {
+                                int counts = dsNew.Tables[0].Rows.Count;
+                                sb.Append("<tbody>");
+                                for (int i = 0; i < counts; i++)
+                                {
+                                    DataRow dr = dsNew.Tables[0].Rows[i];
+                                    sb.Append("<tr><td style='font-size:14px;'>" + dr["bookName"].ToString() + "</td>");
+                                    sb.Append("<td>" + dr["number"].ToString() + "</td>");
+                                    sb.Append("<td>" + dr["unitPrice"].ToString() + "</td></tr>");
+                                }
+                                sb.Append("</tbody>");
+                                trans.Commit();
+                                Response.Write("更新成功:|" + sb.ToString());
+                            }
+                            else
+                            {
+                                trans.Rollback();
+                                Response.Write("更新失败:|");
+                            }
                         }
                     }
                     else
                     {
-                        tran.Rollback();
-                        sqlConn.Close();
                         Response.Write("此单据不存在:|");
-                        Response.End();
                     }
                 }catch(Exception ex)
                 {
-                    tran.Rollback();
-                    sqlConn.Close();
+                    trans.Rollback();
                     Response.Write("更新失败:|");
+                }
+                finally
+                {
+                    sqlConn.Close();
                     Response.End();
                 }
             }
@@ -737,7 +752,6 @@ namespace bms.Web.SalesMGT
                 sb.Append("</tbody>");
 
                 Response.Write("更新成功:|" + sb.ToString());
-                Response.End();
                 return sb.ToString();
             }
             else
