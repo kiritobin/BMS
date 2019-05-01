@@ -869,7 +869,7 @@ $("#btnSettle").click(function () {
                     }).catch(swal.noop);
                 } else if (data == "更新失败") {
                     swal({
-                        title: "结算失败",
+                        title: "网络故障，结算失败",
                         text: "",
                         buttonsStyling: false,
                         confirmButtonClass: "btn btn-warning",
