@@ -321,6 +321,13 @@ namespace bms.Web.SalesMGT
 
             BookBasicBll bookbll = new BookBasicBll();
             string booknum = bookds.Tables[0].Rows[0]["bookNum"].ToString();
+
+            //判断库存
+            DataSet stockbook = stockbll.SelectByBookNum(booknum, user.ReginId.RegionId);
+            if (stockbook==null) {
+                Response.Write("无库存");
+                Response.End();
+            }
             BookBasicData book = bookbll.SelectById(booknum);
             string remarks = book.Remarks;
             if (defaultdiscount == "-1")
@@ -555,30 +562,47 @@ namespace bms.Web.SalesMGT
             strbook.Append("</tr>");
             strbook.Append("</thead>");
             strbook.Append("<tbody>");
+            int dscount = bookds.Tables[0].Rows.Count;
+            int flag = 0;
             for (int i = 0; i < bookds.Tables[0].Rows.Count; i++)
             {
                 int booknumber = 0;
                 booknum = bookds.Tables[0].Rows[i]["bookNum"].ToString();
                 DataSet stockbook = stockbll.SelectByBookNum(booknum, user.ReginId.RegionId);
-                for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
+                if (stockbook==null)
                 {
-                    booknumber += Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
-                }
-                if (booknumber == 0)
-                {
-                    isnull++;
-                    if (isnull == count)
-                    {
-                        strbook.Append("<tr><td colspan='6'>该书无库存</td></tr>");
-                    }
+                    flag ++;
                     continue;
                 }
-                strbook.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
-                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
-                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
-                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
-                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["price"].ToString() + "</td>");
-                strbook.Append("<td>" + bookds.Tables[0].Rows[i]["supplier"].ToString() + "</td></tr>");
+               
+                else
+                {
+                    for (int j = 0; j < stockbook.Tables[0].Rows.Count; j++)
+                    {
+                        booknumber += Convert.ToInt32(stockbook.Tables[0].Rows[j]["stockNum"]);
+                    }
+                    if (booknumber == 0)
+                    {
+                        isnull++;
+                        if (isnull == count)
+                        {
+                            strbook.Append("<tr><td colspan='6'>该书无库存</td></tr>");
+                        }
+                        continue;
+                    }
+                    strbook.Append("<tr><td><div class='pretty inline'><input type = 'radio' name='radio' value='" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "'><label><i class='mdi mdi-check'></i></label></div></td>");
+                    strbook.Append("<td>" + bookds.Tables[0].Rows[i]["ISBN"].ToString() + "</td>");
+                    strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookNum"].ToString() + "</td>");
+                    strbook.Append("<td>" + bookds.Tables[0].Rows[i]["bookName"].ToString() + "</td>");
+                    strbook.Append("<td>" + bookds.Tables[0].Rows[i]["price"].ToString() + "</td>");
+                    strbook.Append("<td>" + bookds.Tables[0].Rows[i]["supplier"].ToString() + "</td></tr>");
+                }
+            }
+            if (flag == dscount)
+            {
+                strbook.Remove(0, strbook.Length);
+                Response.Write("无库存");
+                Response.End();
             }
             strbook.Append("</tbody>");
             Response.Write(strbook.ToString());
