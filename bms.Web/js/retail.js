@@ -106,7 +106,15 @@ $("#search").keypress(function (e) {
                                         confirmButtonClass: "btn btn-warning",
                                         type: "warning"
                                     }).catch(swal.noop);
-                                } else if (datas[0] == "other") {
+                                } else if (datas[0] == "已添加过此图书") {
+                                    swal({
+                                        title: "已添加过ISBN：" + sessionStorage.getItem("ISBN") + "的图书",
+                                        text: "需要继续添加可前往修改数量",
+                                        buttonsStyling: false,
+                                        confirmButtonClass: "btn btn-warning",
+                                        type: "warning"
+                                    }).catch(swal.noop);
+                                }else if (datas[0] == "other") {
                                     if (sessionStorage.getItem("kind") == "0") {
                                         //$("#table tr:eq(1)").empty();
                                         $(".first").remove();
