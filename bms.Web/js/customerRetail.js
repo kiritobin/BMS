@@ -793,6 +793,7 @@ $("#copeEnd").keypress(function (e) {
 })
 //首次打印
 $("#btnSettle").click(function () {
+    $("#btnSettle").attr('disabled', true);
     var discount = $("#discountEnd").val().trim();
     if (parseFloat(discount > 100)) {
         swal({
@@ -802,6 +803,7 @@ $("#btnSettle").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
+        $("#btnSettle").attr('disabled', false);
     }
     else if (parseFloat(discount) < 0) {
         swal({
@@ -811,6 +813,7 @@ $("#btnSettle").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
+        $("#btnSettle").attr('disabled', false);
     }
     else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
         swal({
@@ -820,6 +823,7 @@ $("#btnSettle").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
+        $("#btnSettle").attr('disabled', false);
     }
     else {
         if (discount == "") {
@@ -830,7 +834,6 @@ $("#btnSettle").click(function () {
             $(".noneDiscount").remove();
             sessionStorage.setItem("content", "show");
         }
-        $("#btnSettle").attr('disabled', true);
         $.ajax({
             type: 'Post',
             url: 'customerRetail.aspx',
