@@ -8,7 +8,7 @@
     sessionStorage.removeItem("retailId");
     sessionStorage.removeItem("numberEnd");
     setInterval("showTime()", 1000);
-    $("#sale").hide();
+    //$("#sale").hide();
     $(".noneDiscount").hide();
     $("#btnSettle").hide();
     $("#preRecord").hide();
@@ -783,7 +783,6 @@ $("#copeEnd").keypress(function (e) {
             }).catch(swal.noop);
         } else {
             var real = give - cope;
-            sessionStorage.setItem("cope", cope);
             sessionStorage.setItem("dibs", real);
             $("#change").text((real).toFixed(2));
             $("#btnSettle").show();
@@ -892,7 +891,7 @@ $("#btnSettle").click(function () {
                         $("#noneTotal").text("￥ " + sessionStorage.getItem("total"));
                     }
                     $("#allcope").text(parseFloat(sessionStorage.getItem("give")).toFixed(2));
-                    $("#cope").text(parseFloat(sessionStorage.getItem("cope")).toFixed(2));
+                    $("#cope").text(parseFloat((sessionStorage.getItem("give")) - parseFloat(sessionStorage.getItem("dibs"))).toFixed(2));
                     $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
                     $("#tablePay tr:not(:first)").empty()
                     $("#tablePay").append(datas[1]);
