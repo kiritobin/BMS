@@ -182,7 +182,10 @@
                                             <td colspan="3"><hr /></td>
                                         </tr>
                                         <tr>
+                                            <td style="width: 50%">应付:￥<span id="cope"></span></td>
                                             <td style="width: 50%"><span id="paytype">现金</span>实付:￥<span id="allcope"></span></td>
+                                        </tr>
+                                        <tr>
                                             <td style="width: 50%">找零:￥<span id="allchange"></span></td>
                                         </tr>
                                     </thead>

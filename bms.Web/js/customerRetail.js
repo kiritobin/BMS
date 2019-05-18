@@ -783,6 +783,7 @@ $("#copeEnd").keypress(function (e) {
             }).catch(swal.noop);
         } else {
             var real = give - cope;
+            sessionStorage.setItem("cope", cope);
             sessionStorage.setItem("dibs", real);
             $("#change").text((real).toFixed(2));
             $("#btnSettle").show();
@@ -887,7 +888,8 @@ $("#btnSettle").click(function () {
                         $("#noneNumber").text(sessionStorage.getItem("numberEnd"));
                         $("#noneTotal").text("￥ " + sessionStorage.getItem("total"));
                     }
-                    $("#allcope").text(sessionStorage.getItem("give"));
+                    $("#allcope").text(parseFloat(sessionStorage.getItem("give")).toFixed(2));
+                    $("#cope").text(parseFloat(sessionStorage.getItem("cope")).toFixed(2));
                     $("#allchange").text(parseFloat(sessionStorage.getItem("dibs")).toFixed(2));
                     $("#tablePay tr:not(:first)").empty()
                     $("#tablePay").append(datas[1]);
