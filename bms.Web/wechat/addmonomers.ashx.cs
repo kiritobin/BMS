@@ -227,7 +227,7 @@ namespace bms.Web.wechat
                             }
                             else
                             {
-                                context.Response.Write("无数据");
+                                context.Response.Write("无库存");
                                 context.Response.End();
                             }
                         }
@@ -250,7 +250,7 @@ namespace bms.Web.wechat
                         }
                         else
                         {
-                            context.Response.Write("无数据");
+                            context.Response.Write("无库存");
                             context.Response.End();
                         }
 
@@ -282,7 +282,7 @@ namespace bms.Web.wechat
                         }
                         else
                         {
-                            context.Response.Write("无数据");
+                            context.Response.Write("无库存");
                             context.Response.End();
                         }
 
