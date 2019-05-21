@@ -453,14 +453,19 @@ namespace bms.Dao
         /// <param name="groupbyType">groupby方式</param>
         /// <param name="strWhere">条件</param>
         /// <returns></returns>
-        public DataTable exportDel(string groupbyType, string strWhere)
+        public DataTable exportDel(string groupbyType, string strWhere,string regionName)
         {
             String cmdText = "";
             string name = "";
+            string region = "";
             //所选分组条件如客户 ISBN    书号 书名  定价 数量  码洋 实洋  销折 采集日期    采集人用户名 采集状态（销售单或预采单）			供应商
             if (groupbyType == "payment")
             {
                 name = "支付方式";
+                if (regionName != "")
+                {
+                    region = "regionName,";
+                }
             }
             else if (groupbyType == "regionName")
             {
@@ -468,11 +473,11 @@ namespace bms.Dao
             }
             if (strWhere != "" && strWhere != null)
             {
-                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,unitPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,dateTime as 交易日期,userName as 收银员,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_retailmonomer where " + strWhere + ",booknum,userName,supplier order by dateTime desc";
+                cmdText = "select " + groupbyType + " as " + name + ","+region+" ISBN,bookNum as 书号,bookName as 书名,unitPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,dateTime as 交易日期,userName as 收银员,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_retailmonomer where " + strWhere + ",booknum,userName,supplier order by dateTime desc";
             }
             else
             {
-                cmdText = "select " + groupbyType + " as " + name + ", ISBN,bookNum as 书号,bookName as 书名,unitPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,dateTime as 交易日期,userName as 收银员,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_retailmonomer GROUP BY " + groupbyType + ",booknum,userName,supplier order by dateTime desc";
+                cmdText = "select " + groupbyType + " as " + name + "," + region + " ISBN,bookNum as 书号,bookName as 书名,unitPrice as 定价,sum(number) as 数量,sum(totalPrice) as 码洋,sum(realPrice) as 实洋,realDiscount as 折扣,dateTime as 交易日期,userName as 收银员,supplier as 供应商,dentification as 备注,remarksOne as 备注1,remarksTwo as 备注2,remarksThree as 备注3 from v_retailmonomer GROUP BY " + groupbyType + ",booknum,userName,supplier order by dateTime desc";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             DataTable dt = null;
@@ -491,7 +496,7 @@ namespace bms.Dao
         /// <param name="state">状态</param>
         /// <param name="time">时间</param>
         /// <returns></returns>
-        public DataTable exportAll(string strWhere, string groupbyType, string time)
+        public DataTable exportAll(string strWhere, string groupbyType, string time, string regionName)
         {
             DataTable exportdt = new DataTable();
             String cmdText = "";
@@ -500,7 +505,15 @@ namespace bms.Dao
             if (groupbyType == "payment")
             {
                 exportdt.Columns.Add("支付方式", typeof(string));
-                cmdText = "select payment, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_retailmonomer where " + strWhere + " order by dateTime desc";
+                if (regionName != "" && regionName != null)
+                {
+                    exportdt.Columns.Add("地区名称", typeof(string));
+                    cmdText = "select regionName,payment, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_retailmonomer where " + strWhere + " order by dateTime desc";
+                }
+                else
+                {
+                    cmdText = "select payment, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_retailmonomer where " + strWhere + " order by dateTime desc";
+                }
             }
             else if (groupbyType == "regionName")
             {
@@ -513,11 +526,23 @@ namespace bms.Dao
             exportdt.Columns.Add("总实洋", typeof(double));
             exportdt.Columns.Add("总码洋", typeof(double));
             int allcount = ds.Tables[0].Rows.Count;
-            for (int i = 0; i < allcount; i++)
+            if (groupbyType == "payment" && regionName != "" && regionName != null)
             {
-                condition = ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString();
-                kinds = getkindsGroupBy(condition, groupbyType, time);
-                exportdt.Rows.Add(ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString(), Convert.ToInt64(kinds), Convert.ToInt64(ds.Tables[0].Rows[i]["allNumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allRealPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allTotalPrice"].ToString()));
+                for (int i = 0; i < allcount; i++)
+                {
+                    condition = ds.Tables[0].Rows[i][groupbyType].ToString();
+                    kinds = getkindsGroupBy(condition, groupbyType, time);
+                    exportdt.Rows.Add(ds.Tables[0].Rows[i][groupbyType].ToString(), regionName, Convert.ToInt64(kinds), Convert.ToInt64(ds.Tables[0].Rows[i]["allNumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allRealPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allTotalPrice"].ToString()));
+                }
+            }
+            else
+            {
+                for (int i = 0; i < allcount; i++)
+                {
+                    condition = ds.Tables[0].Rows[i][groupbyType].ToString();
+                    kinds = getkindsGroupBy(condition, groupbyType, time);
+                    exportdt.Rows.Add(ds.Tables[0].Rows[i][groupbyType].ToString(), Convert.ToInt64(kinds), Convert.ToInt64(ds.Tables[0].Rows[i]["allNumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allRealPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allTotalPrice"].ToString()));
+                }
             }
             if (exportdt.Rows.Count > 0)
             {

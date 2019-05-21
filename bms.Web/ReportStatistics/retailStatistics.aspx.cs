@@ -16,6 +16,7 @@ namespace bms.Web.ReportStatistics
     {
         public string userName, regionName;
         public DataSet ds, dsRegion, dsPer;
+        public string groupbyType="";
         RetailBll retailBll = new RetailBll();
         BookBasicBll bookBll = new BookBasicBll();
         RegionBll regionBll = new RegionBll();
@@ -66,7 +67,8 @@ namespace bms.Web.ReportStatistics
         {
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
             exportgroupbyType = Session["exportgroupbyType"].ToString();
-            DataTable dt = retailBll.exportAll(exportAllStrWhere, exportgroupbyType, Session["time"].ToString());
+            string regionName = Session["regionName"].ToString();
+            DataTable dt = retailBll.exportAll(exportAllStrWhere, exportgroupbyType, Session["time"].ToString(), regionName);
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -76,6 +78,7 @@ namespace bms.Web.ReportStatistics
                 sb.Append("<td>" + dt.Rows[i][1] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][2] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][3] + "</td>");
+                sb.Append("<td>" + dt.Rows[i][5] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][4] + "</td>");
                 sb.Append("</tr>");
             }
@@ -88,7 +91,8 @@ namespace bms.Web.ReportStatistics
         {
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
             exportgroupbyType = Session["exportgroupbyType"].ToString();
-            DataTable dt = retailBll.exportAll(exportAllStrWhere, exportgroupbyType, Session["time"].ToString());
+            string regionName = Session["regionName"].ToString();
+            DataTable dt = retailBll.exportAll(exportAllStrWhere, exportgroupbyType, Session["time"].ToString(), regionName);
             //var name = DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             string name = "零售报表导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             if (dt != null && dt.Rows.Count > 0)
@@ -109,7 +113,8 @@ namespace bms.Web.ReportStatistics
         {
             exportgroupbyType = Session["exportgroupbyType"].ToString();
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
-            DataTable dt = retailBll.exportDe(exportgroupbyType, exportAllStrWhere);
+            string regionName = Session["regionName"].ToString();
+            DataTable dt = retailBll.exportDe(exportgroupbyType, exportAllStrWhere, regionName);
             string name = "零售报表明细导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -151,8 +156,10 @@ namespace bms.Web.ReportStatistics
             int regionId = user.ReginId.RegionId;
             string roleName = user.RoleId.RoleName;
             string strWhere = "";
-            string groupbyType = Request["groupbyType"];
+            groupbyType = Request["groupbyType"];
+            string groupby = "";
             string regionName = Request["regionName"];
+            Session["regionName"] = regionName;
             string payment = Request["payment"];
             string time = Request["time"];
             Session["time"] = time;
@@ -163,11 +170,29 @@ namespace bms.Web.ReportStatistics
             }
             if (regionName != "" && regionName != null)
             {
-                strWhere = "regionName='" + regionName + "'";
+                if (strWhere == "")
+                {
+                    strWhere = "regionName='" + regionName + "'";
+                    groupby = groupbyType;
+                }
+                else
+                {
+                    strWhere += " and regionName='" + regionName + "'";
+                    groupby = "payment,regionName";
+                }
             }
             if (payment != "" && payment != null)
             {
-                strWhere = "payment='" + payment + "'";
+                if (strWhere == "")
+                {
+                    strWhere = "payment='" + payment + "'";
+                    groupby = groupbyType;
+                }
+                else
+                {
+                    strWhere += " and payment='" + payment + "'";
+                    groupby = "payment,regionName";
+                }
             }
             if (time != null && time != "")
             {
@@ -206,16 +231,16 @@ namespace bms.Web.ReportStatistics
             tb.StrTable = "v_retailmonomer";
             //tb.OrderBy = "convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
             tb.OrderBy = "datetime desc";
-            tb.StrColumnlist = groupbyType + ", sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
+            tb.StrColumnlist = groupby + ", sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             if (strWhere == "" || strWhere == null)
             {
-                tb.StrWhere = groupbyType + " like'%'" + " GROUP BY " + groupbyType;
+                tb.StrWhere = groupby + " like'%'" + " GROUP BY " + groupby;
             }
             else
             {
-                tb.StrWhere = strWhere + " GROUP BY " + groupbyType;
+                tb.StrWhere = strWhere + " GROUP BY " + groupby;
             }
             Session["exportgroupbyType"] = groupbyType;
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
@@ -231,6 +256,10 @@ namespace bms.Web.ReportStatistics
                 DataRow dr = ds.Tables[0].Rows[i];
                 //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                if (groupbyType == "payment" && regionName != "" && regionName != null)
+                {
+                    strb.Append("<td>" + regionName + "</td>");
+                }
                 strb.Append("<td>" + dr["" + groupbyType + ""].ToString() + "</td>");
                 condition = dr["" + groupbyType + ""].ToString();
                 kinds = retailBll.getkindsGroupBy(condition, groupbyType, time).ToString();

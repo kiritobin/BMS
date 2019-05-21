@@ -77,6 +77,8 @@ window.onload = function () {
 //});
 
 $(document).ready(function () {
+    $("#printRegions").hide();
+    $("#regions").hide();
     $("#printContent").hide();
     $('.paging').pagination({
         pageCount: $("#intPageCount").val(), //总页数
@@ -334,13 +336,17 @@ $(document).ready(function () {
             if (regionName == "全部组织") {
                 regionName = "";
             }
-            payType = "";
+            if (payType == "全部支付方式") {
+                payType = "";
+            }
         } else if (groupby == "支付方式") {
             if (payType == "全部支付方式") {
                 payType = "";
             }
             groupbyType = "payment";
-            regionName = "";
+            if (regionName == "全部组织") {
+                regionName = "";
+            }
         } else {
             groupbyType = "state";
             regionName = "";
@@ -373,10 +379,11 @@ $(document).ready(function () {
                 success: function (data) {
                     if (groupby == "组织") {
                         $("#showType").text("组织");
-                    } else if (groupby == "支付方式") {
-                        $("#showType").text("支付方式");
                     } else {
                         $("#showType").text("支付方式");
+                        if (regionName != "") {
+                            $("#regions").show();
+                        }
                     }
                     $("#intPageCount").remove();
                     $("#table tr:not(:first)").empty(); //清空table处首行
@@ -463,6 +470,7 @@ $(document).ready(function () {
 })
 
 $("#a4").click(function () {
+    var regionName = $("#region").find("option:selected").text();
     $("#changeprint").attr("href", "../css/a4print.css");
     var groupby = $("#groupby").find("option:selected").text();
     var t = $("#table").find('tr').length;
@@ -505,6 +513,9 @@ $("#a4").click(function () {
                 $('#printContent').show();
                 if (groupby == "支付方式") {
                     $("#printShowType").text("支付方式");
+                    if (regionName != "" && regionName != null) {
+                        $("#printRegions").show();
+                    }
                 }
                 else if (groupby == "组织") {
                     $("#printShowType").text("组织");

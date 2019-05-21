@@ -394,7 +394,8 @@
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
                                                     <th>序号</th>
-                                                    <th id="showType">供应商</th>
+                                                    <th id="regions">组织</th>
+                                                    <th id="showType">支付方式</th>
                                                     <th>品种</th>
                                                     <th>数量</th>
                                                     <th>码洋</th>
@@ -489,6 +490,7 @@
                         <tr class="book-tab-tr text-nowrap">
                             <th>序号</th>
                             <th id="printShowType">供应商</th>
+                            <th id="printRegions">组织</th>
                             <th>品种</th>
                             <th>数量</th>
                             <th>码洋</th>
