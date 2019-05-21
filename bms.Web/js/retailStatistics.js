@@ -16,7 +16,7 @@ jeDate("#endTime", {
 });
 
 window.onload = function () {
-    $("#groupregion").hide();
+    //$("#groupregion").hide();
     $("#groupPayType").hide();
 }
 
@@ -433,10 +433,10 @@ $(document).ready(function () {
             $("#groupregion").show();
             $("#groupPayType").hide();
         } else if (groupby == "支付方式") {
-            $("#groupregion").hide();
+            $("#groupregion").show();
             $("#groupPayType").show();
         } else {
-            $("#groupregion").hide();
+            $("#groupregion").show();
             $("#groupPayType").hide();
         }
     })
