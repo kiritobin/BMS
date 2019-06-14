@@ -329,9 +329,9 @@ $(document).ready(function () {
 
     //点击查询按钮时
     $("#btn_search").click(function () {
-        var groupby = $("#groupby").find("option:selected").text();
-        var regionName = $("#region").find("option:selected").text();
-        var payType = $("#payType").find("option:selected").text();
+        var groupby = $("#groupby").find("option:selected").text();//获取分组方式
+        var regionName = $("#region").find("option:selected").text();//获取组织条件
+        var payType = $("#payType").find("option:selected").text();//获取支付方式条件
         var groupbyType;
         if (groupby == "组织") {
             groupbyType = "regionName";
@@ -348,7 +348,7 @@ $(document).ready(function () {
             groupbyType = "payment";
             if (regionName == "全部组织") {
                 regionName = "";
-                $("#regions").hide();
+                $("#regions").hide();//当分组方式为支付方式且组织条件为所有时，隐藏表格组织表头
             }
         } else {
             groupbyType = "state";
@@ -393,8 +393,6 @@ $(document).ready(function () {
                     $("#table").append(data); //加载table
                     $(".paging").empty();
                     $('.paging').pagination({
-                        //totalData: $("#totalCount").val(),
-                        //showData: $("#pageSize").val(),
                         pageCount: $("#intPageCount").val(), //总页数
                         jump: true,
                         mode: 'fixed',//固定页码数量
