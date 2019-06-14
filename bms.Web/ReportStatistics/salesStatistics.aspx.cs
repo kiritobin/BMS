@@ -77,10 +77,10 @@ namespace bms.Web.reportStatistics
             exportgroupbyType = Session["exportgroupbyType"].ToString();
             DataTable dt = salemonBll.exportAll(exportAllStrWhere, exportgroupbyType, state, Time);
             StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < dt.Rows.Count; i++)
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
                 sb.Append("<tr>");
-                sb.Append("<td>" + (i+1) + "</td>");
+                sb.Append("<td>" + (i + 1) + "</td>");
                 sb.Append("<td>" + dt.Rows[i][0] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][1] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][2] + "</td>");
@@ -138,7 +138,7 @@ namespace bms.Web.reportStatistics
             exportgroupbyType = Session["exportgroupbyType"].ToString();
             DataTable dt = salemonBll.exportAll(exportAllStrWhere, exportgroupbyType, state, Time);
             int count = dt.Rows.Count;
-            if (count<=0||dt==null)
+            if (count <= 0 || dt == null)
             {
                 Response.Write("无数据");
                 Response.End();
@@ -148,7 +148,7 @@ namespace bms.Web.reportStatistics
                 string json = JsonHelper.ToJson(dt, "excelData");
                 Response.Write(json);
                 Response.End();
-            }  
+            }
         }
         public void exportDe()
         {
@@ -237,13 +237,14 @@ namespace bms.Web.reportStatistics
         {
             User user = (User)Session["user"];
             int regionId = user.ReginId.RegionId;
+
+            string regionid = Request["regionid"];
             string roleName = user.RoleId.RoleName;
             string strWhere = "";
             string groupbyType = Request["groupbyType"];
             string supplier = Request["supplier"];
             string regionName = Request["regionName"];
             string customerName = Request["customerName"];
-
             string saleHeadState = Request["saleHeadState"];
             string time = Request["time"];
 
@@ -341,18 +342,37 @@ namespace bms.Web.reportStatistics
 
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_allsalemonomer";
-            tb.OrderBy = "convert("+ groupbyType + " using gbk) collate gbk_chinese_ci";
-            tb.StrColumnlist = groupbyType + ", sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
-            tb.IntPageSize = pageSize;
-            tb.IntPageNum = currentPage;
+            tb.OrderBy = "convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
+            tb.StrColumnlist = groupbyType + ",regionName,regionId, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
+
             if (strWhere == "" || strWhere == null)
             {
-                tb.StrWhere = groupbyType + " like'%'" + " GROUP BY " + groupbyType;
+                if (regionid != null && regionid != "") {
+                    tb.StrWhere = groupbyType + " like'%' and regionId=" + regionid + " GROUP BY " + groupbyType + ",regionId";
+                }
+                else
+                {
+                    tb.StrWhere = groupbyType + " like'%'" + " GROUP BY " + groupbyType + ",regionId";
+                }
             }
             else
             {
-                tb.StrWhere = strWhere + " GROUP BY " + groupbyType;
+                if (regionid != null && regionid != "")
+                {
+                    tb.StrWhere = strWhere + " and regionId=" + regionid + " GROUP BY " + groupbyType + ",regionId";
+                }
+                else
+                {
+
+                    tb.StrWhere = strWhere + " GROUP BY " + groupbyType + ",regionId";
+                }
+               
             }
+
+
+            tb.IntPageSize = pageSize;
+            tb.IntPageNum = currentPage;
+
             Session["exportgroupbyType"] = groupbyType;
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
             //获取展示的客户数据
@@ -371,14 +391,19 @@ namespace bms.Web.reportStatistics
                 DataRow dr = ds.Tables[0].Rows[i];
                 //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                if (groupbyType != "regionName") {
+                    strb.Append("<td>" + dr["regionName"].ToString() + "</td>");
+                }
                 strb.Append("<td>" + dr["" + groupbyType + ""].ToString() + "</td>");
                 condition = dr["" + groupbyType + ""].ToString();
-                kinds = salemonBll.getkindsGroupBy(condition, groupbyType, state, time).ToString();
+               
+                    kinds = salemonBll.getkindsGroupBy(condition, groupbyType, state, time, dr["regionId"].ToString()).ToString();
+               
                 strb.Append("<td>" + kinds + "</td>");
                 strb.Append("<td>" + dr["allNumber"].ToString() + "</td>");
                 strb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
                 strb.Append("<td>" + dr["allRealPrice"].ToString() + "</td>");
-                strb.Append("<td><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
+                strb.Append("<td><input type='hidden' value=" + dr["regionId"].ToString() + " /><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
 

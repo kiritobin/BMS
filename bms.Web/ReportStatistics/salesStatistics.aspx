@@ -358,6 +358,17 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="btn-group" id="div_regionid" style="display:none">
+                                                <%--<input type="text" class="" placeholder="请输入供应商" id="supplier">--%>
+                                                <select class="modal_select selectpicker collectionStatus "  data-live-search="true" id="regionid">
+                                                        <option value="">全部组织</option>
+                                                        <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%} %>
+                                                    </select>
+
+                                            </div>
 
                                             <div class="btn-group" id="groupsupplier" style="display:none">
                                                 <%--<input type="text" class="" placeholder="请输入供应商" id="supplier">--%>
@@ -437,6 +448,7 @@
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
                                                     <th>序号</th>
+                                                    <th>组织</th>
                                                     <th id="showType">供应商</th>
                                                     <th>品种</th>
                                                     <th>数量</th>
@@ -536,6 +548,7 @@
                     <thead>
                         <tr class="book-tab-tr text-nowrap">
                             <th>序号</th>
+                             <th>组织</th>
                             <th id="printShowType">供应商</th>
                             <th>品种</th>
                             <th>数量</th>

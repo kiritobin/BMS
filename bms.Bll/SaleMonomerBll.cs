@@ -141,9 +141,9 @@ namespace bms.Bll
         /// <param name="strWhere">条件</param>
         /// <param name="type">类型</param>
         /// <returns></returns>
-        public int getkindsGroupBy(string strWhere, string type, string state, string time)
+        public int getkindsGroupBy(string strWhere, string type, string state, string time,string regionId)
         {
-            return SaleMonomerdao.getkindsGroupBy(strWhere, type, state, time);
+            return SaleMonomerdao.getkindsGroupBy(strWhere, type, state, time, regionId);
         }
         /// <summary>
         /// 根据销售单头ID查询该销售单的状态

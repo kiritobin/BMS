@@ -27,7 +27,7 @@ namespace bms.Web.ReportStatistics
         public double alltotalprice, allreadprice;
 
 
-        public string type = "", name = "", groupType = "", userName, regionName;
+        public string type = "", name = "",regionId="", groupType = "", userName, regionName;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,15 +36,18 @@ namespace bms.Web.ReportStatistics
                 permission();
                 type = Request.QueryString["type"];
                 name = Request.QueryString["name"];
-                if (type == null || type == "" || name == null)
+                regionId = Request.QueryString["regionId"];
+                if ((type == null || type == "") || (name == null || name=="") || (regionId==null|| regionId==""))
                 {
                     type = Session["type"].ToString();
                     name = Session["name"].ToString();
+                    regionId = Session["regionId"].ToString();
                 }
                 else
                 {
                     Session["type"] = type;
                     Session["name"] = name;
+                    Session["regionId"] = regionId;
                 }
             }
             if (type == "supplier")
@@ -132,7 +135,14 @@ namespace bms.Web.ReportStatistics
             string strWhere = "";
             if (type == "supplier")
             {
-                strWhere = "supplier = '" + name + "' and deleteState=0";
+                if (regionId != null || regionId != "")
+                {
+                    strWhere = "supplier = '" + name + "' and deleteState=0 and regionId="+ regionId;
+                }
+                else {
+                    strWhere = "supplier = '" + name + "' and deleteState=0";
+                }
+               
             }
             else if (type == "regionName")
             {
@@ -140,7 +150,15 @@ namespace bms.Web.ReportStatistics
             }
             else if (type == "customerName")
             {
-                strWhere = "customerName = '" + name + "' and deleteState=0";
+
+                if (regionId != null || regionId != "")
+                {
+                    strWhere = "customerName = '" + name + "' and deleteState=0 and regionId=" + regionId;
+                }
+                else
+                {
+                    strWhere = "customerName = '" + name + "' and deleteState=0";
+                }
             }
             groupType = strWhere;
             dsUser = detailsBll.getUser(groupType);
@@ -322,15 +340,38 @@ namespace bms.Web.ReportStatistics
             string strWhere = "";
             if (type == "supplier")
             {
-                strWhere = "supplier = '" + name + "' and deleteState=0";
+                if (regionId != null && regionId != "")
+                {
+                    strWhere = "supplier = '" + name + "' and deleteState=0 and regionId="+regionId;
+                }
+                else {
+                    strWhere = "supplier = '" + name + "' and deleteState=0";
+                }
+                
             }
             else if (type == "regionName")
             {
-                strWhere = "regionName = '" + name + "' and deleteState=0";
+                if (regionId != null && regionId != "")
+                {
+                    strWhere = "regionName = '" + name + "' and deleteState=0 and regionId=" + regionId;
+                }
+                else
+                {
+                    strWhere = "regionName = '" + name + "' and deleteState=0";
+                }
+              
             }
             else if (type == "customerName")
             {
-                strWhere = "customerName = '" + name + "' and deleteState=0";
+                if (regionId != null && regionId != "")
+                {
+                    strWhere = "customerName = '" + name + "' and deleteState=0 and regionId=" + regionId;
+                }
+                else
+                {
+                    strWhere = "customerName = '" + name + "' and deleteState=0";
+                }
+                
             }
             groupType = strWhere;
             dsUser = detailsBll.getUser(groupType);

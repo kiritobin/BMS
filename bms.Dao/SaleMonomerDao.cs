@@ -127,7 +127,7 @@ namespace bms.Dao
         /// <param name="strWhere">条件</param>
         /// <param name="type">类型</param>
         /// <returns></returns>
-        public int getkindsGroupBy(string strWhere, string type, string state, string time)
+        public int getkindsGroupBy(string strWhere, string type, string state, string time,string regionId)
         {
             string cmdText = "";
             string startTime = "";
@@ -144,38 +144,83 @@ namespace bms.Dao
                 {
                     if ((time != "" && time != null) && (state != null && state != ""))
                     {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and (state=1 or state=2) and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                        if (regionId != null && regionId != "")
+                        {
+                            cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and (state=1 or state=2) and regionId=@regionId and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                        }
+                        else {
+                            cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and (state=1 or state=2) and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                        }
+                       
                     }
                     else
                     {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and (state=1 or state=2) GROUP BY bookNum HAVING 数量!=0";
+                        if (regionId != null && regionId != "")
+                        {
+                            cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere  and regionId=@regionId and (state=1 or state=2) GROUP BY bookNum HAVING 数量!=0";
+                        }
+                        else
+                        {
+                            cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and (state=1 or state=2) GROUP BY bookNum HAVING 数量!=0";
+                        }
                     }
                 }
                 else
                 {
                     if ((time != "" && time != null) && (state != null && state != ""))
                     {
-                        cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and state=" + state + " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                        if (regionId != null && regionId != "")
+                        {
+                            cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and regionId=@regionId  and state=" + state + " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                  
+                        }
+                        else
+                        {
+                            cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and state=" + state + " and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                        }
+                       
                     }
                     else
                     {
                         if ((time != "" && time != null))
                         {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                            if (regionId != null && regionId != "")
+                            {
+                                cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and regionId=@regionId  and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                            }
+                            else
+                            {
+                                cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum HAVING 数量!=0";
+                            }
                         }
                         else
                         {
-                            cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and state=" + state + " GROUP BY bookNum HAVING 数量!=0";
+                            if (regionId != null && regionId != "")
+                            {
+                                cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and regionId=@regionId and state=" + state + " GROUP BY bookNum HAVING 数量!=0";
+                            }
+                            else
+                            {
+                                cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and state=" + state + " GROUP BY bookNum HAVING 数量!=0";
+                            }
                         }
                     }
                 }
             }
             else
             {
-                cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere GROUP BY bookNum HAVING 数量!=0";
+                if (regionId != null && regionId != "")
+                {
+                    cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere and regionId=@regionId GROUP BY bookNum HAVING 数量!=0";
+                }
+                else
+                {
+                    cmdText = "select bookNum, SUM(number) as 数量 from V_allSaleMonomer where " + type + " = @strWhere GROUP BY bookNum HAVING 数量!=0";
+                }
+               
             }
-            string[] param = { "@strWhere", "@state" };
-            object[] values = { strWhere, state };
+            string[] param = { "@strWhere", "@state", "@regionId" };
+            object[] values = { strWhere, state,regionId };
             DataSet ds = db.FillDataSet(cmdText, param, values);
             int allCount = ds.Tables[0].Rows.Count;
             return allCount;
@@ -1107,7 +1152,7 @@ namespace bms.Dao
             if (groupbyType == "supplier")
             {
                 exportdt.Columns.Add("供应商", typeof(string));
-                cmdText = "select supplier, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_allsalemonomer where " + strWhere + " order by allTotalPrice desc";
+                cmdText = "select supplier, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice,regionName from v_allsalemonomer where " + strWhere + " order by allTotalPrice desc";
             }
             else if (groupbyType == "regionName")
             {
@@ -1117,19 +1162,32 @@ namespace bms.Dao
             else
             {
                 exportdt.Columns.Add("客户名称", typeof(string));
-                cmdText = "select customerName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_allsalemonomer where " + strWhere + " order by allTotalPrice desc";
+                cmdText = "select customerName, sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice ,regionName from v_allsalemonomer where " + strWhere + " order by allTotalPrice desc";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             exportdt.Columns.Add("书籍种数", typeof(long));
             exportdt.Columns.Add("书籍总数量", typeof(long));
             exportdt.Columns.Add("总实洋", typeof(double));
             exportdt.Columns.Add("总码洋", typeof(double));
+            if (groupbyType != "regionName") {
+                exportdt.Columns.Add("组织名称", typeof(string));
+            }
+              
             int allcount = ds.Tables[0].Rows.Count;
             for (int i = 0; i < allcount; i++)
             {
                 condition = ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString();
-                kinds = getkindsGroupBy(condition, groupbyType, state, time);
-                exportdt.Rows.Add(ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString(), Convert.ToInt64(kinds), Convert.ToInt64(ds.Tables[0].Rows[i]["allNumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allRealPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allTotalPrice"].ToString()));
+                kinds = getkindsGroupBy(condition, groupbyType, state, time, ds.Tables[0].Rows[i]["regionId"].ToString());
+                if (groupbyType != "regionName")
+                {
+                    exportdt.Rows.Add(ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString(), Convert.ToInt64(kinds), Convert.ToInt64(ds.Tables[0].Rows[i]["allNumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allRealPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allTotalPrice"].ToString()), ds.Tables[0].Rows[i]["regionName"].ToString());
+
+                }
+                else
+                {
+                    exportdt.Rows.Add(ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString(), Convert.ToInt64(kinds), Convert.ToInt64(ds.Tables[0].Rows[i]["allNumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allRealPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allTotalPrice"].ToString()));
+
+                }
             }
             if (exportdt.Rows.Count > 0)
             {
