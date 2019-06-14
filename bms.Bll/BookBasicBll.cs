@@ -55,6 +55,12 @@ namespace bms.Bll
         {
             return basicDao.getBookNum(ISBN,bookName);
         }
+
+        public DataTable getBookNumByNum(string booknum)
+        {
+            return basicDao.getBookNumByNum(booknum);
+        }
+
         /// <summary>
         /// 根据书号查找isbn，单价，折扣
         /// </summary>

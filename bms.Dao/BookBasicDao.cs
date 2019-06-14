@@ -82,6 +82,29 @@ namespace bms.Dao
         }
 
         /// <summary>
+        /// 通过书号 获取单价 进货折扣
+        /// </summary>
+        /// <param name="booknum"></param>
+        /// <returns></returns>
+        public DataTable getBookNumByNum(string booknum)
+        {
+            MySqlHelp db = new MySqlHelp();
+            string comText = "select bookNum,price,author from T_BookBasicData where bookNum=@bookNum";
+            string[] parames = {"@bookNum" };
+            object[] value = { booknum };
+            DataSet ds = db.FillDataSet(comText, parames, value);
+            if (ds != null || ds.Tables[0].Rows.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                return dt;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// 根据书号查找isbn，单价，折扣
         /// </summary>
         /// <param name="bookNum">书号</param>

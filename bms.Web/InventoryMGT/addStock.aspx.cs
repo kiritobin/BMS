@@ -32,6 +32,7 @@ namespace bms.Web.InventoryMGT
         StockBll stockBll = new StockBll();
         DataTable excel = new DataTable();
         public List<string> bookNumList = new List<string>();
+        bool bl = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             string kind = Request["kind"];
@@ -90,10 +91,13 @@ namespace bms.Web.InventoryMGT
                 }
                 catch
                 {
-                    Response.Write("  模板存在错误，请检查");
-                    Response.End();
+                    if (!bl)
+                    {
+                        Response.Write("  存在错误，请检查");
+                        Response.End();
+                    }
                 }
-                
+
                 dtInsert.Columns.Remove("书名");
                 int j = dtInsert.Rows.Count;
                 TimeSpan ts = watch.Elapsed;
@@ -1084,72 +1088,147 @@ namespace bms.Web.InventoryMGT
             DataColumn dcPrice = new DataColumn("单价", typeof(double));
             dcPrice.DefaultValue = 0.0;
             DataTable dt1 = ExcelHelper.GetDataTable(path);
-            dt1.Columns.Add(dcPrice);
-            DataColumn dcTotal = new DataColumn("码洋", typeof(double));
-            dcTotal.DefaultValue = 0.0;
-            dt1.Columns.Add(dcTotal);
-            DataColumn dcReal = new DataColumn("实洋", typeof(double));
-            dcReal.DefaultValue = 0.0;
-            dt1.Columns.Add(dcReal);
-            DataColumn dcDiscount = new DataColumn("折扣", typeof(double));
-            dcDiscount.DefaultValue = 0.0;
-            dt1.Columns.Add(dcDiscount);
 
-            DataColumn dcSingle = new DataColumn("singleHead", typeof(string));
-            dcSingle.DefaultValue = Session["id"];
-            dt1.Columns.Add(dcSingle);
-            DataColumn dch2o = new DataColumn("流水号", typeof(string));
-            dch2o.DefaultValue = "";
-            dt1.Columns.Add(dch2o);
-            DataColumn dcType = new DataColumn("type", typeof(string));
-            dcType.DefaultValue = 1;
-            dt1.Columns.Add(dcType);
-            DataColumn dcBook = new DataColumn("书号", typeof(string));
-            dcBook.DefaultValue = "";
-            dt1.Columns.Add(dcBook);
-            DataColumn dcGoods = new DataColumn("货架ID", typeof(string));
-            dcGoods.DefaultValue = goods;
-            dt1.Columns.Add(dcGoods);
-            dt1.Columns.Add("id").SetOrdinal(0);
-
-            row = dt1.Rows.Count; //获取总数
-
-            for (int i = 0; i < row; i++)
+            if (dt1.Columns[0].ColumnName == "书号")
             {
-                string h2o = (warehousingBll.getCount(Session["id"].ToString()) + i + 1).ToString();//流水号
-                string isbn = dt1.Rows[i]["ISBN"].ToString();
-                string bookName = dt1.Rows[i]["书名"].ToString();
-                DataTable bookDt = bookBasicBll.getBookNum(isbn, bookName);
-                int j = bookDt.Rows.Count;
-                if (j == 0)
-                {
-                    Response.Write("Excel中第" + (i + 1) + "行基础数据中不存在");
-                    Response.End();
-                }
-                string bookNum = bookDt.Rows[0]["bookNum"].ToString();
-                double price = Convert.ToDouble(bookDt.Rows[0]["price"].ToString());
-                double discount;
-                if (bookDt.Rows[0]["author"].ToString() == null || bookDt.Rows[0]["author"].ToString() == "")
-                {
-                    discount = 100;
-                }
-                else
-                {
-                    discount = Convert.ToDouble(bookDt.Rows[0]["author"].ToString());
-                }
-                double num = Convert.ToDouble(dt1.Rows[i]["商品数量"].ToString());
-                double total = price * num;
-                double real = total * discount * 0.01;
+                dt1.Columns.Add(dcPrice);
+                DataColumn dcTotal = new DataColumn("码洋", typeof(double));
+                dcTotal.DefaultValue = 0.0;
+                dt1.Columns.Add(dcTotal);
+                DataColumn dcReal = new DataColumn("实洋", typeof(double));
+                dcReal.DefaultValue = 0.0;
+                dt1.Columns.Add(dcReal);
+                DataColumn dcDiscount = new DataColumn("折扣", typeof(double));
+                dcDiscount.DefaultValue = 0.0;
+                dt1.Columns.Add(dcDiscount);
 
-                DataRowCollection k = dt1.Rows;
-                DataRow dataRow = dt1.Rows[i];
-                dataRow[4] = price;
-                dataRow[5] = total;
-                dataRow[6] = real;
-                dataRow[7] = discount;
-                dataRow[9] = h2o;
-                dataRow[11] = bookNum;
-                dt.Rows.Add(dataRow[0], dataRow[1], dataRow[2], dataRow[3], dataRow[4], dataRow[5], dataRow[6], dataRow[7], dataRow[8], dataRow[9], dataRow[10], dataRow[11], dataRow[12]);
+                DataColumn dcSingle = new DataColumn("singleHead", typeof(string));
+                dcSingle.DefaultValue = Session["id"];
+                dt1.Columns.Add(dcSingle);
+                DataColumn dch2o = new DataColumn("流水号", typeof(string));
+                dch2o.DefaultValue = "";
+                dt1.Columns.Add(dch2o);
+                DataColumn dcType = new DataColumn("type", typeof(string));
+                dcType.DefaultValue = 1;
+                dt1.Columns.Add(dcType);
+                DataColumn dcBook = new DataColumn("书号2", typeof(string));
+                dcBook.DefaultValue = "";
+                dt1.Columns.Add(dcBook);
+                DataColumn dcGoods = new DataColumn("货架ID", typeof(string));
+                dcGoods.DefaultValue = goods;
+                dt1.Columns.Add(dcGoods);
+                dt1.Columns.Add("id").SetOrdinal(0);
+
+                row = dt1.Rows.Count; //获取总数
+
+                for (int i = 0; i < row; i++)
+                {
+                    string h2o = (warehousingBll.getCount(Session["id"].ToString()) + i + 1).ToString();//流水号
+                    string booknum = dt1.Rows[i]["书号"].ToString();
+                    DataTable bookDt = bookBasicBll.getBookNumByNum(booknum);
+                    int j = bookDt.Rows.Count;
+                    if (j == 0)
+                    {
+                        bl = true;
+                        Response.Write("Excel中第" + (i + 1) + "行基础数据中不存在");
+                        Response.End();
+                    }
+                    string bookNum = bookDt.Rows[0]["bookNum"].ToString();
+                    double price = Convert.ToDouble(bookDt.Rows[0]["price"].ToString());
+                    double discount;
+                    if (bookDt.Rows[0]["author"].ToString() == null || bookDt.Rows[0]["author"].ToString() == "")
+                    {
+                        discount = 100;
+                    }
+                    else
+                    {
+                        discount = Convert.ToDouble(bookDt.Rows[0]["author"].ToString());
+                    }
+                    double num = Convert.ToDouble(dt1.Rows[i]["商品数量"].ToString());
+                    double total = price * num;
+                    double real = total * discount * 0.01;
+                    dt1.Columns.Remove("书号");
+                    DataRowCollection k = dt1.Rows;
+                    DataRow dataRow = dt1.Rows[i];
+                    dataRow[4] = price;
+                    dataRow[5] = total;
+                    dataRow[6] = real;
+                    dataRow[7] = discount;
+                    dataRow[9] = h2o;
+                    dataRow[11] = bookNum;
+                    dt.Rows.Add(dataRow[0], dataRow[1], dataRow[2], dataRow[3], dataRow[4], dataRow[5], dataRow[6], dataRow[7], dataRow[8], dataRow[9], dataRow[10], dataRow[11], dataRow[12]);
+                }
+            }
+            else
+            {
+                dt1.Columns.Add(dcPrice);
+                DataColumn dcTotal = new DataColumn("码洋", typeof(double));
+                dcTotal.DefaultValue = 0.0;
+                dt1.Columns.Add(dcTotal);
+                DataColumn dcReal = new DataColumn("实洋", typeof(double));
+                dcReal.DefaultValue = 0.0;
+                dt1.Columns.Add(dcReal);
+                DataColumn dcDiscount = new DataColumn("折扣", typeof(double));
+                dcDiscount.DefaultValue = 0.0;
+                dt1.Columns.Add(dcDiscount);
+
+                DataColumn dcSingle = new DataColumn("singleHead", typeof(string));
+                dcSingle.DefaultValue = Session["id"];
+                dt1.Columns.Add(dcSingle);
+                DataColumn dch2o = new DataColumn("流水号", typeof(string));
+                dch2o.DefaultValue = "";
+                dt1.Columns.Add(dch2o);
+                DataColumn dcType = new DataColumn("type", typeof(string));
+                dcType.DefaultValue = 1;
+                dt1.Columns.Add(dcType);
+                DataColumn dcBook = new DataColumn("书号", typeof(string));
+                dcBook.DefaultValue = "";
+                dt1.Columns.Add(dcBook);
+                DataColumn dcGoods = new DataColumn("货架ID", typeof(string));
+                dcGoods.DefaultValue = goods;
+                dt1.Columns.Add(dcGoods);
+                dt1.Columns.Add("id").SetOrdinal(0);
+
+                row = dt1.Rows.Count; //获取总数
+
+                for (int i = 0; i < row; i++)
+                {
+                    string h2o = (warehousingBll.getCount(Session["id"].ToString()) + i + 1).ToString();//流水号
+                    string isbn = dt1.Rows[i]["ISBN"].ToString();
+                    string bookName = dt1.Rows[i]["书名"].ToString();
+                    DataTable bookDt = bookBasicBll.getBookNum(isbn, bookName);
+                    int j = bookDt.Rows.Count;
+                    if (j == 0)
+                    {
+                        bl = true;
+                        Response.Write("Excel中第" + (i + 1) + "行基础数据中不存在");
+                        Response.End();
+                    }
+                    string bookNum = bookDt.Rows[0]["bookNum"].ToString();
+                    double price = Convert.ToDouble(bookDt.Rows[0]["price"].ToString());
+                    double discount;
+                    if (bookDt.Rows[0]["author"].ToString() == null || bookDt.Rows[0]["author"].ToString() == "")
+                    {
+                        discount = 100;
+                    }
+                    else
+                    {
+                        discount = Convert.ToDouble(bookDt.Rows[0]["author"].ToString());
+                    }
+                    double num = Convert.ToDouble(dt1.Rows[i]["商品数量"].ToString());
+                    double total = price * num;
+                    double real = total * discount * 0.01;
+
+                    DataRowCollection k = dt1.Rows;
+                    DataRow dataRow = dt1.Rows[i];
+                    dataRow[4] = price;
+                    dataRow[5] = total;
+                    dataRow[6] = real;
+                    dataRow[7] = discount;
+                    dataRow[9] = h2o;
+                    dataRow[11] = bookNum;
+                    dt.Rows.Add(dataRow[0], dataRow[1], dataRow[2], dataRow[3], dataRow[4], dataRow[5], dataRow[6], dataRow[7], dataRow[8], dataRow[9], dataRow[10], dataRow[11], dataRow[12]);
+                }
             }
             return dt;
         }
