@@ -300,15 +300,17 @@ $(document).ready(function () {
         var looktime = $("#time").val();
         var groupby = $("#groupby").find("option:selected").text();
         var groupbyType;
+        var region = "";
         if (groupby == "组织") {
             groupbyType = "regionName";
         } else if (groupby == "支付方式") {
             groupbyType = "payment";
+            region = $(this).parent().prev().prev().prev().prev().prev().prev().text().trim();
         } else {
             groupbyType = "payment";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        window.location.href = "retailDetails.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime;
+        window.location.href = "retailDetails.aspx?type=" + groupbyType + "&name=" + name + "&looktime=" + looktime + "&region=" + region;
         //if (name == "" || name == null) {
         //    swal({
         //        title: "提示",
@@ -346,6 +348,7 @@ $(document).ready(function () {
             groupbyType = "payment";
             if (regionName == "全部组织") {
                 regionName = "";
+                $("#regions").hide();
             }
         } else {
             groupbyType = "state";
