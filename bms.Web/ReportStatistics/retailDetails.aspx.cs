@@ -18,7 +18,7 @@ namespace bms.Web.ReportStatistics
         RetailBll retailBll = new RetailBll();
         public int totalCount, intPageCount, pageSize = 20;
         public DataSet dsUser = null;
-        public string type = "", name = "", groupType = "", userName, regionName, bookKinds, allBookCount, allPricePrint, realPricePrint;
+        public string type = "", name = "", region="", groupType = "", userName, regionName, bookKinds, allBookCount, allPricePrint, realPricePrint;
         public DateTime dateOfMade;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
@@ -27,15 +27,18 @@ namespace bms.Web.ReportStatistics
             {
                 type = Request.QueryString["type"];
                 name = Request.QueryString["name"];
+                region = Request.QueryString["region"];
                 if (type == null || type == "" ||  name == null)
                 {
                     type = Session["type"].ToString();
                     name = Session["name"].ToString();
+                    region = Session["region"].ToString();
                 }
                 else
                 {
                     Session["type"] = type;
                     Session["name"] = name;
+                    Session["region"] = region;
                 }
             }
             getData();
@@ -269,7 +272,14 @@ namespace bms.Web.ReportStatistics
             }
             else if (type == "payment")
             {
-                strWhere = "payment = '" + name + "' and deleteState=0";
+                if (region != null && region != "")
+                {
+                    strWhere = "payment = '" + name + "' and deleteState=0 and regionName='"+region+"'";
+                }
+                else
+                {
+                    strWhere = "payment = '" + name + "' and deleteState=0";
+                }
             }
             groupType = strWhere;
             dsUser = retailBll.getUser(groupType);
