@@ -18,7 +18,7 @@ namespace bms.Web.ReportStatistics
         StockBll stockBll = new StockBll();
         public int totalCount, intPageCount, pageSize = 20;
         public DataSet dsUser = null;
-        public string type = "", name = "", groupType = "", userName, regionName;
+        public string type = "", regionId="", name = "", groupType = "", userName, regionName;
         public int bookKinds, allBookCount;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
@@ -28,15 +28,18 @@ namespace bms.Web.ReportStatistics
             {
                 type = Request.QueryString["type"];
                 name = Request.QueryString["name"];
-                if (type == null || type == "" || name == null)
+                regionId= Request.QueryString["regionId"];
+                if ((type == null || type == "") || (name == null || name=="") || (regionId ==null || regionId==""))
                 {
                     type = Session["type"].ToString();
                     name = Session["name"].ToString();
+                    regionId = Session["regionId"].ToString();
                 }
                 else
                 {
                     Session["type"] = type;
                     Session["name"] = name;
+                    Session["regionId"] = regionId;
                 }
             }
             getData();
@@ -301,6 +304,9 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and isbn like '%" + isbn + "%'";
             }
+            if (regionId!=null && regionId!="") {
+                strWhere += " and regionId=" + regionId + " ";
+            }
             if (price != "" && price != null)
             {
                 string[] sArray = price.Split('于');
@@ -550,6 +556,10 @@ namespace bms.Web.ReportStatistics
                 }
             }
             string Name = fileName + "-书籍库存明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            if (regionId!=null&& regionId!="") {
+                type += " ,regionId";
+                strWhere += " and regionId=" + regionId;
+            }
             DataTable dt = stockBll.ExportExcelDetail(strWhere, type);
             if (dt != null && dt.Rows.Count > 0)
             {

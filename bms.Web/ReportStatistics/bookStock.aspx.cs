@@ -20,7 +20,7 @@ namespace bms.Web.ReportStatistics
         BookBasicBll bookBll = new BookBasicBll();
         RegionBll regionBll = new RegionBll();
         CustomerBll customBll = new CustomerBll();
-        public string userName, regionName;
+        public string userName, regionId, regionName;
         public DataSet ds, dsRegion, dsCustom, dsPer;
         public DataTable dsSupplier;
         public int totalCount, intPageCount, pageSize = 20;
@@ -170,6 +170,9 @@ namespace bms.Web.ReportStatistics
                 str = strWhere;
             }
             string file = "书籍库存导出" + DateTime.Now.ToString("yyyyMMddHHmmss");
+            if (groupbyType == "supplier") {
+                groupbyType += ",regionId";
+            }
             DataTable dt = StockBll.bookStock(str, groupbyType).Tables[0];
             int count = dt.Rows.Count;
             if (count > 0)
@@ -250,17 +253,31 @@ namespace bms.Web.ReportStatistics
             string groupbyType = Request["groupbyType"];
             string supplier = Request["supplier"];
             string regionName = Request["regionName"];
+            string regionid= Request["regionId"];
             if (groupbyType == "state" || groupbyType == null)
             {
                 groupbyType = "supplier";
             }
             if (supplier != "" && supplier != null)
             {
-                strWhere = "supplier='" + supplier + "'";
+                if (regionid!=null&& regionid!="") {
+                    strWhere = "supplier='" + supplier + "' and regionId="+ regionid;
+                } else
+                {
+                    strWhere = "supplier='" + supplier + "'";
+                }
+                
             }
             if (regionName != "" && regionName != null)
             {
-                strWhere = "regionName='" + regionName + "'";
+                if (regionid != null && regionid != "")
+                {
+                    strWhere = "regionName='" + regionName + "' and regionId=" + regionid;
+                }
+                else
+                {
+                    strWhere = "regionName='" + regionName + "'";
+                }
             }
 
             if (roleName != "超级管理员")
@@ -284,7 +301,7 @@ namespace bms.Web.ReportStatistics
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_stock";
             tb.OrderBy = "stockNum desc";
-            tb.StrColumnlist = "count(bookNum) as kindsNum,sum(stockNum) as stockNum,supplier, regionName";
+            tb.StrColumnlist = "count(bookNum) as kindsNum,sum(stockNum) as stockNum,supplier, regionId,regionName";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             if (strWhere == "" || strWhere == null)
@@ -293,9 +310,10 @@ namespace bms.Web.ReportStatistics
             }
             else
             {
-                tb.StrWhere = strWhere + "  GROUP BY " + groupbyType;
+                tb.StrWhere = strWhere + "  GROUP BY " + groupbyType + ",regionId";   
             }
             Session["exportgroupbyType"] = groupbyType;
+            Session["StrWhere"] = tb.StrWhere;
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
             //获取展示的客户数据
             ds = salemonBll.selectBypage(tb, out totalCount, out intPageCount);
@@ -321,7 +339,7 @@ namespace bms.Web.ReportStatistics
                     strb.Append("<td>" + dr["stockNum"].ToString() + "</td>");
                     strb.Append("<td>" + dr["supplier"].ToString() + "</td>");
                 }
-                strb.Append("<td><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
+                strb.Append("<td><input type='hidden' value=" + dr["regionId"].ToString() + " /><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             Response.Write(strb.ToString());

@@ -166,6 +166,7 @@
     //查看详情
     $("#table").delegate(".look", "click", function (e) {
         var groupby = $("#groupby").find("option:selected").text();
+        var regionId = $(this).prev().val();
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
@@ -176,7 +177,7 @@
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().text();
-        window.location.href = "bookStockDetail.aspx?type=" + groupbyType + "&&name=" + name;
+        window.location.href = "bookStockDetail.aspx?type=" + groupbyType + "&&name=" + name + "&&regionId=" + regionId;
     })
 
     //点击查询按钮时
@@ -184,6 +185,7 @@
         var groupby = $("#groupby").find("option:selected").text();
         var supplier = $("#supplier").find("option:selected").text();
         var regionName = $("#region").find("option:selected").text();
+        var regionId = $("#regionId").find("option:selected").val();
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
@@ -222,6 +224,7 @@
                     groupbyType: groupbyType,
                     supplier: supplier,
                     regionName: regionName,
+                    regionId:regionId,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -258,6 +261,7 @@
                                     groupbyType: groupbyType,
                                     supplier: supplier,
                                     regionName: regionName,
+                                    regionId: regionId,
                                     op: "paging"
                                 },
                                 dataType: 'text',
@@ -287,13 +291,15 @@
             $("#printshowType").text("供应商");
             $("#printshowType2").text("组织名称");
             $("#groupsupplier").show();
-            $("#groupregion").hide();
+            $("#groupregionId").show();
+            $("#groupregion").hide(); 
             $('#groupregion').selectpicker('refresh');
         }
         else if (groupby == "组织") {
             $("#printshowType").text("组织名称");
             $("#printshowType2").text("供应商");
             $("#groupsupplier").hide();
+            $("#groupregionId").hide();
             $("#groupregion").show();
         } else if (groupby == "客户") {
             $("#groupsupplier").hide();
