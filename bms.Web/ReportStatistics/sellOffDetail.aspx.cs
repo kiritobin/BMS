@@ -22,14 +22,14 @@ namespace bms.Web.ReportStatistics
         public int totalCount, intPageCount, pageSize = 20;
         public DataSet dsUser = null;
         public DataSet dsPer;
-
+         
         //统计字段
         public string saletaskId, stauserName, customerName, startTime, finishTime, userName, regionName;
         public string stasupplier, staregionName, stacustomerName;
         public int allkinds, allnumber;
         public double alltotalprice, allreadprice;
 
-        public string type = "", name = "", groupType = "";
+        public string type = "", name = "", regionId = "", groupType = "";
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         public void Page_Load(object sender, EventArgs e)
         {
@@ -37,15 +37,18 @@ namespace bms.Web.ReportStatistics
             {
                 type = Request.QueryString["type"];
                 name = Request.QueryString["name"];
-                if (type == null || type == "" || name == null)
+                regionId = Request.QueryString["regionId"];
+                if ((type == null || type == "") || (name == null) || (regionId == null || regionId == ""))
                 {
                     type = Session["type"].ToString();
                     name = Session["name"].ToString();
+                    regionId = Session["regionId"].ToString();
                 }
                 else
                 {
                     Session["type"] = type;
                     Session["name"] = name;
+                    Session["regionId"] = regionId;
                 }
             }
             if (type == "supplier")
@@ -149,6 +152,15 @@ namespace bms.Web.ReportStatistics
             else if (type == "customerName")
             {
                 strWhere = "customerName = '" + name + "'";
+            }
+            if (regionId!=null&&regionId!="") {
+                if (strWhere != null && strWhere != "")
+                {
+                    strWhere += " and regionId="+regionId +" ";
+                }
+                else { 
+                    strWhere += " regionId="+regionId + " ";
+                }
             }
             groupType = strWhere;
             dsUser = sellBll.getSellOffOperator(groupType);
@@ -390,6 +402,11 @@ namespace bms.Web.ReportStatistics
             }
 
             string Name = name + "-销退明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+
+            if (regionId!=null&&regionId!="")
+            {
+                strWhere += " and regionId=" + regionId + " ";
+            }
             DataTable dt = sellBll.ExportExcels(strWhere, type);
             if (dt != null && dt.Rows.Count > 0)
             {

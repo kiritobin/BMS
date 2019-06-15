@@ -174,9 +174,9 @@ namespace bms.Bll
         /// <param name="type">group条件</param>
         /// <param name="time">时间点</param>
         /// <returns></returns>
-        public int getsellOffKinds(string strWhere, string type, string time)
+        public int getsellOffKinds(string strWhere, string type, string time,string regionId)
         {
-            int row = dao.getsellOffKinds(strWhere, type, time);
+            int row = dao.getsellOffKinds(strWhere, type, time, regionId);
             return row;
         }
         /// <summary>

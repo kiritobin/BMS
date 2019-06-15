@@ -269,6 +269,7 @@ $(document).ready(function () {
     $("#table").delegate(".look", "click", function (e) {
         var groupby = $("#groupby").find("option:selected").text();
         var looktime = $("#time").val();
+        var regionId = $(this).prev().val();
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
@@ -281,7 +282,7 @@ $(document).ready(function () {
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        window.location.href = "sellOffDetail.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime;
+        window.location.href = "sellOffDetail.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime + "&&regionId=" + regionId;
         //if (name == "" || name == null) {
         //    swal({
         //        title: "提示",
@@ -304,6 +305,7 @@ $(document).ready(function () {
         var supplier = $("#supplier").find("option:selected").text();
         var regionName = $("#region").find("option:selected").text();
         var customerName = $("#customer").find("option:selected").text();
+        var regionid = $("#regionid").find("option:selected").val();
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
@@ -314,6 +316,7 @@ $(document).ready(function () {
             customerName = "";
         }
         else if (groupby == "组织") {
+            regionid = "";
             groupbyType = "regionName";
             if (regionName == "全部组织") {
                 regionName = "";
@@ -355,19 +358,23 @@ $(document).ready(function () {
                     regionName: regionName,
                     time: time,
                     customerName: customerName,
+                    regionid: regionid,
                     op: "paging"
                 },
                 dataType: 'text',
                 success: function (data) {
                     if (groupby == "供应商") {
                         $("#showType").text("供应商");
+                        $("#showType").show();
                     }
                     else if (groupby == "组织") {
-                        $("#showType").text("组织");
+                        $("#showType").hide();
                     } else if (groupby == "客户") {
                         $("#showType").text("客户");
+                        $("#showType").show();
                     } else {
                         $("#showType").text("客户");
+                        $("#showType").show();
                     }
                     $("#intPageCount").remove();
                     $("#table tr:not(:first)").empty(); //清空table处首行
@@ -395,19 +402,23 @@ $(document).ready(function () {
                                     regionName: regionName,
                                     time: time,
                                     customerName: customerName,
+                                    regionid: regionid,
                                     op: "paging"
                                 },
                                 dataType: 'text',
                                 success: function (data) {
                                     if (groupby == "供应商") {
                                         $("#showType").text("供应商");
+                                        $("#showType").show();
                                     }
                                     else if (groupby == "组织") {
-                                        $("#showType").text("组织");
+                                        $("#showType").hide();
                                     } else if (groupby == "客户") {
                                         $("#showType").text("客户");
+                                        $("#showType").show();
                                     } else {
                                         $("#showType").text("客户");
+                                        $("#showType").show();
                                     }
                                     $("#table tr:not(:first)").remove(); //清空table处首行
                                     $("#table").append(data); //加载table
@@ -428,14 +439,16 @@ $(document).ready(function () {
             $("#groupsupplier").show();
             $("#groupregion").hide();
             $('#groupregion').selectpicker('refresh');
-
+            $("#div_regionid").show();
             $("#groupcustom").hide();
         }
         else if (groupby == "组织") {
+            $("#div_regionid").hide();
             $("#groupsupplier").hide();
             $("#groupregion").show();
             $("#groupcustom").hide();
         } else if (groupby == "客户") {
+            $("#div_regionid").show();
             $("#groupsupplier").hide();
             $("#groupregion").hide();
             $("#groupcustom").show();

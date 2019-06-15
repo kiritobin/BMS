@@ -41,11 +41,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="sm"></param>
         /// <returns></returns>
-        public int Insert(SellOffMonomer sm)   
+        public int Insert(SellOffMonomer sm)
         {
             string cmdText = "insert into T_SellOffMonomer(sellOffMonomerId,sellOffHead,bookNum,isbn,price,count,totalPrice,realPrice,dateTime,realDiscount) values(@sellOffMonomerId,@sellOffHeadID,@bookNum,@isbn,@price,@count,@totalPrice,@realPrice,@dateTime,@realDiscount)";
             string[] param = { "@sellOffMonomerId", "@sellOffHeadID", "@bookNum", "@isbn", "@price", "@count", "@totalPrice", "@realPrice", "@dateTime", "@realDiscount" };
-            object[] values = { sm.SellOffMonomerId, sm.SellOffHeadId, sm.BookNum, sm.ISBN1, sm.Price, sm.Count, sm.TotalPrice, sm.RealPrice, sm.Time,sm.Discount };
+            object[] values = { sm.SellOffMonomerId, sm.SellOffHeadId, sm.BookNum, sm.ISBN1, sm.Price, sm.Count, sm.TotalPrice, sm.RealPrice, sm.Time, sm.Discount };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }
@@ -80,12 +80,12 @@ namespace bms.Dao
         /// </summary>
         /// <param name="saleTaskId"></param>
         /// <returns></returns>
-        public DataSet getDisCount(string saleTaskId,string bookNum)
+        public DataSet getDisCount(string saleTaskId, string bookNum)
         {
             //string sql = "select defaultDiscount from T_SaleTask where saleTaskId=@saleTaskId";
             string sql = "select * from ((select bookNum,realDiscount from v_salemonomer where saleTaskId=@saleTaskId GROUP BY bookNum) as temp) where bookNum=@bookNum";
-            string[] param = { "@saleTaskId","@bookNum" };
-            object[] values = { saleTaskId,bookNum };
+            string[] param = { "@saleTaskId", "@bookNum" };
+            object[] values = { saleTaskId, bookNum };
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
@@ -94,11 +94,11 @@ namespace bms.Dao
         /// </summary>
         /// <param name="bookNum"></param>
         /// <returns></returns>
-        public DataSet selctByBookNum(string bookNum,string saleTaskId)
+        public DataSet selctByBookNum(string bookNum, string saleTaskId)
         {
             string sql = "select number,state from v_allsalemonomer where bookNum=@bookNum and saleTaskId=@saleTaskId and state!=3";
             string[] param = { "@bookNum", "@saleTaskId" };
-            object[] values = { bookNum,saleTaskId };
+            object[] values = { bookNum, saleTaskId };
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
@@ -108,7 +108,7 @@ namespace bms.Dao
         /// <param name="bookNum"></param>
         /// <param name="sellOffHeadId"></param>
         /// <returns></returns>
-        public DataSet selecctSm(string bookNum,string sellOffHeadId)
+        public DataSet selecctSm(string bookNum, string sellOffHeadId)
         {
             string sql = "select count from T_SellOffMonomer where bookNum=@bookNum and sellOffHead=@sellOffHeadId";
             string[] param = { "@bookNum", "@sellOffHeadId" };
@@ -133,7 +133,7 @@ namespace bms.Dao
         /// 获取零售排行
         /// </summary>
         /// <returns></returns>
-        public DataSet getRetailRank(DateTime startTime,DateTime endTime,string regionName)
+        public DataSet getRetailRank(DateTime startTime, DateTime endTime, string regionName)
         {
             string sql = "select bookNum,bookName,unitPrice,sum(number) as num,sum(totalPrice) as allPrice,dateTime from v_retailmonomer where state=1 and dateTime BETWEEN @startTime and @endTime and regionName=@regionName GROUP BY bookNum ORDER BY num desc limit 0,10";
             string[] param = { "@startTime", "@endTime", "@regionName" };
@@ -149,11 +149,11 @@ namespace bms.Dao
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
-        public DataSet searchSalesDetail(string saletaskId,string saleheadId)
+        public DataSet searchSalesDetail(string saletaskId, string saleheadId)
         {
             string sql = "select bookNum,bookName,ISBN,unitPrice,realDiscount,sum(number) as allnumber ,sum(realPrice) as allrealPrice,userName from V_SaleMonomer where saleTaskId=@saleTaskId and saleHeadId=@saleHeadId group by bookNum,bookName,ISBN,unitPrice,realDiscount ORDER BY dateTime desc";
             string[] param = { "@saletaskId", "@saleheadId" };
-            object[] values = { saletaskId , saleheadId };
+            object[] values = { saletaskId, saleheadId };
             DataSet ds = db.FillDataSet(sql, param, values);
             return ds;
         }
@@ -164,7 +164,7 @@ namespace bms.Dao
         /// <param name="type"></param>
         /// <param name="time"></param>
         /// <returns></returns>
-        public int getsellOffKinds(string strWhere, string type, string time)
+        public int getsellOffKinds(string strWhere, string type, string time, string regionId)
         {
             string cmdText = "";
             string startTime = "";
@@ -177,14 +177,31 @@ namespace bms.Dao
             }
             if ((time != "" && time != null))
             {
-                cmdText = "select count(bookNum) from ((select bookNum,customerName,supplier,count(bookNum) as kinds,dateTime from v_selloff where "+type+ "= @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum) as temp)";
+                if (regionId != null && regionId != "")
+                {
+
+                    cmdText = "select count(bookNum) from ((select bookNum,customerName,supplier,count(bookNum) as kinds,dateTime from v_selloff where " + type + "= @strWhere and regionId=@regionId and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum) as temp)";
+                }
+                else
+                {
+
+                    cmdText = "select count(bookNum) from ((select bookNum,customerName,supplier,count(bookNum) as kinds,dateTime from v_selloff where " + type + "= @strWhere and dateTime BETWEEN'" + startTime + "' and '" + endTime + "' GROUP BY bookNum) as temp)";
+                }
             }
             else
             {
-                cmdText = "select count(bookNum) from ((select bookNum,customerName,supplier,sum(count),dateTime from v_selloff  where " + type + "= @strWhere GROUP BY bookNum) as temp)";
+                if (regionId != null && regionId != "")
+                {
+                    cmdText = "select count(bookNum) from ((select bookNum,customerName,supplier,sum(count),dateTime from v_selloff  where " + type + "= @strWhere and regionId=@regionId  GROUP BY bookNum) as temp)";
+                }
+                else
+                {
+                    cmdText = "select count(bookNum) from ((select bookNum,customerName,supplier,sum(count),dateTime from v_selloff  where " + type + "= @strWhere GROUP BY bookNum) as temp)";
+                }
+
             }
-            string[] param = { "@strWhere" };
-            object[] values = { strWhere };
+            string[] param = { "@strWhere", "@regionId" };
+            object[] values = { strWhere , regionId };
             string val = db.ExecuteScalar(cmdText, param, values).ToString();
             int row = int.Parse(val);
             return row;
@@ -218,29 +235,42 @@ namespace bms.Dao
             if (groupbyType == "supplier")
             {
                 exportdt.Columns.Add("供应商", typeof(string));
-                cmdText = "select supplier, sum(count) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_selloff where "+strWhere+ " order by dateTime desc";
+                cmdText = "select regionId,regionName,supplier, sum(count) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_selloff where " + strWhere + " order by dateTime desc";
             }
             else if (groupbyType == "regionName")
             {
                 exportdt.Columns.Add("地区名称", typeof(string));
-                cmdText = "select regionName, sum(count) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_selloff where " + strWhere + " order by dateTime desc";
+                cmdText = "select regionId, regionName, sum(count) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_selloff where " + strWhere + " order by dateTime desc";
             }
             else
             {
                 exportdt.Columns.Add("客户名称", typeof(string));
-                cmdText = "select customerName, sum(count) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_selloff where " + strWhere + " order by dateTime desc";
+                cmdText = "select regionId,regionName,customerName, sum(count) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice from v_selloff where " + strWhere + " order by dateTime desc";
             }
             DataSet ds = db.FillDataSet(cmdText, null, null);
             exportdt.Columns.Add("书籍品种数", typeof(long));
             exportdt.Columns.Add("书籍总数量", typeof(long));
             exportdt.Columns.Add("总实洋", typeof(double));
             exportdt.Columns.Add("总码洋", typeof(double));
+            if (groupbyType != "regionName")
+            {
+                exportdt.Columns.Add("组织名称", typeof(string));
+            }
             int allcount = ds.Tables[0].Rows.Count;
             for (int i = 0; i < allcount; i++)
             {
                 condition = ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString();
-                kinds = getsellOffKinds(condition, groupbyType, time);
-                exportdt.Rows.Add(ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString(), Convert.ToInt64(kinds), Convert.ToInt64(ds.Tables[0].Rows[i]["allNumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allRealPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allTotalPrice"].ToString()));
+                kinds = getsellOffKinds(condition, groupbyType, time, ds.Tables[0].Rows[i]["regionId"].ToString());
+
+                if (groupbyType != "regionName")
+                {
+                    exportdt.Rows.Add(ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString(), Convert.ToInt64(kinds), Convert.ToInt64(ds.Tables[0].Rows[i]["allNumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allRealPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allTotalPrice"].ToString()), ds.Tables[0].Rows[i]["regionName"].ToString());
+                }
+                else
+                {
+                    exportdt.Rows.Add(ds.Tables[0].Rows[i]["" + groupbyType + ""].ToString(), Convert.ToInt64(kinds), Convert.ToInt64(ds.Tables[0].Rows[i]["allNumber"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allRealPrice"].ToString()), Convert.ToDouble(ds.Tables[0].Rows[i]["allTotalPrice"].ToString()));
+                }
+               
             }
             if (exportdt.Rows.Count > 0)
             {

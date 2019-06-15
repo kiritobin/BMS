@@ -137,7 +137,7 @@ namespace bms.Web.ReportStatistics
             {
                 if (regionId != null || regionId != "")
                 {
-                    strWhere = "supplier = '" + name + "' and deleteState=0 and regionId="+ regionId;
+                    strWhere = "supplier = '" + name + "' and deleteState=0 and regionId="+ regionId + " ";
                 }
                 else {
                     strWhere = "supplier = '" + name + "' and deleteState=0";
@@ -153,7 +153,7 @@ namespace bms.Web.ReportStatistics
 
                 if (regionId != null || regionId != "")
                 {
-                    strWhere = "customerName = '" + name + "' and deleteState=0 and regionId=" + regionId;
+                    strWhere = "customerName = '" + name + "' and deleteState=0 and regionId=" + regionId + " ";
                 }
                 else
                 {

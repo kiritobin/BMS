@@ -73,6 +73,7 @@ namespace bms.Web.ReportStatistics
         {
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
             exportgroupbyType = Session["exportgroupbyType"].ToString();
+
             DataTable dt = sellBll.exportAll(exportAllStrWhere, exportgroupbyType, Time);
             //var name = DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             string name = "销退报表导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
@@ -134,6 +135,8 @@ namespace bms.Web.ReportStatistics
         {
             User user = (User)Session["user"];
             int regionId = user.ReginId.RegionId;
+
+            string regionid = Request["regionid"];
             string roleName = user.RoleId.RoleName;
             string strWhere = "";
             string groupbyType = Request["groupbyType"];
@@ -197,16 +200,33 @@ namespace bms.Web.ReportStatistics
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_selloff";
             tb.OrderBy = "convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
-            tb.StrColumnlist = groupbyType + ",sum(count) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
+            tb.StrColumnlist = groupbyType + ",regionName,regionId,sum(count) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
             if (strWhere == "" || strWhere == null)
             {
-                tb.StrWhere = groupbyType + " like'%'" + " GROUP BY " + groupbyType;
+                if (regionid != null && regionid != "")
+                {
+                    tb.StrWhere = groupbyType + " like'%' and regionId=" + regionid + " GROUP BY " + groupbyType + ",regionId";
+                }
+                else
+                {
+                    tb.StrWhere = groupbyType + " like'%'" + " GROUP BY " + groupbyType + ",regionId";
+                }
+               
             }
             else
             {
-                tb.StrWhere = strWhere + " GROUP BY " + groupbyType;
+                if (regionid != null && regionid != "")
+                {
+                    tb.StrWhere = strWhere + " and regionId=" + regionid + " GROUP BY " + groupbyType + ",regionId";
+                }
+                else
+                {
+
+                    tb.StrWhere = strWhere + " GROUP BY " + groupbyType +",regionId";
+                }
+               
             }
             Session["exportgroupbyType"] = groupbyType;
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
@@ -226,15 +246,19 @@ namespace bms.Web.ReportStatistics
                 DataRow dr = ds.Tables[0].Rows[i];
                 //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                if (groupbyType != "regionName")
+                {
+                    strb.Append("<td>" + dr["regionName"].ToString() + "</td>");
+                }
                 strb.Append("<td>" + dr["" + groupbyType + ""].ToString() + "</td>");
                 condition = dr["" + groupbyType + ""].ToString();
                 //kinds = salemonBll.getkindsGroupBy(condition, groupbyType, state, time).ToString();
-                kinds = sellBll.getsellOffKinds(condition, groupbyType, time).ToString();
+                kinds = sellBll.getsellOffKinds(condition, groupbyType, time, dr["regionId"].ToString()).ToString();
                 strb.Append("<td>" + kinds + "</td>");
                 strb.Append("<td>" + dr["allNumber"].ToString() + "</td>");
                 strb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
                 strb.Append("<td>" + dr["allRealPrice"].ToString() + "</td>");
-                strb.Append("<td><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
+                strb.Append("<td><input type='hidden' value=" + dr["regionId"].ToString() + " /><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             
