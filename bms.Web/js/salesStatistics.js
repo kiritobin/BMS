@@ -570,6 +570,7 @@ $(document).ready(function () {
             customerName = "";
         }
         else if (groupby == "组织") {
+            regionid = "";
             groupbyType = "regionName";
             if (regionName == "全部组织") {
                 regionName = "";

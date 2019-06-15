@@ -141,6 +141,7 @@ namespace bms.Web.ReportStatistics
             string supplier = Request["supplier"];
             string regionName = Request["regionName"];
             string time = Request["time"];
+            regionid = Request["regionId"];
             Session["time"] = time;
             if (groupbyType == "state" || groupbyType == null)
             {
@@ -155,7 +156,15 @@ namespace bms.Web.ReportStatistics
                 strWhere = "regionName='" + regionName + "'";
             }
             if (regionid!=null&&regionid!="") {
-                strWhere += " and regionId=" + regionid;
+                if (strWhere != null && strWhere != "")
+                {
+                    strWhere += " and regionId=" + regionid;
+                }
+                else
+                {
+                    strWhere += " regionId=" + regionid;
+                }
+               
             }
 
             if (time != null && time != "")
@@ -200,11 +209,11 @@ namespace bms.Web.ReportStatistics
         
             if (strWhere == "" || strWhere == null)
             {
-                tb.StrWhere = groupbyType + " like'%'" + " and type=2 GROUP BY " + groupbyType+ ",regionId";
+                tb.StrWhere = groupbyType + " like'%'" + " and type=2 GROUP BY " + groupbyType + ",regionId";
             }
             else
             {
-                tb.StrWhere = strWhere + " and type=2 GROUP BY " + groupbyType+",regionId"; 
+                tb.StrWhere = strWhere + " and type=2 GROUP BY " + groupbyType +",regionId"; 
             }
             Session["exportgroupbyType"] = groupbyType;
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
@@ -220,6 +229,10 @@ namespace bms.Web.ReportStatistics
                 DataRow dr = ds.Tables[0].Rows[i];
                 //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
+                if (groupbyType != "regionName")
+                {
+                    strb.Append("<td>" + dr["regionName"].ToString() + "</td>");
+                }
                 strb.Append("<td>" + dr["" + groupbyType + ""].ToString() + "</td>");
                 condition = dr["" + groupbyType + ""].ToString();
                 strb.Append("<td>" + dr["kindsNum"].ToString() + "</td>");

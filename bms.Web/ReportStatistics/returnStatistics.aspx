@@ -356,7 +356,7 @@
                                             </div>
                                              <div class="btn-group" id="groupregionId" style="display:none">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="regionId">
-                                                    <option>全部组织</option>
+                                                    <option value="">全部组织</option>
                                                     <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
                                                         {%>
                                                     <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
@@ -403,7 +403,8 @@
                                             <thead>
                                                 <tr class="book-tab-tr text-nowrap">
                                                     <th>序号</th>
-                                                    <th id="showType">供应商</th>
+                                                    <th>组织</th>
+                                                     <th id="showType">供应商</th>
                                                     <th>品种</th>
                                                     <th>数量</th>
                                                     <th>码洋</th>

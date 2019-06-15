@@ -135,6 +135,7 @@ namespace bms.Web.ReportStatistics
             string strWhere = "";
             string groupbyType = Request["groupbyType"];
             string supplier = Request["supplier"];
+            string regionid = Request["regionId"];
             string regionName = Request["regionName"];
             if (groupbyType == "state" || groupbyType == null)
             {
@@ -170,8 +171,13 @@ namespace bms.Web.ReportStatistics
                 str = strWhere;
             }
             string file = "书籍库存导出" + DateTime.Now.ToString("yyyyMMddHHmmss");
-            if (groupbyType == "supplier") {
+            if (groupbyType == "supplier")
+            {
                 groupbyType += ",regionId";
+            }
+            if (regionid != null && regionid != "")
+            {
+                str += " and regionId=" + regionid;
             }
             DataTable dt = StockBll.bookStock(str, groupbyType).Tables[0];
             int count = dt.Rows.Count;
@@ -253,20 +259,22 @@ namespace bms.Web.ReportStatistics
             string groupbyType = Request["groupbyType"];
             string supplier = Request["supplier"];
             string regionName = Request["regionName"];
-            string regionid= Request["regionId"];
+            string regionid = Request["regionId"];
             if (groupbyType == "state" || groupbyType == null)
             {
                 groupbyType = "supplier";
             }
             if (supplier != "" && supplier != null)
             {
-                if (regionid!=null&& regionid!="") {
-                    strWhere = "supplier='" + supplier + "' and regionId="+ regionid;
-                } else
+                if (regionid != null && regionid != "")
+                {
+                    strWhere = "supplier='" + supplier + "' and regionId=" + regionid;
+                }
+                else
                 {
                     strWhere = "supplier='" + supplier + "'";
                 }
-                
+
             }
             if (regionName != "" && regionName != null)
             {
@@ -279,7 +287,18 @@ namespace bms.Web.ReportStatistics
                     strWhere = "regionName='" + regionName + "'";
                 }
             }
+            if (regionid != null && regionid != "")
+            {
+                if (strWhere != null && strWhere != "")
+                {
 
+                    strWhere += " and regionId=" + regionid;
+                }
+                else
+                {
+                    strWhere += " regionId=" + regionid;
+                }
+            }
             if (roleName != "超级管理员")
             {
                 if (strWhere == "" || strWhere == null)
@@ -310,7 +329,7 @@ namespace bms.Web.ReportStatistics
             }
             else
             {
-                tb.StrWhere = strWhere + "  GROUP BY " + groupbyType + ",regionId";   
+                tb.StrWhere = strWhere + "  GROUP BY " + groupbyType + ",regionId";
             }
             Session["exportgroupbyType"] = groupbyType;
             Session["StrWhere"] = tb.StrWhere;

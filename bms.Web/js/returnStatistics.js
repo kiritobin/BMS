@@ -296,7 +296,7 @@ $(document).ready(function () {
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        window.location.href = "returnDetails.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime + "&&regionId=" + regionId;;
+        window.location.href = "returnDetails.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime + "&&regionId=" + regionId;
         //if (name == "" || name == null) {
         //    swal({
         //        title: "提示",
@@ -329,6 +329,7 @@ $(document).ready(function () {
             regionName = "";
         }
         else if (groupby == "组织") {
+            regionId = "";
             groupbyType = "regionName";
             if (regionName == "全部组织") {
                 regionName = "";
@@ -365,11 +366,13 @@ $(document).ready(function () {
                 dataType: 'text',
                 success: function (data) {
                     if (groupby == "供应商") {
+                        $("#showType").show();
                         $("#showType").text("供应商");
                     }
                     else if (groupby == "组织") {
-                        $("#showType").text("组织");
+                        $("#showType").hide();
                     } else if (groupby == "客户") {
+                        $("#showType").show();
                         $("#showType").text("客户");
                     }
                     $("#intPageCount").remove();
@@ -403,10 +406,11 @@ $(document).ready(function () {
                                 dataType: 'text',
                                 success: function (data) {
                                     if (groupby == "供应商") {
+                                        $("#showType").show();
                                         $("#showType").text("供应商");
                                     }
                                     else if (groupby == "组织") {
-                                        $("#showType").text("组织");
+                                        $("#showType").hide();
                                     }
                                     $("#table tr:not(:first)").remove(); //清空table处首行
                                     $("#table").append(data); //加载table

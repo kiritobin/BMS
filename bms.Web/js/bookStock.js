@@ -78,6 +78,7 @@
             var groupby = $("#groupby").find("option:selected").text();
             var supplier = $("#supplier").find("option:selected").text();
             var regionName = $("#region").find("option:selected").text();
+            var regionId = $("#regionId").find("option:selected").val();
             var groupbyType;
             if (groupby == "供应商") {
                 groupbyType = "supplier";
@@ -87,6 +88,7 @@
                 regionName = "";
             }
             else if (groupby == "组织") {
+                regionId = "";
                 groupbyType = "regionName";
                 if (regionName == "全部组织") {
                     regionName = "";
@@ -109,7 +111,7 @@
                     allowOutsideClick: false
                 });
             }
-            window.location.href = "bookStock.aspx?op=exportAll&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName;
+            window.location.href = "bookStock.aspx?op=exportAll&&groupbyType=" + groupbyType + "&&supplier=" + supplier + "&&regionName=" + regionName + "&&regionId="+regionId;
         }
     })
     //导出报表明细
@@ -195,6 +197,7 @@
             regionName = "";
         }
         else if (groupby == "组织") {
+            regionId = "";
             groupbyType = "regionName";
             if (regionName == "全部组织") {
                 regionName = "";

@@ -305,7 +305,7 @@ namespace bms.Bll
         /// <returns></returns>
         public int getkindsGroupBy(string strWhere, string groupbyType, string time, int type)
         {
-            return monoDao.getkindsGroupBy(strWhere, groupbyType, time, type);
+            return monoDao.getkindsGroupBy(strWhere, groupbyType, time, type, "");
         }
 
         /// <summary>

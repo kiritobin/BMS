@@ -285,6 +285,8 @@ $(document).ready(function () {
     $("#table").delegate(".look", "click", function (e) {
         var looktime = $("#time").val();
         var groupby = $("#groupby").find("option:selected").text();
+
+        var regionId = $(this).prev().val();
         var groupbyType;
         if (groupby == "供应商") {
             groupbyType = "supplier";
@@ -295,7 +297,7 @@ $(document).ready(function () {
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        window.location.href = "stockDetails.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime;
+        window.location.href = "stockDetails.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime + "&&regionId=" + regionId;
         //if (name == "" || name == null) {
         //    swal({
         //        title: "提示",
@@ -317,6 +319,8 @@ $(document).ready(function () {
         var groupby = $("#groupby").find("option:selected").text();
         var supplier = $("#supplier").find("option:selected").text();
         var regionName = $("#region").find("option:selected").text();
+        var regionId = $("#regionId").find("option:selected").val();
+        
         var time = $("#time").val();
         var groupbyType;
         if (groupby == "供应商") {
@@ -327,6 +331,7 @@ $(document).ready(function () {
             regionName = "";
         }
         else if (groupby == "组织") {
+            regionId = "";
             groupbyType = "regionName";
             if (regionName == "全部组织") {
                 regionName = "";
@@ -356,16 +361,18 @@ $(document).ready(function () {
                     groupbyType: groupbyType,
                     supplier: supplier,
                     regionName: regionName,
-                    time:time,
+                    time: time,
+                    regionId: regionId,
                     op: "paging"
                 },
                 dataType: 'text',
                 success: function (data) {
                     if (groupby == "供应商") {
+                        $("#showType").show();
                         $("#showType").text("供应商");
                     }
                     else if (groupby == "组织") {
-                        $("#showType").text("组织");
+                        $("#showType").hide();
                     } else if (groupby == "客户") {
                         $("#showType").text("客户");
                     }
@@ -394,15 +401,17 @@ $(document).ready(function () {
                                     supplier: supplier,
                                     regionName: regionName,
                                     time: time,
+                                    regionId: regionId,
                                     op: "paging"
                                 },
                                 dataType: 'text',
                                 success: function (data) {
                                     if (groupby == "供应商") {
+                                        $("#showType").show();
                                         $("#showType").text("供应商");
                                     }
                                     else if (groupby == "组织") {
-                                        $("#showType").text("组织");
+                                        $("#showType").hide();
                                     }
                                     $("#table tr:not(:first)").remove(); //清空table处首行
                                     $("#table").append(data); //加载table
@@ -422,15 +431,18 @@ $(document).ready(function () {
         if (groupby == "供应商") {
             $("#groupsupplier").show();
             $("#groupregion").hide();
+            $("#groupregionId").show();
             $('#groupregion').selectpicker('refresh');
         }
         else if (groupby == "组织") {
             $("#groupsupplier").hide();
             $("#groupregion").show();
+            $("#groupregionId").hide();
         } else if (groupby == "客户") {
             $("#groupsupplier").hide();
             $("#groupregion").hide();
         } else {
+            $("#groupregionId").show();
             $("#groupsupplier").hide();
             $("#groupregion").hide();
         }

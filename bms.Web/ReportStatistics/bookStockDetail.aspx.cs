@@ -29,7 +29,7 @@ namespace bms.Web.ReportStatistics
                 type = Request.QueryString["type"];
                 name = Request.QueryString["name"];
                 regionId= Request.QueryString["regionId"];
-                if ((type == null || type == "") || (name == null || name=="") || (regionId ==null || regionId==""))
+                if ((type == null || type == "") || (name == null ) || (regionId ==null || regionId==""))
                 {
                     type = Session["type"].ToString();
                     name = Session["name"].ToString();
