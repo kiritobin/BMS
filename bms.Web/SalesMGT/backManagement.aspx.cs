@@ -126,7 +126,7 @@ namespace bms.Web.SalesMGT
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["customerName"].ToString() + "</td>");
                 strb.Append("<td>" + (state > 0 ? "已完成" : "处理中") + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["kinds"].ToString() + "</td>");
-                strb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
+                //strb.Append("<td>" + ds.Tables[0].Rows[i]["count"].ToString() + "</td>");
                 strb.Append("<td>" + defaultDiscount + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["totalPrice"].ToString() + "</td>");
                 strb.Append("<td>" + ds.Tables[0].Rows[i]["realPrice"].ToString() + "</td>");

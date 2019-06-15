@@ -392,7 +392,7 @@
                                                     <th><nobr>状态</nobr></th>
                                                     <th><nobr>品种</nobr></th>
                                                     <th><nobr>数量</nobr></th>
-                                                    <th><nobr>折扣</nobr></th>
+                                                    <%--<th><nobr>折扣</nobr></th>--%>
                                                     <th><nobr>码洋</nobr></th>
                                                     <th><nobr>实洋</nobr></th>
                                                     <th><nobr>制单时间</nobr></th>

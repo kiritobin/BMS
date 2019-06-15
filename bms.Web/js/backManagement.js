@@ -92,7 +92,7 @@
     //查询按钮
     $("#table").delegate(".search_back", "click", function () {
         // window.location.href = 'backQuery.aspx'
-        var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
         $.ajax({
             type: 'Post',
             url: 'backManagement.aspx',
@@ -108,8 +108,8 @@
     })
     //添加单体
     $("#table").delegate(".btn_add", "click", function () {
-        var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
-        var state = $(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
+        var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var state = $(this).parent().prev().prev().prev().prev().prev().prev().text();
         $.ajax({
             type: 'Post',
             url: 'backManagement.aspx',
@@ -181,7 +181,7 @@
     })
     //删除
     $("#table").delegate(".btndelete", "click", function () {
-        var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var id = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
         $.ajax({
             type: 'Post',
             url: 'backManagement.aspx',
