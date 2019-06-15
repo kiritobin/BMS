@@ -118,11 +118,11 @@ namespace bms.Web.SalesMGT
                 staticsRealPrice = Convert.ToDouble(dr["realPrice"]);
                 staticsTime = Convert.ToDateTime(dr["makingTime"]);
             }
-            else
-            {
-                Response.Write("没有这条数据");
-                Response.End();
-            }
+            //else
+            //{
+            //    Response.Write("没有这条数据");
+            //    Response.End();
+            //}
         }
         /// <summary>
         /// 带输入框的tr列表
