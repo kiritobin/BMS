@@ -284,6 +284,7 @@ $(document).ready(function () {
     //查看详情
     $("#table").delegate(".look", "click", function (e) {
         var groupby = $("#groupby").find("option:selected").text();
+        var regionId = $(this).prev().val();
         var looktime = $("#time").val();
         var groupbyType;
         if (groupby == "供应商") {
@@ -295,7 +296,7 @@ $(document).ready(function () {
             groupbyType = "supplier";
         }
         var name = $(this).parent().prev().prev().prev().prev().prev().text().trim();
-        window.location.href = "returnDetails.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime;
+        window.location.href = "returnDetails.aspx?type=" + groupbyType + "&&name=" + name + "&&looktime=" + looktime + "&&regionId=" + regionId;;
         //if (name == "" || name == null) {
         //    swal({
         //        title: "提示",
@@ -317,6 +318,7 @@ $(document).ready(function () {
         var groupby = $("#groupby").find("option:selected").text();
         var supplier = $("#supplier").find("option:selected").text();
         var regionName = $("#region").find("option:selected").text();
+        var regionId = $("#regionId").find("option:selected").val();
         var time = $("#time").val();
         var groupbyType;
         if (groupby == "供应商") {
@@ -357,6 +359,7 @@ $(document).ready(function () {
                     supplier: supplier,
                     regionName: regionName,
                     time: time,
+                    regionId: regionId,
                     op: "paging"
                 },
                 dataType: 'text',
@@ -394,6 +397,7 @@ $(document).ready(function () {
                                     supplier: supplier,
                                     regionName: regionName,
                                     time: time,
+                                    regionId: regionId,
                                     op: "paging"
                                 },
                                 dataType: 'text',
@@ -422,11 +426,13 @@ $(document).ready(function () {
         if (groupby == "供应商") {
             $("#groupsupplier").show();
             $("#groupregion").hide();
+            $("#groupregionId").show();
             $('#groupregion').selectpicker('refresh');
         }
         else if (groupby == "组织") {
             $("#groupsupplier").hide();
             $("#groupregion").show();
+            $("#groupregionId").hide();
         } else if (groupby == "客户") {
             $("#groupsupplier").hide();
             $("#groupregion").hide();

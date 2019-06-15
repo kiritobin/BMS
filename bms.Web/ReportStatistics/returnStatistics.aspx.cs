@@ -23,7 +23,7 @@ namespace bms.Web.ReportStatistics
         RegionBll regionBll = new RegionBll();
         CustomerBll customBll = new CustomerBll();
         public int totalCount, intPageCount, pageSize = 20;
-        string exportAllStrWhere, exportgroupbyType, condition;
+        string exportAllStrWhere, regionid, exportgroupbyType, condition;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -74,6 +74,7 @@ namespace bms.Web.ReportStatistics
         {
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
             exportgroupbyType = Session["exportgroupbyType"].ToString();
+            exportAllStrWhere += ",regionId";
             DataTable dt = wareBll.exportAll(exportAllStrWhere, exportgroupbyType, Session["time"].ToString(), 2);
             string name = "退货报表导出" + DateTime.Now.ToString("yyyyMMddhhmmss") + new Random(DateTime.Now.Second).Next(10000);
             if (dt != null && dt.Rows.Count > 0)
@@ -153,6 +154,9 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere = "regionName='" + regionName + "'";
             }
+            if (regionid!=null&&regionid!="") {
+                strWhere += " and regionId=" + regionid;
+            }
 
             if (time != null && time != "")
             {
@@ -190,16 +194,17 @@ namespace bms.Web.ReportStatistics
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_monomer";
             tb.OrderBy = "convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
-            tb.StrColumnlist = groupbyType + ", sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice,count(bookNum) as kindsNum";
+            tb.StrColumnlist = groupbyType + ", sum(number) as allNumber, sum(totalPrice) as allTotalPrice,sum(realPrice) as allRealPrice,count(bookNum) as kindsNum,regionId,regionName";
             tb.IntPageSize = pageSize;
             tb.IntPageNum = currentPage;
+        
             if (strWhere == "" || strWhere == null)
             {
-                tb.StrWhere = groupbyType + " like'%'" + " and type=2 GROUP BY " + groupbyType;
+                tb.StrWhere = groupbyType + " like'%'" + " and type=2 GROUP BY " + groupbyType+ ",regionId";
             }
             else
             {
-                tb.StrWhere = strWhere + " and type=2 GROUP BY " + groupbyType;
+                tb.StrWhere = strWhere + " and type=2 GROUP BY " + groupbyType+",regionId"; 
             }
             Session["exportgroupbyType"] = groupbyType;
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
@@ -221,7 +226,7 @@ namespace bms.Web.ReportStatistics
                 strb.Append("<td>" + dr["allNumber"].ToString() + "</td>");
                 strb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
                 strb.Append("<td>" + dr["allRealPrice"].ToString() + "</td>");
-                strb.Append("<td><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
+                strb.Append("<td><input type='hidden' value='" + dr["regionId"].ToString() + "' /><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
             Response.Write(strb.ToString());

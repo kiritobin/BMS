@@ -18,7 +18,7 @@ namespace bms.Web.ReportStatistics
         WarehousingBll wareBll = new WarehousingBll();
         public int totalCount, intPageCount, pageSize = 20;
         public DataSet dsUser = null;
-        public string type = "", name = "", groupType = "", userName, regionName;
+        public string type = "", name = "", regionId = "", groupType = "", userName, regionName;
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,15 +26,18 @@ namespace bms.Web.ReportStatistics
             {
                 type = Request.QueryString["type"];
                 name = Request.QueryString["name"];
-                if (type == null || type == "" || name == null)
+                regionId = Request.QueryString["regionId"];
+                if ((type == null || type == "") || (name == null || name == "") || (regionId == null || regionId == ""))
                 {
                     type = Session["type"].ToString();
                     name = Session["name"].ToString();
+                    regionId = Session["regionId"].ToString();
                 }
                 else
                 {
                     Session["type"] = type;
                     Session["name"] = name;
+                    Session["regionId"] = regionId;
                 }
             }
             getData();
@@ -195,6 +198,10 @@ namespace bms.Web.ReportStatistics
             if (isbn != null && isbn != "")
             {
                 strWhere += " and isbn like '%" + isbn + "%'";
+            }
+            if (regionId != null && regionId != "")
+            {
+                strWhere += " and regionId=" + regionId + " ";
             }
             if (price != "" && price != null)
             {
@@ -411,7 +418,13 @@ namespace bms.Web.ReportStatistics
                     strWhere += " and time BETWEEN'" + startTime + "' and '" + endTime + "'";
                 }
             }
+
             string Name = fileName + "-退货明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
+            if (regionId != null && regionId != "")
+            {
+                type += " ,regionId";
+                strWhere += " and regionId=" + regionId;
+            }
             DataTable dt = wareBll.ExportExcelDetail(strWhere, type, 2);
             if (dt != null && dt.Rows.Count > 0)
             {

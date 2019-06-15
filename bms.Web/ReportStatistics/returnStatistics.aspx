@@ -354,7 +354,15 @@
                                                     </select>
                                                 </div>
                                             </div>
-
+                                             <div class="btn-group" id="groupregionId" style="display:none">
+                                                <select class="modal_select selectpicker collectionStatus" title="请选择组织" data-live-search="true" id="regionId">
+                                                    <option>全部组织</option>
+                                                    <%for (int i = 0; i < dsRegion.Tables[0].Rows.Count; i++)
+                                                        {%>
+                                                    <option value="<%=dsRegion.Tables[0].Rows[i]["regionId"] %>"><%=dsRegion.Tables[0].Rows[i]["regionName"] %></option>
+                                                    <%} %>
+                                                </select>
+                                            </div>
                                             <div class="btn-group" id="groupsupplier" style="display:none">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择供应商" data-live-search="true" id="supplier">
                                                     <option>全部供应商</option>
