@@ -258,6 +258,10 @@ namespace bms.Web.ReportStatistics
             {
                 DataRow dr = dt.Rows[i];
                 strb.Append("<tr><td>" + (i + 1) + "</td>");
+                if (exportgroupbyType != "regionName")
+                {
+                    strb.Append("<td>" + dt.Rows[i][5] + "</td>");
+                }
                 strb.Append("<td>" + dr[0].ToString() + "</td>");
                 //condition = dr["" + groupbyType + ""].ToString();
                 strb.Append("<td>" + dr["书籍种数"].ToString() + "</td>");

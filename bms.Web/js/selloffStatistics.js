@@ -523,11 +523,14 @@ $("#a4").click(function () {
                 $("#printTabled").append(data); //加载tab
                 $('#printContent').show();
                 if (groupby == "供应商") {
+                    $("#printShowType").show();
                     $("#printShowType").text("供应商");
+                   
                 }
                 else if (groupby == "组织") {
-                    $("#printShowType").text("组织");
+                    $("#printShowType").hide();
                 } else if (groupby == "客户") {
+                    $("#printShowType").show();
                     $("#printShowType").text("客户");
                 }
                 $("#printContent").jqprint();
@@ -609,11 +612,13 @@ $("#zhen").click(function () {
                 $("#printTabled").append(data); //加载tab
                 $('#printContent').show();
                 if (groupby == "供应商") {
+                    $("#printShowType").show();
                     $("#printShowType").text("供应商");
                 }
                 else if (groupby == "组织") {
-                    $("#printShowType").text("组织");
+                    $("#printShowType").hide();
                 } else if (groupby == "客户") {
+                    $("#printShowType").show();
                     $("#printShowType").text("客户");
                 }
                 $("#printContent").jqprint({ importCSS: true });

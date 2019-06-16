@@ -377,6 +377,7 @@ $("#a4").click(function () {
     var groupby = $("#groupby").find("option:selected").text();
     var supplier = $("#supplier").find("option:selected").text();
     var regionName = $("#region").find("option:selected").text();
+    var regionId = $("#regionId").find("option:selected").val();
     var groupbyType;
     if (groupby == "供应商") {
         groupbyType = "supplier";
@@ -386,6 +387,7 @@ $("#a4").click(function () {
         regionName = "";
     }
     else if (groupby == "组织") {
+        regionId = "";
         groupbyType = "regionName";
         if (regionName == "全部组织") {
             regionName = "";
@@ -416,6 +418,7 @@ $("#a4").click(function () {
                 op: "print",
                 groupbyType: groupbyType,
                 supplier: supplier,
+                regionId: regionId,
                 regionName: regionName
             },
             dataType: 'text',
@@ -437,6 +440,7 @@ $("#a4").click(function () {
                 $("#printTabled").append(data);
                 $('#printContent').show();
                 $("#printContent").jqprint();
+
                 $('#printContent').hide();
             },
             error: function (XMLHttpRequest, textStatus) { //请求失败
@@ -477,6 +481,7 @@ $("#zhen").click(function () {
     var groupby = $("#groupby").find("option:selected").text();
     var supplier = $("#supplier").find("option:selected").text();
     var regionName = $("#region").find("option:selected").text();
+    var regionId = $("#regionId").find("option:selected").val();
     var groupbyType;
     if (groupby == "供应商") {
         groupbyType = "supplier";
@@ -486,6 +491,7 @@ $("#zhen").click(function () {
         regionName = "";
     }
     else if (groupby == "组织") {
+        regionId = "";
         groupbyType = "regionName";
         if (regionName == "全部组织") {
             regionName = "";
@@ -516,6 +522,7 @@ $("#zhen").click(function () {
                 op: "print",
                 groupbyType: groupbyType,
                 supplier: supplier,
+                regionId: regionId,
                 regionName: regionName
             },
             dataType: 'text',

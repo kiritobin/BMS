@@ -77,6 +77,7 @@ namespace bms.Web.ReportStatistics
             string groupbyType = Request["groupbyType"];
             string supplier = Request["supplier"];
             string regionName = Request["regionName"];
+            string regionid = Request["regionId"];
             if (groupbyType == "state" || groupbyType == null)
             {
                 groupbyType = "supplier";
@@ -108,6 +109,14 @@ namespace bms.Web.ReportStatistics
             else
             {
                 str = strWhere;
+            }
+            if (groupbyType == "supplier")
+            {
+                groupbyType += ",regionId";
+            }
+            if (regionid != null && regionid != "")
+            {
+                str += " and regionId=" + regionid;
             }
             DataTable dt = StockBll.bookStock(str, groupbyType).Tables[0];
             int count = dt.Rows.Count;

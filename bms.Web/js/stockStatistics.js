@@ -536,7 +536,7 @@ $("#a4").click(function () {
                     $("#printShowType").text("供应商");
                 }
                 else if (groupby == "组织") {
-                    $("#printShowType").text("组织");
+                    $("#printShowType").hide();
                 }
                 $("#printContent").jqprint();
                 $('#printContent').hide();
@@ -630,7 +630,7 @@ $("#zhen").click(function () {
                     $("#printShowType").text("供应商");
                 }
                 else if (groupby == "组织") {
-                    $("#printShowType").text("组织");
+                    $("#printShowType").hide();
                 }
                 $("#printContent").jqprint({ importCSS: true });
                 $('#printContent').hide();

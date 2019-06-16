@@ -553,10 +553,11 @@ $("#a4").click(function () {
                 $("#printTabled").append(data);
                 $('#printContent').show();
                 if (groupby == "供应商") {
+                    $("#printShowType").show();
                     $("#printShowType").text("供应商");
                 }
                 else if (groupby == "组织") {
-                    $("#printShowType").text("组织");
+                    $("#printShowType").hide();
                 }
                 $("#printContent").jqprint();
                 $('#printContent').hide();
@@ -647,10 +648,11 @@ $("#zhen").click(function () {
                 $("#printTabled").append(data);
                 $('#printContent').show();
                 if (groupby == "供应商") {
+                    $("#printShowType").show();
                     $("#printShowType").text("供应商");
                 }
                 else if (groupby == "组织") {
-                    $("#printShowType").text("组织");
+                    $("#printShowType").hide();
                 }
                 $("#printContent").jqprint({ importCSS: true });
                 $('#printContent').hide();

@@ -45,7 +45,6 @@ namespace bms.Web.ReportStatistics
             }
             if (op == "print")
             {
-                Print();
                 Response.Write(Print());
                 Response.End();
             }
@@ -213,7 +212,7 @@ namespace bms.Web.ReportStatistics
                 {
                     tb.StrWhere = groupbyType + " like'%'" + " GROUP BY " + groupbyType + ",regionId";
                 }
-               
+
             }
             else
             {
@@ -224,9 +223,9 @@ namespace bms.Web.ReportStatistics
                 else
                 {
 
-                    tb.StrWhere = strWhere + " GROUP BY " + groupbyType +",regionId";
+                    tb.StrWhere = strWhere + " GROUP BY " + groupbyType + ",regionId";
                 }
-               
+
             }
             Session["exportgroupbyType"] = groupbyType;
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";
@@ -261,7 +260,7 @@ namespace bms.Web.ReportStatistics
                 strb.Append("<td><input type='hidden' value=" + dr["regionId"].ToString() + " /><button class='btn btn-info btn-sm look'><i class='fa fa-search'></i></button></td></tr>");
             }
             strb.Append("<input type='hidden' value='" + intPageCount + "' id='intPageCount' />");
-            
+
             Response.Write(strb.ToString());
             Response.End();
             return strb.ToString();
@@ -354,13 +353,18 @@ namespace bms.Web.ReportStatistics
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
             exportgroupbyType = Session["exportgroupbyType"].ToString();
             DataTable dt = sellBll.exportAll(exportAllStrWhere, exportgroupbyType, Time);
+            string groupbyType = Session["exportgroupbyType"].ToString();
             StringBuilder sb = new StringBuilder();
             int count = dt.Rows.Count;
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 sb.Append("<tbody>");
                 sb.Append("<tr>");
-                sb.Append("<td>" + (i+1) + "</td>");
+                sb.Append("<td>" + (i + 1) + "</td>");
+                if (groupbyType != "regionName")
+                {
+                    sb.Append("<td>" + dt.Rows[i]["组织名称"].ToString() + "</td>");
+                }
                 sb.Append("<td>" + dt.Rows[i][0] + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["书籍品种数"] + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["书籍总数量"] + "</td>");

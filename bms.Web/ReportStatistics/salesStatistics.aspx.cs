@@ -76,11 +76,15 @@ namespace bms.Web.reportStatistics
             exportAllStrWhere = Session["exportAllStrWhere"].ToString();
             exportgroupbyType = Session["exportgroupbyType"].ToString();
             DataTable dt = salemonBll.exportAll(exportAllStrWhere, exportgroupbyType, state, Time);
+            string groupbyType = Session["exportgroupbyType"].ToString();
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 sb.Append("<tr>");
                 sb.Append("<td>" + (i + 1) + "</td>");
+                if (groupbyType != "regionName") {
+                    sb.Append("<td>" + dt.Rows[i][5] + "</td>");
+                }
                 sb.Append("<td>" + dt.Rows[i][0] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][1] + "</td>");
                 sb.Append("<td>" + dt.Rows[i][2] + "</td>");
