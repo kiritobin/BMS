@@ -108,13 +108,13 @@ namespace bms.Dao
         /// <param name="bookNum"></param>
         /// <param name="sellOffHeadId"></param>
         /// <returns></returns>
-        public DataSet selecctSm(string bookNum, string sellOffHeadId)
+        public int selecctSm(string bookNum, string sellOffHeadId)
         {
-            string sql = "select count from T_SellOffMonomer where bookNum=@bookNum and sellOffHead=@sellOffHeadId";
+            string sql = "select sum(count) from T_SellOffMonomer where bookNum=@bookNum and sellOffHead=@sellOffHeadId";
             string[] param = { "@bookNum", "@sellOffHeadId" };
             object[] values = { bookNum, sellOffHeadId };
-            DataSet ds = db.FillDataSet(sql, param, values);
-            return ds;
+            String count = db.ExecuteScalar(sql, param, values).ToString();
+            return int.Parse(count);
         }
         /// <summary>
         /// 获取该单头的相应统计

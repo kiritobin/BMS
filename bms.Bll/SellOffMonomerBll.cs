@@ -127,17 +127,10 @@ namespace bms.Bll
         /// <param name="bookNum"></param>
         /// <param name="sellOffHeadId"></param>
         /// <returns></returns>
-        public DataSet selecctSm(string bookNum, string sellOffHeadId)
+        public int selecctSm(string bookNum, string sellOffHeadId)
         {
-            DataSet ds = dao.selecctSm(bookNum, sellOffHeadId);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                return ds;
-            }
-            else
-            {
-                return null;
-            }
+            int count = dao.selecctSm(bookNum, sellOffHeadId);
+            return count;
         }
         /// <summary>
         /// 获取该单头的相应统计

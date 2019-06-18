@@ -239,9 +239,9 @@ namespace bms.Web.SalesMGT
                     sm.Price = unitPrice;
                     sm.Time = time;
                     sm.Discount = discount;
-                    DataSet smcountds = smBll.selecctSm(bookNo, sellId);
-                    int allcount = 0;
-                    string state = null;
+                    //DataSet smcountds = smBll.selecctSm(bookNo, sellId);
+                    int allcount = smBll.selecctSm(bookNo, sellId);
+                    //string state = null;
                     if (countds != null)//获取销售中的相应的数量
                     {
                         for (int i = 0; i < countds.Tables[0].Rows.Count; i++)
@@ -249,14 +249,14 @@ namespace bms.Web.SalesMGT
                             num = num + int.Parse(countds.Tables[0].Rows[i]["number"].ToString());
                         }
                     }
-                    if (smcountds != null)//获取销退单体中已有的数量
-                    {
-                        for (int i = 0; i < smcountds.Tables[0].Rows.Count; i++)
-                        {
-                            allcount = allcount + int.Parse(smcountds.Tables[0].Rows[i]["count"].ToString());
-                        }
-                    }
-                    if (count > num || (count + allcount) > num)//判断销退数量是否大于销售数量
+                    //if (smcountds != null)//获取销退单体中已有的数量
+                    //{
+                    //    for (int i = 0; i < smcountds.Tables[0].Rows.Count; i++)
+                    //    {
+                    //        allcount = allcount + int.Parse(smcountds.Tables[0].Rows[i]["count"].ToString());
+                    //    }
+                    //}
+                    if ((count + allcount) > num)//判断销退数量是否大于销售数量
                     {
                         Response.Write("销退数量大于销售数量");
                         Response.End();
@@ -277,7 +277,7 @@ namespace bms.Web.SalesMGT
                                 }
                                 else
                                 {
-                                    Response.Write("写入库存失败");
+                                    Response.Write(stock);
                                     Response.End();
                                 }
                             }
@@ -321,18 +321,23 @@ namespace bms.Web.SalesMGT
             string shelvesId = stockDs.Tables[0].Rows[0]["goodsShelvesId"].ToString();//获取货架Id
             string oldStockNum = stockDs.Tables[0].Rows[0]["stockNum"].ToString();//原来的库存量
             int stockNum = newstockNum + int.Parse(oldStockNum);
-            Result row = stbll.update(stockNum, shelvesId, bookNo);
-            if (row == Result.更新成功)
+            if (stockNum < 0)
             {
-                return "更新成功";
-                //Response.Write("更新成功");
-                //Response.End();
-            }
-            else
-            {
-                return "写入库存失败";
-                //Response.Write("写入库存失败");
-                //Response.End();
+                return "库存已不足";
+            }else { 
+                Result row = stbll.update(stockNum, shelvesId, bookNo);
+                if (row == Result.更新成功)
+                {
+                    return "更新成功";
+                    //Response.Write("更新成功");
+                    //Response.End();
+                }
+                else
+                {
+                    return "写入库存失败";
+                    //Response.Write("写入库存失败");
+                    //Response.End();
+                }
             }
         }
         /// <summary>
