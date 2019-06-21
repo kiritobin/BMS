@@ -85,18 +85,23 @@ namespace bms.Web.InventoryMGT
                 UserBll userBll = new UserBll();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
-                try
+                dtInsert = getBookNumByNpoi();
+                if(dtInsert.Columns[1].ColumnName.Trim() == "书号")
                 {
-                    dtInsert = getBookNumByNpoi();
+                    dtInsert.Columns.Remove("书号");
                 }
-                catch
-                {
-                    if (!bl)
-                    {
-                        Response.Write("  存在错误，请检查");
-                        Response.End();
-                    }
-                }
+                //try
+                //{
+                //    dtInsert = getBookNumByNpoi();
+                //}
+                //catch
+                //{
+                //    if (!bl)
+                //    {
+                //        Response.Write("  存在错误，请检查");
+                //        Response.End();
+                //    }
+                //}
 
                 dtInsert.Columns.Remove("书名");
                 int j = dtInsert.Rows.Count;
@@ -1089,7 +1094,7 @@ namespace bms.Web.InventoryMGT
             dcPrice.DefaultValue = 0.0;
             DataTable dt1 = ExcelHelper.GetDataTable(path);
 
-            if (dt1.Columns[0].ColumnName == "书号")
+            if (dt1.Columns[0].ColumnName.Trim() == "书号")
             {
                 dt1.Columns.Add(dcPrice);
                 DataColumn dcTotal = new DataColumn("码洋", typeof(double));
@@ -1147,16 +1152,15 @@ namespace bms.Web.InventoryMGT
                     double num = Convert.ToDouble(dt1.Rows[i]["商品数量"].ToString());
                     double total = price * num;
                     double real = total * discount * 0.01;
-                    dt1.Columns.Remove("书号");
                     DataRowCollection k = dt1.Rows;
                     DataRow dataRow = dt1.Rows[i];
-                    dataRow[4] = price;
-                    dataRow[5] = total;
-                    dataRow[6] = real;
-                    dataRow[7] = discount;
-                    dataRow[9] = h2o;
-                    dataRow[11] = bookNum;
-                    dt.Rows.Add(dataRow[0], dataRow[1], dataRow[2], dataRow[3], dataRow[4], dataRow[5], dataRow[6], dataRow[7], dataRow[8], dataRow[9], dataRow[10], dataRow[11], dataRow[12]);
+                    dataRow[5] = price;
+                    dataRow[6] = total;
+                    dataRow[7] = real;
+                    dataRow[8] = discount;
+                    dataRow[10] = h2o;
+                    dataRow[12] = bookNum;
+                    dt.Rows.Add(dataRow[0], dataRow[1], dataRow[2], dataRow[3], dataRow[4], dataRow[5], dataRow[6], dataRow[7], dataRow[8], dataRow[9], dataRow[10], dataRow[11], dataRow[12], dataRow[13]);
                 }
             }
             else
