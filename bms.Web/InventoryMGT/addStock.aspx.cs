@@ -85,23 +85,22 @@ namespace bms.Web.InventoryMGT
                 UserBll userBll = new UserBll();
                 System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
-                dtInsert = getBookNumByNpoi();
-                if(dtInsert.Columns[1].ColumnName.Trim() == "书号")
+                try
                 {
-                    dtInsert.Columns.Remove("书号");
+                    dtInsert = getBookNumByNpoi();
                 }
-                //try
-                //{
-                //    dtInsert = getBookNumByNpoi();
-                //}
-                //catch
-                //{
-                //    if (!bl)
-                //    {
-                //        Response.Write("  存在错误，请检查");
-                //        Response.End();
-                //    }
-                //}
+                catch
+                {
+                    if (!bl)
+                    {
+                        Response.Write("  存在错误，请检查");
+                        Response.End();
+                    }
+                }
+                if (dtInsert.Columns[1].ColumnName.Trim() == "书号2")
+                {
+                    dtInsert.Columns.Remove("书号2");
+                }
 
                 dtInsert.Columns.Remove("书名");
                 int j = dtInsert.Rows.Count;
@@ -1075,9 +1074,17 @@ namespace bms.Web.InventoryMGT
         {
             string path = Session["path"].ToString();
             string goods = Request["goods"];
+            
+            DataTable dt1 = ExcelHelper.GetDataTable(path);
+
             DataTable dt = new DataTable();
             DataRow dr = dt.NewRow();
             dt.Columns.Add("id", typeof(int));
+            if (dt1.Columns[0].ColumnName.Trim() == "书号")
+            {
+                dt.Columns.Add("书号2", typeof(string));
+            }
+
             dt.Columns.Add("书名", typeof(string));
             dt.Columns.Add("ISBN", typeof(string));
             dt.Columns.Add("商品数量", typeof(int));
@@ -1092,7 +1099,6 @@ namespace bms.Web.InventoryMGT
             dt.Columns.Add("货架ID", typeof(string));
             DataColumn dcPrice = new DataColumn("单价", typeof(double));
             dcPrice.DefaultValue = 0.0;
-            DataTable dt1 = ExcelHelper.GetDataTable(path);
 
             if (dt1.Columns[0].ColumnName.Trim() == "书号")
             {
