@@ -352,23 +352,23 @@ namespace bms.Web.reportStatistics
             if (strWhere == "" || strWhere == null)
             {
                 if (regionid != null && regionid != "") {
-                    tb.StrWhere = groupbyType + " like'%' and regionId=" + regionid + " GROUP BY " + groupbyType + ",regionId";
+                    tb.StrWhere = groupbyType + " like'%' and deleteState=0 and regionId=" + regionid + " GROUP BY " + groupbyType + ",regionId";
                 }
                 else
                 {
-                    tb.StrWhere = groupbyType + " like'%'" + " GROUP BY " + groupbyType + ",regionId";
+                    tb.StrWhere = groupbyType + " like'%' and deleteState=0 " + " GROUP BY " + groupbyType + ",regionId";
                 }
             }
             else
             {
                 if (regionid != null && regionid != "")
                 {
-                    tb.StrWhere = strWhere + " and regionId=" + regionid + " GROUP BY " + groupbyType + ",regionId";
+                    tb.StrWhere = strWhere + " and deleteState=0 and regionId=" + regionid + " GROUP BY " + groupbyType + ",regionId";
                 }
                 else
                 {
 
-                    tb.StrWhere = strWhere + " GROUP BY " + groupbyType + ",regionId";
+                    tb.StrWhere = strWhere + " and deleteState=0 GROUP BY " + groupbyType + ",regionId";
                 }
                
             }

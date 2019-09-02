@@ -69,7 +69,7 @@ namespace bms.Web.SalesMGT
             //allnumber = int.Parse(headBasicds.Tables[0].Rows[0]["number"].ToString());
             //alltotalprice = double.Parse(headBasicds.Tables[0].Rows[0]["allTotalPrice"].ToString());
             //allreadprice = double.Parse(headBasicds.Tables[0].Rows[0]["allRealPrice"].ToString());
-            if (headBasicds != null)
+            if (headBasicds.Tables.Count==1&&headBasicds.Tables[0].Rows.Count>0)
             {
                 time = headBasicds.Tables[0].Rows[0]["dateTime"].ToString();
                 userName = headBasicds.Tables[0].Rows[0]["userName"].ToString();

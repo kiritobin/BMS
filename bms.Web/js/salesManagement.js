@@ -649,9 +649,9 @@ $(document).ready(function () {
 
     //加
     $("#table").delegate(".add", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
-        var taskId = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
-        var state = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var taskId = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
+        var state = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text().trim();
         if (state == "单据已完成") {
             swal({
                 title: "温馨提示:)",
@@ -694,8 +694,8 @@ $(document).ready(function () {
     })
     //看
     $("#table").delegate(".look", "click", function () {
-        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
-        var salestate = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var ID = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+        var salestate = $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
         var type;
         if (salestate == "预采") {
             type = "copy";
