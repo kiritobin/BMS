@@ -18,6 +18,7 @@ namespace bms.Web.InventoryMGT
         public int currentPage = 1, pageSize = 20, totalCount, intPageCount;
         public string search = "",userName,regionName;
         RoleBll roleBll = new RoleBll();
+        sellOffHeadBll sellBll = new sellOffHeadBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         public DataSet ds, dsRegion, dsPer,dsUser;
         UserBll userBll = new UserBll();
@@ -187,6 +188,8 @@ namespace bms.Web.InventoryMGT
                 sb.Append("<tr><td>" + dr["singleHeadId"].ToString() + "</td>");
                 sb.Append("<td>" + dr["regionName"].ToString() + "</td >");
                 sb.Append("<td>" + dr["userName"].ToString() + "</td >");
+                int kindscount = sellBll.KindsNum(dr["singleHeadId"].ToString());
+                sb.Append("<td>" + kindscount.ToString() + "</td >");
                 sb.Append("<td>" + dr["allBillCount"].ToString() + "</td >");
                 sb.Append("<td>" + dr["allRealPrice"].ToString() + "</td >");
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td >");

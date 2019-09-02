@@ -20,6 +20,7 @@ namespace bms.Web.BasicInfor
         RoleBll roleBll = new RoleBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         UserBll userBll = new UserBll();
+        sellOffHeadBll sellBll = new sellOffHeadBll();
         RegionBll regionBll = new RegionBll();
         WarehousingBll wareBll = new WarehousingBll();
         FunctionBll functionBll = new FunctionBll();
@@ -196,6 +197,8 @@ namespace bms.Web.BasicInfor
                 sb.Append("<tr><td>" + dr["singleHeadId"].ToString() + "</td>");
                 sb.Append("<td>" + dr["userRegionName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["userName"].ToString() + "</td>");
+                int kindscount = sellBll.KindsNum(dr["singleHeadId"].ToString());
+                sb.Append("<td>" + kindscount.ToString() + "</td >");
                 sb.Append("<td>" + dr["allBillCount"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allRealPrice"].ToString() + "</td>");

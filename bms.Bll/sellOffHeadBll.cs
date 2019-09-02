@@ -175,5 +175,10 @@ namespace bms.Bll
             }
             return new string(array);
         }
+
+        public int KindsNum(String singleHeadId)
+        {
+            return dao.KindsNum(singleHeadId);
+        }
     }
 }
