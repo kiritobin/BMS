@@ -160,5 +160,21 @@ namespace bms.Dao
             }
             return dt;
         }
+
+        /// <summary>
+        /// 出入退品种数量统计
+        /// </summary>
+        /// <param name="singleHeadId">单头</param>
+        /// <returns></returns>
+        public int KindsNum(String singleHeadId)
+        {
+            String cmdText = @"SELECT SUM(countnum) from ((SELECT count(*) as countnum from t_monomers where t_monomers.singleHeadId=@singleHeadId GROUP BY bookNum) as temp)";
+            String[] param = { "@singleHeadId" };
+            object[] values = { singleHeadId };
+            object obj = db.ExecuteScalar(cmdText, param, values);
+            int count = 0;
+            if (obj != null) { count = Convert.ToInt32(obj); }
+            return count;
+        }
     }
 }

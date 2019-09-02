@@ -18,6 +18,7 @@ namespace bms.Web.BasicInfor
         public int totalCount, intPageCount, pageSize = 20, row, count;
         public DataSet ds, dsRegion,dsPer, dsUser;
         RoleBll roleBll = new RoleBll();
+        sellOffHeadBll sellBll = new sellOffHeadBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         UserBll userBll = new UserBll();
         WarehousingBll wareBll = new WarehousingBll();
@@ -187,6 +188,8 @@ namespace bms.Web.BasicInfor
                 sb.Append("<tr><td class='singleHeadId'>" + dr["singleHeadId"].ToString() + "</td>");
                 sb.Append("<td>" + dr["userName"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["regionName"].ToString() + "</ td >");
+                int kindscount = sellBll.KindsNum(dr["singleHeadId"].ToString());
+                sb.Append("<td>" + kindscount.ToString() + "</td >");
                 sb.Append("<td>" + dr["allBillCount"].ToString() + "</ td >");
                 sb.Append("<td>" + dr["allTotalPrice"].ToString() + "</td>");
                 sb.Append("<td>" + dr["allRealPrice"].ToString() + "</ td >");
