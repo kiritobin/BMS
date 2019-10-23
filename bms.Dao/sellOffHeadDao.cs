@@ -171,9 +171,9 @@ namespace bms.Dao
             String cmdText = @"SELECT SUM(countnum) from ((SELECT count(*) as countnum from t_monomers where t_monomers.singleHeadId=@singleHeadId GROUP BY bookNum) as temp)";
             String[] param = { "@singleHeadId" };
             object[] values = { singleHeadId };
-            object obj = db.ExecuteScalar(cmdText, param, values);
+            string obj = db.ExecuteScalar(cmdText, param, values).ToString();
             int count = 0;
-            if (obj != null) { count = Convert.ToInt32(obj); }
+            if (obj != null&&obj!="") { count = Convert.ToInt32(obj); }
             return count;
         }
     }
