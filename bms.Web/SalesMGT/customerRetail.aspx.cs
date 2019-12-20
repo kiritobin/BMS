@@ -350,7 +350,7 @@ namespace bms.Web.SalesMGT
             return null;
         }
         /// <summary>
-        /// 客户添加图书
+        /// 收银添加图书
         /// </summary>
         /// <param name="bookNum"></param>
         public void add(string bookNum,string headId,string addType)
@@ -542,16 +542,6 @@ namespace bms.Web.SalesMGT
             double price = monomer.UnitPrice;
             double realDiscount = monomer.RealDiscount;
             double total=0, real=0;
-            //if (type == "jia")
-            //{
-            //    total = oldTotal + price;
-            //    real = oldReal + (price * realDiscount * 0.01);
-            //}
-            //else if(type == "jian")
-            //{
-            //    total = oldTotal - price;
-            //    real = oldReal - (price * realDiscount * 0.01);
-            //}
             SaleMonomer sale = new SaleMonomer();
             sale.SaleIdMonomerId = retailId;
             sale.Number = number;
@@ -618,12 +608,13 @@ namespace bms.Web.SalesMGT
                 double real = 0, reals = 0, allReal = 0, allReals = 0;
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
+                    string bookNum = ds.Tables[0].Rows[i]["bookNum"].ToString();
                     double total = Convert.ToDouble(ds.Tables[0].Rows[i]["totalPrice"]);
                     real = Convert.ToDouble(ds.Tables[0].Rows[i]["realPrice"]);
                     allReal = allReal + real;
                     reals = total* discount * 0.01;
                     allReals = allReals + reals;
-                    Result change = retailBll.UpdateDiscount(discount, reals, retailId);
+                    Result change = retailBll.UpdateDiscount(discount, reals, retailId, bookNum);
                     if (change == Result.更新失败)
                     {
                         Response.Write("更新失败");

@@ -178,11 +178,11 @@ namespace bms.Dao
         /// <param name="realPrice">实洋</param>
         /// <param name="retailHeadId">零售单头ID</param>
         /// <returns>受影响行数</returns>
-        public int UpdateDiscount(double realDiscount, double realPrice, string retailHeadId)
+        public int UpdateDiscount(double realDiscount, double realPrice, string retailHeadId,string bookNum)
         {
-            string cmdText = "update T_RetailMonomer set realDiscount=@realDiscount,realPrice=@realPrice where retailHeadId=@retailHeadId";
-            string[] param = { "@realDiscount", "@realPrice", "@retailHeadId" };
-            object[] values = { realDiscount, realPrice, retailHeadId };
+            string cmdText = "update T_RetailMonomer set realDiscount=@realDiscount,realPrice=@realPrice where retailHeadId=@retailHeadId and bookNum=@bookNum";
+            string[] param = { "@realDiscount", "@realPrice", "@retailHeadId", "@bookNum" };
+            object[] values = { realDiscount, realPrice, retailHeadId, bookNum };
             int row = db.ExecuteNoneQuery(cmdText, param, values);
             return row;
         }

@@ -38,16 +38,6 @@
                     <h2 class="card-title text-center">零售退货</h2>
                 </div>
                 <div class="card-body">
-                    <%--<div class="row">
-                        <div class="input-group col-md-12">
-                            <div class="btn-group" role="group">
-                                <input type="text" placeholder="请输入ISBN" id="search" class="searchOne">
-                                <button class="btn btn-info btn-sm" id="btnSearch" data-toggle="modal">扫描</button>
-                                <button class="btn btn-info btn-sm" id="save" data-toggle="modal">save</button>
-                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">添加</button>
-                            </div>
-                        </div>
-                    </div>--%>
                     <div class="row">
                         <div class="col-md-9 text-right">
                             <div class="text-left retailTime"><span id="retailID"></span></div>
@@ -107,9 +97,6 @@
 
                         <!-- 右侧功能区 -->
                         <div class="col-md-2">
-                            <%--<div class="retailList">
-                                <img src="../imgs/login.jpg" alt="img" class="img-fluid" />
-                            </div>--%>
                             <div id="retailBtn">
                                 <input type="text" id="search" style="height:100px;width:240px;font-size :30px;" class="topSearch">
                                 <div class="text-white" id="scanning" data-toggle="modal" data-target="#myModal1">

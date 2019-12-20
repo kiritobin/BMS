@@ -46,9 +46,9 @@ $("#scannSea").keypress(function (e) {
                     $("#myModal1").modal("hide");
                 }
             }
-        })
+        });
     }
-})
+});
 //弹出模态框获取焦点事件
 $('#myModal1').on('shown.bs.modal', function (e) {
     $('#scannSea').focus();
@@ -64,7 +64,7 @@ $("#search").keypress(function (e) {
             type: "warning"
         }).catch(swal.noop);
     } else {
-        sessionStorage.setItem("ISBN", $("#search").val())
+        sessionStorage.setItem("ISBN", $("#search").val());
         //回车事件触发
         if (e.keyCode == 13) {
             var kind = $("#kind").text().trim();
@@ -142,7 +142,6 @@ $("#search").keypress(function (e) {
                             })
                         } else {
                             if (sessionStorage.getItem("kind") == "0") {
-                                //$("#table tr:eq(1)").empty();
                                 $(".first").remove();
                             }
                             $("#table").prepend(data);
@@ -153,23 +152,23 @@ $("#search").keypress(function (e) {
                             var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
                             sessionStorage.setItem("kind", kinds);
                             sessionStorage.setItem("number", numbers);
-                            sessionStorage.setItem("totalPrice", totalPrices);
-                            sessionStorage.setItem("realPrice", realPrices);
+                            sessionStorage.setItem("totalPrice", totalPrices.toFixed(2));
+                            sessionStorage.setItem("realPrice", realPrices.toFixed(2));
                             //展示合计内容
                             $("#number").text(numbers);
-                            $("#total").text(totalPrices);
-                            $("#real").text(realPrices);
+                            $("#total").text(totalPrices.toFixed(2));
+                            $("#real").text(realPrices.toFixed(2));
                             $("#kind").text(kinds);
                             //清空输入框并获取焦点
                             $("#search").val("");
                             $("#search").focus();
                         }
                     }
-                })
+                });
             }
         }
     }
-})
+});
 //选择一号多书中需要的图书
 $("#btnAdd").click(function () {
     var bookNum = $("input[type='radio']:checked").val();
@@ -202,7 +201,7 @@ $("#btnAdd").click(function () {
                 }).catch(swal.noop);
                 $("#search").val("");
             } else {
-                $("#myModal").modal("hide")
+                $("#myModal").modal("hide");
                 if (sessionStorage.getItem("kind") == "0") {
                     //$("#table tr:eq(1)").empty();
                     $(".first").remove();
@@ -214,12 +213,12 @@ $("#btnAdd").click(function () {
                 var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
                 sessionStorage.setItem("kind", kinds);
                 sessionStorage.setItem("number", numbers);
-                sessionStorage.setItem("totalPrice", totalPrices);
-                sessionStorage.setItem("realPrice", realPrices);
+                sessionStorage.setItem("totalPrice", totalPrices.toFixed(2));
+                sessionStorage.setItem("realPrice", realPrices.toFixed(2));
                 //展示合计内容
                 $("#number").text(numbers);
-                $("#total").text(totalPrices);
-                $("#real").text(realPrices);
+                $("#total").text(totalPrices.toFixed(2));
+                $("#real").text(realPrices.toFixed(2));
                 $("#kind").text(kinds);
                 //清空输入框并获取焦点
                 $("#search").val("");
@@ -349,10 +348,12 @@ $("#table").delegate(".btn-delete", "click", function () {
         },
         dataType: 'text',
         success: function (data) {
+            var totalprice = parseFloat(sessionStorage.getItem("totalPrice") - parseFloat(totalPrice));
+            var realprice = parseFloat(sessionStorage.getItem("realPrice") - parseFloat(realPrice));
             sessionStorage.setItem("kind", parseInt(sessionStorage.getItem("kind") - 1));
             sessionStorage.setItem("number", parseFloat(sessionStorage.getItem("number") - parseInt(number)));
-            sessionStorage.setItem("totalPrice", parseFloat(sessionStorage.getItem("totalPrice") - parseFloat(totalPrice)));
-            sessionStorage.setItem("realPrice", parseInt(sessionStorage.getItem("realPrice") - parseFloat(realPrice)));
+            sessionStorage.setItem("totalPrice", totalprice.toFixed(2));
+            sessionStorage.setItem("realPrice", realprice.toFixed(2));
             //展示合计内容
             $("#number").text(sessionStorage.getItem("number"));
             $("#total").text(parseFloat(totalPrices));
@@ -361,7 +362,7 @@ $("#table").delegate(".btn-delete", "click", function () {
             $("#search").val("");
             $("#search").focus();
         }
-    })
+    });
 });
 //删除此单
 $("#giveup").click(function () {
@@ -380,5 +381,5 @@ $("#giveup").click(function () {
         allowOutsideClick: false    //用户无法通过点击弹窗外部关闭弹窗
     }).then(function () {
         window.location.reload();
-    })
-})
+    });
+});

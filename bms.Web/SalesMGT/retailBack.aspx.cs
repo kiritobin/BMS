@@ -153,7 +153,7 @@ namespace bms.Web.SalesMGT
                 //double realPrice = Convert.ToDouble((totalPrice * discount).ToString("0.00"));
                 monTable.Columns.Add("ISBN", typeof(string));
                 monTable.Columns.Add("unitPrice", typeof(double));
-                monTable.Columns.Add("bookNum", typeof(long));
+                monTable.Columns.Add("bookNum", typeof(string));
                 monTable.Columns.Add("bookName", typeof(string));
                 monTable.Columns.Add("realDiscount", typeof(double));
                 monTable.Columns.Add("number", typeof(int));

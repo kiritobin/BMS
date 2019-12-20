@@ -132,9 +132,9 @@ namespace bms.Bll
         /// <param name="realPrice">实洋</param>
         /// <param name="retailHeadId">零售单头ID</param>
         /// <returns>受影响行数</returns>
-        public Result UpdateDiscount(double realDiscount, double realPrice, string retailHeadId)
+        public Result UpdateDiscount(double realDiscount, double realPrice, string retailHeadId, string bookNum)
         {
-            int row = dao.UpdateDiscount(realDiscount, realPrice, retailHeadId);
+            int row = dao.UpdateDiscount(realDiscount, realPrice, retailHeadId, bookNum);
             if (row > 0)
             {
                 return Result.更新成功;

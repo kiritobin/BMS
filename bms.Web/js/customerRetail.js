@@ -98,20 +98,13 @@ $("#search").keypress(function (e) {
                                                 type: "warning"
                                             }).catch(swal.noop);
                                         } else if (datas[0] == "other") {
-                                            sessionStorage.setItem("retailId", datas[3])
+                                            sessionStorage.setItem("retailId", datas[3]);
                                             if (sessionStorage.getItem("kind") == "0") {
                                                 $(".first").remove();
                                             }
                                             $("#table").prepend(data);
                                             //计算合计内容
                                             var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
-                                            //var numbers = parseInt(sessionStorage.getItem("number")) + 1;
-                                            //var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
-                                            //var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
-                                            //sessionStorage.setItem("kind", kinds);
-                                            //sessionStorage.setItem("number", numbers);
-                                            //sessionStorage.setItem("totalPrice", parseFloat(totalPrices).toFixed(2));
-                                            //sessionStorage.setItem("realPrice", parseFloat(realPrices).toFixed(2));
                                             var math = datas[2].split(",");
                                             //展示合计内容
                                             $("#kind").text(math[0]);
@@ -133,7 +126,7 @@ $("#search").keypress(function (e) {
                                 var math = datas[1].split(",");
                                 if (sessionStorage.getItem("kind") == "0" || sessionStorage.getItem("kind") == 0) {
                                     $(".first").remove();
-                                    sessionStorage.setItem("kind", 1)
+                                    sessionStorage.setItem("kind", 1);
                                 }
                                 sessionStorage.setItem("retailId", datas[2]);
                                 $("#table tr:not(:first)").empty();//清空除第一行以外的信息
@@ -220,18 +213,6 @@ $("#search").keypress(function (e) {
                                             $("#table").prepend(data);
                                             //计算合计内容
                                             var kinds = parseInt(sessionStorage.getItem("kind")) + 1;
-                                            //var numbers = parseInt(sessionStorage.getItem("number")) + 1;
-                                            //var totalPrices = parseFloat(sessionStorage.getItem("totalPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(6)").text().trim());
-                                            //var realPrices = parseFloat(sessionStorage.getItem("realPrice")) + parseFloat($("#table tbody tr:first").find("td:eq(7)").text().trim());
-                                            //sessionStorage.setItem("kind", kinds);
-                                            //sessionStorage.setItem("number", numbers);
-                                            //sessionStorage.setItem("totalPrice", parseFloat(totalPrices).toFixed(2));
-                                            //sessionStorage.setItem("realPrice", parseFloat(realPrices).toFixed(2));
-                                            //展示合计内容
-                                            //$("#number").text(numbers);
-                                            //$("#total").text(parseFloat(totalPrices).toFixed(2));
-                                            //$("#real").text(parseFloat(realPrices).toFixed(2));
-                                            //$("#kind").text(kinds);
                                             var math = datas[2].split(",");
                                             //展示合计内容
                                             $("#kind").text(math[0]);
@@ -265,12 +246,12 @@ $("#search").keypress(function (e) {
                                 $("#search").focus();
                             }
                         }
-                    })
+                    });
                 }
             }
         }
     }
-})
+});
 //选择一号多书中需要的图书
 $("#btnAdd").click(function () {
     var bookNum = $("input[type='radio']:checked").val();
@@ -315,10 +296,10 @@ $("#btnAdd").click(function () {
                 }
                 else {
                     var math = datas[1].split(",");
-                    sessionStorage.setItem("retailId", datas[2])
+                    sessionStorage.setItem("retailId", datas[2]);
                     if (sessionStorage.getItem("kind") == "0" || sessionStorage.getItem("kind") == 0) {
                         $(".first").remove();
-                        sessionStorage.setItem("kind", 1)
+                        sessionStorage.setItem("kind", 1);
                     }
                     $("#table tr:not(:first)").empty();//清空除第一行以外的信息
                     $("#table").prepend(data);
@@ -328,7 +309,7 @@ $("#btnAdd").click(function () {
                     $("#real").text(math[3]);
                     //获取焦点
                     $("#search").focus();
-                    $("#myModal").modal("hide")
+                    $("#myModal").modal("hide");
                 }
             }
         })
@@ -725,7 +706,7 @@ $("#discountEnd").keypress(function (e) {
                         var paytype = $("#payType").find("input[name='paytype']:checked").val();
                         var total = $("#totalEnd").text().trim();
                         var real = total * parseFloat(discount) * 0.01;
-                        $("#realEnd").text((real).toFixed(2))
+                        $("#realEnd").text((real).toFixed(2));
                         if (paytype == "第三方") {
                             $("#copeEnd").val((real).toFixed(2));
                         }
