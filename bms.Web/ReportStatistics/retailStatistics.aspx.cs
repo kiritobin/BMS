@@ -167,13 +167,17 @@ namespace bms.Web.ReportStatistics
             if (groupbyType == "state" || groupbyType == null)
             {
                 groupbyType = "payment";
+                groupby = "payment";
+            }
+            else
+            {
+                groupby = groupbyType;
             }
             if (regionName != "" && regionName != null)
             {
                 if (strWhere == "")
                 {
                     strWhere = "regionName='" + regionName + "'";
-                    groupby = groupbyType;
                 }
                 else
                 {
@@ -186,7 +190,6 @@ namespace bms.Web.ReportStatistics
                 if (strWhere == "")
                 {
                     strWhere = "payment='" + payment + "'";
-                    groupby = groupbyType;
                 }
                 else
                 {
@@ -226,7 +229,6 @@ namespace bms.Web.ReportStatistics
             {
                 currentPage = 1;
             }
-
             TableBuilder tb = new TableBuilder();
             tb.StrTable = "v_retailmonomer";
             //tb.OrderBy = "convert(" + groupbyType + " using gbk) collate gbk_chinese_ci";
@@ -236,11 +238,11 @@ namespace bms.Web.ReportStatistics
             tb.IntPageNum = currentPage;
             if (strWhere == "" || strWhere == null)
             {
-                tb.StrWhere = groupby + " like'%'" + " GROUP BY " + groupby;
+                tb.StrWhere = groupby + " like'%'" + " and payment!='未支付' GROUP BY " + groupby;
             }
             else
             {
-                tb.StrWhere = strWhere + " GROUP BY " + groupby;
+                tb.StrWhere = strWhere + " and payment!='未支付' GROUP BY " + groupby;
             }
             Session["exportgroupbyType"] = groupbyType;
             //tb.StrWhere = search == "" ? "deleteState=0 and saleTaskId=" + "'" + saleId + "'" : search + " and deleteState = 0 and saleTaskId=" + "'" + saleId + "'";

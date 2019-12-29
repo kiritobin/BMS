@@ -366,7 +366,7 @@
                                             <div class="btn-group" id="groupPayType" style="width: 180px; display: none">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择支付方式" id="payType">
                                                     <option value="">全部支付方式</option>
-                                                    <option value="未支付">未支付</option>
+                                                    <!--<option value="未支付">未支付</option>-->
                                                     <option value="现金">现金</option>
                                                     <option value="第三方">第三方</option>
                                                     <option value="其他">其他</option>

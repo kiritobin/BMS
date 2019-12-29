@@ -561,7 +561,7 @@ namespace bms.Dao
         /// <returns></returns>
         public DataSet getUser(string strWhere)
         {
-            String cmdText = "select userName from v_retailmonomer where " + strWhere + " group by userName";
+            String cmdText = "select userName from v_retailmonomer " + strWhere + " group by userName";
             DataSet ds = db.FillDataSet(cmdText, null, null);
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {

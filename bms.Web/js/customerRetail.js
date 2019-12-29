@@ -773,7 +773,7 @@ $("#copeEnd").keypress(function (e) {
 })
 //首次打印
 $("#btnSettle").click(function () {
-    $("#btnSettle").attr('disabled', true);
+    $("#btnSettle").hide();
     var discount = $("#discountEnd").val().trim();
     if (parseFloat(discount > 100)) {
         swal({
@@ -783,7 +783,7 @@ $("#btnSettle").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-        $("#btnSettle").attr('disabled', false);
+        $("#btnSettle").show();
     }
     else if (parseFloat(discount) < 0) {
         swal({
@@ -793,7 +793,7 @@ $("#btnSettle").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-        $("#btnSettle").attr('disabled', false);
+        $("#btnSettle").show();
     }
     else if ($("#copeEnd").val().trim() == "" || $("#copeEnd").val().trim() == 0 || $("#copeEnd").val().trim() == "0") {
         swal({
@@ -803,7 +803,7 @@ $("#btnSettle").click(function () {
             confirmButtonClass: "btn btn-warning",
             type: "warning"
         }).catch(swal.noop);
-        $("#btnSettle").attr('disabled', false);
+        $("#btnSettle").show();
     }
     else {
         if (discount == "") {
@@ -824,7 +824,7 @@ $("#btnSettle").click(function () {
             },
             dataType: 'text',
             success: function (succ) {
-                $("#btnSettle").attr('disabled', false);
+                $("#btnSettle").show();
                 var datas = succ.split(":|");
                 var data = datas[0];
                 if (data == "此书籍库存不足") {
@@ -877,15 +877,6 @@ $("#btnSettle").click(function () {
                     $("#tablePay tr:not(:first)").empty()
                     $("#tablePay").append(datas[1]);
                     $("#sale").show();
-                    //$("#myModal2").modal("hide");
-                    //一维码
-                    //JsBarcode("#img", sessionStorage.getItem("retailId"), {
-                    //    displayValue: false, //是否在条形码下方显示文字
-                    //    //fontSize: 15,//设置文本的大小
-                    //    margin: 0,//设置条形码周围的空白边距
-                    //    width: 10,//设置条之间的宽度
-                    //    height: 50,//高度
-                    //});
                     var headId = sessionStorage.getItem("retailId");
                     //二维码
                     jQuery('#output').qrcode({
@@ -927,7 +918,7 @@ $("#btnSettle").click(function () {
                     }
                 }
             }, error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $("#btnSettle").attr('disabled', false);
+                $("#btnSettle").show();
                 swal({
                     title: "结算失败",
                     text: "",
@@ -936,9 +927,9 @@ $("#btnSettle").click(function () {
                     type: "warning"
                 }).catch(swal.noop);
             }
-        })
+        });
     }
-})
+});
 //右上角按钮关闭结算模态框
 $("#settleClose").click(function () {
     $("#totalEnd").text("");

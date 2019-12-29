@@ -23,21 +23,51 @@ namespace bms.Web.ReportStatistics
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected void Page_Load(object sender, EventArgs e)
         {
+            type = Request.QueryString["type"];
+            name = Request.QueryString["name"];
+            region = Request.QueryString["region"];
             if (!IsPostBack)
             {
+                //初始化session
+                if (Session["type"] == null || Session["type"].ToString() == "")
+                {
+                    Session["type"] = "";
+                }
+                if (Session["name"] == null || Session["name"].ToString() == "")
+                {
+                    Session["name"] = "";
+                }
+                if (Session["region"] == null || Session["region"].ToString() == "")
+                {
+                    Session["region"] = "";
+                }
+                //获取前端传输的值
                 type = Request.QueryString["type"];
                 name = Request.QueryString["name"];
                 region = Request.QueryString["region"];
-                if ((type == null || type == "") || (name == null) || (region == null || region == ""))
+                //判断前端传值是否为空，若不为空将值存入到session中否则从session中取值，
+                if (type == null || type == "")
                 {
                     type = Session["type"].ToString();
-                    name = Session["name"].ToString();
-                    region = Session["region"].ToString();
                 }
                 else
                 {
                     Session["type"] = type;
-                    Session["name"] = name;
+                }
+                if (name == null || name == "")
+                {
+                    type = Session["type"].ToString();
+                }
+                else
+                {
+                    Session["name"] = type;
+                }
+                if (region == null || region == "")
+                {
+                    region = Session["region"].ToString();
+                }
+                else
+                {
                     Session["region"] = region;
                 }
             }
@@ -110,11 +140,6 @@ namespace bms.Web.ReportStatistics
                     }
                 }
             }
-            //if (price != null && price != "")
-            //{
-            //    fileName += "-" + price;
-            //    strWhere += " and unitPrice=" + price;
-            //}
             if (discount != null && discount != "")
             {
                 strWhere += " and realDiscount=" + discount;
@@ -125,7 +150,6 @@ namespace bms.Web.ReportStatistics
             }
             if (time != null && time != "")
             {
-                //strWhere += " and dateTime='" + time + "'";
                 string[] sArray = time.Split('至');
                 string startTime = sArray[0];
                 string endTime = sArray[1];
@@ -144,6 +168,10 @@ namespace bms.Web.ReportStatistics
             if (payment != null && payment != "")
             {
                 strWhere += " and payment='" + payment + "'";
+            }
+            else
+            {
+                strWhere += " and payment!='未支付'";
             }
             DataTable dt = retailBll.census(strWhere, type);
             bookKinds = dt.Rows[0]["品种数"].ToString();
@@ -202,11 +230,6 @@ namespace bms.Web.ReportStatistics
                     }
                 }
             }
-            //if (price != null && price != "")
-            //{
-            //    fileName += "-" + price;
-            //    strWhere += " and unitPrice=" + price;
-            //}
             if (discount != null && discount != "")
             {
                 strWhere += " and realDiscount=" + discount;
@@ -217,7 +240,6 @@ namespace bms.Web.ReportStatistics
             }
             if (time != null && time != "")
             {
-                //strWhere += " and dateTime='" + time + "'";
                 string[] sArray = time.Split('至');
                 string startTime = sArray[0];
                 string endTime = sArray[1];
@@ -237,6 +259,10 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and payment='" + payment + "'";
             }
+            else
+            {
+                strWhere += " and payment!='未支付'";
+            }
             DataTable dt = retailBll.ExportExcel(strWhere, type);
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -244,7 +270,6 @@ namespace bms.Web.ReportStatistics
                 sb.Append("<tr>");
                 sb.Append("<td>" + (i + 1) + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["ISBN"] + "</td>");
-                //sb.Append("<td>" + dt.Rows[i]["书号"] + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["书名"] + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["单价"] + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["供应商"] + "</td>");
@@ -268,7 +293,7 @@ namespace bms.Web.ReportStatistics
             string strWhere = "";
             if (type == "regionName")
             {
-                strWhere = "regionName = '" + name + "' and deleteState=0";
+                strWhere = "regionName ='" + name + "' and deleteState=0";
             }
             else if (type == "payment")
             {
@@ -281,7 +306,7 @@ namespace bms.Web.ReportStatistics
                     strWhere = "payment = '" + name + "' and deleteState=0";
                 }
             }
-            groupType = strWhere;
+            groupType = "where " + strWhere;
             dsUser = retailBll.getUser(groupType);
             string isbn = Request["isbn"];
             string price = Request["price"];
@@ -330,10 +355,6 @@ namespace bms.Web.ReportStatistics
                     }
                 }
             }
-            //if (price != null && price != "")
-            //{
-            //    strWhere += " and unitPrice='" + price + "'";
-            //}
             if (discount != null && discount != "")
             {
                 strWhere += " and realDiscount='" + discount + "'";
@@ -363,7 +384,11 @@ namespace bms.Web.ReportStatistics
             {
                 strWhere += " and payment='" + payment + "'";
             }
-            strWhere += " group by bookNum,supplier,"+ type;
+            else
+            {
+                strWhere += " and payment!='未支付'";
+            }
+            strWhere += " group by bookNum,supplier," + type;
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
@@ -384,7 +409,6 @@ namespace bms.Web.ReportStatistics
             for (int i = 0; i < dscount; i++)
             {
                 DataRow dr = ds.Tables[0].Rows[i];
-                //序号 (i + 1 + ((currentPage - 1) * pageSize)) 
                 strb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 strb.Append("<td>" + dr["isbn"].ToString() + "</td>");
                 strb.Append("<td>" + dr["bookNum"].ToString() + "</td>");
@@ -483,11 +507,6 @@ namespace bms.Web.ReportStatistics
                     }
                 }
             }
-            //if (price != null && price != "")
-            //{
-            //    fileName += "-" + price;
-            //    strWhere += " and unitPrice=" + price;
-            //}
             if (discount != null && discount != "")
             {
                 strWhere += " and realDiscount=" + discount;
@@ -517,6 +536,10 @@ namespace bms.Web.ReportStatistics
             if (payment != null && payment != "")
             {
                 strWhere += " and payment='" + payment + "'";
+            }
+            else
+            {
+                strWhere += " and payment!='未支付'";
             }
             string Name = fileName + "-零售明细-" + DateTime.Now.ToString("yyyyMMdd") + new Random(DateTime.Now.Second).Next(10000);
             DataTable dt = retailBll.ExportExcels(strWhere, type);

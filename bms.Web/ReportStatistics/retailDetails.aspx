@@ -374,7 +374,7 @@
                                             <div class="btn-group" role="group" style="width: 180px !important;" id="paySelect">
                                                 <select class="modal_select selectpicker collectionStatus" title="请选择支付方式" id="payment">
                                                     <option value="">全部支付方式</option>
-                                                    <option value="未支付">未支付</option>
+                                                    <!-- <option value="未支付">未支付</option> -->
                                                     <option value="现金">现金</option>
                                                     <option value="第三方">第三方</option>
                                                     <option value="其他">其他</option>
@@ -388,7 +388,6 @@
                                             <div class="form-group form-group-sm">
                                                 <button type="button" class="btn btn-sm btn-info" id="search">查询</button>
                                                 <button type="button" class="btn btn-sm btn-info" id="export">导出</button>
-                                                <%--<button type="button" class="btn btn-sm btn-info" id="print">打印</button>--%>
                                                 <button type="button" class="btn btn-sm btn-info" id="print" data-toggle="modal" data-target="#printmodel">打印</button>
                                                 <button type="button" class="btn btn-sm btn-warning" id="back">返回</button>
                                             </div>
