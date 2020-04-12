@@ -25,7 +25,7 @@ namespace bms.Web.SalesMGT
         {
             saletaskId = Session["saleId"].ToString();
             //state = salemonbll.getsaleHeadStatesBysaleTaskId(saletaskId);
-            getData();
+            //getData();
             getBasic();
             //if (state == "3")
             //{
@@ -38,6 +38,10 @@ namespace bms.Web.SalesMGT
             //print();
 
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "excel")
             {
                 export();

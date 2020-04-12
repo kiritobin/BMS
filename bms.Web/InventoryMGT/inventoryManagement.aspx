@@ -402,7 +402,7 @@
                                                     <th>库存数量</th>
                                                 </tr>
                                             </thead>
-                                            <%=getData() %>
+                                            <%--<%=getData() %>--%>
                                         </table>
                                     </div>
                                     <!-- 编辑模态框 -->

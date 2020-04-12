@@ -36,7 +36,11 @@ namespace bms.Web.SalesMGT
         {
             string sellId = Session["sellId"].ToString();
             string op = Request["op"];
-            GetData();
+            //GetData();
+            if (op == "paging")
+            {
+                GetData();
+            }
             if (op == "search")
             {
                 //string bookNum = Request["bookNum"];

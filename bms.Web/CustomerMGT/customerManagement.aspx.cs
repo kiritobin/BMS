@@ -27,10 +27,14 @@ namespace bms.Web.CustomerMGT
         {
             permission();
             string op = Context.Request["op"];
-            if (!IsPostBack)
+            if (op == "paging")
             {
                 getData();
             }
+            //if (!IsPostBack)
+            //{
+            //    getData();
+            //}
             if (op == "add")
             {
                 AddCustomer();

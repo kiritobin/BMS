@@ -25,8 +25,14 @@ namespace bms.Web.SalesMGT
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
+            //获取客户
+            dsCustom = libraryCollectionBll.getCustomer();
             string op = Request["op"];
-            getData();
+            //getData();
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "logout")
             {
                 //删除身份凭证
@@ -110,7 +116,7 @@ namespace bms.Web.SalesMGT
             tb.StrWhere = search;
             ds = uBll.selectByPage(tb, out totalCount, out intPageCount);
             //获取客户
-            dsCustom = libraryCollectionBll.getCustomer();
+            //dsCustom = libraryCollectionBll.getCustomer();
             StringBuilder strb = new StringBuilder();
             int row = 0;//判断销退单头中是否有单体
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)

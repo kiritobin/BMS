@@ -33,6 +33,7 @@ namespace bms.Web.BasicInfor
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
+            dsSupplier = bookbll.selectSupplier();
             //获取书号
             BookBasicData bookId = bookbll.getBookNum();
             if (!IsPostBack)
@@ -47,8 +48,12 @@ namespace bms.Web.BasicInfor
                 }
                 ViewState["i"] = num;
             }
-            getData();
+            //getData();
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "del")
             {
                 string bookNum = Request["bookNum"].ToString();
@@ -479,9 +484,9 @@ namespace bms.Web.BasicInfor
             tbd.IntPageNum = currentPage;
             //获取展示的用户数据
             ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
+           
             //获取供应商
-            //获取供应商
-            dsSupplier = bookbll.selectSupplier();
+            //dsSupplier = bookbll.selectSupplier();
             //生成table
             StringBuilder sb = new StringBuilder();
             int j = ds.Tables[0].Rows.Count;

@@ -27,9 +27,13 @@ namespace bms.Web.AccessMGT
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
-            getData();
+            //getData();
             dsFun = funBll.Select();
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "add")
             {
                 insert();

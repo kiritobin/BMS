@@ -30,8 +30,16 @@ namespace bms.Web.BasicInfor
             user = (User)Session["user"];
             roleName = user.RoleId.RoleName;
             permission();
-            getData();
+            //获取组织
+            dsRegion = regionBll.select();
+            //获取操作员
+            dsUser = regionBll.selectUser();
+            //getData();
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "add")
             {
                 DateTime nowTime = DateTime.Now;
@@ -184,9 +192,9 @@ namespace bms.Web.BasicInfor
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
             //获取组织
-            dsRegion = regionBll.select();
+            //dsRegion = regionBll.select();
             //获取操作员
-            dsUser = regionBll.selectUser();
+            //dsUser = regionBll.selectUser();
             //生成table
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             int count = ds.Tables[0].Rows.Count;

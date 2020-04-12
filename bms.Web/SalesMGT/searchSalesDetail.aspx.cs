@@ -32,7 +32,15 @@ namespace bms.Web.SalesMGT
             saletaskId = Session["saleId"].ToString();
             DataSet userds = saletaskBll.getcustomerName(saletaskId);
             customerName = userds.Tables[0].Rows[0]["customerName"].ToString();
-            getData();
+            //getData();
+
+            saleheadId = Session["saleheadId"].ToString();
+            saletaskId = Session["saleId"].ToString();
+            string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             getSaleHeadBasic();
             print();
         }
@@ -85,8 +93,8 @@ namespace bms.Web.SalesMGT
         //获取基础数据
         public string getData()
         {
-            saleheadId = Session["saleheadId"].ToString();
-            saletaskId = Session["saleId"].ToString();
+            //saleheadId = Session["saleheadId"].ToString();
+            //saletaskId = Session["saleId"].ToString();
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {

@@ -36,8 +36,12 @@ namespace bms.Web.InventoryMGT
                 }
             }
             permission();
-            getData();
+            //getData();
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "logout")
             {
                 //删除身份凭证

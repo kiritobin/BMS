@@ -40,14 +40,19 @@ namespace bms.Web.ReportStatistics
                     Session["regionId"] = regionId;
                 }
             }
-            getData();
+            //getData();
             permission();
+            dsUser = wareBll.getUser(groupType, 0);
             string exportOp = Request.QueryString["op"];
             if (exportOp == "export")
             {
                 export();
             }
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "print")
             {
                 print();
@@ -174,7 +179,7 @@ namespace bms.Web.ReportStatistics
                 strWhere = "supplier = '" + name + "' and deleteState=0";
             }
             groupType = strWhere;
-            dsUser = wareBll.getUser(groupType, 0);
+            //dsUser = wareBll.getUser(groupType, 0);
             string isbn = Request["isbn"];
             string price = Request["price"];
             string discount = Request["discount"];

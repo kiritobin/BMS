@@ -26,8 +26,12 @@ namespace bms.Web.SalesMGT
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
-            getData();
+            //getData();
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             //退出系统
             if (op == "logout")
             {

@@ -25,7 +25,13 @@ namespace bms.Web.SalesMGT
         {
             permission();
             retailHeadId = Session["retailHeadId"].ToString();
-            getData();
+            //getData();
+            single = retailbll.GetHead(Session["retailHeadId"].ToString());
+            string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
         }
         /// <summary>
         /// 获取基础数据
@@ -33,7 +39,7 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public string getData()
         {
-            single = retailbll.GetHead(Session["retailHeadId"].ToString());
+            
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)

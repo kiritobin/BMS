@@ -34,12 +34,19 @@ namespace bms.Web.SalesMGT
         {
             user = (User)Session["user"];
             permission();
-
+            //获取组织
+            dsRegion = regionBll.select();
+            //获取操作员
+            dsUser = saleheadbll.selectCzy();
             string op = Request["op"];
             saleTaskid = Session["saleId"].ToString();
             SaleTaskBll saleBll = new SaleTaskBll();
             finishTime = saleBll.getSaleTaskFinishTime(saleTaskid);
-            getData();
+            //getData();
+            if (op == "paging")
+            {
+                getData();
+            }
             string saleheadId = Request["ID"];
             type = Session["type"].ToString();
             //添加销售单体
@@ -608,9 +615,9 @@ namespace bms.Web.SalesMGT
             //获取展示的客户数据
             ds = saleheadbll.selectBypage(tb, out totalCount, out intPageCount);
             //获取组织
-            dsRegion = regionBll.select();
+            //dsRegion = regionBll.select();
             //获取操作员
-            dsUser = saleheadbll.selectCzy();
+            //dsUser = saleheadbll.selectCzy();
             //获取客户下拉数据
             //customerds = custBll.select();
             //生成table

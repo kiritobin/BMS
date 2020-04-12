@@ -20,11 +20,21 @@ namespace bms.Web.SalesMGT
         RoleBll roleBll = new RoleBll();
         protected bool funcOrg, funcRole, funcUser, funcGoods, funcCustom, funcLibrary, funcBook, funcPut, funcOut, funcSale, funcSaleOff, funcReturn, funcSupply, funcRetail, isAdmin, funcBookStock;
         protected string userName, regionName;
+        string roleName = "";
+        int regionId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
-            getData();
+            //getData();
+            User user = (User)Session["user"];
+            regionId = user.ReginId.RegionId;
+            roleName = user.RoleId.RoleName;
+
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "search")
             {
                 string retailHeadId = Request["retailHeadId"];
@@ -48,9 +58,7 @@ namespace bms.Web.SalesMGT
         /// <returns></returns>
         public string getData()
         {
-            User user = (User)Session["user"];
-            int regionId = user.ReginId.RegionId;
-            string roleName = user.RoleId.RoleName;
+            
             //获取分页数据
             int currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)

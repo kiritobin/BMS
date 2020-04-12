@@ -128,10 +128,53 @@ $(document).ready(function () {
                     op: "paging"
                 },
                 dataType: 'text',
+                beforeSend: function (XMLHttpRequest) { //开始请求
+                    swal({
+                        text: "正在获取数据",
+                        imageUrl: "../imgs/load.gif",
+                        imageHeight: 100,
+                        imageWidth: 100,
+                        width: 280,
+                        showConfirmButton: true,
+                        allowOutsideClick: false
+                    });
+                },
                 success: function (data) {
                     $("#table tr:not(:first)").remove(); //清空table处首行
                     $("#table").append(data); //加载table
                     $("#intPageCount").remove();
+                }
+                , error: function (XMLHttpRequest, textStatus) { //请求失败
+                    if (textStatus == 'timeout') {
+                        var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                        xmlhttp.abort();
+                        swal({
+                            title: "提示",
+                            text: "请求超时",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        });
+                    } else if (textStatus == "error") {
+                        swal({
+                            title: "提示",
+                            text: "服务器内部错误",
+                            type: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: '确定',
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            allowOutsideClick: false
+                        });
+                    }
+                }
+                , complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
+                    setTimeout(function () {
+                        $(".swal2-container").remove();
+                    }, 1000);
                 }
             });
         }
@@ -182,6 +225,7 @@ $(document).ready(function () {
         var userName = $("#userName").find("option:selected").text();
         var userregion = $("#region").find("option:selected").text();
         var resource = $("#resource").find("option:selected").text();
+        //alert(resource);
         if (supplier == "请选择供应商") {
             supplier = "";
         }
@@ -191,7 +235,7 @@ $(document).ready(function () {
         if (userName == "请选择制单员") {
             userName = "";
         }
-        if (resource == "请选择来源组织" || "请选择收货组织") {
+        if (resource == "请选择来源组织" || resource == "请选择收货组织") {
             resource = "";
         }
         $.ajax({
@@ -209,6 +253,17 @@ $(document).ready(function () {
                 op: "paging"
             },
             dataType: 'text',
+            beforeSend: function (XMLHttpRequest) { //开始请求
+                swal({
+                    text: "正在获取数据",
+                    imageUrl: "../imgs/load.gif",
+                    imageHeight: 100,
+                    imageWidth: 100,
+                    width: 280,
+                    showConfirmButton: true,
+                    allowOutsideClick: false
+                });
+            },
             success: function (data) {
                 var datas = data.split("|:");
                 $("#table tr:not(:first)").remove(); //清空table处首行
@@ -238,6 +293,18 @@ $(document).ready(function () {
                         var userName = $("#userName").val();
                         var userregion = $("#userregion").val();
                         var resource = $("#resource").val();
+                        if (supplier == "请选择供应商") {
+                            supplier = "";
+                        }
+                        if (userregion == "请选择组织") {
+                            userregion = "";
+                        }
+                        if (userName == "请选择制单员") {
+                            userName = "";
+                        }
+                        if (resource == "请选择来源组织" || resource == "请选择收货组织") {
+                            resource = "";
+                        }
                         $.ajax({
                             type: 'Post',
                             url: 'inventoryStatistics.aspx',
@@ -254,6 +321,17 @@ $(document).ready(function () {
                                 op: "paging"
                             },
                             dataType: 'text',
+                            beforeSend: function (XMLHttpRequest) { //开始请求
+                                swal({
+                                    text: "正在获取数据",
+                                    imageUrl: "../imgs/load.gif",
+                                    imageHeight: 100,
+                                    imageWidth: 100,
+                                    width: 280,
+                                    showConfirmButton: true,
+                                    allowOutsideClick: false
+                                });
+                            },
                             success: function (data) {
                                 var datas = data.split("|:");
                                 $("#table tr:not(:first)").remove(); //清空table处首行
@@ -264,9 +342,73 @@ $(document).ready(function () {
                                 $("#real").val(datas[4]);
                                 $("#intPageCount").remove();
                             }
+                            , error: function (XMLHttpRequest, textStatus) { //请求失败
+                                if (textStatus == 'timeout') {
+                                    var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                                    xmlhttp.abort();
+                                    swal({
+                                        title: "提示",
+                                        text: "请求超时",
+                                        type: "warning",
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: '确定',
+                                        confirmButtonClass: 'btn btn-success',
+                                        buttonsStyling: false,
+                                        allowOutsideClick: false
+                                    });
+                                } else if (textStatus == "error") {
+                                    swal({
+                                        title: "提示",
+                                        text: "服务器内部错误",
+                                        type: "warning",
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: '确定',
+                                        confirmButtonClass: 'btn btn-success',
+                                        buttonsStyling: false,
+                                        allowOutsideClick: false
+                                    });
+                                }
+                            }
+                            , complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
+                                setTimeout(function () {
+                                    $(".swal2-container").remove();
+                                }, 1000);
+                            }
                         });
                     }
                 });
+            }
+            , error: function (XMLHttpRequest, textStatus) { //请求失败
+                if (textStatus == 'timeout') {
+                    var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+                    xmlhttp.abort();
+                    swal({
+                        title: "提示",
+                        text: "请求超时",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                } else if (textStatus == "error") {
+                    swal({
+                        title: "提示",
+                        text: "服务器内部错误",
+                        type: "warning",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '确定',
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        allowOutsideClick: false
+                    });
+                }
+            }
+            , complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
+                setTimeout(function () {
+                    $(".swal2-container").remove();
+                }, 1000);
             }
         });
     });

@@ -29,10 +29,14 @@ namespace bms.Web.AccessMGT
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
-            getData();
+            //getData();
             //增、删、改操作
             Region region = new Region();
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "add")
             {
                 string name = Request["name"];

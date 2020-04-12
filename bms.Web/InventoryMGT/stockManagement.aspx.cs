@@ -24,11 +24,24 @@ namespace bms.Web.InventoryMGT
         UserBll userBll = new UserBll();
         RegionBll regionBll = new RegionBll();
         WarehousingBll wareBll = new WarehousingBll();
+        int regionId = 0;
+        string roleName = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
-            getData();
+            //getData();
+            User user = (User)Session["user"];
+            regionId = user.ReginId.RegionId;
+            roleName = user.RoleId.RoleName;
+            //获取组织
+            dsRegion = regionBll.select();
+            //获取操作员
+            dsUser = regionBll.selectUser();
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "logout")
             {
                 //删除身份凭证
@@ -40,7 +53,6 @@ namespace bms.Web.InventoryMGT
             }
             else if (op == "add")
             {
-                User user = (User)Session["user"];
                 DateTime nowTime = DateTime.Now;
                 string nowDt = nowTime.ToString("yyyy-MM-dd");
                 long count = 0;
@@ -127,9 +139,7 @@ namespace bms.Web.InventoryMGT
         /// </summary>
         protected string getData()
         {
-            User user = (User)Session["user"];
-            int regionId = user.ReginId.RegionId;
-            string roleName = user.RoleId.RoleName;
+            
             currentPage = Convert.ToInt32(Request["page"]);
             if (currentPage == 0)
             {
@@ -176,9 +186,9 @@ namespace bms.Web.InventoryMGT
             //获取展示的用户数据
             ds = userBll.selectByPage(tbd, out totalCount, out intPageCount);
             //获取组织
-            dsRegion = regionBll.select();
+            //dsRegion = regionBll.select();
             //获取操作员
-            dsUser = regionBll.selectUser();
+            //dsUser = regionBll.selectUser();
             
             //生成table
             StringBuilder sb = new StringBuilder();

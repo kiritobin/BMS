@@ -34,11 +34,11 @@ namespace bms.Web.InventoryMGT
             {
                 if (defaultWhere == "")
                 {
-                    defaultWhere += "singleregion='" + tjRegion + "'";
+                    defaultWhere += "regionName='" + tjRegion + "'";
                 }
                 else
                 {
-                    defaultWhere += " and singleregion='" + tjRegion + "'";
+                    defaultWhere += " and regionName='" + tjRegion + "'";
                 }
             }
             if (tjHeadId != "null" && tjHeadId != "" && tjHeadId != null)
@@ -111,12 +111,31 @@ namespace bms.Web.InventoryMGT
             {
                 isAdmin = true;
             }
-            getData();
+            //getData();
+            //获取供应商
+            dsSupplier = bookbll.selectSupplier();
+            //获取组织
+            dsRegion = regionBll.select();
+            //获取制单员
+            dsUser = bookbll.selectZdy();
+            //获取来源组织/收货组织
+            dsSource = bookbll.selectSource();
+            string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
         }
 
         //获取数据
         protected string getData()
         {
+            currentPage = Convert.ToInt32(Request["page"]);
+            if (currentPage == 0)
+            {
+                currentPage = 1;
+            }
+
             string bookIsbn = Request["bookIsbn"];
             string bookName = Request["bookName"];
             string supplier = Request["supplier"];
@@ -230,13 +249,13 @@ namespace bms.Web.InventoryMGT
             //获取展示的用户数据
             DataSet ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
             //获取供应商
-            dsSupplier = bookbll.selectSupplier();
+            //dsSupplier = bookbll.selectSupplier();
             //获取组织
-            dsRegion = regionBll.select();
+            //dsRegion = regionBll.select();
             //获取制单员
-            dsUser = bookbll.selectZdy();
+            //dsUser = bookbll.selectZdy();
             //获取来源组织/收货组织
-            dsSource = bookbll.selectSource();
+            //dsSource = bookbll.selectSource();
             StringBuilder sb = new StringBuilder();
             int j = ds.Tables[0].Rows.Count;
             for (int i = 0; i < j; i++)
@@ -262,7 +281,7 @@ namespace bms.Web.InventoryMGT
             string op = Request["op"];
             if (op == "paging")
             {
-                Response.Write(sb.ToString()+"|:"+ sjNum + "|:"+ sbNum + "|:"+ total + "|:" + real);
+                Response.Write(sb.ToString() + "|:" + sjNum + "|:" + sbNum + "|:" + total + "|:" + real);
                 Response.End();
             }
             return sb.ToString();

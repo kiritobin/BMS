@@ -38,7 +38,7 @@ namespace bms.Web.InventoryMGT
                     singleHeadId = Session["singleHeadId"].ToString();
                 }
             }
-            getData();
+            //getData();
             shDt = warehousingBll.SelectSingleHead(singleHeadId);
             int count = shDt.Rows.Count;
             for (int i = 0; i < count; i++)
@@ -52,6 +52,10 @@ namespace bms.Web.InventoryMGT
                 shTime = Convert.ToDateTime(shDt.Rows[i]["time"]).ToString("yyyy年MM月dd日");
             }
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "logout")
             {
                 //删除身份凭证
@@ -117,7 +121,8 @@ namespace bms.Web.InventoryMGT
             for (int i = 0; i < count; i++)
             {
                 System.Data.DataRow dr = ds.Tables[0].Rows[i];
-                sb.Append("<tr><td>" + dr["monId"].ToString() + "</td>");
+                //sb.Append("<tr><td>" + dr["monId"].ToString() + "</td>");
+                sb.Append("<tr><td>" + (i + 1 + ((currentPage - 1) * pageSize)) + "</td>");
                 sb.Append("<td>" + dr["ISBN"].ToString() + "</td>");
                 sb.Append("<td>" + dr["bookName"].ToString() + "</td>");
                 sb.Append("<td>" + dr["number"].ToString() + "</td>");

@@ -39,7 +39,7 @@ namespace bms.Web.SalesMGT
             user = (User)Session["user"];
             type = Session["saleType"].ToString();
             saleId = Session["saleId"].ToString();
-            getData();
+            //getData();
             getlimt();
             SaleTask task = saletaskbll.selectById(saleId);
             defaultdiscount = task.DefaultDiscount.ToString();

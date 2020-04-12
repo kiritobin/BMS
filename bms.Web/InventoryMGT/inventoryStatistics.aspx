@@ -26,7 +26,7 @@
     <script src="../js/jedate.min.js"></script>
 </head>
 
-<body>
+<body style="overflow: auto;">
     <div class="content">
         <div class="row">
             <div class="col-md-12">

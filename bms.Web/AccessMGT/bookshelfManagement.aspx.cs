@@ -31,8 +31,12 @@ namespace bms.Web.BasicInfor
         protected void Page_Load(object sender, EventArgs e)
         {
             permission();
-            getData();
+            //getData();
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "add")
             {
                 int regionId;

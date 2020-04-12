@@ -28,7 +28,11 @@ namespace bms.Web.AccessMGT
         {
             permission();
             string op = Request["op"];
-            if (!IsPostBack)
+            //if (!IsPostBack)
+            //{
+            //    getData();
+            //}
+            if (op == "paging")
             {
                 getData();
             }

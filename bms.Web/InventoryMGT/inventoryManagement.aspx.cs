@@ -27,10 +27,16 @@ namespace bms.Web.InventoryMGT
         {
             user = (User)Session["user"];
             permission();
-            getData();
+            //获取供应商
+            dsSupplier = bookbll.selectSupplier();
+            //getData();
             //获取组织
             dsRegion = regionBll.select();
             string op = Request["op"];
+            if (op == "paging")
+            {
+                getData();
+            }
             if (op == "logout")
             {
                 //删除身份凭证
@@ -251,7 +257,7 @@ namespace bms.Web.InventoryMGT
             //获取展示的用户数据
             ds = bookbll.selectBypage(tbd, out totalCount, out intPageCount);
             //获取供应商
-            dsSupplier = bookbll.selectSupplier();
+            //dsSupplier = bookbll.selectSupplier();
             int j = ds.Tables[0].Rows.Count;
             if (ds == null)
             {
